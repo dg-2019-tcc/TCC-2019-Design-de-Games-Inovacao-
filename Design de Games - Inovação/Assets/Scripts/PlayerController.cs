@@ -19,6 +19,12 @@ public class PlayerController : MonoBehaviour
 
     public Transform groundCheck;
 
+    public bool pipa;
+    public float pipaForce;
+    public GameObject pipaObj;
+
+    private Vector3 move;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -39,9 +45,13 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        Vector3 move = new Vector3(joyStick.Horizontal /*+ Input.GetAxisRaw("Horizontal")*/ , 0, 0);
 
-        Vector3 jump = new Vector3(0, joyStick.Vertical,  0);
+            move = new Vector3(joyStick.Horizontal + Input.GetAxisRaw("Horizontal"), 0, joyStick.Vertical + Input.GetAxisRaw("Vertical"));
+
+        
+
+
+        //Vector3 jump = new Vector3(0, joyStick.Vertical,  0);
 
         //Debug.Log(move);
 
@@ -51,19 +61,19 @@ public class PlayerController : MonoBehaviour
         {
             torsoAnim.SetBool("iswalking", true);
             torsoAnim.SetFloat("input_x", move.x);
-            torsoAnim.SetFloat("input_y", move.y);
+            torsoAnim.SetFloat("input_y", move.z);
 
             hairAnim.SetBool("iswalking", true);
             hairAnim.SetFloat("input_x", move.x);
-            hairAnim.SetFloat("input_y", move.y);
+            hairAnim.SetFloat("input_y", move.z);
 
             bodyAnim.SetBool("iswalking", true);
             bodyAnim.SetFloat("input_x", move.x);
-            bodyAnim.SetFloat("input_y", move.y);
+            bodyAnim.SetFloat("input_y", move.z);
 
             legsAnim.SetBool("iswalking", true);
             legsAnim.SetFloat("input_x", move.x);
-            legsAnim.SetFloat("input_y", move.y);
+            legsAnim.SetFloat("input_y", move.z);
         }
 
         else
@@ -76,7 +86,31 @@ public class PlayerController : MonoBehaviour
 
         rb.MovePosition(rb.position + move * Time.deltaTime * speed);
 
-        RaycastHit hit;
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (pipa == false)
+            {
+                pipa = true;
+            }
+
+            else
+            {
+                pipa = false;
+            }
+        }
+
+        if (pipa == true)
+        {
+            rb.AddForce(new Vector3(0, pipaForce, 0), ForceMode.Impulse);
+            pipaObj.SetActive(true);
+        }
+
+        else
+        {
+            pipaObj.SetActive(false);
+        }
+
+        /*RaycastHit hit;
 
         if (Physics.Raycast(groundCheck.transform.position, -Vector3.up, out hit))
         {
@@ -88,6 +122,6 @@ public class PlayerController : MonoBehaviour
             }
 
             Debug.Log(hit.distance);
-        }
+        }*/
     }
 }
