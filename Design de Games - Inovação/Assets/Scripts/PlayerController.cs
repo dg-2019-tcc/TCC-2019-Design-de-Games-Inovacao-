@@ -23,6 +23,12 @@ public class PlayerController : MonoBehaviour
     public float pipaForce;
     public GameObject pipaObj;
 
+	private bool podeTrocarEixo;
+	private Transform eixoPosicao;
+	private float outroAngulo;
+	private bool gira;
+	
+
     private Vector3 move;
 
     // Start is called before the first frame update
@@ -40,13 +46,15 @@ public class PlayerController : MonoBehaviour
 
         legsAnim = gameObject.transform.GetChild(3).GetComponent<Animator>();
 
+		outroAngulo = -90;
+
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
 
-            move = new Vector3(joyStick.Horizontal + Input.GetAxisRaw("Horizontal"), 0, joyStick.Vertical + Input.GetAxisRaw("Vertical"));
+            move = new Vector3(joyStick.Horizontal + Input.GetAxisRaw("Horizontal"), 0, 0/*joyStick.Vertical + Input.GetAxisRaw("Vertical")*/);
 
         
 
@@ -84,7 +92,38 @@ public class PlayerController : MonoBehaviour
             legsAnim.SetBool("iswalking", false);
         }
 
-        rb.MovePosition(rb.position + move * Time.deltaTime * speed);
+        rb.MovePosition(transform.rotation * ((rb.position + move * Time.deltaTime * speed) - transform.position) + transform.position); // agora com um sisteminha que vai fazer ele andar na direção local, e não mais global(da pra girar o player à vontade que ele vai funcionar de boas)
+
+
+		if (Input.GetKeyDown(KeyCode.X) && podeTrocarEixo && !gira)
+		{
+			gira = true;
+
+		}
+
+		if (gira)
+		{
+			transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, outroAngulo, 0), 0.1f);
+			transform.position = Vector3.Lerp(transform.position, eixoPosicao.position, 0.1f);
+
+			if (Quaternion.Angle(transform.rotation, Quaternion.Euler(0, outroAngulo, 0)) < 10)
+			{
+				transform.rotation = Quaternion.Euler(0, outroAngulo, 0);
+				transform.position = eixoPosicao.position;
+
+				if (outroAngulo == -90)
+				{
+					outroAngulo = 0;
+				}
+				else
+				{
+					outroAngulo = -90;
+				}
+
+				gira = false;
+			}
+		}
+		
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -124,4 +163,24 @@ public class PlayerController : MonoBehaviour
             Debug.Log(hit.distance);
         }*/
     }
+
+
+	private void OnTriggerEnter(Collider collision)
+	{
+		if (collision.gameObject.CompareTag("TrocaEixo"))
+		{
+			podeTrocarEixo = true;
+			eixoPosicao = collision.gameObject.transform;
+		}
+	}
+
+	private void OnTriggerExit(Collider collision)
+	{
+		if (collision.gameObject.CompareTag("TrocaEixo"))
+		{
+			podeTrocarEixo = false;
+		}
+	}
+
+	
 }
