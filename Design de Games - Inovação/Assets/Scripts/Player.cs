@@ -9,6 +9,8 @@ public class Player : MonoBehaviour
 
     public float jumpSpeed;
 
+    public float maxSpeed = 3;
+
     private Rigidbody2D rb2d;
 
     Animator bodyAnim;
@@ -21,11 +23,12 @@ public class Player : MonoBehaviour
 
     protected Joystick joyStick;
 
-    public bool jump;
 
-    Vector2 jumpForce;
+    public Transform groundCheck;
 
-    public bool landed;
+    public bool grounded;
+
+
 
     void Start()
     {
@@ -43,31 +46,37 @@ public class Player : MonoBehaviour
         legAnim = gameObject.transform.GetChild(3).GetComponent<Animator>();
     }
 
-    
+
     void FixedUpdate()
     {
 
         //Vector2 move = new Vector2(joyStick.Horizontal + Input.GetAxisRaw("Horizontal"), 0);
 
-        jumpForce = new Vector2(0, joyStick.Vertical + Input.GetAxisRaw("Vertical"));
-
         float moveHorizontal = joyStick.Horizontal + Input.GetAxisRaw("Horizontal");
 
-        Vector2 move = new Vector2(moveHorizontal, 0);
+        rb2d.AddForce((Vector2.right * speed) * moveHorizontal);
 
-        rb2d.MovePosition(rb2d.position + move * Time.deltaTime * 5);
+        if(rb2d.velocity.x > maxSpeed)
+        {
+            rb2d.velocity = new Vector2(maxSpeed, rb2d.velocity.y);
+        }
 
-        if (move != Vector2.zero)
+        if (rb2d.velocity.x < -maxSpeed)
+        {
+            rb2d.velocity = new Vector2(-maxSpeed, rb2d.velocity.y);
+        }
+
+        if (moveHorizontal != 0)
         {
 
             bodyAnim.SetBool("iswalking", true);
-            bodyAnim.SetFloat("input_x", move.x);
+            bodyAnim.SetFloat("input_x", moveHorizontal);
             hairAnim.SetBool("iswalking", true);
-            hairAnim.SetFloat("input_x", move.x);
+            hairAnim.SetFloat("input_x", moveHorizontal);
             torsoAnim.SetBool("iswalking", true);
-            torsoAnim.SetFloat("input_x", move.x);
+            torsoAnim.SetFloat("input_x", moveHorizontal);
             legAnim.SetBool("iswalking", true);
-            legAnim.SetFloat("input_x", move.x);
+            legAnim.SetFloat("input_x", moveHorizontal);
             //bodyAnim.SetFloat("input_y", move.z);
 
         }
@@ -82,36 +91,13 @@ public class Player : MonoBehaviour
         }
 
 
-        if (jumpForce != Vector2.zero && jump == false)
-        {
-            jump = true;
-        }
 
-        if (jump == true && landed == true)
-        {
-            jumpSpeed = 2;
-            StartCoroutine("Jump");
-        }
+            if (joyStick.Vertical > 0.5  && grounded == true)
+            {
+                rb2d.AddForce(Vector2.up * jumpSpeed);
+                //Physics.IgnoreLayerCollision(10, 11, true);
 
-
-        if(jump == false)
-        {
-            jumpSpeed = 0;
-            StopCoroutine("Jump");
-        }
-
-
-
-
-
-    }
-
-
-    IEnumerator Jump()
-    {
-        rb2d.AddForce(Vector2.up * jumpSpeed, ForceMode2D.Impulse);
-        yield return new WaitForSeconds(1f);
-        jump = false;
+            }
     }
 }
 
