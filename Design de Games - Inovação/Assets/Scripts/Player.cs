@@ -29,6 +29,11 @@ public class Player : MonoBehaviour
     public bool grounded;
 
 
+    public bool pipa;
+    public float pipaForce;
+    public GameObject pipaObj;
+
+
 
     void Start()
     {
@@ -92,12 +97,37 @@ public class Player : MonoBehaviour
 
 
 
-            if (joyStick.Vertical > 0.5  && grounded == true)
+            if (joyStick.Vertical > 0.5 || Input.GetKeyDown(KeyCode.W)  && grounded == true)
             {
                 rb2d.AddForce(Vector2.up * jumpSpeed);
                 //Physics.IgnoreLayerCollision(10, 11, true);
 
             }
+
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (pipa == false)
+            {
+                pipa = true;
+            }
+
+            else
+            {
+                pipa = false;
+            }
+        }
+
+        if (pipa == true)
+        {
+            rb2d.AddForce(new Vector2(0, pipaForce), ForceMode2D.Impulse);
+            pipaObj.SetActive(true);
+        }
+
+        else
+        {
+            pipaObj.SetActive(false);
+        }
     }
 }
 

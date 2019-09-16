@@ -32,7 +32,7 @@ public class PlataformaManager : MonoBehaviour
 
     void OnTriggerStay2D(Collider2D col)
     {
-        if(col.CompareTag("GroundCheck") && joyStick.Vertical <= -0.5)
+        if(col.CompareTag("GroundCheck") && joyStick.Vertical <= -0.5 || Input.GetKeyDown(KeyCode.S))
         {
             turnPlataforma = true;
         }
