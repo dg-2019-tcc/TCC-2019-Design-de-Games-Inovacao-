@@ -135,22 +135,20 @@ public class Player : MonoBehaviour
             pipaObj.SetActive(false);
         }
 
-        if (Input.GetKeyDown(KeyCode.C))
+        if (rb2d.velocity.y < 0 && grounded == true)
         {
-            if(carrinho == false)
-            {
-                carrinho = true;
-                
-            }
+            carrinho = true;
+        }
 
-            else
-            {
-                carrinho = false;
-            }
+        else
+        {
+            carrinho = false;
         }
 
         if(carrinho == true)
         {
+
+            rb2d.AddForce(-Vector2.up * carrinhoSpeed);
             maxSpeed = carrinhoSpeed;
             carrinhoObj.SetActive(true);
             pipa = false;
@@ -161,6 +159,8 @@ public class Player : MonoBehaviour
             maxSpeed = 8;
             carrinhoObj.SetActive(false);
         }
+
+        Debug.Log(rb2d.velocity);
     }
 }
 
