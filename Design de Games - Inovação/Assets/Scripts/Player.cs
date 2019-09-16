@@ -9,7 +9,7 @@ public class Player : MonoBehaviour
 
     public float jumpSpeed;
 
-    public float maxSpeed = 3;
+    public float maxSpeed = 8;
 
     private Rigidbody2D rb2d;
 
@@ -32,6 +32,10 @@ public class Player : MonoBehaviour
     public bool pipa;
     public float pipaForce;
     public GameObject pipaObj;
+
+    public bool carrinho;
+    public float carrinhoSpeed;
+    public GameObject carrinhoObj;
 
 
 
@@ -110,6 +114,7 @@ public class Player : MonoBehaviour
             if (pipa == false)
             {
                 pipa = true;
+                
             }
 
             else
@@ -122,11 +127,39 @@ public class Player : MonoBehaviour
         {
             rb2d.AddForce(new Vector2(0, pipaForce), ForceMode2D.Impulse);
             pipaObj.SetActive(true);
+            carrinho = false;
         }
 
         else
         {
             pipaObj.SetActive(false);
+        }
+
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            if(carrinho == false)
+            {
+                carrinho = true;
+                
+            }
+
+            else
+            {
+                carrinho = false;
+            }
+        }
+
+        if(carrinho == true)
+        {
+            maxSpeed = carrinhoSpeed;
+            carrinhoObj.SetActive(true);
+            pipa = false;
+        }
+
+        else
+        {
+            maxSpeed = 8;
+            carrinhoObj.SetActive(false);
         }
     }
 }

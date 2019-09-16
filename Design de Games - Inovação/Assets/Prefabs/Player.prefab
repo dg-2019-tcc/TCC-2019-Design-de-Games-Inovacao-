@@ -337,6 +337,9 @@ MonoBehaviour:
   maxSpeed: 3
   groundCheck: {fileID: 7656264201436135590}
   grounded: 0
+  pipa: 0
+  pipaForce: 0
+  pipaObj: {fileID: 7656264202068009821}
 --- !u!50 &7656264202317374274
 Rigidbody2D:
   serializedVersion: 4
@@ -457,22 +460,6 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7656264202694079902}
   m_Enabled: 1
---- !u!114 &7656264203050118704
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7656264203337955396}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f9f5e89e147c804f9c9245d445ef84a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  anim:
-  - {fileID: 9100000, guid: 8d07907efc6c04541ad56141b0abd590, type: 2}
-  - {fileID: 22100000, guid: cddbb83e996a77f46b953d9f143c7e0c, type: 2}
-  index: {fileID: 0}
 --- !u!1 &7656264203298246175
 GameObject:
   m_ObjectHideFlags: 0
@@ -589,6 +576,22 @@ MonoBehaviour:
   anim:
   - {fileID: 22100000, guid: 9247b99b0b9aa58489080efa97e8e47e, type: 2}
   - {fileID: 22100000, guid: 2b2acd8554d2835448caa65d3cab26bb, type: 2}
+  index: {fileID: 0}
+--- !u!114 &7656264203050118704
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7656264203337955396}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f9f5e89e147c804f9c9245d445ef84a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  anim:
+  - {fileID: 9100000, guid: 8d07907efc6c04541ad56141b0abd590, type: 2}
+  - {fileID: 22100000, guid: cddbb83e996a77f46b953d9f143c7e0c, type: 2}
   index: {fileID: 0}
 --- !u!1 &7656264203478762317
 GameObject:
