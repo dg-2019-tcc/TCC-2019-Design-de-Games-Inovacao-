@@ -23,6 +23,8 @@ public class PlayerController : MonoBehaviour
     public float pipaForce;
     public GameObject pipaObj;
 
+	public GameObject Pet;
+
 	private bool podeTrocarEixo;
 	private Transform eixoPosicao;
 	private float outroAngulo;
@@ -59,7 +61,7 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
 
-		if (!PV.IsMine) return;
+		if (PV != null && !PV.IsMine) return;
 
             move = new Vector3(joyStick.Horizontal + Input.GetAxisRaw("Horizontal"), 0, 0/*joyStick.Vertical + Input.GetAxisRaw("Vertical")*/);
 
@@ -134,27 +136,31 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            if (pipa == false)
-            {
-                pipa = true;
-            }
+			if (pipa == false)
+			{
+				pipa = true;
 
-            else
-            {
-                pipa = false;
-            }
+			}
+			else
+			{
+				pipa = false;
+			}
+
         }
 
         if (pipa == true)
         {
             rb.AddForce(new Vector3(0, pipaForce, 0), ForceMode.Impulse);
             pipaObj.SetActive(true);
-        }
+			TransformaPet(false, "pipa");
+		}
 
-        else
+        if (pipa == false && !Pet.activeSelf)
         {
             pipaObj.SetActive(false);
-        }
+			TransformaPet(true, "pipa");
+			Pet.transform.position = transform.position;
+		}
 
         /*RaycastHit hit;
 
@@ -188,6 +194,14 @@ public class PlayerController : MonoBehaviour
 			podeTrocarEixo = false;
 		}
 	}
+
+
+	private void TransformaPet(bool isDog, string transformation)
+	{
+		Pet.SetActive(isDog);
+	}
+
+	
 
 	
 }
