@@ -6,8 +6,19 @@ using UnityEngine;
 
 public class GameSetupController : MonoBehaviour
 {
-   
-    void Start()
+	public static GameSetupController GS;
+
+	public Transform[] spawnPoints;
+
+	private void OnEnable()
+	{
+		if (GameSetupController.GS == null)
+		{
+			GameSetupController.GS = this;
+		}
+	}
+
+	void Start()
     {
 		CreatePlayer();
     }

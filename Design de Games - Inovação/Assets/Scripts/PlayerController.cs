@@ -1,10 +1,10 @@
-﻿using System.Collections;
+﻿using Photon.Pun;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-
     public float speed;
 
     private bool grounded = false;
@@ -31,10 +31,13 @@ public class PlayerController : MonoBehaviour
 
     private Vector3 move;
 
+
+	private PhotonView PV;
+
     // Start is called before the first frame update
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
+		rb = GetComponent<Rigidbody>();
 
         joyStick = FindObjectOfType<Joystick>();
 
@@ -48,11 +51,15 @@ public class PlayerController : MonoBehaviour
 
 		outroAngulo = -90;
 
+		PV = GetComponent<PhotonView>();
+
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
+
+		if (!PV.IsMine) return;
 
             move = new Vector3(joyStick.Horizontal + Input.GetAxisRaw("Horizontal"), 0, 0/*joyStick.Vertical + Input.GetAxisRaw("Vertical")*/);
 
