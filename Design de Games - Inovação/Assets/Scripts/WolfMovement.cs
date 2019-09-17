@@ -14,7 +14,7 @@ public class WolfMovement : MonoBehaviour
 	private Transform wolfSprite;
 
 
-	public GameObject cam;
+	
     void Start()
     {
         wolfAnim = gameObject.transform.GetChild(0).GetComponent<Animator>();

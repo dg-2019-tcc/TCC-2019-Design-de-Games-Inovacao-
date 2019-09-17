@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using Photon.Pun;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 public class Player : MonoBehaviour
 {
@@ -28,8 +30,10 @@ public class Player : MonoBehaviour
 
     public bool grounded;
 
+	public GameObject Pet;
 
-    public bool pipa;
+
+	public bool pipa;
     public float pipaForce;
     public GameObject pipaObj;
 
@@ -38,8 +42,12 @@ public class Player : MonoBehaviour
     public GameObject carrinhoObj;
 
 
+	private PhotonView PV;
+	private CinemachineVirtualCamera VC;
 
-    void Start()
+
+
+	void Start()
     {
         //Get and store a reference to the Rigidbody2D component so that we can access it.
         rb2d = GetComponent<Rigidbody2D>();
@@ -53,15 +61,21 @@ public class Player : MonoBehaviour
         torsoAnim = gameObject.transform.GetChild(2).GetComponent<Animator>();
 
         legAnim = gameObject.transform.GetChild(3).GetComponent<Animator>();
-    }
+
+		if (PV != null && !PV.IsMine)
+		{
+			VC = gameObject.transform.GetChild(4).GetComponent<CinemachineVirtualCamera>();
+		}
+	}
 
 
     void FixedUpdate()
     {
+		if (PV != null && !PV.IsMine) return;
 
-        //Vector2 move = new Vector2(joyStick.Horizontal + Input.GetAxisRaw("Horizontal"), 0);
+		//Vector2 move = new Vector2(joyStick.Horizontal + Input.GetAxisRaw("Horizontal"), 0);
 
-        float moveHorizontal = joyStick.Horizontal + Input.GetAxisRaw("Horizontal");
+		float moveHorizontal = joyStick.Horizontal + Input.GetAxisRaw("Horizontal");
 
         rb2d.AddForce((Vector2.right * speed) * moveHorizontal);
 
@@ -127,23 +141,26 @@ public class Player : MonoBehaviour
         {
             rb2d.AddForce(new Vector2(0, pipaForce), ForceMode2D.Impulse);
             pipaObj.SetActive(true);
-            carrinho = false;
+			carrinho = false;
         }
 
-        else
-        {
+		if (pipa == false && !Pet.activeSelf)
+		{
             pipaObj.SetActive(false);
-        }
+			Pet.transform.position = transform.position;
+		}
 
         if (rb2d.velocity.y < 0 && grounded == true)
         {
             carrinho = true;
-        }
+			
+		}
 
         else
         {
             carrinho = false;
-        }
+			
+		}
 
         if(carrinho == true)
         {
@@ -151,16 +168,37 @@ public class Player : MonoBehaviour
             rb2d.AddForce(-Vector2.up * carrinhoSpeed);
             maxSpeed = carrinhoSpeed;
             carrinhoObj.SetActive(true);
-            pipa = false;
+			pipa = false;
         }
 
-        else
-        {
+		if (carrinho == false && !Pet.activeSelf)
+		{
             maxSpeed = 8;
             carrinhoObj.SetActive(false);
-        }
+			
+		}
 
-        Debug.Log(rb2d.velocity);
+
+		if (carrinho == false && pipa == false)
+		{
+			TransformaPet(true, "carrinho");
+			
+
+		}
+
+		else
+		{
+			TransformaPet(false, "carrinho");
+			Pet.transform.position = transform.position;
+		}
+
+		
+		Debug.Log(rb2d.velocity);
     }
+
+	private void TransformaPet(bool isDog, string transformation)
+	{
+		Pet.SetActive(isDog);
+	}
 }
 

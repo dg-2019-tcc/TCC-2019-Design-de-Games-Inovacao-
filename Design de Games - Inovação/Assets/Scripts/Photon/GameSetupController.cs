@@ -10,6 +10,8 @@ public class GameSetupController : MonoBehaviour
 
 	public Transform[] spawnPoints;
 
+	public int testIndex;
+
 	private void OnEnable()
 	{
 		if (GameSetupController.GS == null)
@@ -25,7 +27,10 @@ public class GameSetupController : MonoBehaviour
 
 	private void CreatePlayer()
 	{
-		Debug.Log("Criando Jogador");
-		PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PhotonPlayer"), Vector3.zero, Quaternion.identity);
+		
+			Debug.Log("Criando Jogador");
+			PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PhotonPlayer"), Vector3.zero, Quaternion.identity);
+		
+
 	}
 }

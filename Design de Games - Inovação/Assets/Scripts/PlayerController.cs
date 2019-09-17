@@ -1,6 +1,7 @@
 ﻿using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
+using Cinemachine;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -23,6 +24,10 @@ public class PlayerController : MonoBehaviour
     public float pipaForce;
     public GameObject pipaObj;
 
+	public bool carrinho;
+	public float carrinhoSpeed;
+	public GameObject carrinhoObj;
+
 	public GameObject Pet;
 
 	private bool podeTrocarEixo;
@@ -33,8 +38,8 @@ public class PlayerController : MonoBehaviour
 
     private Vector3 move;
 
-
 	private PhotonView PV;
+	private CinemachineVirtualCamera VC;
 
     // Start is called before the first frame update
     void Start()
@@ -54,6 +59,11 @@ public class PlayerController : MonoBehaviour
 		outroAngulo = -90;
 
 		PV = GetComponent<PhotonView>();
+
+		if (PV != null && !PV.IsMine)
+		{
+			VC = gameObject.transform.GetChild(4).GetComponent<CinemachineVirtualCamera>();
+		}
 
     }
 
@@ -162,7 +172,32 @@ public class PlayerController : MonoBehaviour
 			Pet.transform.position = transform.position;
 		}
 
-        /*RaycastHit hit;
+		if (rb.velocity.y < 0 && grounded == true)
+		{
+			carrinho = true;
+		}
+
+		else
+		{
+			carrinho = false;
+		}
+
+		if (carrinho == true)
+		{
+
+			rb.AddForce(-Vector2.up * carrinhoSpeed);
+		//	maxSpeed = carrinhoSpeed;
+			carrinhoObj.SetActive(true);
+			pipa = false;
+		}
+
+		else
+		{
+		//	maxSpeed = 8;
+			carrinhoObj.SetActive(false);
+		}
+
+		/*RaycastHit hit;
 
         if (Physics.Raycast(groundCheck.transform.position, -Vector3.up, out hit))
         {
@@ -175,7 +210,7 @@ public class PlayerController : MonoBehaviour
 
             Debug.Log(hit.distance);
         }*/
-    }
+	}
 
 
 	private void OnTriggerEnter(Collider collision)
