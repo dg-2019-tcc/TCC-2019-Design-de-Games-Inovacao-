@@ -8,13 +8,15 @@ public class PhotonPlayer : MonoBehaviour
 {
 
 	private PhotonView PV;
+
+    [HideInInspector]
 	public GameObject myAvatar;
    
     void Start()
     {
 		PV = GetComponent<PhotonView>();
 		int spawnPicker = Random.Range(0, GameSetupController.GS.spawnPoints.Length);
-		if (PV.IsMine)
+	    if (PV.IsMine)
 		{
 			if (GameSetupController.GS.testIndex == 1)
 			{
