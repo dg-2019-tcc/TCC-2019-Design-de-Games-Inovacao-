@@ -41,7 +41,7 @@ public class PlayerController : MonoBehaviour
 	private PhotonView PV;
 	private CinemachineVirtualCamera VC;
 
-    // Start is called before the first frame update
+
     void Start()
     {
 		rb = GetComponent<Rigidbody>();
@@ -60,7 +60,7 @@ public class PlayerController : MonoBehaviour
 
 		PV = GetComponent<PhotonView>();
 
-		if (PV != null && !PV.IsMine)
+		if (PV != null && PV.IsMine)
 		{
 			VC = gameObject.transform.GetChild(4).GetComponent<CinemachineVirtualCamera>();
 			VC.Priority = 15;
@@ -68,7 +68,7 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    // Update is called once per frame
+
     void FixedUpdate()
     {
 

@@ -6,7 +6,13 @@ using System.Collections.Generic;
 
 public class DelayStartLobbyController : MonoBehaviourPunCallbacks
 {
-
+    /// <summary>
+    /// 
+    /// Segunda - Manhã
+    /// Quarta - Manhã
+    /// Sexta - Manhã
+    /// 
+    /// </summary>
 
     [SerializeField]
     private GameObject delayStartButton; //Botão utilizado para criar e entrar em um jogo
@@ -33,7 +39,7 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
 
 
         //ExitGames.Client.Photon.Hashtable expectedCustomRoomProperties = new ExitGames.Client.Photon.Hashtable() { { "map", modo } };
-
+        
 
         
         //PhotonNetwork.JoinRandomRoom(expectedCustomRoomProperties, (byte)RoomSize);

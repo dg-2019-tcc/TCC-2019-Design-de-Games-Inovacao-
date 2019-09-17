@@ -64,7 +64,7 @@ public class Player : MonoBehaviour
 
 		PV = GetComponent<PhotonView>();
 
-		if (PV != null && !PV.IsMine)
+		if (PV != null && PV.IsMine)
 		{
 			VC = gameObject.transform.GetChild(4).GetComponent<CinemachineVirtualCamera>();
 			VC.Priority = 15;
