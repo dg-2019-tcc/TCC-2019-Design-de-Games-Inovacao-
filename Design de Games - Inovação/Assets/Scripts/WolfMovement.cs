@@ -11,11 +11,15 @@ public class WolfMovement : MonoBehaviour
     public float followSpeed;
     public RaycastHit shot;
     Animator wolfAnim;
+	private Transform wolfSprite;
 
+
+	
     void Start()
     {
         wolfAnim = gameObject.transform.GetChild(0).GetComponent<Animator>();
-    }
+		wolfSprite = gameObject.transform.GetChild(0).GetComponent<Transform>();
+	}
 
 
     // Update is called once per frame
@@ -29,7 +33,17 @@ public class WolfMovement : MonoBehaviour
             wolfAnim.SetBool("isWalking", true);
             transform.position = Vector3.MoveTowards(transform.position, player.transform.position, followSpeed);
 
-        }
+			if (transform.position.x > player.transform.position.x)         //Muda a direção do Sprite
+			{
+				wolfSprite.localScale = new Vector3(-1f, 1, 1);
+			} 
+			else
+			{
+				wolfSprite.localScale = new Vector3(1f, 1, 1);
+			}
+
+			
+		}
 
             
         else        

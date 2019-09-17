@@ -1,6 +1,7 @@
 ﻿using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
+using Cinemachine;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -23,6 +24,12 @@ public class PlayerController : MonoBehaviour
     public float pipaForce;
     public GameObject pipaObj;
 
+	public bool carrinho;
+	public float carrinhoSpeed;
+	public GameObject carrinhoObj;
+
+	public GameObject Pet;
+
 	private bool podeTrocarEixo;
 	private Transform eixoPosicao;
 	private float outroAngulo;
@@ -31,8 +38,8 @@ public class PlayerController : MonoBehaviour
 
     private Vector3 move;
 
-
 	private PhotonView PV;
+	private CinemachineVirtualCamera VC;
 
     // Start is called before the first frame update
     void Start()
@@ -53,13 +60,18 @@ public class PlayerController : MonoBehaviour
 
 		PV = GetComponent<PhotonView>();
 
+		if (PV != null && !PV.IsMine)
+		{
+			VC = gameObject.transform.GetChild(4).GetComponent<CinemachineVirtualCamera>();
+		}
+
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
 
-		if (!PV.IsMine) return;
+		if (PV != null && !PV.IsMine) return;
 
             move = new Vector3(joyStick.Horizontal + Input.GetAxisRaw("Horizontal"), 0, 0/*joyStick.Vertical + Input.GetAxisRaw("Vertical")*/);
 
@@ -134,29 +146,69 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            if (pipa == false)
-            {
-                pipa = true;
-            }
+			if (pipa == false)
+			{
+				pipa = true;
 
-            else
-            {
-                pipa = false;
-            }
+			}
+			else
+			{
+				pipa = false;
+			}
+
         }
 
         if (pipa == true)
         {
             rb.AddForce(new Vector3(0, pipaForce, 0), ForceMode.Impulse);
             pipaObj.SetActive(true);
-        }
+		}
 
-        else
+        if (pipa == false && !Pet.activeSelf)
         {
             pipaObj.SetActive(false);
-        }
+		}
 
-        /*RaycastHit hit;
+		if (rb.velocity.y < 0 && grounded == true)
+		{
+			carrinho = true;
+		}
+
+		else
+		{
+			carrinho = false;
+		}
+
+		if (carrinho == true)
+		{
+
+			rb.AddForce(-Vector2.up * carrinhoSpeed);
+		//	maxSpeed = carrinhoSpeed;
+			carrinhoObj.SetActive(true);
+			pipa = false;
+		}
+
+		else
+		{
+		//	maxSpeed = 8;
+			carrinhoObj.SetActive(false);
+		}
+
+		if (carrinho == false && pipa == false)
+		{
+			TransformaPet(true, "carrinho");
+
+
+		}
+
+		else
+		{
+			TransformaPet(false, "carrinho");
+			Pet.transform.position = transform.position;
+		}
+
+
+		/*RaycastHit hit;
 
         if (Physics.Raycast(groundCheck.transform.position, -Vector3.up, out hit))
         {
@@ -169,7 +221,7 @@ public class PlayerController : MonoBehaviour
 
             Debug.Log(hit.distance);
         }*/
-    }
+	}
 
 
 	private void OnTriggerEnter(Collider collision)
@@ -188,6 +240,14 @@ public class PlayerController : MonoBehaviour
 			podeTrocarEixo = false;
 		}
 	}
+
+
+	private void TransformaPet(bool isDog, string transformation)
+	{
+		Pet.SetActive(isDog);
+	}
+
+	
 
 	
 }

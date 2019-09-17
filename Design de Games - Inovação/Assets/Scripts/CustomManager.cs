@@ -37,6 +37,12 @@ public class CustomManager : MonoBehaviour
 
     public LegsManager legsAC;
 
+    public GameObject custom;
+
+    public Player playerScript;
+
+
+
 
 
     public void ChangeBody()
@@ -90,5 +96,11 @@ public class CustomManager : MonoBehaviour
         legsAC.ChangeAnimatorController();
 
 
+    }
+
+    public void Jogar()
+    {
+        custom.SetActive(false);
+        playerScript.enabled = true;
     }
 }
