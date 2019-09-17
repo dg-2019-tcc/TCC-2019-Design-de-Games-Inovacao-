@@ -162,14 +162,11 @@ public class PlayerController : MonoBehaviour
         {
             rb.AddForce(new Vector3(0, pipaForce, 0), ForceMode.Impulse);
             pipaObj.SetActive(true);
-			TransformaPet(false, "pipa");
 		}
 
         if (pipa == false && !Pet.activeSelf)
         {
             pipaObj.SetActive(false);
-			TransformaPet(true, "pipa");
-			Pet.transform.position = transform.position;
 		}
 
 		if (rb.velocity.y < 0 && grounded == true)
@@ -196,6 +193,20 @@ public class PlayerController : MonoBehaviour
 		//	maxSpeed = 8;
 			carrinhoObj.SetActive(false);
 		}
+
+		if (carrinho == false && pipa == false)
+		{
+			TransformaPet(true, "carrinho");
+
+
+		}
+
+		else
+		{
+			TransformaPet(false, "carrinho");
+			Pet.transform.position = transform.position;
+		}
+
 
 		/*RaycastHit hit;
 

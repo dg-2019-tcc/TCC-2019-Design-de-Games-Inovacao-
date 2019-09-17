@@ -62,6 +62,8 @@ public class Player : MonoBehaviour
 
         legAnim = gameObject.transform.GetChild(3).GetComponent<Animator>();
 
+		PV = GetComponent<PhotonView>();
+
 		if (PV != null && !PV.IsMine)
 		{
 			VC = gameObject.transform.GetChild(4).GetComponent<CinemachineVirtualCamera>();
