@@ -63,6 +63,7 @@ public class PlayerController : MonoBehaviour
 		if (PV != null && !PV.IsMine)
 		{
 			VC = gameObject.transform.GetChild(4).GetComponent<CinemachineVirtualCamera>();
+			VC.Priority = 15;
 		}
 
     }
