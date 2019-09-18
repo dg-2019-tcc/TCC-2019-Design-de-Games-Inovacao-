@@ -6,7 +6,7 @@ public class PlataformaManager : MonoBehaviour
 {
     private PlatformEffector2D effector;
 
-    private Joystick joyStick;
+    public Joystick joyStick;
 
     public bool turnPlataforma;
 

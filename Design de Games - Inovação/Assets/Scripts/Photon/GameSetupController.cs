@@ -12,6 +12,8 @@ public class GameSetupController : MonoBehaviour
 
 	public int testIndex;
 
+
+
 	private void OnEnable()
 	{
 		if (GameSetupController.GS == null)
@@ -23,6 +25,8 @@ public class GameSetupController : MonoBehaviour
 	void Start()
     {
 		CreatePlayer();
+
+		
     }
 
 	private void CreatePlayer()

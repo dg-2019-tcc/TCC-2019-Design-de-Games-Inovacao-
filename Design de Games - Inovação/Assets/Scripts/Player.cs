@@ -42,6 +42,9 @@ public class Player : MonoBehaviour
 
 	private PhotonView PV;
 	private CinemachineVirtualCamera VC;
+	
+
+
 
 
 
@@ -68,6 +71,7 @@ public class Player : MonoBehaviour
 		{
 			VC = gameObject.transform.GetChild(4).GetComponent<CinemachineVirtualCamera>();
 			VC.Priority = 15;
+			
 		}
 	}
 
