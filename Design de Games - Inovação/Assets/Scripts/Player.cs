@@ -6,6 +6,11 @@ using Cinemachine;
 
 public class Player : MonoBehaviour
 {
+    [SerializeField]
+    private float numeroDeColetaveis;
+
+    private float coletavel;
+
 
     public float speed;
     public float jumpSpeed;
@@ -78,7 +83,14 @@ public class Player : MonoBehaviour
 
     void FixedUpdate()
     {
-		if (PV != null && !PV.IsMine) return;
+
+        if (coletavel >= numeroDeColetaveis)
+        {
+            gameObject.GetComponent<PhotonView>().RPC("TrocaSala", RpcTarget.MasterClient);
+        }
+
+
+        if (PV != null && !PV.IsMine) return;
 
 		//Vector2 move = new Vector2(joyStick.Horizontal + Input.GetAxisRaw("Horizontal"), 0);
 
@@ -203,7 +215,26 @@ public class Player : MonoBehaviour
 		//Debug.Log(rb2d.velocity);
     }
 
-	private void TransformaPet(bool isDog, string transformation)
+
+    [PunRPC]
+    void TrocaSala()
+    {
+        PhotonNetwork.LoadLevel("DelayStartMenuDemo");
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Coletavel"))
+        {
+            if (PV.IsMine == true)
+            {
+                coletavel++;
+            }
+        }
+    }
+
+
+    private void TransformaPet(bool isDog, string transformation)
 	{
 		Pet.SetActive(isDog);
 	}

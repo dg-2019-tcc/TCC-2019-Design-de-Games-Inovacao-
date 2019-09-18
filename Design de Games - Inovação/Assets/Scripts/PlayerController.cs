@@ -6,6 +6,13 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+
+    [SerializeField]
+    private float numeroDeColetaveis;
+
+    private float coletavel;
+
+
     public float speed;
 
     private bool grounded = false;
@@ -40,7 +47,7 @@ public class PlayerController : MonoBehaviour
 
 	private PhotonView PV;
 	private CinemachineVirtualCamera VC;
-
+        
 
     void Start()
     {
@@ -71,8 +78,13 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (coletavel >= numeroDeColetaveis)
+        {
+            gameObject.GetComponent<PhotonView>().RPC("TrocaSala", RpcTarget.MasterClient);
+        }
 
-		if (PV != null && !PV.IsMine) return;
+
+        if (PV != null && !PV.IsMine) return;
 
             move = new Vector3(joyStick.Horizontal + Input.GetAxisRaw("Horizontal"), 0, 0/*joyStick.Vertical + Input.GetAxisRaw("Vertical")*/);
 
@@ -224,15 +236,32 @@ public class PlayerController : MonoBehaviour
         }*/
 	}
 
+    [PunRPC]
+    void TrocaSala()
+    {
+        PhotonNetwork.LoadLevel("DelayStartMenuDemo");
+    }
 
-	private void OnTriggerEnter(Collider collision)
+
+
+
+    private void OnTriggerEnter(Collider collision)
 	{
 		if (collision.gameObject.CompareTag("TrocaEixo"))
 		{
 			podeTrocarEixo = true;
 			eixoPosicao = collision.gameObject.transform;
 		}
-	}
+
+
+        if (collision.CompareTag("Coletavel"))
+        {
+            if (PV.IsMine == true)
+            {
+                coletavel++;
+            }
+        }
+    }
 
 	private void OnTriggerExit(Collider collision)
 	{
