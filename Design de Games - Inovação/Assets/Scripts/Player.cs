@@ -122,7 +122,7 @@ public class Player : MonoBehaviour
 
 
 
-            if (joyStick.Vertical > 0.5 || Input.GetKeyDown(KeyCode.W)  && grounded == true)
+            if (joyStick.Vertical > 0.5   && grounded == true)
             {
                 rb2d.AddForce(Vector2.up * jumpSpeed);
                 //Physics.IgnoreLayerCollision(10, 11, true);
