@@ -170,7 +170,7 @@ public class PlayerController : MonoBehaviour
             pipaObj.SetActive(false);
 		}
 
-		if (rb.velocity.y < 0 && grounded == true)
+		if (rb.velocity.y < 0 /*&& grounded == true*/)
 		{
 			carrinho = true;
 		}
