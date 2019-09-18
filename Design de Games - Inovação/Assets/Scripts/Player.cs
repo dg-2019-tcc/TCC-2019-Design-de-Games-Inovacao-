@@ -8,27 +8,24 @@ public class Player : MonoBehaviour
 {
 
     public float speed;
-
     public float jumpSpeed;
-
     public float maxSpeed = 8;
-
     private Rigidbody2D rb2d;
 
+
     Animator bodyAnim;
-
     Animator hairAnim;
-
     Animator torsoAnim;
-
     Animator legAnim;
 
+
     protected Joystick joyStick;
+    protected FixedButton fixedButton;
 
 
     public Transform groundCheck;
-
     public bool grounded;
+
 
 	public GameObject Pet;
 
@@ -36,6 +33,7 @@ public class Player : MonoBehaviour
 	public bool pipa;
     public float pipaForce;
     public GameObject pipaObj;
+
 
     public bool carrinho;
     public float carrinhoSpeed;
@@ -53,6 +51,8 @@ public class Player : MonoBehaviour
         rb2d = GetComponent<Rigidbody2D>();
 
         joyStick = FindObjectOfType<Joystick>();
+
+        fixedButton = FindObjectOfType<FixedButton>();
 
         bodyAnim = gameObject.transform.GetChild(0).GetComponent<Animator>();
 
@@ -126,7 +126,7 @@ public class Player : MonoBehaviour
             }
 
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) || fixedButton.Pressed)
         {
             if (pipa == false)
             {
@@ -196,7 +196,7 @@ public class Player : MonoBehaviour
 		}
 
 		
-		Debug.Log(rb2d.velocity);
+		//Debug.Log(rb2d.velocity);
     }
 
 	private void TransformaPet(bool isDog, string transformation)
