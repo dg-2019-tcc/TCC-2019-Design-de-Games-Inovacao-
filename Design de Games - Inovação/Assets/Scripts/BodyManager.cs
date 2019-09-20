@@ -6,13 +6,14 @@ public class BodyManager : MonoBehaviour
 {
     public RuntimeAnimatorController[] anim;
 
-    public CustomManager index;
     
 
-    public void ChangeAnimatorController()
+    public void Start()
     {
 
-        this.GetComponent<Animator>().runtimeAnimatorController = anim[index.bodyIndex];
+        int index = PlayerPrefs.GetInt("bodyIndex");
+
+        this.GetComponent<Animator>().runtimeAnimatorController = anim[index];
 
     }
 }

@@ -6,13 +6,14 @@ public class HairManager : MonoBehaviour
 {
     public RuntimeAnimatorController[] anim;
 
-    public CustomManager index;
 
 
-    public void ChangeAnimatorController()
+    public void Start()
     {
 
-        this.GetComponent<Animator>().runtimeAnimatorController = anim[index.hairIndex];
+        int index = PlayerPrefs.GetInt("hairIndex");
+
+        this.GetComponent<Animator>().runtimeAnimatorController = anim[index];
 
     }
 }

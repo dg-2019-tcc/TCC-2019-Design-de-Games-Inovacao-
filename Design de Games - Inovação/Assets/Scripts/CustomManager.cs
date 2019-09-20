@@ -5,13 +5,21 @@ using UnityEngine.UI;
 
 public class CustomManager : MonoBehaviour
 {
-    public SpriteRenderer sRBody;
+    /*public SpriteRenderer sRBody;
 
     public SpriteRenderer sRHair;
 
     public SpriteRenderer sRChest;
 
-    public SpriteRenderer sRLegs;
+    public SpriteRenderer sRLegs;*/
+
+    public Image bodyImage;
+
+    public Image hairImage;
+
+    public Image chestImage;
+
+    public Image legsImage;
 
     public Sprite[] bodySprite;
 
@@ -29,13 +37,13 @@ public class CustomManager : MonoBehaviour
 
     public int legsIndex;
 
-    public BodyManager bodyAC;
+    /*public BodyManager bodyAC;
 
     public HairManager hairAC;
 
     public ChestManager chestAC;
 
-    public LegsManager legsAC;
+    public LegsManager legsAC;*/
 
     public GameObject custom;
 
@@ -53,8 +61,12 @@ public class CustomManager : MonoBehaviour
             bodyIndex = 0;
         }
 
+        bodyImage.sprite = bodySprite[bodyIndex];
+
+        PlayerPrefs.SetInt("bodyIndex", bodyIndex);
+
         //sRBody.sprite = bodySprite[bodyIndex];
-        bodyAC.ChangeAnimatorController();
+        //bodyAC.ChangeAnimatorController();
     }
 
     public void ChangeHair()
@@ -65,8 +77,12 @@ public class CustomManager : MonoBehaviour
             hairIndex = 0;
         }
 
+        hairImage.sprite = hairSprite[hairIndex];
+
+        PlayerPrefs.SetInt("hairIndex", hairIndex);
+
         //sRHair.sprite = hairSprite[hairIndex];
-        hairAC.ChangeAnimatorController();
+        //hairAC.ChangeAnimatorController();
 
 
     }
@@ -79,8 +95,12 @@ public class CustomManager : MonoBehaviour
             chestIndex = 0;
         }
 
+        chestImage.sprite = chestSprite[chestIndex];
+
+        PlayerPrefs.SetInt("chestIndex", chestIndex);
+
         //sRChest.sprite = chestSprite[chestIndex];
-        chestAC.ChangeAnimatorController();
+        //chestAC.ChangeAnimatorController();
 
     }
 
@@ -92,8 +112,12 @@ public class CustomManager : MonoBehaviour
             legsIndex = 0;
         }
 
+        legsImage.sprite = legsSprite[legsIndex];
+
+        PlayerPrefs.SetInt("legsIndex", legsIndex);
+
         //sRLegs.sprite = legsSprite[legsIndex];
-        legsAC.ChangeAnimatorController();
+        //legsAC.ChangeAnimatorController();
 
 
     }

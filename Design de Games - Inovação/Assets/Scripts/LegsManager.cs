@@ -6,13 +6,13 @@ public class LegsManager : MonoBehaviour
 {
     public RuntimeAnimatorController[] anim;
 
-    public CustomManager index;
 
-
-    public void ChangeAnimatorController()
+    public void Start()
     {
 
-        this.GetComponent<Animator>().runtimeAnimatorController = anim[index.legsIndex];
+        int index = PlayerPrefs.GetInt("legsIndex");
+
+        this.GetComponent<Animator>().runtimeAnimatorController = anim[index];
 
     }
 }

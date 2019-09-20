@@ -6,13 +6,13 @@ public class ChestManager : MonoBehaviour
 {
     public RuntimeAnimatorController[] anim;
 
-    public CustomManager index;
 
-
-    public void ChangeAnimatorController()
+    public void Start()
     {
 
-        this.GetComponent<Animator>().runtimeAnimatorController = anim[index.chestIndex];
+        int index = PlayerPrefs.GetInt("chestIndex");
+
+        this.GetComponent<Animator>().runtimeAnimatorController = anim[index];
 
     }
 }
