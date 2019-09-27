@@ -19,8 +19,9 @@ public class PlayerController : MonoBehaviour
     private Rigidbody rb;
 
     protected Joystick joyStick;
+	protected FixedButton fixedButton;
 
-    private Animator bodyAnim;
+	private Animator bodyAnim;
     private Animator hairAnim;
     private Animator torsoAnim;
     private Animator legsAnim;
@@ -55,7 +56,9 @@ public class PlayerController : MonoBehaviour
 
         joyStick = FindObjectOfType<Joystick>();
 
-        bodyAnim = gameObject.transform.GetChild(0).GetComponent<Animator>();
+		fixedButton = FindObjectOfType<FixedButton>();
+
+		bodyAnim = gameObject.transform.GetChild(0).GetComponent<Animator>();
 
         hairAnim = gameObject.transform.GetChild(1).GetComponent<Animator>();
 
@@ -127,7 +130,7 @@ public class PlayerController : MonoBehaviour
         rb.MovePosition(transform.rotation * ((rb.position + move * Time.deltaTime * speed) - transform.position) + transform.position); // agora com um sisteminha que vai fazer ele andar na direção local, e não mais global(da pra girar o player à vontade que ele vai funcionar de boas)
 
 
-		if (Input.GetKeyDown(KeyCode.X) && podeTrocarEixo && !gira)
+		if ((Input.GetKeyDown(KeyCode.X) || fixedButton.Pressed) && podeTrocarEixo && !gira)
 		{
 			gira = true;
 
