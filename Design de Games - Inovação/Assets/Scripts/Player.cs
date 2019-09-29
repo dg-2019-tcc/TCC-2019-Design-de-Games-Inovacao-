@@ -144,16 +144,12 @@ public class Player : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space) || fixedButton.Pressed)
         {
-            if (pipa == false)
-            {
-                pipa = true;
-                
-            }
+            pipa = true;
+        }
 
-            else
-            {
-                pipa = false;
-            }
+        else
+        {
+            pipa = false;
         }
 
         if (pipa == true)
