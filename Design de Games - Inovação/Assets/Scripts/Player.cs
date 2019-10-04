@@ -62,19 +62,19 @@ public class Player : MonoBehaviour
 
         fixedButton = FindObjectOfType<FixedButton>();
 
-        bodyAnim = gameObject.transform.GetChild(0).GetComponent<Animator>();
+       /* bodyAnim = gameObject.transform.GetChild(0).GetComponent<Animator>();
 
         hairAnim = gameObject.transform.GetChild(1).GetComponent<Animator>();
 
         torsoAnim = gameObject.transform.GetChild(2).GetComponent<Animator>();
 
-        legAnim = gameObject.transform.GetChild(3).GetComponent<Animator>();
+        legAnim = gameObject.transform.GetChild(3).GetComponent<Animator>();*/
 
 		PV = GetComponent<PhotonView>();
 
 		if (PV != null && PV.IsMine)
 		{
-			VC = gameObject.transform.GetChild(4).GetComponent<CinemachineVirtualCamera>();
+			VC = gameObject.transform.GetChild(5).GetComponent<CinemachineVirtualCamera>();
 			VC.Priority = 15;
 			
 		}
@@ -111,7 +111,7 @@ public class Player : MonoBehaviour
         if (moveHorizontal != 0)
         {
 
-            bodyAnim.SetBool("iswalking", true);
+           /* bodyAnim.SetBool("iswalking", true);
             bodyAnim.SetFloat("input_x", moveHorizontal);
             hairAnim.SetBool("iswalking", true);
             hairAnim.SetFloat("input_x", moveHorizontal);
@@ -119,16 +119,16 @@ public class Player : MonoBehaviour
             torsoAnim.SetFloat("input_x", moveHorizontal);
             legAnim.SetBool("iswalking", true);
             legAnim.SetFloat("input_x", moveHorizontal);
-            //bodyAnim.SetFloat("input_y", move.z);
+            //bodyAnim.SetFloat("input_y", move.z);*/
 
         }
 
         else
         {
-            bodyAnim.SetBool("iswalking", false);
+            /*bodyAnim.SetBool("iswalking", false);
             hairAnim.SetBool("iswalking", false);
             torsoAnim.SetBool("iswalking", false);
-            legAnim.SetBool("iswalking", false);
+            legAnim.SetBool("iswalking", false);*/
 
         }
 
