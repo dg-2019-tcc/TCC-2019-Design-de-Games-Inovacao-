@@ -18,10 +18,15 @@ public class Player : MonoBehaviour
     private Rigidbody2D rb2d;
 
 
+   // private Vector3 oldPosition;
+
+
     Animator bodyAnim;
     Animator hairAnim;
     Animator torsoAnim;
     Animator legAnim;
+
+    public GameObject player;
 
 
     protected Joystick joyStick;
@@ -80,9 +85,23 @@ public class Player : MonoBehaviour
 		}
 	}
 
-
+  
     void FixedUpdate()
     {
+
+       
+
+        if (joyStick.Horizontal > 0)
+        {
+            player.transform.rotation = Quaternion.Euler(0, 90, 0);
+
+        }
+        else if(joyStick.Horizontal < 0)
+        {
+            player.transform.rotation = Quaternion.Euler(0, -90, 0);
+        }
+
+
 
         if (coletavel >= numeroDeColetaveis)
         {
@@ -207,9 +226,18 @@ public class Player : MonoBehaviour
 			Pet.transform.position = transform.position;
 		}
 
+
+
+
+
+        
+
 		
 		//Debug.Log(rb2d.velocity);
     }
+
+
+    
 
 
     [PunRPC]
