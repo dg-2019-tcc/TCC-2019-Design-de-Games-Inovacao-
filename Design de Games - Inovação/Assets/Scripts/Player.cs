@@ -81,6 +81,8 @@ public class Player : MonoBehaviour
 		{
 			VC = gameObject.transform.GetChild(5).GetComponent<CinemachineVirtualCamera>();
 			VC.Priority = 15;
+
+            rb2d.gravityScale = 1;
 			
 		}
 	}
