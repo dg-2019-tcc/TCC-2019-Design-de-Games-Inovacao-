@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class HairManager : MonoBehaviour
 {
-    public RuntimeAnimatorController[] anim;
+    public GameObject[] hairModel;
 
 
 
@@ -13,7 +13,7 @@ public class HairManager : MonoBehaviour
 
         int index = PlayerPrefs.GetInt("hairIndex");
 
-        this.GetComponent<Animator>().runtimeAnimatorController = anim[index];
+        hairModel[index].SetActive(true);
 
     }
 }

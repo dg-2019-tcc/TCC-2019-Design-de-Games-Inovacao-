@@ -5,29 +5,12 @@ using UnityEngine.UI;
 
 public class CustomManager : MonoBehaviour
 {
-    /*public SpriteRenderer sRBody;
 
-    public SpriteRenderer sRHair;
+    public GameObject[] hairModels;
 
-    public SpriteRenderer sRChest;
+    public GameObject[] shirtModels;
 
-    public SpriteRenderer sRLegs;*/
-
-    public Image bodyImage;
-
-    public Image hairImage;
-
-    public Image chestImage;
-
-    public Image legsImage;
-
-    public Sprite[] bodySprite;
-
-    public Sprite[] hairSprite;
-
-    public Sprite[] chestSprite;
-
-    public Sprite[] legsSprite;
+    public GameObject[] pantModels;
 
     public int bodyIndex;
 
@@ -37,47 +20,31 @@ public class CustomManager : MonoBehaviour
 
     public int legsIndex;
 
-    /*public BodyManager bodyAC;
-
-    public HairManager hairAC;
-
-    public ChestManager chestAC;
-
-    public LegsManager legsAC;*/
-
     public GameObject custom;
 
     public Player playerScript;
 
 
 
-
-
-    public void ChangeBody()
-    {
-        bodyIndex += 1;
-        if(bodyIndex >= bodySprite.Length)
-        {
-            bodyIndex = 0;
-        }
-
-        bodyImage.sprite = bodySprite[bodyIndex];
-
-        PlayerPrefs.SetInt("bodyIndex", bodyIndex);
-
-        //sRBody.sprite = bodySprite[bodyIndex];
-        //bodyAC.ChangeAnimatorController();
-    }
-
     public void ChangeHair()
     {
-        hairIndex += 1;
-        if(hairIndex >= hairSprite.Length)
+        if (hairIndex >= hairModels.Length)
         {
+
+
             hairIndex = 0;
+            hairModels[0].SetActive(true);
+            Debug.Log("Acabou");
+        }
+        else
+        {
+
+            hairModels[hairIndex].SetActive(false);
+            hairIndex += 1;
+            hairModels[hairIndex].SetActive(true);
+
         }
 
-        hairImage.sprite = hairSprite[hairIndex];
 
         PlayerPrefs.SetInt("hairIndex", hairIndex);
 
@@ -89,14 +56,24 @@ public class CustomManager : MonoBehaviour
 
     public void ChangeChest()
     {
-        chestIndex += 1;
-        if(chestIndex >= chestSprite.Length)
+
+
+        if (chestIndex >= shirtModels.Length)
         {
+
+
             chestIndex = 0;
+            shirtModels[0].SetActive(true);
+            Debug.Log("Acabou");
         }
+        else
+        {
 
-        chestImage.sprite = chestSprite[chestIndex];
+            shirtModels[chestIndex].SetActive(false);
+            chestIndex += 1;
+            shirtModels[chestIndex].SetActive(true);
 
+        }
         PlayerPrefs.SetInt("chestIndex", chestIndex);
 
         //sRChest.sprite = chestSprite[chestIndex];
@@ -106,13 +83,22 @@ public class CustomManager : MonoBehaviour
 
     public void ChangeLegs()
     {
-        legsIndex += 1;
-        if(legsIndex >= legsSprite.Length)
+        if (legsIndex >= pantModels.Length)
         {
-            legsIndex = 0;
-        }
 
-        legsImage.sprite = legsSprite[legsIndex];
+
+            legsIndex = 0;
+            pantModels[0].SetActive(true);
+            Debug.Log("Acabou");
+        }
+        else
+        {
+
+            pantModels[legsIndex].SetActive(false);
+            legsIndex += 1;
+            pantModels[legsIndex].SetActive(true);
+
+        }
 
         PlayerPrefs.SetInt("legsIndex", legsIndex);
 

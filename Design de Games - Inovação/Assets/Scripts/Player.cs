@@ -79,7 +79,7 @@ public class Player : MonoBehaviour
 
 		if (PV != null && PV.IsMine)
 		{
-			VC = gameObject.transform.GetChild(5).GetComponent<CinemachineVirtualCamera>();
+			VC = gameObject.transform.GetChild(0).GetComponent<CinemachineVirtualCamera>();
 			VC.Priority = 15;
 
             rb2d.gravityScale = 1;

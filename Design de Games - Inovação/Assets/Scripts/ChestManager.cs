@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ChestManager : MonoBehaviour
 {
-    public RuntimeAnimatorController[] anim;
+    public GameObject[] shirtModel;
 
 
     public void Start()
@@ -12,7 +12,7 @@ public class ChestManager : MonoBehaviour
 
         int index = PlayerPrefs.GetInt("chestIndex");
 
-        this.GetComponent<Animator>().runtimeAnimatorController = anim[index];
+        shirtModel[index].SetActive(true);
 
     }
 }

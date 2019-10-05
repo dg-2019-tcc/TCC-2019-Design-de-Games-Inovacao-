@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LegsManager : MonoBehaviour
 {
-    public RuntimeAnimatorController[] anim;
+    public GameObject[] pantsModel;
 
 
     public void Start()
@@ -12,7 +12,7 @@ public class LegsManager : MonoBehaviour
 
         int index = PlayerPrefs.GetInt("legsIndex");
 
-        this.GetComponent<Animator>().runtimeAnimatorController = anim[index];
+        pantsModel[index].SetActive(true);
 
     }
 }
