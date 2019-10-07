@@ -179,7 +179,7 @@ public class DelayStartWaitingRoomController : MonoBehaviourPunCallbacks
         if (!PhotonNetwork.IsMasterClient)
             return;
         PhotonNetwork.CurrentRoom.IsOpen = false;
-        if(modo == true)
+        if(modo != true)
         {
             PhotonNetwork.LoadLevel(multiplayerSceneIndex1);
         }
