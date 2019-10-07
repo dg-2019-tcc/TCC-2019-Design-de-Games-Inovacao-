@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Photon.Pun;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -25,8 +26,8 @@ public class CustomManager : MonoBehaviour
     public Player playerScript;
 
 
-
-    public void ChangeHair()
+	[PunRPC]
+	public void ChangeHair()
     {
         if (hairIndex >= hairModels.Length)
         {
@@ -47,14 +48,16 @@ public class CustomManager : MonoBehaviour
 
 
         PlayerPrefs.SetInt("hairIndex", hairIndex);
+		PhotonNetwork.LocalPlayer.CustomProperties["hairIndex"] = hairIndex;
 
-        //sRHair.sprite = hairSprite[hairIndex];
-        //hairAC.ChangeAnimatorController();
+		//sRHair.sprite = hairSprite[hairIndex];
+		//hairAC.ChangeAnimatorController();
 
 
-    }
+	}
 
-    public void ChangeChest()
+	[PunRPC]
+	public void ChangeChest()
     {
 
 
@@ -75,13 +78,15 @@ public class CustomManager : MonoBehaviour
 
         }
         PlayerPrefs.SetInt("chestIndex", chestIndex);
+		PhotonNetwork.LocalPlayer.CustomProperties["chestIndex"] = chestIndex;
 
-        //sRChest.sprite = chestSprite[chestIndex];
-        //chestAC.ChangeAnimatorController();
+		//sRChest.sprite = chestSprite[chestIndex];
+		//chestAC.ChangeAnimatorController();
 
-    }
+	}
 
-    public void ChangeLegs()
+	[PunRPC]
+	public void ChangeLegs()
     {
         if (legsIndex >= pantModels.Length)
         {
@@ -101,12 +106,13 @@ public class CustomManager : MonoBehaviour
         }
 
         PlayerPrefs.SetInt("legsIndex", legsIndex);
+		PhotonNetwork.LocalPlayer.CustomProperties["legsIndex"] = legsIndex;
 
-        //sRLegs.sprite = legsSprite[legsIndex];
-        //legsAC.ChangeAnimatorController();
+		//sRLegs.sprite = legsSprite[legsIndex];
+		//legsAC.ChangeAnimatorController();
 
 
-    }
+	}
 
     public void Jogar()
     {
