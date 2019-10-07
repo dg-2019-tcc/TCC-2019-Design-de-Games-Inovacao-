@@ -9,7 +9,8 @@ public class Player : MonoBehaviour
     [SerializeField]
     private float numeroDeColetaveis;
 
-    private float coletavel;
+	[HideInInspector]
+    public float coletavel;
 
 
     public float speed;
@@ -85,6 +86,11 @@ public class Player : MonoBehaviour
             rb2d.gravityScale = 1;
 			
 		}
+
+		if ((int)PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] == 1)
+		{
+			FindObjectOfType<Coroa>().ganhador = transform;
+		}
 	}
 
   
@@ -107,8 +113,12 @@ public class Player : MonoBehaviour
 
         if (coletavel >= numeroDeColetaveis)
         {
-            gameObject.GetComponent<PhotonView>().RPC("TrocaSala", RpcTarget.MasterClient);
-        }
+			PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 1;
+			gameObject.GetComponent<PhotonView>().RPC("TrocaSala", RpcTarget.MasterClient);
+			coletavel = 0;
+			
+
+		}
 
 
         if (PV != null && !PV.IsMine) return;
@@ -245,7 +255,7 @@ public class Player : MonoBehaviour
     [PunRPC]
     void TrocaSala()
     {
-        PhotonNetwork.LoadLevel("DelayStartMenuDemo");
+        PhotonNetwork.LoadLevel("TelaVitoria");
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

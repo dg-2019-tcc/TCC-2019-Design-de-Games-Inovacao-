@@ -15,6 +15,8 @@ public class CustomizationSetup : MonoBehaviour
 		PhotonNetwork.LocalPlayer.CustomProperties.Add("chestIndex", PlayerPrefs.GetInt("chestIndex"));
 		PhotonNetwork.LocalPlayer.CustomProperties.Add("legsIndex", PlayerPrefs.GetInt("legsIndex"));
 
+		PhotonNetwork.LocalPlayer.CustomProperties.Add("Ganhador", 0);
+
 	}
 
     
