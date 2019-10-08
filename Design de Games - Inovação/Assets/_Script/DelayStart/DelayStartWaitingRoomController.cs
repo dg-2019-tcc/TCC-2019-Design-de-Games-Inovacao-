@@ -56,7 +56,7 @@ public class DelayStartWaitingRoomController : MonoBehaviourPunCallbacks
         fullRoomTimer = maxFullGameWaitTime;
         notFullRoomTimer = maxWaitTime;
         timerToStartGame = maxWaitTime;
-
+        /*
         botaoModo2.SetActive(false);
 
 
@@ -70,7 +70,7 @@ public class DelayStartWaitingRoomController : MonoBehaviourPunCallbacks
             botaoModo1.SetActive(false);
             startGameNow.SetActive(false);
         }
-
+        */
         PlayerCountUpdate();
     }
 
@@ -179,14 +179,14 @@ public class DelayStartWaitingRoomController : MonoBehaviourPunCallbacks
         if (!PhotonNetwork.IsMasterClient)
             return;
         PhotonNetwork.CurrentRoom.IsOpen = false;
-        if(modo != true)
+        /*if(modo != true)
         {
             PhotonNetwork.LoadLevel(multiplayerSceneIndex1);
-        }
-        else
-        {
+        }*/
+        //else
+        //{
             PhotonNetwork.LoadLevel(multiplayerSceneIndex2);
-        }
+        //}
     }
 
     public void DelayCancel()
