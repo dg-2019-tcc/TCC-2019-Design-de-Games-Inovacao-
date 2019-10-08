@@ -32,7 +32,7 @@ public class WolfMovement : MonoBehaviour
         if (Vector3.Distance(transform.position, player.transform.position) > allowedDistance)
         {
             followSpeed = 0.1f;
-            wolfAnim.SetBool("isWalking", true);
+            //wolfAnim.SetBool("isWalking", true);
             transform.position = Vector3.MoveTowards(transform.position, player.transform.position, followSpeed);
 
             
@@ -58,7 +58,7 @@ public class WolfMovement : MonoBehaviour
 
             followSpeed = 0;
 
-            wolfAnim.SetBool("isWalking", false);
+            //wolfAnim.SetBool("isWalking", false);
 
         }
 
