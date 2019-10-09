@@ -54,8 +54,6 @@ public class Player : MonoBehaviour
 
 	private PhotonView PV;
 	private CinemachineVirtualCamera VC;
-
-    public GameObject dogSpawn;
 	
 
 
@@ -199,7 +197,7 @@ public class Player : MonoBehaviour
 		if (pipa == false && !Pet.activeSelf)
 		{
             pipaObj.SetActive(false);
-			Pet.transform.position = dogSpawn.transform.position ;
+			Pet.transform.position = transform.position;
 		}
 
         if (rb2d.velocity.y < 0 && grounded == true )
@@ -241,7 +239,7 @@ public class Player : MonoBehaviour
 		else
 		{
 			TransformaPet(false, "carrinho");
-			Pet.transform.position = dogSpawn.transform.position;
+			Pet.transform.position = transform.position;
 		}
 
 

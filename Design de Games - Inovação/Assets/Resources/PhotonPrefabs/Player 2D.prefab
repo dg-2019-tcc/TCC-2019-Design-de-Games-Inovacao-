@@ -449,36 +449,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!1 &1994656834018182587
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 587960577798203757}
-  m_Layer: 8
-  m_Name: DogSpawn
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &587960577798203757
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1994656834018182587}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 7430412753401574263}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2522853008946936330
 GameObject:
   m_ObjectHideFlags: 0
@@ -528,8 +498,6 @@ MonoBehaviour:
   shirtModel:
   - {fileID: 7404810847911707608}
   - {fileID: 1541474635163476430}
-  shirtColor: {fileID: 0}
-  shirtMat: []
 --- !u!114 &2946826761323584081
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -576,7 +544,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3629435175157250817}
-  m_LocalRotation: {x: 3e-45, y: -1e-45, z: -9.579009e-14, w: 1}
+  m_LocalRotation: {x: 8.881784e-16, y: -1.7763575e-15, z: -9.579009e-14, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -36.05}
   m_LocalScale: {x: 0.6685298, y: 0.4092884, z: 1}
   m_Children:
@@ -1206,7 +1174,6 @@ Transform:
   - {fileID: 7430412753156666154}
   - {fileID: 963386305195773592}
   - {fileID: 2469439922415627007}
-  - {fileID: 587960577798203757}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1227,7 +1194,6 @@ MonoBehaviour:
   speed: 20
   jumpSpeed: 500
   maxSpeed: 8
-  jump: 0
   player: {fileID: 1449718581562874092}
   groundCheck: {fileID: 7430412752537440430}
   grounded: 0
@@ -1238,7 +1204,6 @@ MonoBehaviour:
   carrinho: 0
   carrinhoSpeed: 20
   carrinhoObj: {fileID: 963386305195773575}
-  dogSpawn: {fileID: 0}
 --- !u!50 &7430412753401574218
 Rigidbody2D:
   serializedVersion: 4
