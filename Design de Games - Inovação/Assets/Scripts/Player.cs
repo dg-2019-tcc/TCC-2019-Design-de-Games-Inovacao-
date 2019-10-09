@@ -17,6 +17,7 @@ public class Player : MonoBehaviour
     public float jumpSpeed;
     public float maxSpeed = 8;
     private Rigidbody2D rb2d;
+    public bool jump;
 
 
    // private Vector3 oldPosition;
@@ -165,12 +166,15 @@ public class Player : MonoBehaviour
 
 
 
-            if (joyStick.Vertical > 0.5   && grounded == true)
+            if (joyStick.Vertical >= 0.7 && grounded == true && jump == false)
             {
+                carrinho = false;
                 rb2d.AddForce(Vector2.up * jumpSpeed);
-                //Physics.IgnoreLayerCollision(10, 11, true);
+            //Physics.IgnoreLayerCollision(10, 11, true);
+                jump = true;
 
             }
+
 
 
         if (Input.GetKeyDown(KeyCode.Space) || fixedButton.Pressed)
@@ -196,7 +200,7 @@ public class Player : MonoBehaviour
 			Pet.transform.position = transform.position;
 		}
 
-        if (rb2d.velocity.y < 0 && grounded == true)
+        if (rb2d.velocity.y < 0 && grounded == true )
         {
             carrinho = true;
 			
@@ -208,7 +212,7 @@ public class Player : MonoBehaviour
 			
 		}
 
-        if(carrinho == true)
+        if(carrinho == true && jump == false)
         {
 
             rb2d.AddForce(-Vector2.up * carrinhoSpeed);
@@ -237,6 +241,7 @@ public class Player : MonoBehaviour
 			TransformaPet(false, "carrinho");
 			Pet.transform.position = transform.position;
 		}
+
 
 
 

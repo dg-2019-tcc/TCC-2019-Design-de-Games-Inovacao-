@@ -56,21 +56,21 @@ public class DelayStartWaitingRoomController : MonoBehaviourPunCallbacks
         fullRoomTimer = maxFullGameWaitTime;
         notFullRoomTimer = maxWaitTime;
         timerToStartGame = maxWaitTime;
-        /*
-        botaoModo2.SetActive(false);
+        
+        //botaoModo2.SetActive(false);
 
 
         if (PhotonNetwork.IsMasterClient)
         {
-            botaoModo1.SetActive(true);
+            //botaoModo1.SetActive(true);
             startGameNow.SetActive(true);
         }
         else
         {
-            botaoModo1.SetActive(false);
+            //botaoModo1.SetActive(false);
             startGameNow.SetActive(false);
         }
-        */
+        
         PlayerCountUpdate();
     }
 

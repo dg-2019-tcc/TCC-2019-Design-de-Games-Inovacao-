@@ -36,7 +36,7 @@ public class CustomManager : MonoBehaviour
     [PunRPC]
 	public void ChangeHair()
     {
-        if (hairIndex >= hairModels.Length)
+        if (hairIndex >= hairModels.Length -1)
         {
 
 
@@ -68,7 +68,7 @@ public class CustomManager : MonoBehaviour
     {
 
 
-        if (chestIndex >= shirtModels.Length)
+        if (chestIndex >= shirtModels.Length -1)
         {
 
 
@@ -95,7 +95,7 @@ public class CustomManager : MonoBehaviour
 	[PunRPC]
 	public void ChangeLegs()
     {
-        if (legsIndex >= pantModels.Length)
+        if (legsIndex >= pantModels.Length -1)
         {
 
 
@@ -124,7 +124,7 @@ public class CustomManager : MonoBehaviour
     [PunRPC]
     public void ChangeShirt()
     {
-        if(shirtIndex >= shirtsMat.Length)
+        if(shirtIndex >= shirtsMat.Length -1)
         {
             shirtIndex = 0;
 
