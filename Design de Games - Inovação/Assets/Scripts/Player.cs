@@ -171,7 +171,7 @@ public class Player : MonoBehaviour
                 carrinho = false;
                 rb2d.AddForce(Vector2.up * jumpSpeed);
             //Physics.IgnoreLayerCollision(10, 11, true);
-            jump = true;
+                jump = true;
 
             }
 
