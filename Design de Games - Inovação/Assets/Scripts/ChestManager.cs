@@ -7,11 +7,16 @@ public class ChestManager : MonoBehaviour
 {
     public GameObject[] shirtModel;
 
+    public MeshRenderer shirtColor;
+
+    public Material[] shirtMat;
+
 	int index;
 
 
 	public void Start()
     {
+
 
         int index = (int)PhotonNetwork.LocalPlayer.CustomProperties["chestIndex"];
 
