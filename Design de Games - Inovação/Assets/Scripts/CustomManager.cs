@@ -36,7 +36,9 @@ public class CustomManager : MonoBehaviour
     [PunRPC]
 	public void ChangeHair()
     {
-        if (hairIndex >= hairModels.Length -1)
+        hairModels[hairIndex].SetActive(false);
+        hairIndex += 1;
+        if (hairIndex >= hairModels.Length)
         {
 
 
@@ -45,12 +47,8 @@ public class CustomManager : MonoBehaviour
             Debug.Log("Acabou");
         }
         else
-        {
-
-            hairModels[hairIndex].SetActive(false);
-            hairIndex += 1;
+        {            
             hairModels[hairIndex].SetActive(true);
-
         }
 
 
@@ -66,23 +64,17 @@ public class CustomManager : MonoBehaviour
 	[PunRPC]
 	public void ChangeChest()
     {
-
-
-        if (chestIndex >= shirtModels.Length -1)
+        shirtModels[chestIndex].SetActive(false);
+        chestIndex += 1;
+        if (chestIndex >= shirtModels.Length)
         {
-
-
             chestIndex = 0;
             shirtModels[0].SetActive(true);
             Debug.Log("Acabou");
         }
         else
-        {
-
-            shirtModels[chestIndex].SetActive(false);
-            chestIndex += 1;
+        {            
             shirtModels[chestIndex].SetActive(true);
-
         }
         PlayerPrefs.SetInt("chestIndex", chestIndex);
 		PhotonNetwork.LocalPlayer.CustomProperties["chestIndex"] = chestIndex;
@@ -95,7 +87,9 @@ public class CustomManager : MonoBehaviour
 	[PunRPC]
 	public void ChangeLegs()
     {
-        if (legsIndex >= pantModels.Length -1)
+        pantModels[legsIndex].SetActive(false);
+        legsIndex += 1;
+        if (legsIndex >= pantModels.Length)
         {
 
 
@@ -105,11 +99,7 @@ public class CustomManager : MonoBehaviour
         }
         else
         {
-
-            pantModels[legsIndex].SetActive(false);
-            legsIndex += 1;
             pantModels[legsIndex].SetActive(true);
-
         }
 
         PlayerPrefs.SetInt("legsIndex", legsIndex);
@@ -124,7 +114,8 @@ public class CustomManager : MonoBehaviour
     [PunRPC]
     public void ChangeShirt()
     {
-        if(shirtIndex >= shirtsMat.Length -1)
+        shirtIndex += 1;
+        if (shirtIndex >= shirtsMat.Length)
         {
             shirtIndex = 0;
 
@@ -133,7 +124,6 @@ public class CustomManager : MonoBehaviour
 
         else
         {
-            shirtIndex += 1;
             shirtColor.material = shirtsMat[shirtIndex];
         }
 
