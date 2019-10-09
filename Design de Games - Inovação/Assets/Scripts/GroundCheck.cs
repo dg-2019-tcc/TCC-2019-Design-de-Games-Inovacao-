@@ -44,6 +44,7 @@ public class GroundCheck : MonoBehaviour
     {
 		if (!col.CompareTag("Coletavel"))
 			player.grounded = false;
+        StartCoroutine("ResetaPulo");
     }
 
     IEnumerator ResetaPulo()
