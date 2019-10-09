@@ -13,6 +13,10 @@ public class CustomManager : MonoBehaviour
 
     public GameObject[] pantModels;
 
+    public Material[] shirtsMat;
+
+    public MeshRenderer shirtColor;
+
     public int bodyIndex;
 
     public int hairIndex;
@@ -21,12 +25,15 @@ public class CustomManager : MonoBehaviour
 
     public int legsIndex;
 
+    public int shirtIndex;
+
     public GameObject custom;
 
     public Player playerScript;
 
 
-	[PunRPC]
+
+    [PunRPC]
 	public void ChangeHair()
     {
         if (hairIndex >= hairModels.Length)
@@ -113,6 +120,28 @@ public class CustomManager : MonoBehaviour
 
 
 	}
+
+    [PunRPC]
+    public void ChangeShirt()
+    {
+        if(shirtIndex >= shirtsMat.Length)
+        {
+            shirtIndex = 0;
+
+            shirtColor.material = shirtsMat[shirtIndex];
+        }
+
+        else
+        {
+            shirtIndex += 1;
+            shirtColor.material = shirtsMat[shirtIndex];
+        }
+
+        PlayerPrefs.SetInt("shirtIndex", shirtIndex);
+        PhotonNetwork.LocalPlayer.CustomProperties["shirtIndex"] = shirtIndex;
+
+
+    }
 
     public void Jogar()
     {
