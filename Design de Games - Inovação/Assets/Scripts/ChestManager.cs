@@ -18,10 +18,14 @@ public class ChestManager : MonoBehaviour
     {
 
 
-        int index = (int)PhotonNetwork.LocalPlayer.CustomProperties["chestIndex"];
+        int indexShirt = (int)PhotonNetwork.LocalPlayer.CustomProperties["chestIndex"];
+        int indexShirtMaterial = (int)PhotonNetwork.LocalPlayer.CustomProperties["shirtIndex"];
 
-		if (GetComponent<PhotonView>() != null && GetComponent<PhotonView>().IsMine)
-			gameObject.GetComponent<PhotonView>().RPC("TrocaCamisa", RpcTarget.All, index);
+        if (GetComponent<PhotonView>() != null && GetComponent<PhotonView>().IsMine)
+        {
+            gameObject.GetComponent<PhotonView>().RPC("TrocaCamisa", RpcTarget.All, indexShirt);
+            gameObject.GetComponent<PhotonView>().RPC("TrocaMaterialCamisa", RpcTarget.All, indexShirtMaterial);
+        }
 
     }
 
@@ -34,4 +38,10 @@ public class ChestManager : MonoBehaviour
 		}
 		shirtModel[onlineIndex].SetActive(true);
 	}
+
+    [PunRPC]
+    private void TrocaMaterialCamisa(int onlineIndex)
+    {
+        shirtColor.material = shirtMat[onlineIndex];
+    }
 }
