@@ -56,6 +56,7 @@ public class Player : MonoBehaviour
 	private CinemachineVirtualCamera VC;
 
     public GameObject dogSpawn;
+    public float dogCount;
 	
 
 
@@ -204,13 +205,19 @@ public class Player : MonoBehaviour
 
         if (rb2d.velocity.y < 0 && grounded == true )
         {
-            carrinho = true;
+            dogCount += Time.deltaTime;
+
+            if (dogCount >= 0.2f)
+            {
+                carrinho = true;
+            }
 			
 		}
 
         else
         {
             carrinho = false;
+            dogCount = 0;
 			
 		}
 
