@@ -18,6 +18,8 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
     private GameObject delayStartButton; //Botão utilizado para criar e entrar em um jogo
     [SerializeField]
     private GameObject delayCancelButton; //Botão utilizado para parar de procurar uma sala de jogo
+	[SerializeField]
+	private GameObject loadingScene; //Feedback pro jogador de que a cena está carregando, o "esperando"
     [SerializeField]
     private int RoomSize; //Utilizado para setar manualmente o numero de jogadores de uma sala
     
@@ -35,6 +37,7 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
     {
         delayStartButton.SetActive(false);
         delayCancelButton.SetActive(true);
+		loadingScene.SetActive(true);
         PhotonNetwork.JoinRandomRoom();
 
 
