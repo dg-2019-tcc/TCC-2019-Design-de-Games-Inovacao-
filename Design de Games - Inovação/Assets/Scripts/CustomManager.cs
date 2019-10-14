@@ -31,6 +31,24 @@ public class CustomManager : MonoBehaviour
 
     public Player playerScript;
 
+    private void Start()
+    {
+        hairIndex = 0;
+        shirtIndex = 0;
+        legsIndex = 0;
+
+        PlayerPrefs.SetInt("hairIndex", hairIndex);
+        PhotonNetwork.LocalPlayer.CustomProperties["hairIndex"] = hairIndex;
+
+        PlayerPrefs.SetInt("shirtIndex", shirtIndex);
+        PhotonNetwork.LocalPlayer.CustomProperties["shirtIndex"] = shirtIndex;
+
+        PlayerPrefs.SetInt("legsIndex", legsIndex);
+        PhotonNetwork.LocalPlayer.CustomProperties["legsIndex"] = legsIndex;
+
+
+    }
+
 
 
     [PunRPC]
