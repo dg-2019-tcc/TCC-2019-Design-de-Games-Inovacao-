@@ -1,9 +1,11 @@
-﻿using System.Collections;
+﻿using Photon.Pun;
+using Photon.Realtime;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class PauseManager : MonoBehaviour
+public class PauseManager : MonoBehaviourPunCallbacks
 {
 
     public GameObject pausebuttons;
@@ -20,11 +22,20 @@ public class PauseManager : MonoBehaviour
 
     public void VoltaMenu()
     {
-        SceneManager.LoadScene("DelayStartMenuDemo");
+		PhotonNetwork.Disconnect();
+        
     }
 
     public void VoltaJogo()
     {
         pausebuttons.SetActive(false);
     }
+
+	public override void OnDisconnected(DisconnectCause cause)
+	{
+		base.OnDisconnected(cause);
+		SceneManager.LoadScene("DelayStartMenuDemo");
+	}
+
+
 }
