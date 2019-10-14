@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using Photon.Pun;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class WolfMovement : MonoBehaviour
 {
@@ -8,19 +10,30 @@ public class WolfMovement : MonoBehaviour
     public float targetDistance;
     public float allowedDistance = 5;
     public GameObject wolf;
+	private Rigidbody2D rb;
     public float followSpeed;
     public RaycastHit shot;
     Animator wolfAnim;
-	
+
+
+	private bool vitoria = false;
 
 
     private Vector3 oldPosition;
 
 
-	
-    void Start()
-    {
-        wolfAnim = gameObject.transform.GetChild(0).GetComponent<Animator>();
+
+	void Start()
+	{
+		wolfAnim = gameObject.transform.GetChild(0).GetComponent<Animator>();
+		rb = GetComponent<Rigidbody2D>();
+
+		if (SceneManager.GetActiveScene().name == "TelaVitoria")
+			vitoria = true;
+
+		if ((int)PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] == 1)
+			transform.position = player.transform.position;
+
 	}
 
 
@@ -49,8 +62,14 @@ public class WolfMovement : MonoBehaviour
                 transform.rotation = Quaternion.Euler(0, 180, 0);
             }
 
+			if (rb.velocity.y == 0 && transform.position.y + allowedDistance < player.transform.position.y)
+			{
+				rb.AddForce(Vector2.up * 300);
+			}
+			
 
-        }
+
+		}
 
 
         else
@@ -63,9 +82,17 @@ public class WolfMovement : MonoBehaviour
         }
 
 
+		if (rb.velocity.y == 0 && vitoria)
+		{
+
+			rb.AddForce(Vector2.up * 100);
+
+		}
 
         
     }
 
-        
+	
+
+
 }
