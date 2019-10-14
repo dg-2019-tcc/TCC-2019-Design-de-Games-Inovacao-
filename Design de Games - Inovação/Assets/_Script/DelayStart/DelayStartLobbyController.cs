@@ -1,18 +1,12 @@
 ﻿using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
 public class DelayStartLobbyController : MonoBehaviourPunCallbacks
 {
-    /// <summary>
-    /// 
-    /// Segunda - Manhã
-    /// Quarta - Manhã
-    /// Sexta - Manhã
-    /// 
-    /// </summary>
 
     [SerializeField]
     private GameObject delayStartButton; //Botão utilizado para criar e entrar em um jogo
@@ -24,12 +18,32 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
     private int RoomSize; //Utilizado para setar manualmente o numero de jogadores de uma sala
     
     [HideInInspector]
-    public bool modo;    
+    public bool modo;
+
+    public InputField playerNameInput;
 
     public override void OnConnectedToMaster()
     {
         PhotonNetwork.AutomaticallySyncScene = true;
         delayStartButton.SetActive(true);
+
+        if (PlayerPrefs.HasKey("NickName"))
+        {
+            if (PlayerPrefs.GetString("NickName") == "")
+            {
+                PhotonNetwork.NickName = "Player " + Random.Range(0, 1000);
+            }
+            else
+            {
+                PhotonNetwork.NickName = PlayerPrefs.GetString("NickName");
+            }
+        }
+        else
+        {
+            PhotonNetwork.NickName = "Player " + Random.Range(0, 1000);
+        }
+        playerNameInput.text = PhotonNetwork.NickName;
+
     }
 
 
@@ -47,6 +61,12 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
         
         //PhotonNetwork.JoinRandomRoom(expectedCustomRoomProperties, (byte)RoomSize);
         
+    }
+    
+    public void PlayerNameUpdate(string nameInput)
+    {
+        PhotonNetwork.NickName = nameInput;
+        PlayerPrefs.SetString("NickName", nameInput);
     }
 
     public override void OnJoinRandomFailed(short returnCode, string message)
