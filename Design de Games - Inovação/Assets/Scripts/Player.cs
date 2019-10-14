@@ -82,6 +82,7 @@ public class Player : MonoBehaviour
 		if ((int)PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] == 1)
 		{
 			FindObjectOfType<Coroa>().ganhador = transform;
+			transform.position = new Vector3(0, 0, 0);
 		}
 	}
 
