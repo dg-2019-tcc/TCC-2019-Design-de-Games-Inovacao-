@@ -79,7 +79,7 @@ public class Player : MonoBehaviour
 			
 		}
 
-		if ((int)PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] == 1)
+		if (PhotonNetwork.IsConnected == true && (int)PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] == 1)
 		{
 			FindObjectOfType<Coroa>().ganhador = transform;
 			transform.position = new Vector3(0, 0, 0);
@@ -90,18 +90,20 @@ public class Player : MonoBehaviour
     void FixedUpdate()
     {
 
-       
 
-       
-        if (joyStick.Horizontal > 0)
-        {
-            player.transform.rotation = Quaternion.Euler(0, 90, 0);
 
-        }
-        else if(joyStick.Horizontal < 0)
-        {
-            player.transform.rotation = Quaternion.Euler(0, -90, 0);
-        }
+		if (joyStick != null)
+		{
+			if (joyStick.Horizontal > 0)
+			{
+				player.transform.rotation = Quaternion.Euler(0, 90, 0);
+
+			}
+			else if (joyStick.Horizontal < 0)
+			{
+				player.transform.rotation = Quaternion.Euler(0, -90, 0);
+			}
+		}
 
 
 
