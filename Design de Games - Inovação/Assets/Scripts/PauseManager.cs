@@ -10,7 +10,14 @@ public class PauseManager : MonoBehaviourPunCallbacks
 
     public GameObject pausebuttons;
 
-    public void Pause()
+	private bool goBack;
+
+	private void Start()
+	{
+		goBack = false;
+	}
+
+	public void Pause()
     {
         pausebuttons.SetActive(true);
     }
@@ -23,6 +30,7 @@ public class PauseManager : MonoBehaviourPunCallbacks
     public void VoltaMenu()
     {
 		PhotonNetwork.Disconnect();
+		goBack = true;
         
     }
 
@@ -34,7 +42,8 @@ public class PauseManager : MonoBehaviourPunCallbacks
 	public override void OnDisconnected(DisconnectCause cause)
 	{
 		base.OnDisconnected(cause);
-		SceneManager.LoadScene("DelayStartMenuDemo");
+		if(goBack)
+			SceneManager.LoadScene("DelayStartMenuDemo");
 	}
 
 
