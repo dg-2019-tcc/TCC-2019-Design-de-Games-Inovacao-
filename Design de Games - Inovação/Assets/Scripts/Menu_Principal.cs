@@ -11,4 +11,9 @@ public class Menu_Principal : MonoBehaviour
         SceneManager.LoadScene("DelayStartMenuDemo");
     }
 
+  //  public void Opcoes()
+    //{
+      //  SceneManager.LoadScene("Creditos");
+    //}
+
 }
