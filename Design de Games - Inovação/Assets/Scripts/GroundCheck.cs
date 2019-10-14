@@ -15,14 +15,6 @@ public class GroundCheck : MonoBehaviour
     }
 
 
-    private void Update()
-    {
-        if (player.jump == false)
-        {
-            StopCoroutine("ResataPulo");    
-        }
-    }
-
 
 
 
@@ -30,8 +22,6 @@ public class GroundCheck : MonoBehaviour
     {
 		if(!col.CompareTag("Coletavel"))
         player.grounded = true;
-        StartCoroutine("ResetaPulo");
-
     }
 
      void OnTriggerStay2D(Collider2D col)
@@ -44,15 +34,9 @@ public class GroundCheck : MonoBehaviour
     {
 		if (!col.CompareTag("Coletavel"))
 			player.grounded = false;
-        StartCoroutine("ResetaPulo");
     }
 
-    IEnumerator ResetaPulo()
-    {
-        player.jump = true;
-        yield return new WaitForSeconds(0.5f);
-        player.jump = false;
-    }
+    
 
     
 }

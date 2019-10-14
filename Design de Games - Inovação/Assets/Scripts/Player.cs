@@ -22,12 +22,6 @@ public class Player : MonoBehaviour
 
    // private Vector3 oldPosition;
 
-
-    Animator bodyAnim;
-    Animator hairAnim;
-    Animator torsoAnim;
-    Animator legAnim;
-
     public GameObject player;
 
 
@@ -57,6 +51,8 @@ public class Player : MonoBehaviour
 
     public GameObject dogSpawn;
     public float dogCount;
+
+    public bool desativa;
 	
 
 
@@ -71,14 +67,6 @@ public class Player : MonoBehaviour
         joyStick = FindObjectOfType<Joystick>();
 
         fixedButton = FindObjectOfType<FixedButton>();
-
-       /* bodyAnim = gameObject.transform.GetChild(0).GetComponent<Animator>();
-
-        hairAnim = gameObject.transform.GetChild(1).GetComponent<Animator>();
-
-        torsoAnim = gameObject.transform.GetChild(2).GetComponent<Animator>();
-
-        legAnim = gameObject.transform.GetChild(3).GetComponent<Animator>();*/
 
 		PV = GetComponent<PhotonView>();
 
@@ -143,58 +131,39 @@ public class Player : MonoBehaviour
             rb2d.velocity = new Vector2(-maxSpeed, rb2d.velocity.y);
         }
 
-        if (moveHorizontal != 0)
-        {
-
-           /* bodyAnim.SetBool("iswalking", true);
-            bodyAnim.SetFloat("input_x", moveHorizontal);
-            hairAnim.SetBool("iswalking", true);
-            hairAnim.SetFloat("input_x", moveHorizontal);
-            torsoAnim.SetBool("iswalking", true);
-            torsoAnim.SetFloat("input_x", moveHorizontal);
-            legAnim.SetBool("iswalking", true);
-            legAnim.SetFloat("input_x", moveHorizontal);
-            //bodyAnim.SetFloat("input_y", move.z);*/
-
-        }
-
-        else
-        {
-            /*bodyAnim.SetBool("iswalking", false);
-            hairAnim.SetBool("iswalking", false);
-            torsoAnim.SetBool("iswalking", false);
-            legAnim.SetBool("iswalking", false);*/
-
-        }
-
-
-
-            if (joyStick.Vertical >= 0.7 && grounded == true && jump == false)
+       
+        // Pulo
+        if (grounded == true && jump == true)
             {
                 carrinho = false;
                 rb2d.AddForce(Vector2.up * jumpSpeed);
             //Physics.IgnoreLayerCollision(10, 11, true);
-                jump = true;
+                jump = false;
 
-            }
-
-
-
-        if (Input.GetKeyDown(KeyCode.Space) || fixedButton.Pressed)
-        {
-            pipa = true;
         }
 
-        else
+        if(desativa == true)
         {
             pipa = false;
+            carrinho = false;
+            maxSpeed = 8;
+            dogCount = 0;
+            desativa = false;
         }
+
+        if(dogCount >= 2f)
+        {
+            desativa = true;
+        }
+
 
         if (pipa == true)
         {
+            dogCount += Time.deltaTime;
             rb2d.AddForce(new Vector2(0, pipaForce), ForceMode2D.Impulse);
             pipaObj.SetActive(true);
 			carrinho = false;
+            maxSpeed = 4;
         }
 
 		if (pipa == false && !Pet.activeSelf)
@@ -203,27 +172,10 @@ public class Player : MonoBehaviour
 			Pet.transform.position = dogSpawn.transform.position;
 		}
 
-        if (rb2d.velocity.y < 0 && grounded == true )
-        {
-            dogCount += Time.deltaTime;
-
-            if (dogCount >= 0.2f)
-            {
-                carrinho = true;
-            }
-			
-		}
-
-        else
-        {
-            carrinho = false;
-            dogCount = 0;
-			
-		}
 
         if(carrinho == true && jump == false)
         {
-
+            dogCount += Time.deltaTime;
             rb2d.AddForce(-Vector2.up * carrinhoSpeed);
             maxSpeed = carrinhoSpeed;
             carrinhoObj.SetActive(true);
@@ -232,7 +184,6 @@ public class Player : MonoBehaviour
 
 		if (carrinho == false && !Pet.activeSelf)
 		{
-            maxSpeed = 8;
             carrinhoObj.SetActive(false);
 			
 		}
@@ -281,6 +232,16 @@ public class Player : MonoBehaviour
                 coletavel++;
             }
         }
+
+        if (collision.CompareTag("Pipa"))
+        {
+            pipa = true;
+        }
+
+        if (collision.CompareTag("Carrinho"))
+        {
+            carrinho = true;
+        }
     }
 
 
@@ -288,5 +249,15 @@ public class Player : MonoBehaviour
 	{
 		Pet.SetActive(isDog);
 	}
+
+    public void Jump()
+    {
+        jump = true;
+        if (pipa == true || carrinho == true)
+        {
+            desativa = true;
+        }
+
+    }
 }
 
