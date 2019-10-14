@@ -91,6 +91,7 @@ public class Player : MonoBehaviour
 
        
 
+       
         if (joyStick.Horizontal > 0)
         {
             player.transform.rotation = Quaternion.Euler(0, 90, 0);
@@ -117,6 +118,8 @@ public class Player : MonoBehaviour
 
 		//Vector2 move = new Vector2(joyStick.Horizontal + Input.GetAxisRaw("Horizontal"), 0);
 
+
+        //Movimentação do player no joystick
 		float moveHorizontal = joyStick.Horizontal + Input.GetAxisRaw("Horizontal");
 
         rb2d.AddForce((Vector2.right * speed) * moveHorizontal);
@@ -142,6 +145,7 @@ public class Player : MonoBehaviour
 
         }
 
+        // Desativando transformações
         if(desativa == true)
         {
             pipa = false;
@@ -151,12 +155,13 @@ public class Player : MonoBehaviour
             desativa = false;
         }
 
+        //Colocando tempo limite das tranformações
         if(dogCount >= 2f)
         {
             desativa = true;
         }
 
-
+        //Transformação em pipa
         if (pipa == true)
         {
             dogCount += Time.deltaTime;
@@ -172,7 +177,7 @@ public class Player : MonoBehaviour
 			Pet.transform.position = dogSpawn.transform.position;
 		}
 
-
+        // Transformação em carrinho
         if(carrinho == true && jump == false)
         {
             dogCount += Time.deltaTime;
@@ -250,6 +255,8 @@ public class Player : MonoBehaviour
 		Pet.SetActive(isDog);
 	}
 
+
+    //Função para o botão de pulo
     public void Jump()
     {
         jump = true;
