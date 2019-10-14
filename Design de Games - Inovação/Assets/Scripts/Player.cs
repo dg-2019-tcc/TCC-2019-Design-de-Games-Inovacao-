@@ -1,7 +1,9 @@
 ﻿using Photon.Pun;
+using Photon.Realtime;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun.UtilityScripts;
 using Cinemachine;
 
 public class Player : MonoBehaviour
@@ -45,8 +47,9 @@ public class Player : MonoBehaviour
     public float carrinhoSpeed;
     public GameObject carrinhoObj;
 
+    [HideInInspector]
+	public PhotonView PV;
 
-	private PhotonView PV;
 	private CinemachineVirtualCamera VC;
 
     public GameObject dogSpawn;
@@ -110,7 +113,10 @@ public class Player : MonoBehaviour
         if (coletavel >= numeroDeColetaveis)
         {
 			PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 1;
-			gameObject.GetComponent<PhotonView>().RPC("TrocaSala", RpcTarget.MasterClient);
+
+            gameObject.GetComponent<PhotonView>().RPC("ZeraPontuacao", RpcTarget.All);
+
+            gameObject.GetComponent<PhotonView>().RPC("TrocaSala", RpcTarget.MasterClient);
 			coletavel = 0;
 			
 
@@ -229,6 +235,12 @@ public class Player : MonoBehaviour
     void TrocaSala()
     {
         PhotonNetwork.LoadLevel("TelaVitoria");
+    }
+
+    [PunRPC]
+    void ZeraPontuacao()
+    {
+        PV.Owner.SetScore(0);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
