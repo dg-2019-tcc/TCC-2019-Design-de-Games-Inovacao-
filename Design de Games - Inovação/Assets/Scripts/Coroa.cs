@@ -14,6 +14,9 @@ public class Coroa : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-		transform.position = ganhador.position;
+		if (ganhador != null)
+		{
+			transform.position = ganhador.position;
+		}
     }
 }
