@@ -104,18 +104,7 @@ public class Player : MonoBehaviour
 
 
 
-		if (joyStick != null)
-		{
-			if (joyStick.Horizontal > 0)
-			{
-				player.transform.rotation = Quaternion.Euler(0, 90, 0);
-
-			}
-			else if (joyStick.Horizontal < 0)
-			{
-				player.transform.rotation = Quaternion.Euler(0, -90, 0);
-			}
-		}
+		
 
 
 
@@ -136,8 +125,21 @@ public class Player : MonoBehaviour
 
 		//Vector2 move = new Vector2(joyStick.Horizontal + Input.GetAxisRaw("Horizontal"), 0);
 
+		if (joyStick != null)
+		{
+			if (joyStick.Horizontal > 0)
+			{
+				player.transform.rotation = Quaternion.Euler(0, 90, 0);
 
-        //Movimentação do player no joystick
+			}
+			else if (joyStick.Horizontal < 0)
+			{
+				player.transform.rotation = Quaternion.Euler(0, -90, 0);
+			}
+		}
+
+
+		//Movimentação do player no joystick
 		float moveHorizontal = joyStick.Horizontal + Input.GetAxisRaw("Horizontal");
 
         rb2d.AddForce((Vector2.right * speed) * moveHorizontal);
