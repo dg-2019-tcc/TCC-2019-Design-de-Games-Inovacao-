@@ -121,7 +121,7 @@ public class Player : MonoBehaviour
 		}
 
 
-        if (PV != null && !PV.IsMine) return;
+        if (PV != null || !PV.IsMine) return;
 
 		//Vector2 move = new Vector2(joyStick.Horizontal + Input.GetAxisRaw("Horizontal"), 0);
 
