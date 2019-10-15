@@ -29,6 +29,7 @@ public class Player : MonoBehaviour
 
     protected Joystick joyStick;
     protected FixedButton fixedButton;
+	public GameObject canvasSelf;
 
 
     public Transform groundCheck;
@@ -86,7 +87,11 @@ public class Player : MonoBehaviour
 			}
 
 			rb2d.gravityScale = 1;
-			
+
+		}
+		else
+		{
+			canvasSelf.SetActive(false);
 		}
 
 		if ((int)PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] == 1)
@@ -121,7 +126,7 @@ public class Player : MonoBehaviour
 		}
 
 
-        if (PV != null || !PV.IsMine) return;
+        if (PV != null && !PV.IsMine) return;
 
 		//Vector2 move = new Vector2(joyStick.Horizontal + Input.GetAxisRaw("Horizontal"), 0);
 
