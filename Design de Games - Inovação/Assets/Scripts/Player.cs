@@ -49,7 +49,7 @@ public class Player : MonoBehaviour
 
     [HideInInspector]
 	public PhotonView PV;
-
+	private CinemachineConfiner CC;
 	private CinemachineVirtualCamera VC;
 
     public GameObject dogSpawn;
@@ -78,7 +78,14 @@ public class Player : MonoBehaviour
 			VC = gameObject.transform.GetChild(0).GetComponent<CinemachineVirtualCamera>();
 			VC.Priority = 15;
 
-            rb2d.gravityScale = 1;
+			if (joyStick.isActiveAndEnabled)
+			{
+				CC = gameObject.transform.GetChild(0).GetComponent<CinemachineConfiner>();
+				CC.m_BoundingShape2D = GameObject.Find("CameraConfiner").GetComponent<PolygonCollider2D>();
+				CC.InvalidatePathCache();
+			}
+
+			rb2d.gravityScale = 1;
 			
 		}
 
@@ -87,6 +94,8 @@ public class Player : MonoBehaviour
 			FindObjectOfType<Coroa>().ganhador = transform;
 			transform.position = new Vector3(0, 0, 0);
 		}
+
+		
 	}
 
   
