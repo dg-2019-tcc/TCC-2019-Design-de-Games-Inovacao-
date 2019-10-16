@@ -89,7 +89,7 @@ public class Player : MonoBehaviour
 				CC.InvalidatePathCache();
 			}
 
-			rb2d.gravityScale = 10;
+			rb2d.gravityScale = 1;
 
 		}
 		else
@@ -184,7 +184,7 @@ public class Player : MonoBehaviour
         {
             pipa = false;
             carrinho = false;
-            maxSpeed = 8;
+            speed = 2.5f;
             dogCount = 0;
             desativa = false;
         }
@@ -215,8 +215,8 @@ public class Player : MonoBehaviour
         if(carrinho == true && jump == false)
         {
             dogCount += Time.deltaTime;
-            rb2d.AddForce(-Vector2.up * carrinhoSpeed);
-            maxSpeed = carrinhoSpeed;
+            //rb2d.AddForce(-Vector2.up * carrinhoSpeed);
+            speed = carrinhoSpeed;
             carrinhoObj.SetActive(true);
 			pipa = false;
         }
