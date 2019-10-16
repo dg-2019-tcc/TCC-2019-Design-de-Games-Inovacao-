@@ -86,7 +86,7 @@ public class Player : MonoBehaviour
 				CC.InvalidatePathCache();
 			}
 
-			rb2d.gravityScale = 1;
+			rb2d.gravityScale = 10;
 
 		}
 		else
@@ -147,9 +147,9 @@ public class Player : MonoBehaviour
 		//Movimentação do player no joystick
 		float moveHorizontal = joyStick.Horizontal + Input.GetAxisRaw("Horizontal");
 
-        rb2d.AddForce((Vector2.right * speed) * moveHorizontal);
+        rb2d.velocity = ((Vector2.right * speed) * moveHorizontal);
 
-        if(rb2d.velocity.x > maxSpeed)
+        /*if(rb2d.velocity.x > maxSpeed)
         {
             rb2d.velocity = new Vector2(maxSpeed, rb2d.velocity.y);
         }
@@ -157,16 +157,16 @@ public class Player : MonoBehaviour
         if (rb2d.velocity.x < -maxSpeed)
         {
             rb2d.velocity = new Vector2(-maxSpeed, rb2d.velocity.y);
-        }
+        }*/
 
        
         // Pulo
         if (grounded == true && jump == true)
             {
                 carrinho = false;
-                rb2d.AddForce(Vector2.up * jumpSpeed);
+            rb2d.AddForce(new Vector2(0, jumpSpeed), ForceMode2D.Impulse);
             //Physics.IgnoreLayerCollision(10, 11, true);
-                jump = false;
+            jump = false;
 
         }
 
@@ -232,12 +232,7 @@ public class Player : MonoBehaviour
 			Pet.transform.position = dogSpawn.transform.position;
 		}
 
-
-
-
-
-
-        
+       
 
 		
 		//Debug.Log(rb2d.velocity);
