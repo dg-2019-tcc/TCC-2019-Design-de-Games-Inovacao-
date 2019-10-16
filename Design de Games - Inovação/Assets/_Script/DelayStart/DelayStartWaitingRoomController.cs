@@ -42,11 +42,6 @@ public class DelayStartWaitingRoomController : MonoBehaviourPunCallbacks
     public bool modo;
 
     [SerializeField]
-    private GameObject botaoModo1;
-    [SerializeField]
-    private GameObject botaoModo2;
-
-    [SerializeField]
     private GameObject startGameNow;
 
 
@@ -62,12 +57,10 @@ public class DelayStartWaitingRoomController : MonoBehaviourPunCallbacks
 
         if (PhotonNetwork.IsMasterClient)
         {
-            //botaoModo1.SetActive(true);
             startGameNow.SetActive(true);
         }
         else
         {
-            //botaoModo1.SetActive(false);
             startGameNow.SetActive(false);
         }
         
@@ -118,20 +111,7 @@ public class DelayStartWaitingRoomController : MonoBehaviourPunCallbacks
 
     public override void OnPlayerLeftRoom(Photon.Realtime.Player otherPlayer)
     {
-        PlayerCountUpdate();
-        if (PhotonNetwork.IsMasterClient == true)
-        {
-            if (modo == true)
-            {
-                botaoModo1.SetActive(true);
-                botaoModo2.SetActive(false);
-            }
-            else
-            {
-                botaoModo1.SetActive(false);
-                botaoModo2.SetActive(true);
-            }
-        }
+        PlayerCountUpdate();        
     }
 
     private void Update()
@@ -179,35 +159,13 @@ public class DelayStartWaitingRoomController : MonoBehaviourPunCallbacks
         if (!PhotonNetwork.IsMasterClient)
             return;
         PhotonNetwork.CurrentRoom.IsOpen = false;
-        /*if(modo != true)
-        {
-            PhotonNetwork.LoadLevel(multiplayerSceneIndex1);
-        }*/
-        //else
-        //{
-            PhotonNetwork.LoadLevel(multiplayerSceneIndex2);
-        //}
+        PhotonNetwork.LoadLevel(multiplayerSceneIndex2);
+
     }
 
     public void DelayCancel()
     {
         PhotonNetwork.LeaveRoom();
         SceneManager.LoadScene(menuSceneIndex);
-    }
-
-    public void SwichMode()
-    {
-        if (modo == true)
-        {
-            modo = false;
-            botaoModo1.SetActive(true);
-            botaoModo2.SetActive(false);
-        }
-        else
-        {
-            modo = true;
-            botaoModo1.SetActive(false);
-            botaoModo2.SetActive(true);
-        }
     }
 }
