@@ -9,6 +9,9 @@ public class DestroyColetavel2D : MonoBehaviourPunCallbacks
 {
     PhotonView playerView;
 
+    public static int index;
+
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if(other.CompareTag("Player"))
@@ -19,7 +22,9 @@ public class DestroyColetavel2D : MonoBehaviourPunCallbacks
                 Player jogador = other.GetComponent<Player>();
                 jogador.PV.Owner.AddScore(1);
                 Destroy(gameObject);
+                index++;
             }
         }
     }
+
 }
