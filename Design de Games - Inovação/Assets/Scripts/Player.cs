@@ -86,7 +86,7 @@ public class Player : MonoBehaviour
 				CC.InvalidatePathCache();
 			}
 
-			rb2d.gravityScale = 10;
+		//	rb2d.gravityScale = 10;
 
 		}
 		else
@@ -147,7 +147,7 @@ public class Player : MonoBehaviour
 		//Movimentação do player no joystick
 		float moveHorizontal = joyStick.Horizontal + Input.GetAxisRaw("Horizontal");
 
-        rb2d.velocity = ((Vector2.right * speed) * moveHorizontal);
+        rb2d.velocity = new Vector3(speed * moveHorizontal, rb2d.velocity.y, 0);
 
         /*if(rb2d.velocity.x > maxSpeed)
         {
