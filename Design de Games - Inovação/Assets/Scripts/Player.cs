@@ -57,8 +57,11 @@ public class Player : MonoBehaviour
     public float dogCount;
 
     public bool desativa;
-	
 
+    public AudioSource puloSom;
+    public GameObject walkSom;
+    public AudioSource tokenSom;
+    public AudioSource coleta;
 
 
 
@@ -86,7 +89,7 @@ public class Player : MonoBehaviour
 				CC.InvalidatePathCache();
 			}
 
-		//	rb2d.gravityScale = 10;
+			rb2d.gravityScale = 10;
 
 		}
 		else
@@ -147,7 +150,12 @@ public class Player : MonoBehaviour
 		//Movimentação do player no joystick
 		float moveHorizontal = joyStick.Horizontal + Input.GetAxisRaw("Horizontal");
 
-        rb2d.velocity = new Vector3(speed * moveHorizontal, rb2d.velocity.y, 0);
+        if (moveHorizontal != 0)
+        {
+
+            rb2d.velocity = new Vector3(speed * moveHorizontal, rb2d.velocity.y, 0);
+            //walkSom.SetActive(true);
+        }
 
         /*if(rb2d.velocity.x > maxSpeed)
         {
@@ -163,10 +171,11 @@ public class Player : MonoBehaviour
         // Pulo
         if (grounded == true && jump == true)
             {
-                carrinho = false;
+             carrinho = false;
             rb2d.AddForce(new Vector2(0, jumpSpeed), ForceMode2D.Impulse);
             //Physics.IgnoreLayerCollision(10, 11, true);
             jump = false;
+            puloSom.Play();
 
         }
 
@@ -261,17 +270,20 @@ public class Player : MonoBehaviour
             if (PV.IsMine == true)
             {
                 coletavel++;
+                coleta.Play();
             }
         }
 
         if (collision.CompareTag("Pipa"))
         {
             pipa = true;
+            tokenSom.Play();
         }
 
         if (collision.CompareTag("Carrinho"))
         {
             carrinho = true;
+            tokenSom.Play();
         }
     }
 

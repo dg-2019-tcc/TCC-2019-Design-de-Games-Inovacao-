@@ -31,6 +31,9 @@ public class CustomManager : MonoBehaviour
 
     public Player playerScript;
 
+    public AudioSource som;
+
+
     private void Start()
     {
         hairIndex = 0;
@@ -54,6 +57,7 @@ public class CustomManager : MonoBehaviour
     [PunRPC]
 	public void ChangeHair()
     {
+        som.Play();
         hairModels[hairIndex].SetActive(false);
         hairIndex += 1;
         if (hairIndex >= hairModels.Length)
@@ -82,6 +86,7 @@ public class CustomManager : MonoBehaviour
 	[PunRPC]
 	public void ChangeChest()
     {
+        som.Play();
         shirtModels[chestIndex].SetActive(false);
         chestIndex += 1;
         if (chestIndex >= shirtModels.Length)
@@ -105,6 +110,7 @@ public class CustomManager : MonoBehaviour
 	[PunRPC]
 	public void ChangeLegs()
     {
+        som.Play();
         pantModels[legsIndex].SetActive(false);
         legsIndex += 1;
         if (legsIndex >= pantModels.Length)
@@ -132,6 +138,7 @@ public class CustomManager : MonoBehaviour
     [PunRPC]
     public void ChangeShirt()
     {
+        som.Play();
         shirtIndex += 1;
         if (shirtIndex >= shirtsMat.Length)
         {

@@ -22,6 +22,8 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
 
     public InputField playerNameInput;
 
+    public AudioSource startSound;
+
     public override void OnConnectedToMaster()
     {
         PhotonNetwork.AutomaticallySyncScene = true;
@@ -49,6 +51,7 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
 
     public void DelayStart()
     {
+        startSound.Play();
         delayStartButton.SetActive(false);
         delayCancelButton.SetActive(true);
 		loadingScene.SetActive(true);
