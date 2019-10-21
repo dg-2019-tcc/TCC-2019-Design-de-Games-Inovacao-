@@ -63,6 +63,8 @@ public class Player : MonoBehaviour
     public AudioSource tokenSom;
     public AudioSource coleta;
 
+    public Animator playerAC;
+
 
 
 
@@ -154,7 +156,14 @@ public class Player : MonoBehaviour
         {
 
             rb2d.velocity = new Vector3(speed * moveHorizontal, rb2d.velocity.y, 0);
+            playerAC.SetBool("isWalking", true);
+            
             //walkSom.SetActive(true);
+        }
+
+        else
+        {
+            playerAC.SetBool("isWalking", false);
         }
 
         /*if(rb2d.velocity.x > maxSpeed)

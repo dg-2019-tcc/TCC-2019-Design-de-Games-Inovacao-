@@ -15,7 +15,11 @@ public class CustomManager : MonoBehaviour
 
     public Material[] shirtsMat;
 
-    public MeshRenderer shirtColor;
+    //public SkinnedMeshRenderer hairColor;
+
+    public SkinnedMeshRenderer shirtColor;
+
+    //public SkinnedMeshRenderer shortsColor;
 
     public int bodyIndex;
 
