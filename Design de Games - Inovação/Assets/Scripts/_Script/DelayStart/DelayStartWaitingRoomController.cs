@@ -155,7 +155,8 @@ public class DelayStartWaitingRoomController : MonoBehaviourPunCallbacks
 
     public void StartGame()
     {
-        startingGame = true;
+		startGameNow.SetActive(false);
+		startingGame = true;
         if (!PhotonNetwork.IsMasterClient)
             return;
         PhotonNetwork.CurrentRoom.IsOpen = false;
