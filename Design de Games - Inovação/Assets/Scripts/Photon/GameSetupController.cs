@@ -10,7 +10,7 @@ public class GameSetupController : MonoBehaviour
 
 	public Transform[] spawnPoints;
 
-	public int testIndex;
+	public float delayToCreate;
 
 
 
@@ -24,14 +24,15 @@ public class GameSetupController : MonoBehaviour
 
 	void Start()
     {
-		CreatePlayer();
+		StartCoroutine( "CreatePlayer", delayToCreate);
 
 		
     }
 
-	private void CreatePlayer()
+	private IEnumerator CreatePlayer(float delay)
 	{
-		
+
+		yield return new WaitForSeconds(delay);
 			Debug.Log("Criando Jogador");
 			PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PhotonPlayer"), spawnPoints[Random.Range(0, spawnPoints.Length-1)].position, Quaternion.identity);
 		
