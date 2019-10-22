@@ -40,20 +40,23 @@ public class CustomManager : MonoBehaviour
 
     private void Start()
     {
+        /*
         hairIndex = 0;
         shirtIndex = 0;
         legsIndex = 0;
+        */
 
-        PlayerPrefs.SetInt("hairIndex", hairIndex);
+        //PlayerPrefs.SetInt("hairIndex", hairIndex);
+        hairIndex = PlayerPrefs.GetInt("hairIndex");
         PhotonNetwork.LocalPlayer.CustomProperties["hairIndex"] = hairIndex;
 
-        PlayerPrefs.SetInt("shirtIndex", shirtIndex);
+        //PlayerPrefs.SetInt("shirtIndex", shirtIndex);
+        shirtIndex = PlayerPrefs.GetInt("shirtIndex");
         PhotonNetwork.LocalPlayer.CustomProperties["shirtIndex"] = shirtIndex;
 
-        PlayerPrefs.SetInt("legsIndex", legsIndex);
+        //PlayerPrefs.SetInt("legsIndex", legsIndex);
+        legsIndex = PlayerPrefs.GetInt("legsIndex");
         PhotonNetwork.LocalPlayer.CustomProperties["legsIndex"] = legsIndex;
-
-
     }
 
 
