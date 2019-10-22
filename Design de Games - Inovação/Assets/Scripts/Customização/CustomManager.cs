@@ -67,41 +67,7 @@ public class CustomManager : MonoBehaviour
 		}
 	}
 
-	[PunRPC]
-	private void TrocaCabelo(int onlineIndex)
-	{
-		for (int i = 0; i < hairModels.Length; i++)
-		{
-			hairModels[i].SetActive(false);
-		}
-		hairModels[onlineIndex].SetActive(true);
-	}
-
-	[PunRPC]
-	private void TrocaCamisa(int onlineIndex)
-	{
-		for (int i = 0; i < shirtModels.Length; i++)
-		{
-			shirtModels[i].SetActive(false);
-		}
-		shirtModels[onlineIndex].SetActive(true);
-	}
-
-	[PunRPC]
-	private void TrocaMaterialCamisa(int onlineIndex)
-	{
-		shirtColor.material = shirtsMat[onlineIndex];
-	}
-
-	[PunRPC]
-	private void TrocaCalca(int onlineIndex)
-	{
-		for (int i = 0; i < pantModels.Length; i++)
-		{
-			pantModels[i].SetActive(false);
-		}
-		pantModels[onlineIndex].SetActive(true);
-	}
+	
 
 
 
@@ -209,7 +175,49 @@ public class CustomManager : MonoBehaviour
 
     }
 
-    public void Jogar()
+	//----------------------------------------------------------------Ativando a roupa certa em cada cena
+
+	[PunRPC]
+	private void TrocaCabelo(int onlineIndex)
+	{
+		for (int i = 0; i < hairModels.Length; i++)
+		{
+			hairModels[i].SetActive(false);
+		}
+		hairModels[onlineIndex].SetActive(true);
+	}
+
+	[PunRPC]
+	private void TrocaCamisa(int onlineIndex)
+	{
+		for (int i = 0; i < shirtModels.Length; i++)
+		{
+			shirtModels[i].SetActive(false);
+		}
+		shirtModels[onlineIndex].SetActive(true);
+	}
+
+	[PunRPC]
+	private void TrocaMaterialCamisa(int onlineIndex)
+	{
+		shirtColor.material = shirtsMat[onlineIndex];
+	}
+
+	[PunRPC]
+	private void TrocaCalca(int onlineIndex)
+	{
+		for (int i = 0; i < pantModels.Length; i++)
+		{
+			pantModels[i].SetActive(false);
+		}
+		pantModels[onlineIndex].SetActive(true);
+	}
+
+
+
+
+
+	public void Jogar()
     {
         custom.SetActive(false);
         playerScript.enabled = true;
