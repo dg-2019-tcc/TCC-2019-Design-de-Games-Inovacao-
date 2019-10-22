@@ -57,11 +57,55 @@ public class CustomManager : MonoBehaviour
         //PlayerPrefs.SetInt("legsIndex", legsIndex);
         legsIndex = PlayerPrefs.GetInt("legsIndex");
         PhotonNetwork.LocalPlayer.CustomProperties["legsIndex"] = legsIndex;
-    }
+
+		if (GetComponent<PhotonView>() != null && GetComponent<PhotonView>().IsMine)
+		{
+			gameObject.GetComponent<PhotonView>().RPC("TrocaCabelo", RpcTarget.All, hairIndex);
+			gameObject.GetComponent<PhotonView>().RPC("TrocaCamisa", RpcTarget.All, chestIndex);
+			gameObject.GetComponent<PhotonView>().RPC("TrocaMaterialCamisa", RpcTarget.All, shirtIndex);
+			gameObject.GetComponent<PhotonView>().RPC("TrocaCalca", RpcTarget.All, legsIndex);
+		}
+	}
+
+	[PunRPC]
+	private void TrocaCabelo(int onlineIndex)
+	{
+		for (int i = 0; i < hairModels.Length; i++)
+		{
+			hairModels[i].SetActive(false);
+		}
+		hairModels[onlineIndex].SetActive(true);
+	}
+
+	[PunRPC]
+	private void TrocaCamisa(int onlineIndex)
+	{
+		for (int i = 0; i < shirtModels.Length; i++)
+		{
+			shirtModels[i].SetActive(false);
+		}
+		shirtModels[onlineIndex].SetActive(true);
+	}
+
+	[PunRPC]
+	private void TrocaMaterialCamisa(int onlineIndex)
+	{
+		shirtColor.material = shirtsMat[onlineIndex];
+	}
+
+	[PunRPC]
+	private void TrocaCalca(int onlineIndex)
+	{
+		for (int i = 0; i < pantModels.Length; i++)
+		{
+			pantModels[i].SetActive(false);
+		}
+		pantModels[onlineIndex].SetActive(true);
+	}
 
 
 
-    [PunRPC]
+	[PunRPC]
 	public void ChangeHair()
     {
         som.Play();
