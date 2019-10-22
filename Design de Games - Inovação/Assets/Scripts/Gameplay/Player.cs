@@ -105,13 +105,13 @@ public class Player : MonoBehaviour
 			transform.position = new Vector3(0, 0, 0);
 		}
 
-		
-	}
+        PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 0;
+
+    }
 
   
     void FixedUpdate()
     {
-
 
 
 		
