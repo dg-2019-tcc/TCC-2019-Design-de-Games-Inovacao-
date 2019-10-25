@@ -14,6 +14,9 @@ public class SwipeDetector : MonoBehaviour
 
     public static event Action<SwipeData> OnSwipe = delegate { };
 
+    public static bool shoot;
+    public bool swipe;
+
     private void Update()
     {
         foreach (Touch touch in Input.touches)
@@ -42,6 +45,8 @@ public class SwipeDetector : MonoBehaviour
     {
         if (SwipeDistanceCheckMet())
         {
+            shoot = true;
+            swipe = true;
             if (IsVerticalSwipe())
             {
                 var direction = fingerDownPosition.y - fingerUpPosition.y > 0 ? SwipeDirection.Up : SwipeDirection.Down;
