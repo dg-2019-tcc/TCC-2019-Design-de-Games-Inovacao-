@@ -1,18 +1,35 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TouchScript.Gestures;
 
 public class EmotesManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+	
+	private GameObject stickers;
+
+
+	private void OnEnable()
+	{
+		GetComponent<PressGesture>().Pressed += pressedhandler;
+	//	GetComponent<ReleaseGesture>().Released += releasedHandler;
+	}
+
+	private void OnDisable()
+	{
+		GetComponent<PressGesture>().Pressed -= pressedhandler;
+	//	GetComponent<ReleaseGesture>().Released -= releasedHandler;
+	}
+
+
+
+	private void pressedhandler(object sender, System.EventArgs e)
+	{
+		
+			Debug.Log("tocou");
+			stickers.SetActive(true);
+		
+	}
+
 }
