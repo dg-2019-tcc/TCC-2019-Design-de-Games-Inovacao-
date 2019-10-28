@@ -63,6 +63,8 @@ public class PlayerMovement : MonoBehaviour
     public AudioSource tokenSom;
     public AudioSource coleta;
 
+    public Animator playerAC;
+
 
 
 
@@ -103,13 +105,13 @@ public class PlayerMovement : MonoBehaviour
             transform.position = new Vector3(0, 0, 0);
         }
 
+        PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 0;
 
     }
 
 
     void FixedUpdate()
     {
-
 
 
 
@@ -154,7 +156,14 @@ public class PlayerMovement : MonoBehaviour
         {
 
             rb2d.velocity = new Vector3(speed * moveHorizontal, rb2d.velocity.y, 0);
+            playerAC.SetBool("isWalking", true);
+
             //walkSom.SetActive(true);
+        }
+
+        else
+        {
+            playerAC.SetBool("isWalking", false);
         }
 
         /*if(rb2d.velocity.x > maxSpeed)

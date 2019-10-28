@@ -33,7 +33,7 @@ public class CustomManager : MonoBehaviour
 
     public GameObject custom;
 
-    public Player playerScript;
+    public PlayerMovement playerScript;
 
     public AudioSource som;
 
