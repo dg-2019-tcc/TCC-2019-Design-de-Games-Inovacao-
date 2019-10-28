@@ -25,7 +25,10 @@ public class DelayStartRoomController : MonoBehaviourPunCallbacks
     {
         SceneManager.LoadScene(waitingRoomSceneIndex);
 
-		gameObject.GetComponent<PhotonView>().RPC("TrocaSala", RpcTarget.MasterClient);
+		if (SceneManager.GetActiveScene().name != "DelayStartMenuDemo")
+		{
+			gameObject.GetComponent<PhotonView>().RPC("TrocaSala", RpcTarget.MasterClient);
+		}
 
 	}    
 }

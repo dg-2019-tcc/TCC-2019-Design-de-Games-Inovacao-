@@ -31,7 +31,7 @@ public class WolfMovement : MonoBehaviour
 		if (SceneManager.GetActiveScene().name == "TelaVitoria")
 			vitoria = true;
 
-		if ((int)PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] == 1)
+		if (vitoria && (int)PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] == 1)
 			transform.position = player.transform.position;
 
 	}
@@ -42,7 +42,7 @@ public class WolfMovement : MonoBehaviour
     {
         // transform.position = Vector2.MoveTowards(transform.position, player.transform.position, followSpeed * Time.deltaTime);
 
-        if (Vector3.Distance(transform.position, player.transform.position) > allowedDistance)
+        if (player != null && Vector3.Distance(transform.position, player.transform.position) > allowedDistance)
         {
             followSpeed = 0.1f;
             //wolfAnim.SetBool("isWalking", true);
