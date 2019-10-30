@@ -25,6 +25,18 @@ public class DestroyColetavel2D : MonoBehaviourPunCallbacks
                 index++;
             }
         }
+
+        else if (other.CompareTag("DogTiro"))
+        {
+            playerView = other.GetComponent<PhotonView>();
+            if (playerView.IsMine == true && playerView.IsMine != null)
+            {
+                PlayerMovement jogador = other.GetComponent<PlayerMovement>();
+                jogador.PV.Owner.AddScore(1);
+                Destroy(gameObject);
+                index++;
+            }
+        }
     }
 
 }

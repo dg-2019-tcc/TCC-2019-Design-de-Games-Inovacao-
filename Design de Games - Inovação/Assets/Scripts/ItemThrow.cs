@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class ItemThrow : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class ItemThrow : MonoBehaviour
 
     public float timeDestroy;
 
+    public PhotonView PV;
+
 
     // Start is called before the first frame update
     private void Awake()
@@ -20,6 +23,8 @@ public class ItemThrow : MonoBehaviour
         shootDirection = ThrowObject.direction;
 
         rb.velocity = shootDirection * speed;
+
+        PV = GetComponent<PhotonView>();
     }
 
     private void Update()
@@ -27,6 +32,30 @@ public class ItemThrow : MonoBehaviour
         if (timeDestroy >= 3f)
         {
             Destroy(this.gameObject);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Coletavel"))
+        {
+            if (PV.IsMine == true)
+            {
+                PlayerMovement.coletavel++;
+                //coleta.Play();
+            }
+        }
+
+        if (collision.CompareTag("Pipa"))
+        {
+            PlayerMovement.dogPipa = true;
+            //tokenSom.Play();
+        }
+
+        if (collision.CompareTag("Carrinho"))
+        {
+            PlayerMovement.dogCarro = true;
+            //tokenSom.Play();
         }
     }
 

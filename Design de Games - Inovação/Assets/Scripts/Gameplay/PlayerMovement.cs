@@ -12,7 +12,7 @@ public class PlayerMovement : MonoBehaviour
     private float numeroDeColetaveis;
 
     [HideInInspector]
-    public float coletavel;
+    public static float coletavel;
 
 
     public float speed;
@@ -40,11 +40,13 @@ public class PlayerMovement : MonoBehaviour
 
 
     public bool pipa;
+    public static bool dogPipa;
     public float pipaForce;
     public GameObject pipaObj;
 
 
     public bool carrinho;
+    public static bool dogCarro;
     public float carrinhoSpeed;
     public GameObject carrinhoObj;
 
@@ -64,6 +66,8 @@ public class PlayerMovement : MonoBehaviour
     public AudioSource coleta;
 
     public Animator playerAC;
+
+    
 
 
 
@@ -113,11 +117,6 @@ public class PlayerMovement : MonoBehaviour
     void FixedUpdate()
     {
 
-
-
-
-
-
         if (coletavel >= numeroDeColetaveis)
         {
             PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 1;
@@ -166,16 +165,6 @@ public class PlayerMovement : MonoBehaviour
             playerAC.SetBool("isWalking", false);
         }
 
-        /*if(rb2d.velocity.x > maxSpeed)
-        {
-            rb2d.velocity = new Vector2(maxSpeed, rb2d.velocity.y);
-        }
-
-        if (rb2d.velocity.x < -maxSpeed)
-        {
-            rb2d.velocity = new Vector2(-maxSpeed, rb2d.velocity.y);
-        }*/
-
 
         // Pulo
         if (grounded == true && jump == true)
@@ -192,7 +181,9 @@ public class PlayerMovement : MonoBehaviour
         if (desativa == true)
         {
             pipa = false;
+            dogPipa = false;
             carrinho = false;
+            dogCarro = false;
             speed = 2.5f;
             dogCount = 0;
             desativa = false;
@@ -205,7 +196,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //Transformação em pipa
-        if (pipa == true)
+        if (pipa == true || dogPipa == true)
         {
             dogCount += Time.deltaTime;
             rb2d.AddForce(new Vector2(0, pipaForce), ForceMode2D.Impulse);
@@ -221,7 +212,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         // Transformação em carrinho
-        if (carrinho == true && jump == false)
+        if (carrinho == true && jump == false || dogCarro == true)
         {
             dogCount += Time.deltaTime;
             //rb2d.AddForce(-Vector2.up * carrinhoSpeed);
@@ -237,7 +228,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
 
-        if (carrinho == false && pipa == false)
+        if (carrinho == false && pipa == false && dogCarro == false && dogPipa == false)
         {
             TransformaPet(true, "carrinho");
 
