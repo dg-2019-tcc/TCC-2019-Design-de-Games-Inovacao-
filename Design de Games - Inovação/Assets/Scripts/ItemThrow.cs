@@ -12,21 +12,22 @@ public class ItemThrow : MonoBehaviour
 
     public float timeDestroy;
 
-    public PhotonView PV;
+    public GameObject player;
 
 
     private void Awake()
     {
-        timeDestroy += Time.deltaTime;
+        
         shootDirection = ThrowObject.direction;
 
         rb.velocity = shootDirection * speed;
 
-        PV = GetComponent<PhotonView>();
     }
 
     private void Update()
     {
+
+        timeDestroy += Time.deltaTime;
         if (timeDestroy >= 3f)
         {
             Destroy(this.gameObject);
@@ -35,14 +36,6 @@ public class ItemThrow : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Coletavel"))
-        {
-            if (PV.IsMine == true)
-            {
-                PlayerMovement.coletavel++;
-                //coleta.Play();
-            }
-        }
 
         if (collision.CompareTag("Pipa"))
         {
