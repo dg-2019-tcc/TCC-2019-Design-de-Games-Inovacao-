@@ -5,6 +5,9 @@ using Photon.Pun;
 
 public class ItemThrow : MonoBehaviour
 {
+
+    public Photon.Realtime.Player Owner { get; private set; }
+
     public float speed = 20f;
     public Rigidbody2D rb;
 
@@ -12,16 +15,15 @@ public class ItemThrow : MonoBehaviour
 
     public float timeDestroy;
 
-    public GameObject player;
 
-
-    private void Awake()
+    public void InitializeBullet(Photon.Realtime.Player owner)
     {
-        
+        Owner = owner;
+
         shootDirection = ThrowObject.direction;
 
-        rb.velocity = shootDirection * speed;
-
+        rb.velocity = shootDirection;
+        rb.position += rb.velocity;        
     }
 
     private void Update()

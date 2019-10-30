@@ -8,16 +8,14 @@ using UnityEngine;
 public class DestroyColetavel2D : MonoBehaviourPunCallbacks
 {
     PhotonView playerView;
-
     public static int index;
-
-
+    
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.CompareTag("Player"))
+        if (other.CompareTag("Player"))
         {
             playerView = other.GetComponent<PhotonView>();
-            if(playerView.IsMine == true && playerView.IsMine != null)
+            if (playerView.IsMine == true)
             {
                 PlayerMovement jogador = other.GetComponent<PlayerMovement>();
                 jogador.PV.Owner.AddScore(1);
@@ -26,13 +24,12 @@ public class DestroyColetavel2D : MonoBehaviourPunCallbacks
             }
         }
 
-        else if (other.CompareTag("DogTiro"))
+        if (other.gameObject.CompareTag("DogTiro"))
         {
-            playerView = other.GetComponent<PhotonView>();
-            if (playerView.IsMine == true && playerView.IsMine != null)
+            if (playerView.IsMine)
             {
-                PlayerMovement jogador = other.GetComponent<PlayerMovement>();
-                jogador.PV.Owner.AddScore(1);
+                ItemThrow bullet = other.gameObject.GetComponent<ItemThrow>();
+                bullet.Owner.AddScore(1);
                 Destroy(gameObject);
                 index++;
             }

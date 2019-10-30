@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 8130978004912136979}
   - component: {fileID: 131896923335447316}
   - component: {fileID: 5094846525186585045}
+  - component: {fileID: -5586612504663183106}
+  - component: {fileID: -2742032182666491525}
   - component: {fileID: -72017101036946967}
   m_Layer: 0
   m_Name: Bullet
@@ -119,6 +121,43 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
+--- !u!114 &-5586612504663183106
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4221095672926382854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  ObservedComponents:
+  - {fileID: -2742032182666491525}
+  viewIdField: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
+--- !u!114 &-2742032182666491525
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4221095672926382854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
 --- !u!114 &-72017101036946967
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -134,7 +173,7 @@ MonoBehaviour:
   speed: 20
   rb: {fileID: 5094846525186585045}
   timeDestroy: 0
-  PV: {fileID: 0}
+  player: {fileID: 0}
 --- !u!1001 &6913831645067952497
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -142,16 +181,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1593200774654575894}
     m_Modifications:
-    - target: {fileID: -927199367670048503, guid: 1bf2d2503194cea488a16386075853e4,
-        type: 3}
-      propertyPath: m_Name
-      value: Doguinho
-      objectReference: {fileID: 0}
-    - target: {fileID: -927199367670048503, guid: 1bf2d2503194cea488a16386075853e4,
-        type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 1bf2d2503194cea488a16386075853e4,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -221,6 +250,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 1bf2d2503194cea488a16386075853e4,
+        type: 3}
+      propertyPath: m_Name
+      value: Doguinho
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 1bf2d2503194cea488a16386075853e4,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1bf2d2503194cea488a16386075853e4, type: 3}
