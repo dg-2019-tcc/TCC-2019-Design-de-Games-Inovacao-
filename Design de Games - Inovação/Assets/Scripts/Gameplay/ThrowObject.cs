@@ -15,16 +15,30 @@ public class ThrowObject : MonoBehaviour
         SwipeDetector.OnSwipe += SwipeDirection;
     }
 
-    // Update is called once per frame
+
     void Update()
     {
         if(SwipeDetector.shoot == true)
         {
             Shoot();
         }
+
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            direction = new Vector2(0.1f, 0);
+            Shoot();
+        }
+
     }
 
     void Shoot()
+    {
+        Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+        SwipeDetector.shoot = false;
+    }
+
+    //Funciona somente na build, para conseguir atirar usando a tecla "Z"
+    void ShootDebug()
     {
         Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
         SwipeDetector.shoot = false;

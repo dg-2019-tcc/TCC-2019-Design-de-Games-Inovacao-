@@ -10,13 +10,11 @@ public class ItemThrow : MonoBehaviour
 
     private Vector2 shootDirection;
 
-
     public float timeDestroy;
 
     public PhotonView PV;
 
 
-    // Start is called before the first frame update
     private void Awake()
     {
         timeDestroy += Time.deltaTime;
@@ -58,8 +56,4 @@ public class ItemThrow : MonoBehaviour
             //tokenSom.Play();
         }
     }
-
-
-
-
 }
