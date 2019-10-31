@@ -60,5 +60,11 @@ public class ItemThrow : MonoBehaviour
             PlayerMovement.acertouTotem = true;
 
         }
+
+        if (collision.CompareTag("Player"))
+        {
+            PlayerMovement jogador = collision.GetComponent<PlayerMovement>();
+            jogador.levouDogada = true;
+        }
     }
 }

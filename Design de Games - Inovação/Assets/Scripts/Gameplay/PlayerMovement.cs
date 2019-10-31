@@ -74,6 +74,8 @@ public class PlayerMovement : MonoBehaviour
 
     private Transform target;
 
+    public bool levouDogada;
+
 
 
     void Start()
@@ -155,7 +157,7 @@ public class PlayerMovement : MonoBehaviour
         //Movimentação do player no joystick
         float moveHorizontal = joyStick.Horizontal + Input.GetAxisRaw("Horizontal");
 
-        if (moveHorizontal != 0)
+        if (moveHorizontal != 0 && levouDogada == false)
         {
 
             rb2d.velocity = new Vector3(speed * moveHorizontal, rb2d.velocity.y, 0);
@@ -258,6 +260,16 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
+        if (levouDogada)
+        {
+            StartCoroutine("LevouDogada");
+        }
+
+        else
+        {
+            StopCoroutine("LevouDogada");
+        }
+
 
 
 
@@ -320,5 +332,14 @@ public class PlayerMovement : MonoBehaviour
             desativa = true;
         }
 
+    }
+
+    IEnumerator LevouDogada()
+    {
+        playerAC.SetBool("Dogada", true);
+        
+        yield  return new WaitForSeconds(2f);
+        playerAC.SetBool("Dogada", false);
+        levouDogada = false;
     }
 }
