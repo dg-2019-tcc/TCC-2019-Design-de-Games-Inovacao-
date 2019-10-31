@@ -15,6 +15,11 @@ public class ItemThrow : MonoBehaviour
 
     public float timeDestroy;
 
+    public float speedPlayer = 1.0f;
+
+    public static Transform totemTarget;
+
+
 
     public void InitializeBullet(Photon.Realtime.Player owner)
     {
@@ -30,7 +35,7 @@ public class ItemThrow : MonoBehaviour
     {
 
         timeDestroy += Time.deltaTime;
-        if (timeDestroy >= 3f)
+        if (timeDestroy >= 5f)
         {
             Destroy(this.gameObject);
         }
@@ -43,12 +48,17 @@ public class ItemThrow : MonoBehaviour
         {
             PlayerMovement.dogPipa = true;
             //tokenSom.Play();
+            totemTarget = collision.transform;
+            PlayerMovement.acertouTotem = true;
         }
 
         if (collision.CompareTag("Carrinho"))
         {
             PlayerMovement.dogCarro = true;
             //tokenSom.Play();
+            totemTarget = collision.transform;
+            PlayerMovement.acertouTotem = true;
+
         }
     }
 }

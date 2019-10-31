@@ -67,8 +67,12 @@ public class PlayerMovement : MonoBehaviour
 
     public Animator playerAC;
 
-    
 
+    public float speedToTotem = 10.0f;
+
+    public static bool acertouTotem;
+
+    private Transform target;
 
 
 
@@ -239,6 +243,19 @@ public class PlayerMovement : MonoBehaviour
         {
             TransformaPet(false, "carrinho");
             Pet.transform.position = dogSpawn.transform.position;
+        }
+
+        if (acertouTotem == true)
+        {
+            target = ItemThrow.totemTarget;
+
+            float step = speedToTotem * Time.deltaTime; // calculate distance to move
+            transform.position = Vector3.MoveTowards(transform.position, target.position, step);
+
+            if (Vector3.Distance(transform.position, target.position) < 0.001f)
+            {
+                acertouTotem = false;
+            }
         }
 
 
