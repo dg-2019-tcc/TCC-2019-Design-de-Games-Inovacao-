@@ -12,11 +12,13 @@ public class CustomizationSetup : MonoBehaviour
 		PhotonNetwork.SetPlayerCustomProperties(customProperties);
 
 		PhotonNetwork.LocalPlayer.CustomProperties.Add("hairIndex", PlayerPrefs.GetInt("hairIndex"));
-		PhotonNetwork.LocalPlayer.CustomProperties.Add("chestIndex", PlayerPrefs.GetInt("chestIndex"));
+        PhotonNetwork.LocalPlayer.CustomProperties.Add("hairColorIndex", PlayerPrefs.GetInt("hairColorIndex"));
+        PhotonNetwork.LocalPlayer.CustomProperties.Add("shirtColorIndex", PlayerPrefs.GetInt("shirColorIndex"));
 		PhotonNetwork.LocalPlayer.CustomProperties.Add("shirtIndex", PlayerPrefs.GetInt("shirtIndex"));
 		PhotonNetwork.LocalPlayer.CustomProperties.Add("legsIndex", PlayerPrefs.GetInt("legsIndex"));
+        PhotonNetwork.LocalPlayer.CustomProperties.Add("legsColorIndex", PlayerPrefs.GetInt("legsColorIndex"));
 
-		PhotonNetwork.LocalPlayer.CustomProperties.Add("Ganhador", 0);
+        PhotonNetwork.LocalPlayer.CustomProperties.Add("Ganhador", 0);
 	}    
 }
 

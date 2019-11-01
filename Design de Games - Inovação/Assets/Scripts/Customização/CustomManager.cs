@@ -52,7 +52,7 @@ public class CustomManager : MonoBehaviour
         legsIndex = 0;
         */
 
-       //PlayerPrefs.SetInt("hairIndex", hairIndex);
+       /*//PlayerPrefs.SetInt("hairIndex", hairIndex);
         hair.propIndex = PlayerPrefs.GetInt("hairIndex");
         PhotonNetwork.LocalPlayer.CustomProperties["hairIndex"] = hair.propIndex;
 
@@ -67,10 +67,12 @@ public class CustomManager : MonoBehaviour
 		if (GetComponent<PhotonView>() != null && GetComponent<PhotonView>().IsMine)
 		{
 			gameObject.GetComponent<PhotonView>().RPC("TrocaCabelo", RpcTarget.All, hair.propIndex);
-			gameObject.GetComponent<PhotonView>().RPC("TrocaCamisa", RpcTarget.All, shirt.propIndex);
+            gameObject.GetComponent<PhotonView>().RPC("TrocaMaterialCabelo", RpcTarget.All, hair.colorIndex);
+            gameObject.GetComponent<PhotonView>().RPC("TrocaCamisa", RpcTarget.All, shirt.propIndex);
 			gameObject.GetComponent<PhotonView>().RPC("TrocaMaterialCamisa", RpcTarget.All, shirt.colorIndex);
 			gameObject.GetComponent<PhotonView>().RPC("TrocaCalca", RpcTarget.All, legs.propIndex);
-		}
+            gameObject.GetComponent<PhotonView>().RPC("TrocaMaterialCalca", RpcTarget.All, legs.colorIndex);
+        }*/
 	}
 
 	
@@ -83,16 +85,12 @@ public class CustomManager : MonoBehaviour
         som.Play();
         hairModels[hair.propIndex].SetActive(false);
         hair.propIndex += 1;
-        if (hair.propIndex > hairModels.Length)
-        {
-
-            hairModels[0].SetActive(true);
-            hairColor[hair.propIndex].material = hair.color[0].corData[hair.colorIndex];
-            Debug.Log("Acabou");
-        }
-        else if (hair.propIndex == hairModels.Length)
+        
+        if (hair.propIndex >= hairModels.Length)
         {
             hair.propIndex = 0;
+            hairModels[hair.propIndex].SetActive(true);
+            hairColor[hair.propIndex].material = hair.color[0].corData[hair.colorIndex];
             Debug.Log("Acabou");
         }
         else
@@ -102,7 +100,7 @@ public class CustomManager : MonoBehaviour
         }
 
 
-        PlayerPrefs.SetInt("hairIndex", hair.propIndex);
+        //PlayerPrefs.SetInt("hairIndex", hair.propIndex);
 		PhotonNetwork.LocalPlayer.CustomProperties["hairIndex"] = hair.propIndex;
 
 		//sRHair.sprite = hairSprite[hairIndex];
@@ -129,8 +127,9 @@ public class CustomManager : MonoBehaviour
             shirtModels[shirt.propIndex].SetActive(true);
             shirtsColor[shirt.propIndex].material = shirt.color[shirt.propIndex].corData[shirt.colorIndex];
         }
-        PlayerPrefs.SetInt("chestIndex", shirt.propIndex);
-		PhotonNetwork.LocalPlayer.CustomProperties["chestIndex"] = shirt.propIndex;
+
+        //PlayerPrefs.SetInt("shirtIndex", shirt.propIndex);
+		PhotonNetwork.LocalPlayer.CustomProperties["shirtIndex"] = shirt.propIndex;
 
 		//sRChest.sprite = chestSprite[chestIndex];
 		//chestAC.ChangeAnimatorController();
@@ -158,7 +157,7 @@ public class CustomManager : MonoBehaviour
             legsColor[legs.propIndex].material = legs.color[legs.propIndex].corData[legs.colorIndex];
         }
 
-        PlayerPrefs.SetInt("legsIndex", legs.propIndex);
+        //PlayerPrefs.SetInt("legsIndex", legs.propIndex);
 		PhotonNetwork.LocalPlayer.CustomProperties["legsIndex"] = legs.propIndex;
 
 		//sRLegs.sprite = legsSprite[legsIndex];
@@ -172,20 +171,22 @@ public class CustomManager : MonoBehaviour
     {
         som.Play();
         hair.colorIndex += 1;
-        if (hair.colorIndex >= hair.color[0].corData.Length)
+        if (hair.colorIndex >= hair.color[hair.propIndex].corData.Length)
         {
             hair.colorIndex = 0;
 
-            hairColor[hair.propIndex].material = hair.color[0].corData[hair.colorIndex];
+            hairColor[hair.propIndex -1].material = hair.color[hair.propIndex].corData[hair.colorIndex];
+            Debug.Log("Trocou");
         }
 
         else
         {
-            hairColor[hair.propIndex].material = hair.color[0].corData[hair.colorIndex];
+            hairColor[hair.propIndex -1].material = hair.color[hair.propIndex].corData[hair.colorIndex];
+            Debug.Log("Trocou2");
         }
 
-        /*PlayerPrefs.SetInt("hairIndex", shirt.colorIndex);
-        PhotonNetwork.LocalPlayer.CustomProperties["shirtIndex"] = shirt.colorIndex;*/
+        //PlayerPrefs.SetInt("hairColorIndex", hair.colorIndex);
+        PhotonNetwork.LocalPlayer.CustomProperties["hairColorIndex"] = hair.colorIndex;
 
 
     }
@@ -207,8 +208,8 @@ public class CustomManager : MonoBehaviour
             shirtsColor[shirt.propIndex].material = shirt.color[shirt.propIndex].corData[shirt.colorIndex];
         }
 
-        PlayerPrefs.SetInt("shirtIndex", shirt.colorIndex);
-        PhotonNetwork.LocalPlayer.CustomProperties["shirtIndex"] = shirt.colorIndex;
+        //PlayerPrefs.SetInt("shirtColorIndex", shirt.colorIndex);
+        PhotonNetwork.LocalPlayer.CustomProperties["shirtColorIndex"] = shirt.colorIndex;
 
 
     }
@@ -230,14 +231,14 @@ public class CustomManager : MonoBehaviour
             legsColor[legs.propIndex].material = legs.color[legs.propIndex].corData[legs.colorIndex];
         }
 
-        PlayerPrefs.SetInt("shirtIndex", legs.colorIndex);
-        PhotonNetwork.LocalPlayer.CustomProperties["shirtIndex"] = legs.colorIndex;
+        //PlayerPrefs.SetInt("legsColorIndex", legs.colorIndex);
+        PhotonNetwork.LocalPlayer.CustomProperties["legsColorIndex"] = legs.colorIndex;
 
 
     }
 
     //----------------------------------------------------------------Ativando a roupa certa em cada cena
-
+/*
     [PunRPC]
 	private void TrocaCabelo(int onlineIndex)
 	{
@@ -248,7 +249,13 @@ public class CustomManager : MonoBehaviour
 		hairModels[onlineIndex].SetActive(true);
 	}
 
-	[PunRPC]
+    [PunRPC]
+    private void TrocaMaterialCabelo(int onlineIndex)
+    {
+        hairColor[hair.propIndex].material = hair.color[0].corData[hair.colorIndex];
+    }
+
+    [PunRPC]
 	private void TrocaCamisa(int onlineIndex)
 	{
 		for (int i = 0; i < shirtModels.Length; i++)
@@ -274,11 +281,17 @@ public class CustomManager : MonoBehaviour
 		pantModels[onlineIndex].SetActive(true);
 	}
 
+    [PunRPC]
+    private void TrocaMaterialCalca(int onlineIndex)
+    {
+        shirtsColor[shirt.propIndex].material = shirt.color[shirt.propIndex].corData[shirt.colorIndex];
+    }*/
 
 
 
 
-	public void Jogar()
+
+    public void Jogar()
     {
         custom.SetActive(false);
         playerScript.enabled = true;
