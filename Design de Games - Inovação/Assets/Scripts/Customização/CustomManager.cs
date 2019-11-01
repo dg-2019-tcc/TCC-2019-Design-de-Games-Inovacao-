@@ -175,14 +175,13 @@ public class CustomManager : MonoBehaviour
         {
             hair.colorIndex = 0;
 
-            hairColor[hair.propIndex -1].material = hair.color[hair.propIndex].corData[hair.colorIndex];
+            //hairColor[hair.propIndex -1].material = hair.color[hair.propIndex].corData[hair.colorIndex];
             Debug.Log("Trocou");
         }
 
-        else
+       for(int i = 0; i < hairColor.Length; i++)
         {
-            hairColor[hair.propIndex -1].material = hair.color[hair.propIndex].corData[hair.colorIndex];
-            Debug.Log("Trocou2");
+            hairColor[i].material = hair.color[hair.propIndex].corData[hair.colorIndex];
         }
 
         //PlayerPrefs.SetInt("hairColorIndex", hair.colorIndex);
