@@ -8,7 +8,7 @@ public class ItemThrow : MonoBehaviour
 
     public Photon.Realtime.Player Owner { get; private set; }
 
-    public float speed = 100f;
+    public float speed = 20f;
     public Rigidbody2D rb;
 
     private Vector2 shootDirection;
@@ -37,11 +37,13 @@ public class ItemThrow : MonoBehaviour
 
     private void Update()
     {
-        
+        rb.velocity = shootDirection;
+        rb.position += rb.velocity;
+
         timeDestroy += Time.deltaTime;
         if (timeDestroy >= 5f)
         {
-            PlayerMovement.atirou = true;
+            PlayerMovement.atirou = false;
             Destroy(this.gameObject);
         }
     }
