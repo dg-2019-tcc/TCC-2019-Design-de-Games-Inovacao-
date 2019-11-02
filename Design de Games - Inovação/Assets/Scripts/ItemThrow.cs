@@ -8,7 +8,7 @@ public class ItemThrow : MonoBehaviour
 
     public Photon.Realtime.Player Owner { get; private set; }
 
-    public float speed = 20f;
+    public float speed = 100f;
     public Rigidbody2D rb;
 
     private Vector2 shootDirection;
@@ -19,6 +19,8 @@ public class ItemThrow : MonoBehaviour
 
     public static Transform totemTarget;
 
+    public bool hit;
+
 
 
     public void InitializeBullet(Photon.Realtime.Player owner)
@@ -28,15 +30,18 @@ public class ItemThrow : MonoBehaviour
         shootDirection = ThrowObject.direction;
 
         rb.velocity = shootDirection;
-        rb.position += rb.velocity;        
+        rb.position += rb.velocity;
+
+        PlayerMovement.atirou = true;
     }
 
     private void Update()
     {
-
+        
         timeDestroy += Time.deltaTime;
         if (timeDestroy >= 5f)
         {
+            PlayerMovement.atirou = true;
             Destroy(this.gameObject);
         }
     }
@@ -50,6 +55,7 @@ public class ItemThrow : MonoBehaviour
             //tokenSom.Play();
             totemTarget = collision.transform;
             PlayerMovement.acertouTotem = true;
+            timeDestroy = 4.9f;
         }
 
         if (collision.CompareTag("Carrinho"))
@@ -58,6 +64,7 @@ public class ItemThrow : MonoBehaviour
             //tokenSom.Play();
             totemTarget = collision.transform;
             PlayerMovement.acertouTotem = true;
+            timeDestroy = 4.9f;
 
         }
 
@@ -65,6 +72,7 @@ public class ItemThrow : MonoBehaviour
         {
             PlayerMovement jogador = collision.GetComponent<PlayerMovement>();
             jogador.levouDogada = true;
+            timeDestroy = 4.9f;
         }
     }
 }

@@ -77,6 +77,8 @@ public class PlayerMovement : MonoBehaviour
 
     public bool levouDogada;
 
+    public static bool atirou;
+
 
 
     void Start()
@@ -236,7 +238,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
 
-        if (carrinho == false && pipa == false && dogCarro == false && dogPipa == false)
+        if (carrinho == false && pipa == false && dogCarro == false && dogPipa == false && atirou == false)
         {
             TransformaPet(true, "carrinho");
 
