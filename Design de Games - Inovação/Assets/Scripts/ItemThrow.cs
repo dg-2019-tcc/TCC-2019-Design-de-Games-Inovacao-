@@ -1,36 +1,70 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class ItemThrow : MonoBehaviour
 {
+
+    public Photon.Realtime.Player Owner { get; private set; }
+
     public float speed = 20f;
     public Rigidbody2D rb;
 
     private Vector2 shootDirection;
 
-
     public float timeDestroy;
 
+    public float speedPlayer = 1.0f;
 
-    // Start is called before the first frame update
-    private void Awake()
+    public static Transform totemTarget;
+
+
+
+    public void InitializeBullet(Photon.Realtime.Player owner)
     {
-        timeDestroy += Time.deltaTime;
+        Owner = owner;
+
         shootDirection = ThrowObject.direction;
 
-        rb.velocity = shootDirection * speed;
+        rb.velocity = shootDirection;
+        rb.position += rb.velocity;        
     }
 
     private void Update()
     {
-        if (timeDestroy >= 3f)
+
+        timeDestroy += Time.deltaTime;
+        if (timeDestroy >= 5f)
         {
             Destroy(this.gameObject);
         }
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
 
+        if (collision.CompareTag("Pipa"))
+        {
+            PlayerMovement.dogPipa = true;
+            //tokenSom.Play();
+            totemTarget = collision.transform;
+            PlayerMovement.acertouTotem = true;
+        }
 
+        if (collision.CompareTag("Carrinho"))
+        {
+            PlayerMovement.dogCarro = true;
+            //tokenSom.Play();
+            totemTarget = collision.transform;
+            PlayerMovement.acertouTotem = true;
 
+        }
+
+        if (collision.CompareTag("Player"))
+        {
+            PlayerMovement jogador = collision.GetComponent<PlayerMovement>();
+            jogador.levouDogada = true;
+        }
+    }
 }

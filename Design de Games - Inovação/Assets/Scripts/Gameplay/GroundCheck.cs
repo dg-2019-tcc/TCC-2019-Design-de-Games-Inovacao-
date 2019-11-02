@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class GroundCheck : MonoBehaviour
 {
-    private Player player;
+    private PlayerMovement player;
 
     protected Joystick joystick;
 
      void Start()
     {
-        player = gameObject.GetComponentInParent<Player>();
+        player = gameObject.GetComponentInParent<PlayerMovement>();
 
     }
 

@@ -12,7 +12,7 @@ public class PlayerMovement : MonoBehaviour
     private float numeroDeColetaveis;
 
     [HideInInspector]
-    public float coletavel;
+    public static float coletavel;
 
 
     public float speed;
@@ -40,11 +40,13 @@ public class PlayerMovement : MonoBehaviour
 
 
     public bool pipa;
+    public static bool dogPipa;
     public float pipaForce;
     public GameObject pipaObj;
 
 
     public bool carrinho;
+    public static bool dogCarro;
     public float carrinhoSpeed;
     public GameObject carrinhoObj;
 
@@ -63,6 +65,16 @@ public class PlayerMovement : MonoBehaviour
     public AudioSource tokenSom;
     public AudioSource coleta;
 
+    public Animator playerAC;
+
+
+    public float speedToTotem = 10.0f;
+
+    public static bool acertouTotem;
+
+    private Transform target;
+
+    public bool levouDogada;
 
 
 
@@ -103,18 +115,13 @@ public class PlayerMovement : MonoBehaviour
             transform.position = new Vector3(0, 0, 0);
         }
 
+        PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 0;
 
     }
 
 
     void FixedUpdate()
     {
-
-
-
-
-
-
 
         if (coletavel >= numeroDeColetaveis)
         {
@@ -150,22 +157,19 @@ public class PlayerMovement : MonoBehaviour
         //Movimentação do player no joystick
         float moveHorizontal = joyStick.Horizontal + Input.GetAxisRaw("Horizontal");
 
-        if (moveHorizontal != 0)
+        if (moveHorizontal != 0 && levouDogada == false)
         {
 
             rb2d.velocity = new Vector3(speed * moveHorizontal, rb2d.velocity.y, 0);
+            playerAC.SetBool("isWalking", true);
+
             //walkSom.SetActive(true);
         }
 
-        /*if(rb2d.velocity.x > maxSpeed)
+        else
         {
-            rb2d.velocity = new Vector2(maxSpeed, rb2d.velocity.y);
+            playerAC.SetBool("isWalking", false);
         }
-
-        if (rb2d.velocity.x < -maxSpeed)
-        {
-            rb2d.velocity = new Vector2(-maxSpeed, rb2d.velocity.y);
-        }*/
 
 
         // Pulo
@@ -183,7 +187,9 @@ public class PlayerMovement : MonoBehaviour
         if (desativa == true)
         {
             pipa = false;
+            dogPipa = false;
             carrinho = false;
+            dogCarro = false;
             speed = 2.5f;
             dogCount = 0;
             desativa = false;
@@ -196,7 +202,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //Transformação em pipa
-        if (pipa == true)
+        if (pipa == true || dogPipa == true)
         {
             dogCount += Time.deltaTime;
             rb2d.AddForce(new Vector2(0, pipaForce), ForceMode2D.Impulse);
@@ -212,7 +218,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         // Transformação em carrinho
-        if (carrinho == true && jump == false)
+        if (carrinho == true && jump == false || dogCarro == true)
         {
             dogCount += Time.deltaTime;
             //rb2d.AddForce(-Vector2.up * carrinhoSpeed);
@@ -228,7 +234,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
 
-        if (carrinho == false && pipa == false)
+        if (carrinho == false && pipa == false && dogCarro == false && dogPipa == false)
         {
             TransformaPet(true, "carrinho");
 
@@ -239,6 +245,29 @@ public class PlayerMovement : MonoBehaviour
         {
             TransformaPet(false, "carrinho");
             Pet.transform.position = dogSpawn.transform.position;
+        }
+
+        if (acertouTotem == true)
+        {
+            target = ItemThrow.totemTarget;
+
+            float step = speedToTotem * Time.deltaTime; // calculate distance to move
+            transform.position = Vector3.MoveTowards(transform.position, target.position, step);
+
+            if (Vector3.Distance(transform.position, target.position) < 0.001f)
+            {
+                acertouTotem = false;
+            }
+        }
+
+        if (levouDogada)
+        {
+            StartCoroutine("LevouDogada");
+        }
+
+        else
+        {
+            StopCoroutine("LevouDogada");
         }
 
 
@@ -303,5 +332,14 @@ public class PlayerMovement : MonoBehaviour
             desativa = true;
         }
 
+    }
+
+    IEnumerator LevouDogada()
+    {
+        playerAC.SetBool("Dogada", true);
+        
+        yield  return new WaitForSeconds(2f);
+        playerAC.SetBool("Dogada", false);
+        levouDogada = false;
     }
 }

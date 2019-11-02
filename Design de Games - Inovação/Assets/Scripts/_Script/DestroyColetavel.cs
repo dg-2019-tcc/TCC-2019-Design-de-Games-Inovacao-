@@ -16,7 +16,7 @@ public class DestroyColetavel : MonoBehaviourPunCallbacks
 			playerView = other.GetComponent<PhotonView>();            
             if(playerView.IsMine == true && playerView.IsMine != null)
             {
-                Player jogador = other.GetComponent<Player>();
+                PlayerMovement jogador = other.GetComponent<PlayerMovement>();
                 jogador.PV.Owner.AddScore(1);
                 Destroy(gameObject);
             }
