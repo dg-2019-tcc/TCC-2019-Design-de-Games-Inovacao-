@@ -3,6 +3,7 @@ using Photon.Realtime;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Photon.Pun.UtilityScripts;
 using Cinemachine;
 
@@ -109,7 +110,7 @@ public class PlayerMovement : MonoBehaviour
             canvasSelf.SetActive(false);
         }
 
-        if ((int)PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] == 1)
+        if (SceneManager.GetActiveScene().name == "TelaVitoria" && (int)PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] == 1)
         {
             FindObjectOfType<Coroa>().ganhador = transform;
             transform.position = new Vector3(0, 0, 0);
@@ -138,40 +139,41 @@ public class PlayerMovement : MonoBehaviour
 
         if (PV != null && !PV.IsMine) return;
 
-        //Vector2 move = new Vector2(joyStick.Horizontal + Input.GetAxisRaw("Horizontal"), 0);
+		//Vector2 move = new Vector2(joyStick.Horizontal + Input.GetAxisRaw("Horizontal"), 0);
 
-        if (joyStick != null)
-        {
-            if (joyStick.Horizontal > 0)
-            {
-                player.transform.rotation = Quaternion.Euler(0, 90, 0);
+		if (joyStick != null)
+		{
+			if (joyStick.Horizontal > 0)
+			{
+				player.transform.rotation = Quaternion.Euler(0, 90, 0);
 
-            }
-            else if (joyStick.Horizontal < 0)
-            {
-                player.transform.rotation = Quaternion.Euler(0, -90, 0);
-            }
-        }
-
-
-        //Movimentação do player no joystick
-        float moveHorizontal = joyStick.Horizontal + Input.GetAxisRaw("Horizontal");
-
-        if (moveHorizontal != 0 && levouDogada == false)
-        {
-
-            rb2d.velocity = new Vector3(speed * moveHorizontal, rb2d.velocity.y, 0);
-            playerAC.SetBool("isWalking", true);
-
-            //walkSom.SetActive(true);
-        }
-
-        else
-        {
-            playerAC.SetBool("isWalking", false);
-        }
+			}
+			else if (joyStick.Horizontal < 0)
+			{
+				player.transform.rotation = Quaternion.Euler(0, -90, 0);
+			}
 
 
+
+			//Movimentação do player no joystick
+			float moveHorizontal = joyStick.Horizontal + Input.GetAxisRaw("Horizontal");
+
+
+			if (moveHorizontal != 0 && levouDogada == false)
+			{
+
+				rb2d.velocity = new Vector3(speed * moveHorizontal, rb2d.velocity.y, 0);
+				playerAC.SetBool("isWalking", true);
+
+				//walkSom.SetActive(true);
+			}
+
+			else
+			{
+				playerAC.SetBool("isWalking", false);
+			}
+
+		}
         // Pulo
         if (grounded == true && jump == true)
         {
