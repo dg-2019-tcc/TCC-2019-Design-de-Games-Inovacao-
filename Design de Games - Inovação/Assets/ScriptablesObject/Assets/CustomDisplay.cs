@@ -49,7 +49,7 @@ public class CustomDisplay : MonoBehaviour
         shirtModels[shirt.propIndex].SetActive(true);
         legModels[legs.propIndex].SetActive(true);
 
-        hairColor[hair.propIndex].material = hair.color[hair.propIndex].corData[hair.colorIndex];
+        hairColor[hair.propIndex].material = hair.color[0].corData[hair.colorIndex];
         shirtsColor[shirt.propIndex].material = shirt.color[shirt.propIndex].corData[shirt.colorIndex];
         legsColor[legs.propIndex].material = legs.color[legs.propIndex].corData[legs.colorIndex];
 
@@ -82,8 +82,12 @@ public class CustomDisplay : MonoBehaviour
     [PunRPC]
     private void TrocaMaterialCabelo(int onlineIndex)
     {
-       
-        hairColor[onlineIndex].material = hair.color[hair.propIndex].corData[hair.colorIndex];
+        for (int i = 0; i < hairColor.Length; i++)
+        {
+            hairColor[i].material = hair.color[0].corData[hair.colorIndex];
+        }
+
+        hairColor[hair.propIndex].material = hair.color[0].corData[onlineIndex];
     }
 
     [PunRPC]
@@ -100,7 +104,7 @@ public class CustomDisplay : MonoBehaviour
     private void TrocaMaterialCamisa(int onlineIndex)
     {
         
-        shirtsColor[onlineIndex].material = shirt.color[hair.propIndex].corData[hair.colorIndex];
+        shirtsColor[shirt.propIndex].material = shirt.color[shirt.propIndex].corData[onlineIndex];
     }
 
     [PunRPC]
@@ -117,6 +121,6 @@ public class CustomDisplay : MonoBehaviour
     private void TrocaMaterialCalca(int onlineIndex)
     {
        
-        legsColor[onlineIndex].material = legs.color[legs.propIndex].corData[legs.colorIndex];
+        legsColor[legs.propIndex].material = legs.color[legs.propIndex].corData[onlineIndex];
     }
 }
