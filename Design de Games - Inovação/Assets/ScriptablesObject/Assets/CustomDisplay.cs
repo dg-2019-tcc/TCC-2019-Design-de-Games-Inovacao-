@@ -24,7 +24,7 @@ public class CustomDisplay : MonoBehaviour
     void Awake()
     {
 
-        //hair.propIndex = PlayerPrefs.GetInt("hairIndex");
+       /* //hair.propIndex = PlayerPrefs.GetInt("hairIndex");
         PhotonNetwork.LocalPlayer.CustomProperties["hairIndex"] = hair.propIndex;
 
         //PlayerPrefs.SetInt("shirtIndex", shirt.propIndex);
@@ -42,7 +42,7 @@ public class CustomDisplay : MonoBehaviour
         PhotonNetwork.LocalPlayer.CustomProperties["shirtColorIndex"] = shirt.colorIndex;
 
         //legs.colorIndex = PlayerPrefs.GetInt("legsColorIndex");
-        PhotonNetwork.LocalPlayer.CustomProperties["legsColorIndex"] = legs.colorIndex;
+        PhotonNetwork.LocalPlayer.CustomProperties["legsColorIndex"] = legs.colorIndex;*/
 
 
         hairModels[hair.propIndex].SetActive(true);
