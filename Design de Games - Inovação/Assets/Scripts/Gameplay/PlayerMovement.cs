@@ -79,6 +79,9 @@ public class PlayerMovement : MonoBehaviour
 
     public static bool atirou;
 
+    [SerializeField]
+    private bool tutorial;
+
 
     void Start()
     {
@@ -91,7 +94,7 @@ public class PlayerMovement : MonoBehaviour
 
         PV = GetComponent<PhotonView>();
 
-        if (PV != null && PV.IsMine)
+        if (PV != null && PV.IsMine || tutorial == true)
         {
             VC = gameObject.transform.GetChild(0).GetComponent<CinemachineVirtualCamera>();
             VC.Priority = 15;
