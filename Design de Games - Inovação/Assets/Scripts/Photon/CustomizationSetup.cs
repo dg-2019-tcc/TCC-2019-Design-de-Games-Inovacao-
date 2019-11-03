@@ -15,6 +15,7 @@ public class CustomizationSetup : MonoBehaviour
     {
 		PhotonNetwork.SetPlayerCustomProperties(customProperties);
 
+		/*
 		PhotonNetwork.LocalPlayer.CustomProperties.Add("hairIndex", hair.propIndex);
         PhotonNetwork.LocalPlayer.CustomProperties.Add("hairColorIndex",hair.colorIndex);
         PhotonNetwork.LocalPlayer.CustomProperties.Add("shirtColorIndex", shirt.colorIndex);
@@ -23,6 +24,7 @@ public class CustomizationSetup : MonoBehaviour
         PhotonNetwork.LocalPlayer.CustomProperties.Add("legsColorIndex", legs.colorIndex);
 
         PhotonNetwork.LocalPlayer.CustomProperties.Add("Ganhador", 0);
+		*/
 	}    
 }
 

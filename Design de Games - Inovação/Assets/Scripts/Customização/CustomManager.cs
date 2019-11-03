@@ -110,7 +110,7 @@ public class CustomManager : MonoBehaviour
 	}
 
     [PunRPC]
-	public void ChangeChest()
+	public void ChangeShirt()
     {
         som.Play();
         shirtModels[shirt.propIndex].SetActive(false);
@@ -171,18 +171,18 @@ public class CustomManager : MonoBehaviour
     {
         som.Play();
         hair.colorIndex += 1;
-        if (hair.colorIndex >= hair.color[hair.propIndex].corData.Length)
+        if (hair.colorIndex >= hair.color[0].corData.Length)
         {
             hair.colorIndex = 0;
 
-            //hairColor[hair.propIndex -1].material = hair.color[hair.propIndex].corData[hair.colorIndex];
+            hairColor[hair.propIndex].material = hair.color[0].corData[hair.colorIndex];
             Debug.Log("Trocou");
         }
 
        for(int i = 0; i < hairColor.Length; i++)
-        {
-            hairColor[i].material = hair.color[hair.propIndex].corData[hair.colorIndex];
-        }
+       {
+            hairColor[i].material = hair.color[0].corData[hair.colorIndex];
+       }
 
         //PlayerPrefs.SetInt("hairColorIndex", hair.colorIndex);
         PhotonNetwork.LocalPlayer.CustomProperties["hairColorIndex"] = hair.colorIndex;
