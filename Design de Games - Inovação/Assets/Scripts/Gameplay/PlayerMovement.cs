@@ -112,6 +112,7 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             canvasSelf.SetActive(false);
+			rb2d.isKinematic = true;
         }
 
         if (SceneManager.GetActiveScene().name == "TelaVitoria" && (int)PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] == 1)
@@ -242,15 +243,13 @@ public class PlayerMovement : MonoBehaviour
 
         if (carrinho == false && pipa == false && dogCarro == false && dogPipa == false && atirou == false)
         {
-            TransformaPet(true, "carrinho");
-
-
+			gameObject.GetComponent<PhotonView>().RPC("TransformaPet", RpcTarget.All, true, "carrinho");
         }
 
         else
         {
-            TransformaPet(false, "carrinho");
-            Pet.transform.position = dogSpawn.transform.position;
+			gameObject.GetComponent<PhotonView>().RPC("TransformaPet", RpcTarget.All, false, "carrinho");
+			Pet.transform.position = dogSpawn.transform.position;
         }
 
         if (acertouTotem == true)
@@ -298,6 +297,8 @@ public class PlayerMovement : MonoBehaviour
         PV.Owner.SetScore(0);
     }
 
+	
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Coletavel"))
@@ -322,7 +323,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-
+	[PunRPC]
     private void TransformaPet(bool isDog, string transformation)
     {
         Pet.SetActive(isDog);

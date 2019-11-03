@@ -34,7 +34,7 @@ public class ThrowObject : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Z))
             {
                 direction = new Vector2(0.5f, 0);
-                photonView.RPC("Shoot", RpcTarget.AllViaServer);
+                photonView.RPC("Shoot", RpcTarget.All);
             }
         }
     }
