@@ -83,7 +83,11 @@ public class CustomManager : MonoBehaviour
 	public void ChangeHair()
     {
         som.Play();
-        hairModels[hair.propIndex].SetActive(false);
+		for (int i = 0; i < hairModels.Length; i++)
+		{
+			hairModels[i].SetActive(false);
+		}
+        
         hair.propIndex += 1;
         
         if (hair.propIndex >= hairModels.Length)
@@ -113,7 +117,10 @@ public class CustomManager : MonoBehaviour
 	public void ChangeShirt()
     {
         som.Play();
-        shirtModels[shirt.propIndex].SetActive(false);
+		for (int i = 0; i < shirtModels.Length; i++)
+		{
+			shirtModels[i].SetActive(false);
+		}
         shirt.propIndex += 1;
         if (shirt.propIndex >= shirtModels.Length)
         {
@@ -140,7 +147,10 @@ public class CustomManager : MonoBehaviour
 	public void ChangeLegs()
     {
         som.Play();
-        pantModels[legs.propIndex].SetActive(false);
+		for (int i = 0; i < pantModels.Length; i++)
+		{
+			pantModels[i].SetActive(false);
+		}
         legs.propIndex += 1;
         if (legs.propIndex >= pantModels.Length)
         {
