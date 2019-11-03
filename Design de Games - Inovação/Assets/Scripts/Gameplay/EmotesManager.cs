@@ -6,30 +6,14 @@ using TouchScript.Gestures;
 public class EmotesManager : MonoBehaviour
 {
 
-	
-	private GameObject stickers;
+	public GameObject pause;
+	public GameObject[] emote;
 
-
-	private void OnEnable()
+	public void Sticker(int index)
 	{
-		GetComponent<PressGesture>().Pressed += pressedhandler;
-	//	GetComponent<ReleaseGesture>().Released += releasedHandler;
-	}
+		pause.SetActive(false);
+		emote[index].SetActive(true);
 
-	private void OnDisable()
-	{
-		GetComponent<PressGesture>().Pressed -= pressedhandler;
-	//	GetComponent<ReleaseGesture>().Released -= releasedHandler;
-	}
-
-
-
-	private void pressedhandler(object sender, System.EventArgs e)
-	{
-		
-			Debug.Log("tocou");
-			stickers.SetActive(true);
-		
 	}
 
 }
