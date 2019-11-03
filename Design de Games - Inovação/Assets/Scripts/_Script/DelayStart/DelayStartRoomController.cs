@@ -9,7 +9,10 @@ public class DelayStartRoomController : MonoBehaviourPunCallbacks
     [SerializeField]
     private string waitingRoomSceneIndex;
 
-    public DelayStartLobbyController roomController;
+    [SerializeField]
+    private string waitingRoomTutorialSceneIndex;
+
+    public DelayStartLobbyController lobbyController;
 
     public override void OnEnable()
     {
@@ -23,12 +26,18 @@ public class DelayStartRoomController : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
-        SceneManager.LoadScene(waitingRoomSceneIndex);
+        if(lobbyController.gameRoom == true)
+        {
+            SceneManager.LoadScene(waitingRoomSceneIndex);
+        }
+        else if(lobbyController.tutorialRoom == true)
+        {
+            SceneManager.LoadScene(waitingRoomTutorialSceneIndex);
+        }
 
 		if (SceneManager.GetActiveScene().name != "DelayStartMenuDemo")
 		{
 			gameObject.GetComponent<PhotonView>().RPC("TrocaSala", RpcTarget.MasterClient);
 		}
-
 	}    
 }

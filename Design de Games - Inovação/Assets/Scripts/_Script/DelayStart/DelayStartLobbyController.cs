@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class DelayStartLobbyController : MonoBehaviourPunCallbacks
 {
@@ -16,13 +17,23 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
 	private GameObject loadingScene; //Feedback pro jogador de que a cena está carregando, o "esperando"
     [SerializeField]
     private int RoomSize; //Utilizado para setar manualmente o numero de jogadores de uma sala
-    
+
+    [HideInInspector]
+    public bool tutorialRoom = false;
+    [HideInInspector]
+    public bool gameRoom = false;
+
     [HideInInspector]
     public bool modo;
+
+    private int tutorialSize = 1;
 
     public InputField playerNameInput;
 
     public AudioSource startSound;
+
+    [SerializeField]
+    private string tutorial;
 
     public override void OnConnectedToMaster()
     {
@@ -45,12 +56,12 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
             PhotonNetwork.NickName = "Player " + Random.Range(0, 1000);
         }
         playerNameInput.text = PhotonNetwork.NickName;
-
     }
-
-
+    
     public void DelayStart()
     {
+        gameRoom = true;
+        tutorialRoom = false;
         startSound.Play();
         delayStartButton.SetActive(false);
         delayCancelButton.SetActive(true);
@@ -65,6 +76,17 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
         //PhotonNetwork.JoinRandomRoom(expectedCustomRoomProperties, (byte)RoomSize);
         
     }
+
+    public void StartTutorial()
+    {
+        gameRoom = false;
+        tutorialRoom = true;
+        startSound.Play();
+        delayStartButton.SetActive(false);
+        delayCancelButton.SetActive(true);
+        loadingScene.SetActive(true);
+        CreateTutorialRoom();
+    }
     
     public void PlayerNameUpdate(string nameInput)
     {
@@ -75,7 +97,13 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
     public override void OnJoinRandomFailed(short returnCode, string message)
     {
         Debug.Log("Failed to join a room");
-        CreateRoom();
+        if(gameRoom == true)
+        {
+            CreateRoom();
+        }else if(tutorialRoom == true)
+        {
+            CreateTutorialRoom();
+        }
     }
 
     void CreateRoom()
@@ -115,6 +143,14 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
         //Debug.Log(randomRoomNumber + " / " + modo);
     }
 
+    public void CreateTutorialRoom()
+    {
+        Debug.Log("Creating room now");
+        int randomRoomNumber = Random.Range(0, 10000);
+        RoomOptions roomOps = new RoomOptions() { IsVisible = false, IsOpen = false, MaxPlayers = (byte)tutorialSize };
+        PhotonNetwork.CreateRoom("Room" + randomRoomNumber, roomOps);
+    }
+
     public override void OnCreateRoomFailed(short returnCode, string message)
     {
         Debug.Log("Failed to create a room... trying again");
@@ -128,4 +164,3 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
         PhotonNetwork.LeaveRoom();
     }
 }
-
