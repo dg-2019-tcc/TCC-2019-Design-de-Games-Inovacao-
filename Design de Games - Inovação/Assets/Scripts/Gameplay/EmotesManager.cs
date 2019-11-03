@@ -2,34 +2,27 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TouchScript.Gestures;
+using Photon.Pun;
 
 public class EmotesManager : MonoBehaviour
 {
 
-	
-	private GameObject stickers;
+	public GameObject pause;
+	public GameObject[] emote;
 
-
-	private void OnEnable()
+	public void Sticker(int index)
 	{
-		GetComponent<PressGesture>().Pressed += pressedhandler;
-	//	GetComponent<ReleaseGesture>().Released += releasedHandler;
+		pause.SetActive(false);
+		gameObject.GetComponent<PhotonView>().RPC("MandaSticker", RpcTarget.All, index);
+
 	}
 
-	private void OnDisable()
+	[PunRPC]
+	private void MandaSticker(int index)
 	{
-		GetComponent<PressGesture>().Pressed -= pressedhandler;
-	//	GetComponent<ReleaseGesture>().Released -= releasedHandler;
-	}
 
+		emote[index].SetActive(true);
 
-
-	private void pressedhandler(object sender, System.EventArgs e)
-	{
-		
-			Debug.Log("tocou");
-			stickers.SetActive(true);
-		
 	}
 
 }

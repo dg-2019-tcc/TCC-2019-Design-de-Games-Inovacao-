@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class WolfMovement : MonoBehaviour
 {
+	private PhotonView pv;
     public GameObject player;
     public float targetDistance;
     public float allowedDistance = 5;
@@ -27,6 +28,7 @@ public class WolfMovement : MonoBehaviour
 	{
 		wolfAnim = gameObject.transform.GetChild(0).GetComponent<Animator>();
 		rb = GetComponent<Rigidbody2D>();
+		pv = GetComponent<PhotonView>();
 
 		if (SceneManager.GetActiveScene().name == "TelaVitoria")
 			vitoria = true;
@@ -34,14 +36,15 @@ public class WolfMovement : MonoBehaviour
 		if (vitoria && (int)PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] == 1)
 			transform.position = player.transform.position;
 
+		if (!pv.IsMine) rb.isKinematic = true;
 	}
 
 
     // Update is called once per frame
     void Update()
     {
-        // transform.position = Vector2.MoveTowards(transform.position, player.transform.position, followSpeed * Time.deltaTime);
-
+		if (!pv.IsMine) return;
+        
         if (player != null && Vector3.Distance(transform.position, player.transform.position) > allowedDistance)
         {
             followSpeed = 0.1f;
@@ -76,7 +79,6 @@ public class WolfMovement : MonoBehaviour
         {
 
             followSpeed = 0;
-
             //wolfAnim.SetBool("isWalking", false);
 
         }
@@ -84,15 +86,8 @@ public class WolfMovement : MonoBehaviour
 
 		if (rb.velocity.y == 0 && vitoria)
 		{
-
 			rb.AddForce(Vector2.up * 100);
-
-		}
-
-        
+		} 
     }
-
-	
-
 
 }
