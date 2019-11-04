@@ -9,9 +9,7 @@ public class DelayStartWaitingRoomController : MonoBehaviourPunCallbacks
     private PhotonView myPhotonView;
 
     [SerializeField]
-    private string multiplayerSceneIndex1;
-    [SerializeField]
-    private string multiplayerSceneIndex2;
+    private string multiplayerSceneIndex;
     [SerializeField]
     private int menuSceneIndex;
 
@@ -160,7 +158,7 @@ public class DelayStartWaitingRoomController : MonoBehaviourPunCallbacks
         if (!PhotonNetwork.IsMasterClient)
             return;
         PhotonNetwork.CurrentRoom.IsOpen = false;
-        PhotonNetwork.LoadLevel(multiplayerSceneIndex2);
+        PhotonNetwork.LoadLevel(multiplayerSceneIndex);
 
     }
 
