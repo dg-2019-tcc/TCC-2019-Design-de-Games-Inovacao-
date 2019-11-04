@@ -74,13 +74,15 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
 
     public override void OnJoinRandomFailed(short returnCode, string message)
     {
-        Debug.Log("Failed to join a room");
+        //Debug para saber que falhou em conectar numa sala
+        //Debug.Log("Failed to join a room");
         CreateRoom();
     }
 
     void CreateRoom()
     {
-        Debug.Log("Creating room now");
+        //Debug para saber que está criando uma sala
+        //Debug.Log("Creating room now");
         int randomRoomNumber = Random.Range(0, 10000);
         RoomOptions roomOps = new RoomOptions() { IsVisible = true, IsOpen = true, MaxPlayers = (byte)RoomSize };
         /*

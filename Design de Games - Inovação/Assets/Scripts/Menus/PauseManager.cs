@@ -33,7 +33,6 @@ public class PauseManager : MonoBehaviourPunCallbacks
     {
 		PhotonNetwork.Disconnect();
 		goBack = true;
-        
     }
 
     public void VoltaJogo()
@@ -41,12 +40,10 @@ public class PauseManager : MonoBehaviourPunCallbacks
         pausebuttons.SetActive(false);
     }
 
-	public override void OnDisconnected(DisconnectCause cause)
-	{
-		base.OnDisconnected(cause);
-		if(goBack)
-			SceneManager.LoadScene(nomeDoMenu);
-	}
-
-
+    public override void OnDisconnected(DisconnectCause cause)
+    {
+        base.OnDisconnected(cause);
+        if (goBack)
+            SceneManager.LoadScene(nomeDoMenu);
+    }
 }

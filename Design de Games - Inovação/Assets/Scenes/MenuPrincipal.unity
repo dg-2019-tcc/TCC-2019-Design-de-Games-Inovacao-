@@ -133,7 +133,7 @@ GameObject:
   - component: {fileID: 102352131}
   - component: {fileID: 102352130}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: CanvasCenario
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -235,7 +235,6 @@ GameObject:
   - component: {fileID: 227990719}
   - component: {fileID: 227990718}
   - component: {fileID: 227990717}
-  - component: {fileID: 227990720}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -289,20 +288,52 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 831515746}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &227990720
+--- !u!1 &263160249
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 263160250}
+  - component: {fileID: 263160251}
+  m_Layer: 0
+  m_Name: MenuManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &263160250
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 263160249}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 831515746}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &263160251
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 227990716}
+  m_GameObject: {fileID: 263160249}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3b797e1dbf136f9419ea07a6945615ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nomeDoMenu: MenuCustomizacao
 --- !u!1 &539551527
 GameObject:
   m_ObjectHideFlags: 0
@@ -315,7 +346,7 @@ GameObject:
   - component: {fileID: 539551530}
   - component: {fileID: 539551529}
   m_Layer: 5
-  m_Name: kintal
+  m_Name: TituloKintal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -391,7 +422,7 @@ GameObject:
   - component: {fileID: 580373331}
   - component: {fileID: 580373330}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: CanvasMinhocasVerdes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -507,6 +538,7 @@ Transform:
   - {fileID: 1019265232}
   - {fileID: 1821583603}
   - {fileID: 1559762661}
+  - {fileID: 263160250}
   - {fileID: 841042073}
   - {fileID: 227990719}
   m_Father: {fileID: 0}
@@ -524,7 +556,7 @@ GameObject:
   - component: {fileID: 834085322}
   - component: {fileID: 834085321}
   m_Layer: 5
-  m_Name: triangulo
+  m_Name: TrianguloPlay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -680,7 +712,7 @@ RectTransform:
   - {fileID: 580373329}
   - {fileID: 102352129}
   m_Father: {fileID: 831515746}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -821,7 +853,7 @@ GameObject:
   - component: {fileID: 979037478}
   - component: {fileID: 979037477}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: CanvasBotoes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1003,7 +1035,7 @@ GameObject:
   - component: {fileID: 1234721959}
   - component: {fileID: 1234721958}
   m_Layer: 5
-  m_Name: cog
+  m_Name: Opcoes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1078,7 +1110,7 @@ GameObject:
   - component: {fileID: 1319544016}
   - component: {fileID: 1319544015}
   m_Layer: 5
-  m_Name: dog
+  m_Name: Dog
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1222,7 +1254,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 227990720}
+      - m_Target: {fileID: 263160251}
         m_MethodName: ComecaJogo
         m_Mode: 1
         m_Arguments:
@@ -1286,7 +1318,7 @@ GameObject:
   - component: {fileID: 1559762659}
   - component: {fileID: 1559762658}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1468,7 +1500,7 @@ GameObject:
   - component: {fileID: 1856892870}
   - component: {fileID: 1856892869}
   m_Layer: 5
-  m_Name: trinagulo_azul
+  m_Name: TrianguloAzul
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1543,7 +1575,7 @@ GameObject:
   - component: {fileID: 2001472389}
   - component: {fileID: 2001472388}
   m_Layer: 5
-  m_Name: Image
+  m_Name: Minhocas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

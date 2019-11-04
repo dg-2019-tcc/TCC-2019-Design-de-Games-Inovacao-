@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NetworkControllerKhalil : MonoBehaviourPunCallbacks
+public class NetworkController : MonoBehaviourPunCallbacks
 {
     /// <summary>
     /// 
@@ -28,12 +28,12 @@ public class NetworkControllerKhalil : MonoBehaviourPunCallbacks
         {
             return;
         }
-
         PhotonNetwork.ConnectUsingSettings(); //Conecta com os servidores mestres do photon
     }
 
     public override void OnConnectedToMaster()
     {
-        Debug.Log("Nós estamos conectados ao servidor " + PhotonNetwork.CloudRegion + "!!");
+        //Basicamente debug para facilitar saber o que acontece aonde
+        //Debug.Log("Nós estamos conectados ao servidor " + PhotonNetwork.CloudRegion + "!!");
     }
 }
