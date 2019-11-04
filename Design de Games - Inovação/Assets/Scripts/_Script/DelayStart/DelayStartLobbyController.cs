@@ -59,7 +59,7 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
 
     public void DelayStart()
     {
-        SaveCustom();
+        //SaveCustom();
         startSound.Play();
         delayStartButton.SetActive(false);
         delayCancelButton.SetActive(true);
@@ -137,7 +137,7 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
         PhotonNetwork.LeaveRoom();
     }
 
-    public void SaveCustom()
+    /*public void SaveCustom()
     {
         newAvatar.shirtIndex = shirt.propIndex;
         newAvatar.hairIndex = hair.propIndex;
@@ -145,6 +145,6 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
         newAvatar.hairColorIndex = hair.colorIndex;
         newAvatar.shirtColorIndex = shirt.colorIndex;
         newAvatar.legsColorIndex = legs.colorIndex;
-    }
+    }*/
 }
 
