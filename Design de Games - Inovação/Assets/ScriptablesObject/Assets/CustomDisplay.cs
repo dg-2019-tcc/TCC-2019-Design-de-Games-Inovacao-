@@ -117,7 +117,7 @@ public class CustomDisplay : MonoBehaviour
     {
         for (int i = 0; i < shirtsColor.Length; i++)
         {
-            shirtsColor[i].material = hair.color[0].corData[shirt.colorIndex];
+            shirtsColor[i].material = shirt.color[0].corData[shirt.colorIndex];
         }
 
         shirtsColor[shirt.propIndex].material = shirt.color[shirt.propIndex].corData[onlineIndex];
