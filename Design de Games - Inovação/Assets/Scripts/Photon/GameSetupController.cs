@@ -25,17 +25,13 @@ public class GameSetupController : MonoBehaviour
 	void Start()
     {
 		StartCoroutine( "CreatePlayer", delayToCreate);
-
-		
     }
 
-	private IEnumerator CreatePlayer(float delay)
-	{
-
-		yield return new WaitForSeconds(delay);
-			Debug.Log("Criando Jogador");
-			PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PhotonPlayer"), spawnPoints[Random.Range(0, spawnPoints.Length-1)].position, Quaternion.identity);
-		
-
-	}
+    private IEnumerator CreatePlayer(float delay)
+    {
+        //Debug para dizer que o jogador está sendo criado
+        //Debug.Log("Criando Jogador");
+        yield return new WaitForSeconds(delay);
+        PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PhotonPlayer"), spawnPoints[Random.Range(0, spawnPoints.Length - 1)].position, Quaternion.identity);
+    }
 }

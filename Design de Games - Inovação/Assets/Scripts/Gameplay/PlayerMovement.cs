@@ -23,8 +23,6 @@ public class PlayerMovement : MonoBehaviour
     public bool jump;
 
 
-    // private Vector3 oldPosition;
-
     public GameObject player;
 
 
