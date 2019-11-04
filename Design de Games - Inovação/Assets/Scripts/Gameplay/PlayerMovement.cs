@@ -25,7 +25,7 @@ public class PlayerMovement : MonoBehaviour
 
     public GameObject player;
 
-
+    [SerializeField]
     protected Joystick joyStick;
     protected FixedButton fixedButton;
     public GameObject canvasSelf;

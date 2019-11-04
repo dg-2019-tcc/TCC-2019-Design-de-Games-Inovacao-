@@ -34,6 +34,6 @@ public class NetworkController : MonoBehaviourPunCallbacks
     public override void OnConnectedToMaster()
     {
         //Basicamente debug para facilitar saber o que acontece aonde
-        //Debug.Log("Nós estamos conectados ao servidor " + PhotonNetwork.CloudRegion + "!!");
+        Debug.Log("Nós estamos conectados ao servidor " + PhotonNetwork.CloudRegion + "!!");
     }
 }
