@@ -94,13 +94,13 @@ public class CustomManager : MonoBehaviour
         {
             hair.propIndex = 0;
             hairModels[hair.propIndex].SetActive(true);
-            hairColor[hair.propIndex].material = hair.color[hair.propIndex].corData[hair.colorIndex];
+            hairColor[hair.propIndex].material = hair.color.corData[hair.colorIndex];
             Debug.Log("Acabou");
         }
         else
         {            
             hairModels[hair.propIndex].SetActive(true);
-            hairColor[hair.propIndex].material = hair.color[hair.propIndex].corData[hair.colorIndex];
+            hairColor[hair.propIndex].material = hair.color.corData[hair.colorIndex];
         }
 
 
@@ -126,13 +126,13 @@ public class CustomManager : MonoBehaviour
         {
             shirt.propIndex = 0;
             shirtModels[0].SetActive(true);
-            shirtsColor[shirt.propIndex].material = shirt.color[shirt.propIndex].corData[shirt.colorIndex];
+            shirtsColor[shirt.propIndex].material = shirt.color.corData[shirt.colorIndex];
             Debug.Log("Acabou");
         }
         else
         {            
             shirtModels[shirt.propIndex].SetActive(true);
-            shirtsColor[shirt.propIndex].material = shirt.color[shirt.propIndex].corData[shirt.colorIndex];
+            shirtsColor[shirt.propIndex].material = shirt.color.corData[shirt.colorIndex];
         }
 
         //PlayerPrefs.SetInt("shirtIndex", shirt.propIndex);
@@ -158,13 +158,13 @@ public class CustomManager : MonoBehaviour
 
             legs.propIndex = 0;
             pantModels[0].SetActive(true);
-            legsColor[legs.propIndex].material = legs.color[legs.propIndex].corData[legs.colorIndex];
+            legsColor[legs.propIndex].material = legs.color.corData[legs.colorIndex];
             Debug.Log("Acabou");
         }
         else
         {
             pantModels[legs.propIndex].SetActive(true);
-            legsColor[legs.propIndex].material = legs.color[legs.propIndex].corData[legs.colorIndex];
+            legsColor[legs.propIndex].material = legs.color.corData[legs.colorIndex];
         }
 
         //PlayerPrefs.SetInt("legsIndex", legs.propIndex);
@@ -181,17 +181,17 @@ public class CustomManager : MonoBehaviour
     {
         som.Play();
         hair.colorIndex += 1;
-        if (hair.colorIndex >= hair.color[0].corData.Length)
+        if (hair.colorIndex >= hair.color.corData.Length)
         {
             hair.colorIndex = 0;
 
-            hairColor[hair.propIndex].material = hair.color[0].corData[hair.colorIndex];
+            hairColor[hair.propIndex].material = hair.color.corData[hair.colorIndex];
             Debug.Log("Trocou");
         }
 
        for(int i = 0; i < hairColor.Length; i++)
        {
-            hairColor[i].material = hair.color[0].corData[hair.colorIndex];
+            hairColor[i].material = hair.color.corData[hair.colorIndex];
        }
 
         //PlayerPrefs.SetInt("hairColorIndex", hair.colorIndex);
@@ -205,16 +205,16 @@ public class CustomManager : MonoBehaviour
     {
         som.Play();
         shirt.colorIndex += 1;
-        if (shirt.colorIndex >= shirt.color[shirt.propIndex].corData.Length)
+        if (shirt.colorIndex >= shirt.color.corData.Length)
         {
             shirt.colorIndex = 0;
 
-           shirtsColor[shirt.propIndex].material = shirt.color[shirt.propIndex].corData[shirt.colorIndex];
+           shirtsColor[shirt.propIndex].material = shirt.color.corData[shirt.colorIndex];
         }
 
         else
         {
-            shirtsColor[shirt.propIndex].material = shirt.color[shirt.propIndex].corData[shirt.colorIndex];
+            shirtsColor[shirt.propIndex].material = shirt.color.corData[shirt.colorIndex];
         }
 
         //PlayerPrefs.SetInt("shirtColorIndex", shirt.colorIndex);
@@ -228,16 +228,16 @@ public class CustomManager : MonoBehaviour
     {
         som.Play();
         legs.colorIndex += 1;
-        if (legs.colorIndex >= legs.color[legs.propIndex].corData.Length)
+        if (legs.colorIndex >= legs.color.corData.Length)
         {
             legs.colorIndex = 0;
 
-            legsColor[legs.propIndex].material = legs.color[legs.propIndex].corData[legs.colorIndex];
+            legsColor[legs.propIndex].material = legs.color.corData[legs.colorIndex];
         }
 
         else
         {
-            legsColor[legs.propIndex].material = legs.color[legs.propIndex].corData[legs.colorIndex];
+            legsColor[legs.propIndex].material = legs.color.corData[legs.colorIndex];
         }
 
         //PlayerPrefs.SetInt("legsColorIndex", legs.colorIndex);

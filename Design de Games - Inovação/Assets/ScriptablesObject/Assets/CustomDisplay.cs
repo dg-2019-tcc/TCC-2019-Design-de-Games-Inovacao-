@@ -112,10 +112,10 @@ public class CustomDisplay : MonoBehaviour
     {
         for (int i = 0; i < hairColor.Length; i++)
         {
-            hairColor[i].material = hair.color[0].corData[hair.colorIndex];
+            hairColor[i].material = hair.color.corData[onlineIndex];
         }
 
-        hairColor[hair.propIndex].material = hair.color[hair.propIndex].corData[onlineIndex];
+        hairColor[hair.propIndex].material = hair.color.corData[onlineIndex];
     }
 
     [PunRPC]
@@ -133,10 +133,10 @@ public class CustomDisplay : MonoBehaviour
     {
         for (int i = 0; i < shirtsColor.Length; i++)
         {
-            shirtsColor[i].material = shirt.color[0].corData[shirt.colorIndex];
+            shirtsColor[i].material = shirt.color.corData[onlineIndex];
         }
 
-        shirtsColor[shirt.propIndex].material = shirt.color[shirt.propIndex].corData[onlineIndex];
+        shirtsColor[shirt.propIndex].material = shirt.color.corData[onlineIndex];
     }
 
     [PunRPC]
@@ -154,8 +154,8 @@ public class CustomDisplay : MonoBehaviour
     {
         for (int i = 0; i < legsColor.Length; i++)
         {
-            legsColor[i].material = legs.color[0].corData[legs.colorIndex];
+            legsColor[i].material = legs.color.corData[onlineIndex];
         }
-        legsColor[legs.propIndex].material = legs.color[legs.propIndex].corData[onlineIndex];
+        legsColor[legs.propIndex].material = legs.color.corData[onlineIndex];
     }
 }

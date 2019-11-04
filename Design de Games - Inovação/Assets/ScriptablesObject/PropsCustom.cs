@@ -10,6 +10,6 @@ public class PropsCustom : ScriptableObject
 
     public int colorIndex;
 
-    public ColorData[] color;
+    public ColorData color;
     
 }
