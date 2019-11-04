@@ -5,6 +5,10 @@ using UnityEngine;
 
 public class PlayerAtiva : MonoBehaviour
 {
+
+    [SerializeField]
+    public bool desativaCanvas;
+
 	private PhotonView PV;
 	public PlataformaManager[] PM;
 	public GameObject canvas;
@@ -16,7 +20,11 @@ public class PlayerAtiva : MonoBehaviour
 
 		if (PV != null && PV.IsMine)
 		{
-			canvas.SetActive(true);
+
+            if(desativaCanvas == false)
+            {
+                canvas.SetActive(true);
+            }
 
 
 

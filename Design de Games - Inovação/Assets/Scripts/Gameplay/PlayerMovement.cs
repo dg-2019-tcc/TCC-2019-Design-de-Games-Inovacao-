@@ -38,6 +38,8 @@ public class PlayerMovement : MonoBehaviour
     protected Joystick joyStick;
     protected FixedButton fixedButton;
     public GameObject canvasSelf;
+    [SerializeField]
+    private bool desativaCanvas;
 
 
 
@@ -113,6 +115,12 @@ public class PlayerMovement : MonoBehaviour
         PV = GetComponent<PhotonView>();
 
 
+        if (desativaCanvas == true)
+        {
+            canvasSelf.SetActive(false);
+        }
+
+
         if (PV != null && PV.IsMine)
         {
             VC = gameObject.transform.GetChild(0).GetComponent<CinemachineVirtualCamera>();
@@ -138,6 +146,7 @@ public class PlayerMovement : MonoBehaviour
             transform.position = new Vector3(0, 0, 0);
         }
         PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 0;
+   
     }
 
 
