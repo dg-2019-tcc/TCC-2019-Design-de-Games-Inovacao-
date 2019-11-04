@@ -24,48 +24,60 @@ public class CustomDisplay : MonoBehaviour
     void Awake()
     {
 
-       /* //hair.propIndex = PlayerPrefs.GetInt("hairIndex");
-        PhotonNetwork.LocalPlayer.CustomProperties["hairIndex"] = hair.propIndex;
+		/* //hair.propIndex = PlayerPrefs.GetInt("hairIndex");
+		 PhotonNetwork.LocalPlayer.CustomProperties["hairIndex"] = hair.propIndex;
 
-        //PlayerPrefs.SetInt("shirtIndex", shirt.propIndex);
-        //shirt.propIndex = PlayerPrefs.GetInt("shirtIndex");
-        PhotonNetwork.LocalPlayer.CustomProperties["shirtIndex"] = shirt.propIndex;
+		 //PlayerPrefs.SetInt("shirtIndex", shirt.propIndex);
+		 //shirt.propIndex = PlayerPrefs.GetInt("shirtIndex");
+		 PhotonNetwork.LocalPlayer.CustomProperties["shirtIndex"] = shirt.propIndex;
 
-        //PlayerPrefs.SetInt("legsIndex", legsIndex);
-        //legs.propIndex = PlayerPrefs.GetInt("legsIndex");
-        PhotonNetwork.LocalPlayer.CustomProperties["legsIndex"] = legs.propIndex;
+		 //PlayerPrefs.SetInt("legsIndex", legsIndex);
+		 //legs.propIndex = PlayerPrefs.GetInt("legsIndex");
+		 PhotonNetwork.LocalPlayer.CustomProperties["legsIndex"] = legs.propIndex;
 
-        //hair.colorIndex = PlayerPrefs.GetInt("hairColorIndex");
-        PhotonNetwork.LocalPlayer.CustomProperties["hairColorIndex"] = hair.colorIndex;
+		 //hair.colorIndex = PlayerPrefs.GetInt("hairColorIndex");
+		 PhotonNetwork.LocalPlayer.CustomProperties["hairColorIndex"] = hair.colorIndex;
 
-        //shirt.colorIndex = PlayerPrefs.GetInt("shirtColorIndex");
-        PhotonNetwork.LocalPlayer.CustomProperties["shirtColorIndex"] = shirt.colorIndex;
+		 //shirt.colorIndex = PlayerPrefs.GetInt("shirtColorIndex");
+		 PhotonNetwork.LocalPlayer.CustomProperties["shirtColorIndex"] = shirt.colorIndex;
 
-        //legs.colorIndex = PlayerPrefs.GetInt("legsColorIndex");
-        PhotonNetwork.LocalPlayer.CustomProperties["legsColorIndex"] = legs.colorIndex;*/
+		 //legs.colorIndex = PlayerPrefs.GetInt("legsColorIndex");
+		 PhotonNetwork.LocalPlayer.CustomProperties["legsColorIndex"] = legs.colorIndex;*/
 
 
-        hairModels[hair.propIndex].SetActive(true);
+		/*hairModels[hair.propIndex].SetActive(true);
         shirtModels[shirt.propIndex].SetActive(true);
         legModels[legs.propIndex].SetActive(true);
 
         hairColor[hair.propIndex].material = hair.color[0].corData[hair.colorIndex];
         shirtsColor[shirt.propIndex].material = shirt.color[shirt.propIndex].corData[shirt.colorIndex];
-        legsColor[legs.propIndex].material = legs.color[legs.propIndex].corData[legs.colorIndex];
+        legsColor[legs.propIndex].material = legs.color[legs.propIndex].corData[legs.colorIndex];*/
 
 
 
 
 
-        if (GetComponent<PhotonView>() != null && GetComponent<PhotonView>().IsMine)
-        {
-            gameObject.GetComponent<PhotonView>().RPC("TrocaCabelo", RpcTarget.All, hair.propIndex);
-            gameObject.GetComponent<PhotonView>().RPC("TrocaMaterialCabelo", RpcTarget.All, hair.colorIndex);
-            gameObject.GetComponent<PhotonView>().RPC("TrocaCamisa", RpcTarget.All, shirt.propIndex);
-            gameObject.GetComponent<PhotonView>().RPC("TrocaMaterialCamisa", RpcTarget.All, shirt.colorIndex);
-            gameObject.GetComponent<PhotonView>().RPC("TrocaCalca", RpcTarget.All, legs.propIndex);
-            gameObject.GetComponent<PhotonView>().RPC("TrocaMaterialCalca", RpcTarget.All, legs.colorIndex);
-        }
+
+
+		if (GetComponent<PhotonView>() != null && GetComponent<PhotonView>().IsMine)
+		{
+			gameObject.GetComponent<PhotonView>().RPC("TrocaCabelo", RpcTarget.All, hair.propIndex);
+			gameObject.GetComponent<PhotonView>().RPC("TrocaMaterialCabelo", RpcTarget.All, hair.colorIndex);
+			gameObject.GetComponent<PhotonView>().RPC("TrocaCamisa", RpcTarget.All, shirt.propIndex);
+			gameObject.GetComponent<PhotonView>().RPC("TrocaMaterialCamisa", RpcTarget.All, shirt.colorIndex);
+			gameObject.GetComponent<PhotonView>().RPC("TrocaCalca", RpcTarget.All, legs.propIndex);
+			gameObject.GetComponent<PhotonView>().RPC("TrocaMaterialCalca", RpcTarget.All, legs.colorIndex);
+		}
+		else if (!PhotonNetwork.InRoom)
+		{
+			TrocaCabelo(hair.propIndex);
+			TrocaMaterialCabelo(hair.colorIndex);
+			TrocaCamisa(shirt.propIndex);
+			TrocaMaterialCamisa(shirt.colorIndex);
+			TrocaCalca(legs.propIndex);
+			TrocaMaterialCalca(legs.colorIndex);
+
+		}
     }
 
 
