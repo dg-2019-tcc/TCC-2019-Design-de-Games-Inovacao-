@@ -7,6 +7,8 @@ using UnityEngine.SceneManagement;
 
 public class PauseManager : MonoBehaviourPunCallbacks
 {
+    [SerializeField]
+    private string nomeDoMenu;
 
     public GameObject pausebuttons;
 
@@ -43,7 +45,7 @@ public class PauseManager : MonoBehaviourPunCallbacks
 	{
 		base.OnDisconnected(cause);
 		if(goBack)
-			SceneManager.LoadScene("DelayStartMenuDemo");
+			SceneManager.LoadScene(nomeDoMenu);
 	}
 
 
