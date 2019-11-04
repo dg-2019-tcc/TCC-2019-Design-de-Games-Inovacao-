@@ -9,21 +9,30 @@ using Cinemachine;
 
 public class PlayerMovement : MonoBehaviour
 {
+
+    [Header("Coletáveis")]
+
     [SerializeField]
     private float numeroDeColetaveis;
-
     [HideInInspector]
     public static float coletavel;
 
 
+
+    [Header("Movimentação física")]
+
+    public GameObject player;
     public float speed;
     public float jumpSpeed;
     public float maxSpeed = 8;
     private Rigidbody2D rb2d;
     public bool jump;
+    public Transform groundCheck;
+    public bool grounded;
 
 
-    public GameObject player;
+
+    [Header("Canvas")]
 
     [SerializeField]
     protected Joystick joyStick;
@@ -31,12 +40,23 @@ public class PlayerMovement : MonoBehaviour
     public GameObject canvasSelf;
 
 
-    public Transform groundCheck;
-    public bool grounded;
 
+    [Header("Pet")]
 
     public GameObject Pet;
+    public GameObject dogSpawn;
+    public float dogCount;
+    private Transform target;
+    public bool levouDogada;
+    public static bool atirou;
+    public float speedToTotem = 10.0f;
+    public static bool acertouTotem;
+    [HideInInspector]
+    public bool desativaTransformacao;
 
+
+
+    [Header("Pet pipa")]
 
     public bool pipa;
     public static bool dogPipa;
@@ -44,55 +64,56 @@ public class PlayerMovement : MonoBehaviour
     public GameObject pipaObj;
 
 
+
+    [Header("Pet carrinho")]
+    
     public bool carrinho;
     public static bool dogCarro;
     public float carrinhoSpeed;
     public GameObject carrinhoObj;
 
+
+
+    //[Header("Photon")]
+
     [HideInInspector]
     public PhotonView PV;
+
+
+
+    //[Header("Cinemachine")]
+
     private CinemachineConfiner CC;
     private CinemachineVirtualCamera VC;
+    
 
-    public GameObject dogSpawn;
-    public float dogCount;
 
-    public bool desativa;
+
+    [Header("Som")]
 
     public AudioSource puloSom;
     public GameObject walkSom;
     public AudioSource tokenSom;
     public AudioSource coleta;
 
+
+
+    [Header("Animação")]
+
     public Animator playerAC;
 
-
-    public float speedToTotem = 10.0f;
-
-    public static bool acertouTotem;
-
-    private Transform target;
-
-    public bool levouDogada;
-
-    public static bool atirou;
-
-    [SerializeField]
-    private bool tutorial;
 
 
     void Start()
     {
         //Get and store a reference to the Rigidbody2D component so that we can access it.
         rb2d = GetComponent<Rigidbody2D>();
-
         joyStick = FindObjectOfType<Joystick>();
-
         fixedButton = FindObjectOfType<FixedButton>();
-
         PV = GetComponent<PhotonView>();
 
-        if (PV != null && PV.IsMine || tutorial == true)
+
+        if (PV != null && PV.IsMine)
         {
             VC = gameObject.transform.GetChild(0).GetComponent<CinemachineVirtualCamera>();
             VC.Priority = 15;
@@ -103,9 +124,7 @@ public class PlayerMovement : MonoBehaviour
                 CC.m_BoundingShape2D = GameObject.Find("CameraConfiner").GetComponent<PolygonCollider2D>();
                 CC.InvalidatePathCache();
             }
-
             rb2d.gravityScale = 1;
-
         }
         else
         {
@@ -118,10 +137,9 @@ public class PlayerMovement : MonoBehaviour
             FindObjectOfType<Coroa>().ganhador = transform;
             transform.position = new Vector3(0, 0, 0);
         }
-
         PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 0;
-
     }
+
 
 
     void FixedUpdate()
@@ -135,10 +153,7 @@ public class PlayerMovement : MonoBehaviour
 
             gameObject.GetComponent<PhotonView>().RPC("TrocaSala", RpcTarget.MasterClient);
             coletavel = 0;
-
-
         }
-
 
         if (PV != null && !PV.IsMine) return;
 
@@ -156,18 +171,13 @@ public class PlayerMovement : MonoBehaviour
 				player.transform.rotation = Quaternion.Euler(0, -90, 0);
 			}
 
-
-
 			//Movimentação do player no joystick
 			float moveHorizontal = joyStick.Horizontal + Input.GetAxisRaw("Horizontal");
-
-
 			if (moveHorizontal != 0 && levouDogada == false)
 			{
 
 				rb2d.velocity = new Vector3(speed * moveHorizontal, rb2d.velocity.y, 0);
 				playerAC.SetBool("isWalking", true);
-
 				//walkSom.SetActive(true);
 			}
 
@@ -175,7 +185,6 @@ public class PlayerMovement : MonoBehaviour
 			{
 				playerAC.SetBool("isWalking", false);
 			}
-
 		}
         // Pulo
         if (grounded == true && jump == true)
@@ -189,7 +198,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         // Desativando transformações
-        if (desativa == true)
+        if (desativaTransformacao == true)
         {
             pipa = false;
             dogPipa = false;
@@ -197,13 +206,13 @@ public class PlayerMovement : MonoBehaviour
             dogCarro = false;
             speed = 2.5f;
             dogCount = 0;
-            desativa = false;
+            desativaTransformacao = false;
         }
 
         //Colocando tempo limite das tranformações
         if (dogCount >= 2f)
         {
-            desativa = true;
+            desativaTransformacao = true;
         }
 
         //Transformação em pipa
@@ -235,10 +244,8 @@ public class PlayerMovement : MonoBehaviour
         if (carrinho == false && !Pet.activeSelf)
         {
             carrinhoObj.SetActive(false);
-
         }
-
-
+        
         if (carrinho == false && pipa == false && dogCarro == false && dogPipa == false && atirou == false)
         {
 			gameObject.GetComponent<PhotonView>().RPC("TransformaPet", RpcTarget.All, true, "carrinho");
@@ -253,10 +260,8 @@ public class PlayerMovement : MonoBehaviour
         if (acertouTotem == true)
         {
             target = ItemThrow.totemTarget;
-
             float step = speedToTotem * Time.deltaTime; // calculate distance to move
             transform.position = Vector3.MoveTowards(transform.position, target.position, step);
-
             if (Vector3.Distance(transform.position, target.position) < 0.001f)
             {
                 acertouTotem = false;
@@ -272,10 +277,6 @@ public class PlayerMovement : MonoBehaviour
         {
             StopCoroutine("LevouDogada");
         }
-
-
-
-
         //Debug.Log(rb2d.velocity);
     }
 
@@ -334,7 +335,7 @@ public class PlayerMovement : MonoBehaviour
         jump = true;
         if (pipa == true || carrinho == true)
         {
-            desativa = true;
+            desativaTransformacao = true;
         }
 
     }
