@@ -24,6 +24,11 @@ public class NetworkControllerKhalil : MonoBehaviourPunCallbacks
 
     void Start()
     {
+        if (PhotonNetwork.IsConnected)
+        {
+            return;
+        }
+
         PhotonNetwork.ConnectUsingSettings(); //Conecta com os servidores mestres do photon
     }
 

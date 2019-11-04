@@ -9,6 +9,9 @@ public class DelayStartRoomController : MonoBehaviourPunCallbacks
     [SerializeField]
     private string waitingRoomSceneIndex;
 
+    [SerializeField]
+    private string menuCustomizacao;
+
     public DelayStartLobbyController roomController;
 
     public override void OnEnable()
@@ -25,7 +28,7 @@ public class DelayStartRoomController : MonoBehaviourPunCallbacks
     {
         SceneManager.LoadScene(waitingRoomSceneIndex);
 
-		if (SceneManager.GetActiveScene().name != "DelayStartMenuDemo")
+		if (SceneManager.GetActiveScene().name != menuCustomizacao)
 		{
 			gameObject.GetComponent<PhotonView>().RPC("TrocaSala", RpcTarget.MasterClient);
 		}
