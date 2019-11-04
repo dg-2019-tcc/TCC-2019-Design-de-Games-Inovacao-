@@ -13,7 +13,7 @@ public class ItemThrow : MonoBehaviour
 
     private Vector2 shootDirection;
 
-    public float timeDestroy;
+    static public float timeDestroy;
 
     public float speedPlayer = 1.0f;
 
@@ -43,6 +43,7 @@ public class ItemThrow : MonoBehaviour
         timeDestroy += Time.deltaTime;
         if (timeDestroy >= 5f)
         {
+			timeDestroy = 0;
             PlayerMovement.atirou = false;
             Destroy(this.gameObject);
         }

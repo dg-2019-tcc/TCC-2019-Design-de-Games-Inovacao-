@@ -42,7 +42,7 @@ public class ThrowObject : MonoBehaviour
     [PunRPC]
     void Shoot()
     {
-
+		if (ItemThrow.timeDestroy > 0) return;
         GameObject bullet;
         bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);// as GameObject;
         bullet.GetComponent<ItemThrow>().InitializeBullet(photonView.Owner);
