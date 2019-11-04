@@ -99,7 +99,7 @@ public class CustomDisplay : MonoBehaviour
             hairColor[i].material = hair.color[0].corData[hair.colorIndex];
         }*/
 
-        hairColor[hair.propIndex].material = hair.color[0].corData[onlineIndex];
+        hairColor[hair.propIndex].material = hair.color[hair.propIndex].corData[onlineIndex];
     }
 
     [PunRPC]

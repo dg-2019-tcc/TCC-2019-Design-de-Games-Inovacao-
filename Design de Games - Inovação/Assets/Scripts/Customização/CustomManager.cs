@@ -94,13 +94,13 @@ public class CustomManager : MonoBehaviour
         {
             hair.propIndex = 0;
             hairModels[hair.propIndex].SetActive(true);
-            hairColor[hair.propIndex].material = hair.color[0].corData[hair.colorIndex];
+            hairColor[hair.propIndex].material = hair.color[hair.propIndex].corData[hair.colorIndex];
             Debug.Log("Acabou");
         }
         else
         {            
             hairModels[hair.propIndex].SetActive(true);
-            hairColor[hair.propIndex].material = hair.color[0].corData[hair.colorIndex];
+            hairColor[hair.propIndex].material = hair.color[hair.propIndex].corData[hair.colorIndex];
         }
 
 
