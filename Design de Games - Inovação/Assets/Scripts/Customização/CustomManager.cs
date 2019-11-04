@@ -21,16 +21,6 @@ public class CustomManager : MonoBehaviour
 
     public SkinnedMeshRenderer[] shirtsColor;
 
-    /* public int bodyIndex;
-
-     public int hairIndex;
-
-     public int chestIndex;
-
-     public int legsIndex;
-
-     public int shirtIndex;*/
-
     public PropsCustom hair;
 
     public PropsCustom shirt;
@@ -42,6 +32,8 @@ public class CustomManager : MonoBehaviour
     public PlayerMovement playerScript;
 
     public AudioSource som;
+
+    public PlayerAvatar newAvatar;
 
 
     private void Start()
@@ -74,6 +66,7 @@ public class CustomManager : MonoBehaviour
             gameObject.GetComponent<PhotonView>().RPC("TrocaMaterialCalca", RpcTarget.All, legs.colorIndex);
         }*/
 	}
+
 
 	
 
@@ -302,6 +295,13 @@ public class CustomManager : MonoBehaviour
 
     public void Jogar()
     {
+        newAvatar.shirtIndex = shirt.propIndex;
+        newAvatar.hairIndex = hair.propIndex;
+        newAvatar.legsIndex = legs.propIndex;
+        newAvatar.hairColorIndex = hair.colorIndex;
+        newAvatar.shirtColorIndex = shirt.colorIndex;
+        newAvatar.legsColorIndex = legs.colorIndex;
+        Debug.Log("Jogar");
         custom.SetActive(false);
         playerScript.enabled = true;
     }

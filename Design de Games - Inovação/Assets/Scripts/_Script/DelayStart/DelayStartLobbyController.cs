@@ -24,6 +24,14 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
 
     public AudioSource startSound;
 
+    public PlayerAvatar newAvatar;
+
+    public PropsCustom hair;
+
+    public PropsCustom shirt;
+
+    public PropsCustom legs;
+
     public override void OnConnectedToMaster()
     {
         PhotonNetwork.AutomaticallySyncScene = true;
@@ -51,6 +59,7 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
 
     public void DelayStart()
     {
+        SaveCustom();
         startSound.Play();
         delayStartButton.SetActive(false);
         delayCancelButton.SetActive(true);
@@ -126,6 +135,16 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
         delayCancelButton.SetActive(false);
         delayStartButton.SetActive(true);
         PhotonNetwork.LeaveRoom();
+    }
+
+    public void SaveCustom()
+    {
+        newAvatar.shirtIndex = shirt.propIndex;
+        newAvatar.hairIndex = hair.propIndex;
+        newAvatar.legsIndex = legs.propIndex;
+        newAvatar.hairColorIndex = hair.colorIndex;
+        newAvatar.shirtColorIndex = shirt.colorIndex;
+        newAvatar.legsColorIndex = legs.colorIndex;
     }
 }
 
