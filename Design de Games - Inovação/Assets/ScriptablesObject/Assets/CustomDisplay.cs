@@ -103,7 +103,11 @@ public class CustomDisplay : MonoBehaviour
     [PunRPC]
     private void TrocaMaterialCamisa(int onlineIndex)
     {
-        
+        for (int i = 0; i < shirtsColor.Length; i++)
+        {
+            shirtsColor[i].material = hair.color[0].corData[shirt.colorIndex];
+        }
+
         shirtsColor[shirt.propIndex].material = shirt.color[shirt.propIndex].corData[onlineIndex];
     }
 
@@ -120,7 +124,10 @@ public class CustomDisplay : MonoBehaviour
     [PunRPC]
     private void TrocaMaterialCalca(int onlineIndex)
     {
-       
+        for (int i = 0; i < legsColor.Length; i++)
+        {
+            legsColor[i].material = legs.color[0].corData[legs.colorIndex];
+        }
         legsColor[legs.propIndex].material = legs.color[legs.propIndex].corData[onlineIndex];
     }
 }
