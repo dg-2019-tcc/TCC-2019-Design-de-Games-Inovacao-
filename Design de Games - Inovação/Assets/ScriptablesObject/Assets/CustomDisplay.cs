@@ -55,11 +55,16 @@ public class CustomDisplay : MonoBehaviour
 
 
 
+		PhotonNetwork.LocalPlayer.CustomProperties["hairIndex"] = hair.propIndex;
+		PhotonNetwork.LocalPlayer.CustomProperties["shirtIndex"] = shirt.propIndex;
+		PhotonNetwork.LocalPlayer.CustomProperties["legsIndex"] = legs.propIndex;
+		PhotonNetwork.LocalPlayer.CustomProperties["hairColorIndex"] = hair.colorIndex;
+		PhotonNetwork.LocalPlayer.CustomProperties["shirtColorIndex"] = shirt.colorIndex;
+		PhotonNetwork.LocalPlayer.CustomProperties["legsColorIndex"] = legs.colorIndex;
 
 
 
-
-		if (GetComponent<PhotonView>() != null && GetComponent<PhotonView>().IsMine)
+		/*if (GetComponent<PhotonView>() != null && GetComponent<PhotonView>().IsMine)
 		{
 			gameObject.GetComponent<PhotonView>().RPC("TrocaCabelo", RpcTarget.All, hair.propIndex);
 			gameObject.GetComponent<PhotonView>().RPC("TrocaMaterialCabelo", RpcTarget.All, hair.colorIndex);
@@ -67,7 +72,18 @@ public class CustomDisplay : MonoBehaviour
 			gameObject.GetComponent<PhotonView>().RPC("TrocaMaterialCamisa", RpcTarget.All, shirt.colorIndex);
 			gameObject.GetComponent<PhotonView>().RPC("TrocaCalca", RpcTarget.All, legs.propIndex);
 			gameObject.GetComponent<PhotonView>().RPC("TrocaMaterialCalca", RpcTarget.All, legs.colorIndex);
+			
+		}*/
+		if (PhotonNetwork.InRoom)
+		{
+			TrocaCabelo((int)GetComponent<PhotonView>().Owner.CustomProperties["hairIndex"]);
+			TrocaMaterialCabelo((int)GetComponent<PhotonView>().Owner.CustomProperties["hairColorIndex"]);
+			TrocaCamisa((int)GetComponent<PhotonView>().Owner.CustomProperties["shirtIndex"]);
+			TrocaMaterialCamisa((int)GetComponent<PhotonView>().Owner.CustomProperties["shirtColorIndex"]);
+			TrocaCalca((int)GetComponent<PhotonView>().Owner.CustomProperties["legsIndex"]);
+			TrocaMaterialCalca((int)GetComponent<PhotonView>().Owner.CustomProperties["legsColorIndex"]);
 		}
+
 		else if (!PhotonNetwork.InRoom)
 		{
 			TrocaCabelo(hair.propIndex);
