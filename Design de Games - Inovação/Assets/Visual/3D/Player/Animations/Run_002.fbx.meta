@@ -21,12 +21,18 @@ ModelImporter:
     rigImportErrors: 
     rigImportWarnings: 
     animationImportErrors: 
-    animationImportWarnings: 
+    animationImportWarnings: "\nClip 'Take 001' has import animation warnings that
+      might lower retargeting quality:\nNote: Activate translation DOF on avatar to
+      improve retargeting quality.\n\t'Personagem_v2_Rigging_:Def_Hips' has translation
+      animation that will be discarded.\n\t'Personagem_v2_Rigging_:Def_Hips' is inbetween
+      humanoid transforms and has rotation animation that will be discarded.\n\t'Personagem_v2_Rigging_:Def_Pulse_L'
+      is inbetween humanoid transforms and has rotation animation that will be discarded.\n\t'Personagem_v2_Rigging_:Def_Pulse_R'
+      is inbetween humanoid transforms and has rotation animation that will be discarded.\n"
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
     importConstraints: 0
-    animationCompression: 1
+    animationCompression: 3
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
@@ -39,7 +45,7 @@ ModelImporter:
       takeName: Take 001
       internalID: 0
       firstFrame: 1
-      lastFrame: 20
+      lastFrame: 24
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -48,9 +54,9 @@ ModelImporter:
       hasAdditiveReferencePose: 0
       loopTime: 1
       loopBlend: 0
-      loopBlendOrientation: 0
+      loopBlendOrientation: 1
       loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
+      loopBlendPositionXZ: 1
       keepOriginalOrientation: 0
       keepOriginalPositionY: 1
       keepOriginalPositionXZ: 0
@@ -62,7 +68,7 @@ ModelImporter:
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
+      additiveReferencePoseFrame: 1
     isReadable: 0
   meshes:
     lODScreenPercentages: []
@@ -101,11 +107,11 @@ ModelImporter:
     normalSmoothingSource: 0
   referencedClips: []
   importAnimation: 1
-  copyAvatar: 1
+  copyAvatar: 0
   humanDescription:
     serializedVersion: 3
     human:
-    - boneName: ROOT
+    - boneName: Personagem_v2_Rigging_:ROOT
       humanName: Hips
       limit:
         min: {x: 0, y: 0, z: 0}
@@ -113,7 +119,7 @@ ModelImporter:
         value: {x: 0, y: 0, z: 0}
         length: 0
         modified: 0
-    - boneName: Def_UpLag_L
+    - boneName: Personagem_v2_Rigging_:Def_UpLag_L
       humanName: LeftUpperLeg
       limit:
         min: {x: 0, y: 0, z: 0}
@@ -121,7 +127,7 @@ ModelImporter:
         value: {x: 0, y: 0, z: 0}
         length: 0
         modified: 0
-    - boneName: Def_UpRag_R
+    - boneName: Personagem_v2_Rigging_:Def_UpRag_R
       humanName: RightUpperLeg
       limit:
         min: {x: 0, y: 0, z: 0}
@@ -129,7 +135,7 @@ ModelImporter:
         value: {x: 0, y: 0, z: 0}
         length: 0
         modified: 0
-    - boneName: Def_RwrlLag_L
+    - boneName: Personagem_v2_Rigging_:Def_RwrlLag_L
       humanName: LeftLowerLeg
       limit:
         min: {x: 0, y: 0, z: 0}
@@ -137,7 +143,7 @@ ModelImporter:
         value: {x: 0, y: 0, z: 0}
         length: 0
         modified: 0
-    - boneName: Def_RwrlRag_R
+    - boneName: Personagem_v2_Rigging_:Def_RwrlRag_R
       humanName: RightLowerLeg
       limit:
         min: {x: 0, y: 0, z: 0}
@@ -145,7 +151,7 @@ ModelImporter:
         value: {x: 0, y: 0, z: 0}
         length: 0
         modified: 0
-    - boneName: Def_Ankle_L
+    - boneName: Personagem_v2_Rigging_:Def_Ankle_L
       humanName: LeftFoot
       limit:
         min: {x: 0, y: 0, z: 0}
@@ -153,7 +159,7 @@ ModelImporter:
         value: {x: 0, y: 0, z: 0}
         length: 0
         modified: 0
-    - boneName: Def_Ankle_R
+    - boneName: Personagem_v2_Rigging_:Def_Ankle_R
       humanName: RightFoot
       limit:
         min: {x: 0, y: 0, z: 0}
@@ -161,7 +167,7 @@ ModelImporter:
         value: {x: 0, y: 0, z: 0}
         length: 0
         modified: 0
-    - boneName: Def_Spine_Vert_1
+    - boneName: Personagem_v2_Rigging_:Def_Spine_Vert_1
       humanName: Spine
       limit:
         min: {x: 0, y: 0, z: 0}
@@ -169,7 +175,7 @@ ModelImporter:
         value: {x: 0, y: 0, z: 0}
         length: 0
         modified: 0
-    - boneName: Def_Spine_Vert_2
+    - boneName: Personagem_v2_Rigging_:Def_Spine_Vert_2
       humanName: Chest
       limit:
         min: {x: 0, y: 0, z: 0}
@@ -177,7 +183,7 @@ ModelImporter:
         value: {x: 0, y: 0, z: 0}
         length: 0
         modified: 0
-    - boneName: Def_Neck
+    - boneName: Personagem_v2_Rigging_:Def_Neck
       humanName: Neck
       limit:
         min: {x: 0, y: 0, z: 0}
@@ -185,7 +191,7 @@ ModelImporter:
         value: {x: 0, y: 0, z: 0}
         length: 0
         modified: 0
-    - boneName: Def_Head
+    - boneName: Personagem_v2_Rigging_:Def_Head
       humanName: Head
       limit:
         min: {x: 0, y: 0, z: 0}
@@ -193,7 +199,7 @@ ModelImporter:
         value: {x: 0, y: 0, z: 0}
         length: 0
         modified: 0
-    - boneName: Def_Clav_L
+    - boneName: Personagem_v2_Rigging_:Def_Clav_L
       humanName: LeftShoulder
       limit:
         min: {x: 0, y: 0, z: 0}
@@ -201,7 +207,7 @@ ModelImporter:
         value: {x: 0, y: 0, z: 0}
         length: 0
         modified: 0
-    - boneName: Def_Clav_R
+    - boneName: Personagem_v2_Rigging_:Def_Clav_R
       humanName: RightShoulder
       limit:
         min: {x: 0, y: 0, z: 0}
@@ -209,7 +215,7 @@ ModelImporter:
         value: {x: 0, y: 0, z: 0}
         length: 0
         modified: 0
-    - boneName: Def_shoulder_L
+    - boneName: Personagem_v2_Rigging_:Def_shoulder_L
       humanName: LeftUpperArm
       limit:
         min: {x: 0, y: 0, z: 0}
@@ -217,7 +223,7 @@ ModelImporter:
         value: {x: 0, y: 0, z: 0}
         length: 0
         modified: 0
-    - boneName: Def_shoulder_R
+    - boneName: Personagem_v2_Rigging_:Def_shoulder_R
       humanName: RightUpperArm
       limit:
         min: {x: 0, y: 0, z: 0}
@@ -225,7 +231,7 @@ ModelImporter:
         value: {x: 0, y: 0, z: 0}
         length: 0
         modified: 0
-    - boneName: Def_Elbow_L
+    - boneName: Personagem_v2_Rigging_:Def_Elbow_L
       humanName: LeftLowerArm
       limit:
         min: {x: 0, y: 0, z: 0}
@@ -233,7 +239,7 @@ ModelImporter:
         value: {x: 0, y: 0, z: 0}
         length: 0
         modified: 0
-    - boneName: Def_Elbow_R
+    - boneName: Personagem_v2_Rigging_:Def_Elbow_R
       humanName: RightLowerArm
       limit:
         min: {x: 0, y: 0, z: 0}
@@ -241,7 +247,7 @@ ModelImporter:
         value: {x: 0, y: 0, z: 0}
         length: 0
         modified: 0
-    - boneName: Def_Hand_1_L
+    - boneName: Personagem_v2_Rigging_:Def_Hand_1_L
       humanName: LeftHand
       limit:
         min: {x: 0, y: 0, z: 0}
@@ -249,7 +255,7 @@ ModelImporter:
         value: {x: 0, y: 0, z: 0}
         length: 0
         modified: 0
-    - boneName: Def_Hand_1_R
+    - boneName: Personagem_v2_Rigging_:Def_Hand_1_R
       humanName: RightHand
       limit:
         min: {x: 0, y: 0, z: 0}
@@ -257,7 +263,7 @@ ModelImporter:
         value: {x: 0, y: 0, z: 0}
         length: 0
         modified: 0
-    - boneName: Def_FootToe_L
+    - boneName: Personagem_v2_Rigging_:Def_FootToe_L
       humanName: LeftToes
       limit:
         min: {x: 0, y: 0, z: 0}
@@ -265,7 +271,7 @@ ModelImporter:
         value: {x: 0, y: 0, z: 0}
         length: 0
         modified: 0
-    - boneName: Def_FootToe_R
+    - boneName: Personagem_v2_Rigging_:Def_FootToe_R
       humanName: RightToes
       limit:
         min: {x: 0, y: 0, z: 0}
@@ -273,15 +279,15 @@ ModelImporter:
         value: {x: 0, y: 0, z: 0}
         length: 0
         modified: 0
-    - boneName: Soquet_Head
-      humanName: LeftEye
+    - boneName: Personagem_v2_Rigging_:Soquet_Head
+      humanName: RightEye
       limit:
         min: {x: 0, y: 0, z: 0}
         max: {x: 0, y: 0, z: 0}
         value: {x: 0, y: 0, z: 0}
         length: 0
         modified: 0
-    - boneName: Sholder_ROOT
+    - boneName: Personagem_v2_Rigging_:Sholder_ROOT
       humanName: UpperChest
       limit:
         min: {x: 0, y: 0, z: 0}
@@ -290,391 +296,441 @@ ModelImporter:
         length: 0
         modified: 0
     skeleton:
-    - name: Personagem Customizavel T1(Clone)
+    - name: Run_002(Clone)
       parentName: 
       position: {x: 0, y: 0, z: 0}
       rotation: {x: 0, y: 0, z: 0, w: 1}
       scale: {x: 1, y: 1, z: 1}
-    - name: Props
-      parentName: Personagem Customizavel T1(Clone)
+    - name: bottom
+      parentName: Run_002(Clone)
+      position: {x: -0, y: -10.000999, z: 0}
+      rotation: {x: 0, y: -0.7071068, z: -0.7071068, w: 0}
+      scale: {x: 1, y: 1, z: 1}
+    - name: left
+      parentName: Run_002(Clone)
+      position: {x: 10.000999, y: 0.078696996, z: 0.005849896}
+      rotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Personagem_v2_Rigging_:Props
+      parentName: Run_002(Clone)
       position: {x: -0, y: 0, z: 0}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
-    - name: Bermuda_1
-      parentName: Props
+    - name: Personagem_v2_Rigging_:Bermuda_1
+      parentName: Personagem_v2_Rigging_:Props
       position: {x: -0, y: 0, z: 0}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
-    - name: Regata_1
-      parentName: Props
+    - name: Personagem_v2_Rigging_:Regata_1
+      parentName: Personagem_v2_Rigging_:Props
       position: {x: -0, y: 0, z: 0}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1.0424505, y: 1, z: 1.0953925}
-    - name: Tenis_1
-      parentName: Props
+    - name: Personagem_v2_Rigging_:Tenis_1
+      parentName: Personagem_v2_Rigging_:Props
       position: {x: -0, y: 0, z: 0}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
-    - name: Tenis_2
-      parentName: Props
+    - name: Personagem_v2_Rigging_:Tenis_2
+      parentName: Personagem_v2_Rigging_:Props
       position: {x: -0, y: 0, z: 0}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
-    - name: Shorts_1
-      parentName: Props
+    - name: Personagem_v2_Rigging_:Shorts_1
+      parentName: Personagem_v2_Rigging_:Props
       position: {x: -0, y: 0, z: 0}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
-    - name: Camiseta_1
-      parentName: Props
+    - name: Personagem_v2_Rigging_:Camiseta_1
+      parentName: Personagem_v2_Rigging_:Props
       position: {x: -0, y: 0, z: 0}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
-    - name: Cabelo_3
-      parentName: Props
+    - name: Personagem_v2_Rigging_:Cabelo_3
+      parentName: Personagem_v2_Rigging_:Props
       position: {x: -0, y: 0, z: 0}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
-    - name: Cabelo_2
-      parentName: Props
+    - name: Personagem_v2_Rigging_:Cabelo_2
+      parentName: Personagem_v2_Rigging_:Props
       position: {x: -0, y: 0, z: 0}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
-    - name: cabelo_1
-      parentName: Props
+    - name: Personagem_v2_Rigging_:cabelo_1
+      parentName: Personagem_v2_Rigging_:Props
       position: {x: -0, y: 0, z: 0}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
-    - name: MESH
-      parentName: Personagem Customizavel T1(Clone)
+    - name: Personagem_v2_Rigging_:MESH
+      parentName: Run_002(Clone)
       position: {x: -0, y: 0, z: 0}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
-    - name: Curve_Ik_Back
-      parentName: Personagem Customizavel T1(Clone)
+    - name: Personagem_v2_Rigging_:Curve_Ik_Back
+      parentName: Run_002(Clone)
       position: {x: -0, y: 0, z: 0}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
-    - name: Ctrl_ROOT
-      parentName: Personagem Customizavel T1(Clone)
+    - name: Personagem_v2_Rigging_:Ctrl_ROOT
+      parentName: Run_002(Clone)
       position: {x: -0, y: 0, z: 0}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
-    - name: Ctrl_Knee_R
-      parentName: Ctrl_ROOT
-      position: {x: 0.00106733, y: 0.005632767, z: 0.017231097}
+    - name: Personagem_v2_Rigging_:NULL_Up_Lag_L
+      parentName: Personagem_v2_Rigging_:Ctrl_ROOT
+      position: {x: -0.0010673255, y: 0.008624712, z: 0}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
-    - name: Ctrl_Knee_L
-      parentName: Ctrl_ROOT
-      position: {x: -0.0010673255, y: 0.005632767, z: 0.017231097}
+    - name: Personagem_v2_Rigging_:NULL_Mid_Lag_L
+      parentName: Personagem_v2_Rigging_:NULL_Up_Lag_L
+      position: {x: -0, y: -0.002991945, z: 0.00055330497}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
-    - name: Ctrl_Foot_R
-      parentName: Ctrl_ROOT
-      position: {x: 0.00106733, y: 0, z: 0}
+    - name: Personagem_v2_Rigging_:Ctrl_Foot_L
+      parentName: Personagem_v2_Rigging_:NULL_Mid_Lag_L
+      position: {x: 2.9143353e-18, y: -0.002602677, z: -0.0065536737}
+      rotation: {x: 0.6047832, y: -0, z: -0, w: 0.7963902}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Personagem_v2_Rigging_:Ctrl_Knee_L
+      parentName: Personagem_v2_Rigging_:Ctrl_Foot_L
+      position: {x: -2.9143353e-18, y: 0.005632767, z: 0.017231097}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
-    - name: Ctrl_Foot_L
-      parentName: Ctrl_ROOT
-      position: {x: -0.0010673255, y: 0, z: 0}
+    - name: Personagem_v2_Rigging_:NULL_Up_Lag_R
+      parentName: Personagem_v2_Rigging_:Ctrl_ROOT
+      position: {x: 0.00106733, y: 0.008624709, z: 0}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
-    - name: Body_Ctrl
-      parentName: Ctrl_ROOT
-      position: {x: -4.440892e-18, y: 0.008624712, z: -5.551115e-19}
+    - name: Personagem_v2_Rigging_:NULL_Mid_Lag_R
+      parentName: Personagem_v2_Rigging_:NULL_Up_Lag_R
+      position: {x: -0, y: -0.0029919397, z: 0.00055330497}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
-    - name: Ctrl_Back_2
-      parentName: Body_Ctrl
-      position: {x: 4.440892e-18, y: 0.0042287707, z: 0.00012763}
+    - name: Personagem_v2_Rigging_:Ctrl_Foot_R
+      parentName: Personagem_v2_Rigging_:NULL_Mid_Lag_R
+      position: {x: 1.3877787e-19, y: -0.005499555, z: 0.0036403423}
+      rotation: {x: -0.26116547, y: 0, z: -0, w: 0.96529406}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Personagem_v2_Rigging_:Ctrl_Knee_R
+      parentName: Personagem_v2_Rigging_:Ctrl_Foot_R
+      position: {x: 1.3877787e-19, y: 0.005632767, z: 0.017231097}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
-    - name: Ctrl_Elbow_R
-      parentName: Ctrl_Back_2
+    - name: Personagem_v2_Rigging_:Body_Ctrl
+      parentName: Personagem_v2_Rigging_:Ctrl_ROOT
+      position: {x: -0, y: 0.0077341674, z: 0}
+      rotation: {x: 0.087155744, y: -0, z: -0, w: 0.9961947}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Personagem_v2_Rigging_:Ctrl_Back_2
+      parentName: Personagem_v2_Rigging_:Body_Ctrl
+      position: {x: -0, y: 0.0042287707, z: 0.00012763}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Personagem_v2_Rigging_:Ctrl_Elbow_R
+      parentName: Personagem_v2_Rigging_:Ctrl_Back_2
       position: {x: 0.0038679072, y: 0.00020265699, z: -0.016438007}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
-    - name: Ctrl_Hand_R
-      parentName: Ctrl_Back_2
-      position: {x: 0.007313845, y: 0.00020265699, z: -0.00003187035}
-      rotation: {x: 0, y: -0, z: -0, w: 1}
-      scale: {x: 1, y: 1, z: 1}
-    - name: Ctrl_Finger_R
-      parentName: Ctrl_Hand_R
-      position: {x: -0.00093691517, y: 0, z: -0.00009575966}
-      rotation: {x: 0, y: -0, z: -0, w: 1}
-      scale: {x: 1, y: 1, z: 1}
-    - name: Ctrl_Elbow_L
-      parentName: Ctrl_Back_2
+    - name: Personagem_v2_Rigging_:Ctrl_Elbow_L
+      parentName: Personagem_v2_Rigging_:Ctrl_Back_2
       position: {x: -0.0038679072, y: 0.00020265699, z: -0.016438007}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
-    - name: Ctrl_Hand_L
-      parentName: Ctrl_Back_2
-      position: {x: -0.006376932, y: 0.00020265699, z: -0.00012763}
-      rotation: {x: 0, y: -0, z: -0, w: 1}
-      scale: {x: 1, y: 1, z: 1}
-    - name: Ctrl_Finger_L
-      parentName: Ctrl_Hand_L
-      position: {x: -0, y: 0, z: 0}
-      rotation: {x: 0, y: -0, z: -0, w: 1}
-      scale: {x: 1, y: 1, z: 1}
-    - name: Ctrl_Shoulder_R
-      parentName: Ctrl_Back_2
+    - name: Personagem_v2_Rigging_:NULL_Hand_Shoulder_R
+      parentName: Personagem_v2_Rigging_:Ctrl_Back_2
       position: {x: 0.0016347601, y: 0.00020261644, z: -0.00012763}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
-    - name: Ctrl_Shoulder_L
-      parentName: Ctrl_Back_2
+    - name: Personagem_v2_Rigging_:NULL_Hand_Elbow_R
+      parentName: Personagem_v2_Rigging_:NULL_Hand_Shoulder_R
+      position: {x: 0.0022331497, y: 0.0000000023841857, z: -0.000778649}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Personagem_v2_Rigging_:Ctrl_Hand_R
+      parentName: Personagem_v2_Rigging_:NULL_Hand_Elbow_R
+      position: {x: 0.002826163, y: 0.000000038146972, z: -0.00049677026}
+      rotation: {x: 0, y: -0.035389308, z: -0, w: 0.9993736}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Personagem_v2_Rigging_:Ctrl_Finger_R
+      parentName: Personagem_v2_Rigging_:Ctrl_Hand_R
+      position: {x: -0.00093691517, y: 0, z: -0.00009575966}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Personagem_v2_Rigging_:NULL_Hand_Shoulder_L
+      parentName: Personagem_v2_Rigging_:Ctrl_Back_2
       position: {x: -0.0016347644, y: 0.00020265699, z: -0.00012763}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
-    - name: Ctrl_Neck
-      parentName: Ctrl_Back_2
-      position: {x: -0, y: 0.0015266811, z: -0.00012763}
+    - name: Personagem_v2_Rigging_:NULL_Hand_Elbow_L
+      parentName: Personagem_v2_Rigging_:NULL_Hand_Shoulder_L
+      position: {x: -0.0022331427, y: 0, z: -0.00077864924}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
-    - name: Ctrl_Head
-      parentName: Ctrl_Neck
+    - name: Personagem_v2_Rigging_:Ctrl_Hand_L
+      parentName: Personagem_v2_Rigging_:NULL_Hand_Elbow_L
+      position: {x: -0.00042610092, y: 0.00039206585, z: 0.0035970951}
+      rotation: {x: 0.0008645882, y: 0.6715377, z: 0.00007458255, w: 0.7409699}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Personagem_v2_Rigging_:Ctrl_Finger_L
+      parentName: Personagem_v2_Rigging_:Ctrl_Hand_L
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Personagem_v2_Rigging_:Ctrl_Shoulder_R
+      parentName: Personagem_v2_Rigging_:Ctrl_Back_2
+      position: {x: 0.0016347601, y: 0.00020261644, z: -0.00012763}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Personagem_v2_Rigging_:Ctrl_Shoulder_L
+      parentName: Personagem_v2_Rigging_:Ctrl_Back_2
+      position: {x: -0.0016347644, y: 0.00020265699, z: -0.00012763}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Personagem_v2_Rigging_:Ctrl_Neck
+      parentName: Personagem_v2_Rigging_:Ctrl_Back_2
+      position: {x: -0, y: 0.0015266811, z: -0.00012763}
+      rotation: {x: -0.06840518, y: 0, z: -0, w: 0.99765766}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Personagem_v2_Rigging_:Ctrl_Head
+      parentName: Personagem_v2_Rigging_:Ctrl_Neck
       position: {x: -0, y: 0.0035122512, z: 0.00019843227}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
-    - name: Cluster_Back_3
-      parentName: Ctrl_Back_2
+    - name: Personagem_v2_Rigging_:Cluster_Back_3
+      parentName: Personagem_v2_Rigging_:Ctrl_Back_2
       position: {x: -0, y: 6.212408e-13, z: -0.00012763}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
-    - name: Ctrl_Back
-      parentName: Body_Ctrl
-      position: {x: 4.440892e-18, y: 0.0021143854, z: 0.00018617726}
+    - name: Personagem_v2_Rigging_:Ctrl_Back
+      parentName: Personagem_v2_Rigging_:Body_Ctrl
+      position: {x: -0, y: 0.0021143854, z: 0.00018617726}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
-    - name: Cluster_Back_2
-      parentName: Ctrl_Back
+    - name: Personagem_v2_Rigging_:Cluster_Back_2
+      parentName: Personagem_v2_Rigging_:Ctrl_Back
       position: {x: -0, y: 7.8123727e-13, z: -0.00018617726}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
-    - name: Ctrl_Hips
-      parentName: Body_Ctrl
-      position: {x: 4.440892e-18, y: 0, z: -0.00009617635}
+    - name: Personagem_v2_Rigging_:Ctrl_Hips
+      parentName: Personagem_v2_Rigging_:Body_Ctrl
+      position: {x: -0, y: 0, z: -0.00009617635}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
-    - name: Cluster_Back_1
-      parentName: Ctrl_Hips
+    - name: Personagem_v2_Rigging_:Cluster_Back_1
+      parentName: Personagem_v2_Rigging_:Ctrl_Hips
       position: {x: -0, y: 9.412259e-13, z: 0.00009617635}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
-    - name: IKs
-      parentName: Ctrl_ROOT
+    - name: Personagem_v2_Rigging_:IKs
+      parentName: Personagem_v2_Rigging_:Ctrl_ROOT
       position: {x: -0, y: 0, z: 0}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
-    - name: IK_Arm_L
-      parentName: IKs
-      position: {x: -0.006376932, y: 0.013056139, z: 2.7755575e-19}
-      rotation: {x: 0, y: -0, z: -0, w: 1}
+    - name: Personagem_v2_Rigging_:IK_Arm_L
+      parentName: Personagem_v2_Rigging_:IKs
+      position: {x: -0.004391718, y: 0.011665421, z: -0.0017944713}
+      rotation: {x: 0.13468601, y: -0.19209515, z: 0.03911511, w: 0.9713028}
       scale: {x: 1, y: 1, z: 1}
-    - name: IK_Arm_R
-      parentName: IKs
-      position: {x: 0.0063769296, y: 0.013056099, z: 5.551115e-19}
-      rotation: {x: 0, y: -0, z: -0, w: 1}
+    - name: Personagem_v2_Rigging_:IK_Arm_R
+      parentName: Personagem_v2_Rigging_:IKs
+      position: {x: 0.005229567, y: 0.012093874, z: 0.0033076766}
+      rotation: {x: 0.09391263, y: -0.41141233, z: -0.042644072, w: 0.9055947}
       scale: {x: 1, y: 1, z: 1}
-    - name: IK_Shoulder_L
-      parentName: IKs
-      position: {x: -0.0016347644, y: 0.013056139, z: 0}
-      rotation: {x: 0, y: -0, z: -0.5008574, w: 0.86552984}
+    - name: Personagem_v2_Rigging_:IK_Shoulder_L
+      parentName: Personagem_v2_Rigging_:IKs
+      position: {x: -0.0016273181, y: 0.012069844, z: 0.0010409978}
+      rotation: {x: 0.06849314, y: 0.08738703, z: -0.49403033, w: 0.8623261}
       scale: {x: 1, y: 1, z: 1}
-    - name: IK_Shoulder_R
-      parentName: IKs
-      position: {x: 0.0016347601, y: 0.013056099, z: 2.1663201e-34}
-      rotation: {x: 0.86552984, y: 0.5008574, z: 3.066867e-17, w: 5.2998415e-17}
+    - name: Personagem_v2_Rigging_:IK_Shoulder_R
+      parentName: Personagem_v2_Rigging_:IKs
+      position: {x: 0.0016269849, y: 0.012125466, z: 0.0007760792}
+      rotation: {x: 0.8580143, y: 0.50148153, z: 0.015840983, w: -0.109894805}
       scale: {x: 1, y: 1, z: 1}
-    - name: IK_Foot_L
-      parentName: IKs
-      position: {x: -0.0010673255, y: 0.00050957303, z: 0.0015779437}
-      rotation: {x: 0.08101259, y: 0.7024507, z: 0.08101259, w: 0.7024507}
+    - name: Personagem_v2_Rigging_:IK_Foot_L
+      parentName: Personagem_v2_Rigging_:IKs
+      position: {x: -0.0010673255, y: 0.0016733081, z: 0.005341688}
+      rotation: {x: -0.13527662, y: 0.6940463, z: -0.13527662, w: 0.6940463}
       scale: {x: 1, y: 1, z: 1}
-    - name: Ik_Foot_R
-      parentName: IKs
-      position: {x: 0.00106733, y: 0.000509573, z: 0.00157794}
-      rotation: {x: 0.7024507, y: -0.08101259, z: 0.7024507, w: -0.08101259}
+    - name: Personagem_v2_Rigging_:Ik_Foot_R
+      parentName: Personagem_v2_Rigging_:IKs
+      position: {x: 0.00106733, y: 0.0018697879, z: -0.0051800287}
+      rotation: {x: -0.46182218, y: 0.5354627, z: -0.46182218, w: 0.5354627}
       scale: {x: 1, y: 1, z: 1}
-    - name: Ik_Lag_L
-      parentName: IKs
-      position: {x: -0.0010673255, y: 0.000878443, z: 0}
-      rotation: {x: 0, y: -0, z: -0, w: 1}
+    - name: Personagem_v2_Rigging_:Ik_Lag_L
+      parentName: Personagem_v2_Rigging_:IKs
+      position: {x: -0.0010673255, y: 0.0010647308, z: 0.0038398213}
+      rotation: {x: -0.30250326, y: 0, z: -0, w: 0.95314837}
       scale: {x: 1, y: 1, z: 1}
-    - name: Ik_Lag_R
-      parentName: IKs
-      position: {x: 0.00106733, y: 0.00087844295, z: 9.020562e-19}
-      rotation: {x: 0, y: -0, z: -0, w: 1}
+    - name: Personagem_v2_Rigging_:Ik_Lag_R
+      parentName: Personagem_v2_Rigging_:IKs
+      position: {x: 0.00106733, y: 0.0034726935, z: -0.0049420097}
+      rotation: {x: 0.6774454, y: -0, z: -0, w: 0.73557305}
       scale: {x: 1, y: 1, z: 1}
-    - name: Ik_Back
-      parentName: IKs
-      position: {x: -0, y: 0.012853483, z: 0}
-      rotation: {x: 0, y: -0, z: -0, w: 1}
+    - name: Personagem_v2_Rigging_:Ik_Back
+      parentName: Personagem_v2_Rigging_:IKs
+      position: {x: -0.00000015702531, y: 0.011902704, z: 0.0008676683}
+      rotation: {x: 0.10314116, y: 4.655771e-18, z: 0.000018665858, w: 0.99466676}
       scale: {x: 1, y: 1, z: 1}
-    - name: ROOT
-      parentName: Ctrl_ROOT
-      position: {x: -0, y: 0, z: 0}
+    - name: Personagem_v2_Rigging_:ROOT
+      parentName: Personagem_v2_Rigging_:Ctrl_ROOT
+      position: {x: 0, y: 0.0006244954, z: 0}
       rotation: {x: -0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
-    - name: Def_Hips
-      parentName: ROOT
-      position: {x: -0, y: 0.008624712, z: 0}
-      rotation: {x: -0, y: -0, z: -0.7071068, w: 0.7071068}
-      scale: {x: 1.0000048, y: 1.0000048, z: 1}
-    - name: Def_Spine_Vert_1
-      parentName: Def_Hips
+    - name: Personagem_v2_Rigging_:Def_Hips
+      parentName: Personagem_v2_Rigging_:ROOT
+      position: {x: -0, y: 0.0077341674, z: 1.6344231e-13}
+      rotation: {x: -0.000000008231807, y: -0.000000008231807, z: -0.7071068, w: 0.7071068}
+      scale: {x: 1.0000043, y: 1.0000043, z: 0.9999999}
+    - name: Personagem_v2_Rigging_:Def_Spine_Vert_1
+      parentName: Personagem_v2_Rigging_:Def_Hips
       position: {x: -0.001103992, y: 0, z: 0}
-      rotation: {x: -0, y: -0, z: -0, w: 1}
-      scale: {x: 1.0000014, y: 1.0000014, z: 1}
-    - name: Def_Spine_Vert_2
-      parentName: Def_Spine_Vert_1
+      rotation: {x: -0, y: -0, z: -6.776264e-17, w: 1}
+      scale: {x: 1.000001, y: 1.000001, z: 0.9999999}
+    - name: Personagem_v2_Rigging_:Def_Spine_Vert_2
+      parentName: Personagem_v2_Rigging_:Def_Spine_Vert_1
       position: {x: -0.0010951534, y: 0, z: 0}
-      rotation: {x: -0, y: -0, z: 0.7071068, w: 0.7071068}
-      scale: {x: 1.0000004, y: 1.0000004, z: 1}
-    - name: Sholder_ROOT
-      parentName: Def_Spine_Vert_2
+      rotation: {x: 0.0000000041159027, y: 0.0000000041159045, z: 0.7071068, w: 0.7071068}
+      scale: {x: 1.0000001, y: 1, z: 0.9999999}
+    - name: Personagem_v2_Rigging_:Sholder_ROOT
+      parentName: Personagem_v2_Rigging_:Def_Spine_Vert_2
       position: {x: -0, y: 0.0020296252, z: 0}
-      rotation: {x: -0, y: -0, z: 0.38591132, w: 0.9225359}
-      scale: {x: 1.0000004, y: 1.0000004, z: 1}
-    - name: Def_Clav_L
-      parentName: Sholder_ROOT
+      rotation: {x: -0.0000000044926023, y: 0.000000006247129, z: 0.3859114, w: 0.9225358}
+      scale: {x: 0.99999994, y: 1.0000004, z: 0.9999999}
+    - name: Personagem_v2_Rigging_:Def_Clav_L
+      parentName: Personagem_v2_Rigging_:Sholder_ROOT
       position: {x: -0.0013661598, y: -4.1633362e-19, z: 0}
-      rotation: {x: -8.1006913e-25, y: -6.1583344e-25, z: -0.51798964, w: 0.8553869}
-      scale: {x: 1.0000008, y: 1.0000008, z: 1}
-    - name: Def_shoulder_L
-      parentName: Def_Clav_L
+      rotation: {x: 0.0000000015523692, y: -0.000000004645079, z: -0.51798964, w: 0.8553869}
+      scale: {x: 1.000001, y: 1.0000007, z: 0.9999999}
+    - name: Personagem_v2_Rigging_:Def_shoulder_L
+      parentName: Personagem_v2_Rigging_:Def_Clav_L
       position: {x: -0.0013556983, y: 1.2490008e-18, z: 0}
-      rotation: {x: 0.06736837, y: 0.0007543952, z: 0.16863722, w: 0.983373}
-      scale: {x: 1.0000007, y: 1.0000004, z: 1.0000005}
-    - name: Def_Elbow_L
-      parentName: Def_shoulder_L
+      rotation: {x: 0.06736835, y: 0.0007545693, z: 0.16863704, w: 0.98337305}
+      scale: {x: 0.99999964, y: 1.0000008, z: 0.99999976}
+    - name: Personagem_v2_Rigging_:Def_Elbow_L
+      parentName: Personagem_v2_Rigging_:Def_shoulder_L
       position: {x: -0.0023649994, y: 1.1669155e-18, z: 0}
-      rotation: {x: -0.0047923913, y: 0.07811496, z: -0.01983563, w: 0.9967356}
-      scale: {x: 0.99999744, y: 1, z: 1.0000024}
-    - name: Def_Pulse_L
-      parentName: Def_Elbow_L
+      rotation: {x: -0.004792465, y: 0.078114554, z: -0.019835403, w: 0.9967355}
+      scale: {x: 0.999998, y: 1.0000002, z: 1.0000038}
+    - name: Personagem_v2_Rigging_:Def_Pulse_L
+      parentName: Personagem_v2_Rigging_:Def_Elbow_L
       position: {x: -0.0026270708, y: 3.839037e-35, z: 6.9388935e-19}
-      rotation: {x: -0.0000000024445457, y: -0.14989057, z: 0.000000032304907, w: 0.98870265}
-      scale: {x: 0.99999976, y: 1, z: 1.0000004}
-    - name: Soquet_Hand_L
-      parentName: Def_Pulse_L
+      rotation: {x: 0.000000025273135, y: -0.14989062, z: 0.000000028879517, w: 0.98870265}
+      scale: {x: 1.0000001, y: 1, z: 1.000001}
+    - name: Personagem_v2_Rigging_:Soquet_Hand_L
+      parentName: Personagem_v2_Rigging_:Def_Pulse_L
       position: {x: -0.0007430744, y: -0.0008376479, z: -5.4829863e-19}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
-    - name: Def_Hand_1_L
-      parentName: Def_Pulse_L
+    - name: Personagem_v2_Rigging_:Def_Hand_1_L
+      parentName: Personagem_v2_Rigging_:Def_Pulse_L
       position: {x: -0.00097655057, y: 2.3059697e-18, z: -6.028124e-19}
-      rotation: {x: 4.440891e-16, y: -0, z: -1.7208453e-15, w: 1}
-      scale: {x: 1.0000001, y: 1, z: 0.99999994}
-    - name: Def_Hand_2_L
-      parentName: Def_Hand_1_L
+      rotation: {x: 0.00000000713578, y: -0, z: 0.00000009173366, w: 1}
+      scale: {x: 1.0000005, y: 0.99999994, z: 1.0000002}
+    - name: Personagem_v2_Rigging_:Def_Hand_2_L
+      parentName: Personagem_v2_Rigging_:Def_Hand_1_L
       position: {x: -0.00081581174, y: 0, z: -2.717199e-19}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
-    - name: Def_Clav_R
-      parentName: Sholder_ROOT
+    - name: Personagem_v2_Rigging_:Def_Clav_R
+      parentName: Personagem_v2_Rigging_:Sholder_ROOT
       position: {x: -0.000019128067, y: -0.0013660475, z: 0}
-      rotation: {x: 0.9694319, y: -0.2453607, z: 1.5024012e-17, w: -5.936057e-17}
-      scale: {x: 0.99999964, y: 1.0000007, z: 1.0000014}
-    - name: Def_shoulder_R
-      parentName: Def_Clav_R
+      rotation: {x: 0.9694319, y: -0.24536069, z: 0.000000012835443, w: -0.000000008311082}
+      scale: {x: 1.0000001, y: 1.0000014, z: 1.0000019}
+    - name: Personagem_v2_Rigging_:Def_shoulder_R
+      parentName: Personagem_v2_Rigging_:Def_Clav_R
       position: {x: 0.001355688, y: 8.9310564e-10, z: -1.093739e-25}
-      rotation: {x: 0.06736936, y: 0.0007543857, z: 0.168637, w: 0.9833729}
-      scale: {x: 1.0000002, y: 1.0000007, z: 1.000002}
-    - name: Def_Elbow_R
-      parentName: Def_shoulder_R
+      rotation: {x: 0.067369364, y: 0.0007544419, z: 0.16863692, w: 0.9833729}
+      scale: {x: 0.9999999, y: 1.0000023, z: 1.0000029}
+    - name: Personagem_v2_Rigging_:Def_Elbow_R
+      parentName: Personagem_v2_Rigging_:Def_shoulder_R
       position: {x: 0.002365006, y: 0, z: -0.0000000025663802}
-      rotation: {x: -0.0047877347, y: 0.07822409, z: -0.019834315, w: 0.99672693}
-      scale: {x: 0.99999785, y: 1.0000008, z: 1.0000027}
-    - name: Def_Pulse_R
-      parentName: Def_Elbow_R
+      rotation: {x: -0.004787602, y: 0.07822361, z: -0.019834353, w: 0.996727}
+      scale: {x: 0.99999857, y: 1.0000004, z: 1.0000014}
+    - name: Personagem_v2_Rigging_:Def_Pulse_R
+      parentName: Personagem_v2_Rigging_:Def_Elbow_R
       position: {x: 0.002627066, y: -3.7747583e-17, z: -0.0000000012773409}
-      rotation: {x: -0.0000011892281, y: -0.14989062, z: -0.00000019676388, w: 0.98870265}
-      scale: {x: 0.9999999, y: 0.9999999, z: 1.0000002}
-    - name: Soquet_Hand_R
-      parentName: Def_Pulse_R
+      rotation: {x: -0.0000012088885, y: -0.1498906, z: -0.00000017033703, w: 0.98870265}
+      scale: {x: 1.0000004, y: 0.9999998, z: 1}
+    - name: Personagem_v2_Rigging_:Soquet_Hand_R
+      parentName: Personagem_v2_Rigging_:Def_Pulse_R
       position: {x: 0.00074308, y: 0.0008376, z: -5.5688492e-11}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
-    - name: Def_Hand_1_R
-      parentName: Def_Pulse_R
+    - name: Personagem_v2_Rigging_:Def_Hand_1_R
+      parentName: Personagem_v2_Rigging_:Def_Pulse_R
       position: {x: 0.0009799999, y: 8.119699e-12, z: 7.956557e-16}
-      rotation: {x: 0.000000036962994, y: -0, z: 0.000000004843868, w: 1}
-      scale: {x: 1, y: 1, z: 0.99999994}
-    - name: Def_Hand_2_R
-      parentName: Def_Hand_1_R
+      rotation: {x: 0.000000022230436, y: -0, z: 0.0000000025953566, w: 1}
+      scale: {x: 0.9999993, y: 1.000001, z: 1.0000001}
+    - name: Personagem_v2_Rigging_:Def_Hand_2_R
+      parentName: Personagem_v2_Rigging_:Def_Hand_1_R
       position: {x: 0.00081235997, y: 7.712644e-12, z: -7.9577173e-16}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
-    - name: Def_Neck
-      parentName: Sholder_ROOT
-      position: {x: 0.0010870493, y: 0.0010719511, z: 0}
-      rotation: {x: -0.24974664, y: 0.66153353, z: -0.64639276, w: 0.28666437}
-      scale: {x: 1.0000057, y: 1.0000033, z: 1.0000046}
-    - name: Def_Head
-      parentName: Def_Neck
-      position: {x: -0.0035178524, y: -2.081668e-18, z: -4.990878e-19}
-      rotation: {x: 0.9992363, y: -0.039076578, z: -0.00000004470348, w: 0.000000059604638}
-      scale: {x: 1.0000027, y: 1.0000044, z: 1.0000039}
-    - name: Soquet_Head
-      parentName: Def_Head
+    - name: Personagem_v2_Rigging_:Def_Neck
+      parentName: Personagem_v2_Rigging_:Sholder_ROOT
+      position: {x: 0.0010870493, y: 0.0010719511, z: -9.227313e-14}
+      rotation: {x: -0.24974653, y: 0.6615336, z: -0.64639276, w: 0.2866643}
+      scale: {x: 1.0000038, y: 1.0000021, z: 1.0000036}
+    - name: Personagem_v2_Rigging_:Def_Head
+      parentName: Personagem_v2_Rigging_:Def_Neck
+      position: {x: -0.0035178524, y: -5.169476e-18, z: -2.585711e-18}
+      rotation: {x: 0.9992363, y: -0.039076596, z: -0.000000044703484, w: -0.000000029802322}
+      scale: {x: 1.000001, y: 1.000003, z: 1.0000027}
+    - name: Personagem_v2_Rigging_:Soquet_Head
+      parentName: Personagem_v2_Rigging_:Def_Head
       position: {x: -0.0018260083, y: 8.5001447e-19, z: -1.0225544e-18}
-      rotation: {x: -0.26118654, y: 0.65710086, z: 0.6512691, w: 0.27540633}
-      scale: {x: 1.0000015, y: 1.0000002, z: 1.000001}
-    - name: Def_UpLag_L
-      parentName: Def_Hips
+      rotation: {x: -0.26118663, y: 0.657101, z: 0.6512691, w: 0.27540633}
+      scale: {x: 1.0000032, y: 1.000001, z: 1.0000013}
+    - name: Personagem_v2_Rigging_:Def_UpLag_L
+      parentName: Personagem_v2_Rigging_:Def_Hips
       position: {x: -0, y: -0.0010673255, z: 0}
-      rotation: {x: -0.06456271, y: 0.7041532, z: 0.7041532, w: 0.06456271}
-      scale: {x: 1.0000027, y: 1.0000026, z: 1.0000024}
-    - name: Def_RwrlLag_L
-      parentName: Def_UpLag_L
+      rotation: {x: -0.06456269, y: 0.7041532, z: 0.7041532, w: 0.06456273}
+      scale: {x: 1.0000037, y: 1.0000029, z: 1.0000035}
+    - name: Personagem_v2_Rigging_:Def_RwrlLag_L
+      parentName: Personagem_v2_Rigging_:Def_UpLag_L
       position: {x: -0.0030426767, y: -1.3877787e-19, z: 3.8003058e-19}
-      rotation: {x: -0.98886627, y: -0.14880712, z: 0.00000004470348, w: -0.000000059604638}
-      scale: {x: 1.0000031, y: 1.0000032, z: 1.0000037}
-    - name: Def_Ankle_L
-      parentName: Def_RwrlLag_L
+      rotation: {x: -0.98886627, y: -0.14880712, z: 0.00000004097819, w: -0.000000059604638}
+      scale: {x: 1.0000021, y: 1.000002, z: 1.000003}
+    - name: Personagem_v2_Rigging_:Def_Ankle_L
+      parentName: Personagem_v2_Rigging_:Def_RwrlLag_L
       position: {x: -0.004786412, y: -1.9428903e-18, z: -1.0918769e-19}
-      rotation: {x: 0.7461699, y: 0.66575557, z: -0.000000023452351, w: 0.0000000019175985}
-      scale: {x: 1.0000001, y: 0.9999996, z: 0.99999994}
-    - name: Def_FootToe_L
-      parentName: Def_Ankle_L
+      rotation: {x: 0.7461699, y: 0.66575557, z: 0.00000003029123, w: -0.00000006017031}
+      scale: {x: 0.9999998, y: 0.99999976, z: 0.99999994}
+    - name: Personagem_v2_Rigging_:Def_FootToe_L
+      parentName: Personagem_v2_Rigging_:Def_Ankle_L
       position: {x: -0.0016204849, y: -5.704931e-19, z: 9.123437e-19}
-      rotation: {x: 0.43942305, y: -0.5539922, z: -0.5539923, w: 0.4394231}
-      scale: {x: 1.0000011, y: 1.0000007, z: 1}
-    - name: Soquet_Foot
-      parentName: Def_Ankle_L
+      rotation: {x: 0.4394231, y: -0.5539923, z: -0.5539922, w: 0.43942305}
+      scale: {x: 1.0000001, y: 1.0000004, z: 0.99999994}
+    - name: Personagem_v2_Rigging_:Soquet_Foot
+      parentName: Personagem_v2_Rigging_:Def_Ankle_L
       position: {x: 0.00071254116, y: -0.00048243022, z: -4.1633362e-19}
-      rotation: {x: -0, y: -0, z: -0.000000029802315, w: 1}
-      scale: {x: 1, y: 1.0000001, z: 1}
-    - name: Def_UpRag_R
-      parentName: Def_Hips
+      rotation: {x: 3.5527133e-15, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Personagem_v2_Rigging_:Def_UpRag_R
+      parentName: Personagem_v2_Rigging_:Def_Hips
       position: {x: 0.000000002228775, y: 0.00106733, z: 0}
       rotation: {x: 0.7041532, y: 0.06456274, z: 0.0645627, w: -0.7041532}
-      scale: {x: 1.0000024, y: 1.0000048, z: 1.0000038}
-    - name: Def_RwrlRag_R
-      parentName: Def_UpRag_R
+      scale: {x: 1.0000019, y: 1.0000044, z: 1.0000035}
+    - name: Personagem_v2_Rigging_:Def_RwrlRag_R
+      parentName: Personagem_v2_Rigging_:Def_UpRag_R
       position: {x: 0.0030426716, y: -9.726318e-10, z: -1.3877787e-19}
-      rotation: {x: 0.9888662, y: 0.14880711, z: -0.0000000037252894, w: -0.00000006309709}
-      scale: {x: 1.0000013, y: 1.0000014, z: 1.0000008}
-    - name: Def_Ankle_R
-      parentName: Def_RwrlRag_R
+      rotation: {x: 0.98886627, y: 0.1488071, z: -0.00000002235174, w: -0.0000000016298143}
+      scale: {x: 1.0000008, y: 1.000001, z: 1.0000015}
+    - name: Personagem_v2_Rigging_:Def_Ankle_R
+      parentName: Personagem_v2_Rigging_:Def_RwrlRag_R
       position: {x: 0.0047864155, y: 3.0594668e-10, z: -1.2490008e-18}
-      rotation: {x: -0.74617, y: -0.66575557, z: -0.00000002053869, w: -0.0000000118746115}
-      scale: {x: 1.000001, y: 1.0000011, z: 1.0000011}
-    - name: Def_FootToe_R
-      parentName: Def_Ankle_R
+      rotation: {x: -0.74617, y: -0.6657556, z: 0.000000018847901, w: -0.000000019155618}
+      scale: {x: 1.0000017, y: 1.0000023, z: 1.0000021}
+    - name: Personagem_v2_Rigging_:Def_FootToe_R
+      parentName: Personagem_v2_Rigging_:Def_Ankle_R
       position: {x: 0.0016204813, y: 8.32933e-10, z: -8.3266725e-19}
-      rotation: {x: 0.43942305, y: -0.5539923, z: -0.55399215, w: 0.439423}
-      scale: {x: 1.0000002, y: 1.0000006, z: 1.0000015}
-    - name: Soquet_Foot 1
-      parentName: Def_Ankle_R
+      rotation: {x: 0.43942305, y: -0.55399215, z: -0.5539922, w: 0.43942308}
+      scale: {x: 0.9999999, y: 1.0000001, z: 1.0000012}
+    - name: Personagem_v2_Rigging_:Soquet_Foot 1
+      parentName: Personagem_v2_Rigging_:Def_Ankle_R
       position: {x: -0.0007125414, y: 0.00048243022, z: 4.1633362e-19}
-      rotation: {x: -8.881782e-16, y: -8.881782e-16, z: -0, w: 1}
-      scale: {x: 1.0000002, y: 1.0000011, z: 1.0000006}
+      rotation: {x: -0, y: -0, z: -0.000000029802315, w: 1}
+      scale: {x: 1, y: 1, z: 1.0000001}
     armTwist: 0.5
     foreArmTwist: 0.5
     upperLegTwist: 0.5
@@ -687,8 +743,7 @@ ModelImporter:
     hasTranslationDoF: 0
     hasExtraRoot: 1
     skeletonHasParents: 1
-  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: cd2a7d44f0712e7468bac3a4411ea78f,
-    type: 3}
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
   animationType: 3
   humanoidOversampling: 1
   additionalBone: 0
