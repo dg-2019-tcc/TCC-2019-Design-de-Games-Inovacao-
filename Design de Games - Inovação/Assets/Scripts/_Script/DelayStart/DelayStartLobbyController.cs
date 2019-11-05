@@ -7,6 +7,7 @@ using System.Collections.Generic;
 
 public class DelayStartLobbyController : MonoBehaviourPunCallbacks
 {
+    [Header("Botões")]
 
     [SerializeField]
     private GameObject delayStartButton; //Botão utilizado para criar e entrar em um jogo
@@ -15,19 +16,33 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
 	[SerializeField]
 	private GameObject loadingScene; //Feedback pro jogador de que a cena está carregando, o "esperando"
     [SerializeField]
-    private int RoomSize; //Utilizado para setar manualmente o numero de jogadores de uma sala
+    private GameObject tutorialButton;
+    public InputField playerNameInput;
+
+
+
+    [Header("Configurações de sala")]
     
+    [SerializeField]
+    private int RoomSize; //Utilizado para setar manualmente o numero de jogadores de uma sala
+    [SerializeField]
+    private bool tutorialMode;
     [HideInInspector]
     public bool modo;
 
-    public InputField playerNameInput;
+
+
+    [Header("Som")]
 
     public AudioSource startSound;
+
+
 
     public override void OnConnectedToMaster()
     {
         PhotonNetwork.AutomaticallySyncScene = true;
         delayStartButton.SetActive(true);
+        tutorialButton.SetActive(true);
 
         if (PlayerPrefs.HasKey("NickName"))
         {
@@ -45,7 +60,6 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
             PhotonNetwork.NickName = "Player " + Random.Range(0, 1000);
         }
         playerNameInput.text = PhotonNetwork.NickName;
-
     }
 
 
@@ -54,16 +68,22 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
         startSound.Play();
         delayStartButton.SetActive(false);
         delayCancelButton.SetActive(true);
-		loadingScene.SetActive(true);
+        tutorialButton.SetActive(false);
+        loadingScene.SetActive(true);
         PhotonNetwork.JoinRandomRoom();
-
-
-        //ExitGames.Client.Photon.Hashtable expectedCustomRoomProperties = new ExitGames.Client.Photon.Hashtable() { { "map", modo } };
         
+        //ExitGames.Client.Photon.Hashtable expectedCustomRoomProperties = new ExitGames.Client.Photon.Hashtable() { { "map", modo } };  
+        //PhotonNetwork.JoinRandomRoom(expectedCustomRoomProperties, (byte)RoomSize);        
+    }
 
-        
-        //PhotonNetwork.JoinRandomRoom(expectedCustomRoomProperties, (byte)RoomSize);
-        
+    public void TutorialStart()
+    {
+        startSound.Play();
+        delayStartButton.SetActive(false);
+        delayCancelButton.SetActive(true);
+        tutorialButton.SetActive(false);
+        loadingScene.SetActive(true);
+        CreateTutorialRoom();
     }
     
     public void PlayerNameUpdate(string nameInput)
@@ -76,7 +96,14 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
     {
         //Debug para saber que falhou em conectar numa sala
         //Debug.Log("Failed to join a room");
-        CreateRoom();
+        if(tutorialMode == false)
+        {
+            CreateRoom();
+        }
+        else
+        {
+            CreateTutorialRoom();
+        }
     }
 
     void CreateRoom()
@@ -117,11 +144,27 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
         //Debug.Log(randomRoomNumber + " / " + modo);
     }
 
+    void CreateTutorialRoom()
+    {
+        int randomRoomNumber = Random.Range(0, 10000);
+        RoomOptions roomOps = new RoomOptions() { IsVisible = false, IsOpen = false, MaxPlayers = (byte)1 };
+        PhotonNetwork.CreateRoom("Room" + randomRoomNumber, roomOps);
+    }
+
+
     public override void OnCreateRoomFailed(short returnCode, string message)
     {
-        Debug.Log("Failed to create a room... trying again");
-        CreateRoom();
+        //Debug.Log("Failed to create a room... trying again");
+        if(tutorialMode == false)
+        {
+            CreateRoom();
+        }
+        else
+        {
+            CreateTutorialRoom();
+        }
     }
+
 
     public void DelayCancel()
     {
