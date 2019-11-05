@@ -7,41 +7,41 @@ using UnityEngine.UI;
 public class CustomManager : MonoBehaviour
 {
 
+
+    [Header("Modelos")]
+
     public GameObject[] hairModels;
-
     public GameObject[] shirtModels;
-
     public GameObject[] pantModels;
 
-    //public Material[] shirtsMat;
+
+
+    [Header("Materiais")]
 
     public SkinnedMeshRenderer[] hairColor;
-
     public SkinnedMeshRenderer[] legsColor;
-
     public SkinnedMeshRenderer[] shirtsColor;
 
-    /* public int bodyIndex;
 
-     public int hairIndex;
 
-     public int chestIndex;
-
-     public int legsIndex;
-
-     public int shirtIndex;*/
+    [Header("PropCustom")]
 
     public PropsCustom hair;
-
     public PropsCustom shirt;
-
     public PropsCustom legs;
 
-    public GameObject custom;
+
+
+    [Header("Scripts Externos")]
 
     public PlayerMovement playerScript;
 
+
+
+    [Header("Som")]
+
     public AudioSource som;
+
 
 
     private void Start()
@@ -302,7 +302,6 @@ public class CustomManager : MonoBehaviour
 
     public void Jogar()
     {
-        custom.SetActive(false);
         playerScript.enabled = true;
     }
 }
