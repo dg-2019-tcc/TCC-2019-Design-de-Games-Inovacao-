@@ -113,9 +113,14 @@ public class PlayerMovement : MonoBehaviour
         joyStick = FindObjectOfType<Joystick>();
         fixedButton = FindObjectOfType<FixedButton>();
         PV = GetComponent<PhotonView>();
+		PV.Owner.CustomProperties["atirou"] = atirou;
+		PV.Owner.CustomProperties["dogPipa"] = dogPipa;
+		PV.Owner.CustomProperties["dogCarro"] = dogCarro;
+		PV.Owner.CustomProperties["acertouTotem"] = acertouTotem;
 
 
-        if (desativaCanvas == true)
+
+		if (desativaCanvas == true)
         {
             canvasSelf.SetActive(false);
         }
@@ -153,8 +158,13 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
+		atirou = (bool)PV.Owner.CustomProperties["atirou"];
+		dogPipa = (bool)PV.Owner.CustomProperties["dogPipa"];
+		dogCarro =  (bool)PV.Owner.CustomProperties["dogCarro"];
 
-        if (coletavel >= numeroDeColetaveis)
+		acertouTotem = (bool)PV.Owner.CustomProperties["acertouTotem"];
+
+		if (coletavel >= numeroDeColetaveis)
         {
             PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 1;
 
@@ -286,8 +296,18 @@ public class PlayerMovement : MonoBehaviour
         {
             StopCoroutine("LevouDogada");
         }
-        //Debug.Log(rb2d.velocity);
-    }
+		//Debug.Log(rb2d.velocity);
+
+
+
+		PV.Owner.CustomProperties["atirou"] = atirou;
+
+		PV.Owner.CustomProperties["dogPipa"] = dogPipa;
+
+		PV.Owner.CustomProperties["dogCarro"] = dogCarro;
+
+		PV.Owner.CustomProperties["acertouTotem"] = acertouTotem;
+	}
 
 
 

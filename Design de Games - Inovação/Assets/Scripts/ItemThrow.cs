@@ -13,7 +13,7 @@ public class ItemThrow : MonoBehaviour
 
     private Vector2 shootDirection;
 
-    static public float timeDestroy;
+    public float timeDestroy;
 
     public float speedPlayer = 1.0f;
 
@@ -32,8 +32,8 @@ public class ItemThrow : MonoBehaviour
         rb.velocity = shootDirection;
         rb.position += rb.velocity;
 
-        PlayerMovement.atirou = true;
-    }
+		Owner.CustomProperties["atirou"] = true;
+	}
 
     private void Update()
     {
@@ -43,8 +43,8 @@ public class ItemThrow : MonoBehaviour
         timeDestroy += Time.deltaTime;
         if (timeDestroy >= 5f)
         {
-			timeDestroy = 0;
-            PlayerMovement.atirou = false;
+			
+            Owner.CustomProperties["atirou"] =  false;
             Destroy(this.gameObject);
         }
     }
@@ -54,19 +54,19 @@ public class ItemThrow : MonoBehaviour
 
         if (collision.CompareTag("Pipa"))
         {
-            PlayerMovement.dogPipa = true;
+			Owner.CustomProperties["dogPipa"] = true;
             //tokenSom.Play();
             totemTarget = collision.transform;
-            PlayerMovement.acertouTotem = true;
+			Owner.CustomProperties["acertouTotem"] = true;
             timeDestroy = 4.9f;
         }
 
         if (collision.CompareTag("Carrinho"))
         {
-            PlayerMovement.dogCarro = true;
+			Owner.CustomProperties["dogCarro"] = true;
             //tokenSom.Play();
             totemTarget = collision.transform;
-            PlayerMovement.acertouTotem = true;
+			Owner.CustomProperties["acertouTotem"] = true;
             timeDestroy = 4.9f;
 
         }
