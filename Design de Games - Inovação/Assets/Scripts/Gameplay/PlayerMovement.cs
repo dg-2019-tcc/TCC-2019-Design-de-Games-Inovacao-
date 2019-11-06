@@ -113,9 +113,11 @@ public class PlayerMovement : MonoBehaviour
         joyStick = FindObjectOfType<Joystick>();
         fixedButton = FindObjectOfType<FixedButton>();
         PV = GetComponent<PhotonView>();
+		
 
 
-        if (desativaCanvas == true)
+
+		if (desativaCanvas == true)
         {
             canvasSelf.SetActive(false);
         }
@@ -125,8 +127,12 @@ public class PlayerMovement : MonoBehaviour
         {
             VC = gameObject.transform.GetChild(0).GetComponent<CinemachineVirtualCamera>();
             VC.Priority = 15;
+			PV.Owner.CustomProperties["atirou"] = atirou;
+			PV.Owner.CustomProperties["dogPipa"] = dogPipa;
+			PV.Owner.CustomProperties["dogCarro"] = dogCarro;
+			PV.Owner.CustomProperties["acertouTotem"] = acertouTotem;
 
-            if (joyStick.isActiveAndEnabled)
+			if (joyStick.isActiveAndEnabled)
             {
                 CC = gameObject.transform.GetChild(0).GetComponent<CinemachineConfiner>();
                 CC.m_BoundingShape2D = GameObject.Find("CameraConfiner").GetComponent<PolygonCollider2D>();
@@ -153,8 +159,9 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
+		
 
-        if (coletavel >= numeroDeColetaveis)
+		if (coletavel >= numeroDeColetaveis)
         {
             PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 1;
 
@@ -165,6 +172,12 @@ public class PlayerMovement : MonoBehaviour
         }
 
         if (PV != null && !PV.IsMine) return;
+
+		atirou = (bool)PV.Owner.CustomProperties["atirou"];
+		dogPipa = (bool)PV.Owner.CustomProperties["dogPipa"];
+		dogCarro = (bool)PV.Owner.CustomProperties["dogCarro"];
+
+		acertouTotem = (bool)PV.Owner.CustomProperties["acertouTotem"];
 
 		//Vector2 move = new Vector2(joyStick.Horizontal + Input.GetAxisRaw("Horizontal"), 0);
 
@@ -286,8 +299,18 @@ public class PlayerMovement : MonoBehaviour
         {
             StopCoroutine("LevouDogada");
         }
-        //Debug.Log(rb2d.velocity);
-    }
+		//Debug.Log(rb2d.velocity);
+
+
+
+		PV.Owner.CustomProperties["atirou"] = atirou;
+
+		PV.Owner.CustomProperties["dogPipa"] = dogPipa;
+
+		PV.Owner.CustomProperties["dogCarro"] = dogCarro;
+
+		PV.Owner.CustomProperties["acertouTotem"] = acertouTotem;
+	}
 
 
 
