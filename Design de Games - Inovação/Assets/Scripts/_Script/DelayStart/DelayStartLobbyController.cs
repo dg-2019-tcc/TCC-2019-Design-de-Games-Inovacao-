@@ -70,6 +70,9 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
         delayCancelButton.SetActive(true);
         tutorialButton.SetActive(false);
         loadingScene.SetActive(true);
+        DelayStartWaitingRoomController.minPlayerToStart = 2;
+        DelayStartWaitingRoomController.tutorialMode = false
+            ;
         PhotonNetwork.JoinRandomRoom();
         
         //ExitGames.Client.Photon.Hashtable expectedCustomRoomProperties = new ExitGames.Client.Photon.Hashtable() { { "map", modo } };  
@@ -83,6 +86,8 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
         delayCancelButton.SetActive(true);
         tutorialButton.SetActive(false);
         loadingScene.SetActive(true);
+        DelayStartWaitingRoomController.minPlayerToStart = 1;
+        DelayStartWaitingRoomController.tutorialMode = true;
         CreateTutorialRoom();
     }
     

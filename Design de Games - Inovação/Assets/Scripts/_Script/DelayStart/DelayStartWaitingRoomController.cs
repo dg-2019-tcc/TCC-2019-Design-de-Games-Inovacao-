@@ -6,38 +6,58 @@ using UnityEngine.UI;
 
 public class DelayStartWaitingRoomController : MonoBehaviourPunCallbacks
 {
+
+
+    [Header("Photon")]
+    
     private PhotonView myPhotonView;
 
-    [SerializeField]
-    private string multiplayerSceneIndex;
-    [SerializeField]
-    private int menuSceneIndex;
 
+
+    [Header("Configurações de sala")]
+
+    public static bool tutorialMode;
     private int playerCount;
     private int roomSize;
-    [SerializeField]
-    private int minPlayerToStart;
 
+
+
+    [Header("Necessário para começar")]
+
+    [SerializeField]
+    private float maxWaitTime;//Tempo para iniciar o jogo
+    [SerializeField]
+    private float maxFullGameWaitTime;//Tempo caso a sala encha
+    //Jogadores mínimos para começar
+    public static int minPlayerToStart;
+    //Bools
+    private bool readyToCountDown;
+    private bool readyToStart;
+    private bool startingGame;
+    //Timers
+    private float timerToStartGame;
+    private float notFullRoomTimer;
+    private float fullRoomTimer;
+    //Mostrar textos
     [SerializeField]
     private Text playerCountDisplay;
     [SerializeField]
     private Text timerToStartDisplay;
 
-    private bool readyToCountDown;
-    private bool readyToStart;
-    private bool startingGame;
 
-    private float timerToStartGame;
-    private float notFullRoomTimer;
-    private float fullRoomTimer;
+
+    [Header("Transições de cena")]
 
     [SerializeField]
-    private float maxWaitTime;
+    private string multiplayerSceneIndex;
     [SerializeField]
-    private float maxFullGameWaitTime;
+    private string tutorialSceneIndex;
+    [SerializeField]
+    private string menuSceneIndex;
 
-    [HideInInspector]
-    public bool modo;
+
+
+    [Header("Botões")]
 
     [SerializeField]
     private GameObject startGameNow;
@@ -50,7 +70,6 @@ public class DelayStartWaitingRoomController : MonoBehaviourPunCallbacks
         notFullRoomTimer = maxWaitTime;
         timerToStartGame = maxWaitTime;
         
-        //botaoModo2.SetActive(false);
 
 
         if (PhotonNetwork.IsMasterClient)
@@ -119,7 +138,7 @@ public class DelayStartWaitingRoomController : MonoBehaviourPunCallbacks
 
     void WaitingForMorePlayers()
     {
-        if (playerCount <= 1)
+        if (playerCount <= 1 && minPlayerToStart != 1)
         {
             ResetTimer();
         }
@@ -128,7 +147,7 @@ public class DelayStartWaitingRoomController : MonoBehaviourPunCallbacks
             fullRoomTimer -= Time.deltaTime;
             timerToStartGame = fullRoomTimer;
         }
-        else if (readyToCountDown)
+        else if (readyToCountDown && minPlayerToStart != 1 && timerToStartGame > 0)
         {
             notFullRoomTimer -= Time.deltaTime;
             timerToStartGame = notFullRoomTimer;
@@ -158,10 +177,16 @@ public class DelayStartWaitingRoomController : MonoBehaviourPunCallbacks
         if (!PhotonNetwork.IsMasterClient)
             return;
         PhotonNetwork.CurrentRoom.IsOpen = false;
-        PhotonNetwork.LoadLevel(multiplayerSceneIndex);
-
+        if(tutorialMode == false)
+        {
+            PhotonNetwork.LoadLevel(multiplayerSceneIndex);
+        }
+        else
+        {
+            PhotonNetwork.LoadLevel(tutorialSceneIndex);
+        }
     }
-
+    
     public void DelayCancel()
     {
         PhotonNetwork.LeaveRoom();
