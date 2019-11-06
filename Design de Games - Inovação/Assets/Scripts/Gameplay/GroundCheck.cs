@@ -8,6 +8,8 @@ public class GroundCheck : MonoBehaviour
 
     protected Joystick joystick;
 
+    public Animator playerAC;
+
      void Start()
     {
         player = gameObject.GetComponentInParent<PlayerMovement>();
@@ -20,8 +22,9 @@ public class GroundCheck : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D col)
     {
-		if(!col.CompareTag("Coletavel"))
+        if (!col.CompareTag("Coletavel"))
         player.grounded = true;
+        playerAC.SetTrigger("Fall");
     }
 
      void OnTriggerStay2D(Collider2D col)

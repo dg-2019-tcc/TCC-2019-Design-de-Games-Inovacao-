@@ -209,6 +209,17 @@ public class PlayerMovement : MonoBehaviour
 				playerAC.SetBool("isWalking", false);
 			}
 		}
+
+        if (grounded)
+        {
+            playerAC.SetBool("isGrounded", true);
+        }
+        else
+        {
+            playerAC.SetBool("isGrounded", false);
+
+        }
+
         // Pulo
         if (grounded == true && jump == true)
         {
@@ -233,7 +244,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //Colocando tempo limite das tranformações
-        if (dogCount >= 2f)
+        if (dogCount >= 5f)
         {
             desativaTransformacao = true;
         }
@@ -365,6 +376,7 @@ public class PlayerMovement : MonoBehaviour
     //Função para o botão de pulo
     public void Jump()
     {
+        playerAC.SetTrigger("Jump");
         jump = true;
         if (pipa == true || carrinho == true)
         {
