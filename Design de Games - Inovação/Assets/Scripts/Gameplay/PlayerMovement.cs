@@ -38,6 +38,7 @@ public class PlayerMovement : MonoBehaviour
     protected Joystick joyStick;
     protected FixedButton fixedButton;
     public GameObject canvasSelf;
+	public GameObject canvasPause;
     [SerializeField]
     private bool desativaCanvas;
 
