@@ -9,6 +9,8 @@ public class DogController : MonoBehaviour
     private Transform target;
     public float speedToTotem = 10f;
 
+	private bool dogTransformed;
+
     [Header("Pet")]
 
     public GameObject Pet;
@@ -77,13 +79,15 @@ public class DogController : MonoBehaviour
 
         if(dog.Value == false)
         {
-            Pet.SetActive(false);
-        }
+			gameObject.GetComponent<PhotonView>().RPC("TransformaPet", RpcTarget.All, false);
+		}
 
-        else
+        else 
         {
-            Pet.SetActive(true);
-        }
+			gameObject.GetComponent<PhotonView>().RPC("TransformaPet", RpcTarget.All, true);
+		}
+
+		
 
     }
 
@@ -94,8 +98,8 @@ public class DogController : MonoBehaviour
         if (collision.CompareTag("Pipa"))
         {
             if (efeitoCarro.ativa.Value == false)
-            { 
-            Pipa();
+            {
+				gameObject.GetComponent<PhotonView>().RPC("Pipa", RpcTarget.All);
             }
         }
 
@@ -103,11 +107,12 @@ public class DogController : MonoBehaviour
         {
             if (efeitoPipa.ativa.Value == false)
             {
-                Carro();
+				gameObject.GetComponent<PhotonView>().RPC("Carro", RpcTarget.All);
             }
         }
     }
 
+	[PunRPC]
     public void Carro()
     {
         StartCoroutine(efeitoCarro.Enumerator(this));
@@ -116,6 +121,9 @@ public class DogController : MonoBehaviour
         hitTotemCarro.Value = false;
     }
 
+	
+
+	[PunRPC]
     public void Pipa()
     {
         StartCoroutine(efeitoPipa.Enumerator(this));
@@ -123,10 +131,16 @@ public class DogController : MonoBehaviour
         tokenAudioEvent.Play(tokenSom);
         hitTotemPipa.Value = false;
     }
-    /*[PunRPC]
-    private void TransformaPet(bool isDog, string transformation)
+
+	
+	
+    [PunRPC]
+    private void TransformaPet(bool isDog)
     {
         Pet.SetActive(isDog);
-    }*/
+		if(!isDog)Pet.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, Pet.transform.position.z);
+		
+
+	}
 
 }
