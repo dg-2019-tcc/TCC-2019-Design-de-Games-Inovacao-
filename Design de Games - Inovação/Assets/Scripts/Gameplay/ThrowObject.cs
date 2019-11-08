@@ -7,17 +7,18 @@ using Photon.Realtime;
 
 public class ThrowObject : MonoBehaviour
 {
-    public Transform firePoint;
-
+	[Header("Alvo e Prefab")]
+	public Transform firePoint;
     public GameObject bulletPrefab;
 
     public static Vector2 direction;
 
+	[HideInInspector]
     public PhotonView photonView;
 
     private void Awake()
     {
-        photonView = GetComponent<PhotonView>();
+        photonView = gameObject.GetComponent<PhotonView>();
         SwipeDetector.OnSwipe += SwipeDirection;
     }
 
@@ -26,11 +27,8 @@ public class ThrowObject : MonoBehaviour
     {
         if (photonView.IsMine == true)
         {
-            if (SwipeDetector.shoot == true)
-            {
-                Shoot();
-            }
-
+            if (SwipeDetector.shoot == true) Shoot();
+            
             if (Input.GetKeyDown(KeyCode.Z))
             {
                 direction = new Vector2(0.5f, 0);
@@ -42,7 +40,7 @@ public class ThrowObject : MonoBehaviour
     [PunRPC]
     void Shoot()
     {
-		//if ((bool)photonView.Owner.CustomProperties["atirou"]) return;
+		if (!(bool)photonView.Owner.CustomProperties["dogValue"]) return;
         GameObject bullet;
         bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);// as GameObject;
         bullet.GetComponent<ItemThrow>().InitializeBullet(photonView.Owner);
