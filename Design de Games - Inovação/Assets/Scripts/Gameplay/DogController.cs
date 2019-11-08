@@ -32,22 +32,24 @@ public class DogController : MonoBehaviour
 
 
     [HideInInspector]
-    public PhotonView PV;
+    private PhotonView PV;
 
     [Header("Skills")]
     public PipaEffect efeitoPipa;
     public CarroEffect efeitoCarro;
     public BoolVariable hitTotemCarro;
     public BoolVariable hitTotemPipa;
-    public BoolVariable dog;
+    //public BoolVariable dog;
 
 
 
     // Start is called before the first frame update
     void Start()
     {
+		PV = GetComponent<PhotonView>();
         efeitoCarro.ativa.Value = false;
         efeitoPipa.ativa.Value = false;
+		PV.Controller.CustomProperties["dogValue"] = true;
     }
 
     // Update is called once per frame
@@ -77,7 +79,7 @@ public class DogController : MonoBehaviour
 
         }
 
-        if(dog.Value == false)
+        if((bool)PV.Controller.CustomProperties["dogValue"] == false)
         {
 			gameObject.GetComponent<PhotonView>().RPC("TransformaPet", RpcTarget.All, false);
 		}
@@ -139,8 +141,6 @@ public class DogController : MonoBehaviour
     {
         Pet.SetActive(isDog);
 		if(!isDog)Pet.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, Pet.transform.position.z);
-		
-
 	}
 
 }

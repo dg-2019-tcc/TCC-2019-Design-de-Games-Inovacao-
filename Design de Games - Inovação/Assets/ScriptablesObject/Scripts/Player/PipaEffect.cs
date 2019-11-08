@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 [CreateAssetMenu (menuName = "Gerador/Tokens/PipaEffect")]
 public class PipaEffect : TokenEffect
@@ -18,9 +19,9 @@ public class PipaEffect : TokenEffect
         ativa.Value = true;
         runner.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, pipaForce.Value), ForceMode2D.Impulse);
         stat.speed = pipaSpeed;
-        dog.Value = false;
+		runner.GetComponent<PhotonView>().Owner.CustomProperties["dogValue"] = false;
         yield return new WaitForSeconds(effectTime);
-        dog.Value = true;
+		runner.GetComponent<PhotonView>().Owner.CustomProperties["dogValue"] = true;
         stat.speed = playerSpeed;
         ativa.Value = false;
     }

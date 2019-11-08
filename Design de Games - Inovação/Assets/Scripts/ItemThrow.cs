@@ -36,7 +36,7 @@ public class ItemThrow : MonoBehaviour
         rb.position += rb.velocity;
 
 		Owner.CustomProperties["atirou"] = true;
-        dog.Value = true;
+		Owner.CustomProperties["dogValue"] = false;
 	}
 
     private void Update()
@@ -47,7 +47,7 @@ public class ItemThrow : MonoBehaviour
         timeDestroy += Time.deltaTime;
         if (timeDestroy >= 5f)
         {
-            dog.Value = false;
+			Owner.CustomProperties["dogValue"] = true;
             Owner.CustomProperties["atirou"] =  false;
             Destroy(this.gameObject);
         }
