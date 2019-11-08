@@ -42,7 +42,7 @@ public class ThrowObject : MonoBehaviour
     [PunRPC]
     void Shoot()
     {
-		if ((bool)photonView.Owner.CustomProperties["atirou"]) return;
+		//if ((bool)photonView.Owner.CustomProperties["atirou"]) return;
         GameObject bullet;
         bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);// as GameObject;
         bullet.GetComponent<ItemThrow>().InitializeBullet(photonView.Owner);

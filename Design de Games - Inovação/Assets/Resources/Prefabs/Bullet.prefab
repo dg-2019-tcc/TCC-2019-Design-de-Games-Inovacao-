@@ -173,7 +173,12 @@ MonoBehaviour:
   speed: 20
   rb: {fileID: 5094846525186585045}
   timeDestroy: 0
-  player: {fileID: 0}
+  speedPlayer: 1
+  hit: 0
+  hitTotemCarro: {fileID: 11400000, guid: b811d48a64120ed47b3b0b21e59a44a8, type: 2}
+  hitTotemPipa: {fileID: 11400000, guid: 1d907a2babc3118498bccce5d7a5a5b5, type: 2}
+  tiroCarro: {fileID: 11400000, guid: a629f27501575fc468d0276c5f3e8cd6, type: 2}
+  tiroPipa: {fileID: 11400000, guid: f0b22a926d310a343941d5446e151087, type: 2}
 --- !u!1001 &6913831645067952497
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -181,6 +186,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1593200774654575894}
     m_Modifications:
+    - target: {fileID: -927199367670048503, guid: 1bf2d2503194cea488a16386075853e4,
+        type: 3}
+      propertyPath: m_Name
+      value: Doguinho
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 1bf2d2503194cea488a16386075853e4,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 1bf2d2503194cea488a16386075853e4,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -250,16 +265,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: -927199367670048503, guid: 1bf2d2503194cea488a16386075853e4,
-        type: 3}
-      propertyPath: m_Name
-      value: Doguinho
-      objectReference: {fileID: 0}
-    - target: {fileID: -927199367670048503, guid: 1bf2d2503194cea488a16386075853e4,
-        type: 3}
-      propertyPath: m_Layer
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1bf2d2503194cea488a16386075853e4, type: 3}

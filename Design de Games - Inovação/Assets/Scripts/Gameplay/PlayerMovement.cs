@@ -22,14 +22,15 @@ public class PlayerMovement : MonoBehaviour
     [Header("Movimentação física")]
 
     public GameObject player;
-    public float speed;
+    /*public float speed;
     public float jumpSpeed;
-    public float maxSpeed = 8;
+    public float maxSpeed = 8;*/
     private Rigidbody2D rb2d;
     public bool jump;
     public Transform groundCheck;
     public bool grounded;
-
+    public bool levouDogada;
+    public PlayerStat stats;
 
 
     [Header("Canvas")]
@@ -42,18 +43,18 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private bool desativaCanvas;
 
+    private Transform target;
+    public float speedToTotem = 10.0f;
+    public static bool acertouTotem;
 
-
-    [Header("Pet")]
+    /*[Header("Pet")]
 
     public GameObject Pet;
     public GameObject dogSpawn;
     public float dogCount;
-    private Transform target;
-    public bool levouDogada;
+    
     public static bool atirou;
-    public float speedToTotem = 10.0f;
-    public static bool acertouTotem;
+    
     [HideInInspector]
     public bool desativaTransformacao;
 
@@ -73,7 +74,7 @@ public class PlayerMovement : MonoBehaviour
     public bool carrinho;
     public static bool dogCarro;
     public float carrinhoSpeed;
-    public GameObject carrinhoObj;
+    public GameObject carrinhoObj;*/
 
 
 
@@ -106,6 +107,17 @@ public class PlayerMovement : MonoBehaviour
     public Animator playerAC;
 
 
+    [Header("SkillsState")]
+    public BoolVariable carroState;
+    public BoolVariable pipaState;
+    public BoolVariable hitCarroToken;
+    public BoolVariable hitPipaToken;
+    public BoolVariable startPipa;
+    public BoolVariable startCarro;
+
+
+
+
 
     void Start()
     {
@@ -128,10 +140,10 @@ public class PlayerMovement : MonoBehaviour
         {
             VC = gameObject.transform.GetChild(0).GetComponent<CinemachineVirtualCamera>();
             VC.Priority = 15;
-			PV.Owner.CustomProperties["atirou"] = atirou;
+			/*PV.Owner.CustomProperties["atirou"] = atirou;
 			PV.Owner.CustomProperties["dogPipa"] = dogPipa;
 			PV.Owner.CustomProperties["dogCarro"] = dogCarro;
-			PV.Owner.CustomProperties["acertouTotem"] = acertouTotem;
+			PV.Owner.CustomProperties["acertouTotem"] = acertouTotem;*/
 
 			if (joyStick.isActiveAndEnabled)
             {
@@ -174,11 +186,11 @@ public class PlayerMovement : MonoBehaviour
 
         if (PV != null && !PV.IsMine) return;
 
-		atirou = (bool)PV.Owner.CustomProperties["atirou"];
+		/*atirou = (bool)PV.Owner.CustomProperties["atirou"];
 		dogPipa = (bool)PV.Owner.CustomProperties["dogPipa"];
 		dogCarro = (bool)PV.Owner.CustomProperties["dogCarro"];
 
-		acertouTotem = (bool)PV.Owner.CustomProperties["acertouTotem"];
+		acertouTotem = (bool)PV.Owner.CustomProperties["acertouTotem"];*/
 
 		//Vector2 move = new Vector2(joyStick.Horizontal + Input.GetAxisRaw("Horizontal"), 0);
 
@@ -199,7 +211,7 @@ public class PlayerMovement : MonoBehaviour
 			if (moveHorizontal != 0 && levouDogada == false)
 			{
 
-				rb2d.velocity = new Vector3(speed * moveHorizontal, rb2d.velocity.y, 0);
+				rb2d.velocity = new Vector3(stats.speed.Value * moveHorizontal, rb2d.velocity.y, 0);
 				playerAC.SetBool("isWalking", true);
 				//walkSom.SetActive(true);
 			}
@@ -223,16 +235,39 @@ public class PlayerMovement : MonoBehaviour
         // Pulo
         if (grounded == true && jump == true)
         {
-            carrinho = false;
-            rb2d.AddForce(new Vector2(0, jumpSpeed), ForceMode2D.Impulse);
+            carroState.Value = false;
+            pipaState.Value = false;
+            rb2d.AddForce(new Vector2(0, stats.jumpForce.Value), ForceMode2D.Impulse);
             //Physics.IgnoreLayerCollision(10, 11, true);
             jump = false;
             puloSom.Play();
 
         }
 
+        /*if (hitCarroToken.Value == true || hitPipaToken.Value == true)
+        {
+            target = ItemThrow.totemTarget;
+            float step = speedToTotem * Time.deltaTime; // calculate distance to move
+            transform.position = Vector3.MoveTowards(transform.position, target.position, step);
+            if (Vector3.Distance(transform.position, target.position) < 0.001f)
+            {
+                if (hitCarroToken.Value)
+                {
+                    startCarro.Value = true;
+                }
+
+                else
+                {
+                    startPipa.Value = true;
+                }
+            }
+        }*/
+        
+
+
+
         // Desativando transformações
-        if (desativaTransformacao == true)
+        /*if (desativaTransformacao == true)
         {
             pipa = false;
             dogPipa = false;
@@ -300,7 +335,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 acertouTotem = false;
             }
-        }
+        }*/
 
         if (levouDogada)
         {
@@ -315,13 +350,13 @@ public class PlayerMovement : MonoBehaviour
 
 
 
-		PV.Owner.CustomProperties["atirou"] = atirou;
+		/*PV.Owner.CustomProperties["atirou"] = atirou;
 
 		PV.Owner.CustomProperties["dogPipa"] = dogPipa;
 
 		PV.Owner.CustomProperties["dogCarro"] = dogCarro;
 
-		PV.Owner.CustomProperties["acertouTotem"] = acertouTotem;
+		PV.Owner.CustomProperties["acertouTotem"] = acertouTotem;*/
 	}
 
 
@@ -342,7 +377,7 @@ public class PlayerMovement : MonoBehaviour
 
 	
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    /*private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Coletavel"))
         {
@@ -364,13 +399,13 @@ public class PlayerMovement : MonoBehaviour
             carrinho = true;
             tokenSom.Play();
         }
-    }
+    }*/
 
-	[PunRPC]
+	/*[PunRPC]
     private void TransformaPet(bool isDog, string transformation)
     {
         Pet.SetActive(isDog);
-    }
+    }*/
 
 
     //Função para o botão de pulo
@@ -378,10 +413,6 @@ public class PlayerMovement : MonoBehaviour
     {
         playerAC.SetTrigger("Jump");
         jump = true;
-        if (pipa == true || carrinho == true)
-        {
-            desativaTransformacao = true;
-        }
 
     }
 

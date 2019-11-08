@@ -21,6 +21,9 @@ public class ItemThrow : MonoBehaviour
 
     public bool hit;
 
+    public BoolVariable hitTotemCarro;
+    public BoolVariable hitTotemPipa;
+
 
 
     public void InitializeBullet(Photon.Realtime.Player owner)
@@ -54,18 +57,22 @@ public class ItemThrow : MonoBehaviour
 
         if (collision.CompareTag("Pipa"))
         {
+            totemTarget = collision.transform;
+            hitTotemPipa.Value = true;
 			Owner.CustomProperties["dogPipa"] = true;
             //tokenSom.Play();
-            totemTarget = collision.transform;
+            
 			Owner.CustomProperties["acertouTotem"] = true;
             timeDestroy = 4.9f;
         }
 
         if (collision.CompareTag("Carrinho"))
         {
-			Owner.CustomProperties["dogCarro"] = true;
-            //tokenSom.Play();
             totemTarget = collision.transform;
+            hitTotemCarro.Value = true;
+            Owner.CustomProperties["dogCarro"] = true;
+            //tokenSom.Play();
+            
 			Owner.CustomProperties["acertouTotem"] = true;
             timeDestroy = 4.9f;
 

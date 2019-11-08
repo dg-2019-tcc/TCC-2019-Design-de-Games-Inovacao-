@@ -8,7 +8,6 @@ public class DesativaDragao : MonoBehaviour
     {
         if (other.CompareTag("Dragao"))
         {
-            Debug.Log("Desativou");
             other.GetComponent<SpriteRenderer>().enabled = false;
             other.gameObject.layer = 11;
             

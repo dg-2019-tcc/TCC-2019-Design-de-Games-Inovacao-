@@ -21,7 +21,7 @@ public class SwipeDetector : MonoBehaviour
     {
         foreach (Touch touch in Input.touches)
         {
-            if (touch.phase == TouchPhase.Began)
+            if (touch.phase == TouchPhase.Began && touch.position.x > Screen.width)
             {
                 fingerUpPosition = touch.position;
                 fingerDownPosition = touch.position;
