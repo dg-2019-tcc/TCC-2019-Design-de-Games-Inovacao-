@@ -120,38 +120,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &12048981 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3975267850507488238, guid: 650c79142e52b1a46944cd798e3de766,
-    type: 3}
-  m_PrefabInstance: {fileID: 2085130054}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &12048982
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 12048981}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3064b0f9eeeef524c8cc106256759764, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TransformationTypes: 0
-  Pet: {fileID: 0}
-  dogSpawn: {fileID: 0}
-  dogCount: 0
-  target: {fileID: 0}
-  levouDogada: 0
-  speedToTotem: 0
-  desativaTransformacao: 0
-  pipa: 0
-  pipaForce: 0
-  pipaObj: {fileID: 0}
-  carrinho: 0
-  carrinhoSpeed: 0
-  carrinhoObj: {fileID: 0}
 --- !u!1 &37315898
 GameObject:
   m_ObjectHideFlags: 0
@@ -1415,37 +1383,37 @@ PrefabInstance:
     - target: {fileID: 3372553702974495734, guid: bc17408c5de03fe42bf27d7125208e61,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -969.65155
+      value: -986.73
       objectReference: {fileID: 0}
     - target: {fileID: 3372553702974495734, guid: bc17408c5de03fe42bf27d7125208e61,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -539.852
+      value: -396.8687
       objectReference: {fileID: 0}
     - target: {fileID: 3372553702974495734, guid: bc17408c5de03fe42bf27d7125208e61,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -3.069945
+      value: -8.6
       objectReference: {fileID: 0}
     - target: {fileID: 3372553702974495734, guid: bc17408c5de03fe42bf27d7125208e61,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.0044493685
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 3372553702974495734, guid: bc17408c5de03fe42bf27d7125208e61,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.19225827
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 3372553702974495734, guid: bc17408c5de03fe42bf27d7125208e61,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.021571029
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 3372553702974495734, guid: bc17408c5de03fe42bf27d7125208e61,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.9810972
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3372553702974495734, guid: bc17408c5de03fe42bf27d7125208e61,
         type: 3}
@@ -3694,6 +3662,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1740937398940777471, guid: 650c79142e52b1a46944cd798e3de766,
+        type: 3}
+      propertyPath: som
+      value: 
+      objectReference: {fileID: 331712014}
     - target: {fileID: 2662577324277118414, guid: 650c79142e52b1a46944cd798e3de766,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4029,11 +4002,6 @@ PrefabInstance:
       propertyPath: nomeDoMenu
       value: MenuCustomizacao
       objectReference: {fileID: 0}
-    - target: {fileID: 1740937398940777471, guid: 650c79142e52b1a46944cd798e3de766,
-        type: 3}
-      propertyPath: som
-      value: 
-      objectReference: {fileID: 331712014}
     - target: {fileID: 9124404734949670831, guid: 650c79142e52b1a46944cd798e3de766,
         type: 3}
       propertyPath: canvasSelf
@@ -4049,6 +4017,18 @@ PrefabInstance:
       propertyPath: desativaCanvas
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 9124404734949670831, guid: 650c79142e52b1a46944cd798e3de766,
+        type: 3}
+      propertyPath: playerSpeed
+      value: 
+      objectReference: {fileID: 11400000, guid: 95cfeda8d1e4db640ba9a88702cee2e0,
+        type: 2}
+    - target: {fileID: 9124404734949670831, guid: 650c79142e52b1a46944cd798e3de766,
+        type: 3}
+      propertyPath: playerJump
+      value: 
+      objectReference: {fileID: 11400000, guid: a48f8551aa9251e40bfdc9d77510e761,
+        type: 2}
     - target: {fileID: 7607403595154593207, guid: 650c79142e52b1a46944cd798e3de766,
         type: 3}
       propertyPath: desativaCanvas
@@ -5079,6 +5059,30 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2379033092979356454, guid: 650c79142e52b1a46944cd798e3de766,
+        type: 3}
+      propertyPath: tiroPipa
+      value: 
+      objectReference: {fileID: 11400000, guid: f0b22a926d310a343941d5446e151087,
+        type: 2}
+    - target: {fileID: 2379033092979356454, guid: 650c79142e52b1a46944cd798e3de766,
+        type: 3}
+      propertyPath: tiroCarro
+      value: 
+      objectReference: {fileID: 11400000, guid: a629f27501575fc468d0276c5f3e8cd6,
+        type: 2}
+    - target: {fileID: 2379033092979356454, guid: 650c79142e52b1a46944cd798e3de766,
+        type: 3}
+      propertyPath: hitCarroToken
+      value: 
+      objectReference: {fileID: 11400000, guid: b811d48a64120ed47b3b0b21e59a44a8,
+        type: 2}
+    - target: {fileID: 2379033092979356454, guid: 650c79142e52b1a46944cd798e3de766,
+        type: 3}
+      propertyPath: hitPipaToken
+      value: 
+      objectReference: {fileID: 11400000, guid: 1d907a2babc3118498bccce5d7a5a5b5,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 650c79142e52b1a46944cd798e3de766, type: 3}
 --- !u!4 &2085130055 stripped
