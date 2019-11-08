@@ -23,7 +23,7 @@ public class ItemThrow : MonoBehaviour
 
     public BoolVariable hitTotemCarro;
     public BoolVariable hitTotemPipa;
-
+    public BoolVariable dog;
 
 
     public void InitializeBullet(Photon.Realtime.Player owner)
@@ -36,6 +36,7 @@ public class ItemThrow : MonoBehaviour
         rb.position += rb.velocity;
 
 		Owner.CustomProperties["atirou"] = true;
+        dog.Value = true;
 	}
 
     private void Update()
@@ -46,7 +47,7 @@ public class ItemThrow : MonoBehaviour
         timeDestroy += Time.deltaTime;
         if (timeDestroy >= 5f)
         {
-			
+            dog.Value = false;
             Owner.CustomProperties["atirou"] =  false;
             Destroy(this.gameObject);
         }

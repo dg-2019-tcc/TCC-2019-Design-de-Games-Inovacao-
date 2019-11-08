@@ -10,6 +10,7 @@ public class CarroEffect : TokenEffect
     public FloatVariable playerSpeed;
     public FloatVariable statChange;
     public BoolVariable ativa;
+    public BoolVariable dog;
     public float effectTime;
 
 
@@ -18,8 +19,10 @@ public class CarroEffect : TokenEffect
     {
         stat.speed = statChange;
         ativa.Value = true;
+        dog.Value = false;
         yield return new WaitForSeconds(effectTime);
         stat.speed = playerSpeed;
         ativa.Value = false;
+        dog.Value = true;
     }
 }

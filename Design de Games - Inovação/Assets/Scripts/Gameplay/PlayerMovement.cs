@@ -22,15 +22,14 @@ public class PlayerMovement : MonoBehaviour
     [Header("Movimentação física")]
 
     public GameObject player;
-    /*public float speed;
-    public float jumpSpeed;
-    public float maxSpeed = 8;*/
     private Rigidbody2D rb2d;
     public bool jump;
     public Transform groundCheck;
     public bool grounded;
     public bool levouDogada;
     public PlayerStat stats;
+    public FloatVariable playerSpeed;
+    public FloatVariable playerJump;
 
 
     [Header("Canvas")]
@@ -47,45 +46,16 @@ public class PlayerMovement : MonoBehaviour
     public float speedToTotem = 10.0f;
     public static bool acertouTotem;
 
-    /*[Header("Pet")]
-
-    public GameObject Pet;
-    public GameObject dogSpawn;
-    public float dogCount;
-    
-    public static bool atirou;
-    
-    [HideInInspector]
-    public bool desativaTransformacao;
 
 
-
-    [Header("Pet pipa")]
-
-    public bool pipa;
-    public static bool dogPipa;
-    public float pipaForce;
-    public GameObject pipaObj;
-
-
-
-    [Header("Pet carrinho")]
-    
-    public bool carrinho;
-    public static bool dogCarro;
-    public float carrinhoSpeed;
-    public GameObject carrinhoObj;*/
-
-
-
-    //[Header("Photon")]
+    [Header("Photon")]
 
     [HideInInspector]
     public PhotonView PV;
 
 
 
-    //[Header("Cinemachine")]
+    [Header("Cinemachine")]
 
     private CinemachineConfiner CC;
     private CinemachineVirtualCamera VC;
@@ -97,7 +67,7 @@ public class PlayerMovement : MonoBehaviour
 
     public AudioSource puloSom;
     public GameObject walkSom;
-    public AudioSource tokenSom;
+    //public AudioSource tokenSom;
     public AudioSource coleta;
 
 
@@ -126,6 +96,8 @@ public class PlayerMovement : MonoBehaviour
         joyStick = FindObjectOfType<Joystick>();
         fixedButton = FindObjectOfType<FixedButton>();
         PV = GetComponent<PhotonView>();
+        stats.speed = playerSpeed;
+        stats.jumpForce = playerJump;
 		
 
 
@@ -242,29 +214,8 @@ public class PlayerMovement : MonoBehaviour
             jump = false;
             puloSom.Play();
 
-        }
-
-        /*if (hitCarroToken.Value == true || hitPipaToken.Value == true)
-        {
-            target = ItemThrow.totemTarget;
-            float step = speedToTotem * Time.deltaTime; // calculate distance to move
-            transform.position = Vector3.MoveTowards(transform.position, target.position, step);
-            if (Vector3.Distance(transform.position, target.position) < 0.001f)
-            {
-                if (hitCarroToken.Value)
-                {
-                    startCarro.Value = true;
-                }
-
-                else
-                {
-                    startPipa.Value = true;
-                }
-            }
-        }*/
+        }    
         
-
-
 
         // Desativando transformações
         /*if (desativaTransformacao == true)
@@ -284,31 +235,12 @@ public class PlayerMovement : MonoBehaviour
             desativaTransformacao = true;
         }
 
-        //Transformação em pipa
-        if (pipa == true || dogPipa == true)
-        {
-            dogCount += Time.deltaTime;
-            rb2d.AddForce(new Vector2(0, pipaForce), ForceMode2D.Impulse);
-            pipaObj.SetActive(true);
-            carrinho = false;
-            maxSpeed = 4;
-        }
-
         if (pipa == false && !Pet.activeSelf)
         {
             pipaObj.SetActive(false);
             Pet.transform.position = dogSpawn.transform.position;
         }
 
-        // Transformação em carrinho
-        if (carrinho == true && jump == false || dogCarro == true)
-        {
-            dogCount += Time.deltaTime;
-            //rb2d.AddForce(-Vector2.up * carrinhoSpeed);
-            speed = carrinhoSpeed;
-            carrinhoObj.SetActive(true);
-            pipa = false;
-        }
 
         if (carrinho == false && !Pet.activeSelf)
         {
@@ -326,16 +258,6 @@ public class PlayerMovement : MonoBehaviour
 			Pet.transform.position = dogSpawn.transform.position;
         }
 
-        if (acertouTotem == true)
-        {
-            target = ItemThrow.totemTarget;
-            float step = speedToTotem * Time.deltaTime; // calculate distance to move
-            transform.position = Vector3.MoveTowards(transform.position, target.position, step);
-            if (Vector3.Distance(transform.position, target.position) < 0.001f)
-            {
-                acertouTotem = false;
-            }
-        }*/
 
         if (levouDogada)
         {
@@ -374,32 +296,6 @@ public class PlayerMovement : MonoBehaviour
     {
         PV.Owner.SetScore(0);
     }
-
-	
-
-    /*private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Coletavel"))
-        {
-            if (PV.IsMine == true)
-            {
-                coletavel++;
-                coleta.Play();
-            }
-        }
-
-        if (collision.CompareTag("Pipa"))
-        {
-            pipa = true;
-            tokenSom.Play();
-        }
-
-        if (collision.CompareTag("Carrinho"))
-        {
-            carrinho = true;
-            tokenSom.Play();
-        }
-    }*/
 
 	/*[PunRPC]
     private void TransformaPet(bool isDog, string transformation)

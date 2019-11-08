@@ -37,6 +37,7 @@ public class DogController : MonoBehaviour
     public CarroEffect efeitoCarro;
     public BoolVariable hitTotemCarro;
     public BoolVariable hitTotemPipa;
+    public BoolVariable dog;
 
 
 
@@ -74,6 +75,16 @@ public class DogController : MonoBehaviour
 
         }
 
+        if(dog.Value == false)
+        {
+            Pet.SetActive(false);
+        }
+
+        else
+        {
+            Pet.SetActive(true);
+        }
+
     }
 
 
@@ -100,7 +111,6 @@ public class DogController : MonoBehaviour
     public void Carro()
     {
         StartCoroutine(efeitoCarro.Enumerator(this));
-        Pet.SetActive(false);
         carrinhoObj.SetActive(true);
         tokenAudioEvent.Play(tokenSom);
         hitTotemCarro.Value = false;
@@ -110,7 +120,6 @@ public class DogController : MonoBehaviour
     {
         StartCoroutine(efeitoPipa.Enumerator(this));
         pipaObj.SetActive(true);
-        Pet.SetActive(false);
         tokenAudioEvent.Play(tokenSom);
         hitTotemPipa.Value = false;
     }
