@@ -67,7 +67,6 @@ public class PlayerMovement : MonoBehaviour
 
     public AudioSource puloSom;
     public GameObject walkSom;
-    //public AudioSource tokenSom;
     public AudioSource coleta;
 
 
@@ -112,10 +111,6 @@ public class PlayerMovement : MonoBehaviour
         {
             VC = gameObject.transform.GetChild(0).GetComponent<CinemachineVirtualCamera>();
             VC.Priority = 15;
-			/*PV.Owner.CustomProperties["atirou"] = atirou;
-			PV.Owner.CustomProperties["dogPipa"] = dogPipa;
-			PV.Owner.CustomProperties["dogCarro"] = dogCarro;
-			PV.Owner.CustomProperties["acertouTotem"] = acertouTotem;*/
 
 			if (joyStick.isActiveAndEnabled)
             {
@@ -123,7 +118,7 @@ public class PlayerMovement : MonoBehaviour
                 CC.m_BoundingShape2D = GameObject.Find("CameraConfiner").GetComponent<PolygonCollider2D>();
                 CC.InvalidatePathCache();
             }
-            rb2d.gravityScale = 1;
+            rb2d.gravityScale = 0.7f;
         }
         else
         {
@@ -158,13 +153,6 @@ public class PlayerMovement : MonoBehaviour
 
         if (PV != null && !PV.IsMine) return;
 
-		/*atirou = (bool)PV.Owner.CustomProperties["atirou"];
-		dogPipa = (bool)PV.Owner.CustomProperties["dogPipa"];
-		dogCarro = (bool)PV.Owner.CustomProperties["dogCarro"];
-
-		acertouTotem = (bool)PV.Owner.CustomProperties["acertouTotem"];*/
-
-		//Vector2 move = new Vector2(joyStick.Horizontal + Input.GetAxisRaw("Horizontal"), 0);
 
 		if (joyStick != null)
 		{
@@ -215,70 +203,7 @@ public class PlayerMovement : MonoBehaviour
             puloSom.Play();
 
         }    
-        
-
-        // Desativando transformações
-        /*if (desativaTransformacao == true)
-        {
-            pipa = false;
-            dogPipa = false;
-            carrinho = false;
-            dogCarro = false;
-            speed = 2.5f;
-            dogCount = 0;
-            desativaTransformacao = false;
-        }
-
-        //Colocando tempo limite das tranformações
-        if (dogCount >= 5f)
-        {
-            desativaTransformacao = true;
-        }
-
-        if (pipa == false && !Pet.activeSelf)
-        {
-            pipaObj.SetActive(false);
-            Pet.transform.position = dogSpawn.transform.position;
-        }
-
-
-        if (carrinho == false && !Pet.activeSelf)
-        {
-            carrinhoObj.SetActive(false);
-        }
-        
-        if (carrinho == false && pipa == false && dogCarro == false && dogPipa == false && atirou == false)
-        {
-			gameObject.GetComponent<PhotonView>().RPC("TransformaPet", RpcTarget.All, true, "carrinho");
-        }
-
-        else
-        {
-			gameObject.GetComponent<PhotonView>().RPC("TransformaPet", RpcTarget.All, false, "carrinho");
-			Pet.transform.position = dogSpawn.transform.position;
-        }
-
-
-        if (levouDogada)
-        {
-            StartCoroutine("LevouDogada");
-        }
-
-        else
-        {
-            StopCoroutine("LevouDogada");
-        }
-		//Debug.Log(rb2d.velocity);
-
-
-
-		/*PV.Owner.CustomProperties["atirou"] = atirou;
-
-		PV.Owner.CustomProperties["dogPipa"] = dogPipa;
-
-		PV.Owner.CustomProperties["dogCarro"] = dogCarro;
-
-		PV.Owner.CustomProperties["acertouTotem"] = acertouTotem;*/
+       
 	}
 
 

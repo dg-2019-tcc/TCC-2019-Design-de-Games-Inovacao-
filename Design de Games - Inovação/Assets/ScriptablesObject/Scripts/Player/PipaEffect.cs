@@ -12,17 +12,32 @@ public class PipaEffect : TokenEffect
     public BoolVariable ativa;
     public BoolVariable dog;
     public float effectTime;
+    public float effectVar;
 
     public override IEnumerator Enumerator(MonoBehaviour runner)
     {
+        runner.GetComponent<Rigidbody2D>().gravityScale = 0.3f;
+
         ativa.Value = true;
-        runner.GetComponent<Rigidbody2D>().AddForce(new Vector3(0,0,0));
-        runner.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, pipaForce.Value), ForceMode2D.Impulse);
         stat.speed = pipaSpeed;
         dog.Value = false;
-        yield return new WaitForSeconds(effectTime);
+
+        for (int i = 0; i < effectVar; i++)
+        {
+
+            runner.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, pipaForce.Value), ForceMode2D.Impulse);
+            yield return new WaitForSeconds(effectTime);
+        }
+
+        //yield return new WaitForSeconds(effectTime);
+
+
         dog.Value = true;
         stat.speed = playerSpeed;
         ativa.Value = false;
+
+        runner.GetComponent<Rigidbody2D>().gravityScale = 0.7f;
+
+        
     }
 }
