@@ -157,7 +157,7 @@ public class CustomManager : MonoBehaviour
 
     #endregion
 
-    #region STARTANTIGO
+    #region START_ANTIGO
 
     private void Start()
     {
@@ -193,7 +193,7 @@ public class CustomManager : MonoBehaviour
 
     #endregion
 
-    #region CodigosAntigos
+    #region CODIGOS_ANTIGOS
 
 
     /*
