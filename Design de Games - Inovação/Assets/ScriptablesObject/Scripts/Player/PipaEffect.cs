@@ -16,6 +16,7 @@ public class PipaEffect : TokenEffect
     public override IEnumerator Enumerator(MonoBehaviour runner)
     {
         ativa.Value = true;
+        runner.GetComponent<Rigidbody2D>().AddForce(new Vector3(0,0,0));
         runner.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, pipaForce.Value), ForceMode2D.Impulse);
         stat.speed = pipaSpeed;
         dog.Value = false;
