@@ -59,12 +59,13 @@ public class PlayerMovement : MonoBehaviour
 
     private CinemachineConfiner CC;
     private CinemachineVirtualCamera VC;
-    
+
 
 
 
     [Header("Som")]
 
+    public SimpleAudioEvent puloAudioEvent;
     public AudioSource puloSom;
     public GameObject walkSom;
     public AudioSource coleta;
@@ -197,10 +198,10 @@ public class PlayerMovement : MonoBehaviour
         {
             carroState.Value = false;
             pipaState.Value = false;
+            puloAudioEvent.Play(puloSom);
             rb2d.AddForce(new Vector2(0, stats.jumpForce.Value), ForceMode2D.Impulse);
             //Physics.IgnoreLayerCollision(10, 11, true);
             jump = false;
-            puloSom.Play();
 
         }    
        

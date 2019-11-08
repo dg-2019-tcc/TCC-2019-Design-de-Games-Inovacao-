@@ -99,7 +99,7 @@ public class DogController : MonoBehaviour
     {
         if (collision.CompareTag("Pipa"))
         {
-            if (efeitoCarro.ativa.Value == false)
+            if (efeitoCarro.ativa.Value == false && efeitoPipa.ativa.Value == false)
             {
 				gameObject.GetComponent<PhotonView>().RPC("Pipa", RpcTarget.All);
             }
@@ -107,7 +107,7 @@ public class DogController : MonoBehaviour
 
         if (collision.CompareTag("Carrinho"))
         {
-            if (efeitoPipa.ativa.Value == false)
+            if (efeitoCarro.ativa.Value == false && efeitoPipa.ativa.Value == false)
             {
 				gameObject.GetComponent<PhotonView>().RPC("Carro", RpcTarget.All);
             }

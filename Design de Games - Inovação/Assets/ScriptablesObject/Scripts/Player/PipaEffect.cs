@@ -17,6 +17,7 @@ public class PipaEffect : TokenEffect
 
     public override IEnumerator Enumerator(MonoBehaviour runner)
     {
+        runner.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
         runner.GetComponent<Rigidbody2D>().gravityScale = 0.3f;
 
         ativa.Value = true;
