@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TouchScript.Gestures;
 using Photon.Pun;
 
 public class EmotesManager : MonoBehaviour
