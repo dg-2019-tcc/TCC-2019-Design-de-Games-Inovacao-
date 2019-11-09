@@ -9,8 +9,7 @@ public class SwipeDetector : MonoBehaviour
     [SerializeField]
     private bool detectSwipeOnlyAfterRelease = false;
 
-    [SerializeField]
-    private float minDistanceForSwipe = 20f;
+    public FloatVariable minDistanceForSwipe;
 
     public static event Action<SwipeData> OnSwipe = delegate { };
 
@@ -21,7 +20,7 @@ public class SwipeDetector : MonoBehaviour
     {
         foreach (Touch touch in Input.touches)
         {
-            if (touch.phase == TouchPhase.Began && touch.position.x > Screen.width)
+            if (touch.phase == TouchPhase.Began && touch.position.x > Screen.width/2)
             {
                 fingerUpPosition = touch.position;
                 fingerDownPosition = touch.position;
@@ -33,7 +32,7 @@ public class SwipeDetector : MonoBehaviour
                 DetectSwipe();
             }
 
-            if (touch.phase == TouchPhase.Ended)
+            if (touch.phase == TouchPhase.Ended && touch.position.x > Screen.width / 2)
             {
                 fingerDownPosition = touch.position;
                 DetectSwipe();
@@ -68,7 +67,7 @@ public class SwipeDetector : MonoBehaviour
 
     private bool SwipeDistanceCheckMet()
     {
-        return VerticalMovementDistance() > minDistanceForSwipe || HorizontalMovementDistance() > minDistanceForSwipe;
+        return VerticalMovementDistance() > minDistanceForSwipe.Value || HorizontalMovementDistance() > minDistanceForSwipe.Value;
     }
 
     private float VerticalMovementDistance()
