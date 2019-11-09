@@ -15,10 +15,14 @@ public class PipaEffect : TokenEffect
     public float effectTime;
     public float effectVar;
 
+    private Rigidbody2D player;
+
     public override IEnumerator Enumerator(MonoBehaviour runner)
     {
-        runner.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
-        runner.GetComponent<Rigidbody2D>().gravityScale = 0.3f;
+        player = runner.GetComponent<Rigidbody2D>();
+
+        player.velocity = Vector3.zero;
+        player.gravityScale = 0.3f;
 
         ativa.Value = true;
         stat.speed = pipaSpeed;
@@ -26,14 +30,14 @@ public class PipaEffect : TokenEffect
         for (int i = 0; i < effectVar; i++)
         {
 
-            runner.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, pipaForce.Value), ForceMode2D.Impulse);
+            player.AddForce(new Vector2(0, pipaForce.Value), ForceMode2D.Impulse);
             yield return new WaitForSeconds(effectTime);
         }
 		runner.GetComponent<PhotonView>().Owner.CustomProperties["dogValue"] = true;
         stat.speed = playerSpeed;
         ativa.Value = false;
 
-        runner.GetComponent<Rigidbody2D>().gravityScale = 0.7f;
+       player.gravityScale = 0.7f;
 
         
     }
