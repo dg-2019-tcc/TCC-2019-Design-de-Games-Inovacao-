@@ -107,8 +107,8 @@ public class PlayerMovement : MonoBehaviour
             canvasSelf.SetActive(false);
         }
 
-
-        if (PV != null && PV.IsMine)
+		if (!PhotonNetwork.IsConnected) return;
+        if (PV.IsMine)
         {
             VC = gameObject.transform.GetChild(0).GetComponent<CinemachineVirtualCamera>();
             VC.Priority = 15;

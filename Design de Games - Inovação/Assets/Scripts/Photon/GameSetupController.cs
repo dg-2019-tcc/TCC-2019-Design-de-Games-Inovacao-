@@ -12,6 +12,7 @@ public class GameSetupController : MonoBehaviour
 
 	public float delayToCreate;
 
+	private float allPlayersInSession;
 
 
 	private void OnEnable()
@@ -23,15 +24,28 @@ public class GameSetupController : MonoBehaviour
 	}
 
 	void Start()
-    {
-		StartCoroutine( "CreatePlayer", delayToCreate);
-    }
+	{
 
-    private IEnumerator CreatePlayer(float delay)
-    {
-        //Debug para dizer que o jogador está sendo criado
-        //Debug.Log("Criando Jogador");
-        yield return new WaitForSeconds(delay);
-        PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PhotonPlayer"), spawnPoints[Random.Range(0, spawnPoints.Length - 1)].position, Quaternion.identity);
-    }
+		gameObject.GetComponent<PhotonView>().RPC("CreatePlayer", RpcTarget.All, allPlayersInSession);
+	}
+
+	[PunRPC]
+	private void CreatePlayer(float alterPlayerCount)
+	{
+		if (alterPlayerCount > allPlayersInSession)														//Contador pra sincronizar e adicionar quantos players entraram na cena
+			allPlayersInSession = alterPlayerCount;
+
+		allPlayersInSession++;
+		if (PhotonNetwork.PlayerList.Length == allPlayersInSession)                                     //Checando se todos entraram, se sim, todos são criados ao mesmo tempo(se falhar, outro player vai passar pelo mesmo)
+		{
+			StartCoroutine("UniteSynchronization", delayToCreate);
+		}
+	}
+
+	
+	public IEnumerator UniteSynchronization(float delay)
+	{		
+		yield return new WaitForSeconds(delay);
+		PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PhotonPlayer"), spawnPoints[Random.Range(0, spawnPoints.Length - 1)].position, Quaternion.identity);
+	}
 }
