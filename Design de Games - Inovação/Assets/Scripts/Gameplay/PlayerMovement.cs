@@ -75,6 +75,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Animação")]
 
     public Animator playerAC;
+	private PlayerFaceAnimations playerFaceAnimations;
 
 
     [Header("SkillsState")]
