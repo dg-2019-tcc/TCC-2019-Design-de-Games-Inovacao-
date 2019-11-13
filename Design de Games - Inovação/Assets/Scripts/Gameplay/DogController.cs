@@ -125,6 +125,7 @@ public class DogController : MonoBehaviour
     [PunRPC]
     public void Carro()
     {
+        Debug.Log("ativou no multiplayer o carrinho");
         carrinhoObj.SetActive(true);
         tokenAudioEvent.Play(tokenSom);
     }
@@ -134,6 +135,7 @@ public class DogController : MonoBehaviour
     [PunRPC]
     public void Pipa()
     {
+        Debug.Log("ativou no multiplayer a pipa");
         pipaObj.SetActive(true);
         tokenAudioEvent.Play(tokenSom);
     }
