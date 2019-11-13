@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using Photon.Realtime;
+using Photon.Pun.UtilityScripts;
 
 public class ItemThrow : MonoBehaviour
 {
@@ -85,5 +87,11 @@ public class ItemThrow : MonoBehaviour
             jogador.levouDogada = true;
             timeDestroy = 4.9f;
         }
+
+		if (collision.CompareTag("Coletavel"))
+		{
+			collision.SendMessage("Coleta");
+			Owner.AddScore(1);
+		}
     }
 }
