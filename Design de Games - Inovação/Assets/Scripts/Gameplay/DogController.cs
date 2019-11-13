@@ -58,6 +58,13 @@ public class DogController : MonoBehaviour
         if (PV != null && !PV.IsMine) return;
 
 
+        if (efeitoCarro.ativa.Value == false || efeitoPipa.ativa.Value == false)
+        {
+            gameObject.GetComponent<PhotonView>().RPC("DesativaPowerUps", RpcTarget.All);
+        }
+
+
+        /*
         if (efeitoCarro.ativa.Value == false)
         {
             carrinhoObj.SetActive(false);
@@ -68,7 +75,7 @@ public class DogController : MonoBehaviour
         {
             pipaObj.SetActive(false);
             Pet.SetActive(true);
-        }
+        }*/
 
 
         if (hitTotemCarro.Value == true || hitTotemPipa.Value == true)
@@ -76,7 +83,6 @@ public class DogController : MonoBehaviour
             target = ItemThrow.totemTarget;
             float step = speedToTotem * Time.deltaTime;
             transform.position = Vector3.MoveTowards(transform.position, target.position, step);
-
         }
 
         if ((bool)PV.Controller.CustomProperties["dogValue"] == false)
@@ -88,9 +94,6 @@ public class DogController : MonoBehaviour
         {
             gameObject.GetComponent<PhotonView>().RPC("TransformaPet", RpcTarget.All, true);
         }
-
-
-
     }
 
 
@@ -102,6 +105,7 @@ public class DogController : MonoBehaviour
             if (efeitoCarro.ativa.Value == false && efeitoPipa.ativa.Value == false)
             {
                 gameObject.GetComponent<PhotonView>().RPC("Pipa", RpcTarget.All);
+                hitTotemPipa.Value = false;
             }
         }
 
@@ -110,6 +114,7 @@ public class DogController : MonoBehaviour
             if (efeitoCarro.ativa.Value == false && efeitoPipa.ativa.Value == false)
             {
                 gameObject.GetComponent<PhotonView>().RPC("Carro", RpcTarget.All);
+                hitTotemCarro.Value = false;
             }
         }
     }
@@ -120,7 +125,6 @@ public class DogController : MonoBehaviour
         StartCoroutine(efeitoCarro.Enumerator(this));
         carrinhoObj.SetActive(true);
         tokenAudioEvent.Play(tokenSom);
-        hitTotemCarro.Value = false;
     }
 
 
@@ -131,22 +135,24 @@ public class DogController : MonoBehaviour
         StartCoroutine(efeitoPipa.Enumerator(this));
         pipaObj.SetActive(true);
         tokenAudioEvent.Play(tokenSom);
-        hitTotemPipa.Value = false;
     }
 
-
-
     [PunRPC]
-    private void TransformaPet(bool isDog)
+    public void DesativaPowerUps()
     {
         if (efeitoPipa.ativa.Value == false)
         {
             pipaObj.SetActive(false);
         }
-        if(efeitoCarro.ativa.Value == false)
+        if (efeitoCarro.ativa.Value == false)
         {
             carrinhoObj.SetActive(false);
         }
+    }
+
+    [PunRPC]
+    private void TransformaPet(bool isDog)
+    {
         Pet.SetActive(isDog);
         if (!isDog)
         {
