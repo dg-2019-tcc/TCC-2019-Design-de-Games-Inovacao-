@@ -84,7 +84,7 @@ public class ItemThrow : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             PlayerMovement jogador = collision.GetComponent<PlayerMovement>();
-            jogador.levouDogada = true;
+            jogador.StartCoroutine("LevouDogada");
             timeDestroy = 4.9f;
         }
 
