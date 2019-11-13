@@ -36,4 +36,10 @@ public class DestroyColetavel2D : MonoBehaviourPunCallbacks
         }
     }
 
+	void Coleta()
+	{
+		Destroy(gameObject);
+		index++;
+	}
+
 }
