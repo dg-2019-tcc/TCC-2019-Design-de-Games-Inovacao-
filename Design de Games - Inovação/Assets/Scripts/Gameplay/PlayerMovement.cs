@@ -254,7 +254,7 @@ public class PlayerMovement : MonoBehaviour
     IEnumerator LevouDogada()
     {
         playerAC.SetBool("Dogada", true);
-        
+        levouDogada = true;
         yield  return new WaitForSeconds(2f);
         playerAC.SetBool("Dogada", false);
         levouDogada = false;
