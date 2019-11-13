@@ -101,7 +101,7 @@ public class DogController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!PV.IsMine) return;
+        if (!PV.IsMine && PV.IsMine != null) return;
         if (collision.CompareTag("Pipa"))
         {
             if (efeitoCarro.ativa.Value == false && efeitoPipa.ativa.Value == false)
@@ -128,6 +128,7 @@ public class DogController : MonoBehaviour
     {
         Debug.Log("ativou no multiplayer o carrinho");
         carrinhoObj.SetActive(true);
+        poderEstaAtivo = true;
         tokenAudioEvent.Play(tokenSom);
         StartCoroutine(TempoParaDesativar(6f));
     }
@@ -139,6 +140,7 @@ public class DogController : MonoBehaviour
     {
         Debug.Log("ativou no multiplayer a pipa");
         pipaObj.SetActive(true);
+        poderEstaAtivo = true;
         tokenAudioEvent.Play(tokenSom);
         StartCoroutine(TempoParaDesativar(6f));
     }
