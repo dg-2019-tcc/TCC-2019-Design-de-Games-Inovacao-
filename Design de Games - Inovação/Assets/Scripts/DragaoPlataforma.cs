@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class DragaoPlataforma : MonoBehaviour
 {
-    public float speed;
+    public FloatVariable speed;
+    private Rigidbody2D rb;
 
-    private void OnTriggerStay2D(Collider2D other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
-            other.GetComponent<Rigidbody2D>().velocity = new Vector3(speed, 0, 0);
+           rb = other.GetComponent<Rigidbody2D>();
+            rb.velocity = new Vector3(speed.Value, 0, 0);
         }
     }
 }
