@@ -147,8 +147,6 @@ public class DogController : MonoBehaviour
         {
             carrinhoObj.SetActive(false);
         }
-        carrinhoObj.SetActive(false);
-        pipaObj.SetActive(false);
         Pet.SetActive(isDog);
         if (!isDog)
         {
