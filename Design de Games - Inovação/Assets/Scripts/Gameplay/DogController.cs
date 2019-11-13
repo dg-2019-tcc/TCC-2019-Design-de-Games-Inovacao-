@@ -100,6 +100,7 @@ public class DogController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (!PV.IsMine) return;
         if (collision.CompareTag("Pipa"))
         {
             if (efeitoCarro.ativa.Value == false && efeitoPipa.ativa.Value == false)
