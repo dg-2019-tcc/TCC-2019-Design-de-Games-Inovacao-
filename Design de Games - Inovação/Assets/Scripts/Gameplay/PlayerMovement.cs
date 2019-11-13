@@ -185,27 +185,16 @@ public class PlayerMovement : MonoBehaviour
 			{
 
 				rb2d.velocity = new Vector3(stats.speed.Value * moveHorizontal, rb2d.velocity.y, 0);
-                newPos = transform.position.x;
-              
+                playerAC.SetBool("isWalking", true);
 				//playerAC.SetBool("isWalking", true);
 				//walkSom.SetActive(true);
 			}
 
             else
             {
-                oldPos = newPos;
+               playerAC.SetBool("isWalking", false);
             }
 		}
-
-        if(newPos != oldPos)
-        {
-            playerAC.SetBool("isWalking", true);
-        }
-
-        else
-        {
-            playerAC.SetBool("isWalking", false);
-        }
 
         if (grounded)
         {
