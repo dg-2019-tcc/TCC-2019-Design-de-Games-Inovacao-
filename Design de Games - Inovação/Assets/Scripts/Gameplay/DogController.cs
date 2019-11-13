@@ -15,6 +15,7 @@ public class DogController : MonoBehaviour
 
     public GameObject Pet;
     public GameObject dogSpawn;
+    public bool poderEstaAtivo;
 
     [Header("Pet pipa")]
 
@@ -58,7 +59,7 @@ public class DogController : MonoBehaviour
         if (PV != null && !PV.IsMine) return;
 
 
-        if (efeitoCarro.ativa.Value == false || efeitoPipa.ativa.Value == false)
+        if (poderEstaAtivo == false)//efeitoCarro.ativa.Value == false || efeitoPipa.ativa.Value == false)
         {
             gameObject.GetComponent<PhotonView>().RPC("DesativaPowerUps", RpcTarget.All);
         }
@@ -128,6 +129,7 @@ public class DogController : MonoBehaviour
         Debug.Log("ativou no multiplayer o carrinho");
         carrinhoObj.SetActive(true);
         tokenAudioEvent.Play(tokenSom);
+        StartCoroutine(TempoParaDesativar(6f));
     }
 
 
@@ -138,6 +140,7 @@ public class DogController : MonoBehaviour
         Debug.Log("ativou no multiplayer a pipa");
         pipaObj.SetActive(true);
         tokenAudioEvent.Play(tokenSom);
+        StartCoroutine(TempoParaDesativar(6f));
     }
 
     [PunRPC]
@@ -161,5 +164,11 @@ public class DogController : MonoBehaviour
         {
             Pet.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, Pet.transform.position.z);
         }
+    }
+
+    private IEnumerator TempoParaDesativar(float waitTime)
+    {
+        yield return new WaitForSeconds(waitTime);
+        poderEstaAtivo = false;
     }
 }
