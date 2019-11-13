@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4990960222490901540}
   - component: {fileID: 4990960222490901541}
+  - component: {fileID: 3545672419961811980}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -38,32 +39,61 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4990960222490901542}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2e8d2e32856f23b4e8b1eb34538418c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sRBody: {fileID: 0}
-  sRHair: {fileID: 0}
-  sRChest: {fileID: 0}
-  sRLegs: {fileID: 0}
-  bodySprite:
-  - {fileID: 21300156, guid: 7b5ce40c23ded96489ac0913719957a5, type: 3}
-  - {fileID: 21300036, guid: 7c9c3afee9b31a2479df06a4842baca5, type: 3}
-  hairSprite:
-  - {fileID: 21300036, guid: a4f6abcb2fb39a243be5d5475a37972c, type: 3}
-  - {fileID: 21300036, guid: 0184e768d48fdd74784727ac3c0979e3, type: 3}
-  chestSprite:
-  - {fileID: 5088155734083332184, guid: 850e066342f18394f977de52bc411883, type: 3}
-  - {fileID: -8921386018928545557, guid: ac3c5e03b9287424d87250659c898abd, type: 3}
-  legsSprite:
-  - {fileID: -6881743635584113948, guid: 4f6af38252b552d41b137c7857094618, type: 3}
-  - {fileID: -1058865302651282280, guid: 436c049b08e103948af0616689f128b0, type: 3}
-  bodyIndex: 0
-  hairIndex: 0
-  chestIndex: 0
-  legsIndex: 0
-  bodyAC: {fileID: 0}
-  hairAC: {fileID: 0}
-  chestAC: {fileID: 0}
-  legsAC: {fileID: 0}
+  hairModels:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  shirtModels:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  legsModels:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  hairColor:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  shirtColor:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  legsColor:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  hair: {fileID: 11400000, guid: 709f0ef9348287e49950bd38c6d58907, type: 2}
+  shirt: {fileID: 11400000, guid: e65cf30dbd94b934584236b07caa2b3a, type: 2}
+  legs: {fileID: 11400000, guid: ef440ce04c0a6214aa8e779221b39c74, type: 2}
+  playerScript: {fileID: 0}
+  som: {fileID: 0}
+--- !u!114 &3545672419961811980
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4990960222490901542}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 0
+  OwnershipTransfer: 0
+  ObservedComponents:
+  - {fileID: 0}
+  viewIdField: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
