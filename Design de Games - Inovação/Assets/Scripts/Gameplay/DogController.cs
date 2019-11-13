@@ -104,6 +104,7 @@ public class DogController : MonoBehaviour
         {
             if (efeitoCarro.ativa.Value == false && efeitoPipa.ativa.Value == false)
             {
+                StartCoroutine(efeitoPipa.Enumerator(this));
                 gameObject.GetComponent<PhotonView>().RPC("Pipa", RpcTarget.All);
                 hitTotemPipa.Value = false;
             }
@@ -113,6 +114,7 @@ public class DogController : MonoBehaviour
         {
             if (efeitoCarro.ativa.Value == false && efeitoPipa.ativa.Value == false)
             {
+                StartCoroutine(efeitoCarro.Enumerator(this));
                 gameObject.GetComponent<PhotonView>().RPC("Carro", RpcTarget.All);
                 hitTotemCarro.Value = false;
             }
@@ -122,7 +124,6 @@ public class DogController : MonoBehaviour
     [PunRPC]
     public void Carro()
     {
-        StartCoroutine(efeitoCarro.Enumerator(this));
         carrinhoObj.SetActive(true);
         tokenAudioEvent.Play(tokenSom);
     }
@@ -132,7 +133,6 @@ public class DogController : MonoBehaviour
     [PunRPC]
     public void Pipa()
     {
-        StartCoroutine(efeitoPipa.Enumerator(this));
         pipaObj.SetActive(true);
         tokenAudioEvent.Play(tokenSom);
     }
