@@ -52,6 +52,8 @@ public class PlayerMovement : MonoBehaviour
 
     [HideInInspector]
     public PhotonView PV;
+    [SerializeField]
+    private GameObject identificador;
 
 
 
@@ -77,8 +79,10 @@ public class PlayerMovement : MonoBehaviour
     public Animator playerAC;
 	private PlayerFaceAnimations playerFaceAnimations;
 
+    
 
     [Header("SkillsState")]
+
     public BoolVariable carroState;
     public BoolVariable pipaState;
     public BoolVariable hitCarroToken;
@@ -111,6 +115,7 @@ public class PlayerMovement : MonoBehaviour
 		if (!PhotonNetwork.IsConnected) return;
         if (PV.IsMine)
         {
+            identificador.SetActive(true);
             VC = gameObject.transform.GetChild(0).GetComponent<CinemachineVirtualCamera>();
             VC.Priority = 15;
 
