@@ -90,6 +90,9 @@ public class PlayerMovement : MonoBehaviour
     public BoolVariable startPipa;
     public BoolVariable startCarro;
 
+    public float oldPos;
+    public float newPos;
+
 
 
 
@@ -140,16 +143,18 @@ public class PlayerMovement : MonoBehaviour
         }
         PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 0;
 		gameObject.GetComponent<PhotonView>().RPC("ZeraPontuacao", RpcTarget.All);
-
+        oldPos = transform.position.x;
+        newPos = transform.position.x;
 	}
 
 
 
     void FixedUpdate()
     {
-		
 
-		if (coletavel >= numeroDeColetaveis)
+       
+
+        if (coletavel >= numeroDeColetaveis)
         {
             PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 1;
 
@@ -180,12 +185,19 @@ public class PlayerMovement : MonoBehaviour
 			{
 
 				rb2d.velocity = new Vector3(stats.speed.Value * moveHorizontal, rb2d.velocity.y, 0);
+                newPos = transform.position.x;
+              
 				//playerAC.SetBool("isWalking", true);
 				//walkSom.SetActive(true);
 			}
+
+            else
+            {
+                oldPos = newPos;
+            }
 		}
 
-        if(rb2d.velocity != Vector2.zero)
+        if(newPos != oldPos)
         {
             playerAC.SetBool("isWalking", true);
         }
