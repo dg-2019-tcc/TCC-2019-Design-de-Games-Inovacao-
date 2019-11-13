@@ -5,7 +5,7 @@ using UnityEngine;
 public class DragaoPlataforma : MonoBehaviour
 {
     private Transform target;
-    public float speed = 1.0f;
+    public float speed = 10.0f;
 
 
     private void Start()
@@ -13,12 +13,22 @@ public class DragaoPlataforma : MonoBehaviour
         target = transform;
     }
 
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            float step = speed * Time.deltaTime;
+            other.transform.position = Vector3.MoveTowards(other.transform.position, target.position, step);
+        }
+    }
+
 
     private void OnTriggerStay2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
-            other.transform.parent = transform.parent;
+            float step = speed * Time.deltaTime;
+            other.transform.position = Vector3.MoveTowards(other.transform.position, target.position, step);
         }
     }
 }
