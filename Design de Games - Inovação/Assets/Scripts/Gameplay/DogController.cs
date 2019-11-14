@@ -127,6 +127,7 @@ public class DogController : MonoBehaviour
     public void Carro()
     {
         Debug.Log("ativou no multiplayer o carrinho");
+        PV.Controller.CustomProperties["dogValue"] = false;
         carrinhoObj.SetActive(true);
         poderEstaAtivo = true;
         tokenAudioEvent.Play(tokenSom);
@@ -139,6 +140,7 @@ public class DogController : MonoBehaviour
     public void Pipa()
     {
         Debug.Log("ativou no multiplayer a pipa");
+        PV.Controller.CustomProperties["dogValue"] = false;
         pipaObj.SetActive(true);
         poderEstaAtivo = true;
         tokenAudioEvent.Play(tokenSom);
@@ -172,5 +174,6 @@ public class DogController : MonoBehaviour
     {
         yield return new WaitForSeconds(waitTime);
         poderEstaAtivo = false;
+        PV.Controller.CustomProperties["dogValue"] = true;
     }
 }
