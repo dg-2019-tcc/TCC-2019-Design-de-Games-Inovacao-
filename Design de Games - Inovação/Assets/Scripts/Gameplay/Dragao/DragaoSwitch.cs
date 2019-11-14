@@ -9,7 +9,7 @@ public class DragaoSwitch : MonoBehaviour
     [SerializeField]
     private bool switchDragao;
     [SerializeField]
-    private bool layerDragao;
+    private int layerDragao;
 
 
 

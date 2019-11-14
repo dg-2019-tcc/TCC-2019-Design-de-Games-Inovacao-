@@ -14,12 +14,18 @@ public class DragaoManager : MonoBehaviour
     private Transform parentDragao;
 
 
+
     [Header("Variaveis")]
 
     private float numeroDeNodes;
     private float posicao;
     [SerializeField]
     private float angulo;
+    [SerializeField]
+    private float velocidadeDragao;
+
+
+
 
 
     private void Start()
@@ -31,7 +37,7 @@ public class DragaoManager : MonoBehaviour
 
     private void Update()
     {
-        
+        MoveDragao();
     }
 
 
@@ -59,7 +65,6 @@ public class DragaoManager : MonoBehaviour
 
     void MoveDragao()
     {
-
+        parentDragao.Rotate(0, 0, velocidadeDragao);
     }
-
 }
