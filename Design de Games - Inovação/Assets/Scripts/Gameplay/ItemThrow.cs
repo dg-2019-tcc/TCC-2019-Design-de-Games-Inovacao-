@@ -10,7 +10,7 @@ public class ItemThrow : MonoBehaviour
 
     public Photon.Realtime.Player Owner { get; private set; }
 
-    public float speed = 20f;
+    public FloatVariable bulletSpeed;
     public Rigidbody2D rb;
 
     private Vector2 shootDirection;
@@ -34,7 +34,7 @@ public class ItemThrow : MonoBehaviour
 
         shootDirection = ThrowObject.direction;
 
-        rb.velocity = shootDirection;
+        rb.velocity = shootDirection * bulletSpeed.Value;
         rb.position += rb.velocity;
 
 		Owner.CustomProperties["atirou"] = true;
@@ -43,7 +43,7 @@ public class ItemThrow : MonoBehaviour
 
     private void Update()
     {
-        rb.velocity = shootDirection;
+        rb.velocity = shootDirection * bulletSpeed.Value;
         rb.position += rb.velocity;
 
         timeDestroy += Time.deltaTime;
