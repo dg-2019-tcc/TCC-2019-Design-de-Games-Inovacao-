@@ -30,6 +30,8 @@ public class PlayerMovement : MonoBehaviour
     public PlayerStat stats;
     public FloatVariable playerSpeed;
     public FloatVariable playerJump;
+	private bool leftDir;
+	private bool rightDir;
 
 
     [Header("Canvas")]
@@ -169,14 +171,18 @@ public class PlayerMovement : MonoBehaviour
 
 		if (joyStick != null)
 		{
-			if (joyStick.Horizontal > 0)
+			if (joyStick.Horizontal > 0 && rightDir == false)
 			{
-				player.transform.rotation = Quaternion.Euler(0, 90, 0);
+				playerAC.SetTrigger("Right");
+				rightDir = true;
+				leftDir = false;
 
 			}
-			else if (joyStick.Horizontal < 0)
+			else if (joyStick.Horizontal < 0 && leftDir == false)
 			{
-				player.transform.rotation = Quaternion.Euler(0, -90, 0);
+				playerAC.SetTrigger("Left");
+				leftDir = true;
+				rightDir = false;
 			}
 
 			//Movimentação do player no joystick
