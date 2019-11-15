@@ -202,7 +202,7 @@ public class PlayerMovement : MonoBehaviour
             }
 		}
 
-        if (grounded)
+        /*if (grounded)
         {
             playerAC.SetBool("isGrounded", true);
         }
@@ -210,7 +210,7 @@ public class PlayerMovement : MonoBehaviour
         {
             playerAC.SetBool("isGrounded", false);
 
-        }
+        }*/
 
         // Pulo
         if (grounded == true && jump == true)

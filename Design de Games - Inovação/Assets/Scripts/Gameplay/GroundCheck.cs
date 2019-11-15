@@ -30,13 +30,15 @@ public class GroundCheck : MonoBehaviour
      void OnTriggerStay2D(Collider2D col)
     {
 		if (!col.CompareTag("Coletavel"))
-			player.grounded = true;
+        playerAC.SetBool("isGrounded", true);
+        player.grounded = true;
     }
 
     void OnTriggerExit2D(Collider2D col)
     {
 		if (!col.CompareTag("Coletavel"))
 			player.grounded = false;
+        playerAC.SetBool("isGrounded", false);
     }
 
     
