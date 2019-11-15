@@ -10,179 +10,181 @@ using Cinemachine;
 public class PlayerMovement : MonoBehaviour
 {
 
-    [Header("Coletáveis")]
+	[Header("Coletáveis")]
 
-    [SerializeField]
-    private float numeroDeColetaveis;
-    [HideInInspector]
-    public static float coletavel;
+	[SerializeField]
+	private float numeroDeColetaveis;
+	[HideInInspector]
+	public static float coletavel;
 
 
 
-    [Header("Movimentação física")]
+	[Header("Movimentação física")]
 
-    public GameObject player;
-    private Rigidbody2D rb2d;
-    public bool jump;
-    public Transform groundCheck;
-    public bool grounded;
-    public bool levouDogada;
-    public PlayerStat stats;
-    public FloatVariable playerSpeed;
-    public FloatVariable playerJump;
+	public GameObject player;
+	private Rigidbody2D rb2d;
+	public bool jump;
+	public Transform groundCheck;
+	public bool grounded;
+	public bool levouDogada;
+	public PlayerStat stats;
+	public FloatVariable playerSpeed;
+	public FloatVariable playerJump;
 	private bool leftDir;
 	private bool rightDir;
 
 
-    [Header("Canvas")]
+	[Header("Canvas")]
 
-    [SerializeField]
-    protected Joystick joyStick;
-    protected FixedButton fixedButton;
-    public GameObject canvasSelf;
+	[SerializeField]
+	protected Joystick joyStick;
+	protected FixedButton fixedButton;
+	public GameObject canvasSelf;
 	public GameObject canvasPause;
-    [SerializeField]
-    private bool desativaCanvas;
+	[SerializeField]
+	private bool desativaCanvas;
 
-    private Transform target;
-    public float speedToTotem = 10.0f;
-    public static bool acertouTotem;
-
-
-
-    [Header("Photon")]
-
-    [HideInInspector]
-    public PhotonView PV;
-    [SerializeField]
-    private GameObject identificador;
+	private Transform target;
+	public float speedToTotem = 10.0f;
+	public static bool acertouTotem;
 
 
 
-    [Header("Cinemachine")]
+	[Header("Photon")]
 
-    private CinemachineConfiner CC;
-    private CinemachineVirtualCamera VC;
-
-
-
-
-    [Header("Som")]
-
-    public SimpleAudioEvent puloAudioEvent;
-    public AudioSource puloSom;
-    public GameObject walkSom;
-    public AudioSource coleta;
+	[HideInInspector]
+	public PhotonView PV;
+	[SerializeField]
+	private GameObject identificador;
 
 
 
-    [Header("Animação")]
+	[Header("Cinemachine")]
 
-    public Animator playerAC;
+	private CinemachineConfiner CC;
+	private CinemachineVirtualCamera VC;
+
+
+
+
+	[Header("Som")]
+
+	public SimpleAudioEvent puloAudioEvent;
+	public AudioSource puloSom;
+	public GameObject walkSom;
+	public AudioSource coleta;
+
+
+
+	[Header("Animação")]
+
+	public Animator playerAC;
 	private PlayerFaceAnimations playerFaceAnimations;
 
-    
-
-    [Header("SkillsState")]
-
-    public BoolVariable carroState;
-    public BoolVariable pipaState;
-    public BoolVariable hitCarroToken;
-    public BoolVariable hitPipaToken;
-    public BoolVariable startPipa;
-    public BoolVariable startCarro;
-
-    public float oldPos;
-    public float newPos;
 
 
+	[Header("SkillsState")]
+
+	public BoolVariable carroState;
+	public BoolVariable pipaState;
+	public BoolVariable hitCarroToken;
+	public BoolVariable hitPipaToken;
+	public BoolVariable startPipa;
+	public BoolVariable startCarro;
+
+	public float oldPos;
+	public float newPos;
 
 
 
-    void Start()
-    {
-        //Get and store a reference to the Rigidbody2D component so that we can access it.
-        rb2d = GetComponent<Rigidbody2D>();
-        joyStick = FindObjectOfType<Joystick>();
-        fixedButton = FindObjectOfType<FixedButton>();
-        PV = GetComponent<PhotonView>();
-        stats.speed = playerSpeed;
-        stats.jumpForce = playerJump;
-		
+
+
+	void Start()
+	{
+		//Get and store a reference to the Rigidbody2D component so that we can access it.
+		rb2d = GetComponent<Rigidbody2D>();
+		joyStick = FindObjectOfType<Joystick>();
+		fixedButton = FindObjectOfType<FixedButton>();
+		PV = GetComponent<PhotonView>();
+		stats.speed = playerSpeed;
+		stats.jumpForce = playerJump;
+
 
 
 
 		if (desativaCanvas == true)
-        {
-            canvasSelf.SetActive(false);
-        }
+		{
+			canvasSelf.SetActive(false);
+		}
 
 		if (!PhotonNetwork.IsConnected) return;
-        if (PV.IsMine)
-        {
-            identificador.SetActive(true);
-            VC = gameObject.transform.GetChild(0).GetComponent<CinemachineVirtualCamera>();
-            VC.Priority = 15;
+		if (PV.IsMine)
+		{
+			identificador.SetActive(true);
+			VC = gameObject.transform.GetChild(0).GetComponent<CinemachineVirtualCamera>();
+			VC.Priority = 15;
 
 			if (joyStick.isActiveAndEnabled)
-            {
-                CC = gameObject.transform.GetChild(0).GetComponent<CinemachineConfiner>();
-                CC.m_BoundingShape2D = GameObject.Find("CameraConfiner").GetComponent<PolygonCollider2D>();
-                CC.InvalidatePathCache();
-            }
-            rb2d.gravityScale = 0.7f;
-        }
-        else
-        {
-            canvasSelf.SetActive(false);
+			{
+				CC = gameObject.transform.GetChild(0).GetComponent<CinemachineConfiner>();
+				CC.m_BoundingShape2D = GameObject.Find("CameraConfiner").GetComponent<PolygonCollider2D>();
+				CC.InvalidatePathCache();
+			}
+			rb2d.gravityScale = 0.7f;
+		}
+		else
+		{
+			canvasSelf.SetActive(false);
 			rb2d.isKinematic = true;
-        }
+		}
 
-        if (SceneManager.GetActiveScene().name == "TelaVitoria" && (int)PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] == 1)
-        {
-            FindObjectOfType<Coroa>().ganhador = transform;
-            transform.position = new Vector3(0, 0, 0);
-        }
-        PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 0;
+		if (SceneManager.GetActiveScene().name == "TelaVitoria" && (int)PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] == 1)
+		{
+			FindObjectOfType<Coroa>().ganhador = transform;
+			transform.position = new Vector3(0, 0, 0);
+		}
+		PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 0;
 		gameObject.GetComponent<PhotonView>().RPC("ZeraPontuacao", RpcTarget.All);
-        oldPos = transform.position.x;
-        newPos = transform.position.x;
+		oldPos = transform.position.x;
+		newPos = transform.position.x;
 	}
 
 
 
-    void FixedUpdate()
-    {
+	void FixedUpdate()
+	{
 
-       
 
-        if (coletavel >= numeroDeColetaveis)
-        {
-            PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 1;
 
-            gameObject.GetComponent<PhotonView>().RPC("ZeraPontuacao", RpcTarget.All);
+		if (coletavel >= numeroDeColetaveis)
+		{
+			PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 1;
 
-            gameObject.GetComponent<PhotonView>().RPC("TrocaSala", RpcTarget.MasterClient);
-            coletavel = 0;
-        }
+			gameObject.GetComponent<PhotonView>().RPC("ZeraPontuacao", RpcTarget.All);
 
-        if (PV != null && !PV.IsMine) return;
+			gameObject.GetComponent<PhotonView>().RPC("TrocaSala", RpcTarget.MasterClient);
+			coletavel = 0;
+		}
+
+		if (PV != null && !PV.IsMine) return;
 
 
 		if (joyStick != null)
 		{
 			if (joyStick.Horizontal > 0 && rightDir == false)
 			{
-				playerAC.SetTrigger("Right");
+				
 				rightDir = true;
 				leftDir = false;
+				gameObject.GetComponent<PhotonView>().RPC("GiraPlayer", RpcTarget.All, rightDir);
 
 			}
 			else if (joyStick.Horizontal < 0 && leftDir == false)
 			{
-				playerAC.SetTrigger("Left");
+				
 				leftDir = true;
 				rightDir = false;
+				gameObject.GetComponent<PhotonView>().RPC("GiraPlayer", RpcTarget.All, rightDir);
 			}
 
 			//Movimentação do player no joystick
@@ -191,56 +193,65 @@ public class PlayerMovement : MonoBehaviour
 			{
 
 				rb2d.velocity = new Vector3(stats.speed.Value * moveHorizontal, rb2d.velocity.y, 0);
-                playerAC.SetBool("isWalking", true);
+				playerAC.SetBool("isWalking", true);
 				//playerAC.SetBool("isWalking", true);
 				//walkSom.SetActive(true);
 			}
 
-            else
-            {
-               playerAC.SetBool("isWalking", false);
-            }
+			else
+			{
+				playerAC.SetBool("isWalking", false);
+			}
 		}
 
-        if (grounded)
-        {
-            playerAC.SetBool("isGrounded", true);
-        }
-        else
-        {
-            playerAC.SetBool("isGrounded", false);
+		if (grounded)
+		{
+			playerAC.SetBool("isGrounded", true);
+		}
+		else
+		{
+			playerAC.SetBool("isGrounded", false);
 
-        }
+		}
 
-        // Pulo
-        if (grounded == true && jump == true)
-        {
-            carroState.Value = false;
-            pipaState.Value = false;
-            puloAudioEvent.Play(puloSom);
-            rb2d.AddForce(new Vector2(0, stats.jumpForce.Value), ForceMode2D.Impulse);
-            //Physics.IgnoreLayerCollision(10, 11, true);
-            jump = false;
+		// Pulo
+		if (grounded == true && jump == true)
+		{
+			carroState.Value = false;
+			pipaState.Value = false;
+			puloAudioEvent.Play(puloSom);
+			rb2d.AddForce(new Vector2(0, stats.jumpForce.Value), ForceMode2D.Impulse);
+			//Physics.IgnoreLayerCollision(10, 11, true);
+			jump = false;
 
-        }    
-       
+		}
+
 	}
 
 
 
 
 
-    [PunRPC]
-    void TrocaSala()
-    {
-        PhotonNetwork.LoadLevel("TelaVitoria");
-    }
+	[PunRPC]
+	void TrocaSala()
+	{
+		PhotonNetwork.LoadLevel("TelaVitoria");
+	}
 
-    [PunRPC]
-    void ZeraPontuacao()
-    {
-        PV.Owner.SetScore(0);
-    }
+	[PunRPC]
+	void ZeraPontuacao()
+	{
+		PV.Owner.SetScore(0);
+	}
+
+	[PunRPC]
+	void GiraPlayer(bool dir)
+	{
+		if(dir)
+			player.transform.rotation = Quaternion.Euler(0, 90, 0);
+		else
+			player.transform.rotation = Quaternion.Euler(0, -90, 0);
+	}
 
 	/*[PunRPC]
     private void TransformaPet(bool isDog, string transformation)
