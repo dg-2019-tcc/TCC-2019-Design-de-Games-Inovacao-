@@ -16,6 +16,8 @@ public class ThrowObject : MonoBehaviour
 	[HideInInspector]
     public PhotonView photonView;
 
+    public Animator playerAC;
+
     private void Awake()
     {
         photonView = gameObject.GetComponent<PhotonView>();
@@ -42,6 +44,7 @@ public class ThrowObject : MonoBehaviour
     {
 		if (!(bool)photonView.Owner.CustomProperties["dogValue"]) return;
         GameObject bullet;
+        playerAC.SetTrigger("Atirou");
         bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);// as GameObject;
         bullet.GetComponent<ItemThrow>().InitializeBullet(photonView.Owner);
 
