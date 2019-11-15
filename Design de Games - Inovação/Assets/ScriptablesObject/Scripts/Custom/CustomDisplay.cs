@@ -8,6 +8,7 @@ public class CustomDisplay : MonoBehaviour
     public PropsCustom legs;
     public PropsCustom shirt;
     public PropsCustom hair;
+    public PropsCustom shoe;
 
     public GameObject[] hairModels;
 
@@ -15,11 +16,15 @@ public class CustomDisplay : MonoBehaviour
 
     public GameObject[] legModels;
 
+    public GameObject[] shoeModels;
+
     public SkinnedMeshRenderer[] hairColor;
 
     public SkinnedMeshRenderer[] legsColor;
 
     public SkinnedMeshRenderer[] shirtsColor;
+
+    public SkinnedMeshRenderer[] shoeColor;
 
     void Awake()
     {
@@ -61,6 +66,8 @@ public class CustomDisplay : MonoBehaviour
 		PhotonNetwork.LocalPlayer.CustomProperties["hairColorIndex"] = hair.colorIndex;
 		PhotonNetwork.LocalPlayer.CustomProperties["shirtColorIndex"] = shirt.colorIndex;
 		PhotonNetwork.LocalPlayer.CustomProperties["legsColorIndex"] = legs.colorIndex;
+        PhotonNetwork.LocalPlayer.CustomProperties["shoeIndex"] = shoe.propIndex;
+        PhotonNetwork.LocalPlayer.CustomProperties["shoeColorIndex"] = shoe.colorIndex;
 
 
 
@@ -157,5 +164,25 @@ public class CustomDisplay : MonoBehaviour
             legsColor[i].material = legs.color.corData[onlineIndex];
         }
         legsColor[legs.propIndex].material = legs.color.corData[onlineIndex];
+    }
+
+    [PunRPC]
+    private void TrocaSapato(int onlineIndex)
+    {
+        for (int i = 0; i < shoeModels.Length; i++)
+        {
+            shoeModels[i].SetActive(false);
+        }
+        shoeModels[onlineIndex].SetActive(true);
+    }
+
+    [PunRPC]
+    private void TrocaMaterialSapato(int onlineIndex)
+    {
+        for (int i = 0; i < shoeColor.Length; i++)
+        {
+            shoeColor[i].material = shoe.color.corData[onlineIndex];
+        }
+        shoeColor[shoe.propIndex].material = shoe.color.corData[onlineIndex];
     }
 }

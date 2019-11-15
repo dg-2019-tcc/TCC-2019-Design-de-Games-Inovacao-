@@ -33,6 +33,8 @@ public class CustomManager : MonoBehaviour
     public GameObject[] hairModels;
     public GameObject[] shirtModels;
     public GameObject[] legsModels;
+    public GameObject[] shoesModels;
+
 
 
 
@@ -41,6 +43,7 @@ public class CustomManager : MonoBehaviour
     public SkinnedMeshRenderer[] hairColor;
     public SkinnedMeshRenderer[] shirtColor;
     public SkinnedMeshRenderer[] legsColor;
+    public SkinnedMeshRenderer[] shoesColor;
 
 
 
@@ -49,6 +52,7 @@ public class CustomManager : MonoBehaviour
     public PropsCustom hair;
     public PropsCustom shirt;
     public PropsCustom legs;
+    public PropsCustom shoe;
 
 
 
@@ -133,6 +137,10 @@ public class CustomManager : MonoBehaviour
             case "legs":
                 ChangeModelFunction(legsModels, legs, legsColor, "legsIndex");
                 break;
+
+            case "shoe":
+                ChangeModelFunction(shoesModels, shoe, shoesColor, "shoeIndex");
+                break;
         }
     }
 
@@ -151,6 +159,10 @@ public class CustomManager : MonoBehaviour
 
             case "legs":
                 ChangeColorFunction(legs, legsColor, "legsColorIndex");
+                break;
+
+            case "shoe":
+                ChangeColorFunction(shoe, shoesColor, "shoeColorIndex");
                 break;
         }
     }
