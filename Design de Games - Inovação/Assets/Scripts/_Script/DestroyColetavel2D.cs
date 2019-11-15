@@ -24,7 +24,7 @@ public class DestroyColetavel2D : MonoBehaviourPunCallbacks
             }
         }
 
-        if (other.gameObject.CompareTag("DogTiro"))
+        /*if (other.gameObject.CompareTag("DogTiro"))
         {
             if (playerView.IsMine)
             {
@@ -33,7 +33,7 @@ public class DestroyColetavel2D : MonoBehaviourPunCallbacks
                 Destroy(gameObject);
                 index++;
             }
-        }
+        }*/
     }
 
 	void Coleta()

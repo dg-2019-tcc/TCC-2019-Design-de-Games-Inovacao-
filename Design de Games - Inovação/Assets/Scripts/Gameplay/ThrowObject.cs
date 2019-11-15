@@ -29,8 +29,10 @@ public class ThrowObject : MonoBehaviour
     {
         if (photonView.IsMine == true)
         {
-            if (SwipeDetector.shoot == true) Shoot();
-            
+            if (SwipeDetector.shoot == true)
+            {
+                photonView.RPC("Shoot", RpcTarget.All);
+            }
             if (Input.GetKeyDown(KeyCode.Z))
             {
                 direction = new Vector2(0.5f, 0);

@@ -32,6 +32,7 @@ public class PlayerMovement : MonoBehaviour
 	public FloatVariable playerJump;
 	private bool leftDir;
 	private bool rightDir;
+    public BoolVariable canJump;
 
 
 	[Header("Canvas")]
@@ -215,7 +216,7 @@ public class PlayerMovement : MonoBehaviour
         }*/
 
         // Pulo
-        if (grounded == true && jump == true)
+        if (grounded == true && jump == true && canJump.Value == true)
         {
             playerAC.SetTrigger("Jump");
             puloAudioEvent.Play(puloSom);

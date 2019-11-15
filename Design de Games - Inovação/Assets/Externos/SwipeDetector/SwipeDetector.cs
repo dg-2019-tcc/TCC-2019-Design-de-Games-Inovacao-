@@ -15,6 +15,7 @@ public class SwipeDetector : MonoBehaviour
 
     public static bool shoot;
     public bool swipe;
+    public BoolVariable canJump;
 
     private void Update()
     {
@@ -24,18 +25,21 @@ public class SwipeDetector : MonoBehaviour
             {
                 fingerUpPosition = touch.position;
                 fingerDownPosition = touch.position;
+                canJump.Value = false;
             }
 
             if (!detectSwipeOnlyAfterRelease && touch.phase == TouchPhase.Moved)
             {
                 fingerDownPosition = touch.position;
                 DetectSwipe();
+                canJump.Value = false;
             }
 
             if (touch.phase == TouchPhase.Ended && touch.position.x > Screen.width / 2)
             {
                 fingerDownPosition = touch.position;
                 DetectSwipe();
+                canJump.Value = true;
             }
         }
     }

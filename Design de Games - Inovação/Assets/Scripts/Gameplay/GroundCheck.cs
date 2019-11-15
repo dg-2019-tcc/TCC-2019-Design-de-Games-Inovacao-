@@ -10,6 +10,8 @@ public class GroundCheck : MonoBehaviour
 
     public Animator playerAC;
 
+    public BoolVariable canJump;
+
      void Start()
     {
         player = gameObject.GetComponentInParent<PlayerMovement>();
@@ -32,6 +34,7 @@ public class GroundCheck : MonoBehaviour
 		if (!col.CompareTag("Coletavel"))
         playerAC.SetBool("isGrounded", true);
         player.grounded = true;
+        canJump.Value = true;
     }
 
     void OnTriggerExit2D(Collider2D col)
@@ -39,6 +42,7 @@ public class GroundCheck : MonoBehaviour
 		if (!col.CompareTag("Coletavel"))
 			player.grounded = false;
         playerAC.SetBool("isGrounded", false);
+        canJump.Value = false;
     }
 
     
