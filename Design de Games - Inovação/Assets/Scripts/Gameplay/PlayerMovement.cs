@@ -215,8 +215,7 @@ public class PlayerMovement : MonoBehaviour
         // Pulo
         if (grounded == true && jump == true)
         {
-            carroState.Value = false;
-            pipaState.Value = false;
+            playerAC.SetTrigger("Jump");
             puloAudioEvent.Play(puloSom);
             rb2d.AddForce(new Vector2(0, stats.jumpForce.Value), ForceMode2D.Impulse);
             //Physics.IgnoreLayerCollision(10, 11, true);

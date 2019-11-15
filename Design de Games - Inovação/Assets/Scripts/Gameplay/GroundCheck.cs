@@ -24,7 +24,6 @@ public class GroundCheck : MonoBehaviour
     {
         if (!col.CompareTag("Coletavel"))
         
-        playerAC.SetTrigger("Fall");
         player.grounded = true;
     }
 
