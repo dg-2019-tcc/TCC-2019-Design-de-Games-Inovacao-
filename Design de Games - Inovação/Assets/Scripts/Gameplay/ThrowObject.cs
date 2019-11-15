@@ -31,7 +31,7 @@ public class ThrowObject : MonoBehaviour
         {
             if (SwipeDetector.shoot == true)
             {
-                photonView.RPC("Shoot", RpcTarget.All);
+                StartCoroutine("StartTiro");
             }
             if (Input.GetKeyDown(KeyCode.Z))
             {
@@ -46,11 +46,17 @@ public class ThrowObject : MonoBehaviour
     {
 		if (!(bool)photonView.Owner.CustomProperties["dogValue"]) return;
         GameObject bullet;
-        playerAC.SetTrigger("Atirou");
         bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);// as GameObject;
         bullet.GetComponent<ItemThrow>().InitializeBullet(photonView.Owner);
 
         SwipeDetector.shoot = false;
+    }
+
+    IEnumerator StartTiro()
+    {
+        playerAC.SetTrigger("Atirou");
+        yield return new WaitForSeconds(1f);
+        photonView.RPC("Shoot", RpcTarget.All);
     }
 
     //Funciona somente na build, para conseguir atirar usando a tecla "Z"
