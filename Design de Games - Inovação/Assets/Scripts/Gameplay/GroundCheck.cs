@@ -27,6 +27,7 @@ public class GroundCheck : MonoBehaviour
         if (!col.CompareTag("Coletavel"))
         
         player.grounded = true;
+        playerAC.ResetTrigger("Jump");
     }
 
      void OnTriggerStay2D(Collider2D col)
