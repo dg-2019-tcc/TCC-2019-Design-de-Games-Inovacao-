@@ -32,7 +32,7 @@ public class PlayerMovement : MonoBehaviour
 	public FloatVariable playerJump;
 	private bool leftDir;
 	private bool rightDir;
-    public BoolVariable canJump;
+	public BoolVariable canJump;
 
 
 	[Header("Canvas")]
@@ -174,7 +174,7 @@ public class PlayerMovement : MonoBehaviour
 		{
 			if (joyStick.Horizontal > 0 && rightDir == false)
 			{
-				
+
 				rightDir = true;
 				leftDir = false;
 				gameObject.GetComponent<PhotonView>().RPC("GiraPlayer", RpcTarget.All, rightDir);
@@ -182,7 +182,7 @@ public class PlayerMovement : MonoBehaviour
 			}
 			else if (joyStick.Horizontal < 0 && leftDir == false)
 			{
-				
+
 				leftDir = true;
 				rightDir = false;
 				gameObject.GetComponent<PhotonView>().RPC("GiraPlayer", RpcTarget.All, rightDir);
@@ -205,7 +205,7 @@ public class PlayerMovement : MonoBehaviour
 			}
 		}
 
-        /*if (grounded)
+		/*if (grounded)
         {
             playerAC.SetBool("isGrounded", true);
         }
@@ -215,14 +215,14 @@ public class PlayerMovement : MonoBehaviour
 
         }*/
 
-        // Pulo
-        if (grounded == true && jump == true && canJump.Value == true)
-        {
-            playerAC.SetTrigger("Jump");
-            puloAudioEvent.Play(puloSom);
-            rb2d.AddForce(new Vector2(0, stats.jumpForce.Value), ForceMode2D.Impulse);
-            //Physics.IgnoreLayerCollision(10, 11, true);
-            jump = false;
+		// Pulo
+		if (grounded == true && jump == true && canJump.Value == true)
+		{
+			playerAC.SetTrigger("Jump");
+			puloAudioEvent.Play(puloSom);
+			rb2d.AddForce(new Vector2(0, stats.jumpForce.Value), ForceMode2D.Impulse);
+			//Physics.IgnoreLayerCollision(10, 11, true);
+			jump = false;
 
 		}
 
@@ -247,7 +247,7 @@ public class PlayerMovement : MonoBehaviour
 	[PunRPC]
 	void GiraPlayer(bool dir)
 	{
-		if(dir)
+		if (dir)
 			player.transform.rotation = Quaternion.Euler(0, 90, 0);
 		else
 			player.transform.rotation = Quaternion.Euler(0, -90, 0);
@@ -260,14 +260,15 @@ public class PlayerMovement : MonoBehaviour
     }*/
 
 
-    //Função para o botão de pulo
-    public void Jump()
-    {
-        playerAC.SetTrigger("Jump");
-        jump = true;
+	//Função para o botão de pulo
+	public void Jump()
+	{
+		playerAC.SetTrigger("Jump");
+		jump = true;
 
-    }
+	}
 
+	[PunRPC]
     IEnumerator LevouDogada()
     {
         playerAC.SetBool("Dogada", true);
