@@ -47,7 +47,7 @@ public class DogController : MonoBehaviour
 
     void Start()
     {
-        PV = GetComponent<PhotonView>();
+        PV = gameObject.GetComponent<PhotonView>();
         efeitoCarro.ativa.Value = false;
         efeitoPipa.ativa.Value = false;
         PV.Controller.CustomProperties["dogValue"] = true;
@@ -101,7 +101,8 @@ public class DogController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!PV.IsMine && PV.IsMine != null) return;
+        if (!PV.IsMine && PV != null) return;
+		if (!(bool)PV.Controller.CustomProperties["dogValue"]) return;
         if (collision.CompareTag("Pipa"))
         {
             if (efeitoCarro.ativa.Value == false && efeitoPipa.ativa.Value == false)
