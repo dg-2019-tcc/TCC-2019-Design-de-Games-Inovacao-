@@ -268,7 +268,7 @@ public class PlayerMovement : MonoBehaviour
 
 	}
 
-	[PunRPC]
+	
     IEnumerator LevouDogada()
     {
         playerAC.SetBool("Dogada", true);

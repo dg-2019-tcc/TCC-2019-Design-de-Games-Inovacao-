@@ -81,11 +81,11 @@ public class ItemThrow : MonoBehaviour
 
         }
 
-        if (collision.CompareTag("Player") && !collision.GetComponent<PhotonView>().IsMine) 
+        if (collision.CompareTag("Player") && collision.GetComponent<PhotonView>().Owner != Owner) 
         { 
-			//PlayerMovement jogador = collision.GetComponent<PlayerMovement>(); 
-			//jogador.StartCoroutine("LevouDogada"); 
-			collision.GetComponent<PhotonView>().RPC("LevouDogada", RpcTarget.All); 
+			PlayerMovement jogador = collision.GetComponent<PlayerMovement>(); 
+			jogador.StartCoroutine("LevouDogada"); 
+			//collision.GetComponent<PhotonView>().RPC("LevouDogada", RpcTarget.All); 
 			 
 			timeDestroy = 4.9f; 
         }
