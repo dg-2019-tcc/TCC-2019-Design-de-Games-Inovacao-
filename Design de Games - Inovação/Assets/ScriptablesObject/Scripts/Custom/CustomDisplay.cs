@@ -11,23 +11,20 @@ public class CustomDisplay : MonoBehaviour
     public PropsCustom shoe;
 
     public GameObject[] hairModels;
-
     public GameObject[] shirtModels;
-
     public GameObject[] legModels;
-
     public GameObject[] shoeModels;
 
     public SkinnedMeshRenderer[] hairColor;
-
-    public SkinnedMeshRenderer[] legsColor;
-
+	public SkinnedMeshRenderer[] legsColor;
     public SkinnedMeshRenderer[] shirtsColor;
-
     public SkinnedMeshRenderer[] shoeColor;
+
+	private PhotonView pv;
 
     void Awake()
     {
+		pv = GetComponent<PhotonView>();
 
 		/* //hair.propIndex = PlayerPrefs.GetInt("hairIndex");
 		 PhotonNetwork.LocalPlayer.CustomProperties["hairIndex"] = hair.propIndex;
@@ -59,16 +56,17 @@ public class CustomDisplay : MonoBehaviour
         legsColor[legs.propIndex].material = legs.color[legs.propIndex].corData[legs.colorIndex];*/
 
 
-
-		PhotonNetwork.LocalPlayer.CustomProperties["hairIndex"] = hair.propIndex;
-		PhotonNetwork.LocalPlayer.CustomProperties["shirtIndex"] = shirt.propIndex;
-		PhotonNetwork.LocalPlayer.CustomProperties["legsIndex"] = legs.propIndex;
-		PhotonNetwork.LocalPlayer.CustomProperties["hairColorIndex"] = hair.colorIndex;
-		PhotonNetwork.LocalPlayer.CustomProperties["shirtColorIndex"] = shirt.colorIndex;
-		PhotonNetwork.LocalPlayer.CustomProperties["legsColorIndex"] = legs.colorIndex;
-        PhotonNetwork.LocalPlayer.CustomProperties["shoeIndex"] = shoe.propIndex;
-        PhotonNetwork.LocalPlayer.CustomProperties["shoeColorIndex"] = shoe.colorIndex;
-
+		if (!pv.IsMine)
+		{
+			PhotonNetwork.LocalPlayer.CustomProperties["hairIndex"] = hair.propIndex;
+			PhotonNetwork.LocalPlayer.CustomProperties["shirtIndex"] = shirt.propIndex;
+			PhotonNetwork.LocalPlayer.CustomProperties["legsIndex"] = legs.propIndex;
+			PhotonNetwork.LocalPlayer.CustomProperties["hairColorIndex"] = hair.colorIndex;
+			PhotonNetwork.LocalPlayer.CustomProperties["shirtColorIndex"] = shirt.colorIndex;
+			PhotonNetwork.LocalPlayer.CustomProperties["legsColorIndex"] = legs.colorIndex;
+			PhotonNetwork.LocalPlayer.CustomProperties["shoeIndex"] = shoe.propIndex;
+			PhotonNetwork.LocalPlayer.CustomProperties["shoeColorIndex"] = shoe.colorIndex;
+		}
 
 
 		/*if (GetComponent<PhotonView>() != null && GetComponent<PhotonView>().IsMine)
@@ -83,12 +81,14 @@ public class CustomDisplay : MonoBehaviour
 		}*/
 		if (PhotonNetwork.InRoom)
 		{
-			TrocaCabelo((int)GetComponent<PhotonView>().Owner.CustomProperties["hairIndex"]);
-			TrocaMaterialCabelo((int)GetComponent<PhotonView>().Owner.CustomProperties["hairColorIndex"]);
-			TrocaCamisa((int)GetComponent<PhotonView>().Owner.CustomProperties["shirtIndex"]);
-			TrocaMaterialCamisa((int)GetComponent<PhotonView>().Owner.CustomProperties["shirtColorIndex"]);
-			TrocaCalca((int)GetComponent<PhotonView>().Owner.CustomProperties["legsIndex"]);
-			TrocaMaterialCalca((int)GetComponent<PhotonView>().Owner.CustomProperties["legsColorIndex"]);
+			TrocaCabelo((int)pv.Owner.CustomProperties["hairIndex"]);
+			TrocaMaterialCabelo((int)pv.Owner.CustomProperties["hairColorIndex"]);
+			TrocaCamisa((int)pv.Owner.CustomProperties["shirtIndex"]);
+			TrocaMaterialCamisa((int)pv.Owner.CustomProperties["shirtColorIndex"]);
+			TrocaCalca((int)pv.Owner.CustomProperties["legsIndex"]);
+			TrocaMaterialCalca((int)pv.Owner.CustomProperties["legsColorIndex"]);
+			TrocaSapato((int)pv.Owner.CustomProperties["shoeIndex"]);
+			TrocaMaterialSapato((int)pv.Owner.CustomProperties["shoeColorIndex"]);
 		}
 
 		else if (!PhotonNetwork.InRoom)
@@ -99,6 +99,8 @@ public class CustomDisplay : MonoBehaviour
 			TrocaMaterialCamisa(shirt.colorIndex);
 			TrocaCalca(legs.propIndex);
 			TrocaMaterialCalca(legs.colorIndex);
+			TrocaSapato(shoe.propIndex);
+			TrocaMaterialSapato(shoe.colorIndex);
 
 		}
     }

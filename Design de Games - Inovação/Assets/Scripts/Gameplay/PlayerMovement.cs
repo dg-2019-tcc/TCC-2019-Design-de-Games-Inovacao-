@@ -154,7 +154,7 @@ public class PlayerMovement : MonoBehaviour
 
 	void FixedUpdate()
 	{
-
+		coletavel = PV.Owner.GetScore();
 
 
 		if (coletavel >= numeroDeColetaveis)
