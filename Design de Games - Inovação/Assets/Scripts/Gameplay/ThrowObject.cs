@@ -13,6 +13,12 @@ public class ThrowObject : MonoBehaviour
 
     public static Vector2 direction;
 
+	[Header("Cooldown em segundos")]
+	public float cooldown;
+	private float cooldownDelta;
+
+	public GameObject EfeitoDeCooldown;
+
 	[HideInInspector]
     public PhotonView photonView;
 
@@ -22,7 +28,10 @@ public class ThrowObject : MonoBehaviour
     {
         photonView = gameObject.GetComponent<PhotonView>();
         SwipeDetector.OnSwipe += SwipeDirection;
-    }
+		cooldownDelta = 0;
+		EfeitoDeCooldown.SetActive(false);
+
+	}
 
 
     void Update()
@@ -38,18 +47,23 @@ public class ThrowObject : MonoBehaviour
                 direction = new Vector2(0.5f, 0);
                 photonView.RPC("Shoot", RpcTarget.All);
             }
+
+			if (cooldown > 0)
+				cooldownDelta -= Time.deltaTime;
         }
     }
 
     [PunRPC]
     void Shoot()
     {
-		if (!(bool)photonView.Owner.CustomProperties["dogValue"]) return;
+		if (!(bool)photonView.Owner.CustomProperties["dogValue"] || cooldownDelta > 0) return;
         GameObject bullet;
         bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);// as GameObject;
         bullet.GetComponent<ItemThrow>().InitializeBullet(photonView.Owner);
-
-        SwipeDetector.shoot = false;
+		cooldownDelta = cooldown;
+		StartCoroutine("CooldownEffect");
+		photonView.Owner.CustomProperties["atirou"] = true;
+		SwipeDetector.shoot = false;
     }
 
     IEnumerator StartTiro()
@@ -58,6 +72,13 @@ public class ThrowObject : MonoBehaviour
         yield return new WaitForSeconds(1f);
         photonView.RPC("Shoot", RpcTarget.All);
     }
+
+	IEnumerator CooldownEffect()
+	{
+		EfeitoDeCooldown.SetActive(true);
+		yield return new WaitForSeconds(cooldownDelta);
+		EfeitoDeCooldown.SetActive(false);
+	}
 
     //Funciona somente na build, para conseguir atirar usando a tecla "Z"
 
