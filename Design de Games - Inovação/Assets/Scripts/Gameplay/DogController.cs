@@ -95,6 +95,8 @@ public class DogController : MonoBehaviour
         {
             gameObject.GetComponent<PhotonView>().RPC("TransformaPet", RpcTarget.All, true);
         }
+
+
     }
 
 
@@ -177,4 +179,6 @@ public class DogController : MonoBehaviour
         poderEstaAtivo = false;
         PV.Controller.CustomProperties["dogValue"] = true;
     }
+
+	
 }
