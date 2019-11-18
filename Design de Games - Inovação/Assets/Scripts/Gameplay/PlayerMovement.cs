@@ -150,11 +150,16 @@ public class PlayerMovement : MonoBehaviour
 		newPos = transform.position.x;
 	}
 
+    private void LateUpdate()
+    {
 
+        transform.rotation = Quaternion.identity;
+    }
 
-	void FixedUpdate()
-	{
-		if (PhotonNetwork.PlayerList.Length > 1)
+    void FixedUpdate()
+    {
+
+        if (PhotonNetwork.PlayerList.Length > 1)
 		{
 			coletavel = PV.Owner.GetScore();
 		}
