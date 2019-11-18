@@ -154,7 +154,10 @@ public class PlayerMovement : MonoBehaviour
 
 	void FixedUpdate()
 	{
-		coletavel = PV.Owner.GetScore();
+		if (PhotonNetwork.PlayerList.Length > 1)
+		{
+			coletavel = PV.Owner.GetScore();
+		}
 
 
 		if (coletavel >= numeroDeColetaveis)
