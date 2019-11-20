@@ -149,6 +149,7 @@ public class DogController : MonoBehaviour
         Debug.Log("ativou no multiplayer a pipa");
         PV.Controller.CustomProperties["dogValue"] = false;
         pipaObj.SetActive(true);
+        playerModel.SetActive(false);
         poderEstaAtivo = true;
         tokenAudioEvent.Play(tokenSom);
         StartCoroutine(TempoParaDesativar(6f));
