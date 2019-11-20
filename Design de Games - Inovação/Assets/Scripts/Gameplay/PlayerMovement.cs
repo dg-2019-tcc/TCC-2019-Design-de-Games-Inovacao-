@@ -23,6 +23,7 @@ public class PlayerMovement : MonoBehaviour
 
 	public GameObject player;
     public GameObject carro;
+    public GameObject pipa;
 	private Rigidbody2D rb2d;
 	public bool jump;
 	public Transform groundCheck;
@@ -263,11 +264,13 @@ public class PlayerMovement : MonoBehaviour
         {
             player.transform.rotation = Quaternion.Euler(0, 90, 0);
             carro.transform.rotation = Quaternion.Euler(0, 90, 0);
+            pipa.transform.rotation = Quaternion.Euler(0, 90, 0);
         }
         else
         {
             player.transform.rotation = Quaternion.Euler(0, -90, 0);
             carro.transform.rotation = Quaternion.Euler(0, -90, 0);
+            pipa.transform.rotation = Quaternion.Euler(0, -90, 0);
         }
     }
 
