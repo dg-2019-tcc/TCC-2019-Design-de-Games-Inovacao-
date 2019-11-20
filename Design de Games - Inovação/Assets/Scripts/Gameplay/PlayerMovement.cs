@@ -151,7 +151,6 @@ public class PlayerMovement : MonoBehaviour
 
         if (SceneManager.GetActiveScene().name == "TelaVitoria" && (int)PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] == 0)
         {
-            FindObjectOfType<Coroa>().ganhador = transform;
             playerAC.SetBool("Lost", true);
             transform.position = new Vector3(0, 0, 0);
         }
