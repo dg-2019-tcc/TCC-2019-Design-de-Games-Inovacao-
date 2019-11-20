@@ -145,9 +145,18 @@ public class PlayerMovement : MonoBehaviour
 		if (SceneManager.GetActiveScene().name == "TelaVitoria" && (int)PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] == 1)
 		{
 			FindObjectOfType<Coroa>().ganhador = transform;
-			transform.position = new Vector3(0, 0, 0);
+            playerAC.SetTrigger("Won");
+            transform.position = new Vector3(0, 0, 0);
 		}
-		PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 0;
+
+        if (SceneManager.GetActiveScene().name == "TelaVitoria" && (int)PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] == 0)
+        {
+            FindObjectOfType<Coroa>().ganhador = transform;
+            playerAC.SetBool("Lost", true);
+            transform.position = new Vector3(0, 0, 0);
+        }
+
+        PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 0;
 		gameObject.GetComponent<PhotonView>().RPC("ZeraPontuacao", RpcTarget.All);
 		oldPos = transform.position.x;
 		newPos = transform.position.x;
@@ -162,10 +171,16 @@ public class PlayerMovement : MonoBehaviour
     void FixedUpdate()
     {
 
-        if (PhotonNetwork.PlayerList.Length > 1)
+        if((int)PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] == 1)
+        {
+            playerAC.SetTrigger("Won");
+        }
+
+        if (PhotonNetwork.PlayerList.Length >= 1)
 		{
 			coletavel = PV.Owner.GetScore();
-		}
+
+        }
 
 
 		if (coletavel >= numeroDeColetaveis)
