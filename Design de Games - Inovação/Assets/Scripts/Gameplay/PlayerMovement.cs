@@ -22,6 +22,7 @@ public class PlayerMovement : MonoBehaviour
 	[Header("Movimentação física")]
 
 	public GameObject player;
+    public GameObject carro;
 	private Rigidbody2D rb2d;
 	public bool jump;
 	public Transform groundCheck;
@@ -80,6 +81,7 @@ public class PlayerMovement : MonoBehaviour
 	[Header("Animação")]
 
 	public Animator playerAC;
+    public Animator carroAC;
 	private PlayerFaceAnimations playerFaceAnimations;
 
 
@@ -203,6 +205,7 @@ public class PlayerMovement : MonoBehaviour
 
 				rb2d.velocity = new Vector3(stats.speed.Value * moveHorizontal, rb2d.velocity.y, 0);
 				playerAC.SetBool("isWalking", true);
+                carroAC.SetBool("isWalking", true);
 				//playerAC.SetBool("isWalking", true);
 				//walkSom.SetActive(true);
 			}
@@ -210,7 +213,8 @@ public class PlayerMovement : MonoBehaviour
 			else
 			{
 				playerAC.SetBool("isWalking", false);
-			}
+                carroAC.SetBool("isWalking", false);
+            }
 		}
 
 		/*if (grounded)
@@ -255,11 +259,17 @@ public class PlayerMovement : MonoBehaviour
 	[PunRPC]
 	void GiraPlayer(bool dir)
 	{
-		if (dir)
-			player.transform.rotation = Quaternion.Euler(0, 90, 0);
-		else
-			player.transform.rotation = Quaternion.Euler(0, -90, 0);
-	}
+        if (dir)
+        {
+            player.transform.rotation = Quaternion.Euler(0, 90, 0);
+            carro.transform.rotation = Quaternion.Euler(0, 90, 0);
+        }
+        else
+        {
+            player.transform.rotation = Quaternion.Euler(0, -90, 0);
+            carro.transform.rotation = Quaternion.Euler(0, -90, 0);
+        }
+    }
 
 	/*[PunRPC]
     private void TransformaPet(bool isDog, string transformation)

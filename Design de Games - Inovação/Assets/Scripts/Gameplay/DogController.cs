@@ -6,6 +6,7 @@ using UnityEngine;
 public class DogController : MonoBehaviour
 {
     public GameObject player;
+    public GameObject playerModel;
     private Transform target;
     public float speedToTotem = 10f;
 
@@ -41,6 +42,8 @@ public class DogController : MonoBehaviour
     public BoolVariable hitTotemCarro;
     public BoolVariable hitTotemPipa;
     //public BoolVariable dog;
+
+    public Animator playerAC;
 
 
 
@@ -132,6 +135,7 @@ public class DogController : MonoBehaviour
         Debug.Log("ativou no multiplayer o carrinho");
         PV.Controller.CustomProperties["dogValue"] = false;
         carrinhoObj.SetActive(true);
+        playerModel.SetActive(false);
         poderEstaAtivo = true;
         tokenAudioEvent.Play(tokenSom);
         StartCoroutine(TempoParaDesativar(6f));
@@ -156,10 +160,12 @@ public class DogController : MonoBehaviour
         if (efeitoPipa.ativa.Value == false)
         {
             pipaObj.SetActive(false);
+            playerModel.SetActive(true);
         }
         if (efeitoCarro.ativa.Value == false)
         {
             carrinhoObj.SetActive(false);
+            playerModel.SetActive(true);
         }
     }
 
