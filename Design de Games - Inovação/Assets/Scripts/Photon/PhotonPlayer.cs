@@ -16,7 +16,7 @@ public class PhotonPlayer : MonoBehaviour
     {
 		PV = GetComponent<PhotonView>();
 		int spawnPicker = Random.Range(0, GameSetupController.GS.spawnPoints.Length);
-	    if (PV.IsMine)
+	    if (PV.IsMine || !PhotonNetwork.InRoom)
 		{
 
             myAvatar = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PlayerAvatar2D"),

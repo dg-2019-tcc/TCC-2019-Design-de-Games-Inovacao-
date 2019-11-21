@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class DelayStartLobbyController : MonoBehaviourPunCallbacks
 {
@@ -37,29 +38,35 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
     public AudioSource startSound;
 
 
+	private void Start()
+	{
+		if (SceneManager.GetActiveScene().name != "MenuCustomizacao") return;
+		delayStartButton.SetActive(true);
+		tutorialButton.SetActive(true);
 
-    public override void OnConnectedToMaster()
+		if (PlayerPrefs.HasKey("NickName"))
+		{
+			if (PlayerPrefs.GetString("NickName") == "")
+			{
+				PhotonNetwork.NickName = "Player " + Random.Range(0, 1000);
+			}
+			else
+			{
+				PhotonNetwork.NickName = PlayerPrefs.GetString("NickName");
+			}
+		}
+		else
+		{
+			PhotonNetwork.NickName = "Player " + Random.Range(0, 1000);
+		}
+		playerNameInput.text = PhotonNetwork.NickName;
+	}
+
+
+	public override void OnConnectedToMaster()
     {
         PhotonNetwork.AutomaticallySyncScene = true;
-        delayStartButton.SetActive(true);
-        tutorialButton.SetActive(true);
-
-        if (PlayerPrefs.HasKey("NickName"))
-        {
-            if (PlayerPrefs.GetString("NickName") == "")
-            {
-                PhotonNetwork.NickName = "Player " + Random.Range(0, 1000);
-            }
-            else
-            {
-                PhotonNetwork.NickName = PlayerPrefs.GetString("NickName");
-            }
-        }
-        else
-        {
-            PhotonNetwork.NickName = "Player " + Random.Range(0, 1000);
-        }
-        playerNameInput.text = PhotonNetwork.NickName;
+        
     }
 
 
@@ -111,7 +118,7 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
         }
     }
 
-    void CreateRoom()
+    public void CreateRoom()
     {
         //Debug para saber que está criando uma sala
         //Debug.Log("Creating room now");

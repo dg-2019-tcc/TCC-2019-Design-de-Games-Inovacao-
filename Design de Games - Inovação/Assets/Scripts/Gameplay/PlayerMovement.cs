@@ -99,7 +99,7 @@ public class PlayerMovement : MonoBehaviour
 	public float oldPos;
 	public float newPos;
 
-
+	private bool menuCustom;
 
 
 
@@ -113,7 +113,9 @@ public class PlayerMovement : MonoBehaviour
 		stats.speed = playerSpeed;
 		stats.jumpForce = playerJump;
 
+		menuCustom = false;
 
+		if (SceneManager.GetActiveScene().name == "MenuCustomizacao") menuCustom = true;
 
 
 		if (desativaCanvas == true)
@@ -121,8 +123,8 @@ public class PlayerMovement : MonoBehaviour
 			canvasSelf.SetActive(false);
 		}
 
-		if (!PhotonNetwork.IsConnected) return;
-		if (PV.IsMine)
+		//if (!PhotonNetwork.IsConnected) return;
+		if (PV.IsMine || menuCustom)
 		{
 			identificador.SetActive(true);
 			VC = gameObject.transform.GetChild(0).GetComponent<CinemachineVirtualCamera>();
@@ -192,7 +194,7 @@ public class PlayerMovement : MonoBehaviour
 			coletavel = 0;
 		}
 
-		if (PV != null && !PV.IsMine) return;
+		if (!PV.IsMine && !menuCustom) return;
 
 
 		if (joyStick != null)
@@ -203,6 +205,12 @@ public class PlayerMovement : MonoBehaviour
 				rightDir = true;
 				leftDir = false;
 				gameObject.GetComponent<PhotonView>().RPC("GiraPlayer", RpcTarget.All, rightDir);
+				if (!PhotonNetwork.InRoom)
+				{
+					player.transform.rotation = Quaternion.Euler(0, 90, 0);
+					carro.transform.rotation = Quaternion.Euler(0, 90, 0);
+					pipa.transform.rotation = Quaternion.Euler(0, 90, 0);
+				}
 
 			}
 			else if (joyStick.Horizontal < 0 && leftDir == false)
@@ -211,6 +219,12 @@ public class PlayerMovement : MonoBehaviour
 				leftDir = true;
 				rightDir = false;
 				gameObject.GetComponent<PhotonView>().RPC("GiraPlayer", RpcTarget.All, rightDir);
+				if (!PhotonNetwork.InRoom)
+				{
+					player.transform.rotation = Quaternion.Euler(0, -90, 0);
+					carro.transform.rotation = Quaternion.Euler(0, -90, 0);
+					pipa.transform.rotation = Quaternion.Euler(0, -90, 0);
+				}
 			}
 
 			//Movimentação do player no joystick

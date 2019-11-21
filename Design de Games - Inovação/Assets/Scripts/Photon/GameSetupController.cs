@@ -25,7 +25,7 @@ public class GameSetupController : MonoBehaviour
 
 	void Start()
 	{
-
+		
 		gameObject.GetComponent<PhotonView>().RPC("CreatePlayer", RpcTarget.All, allPlayersInSession);
 	}
 
@@ -36,10 +36,16 @@ public class GameSetupController : MonoBehaviour
 			allPlayersInSession = alterPlayerCount;
 
 		allPlayersInSession++;
-		if (PhotonNetwork.PlayerList.Length == allPlayersInSession)                                     //Checando se todos entraram, se sim, todos são criados ao mesmo tempo(se falhar, outro player vai passar pelo mesmo)
+		if (PhotonNetwork.PlayerList.Length == allPlayersInSession || alterPlayerCount == 0)                                     //Checando se todos entraram, se sim, todos são criados ao mesmo tempo(se falhar, outro player vai passar pelo mesmo)
 		{
 			StartCoroutine("UniteSynchronization", delayToCreate);
 		}
+	}
+
+	void Conectou()
+	{
+		//Instantiate(Resources.Load("PhotonPrefabs/PhotonPlayer"), spawnPoints[Random.Range(0, spawnPoints.Length - 1)].position, Quaternion.identity);
+		//CreatePlayer(0);
 	}
 
 	
