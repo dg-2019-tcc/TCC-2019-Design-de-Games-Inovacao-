@@ -41,7 +41,7 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
 	private void Start()
 	{
 		if (SceneManager.GetActiveScene().name != "MenuCustomizacao") return;
-		delayStartButton.SetActive(true);
+	//	delayStartButton.SetActive(true);
 		tutorialButton.SetActive(true);
 
 		if (PlayerPrefs.HasKey("NickName"))
