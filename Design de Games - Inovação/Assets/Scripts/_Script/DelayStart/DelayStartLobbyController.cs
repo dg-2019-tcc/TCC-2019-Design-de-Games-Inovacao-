@@ -10,9 +10,11 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
 {
     [Header("Botões")]
 
-    [SerializeField]
-    private GameObject delayStartButton; //Botão utilizado para criar e entrar em um jogo
-    [SerializeField]
+	[SerializeField]
+	private GameObject delayStartButton; //Botão utilizado para criar e entrar em um jogo
+	[SerializeField]
+	private GameObject delayStartButton2;
+	[SerializeField]
     private GameObject delayCancelButton; //Botão utilizado para parar de procurar uma sala de jogo
 	[SerializeField]
 	private GameObject loadingScene; //Feedback pro jogador de que a cena está carregando, o "esperando"
@@ -70,16 +72,17 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
     }
 
 
-    public void DelayStart()
+    public void DelayStart(string gameMode)
     {
         startSound.Play();
         delayStartButton.SetActive(false);
-        delayCancelButton.SetActive(true);
+		delayStartButton2.SetActive(false);
+		delayCancelButton.SetActive(true);
         tutorialButton.SetActive(false);
         loadingScene.SetActive(true);
         DelayStartWaitingRoomController.minPlayerToStart = 2;
-        DelayStartWaitingRoomController.tutorialMode = false
-            ;
+        DelayStartWaitingRoomController.tutorialMode = false;
+		DelayStartWaitingRoomController.gameMode = gameMode;
         PhotonNetwork.JoinRandomRoom();
         
         //ExitGames.Client.Photon.Hashtable expectedCustomRoomProperties = new ExitGames.Client.Photon.Hashtable() { { "map", modo } };  
@@ -90,7 +93,8 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
     {
         startSound.Play();
         delayStartButton.SetActive(false);
-        delayCancelButton.SetActive(true);
+		delayStartButton2.SetActive(false);
+		delayCancelButton.SetActive(true);
         tutorialButton.SetActive(false);
         loadingScene.SetActive(true);
         DelayStartWaitingRoomController.minPlayerToStart = 1;
@@ -181,8 +185,10 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
     public void DelayCancel()
     {
         delayCancelButton.SetActive(false);
-        delayStartButton.SetActive(true);
-        PhotonNetwork.LeaveRoom();
+    //  delayStartButton.SetActive(true);
+	//	tutorialButton.SetActive(true);
+		loadingScene.SetActive(false);
+		PhotonNetwork.LeaveRoom();
     }
 }
 

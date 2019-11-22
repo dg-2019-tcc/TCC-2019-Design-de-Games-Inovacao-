@@ -17,6 +17,7 @@ public class DelayStartWaitingRoomController : MonoBehaviourPunCallbacks
     [Header("Configurações de sala")]
 
     public static bool tutorialMode;
+	public static string gameMode;
     private int playerCount;
     private int roomSize;
 
@@ -179,7 +180,7 @@ public class DelayStartWaitingRoomController : MonoBehaviourPunCallbacks
         PhotonNetwork.CurrentRoom.IsOpen = false;
         if(tutorialMode == false)
         {
-            PhotonNetwork.LoadLevel(multiplayerSceneIndex);
+            PhotonNetwork.LoadLevel(gameMode);
         }
         else
         {
