@@ -20,21 +20,10 @@ public class AtivaTexto : MonoBehaviour
     [Header("Variaveis")]
 
     static bool falaAtiva;
+    [SerializeField]
+    private float tempoAtivo;
 
-
-
-    private void Update()
-    {/*
-
-        
-
-        if (falaAtiva)
-        {
-            StartCoroutine(IniciaFala());
-       }*/
-    }
-
-
+    
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
@@ -44,19 +33,19 @@ public class AtivaTexto : MonoBehaviour
             {
                 falaAtiva = true;
                 GameObject entry = Instantiate(falaGO);
+                //entry.GetComponent<DestroiTexto>().tempoParaDestruir = tempoAtivo;
                 entry.transform.SetParent(collision.transform);
                 entry.GetComponentInChildren<Image>().sprite = fala;
+                StartCoroutine(CooldownFala(5));
             }            
         }
     }
 
 
 
-    private IEnumerator IniciaFala()
+    private IEnumerator CooldownFala(float tempo)
     {
-        falaAtiva = false;        
-        falaGO.SetActive(true);
-        yield return new WaitForSeconds(4);
-        falaGO.SetActive(false);
+        yield return new WaitForSeconds(tempo);
+        falaAtiva = false;
     }
 }
