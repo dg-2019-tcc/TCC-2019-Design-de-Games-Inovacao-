@@ -15,6 +15,8 @@ public class LinhaDeChegada : MonoBehaviour
 
     public static bool changeRoom;
 
+    public bool euAcabei = false;
+
     public void Update()
     {
        if (PhotonNetwork.PlayerList.Length >= totalPlayers)
@@ -30,21 +32,23 @@ public class LinhaDeChegada : MonoBehaviour
             playerView = other.GetComponent<PhotonView>();
             if (finished == false)
             {
-                if (playerView.IsMine == true)
+                if (playerView.IsMine == true && euAcabei == false)
                 {
                     PlayerMovement jogador = other.GetComponent<PlayerMovement>();
                     jogador.ganhouCorrida = true;
                     Acabou();
                     totalPlayers++;
+                    euAcabei = true;
                 }
             }
             else
             {
-                if (playerView.IsMine == true)
+                if (playerView.IsMine == true && euAcabei == false)
                 {
                     PlayerMovement jogador = other.GetComponent<PlayerMovement>();
                     jogador.perdeuCorrida = true;
                     totalPlayers++;
+                    euAcabei = true;
                 }
             }
         }
