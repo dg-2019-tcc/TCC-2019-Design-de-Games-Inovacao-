@@ -16,10 +16,15 @@ public class PlayerMovement : MonoBehaviour
 	private float numeroDeColetaveis;
 	[HideInInspector]
 	public static float coletavel;
+    [HideInInspector]
+    public bool ganhouCorrida;
+    [HideInInspector]
+    public bool perdeuCorrida;
 
 
 
-	[Header("Movimentação física")]
+
+    [Header("Movimentação física")]
 
 	public GameObject player;
     public GameObject carro;
@@ -171,6 +176,20 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
+        if(LinhaDeChegada.changeRoom == true)
+        {
+            TrocaSala();
+        }
+
+        if (ganhouCorrida)
+        {
+            GanhouCorrida();
+        }
+
+        if (perdeuCorrida)
+        {
+            PerdeuCorrida();
+        }
 
         if((int)PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] == 1)
         {
@@ -270,7 +289,17 @@ public class PlayerMovement : MonoBehaviour
 	}
 
 
+    [PunRPC]
+    void GanhouCorrida()
+    {
+        PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 1;
+    }
 
+    [PunRPC]
+    void PerdeuCorrida()
+    {
+        PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 0;
+    }
 
 
 	[PunRPC]
