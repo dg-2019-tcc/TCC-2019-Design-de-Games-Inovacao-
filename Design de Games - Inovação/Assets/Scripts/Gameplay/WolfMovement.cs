@@ -18,9 +18,10 @@ public class WolfMovement : MonoBehaviour
 
 
 	private bool vitoria = false;
+	private bool menuCustom;
 
 
-    private Vector3 oldPosition;
+	private Vector3 oldPosition;
 
 
 
@@ -33,17 +34,23 @@ public class WolfMovement : MonoBehaviour
 		if (SceneManager.GetActiveScene().name == "TelaVitoria")
 			vitoria = true;
 
+
+		menuCustom = false;
+
+		if (SceneManager.GetActiveScene().name == "MenuCustomizacao") menuCustom = true;
+
+
 		if (vitoria && (int)PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] == 1)
 			transform.position = player.transform.position;
 
-		if (!pv.IsMine) rb.isKinematic = true;
+		if (!pv.IsMine && !menuCustom) rb.isKinematic = true;
 	}
 
 
     // Update is called once per frame
     void Update()
     {
-		if (!pv.IsMine) return;
+		if (!pv.IsMine && !menuCustom) return;
         
         if (player != null && Vector3.Distance(transform.position, player.transform.position) > allowedDistance)
         {
