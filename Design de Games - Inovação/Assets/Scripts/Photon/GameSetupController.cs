@@ -13,6 +13,7 @@ public class GameSetupController : MonoBehaviour
 	public float delayToCreate;
 
 	private float allPlayersInSession;
+	private GameObject PlayerInst;
 
 
 	private void OnEnable()
@@ -27,6 +28,8 @@ public class GameSetupController : MonoBehaviour
 	{
 		
 		gameObject.GetComponent<PhotonView>().RPC("CreatePlayer", RpcTarget.All, allPlayersInSession);
+		PlayerInst = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PhotonPlayer"), spawnPoints[Random.Range(0, spawnPoints.Length - 1)].position, Quaternion.identity);
+		PlayerInst.SetActive(false);
 	}
 
 	[PunRPC]
@@ -52,7 +55,12 @@ public class GameSetupController : MonoBehaviour
 	public IEnumerator UniteSynchronization(float delay)
 	{		
 		yield return new WaitForSeconds(delay);
-		if(gameObject.GetComponent<PhotonView>().IsMine)
+		/*if (gameObject.GetComponent<PhotonView>().IsMine)
+		{
+			Debug.Log(gameObject.GetComponent<PhotonView>().Owner.UserId);
 			PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PhotonPlayer"), spawnPoints[Random.Range(0, spawnPoints.Length - 1)].position, Quaternion.identity);
+		}
+		*/
+		PlayerInst.SetActive(true);
 	}
 }
