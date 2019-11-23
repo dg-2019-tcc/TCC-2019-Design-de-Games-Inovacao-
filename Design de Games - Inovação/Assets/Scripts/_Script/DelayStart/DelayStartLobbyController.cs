@@ -1,10 +1,14 @@
 ﻿using Photon.Pun;
 using Photon.Realtime;
+using Hashtable = ExitGames.Client.Photon.Hashtable;
+
 using UnityEngine;
 using UnityEngine.UI;
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
+
 
 public class DelayStartLobbyController : MonoBehaviourPunCallbacks
 {
@@ -43,7 +47,6 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
 	private void Start()
 	{
 		if (SceneManager.GetActiveScene().name != "MenuCustomizacao") return;
-	//	delayStartButton.SetActive(true);
 		tutorialButton.SetActive(true);
 
 		if (PlayerPrefs.HasKey("NickName"))
@@ -65,10 +68,15 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
 	}
 
 
-	public override void OnConnectedToMaster()
+    public void Update()
+    {
+        Debug.Log(PhotonNetwork.IsConnected);
+    }
+
+
+    public override void OnConnectedToMaster()
     {
         PhotonNetwork.AutomaticallySyncScene = true;
-        
     }
 
 
@@ -140,8 +148,8 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
         
 
         roomOps.MaxPlayers = (byte)RoomSize;
-
         */
+        
 
 
         //RoomOptions roomOptions = new RoomOptions();
@@ -164,13 +172,13 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
     {
         int randomRoomNumber = Random.Range(0, 10000);
         RoomOptions roomOps = new RoomOptions() { IsVisible = false, IsOpen = false, MaxPlayers = (byte)1 };
-        PhotonNetwork.CreateRoom("Room" + randomRoomNumber, roomOps);
+        PhotonNetwork.CreateRoom("Room" + randomRoomNumber, roomOps);        
     }
 
 
     public override void OnCreateRoomFailed(short returnCode, string message)
     {
-        //Debug.Log("Failed to create a room... trying again");
+        Debug.Log("Failed to create a room... trying again");
         if(tutorialMode == false)
         {
             CreateRoom();
@@ -185,10 +193,14 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
     public void DelayCancel()
     {
         delayCancelButton.SetActive(false);
+        tutorialButton.SetActive(true);
     //  delayStartButton.SetActive(true);
 	//	tutorialButton.SetActive(true);
 		loadingScene.SetActive(false);
-		PhotonNetwork.LeaveRoom();
+        if(PhotonNetwork.CurrentRoom != null)
+        {
+            PhotonNetwork.LeaveRoom();
+        }
     }
 }
 
