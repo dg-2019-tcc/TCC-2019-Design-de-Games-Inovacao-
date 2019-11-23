@@ -34,7 +34,7 @@ public class AtivaTexto : MonoBehaviour
                 falaAtiva = true;
                 GameObject entry = Instantiate(falaGO);
                 //entry.GetComponent<DestroiTexto>().tempoParaDestruir = tempoAtivo;
-                entry.transform.SetParent(collision.transform);
+                entry.transform.SetParent(collision.transform, false);
                 entry.GetComponentInChildren<Image>().sprite = fala;
                 StartCoroutine(CooldownFala(5));
             }            
