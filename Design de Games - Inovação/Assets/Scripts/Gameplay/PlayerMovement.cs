@@ -158,7 +158,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (SceneManager.GetActiveScene().name == "TelaVitoria" && (int)PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] == 0)
         {
-            playerAC.SetBool("Lost", true);
+            playerAC.SetTrigger("Lost");
             transform.position = new Vector3(0, 0, 0);
         }
 
@@ -292,12 +292,15 @@ public class PlayerMovement : MonoBehaviour
     [PunRPC]
     void GanhouCorrida()
     {
+        Debug.Log("Ganhou");
         PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 1;
+        TrocaSala();
     }
 
     [PunRPC]
     void PerdeuCorrida()
     {
+        Debug.Log("Perdeu");
         PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 0;
     }
 

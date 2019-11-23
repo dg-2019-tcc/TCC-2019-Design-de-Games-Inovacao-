@@ -11,7 +11,7 @@ public class Bichinho : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             rb = other.GetComponent<Rigidbody2D>();
-            rb.AddForce(new Vector2(10, 5), ForceMode2D.Impulse);
+            rb.AddForce(new Vector2(20, 15), ForceMode2D.Impulse);
         }
     }
 }

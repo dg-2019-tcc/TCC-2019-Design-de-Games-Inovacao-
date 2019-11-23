@@ -13,16 +13,14 @@ public class LinhaDeChegada : MonoBehaviour
 
     public int totalPlayers;
 
-    public static bool changeRoom;
+    public static bool changeRoom = false;
 
     public bool euAcabei = false;
 
-    public void Update()
+    public void Start()
     {
-       if (PhotonNetwork.PlayerList.Length >= totalPlayers)
-        {
-            changeRoom = true;
-        }
+        euAcabei = false;
+        finished = false;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -49,6 +47,7 @@ public class LinhaDeChegada : MonoBehaviour
                     jogador.perdeuCorrida = true;
                     totalPlayers++;
                     euAcabei = true;
+                    
                 }
             }
         }
