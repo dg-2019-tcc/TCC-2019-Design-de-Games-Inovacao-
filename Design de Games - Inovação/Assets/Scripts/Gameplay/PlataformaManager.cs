@@ -53,7 +53,5 @@ public class PlataformaManager : MonoBehaviour
         yield return new WaitForSeconds(1f);
         effector.rotationalOffset = 0f;
         turnPlataforma = false;
-
-
     }
 }
