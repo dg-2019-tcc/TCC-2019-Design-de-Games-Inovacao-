@@ -9,6 +9,7 @@ public class GroundCheck : MonoBehaviour
     protected Joystick joystick;
 
     public Animator playerAC;
+	public Rigidbody2D playerRB;
 
     public BoolVariable canJump;
 
@@ -32,10 +33,12 @@ public class GroundCheck : MonoBehaviour
 
      void OnTriggerStay2D(Collider2D col)
     {
-		if (!col.CompareTag("Coletavel"))
-        playerAC.SetBool("isGrounded", true);
-        player.grounded = true;
-        canJump.Value = true;
+		if (!col.CompareTag("Coletavel") && playerRB.velocity.y <= 0)
+		{
+			playerAC.SetBool("isGrounded", true);
+			player.grounded = true;
+			canJump.Value = true;
+		}
     }
 
     void OnTriggerExit2D(Collider2D col)
