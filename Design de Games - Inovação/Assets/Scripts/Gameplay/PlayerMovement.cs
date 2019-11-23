@@ -295,6 +295,12 @@ public class PlayerMovement : MonoBehaviour
         Debug.Log("Ganhou");
         PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 1;
         playerAC.SetTrigger("Won");
+        ganhouCorrida = false;
+
+        if (PhotonNetwork.PlayerList.Length == 1)
+        {
+            gameObject.GetComponent<PhotonView>().RPC("TrocaSala", RpcTarget.MasterClient);
+        }
         //TrocaSala();
     }
 
