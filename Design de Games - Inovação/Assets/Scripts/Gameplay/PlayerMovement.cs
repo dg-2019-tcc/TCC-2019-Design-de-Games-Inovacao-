@@ -294,7 +294,8 @@ public class PlayerMovement : MonoBehaviour
     {
         Debug.Log("Ganhou");
         PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 1;
-        TrocaSala();
+        playerAC.SetTrigger("Won");
+        //TrocaSala();
     }
 
     [PunRPC]
@@ -302,12 +303,15 @@ public class PlayerMovement : MonoBehaviour
     {
         Debug.Log("Perdeu");
         PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 0;
+        gameObject.GetComponent<PhotonView>().RPC("TrocaSala", RpcTarget.MasterClient);
     }
 
 
 	[PunRPC]
 	void TrocaSala()
 	{
+        ganhouCorrida = false;
+        perdeuCorrida = false;
 		PhotonNetwork.LoadLevel("TelaVitoria");
 	}
 
