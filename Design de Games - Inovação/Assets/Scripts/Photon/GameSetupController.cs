@@ -52,6 +52,7 @@ public class GameSetupController : MonoBehaviour
 	public IEnumerator UniteSynchronization(float delay)
 	{		
 		yield return new WaitForSeconds(delay);
-		PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PhotonPlayer"), spawnPoints[Random.Range(0, spawnPoints.Length - 1)].position, Quaternion.identity);
+		if(gameObject.GetComponent<PhotonView>().IsMine)
+			PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PhotonPlayer"), spawnPoints[Random.Range(0, spawnPoints.Length - 1)].position, Quaternion.identity);
 	}
 }
