@@ -11,6 +11,11 @@ public class GameSetupController : MonoBehaviour
 	public Transform[] spawnPoints;
 
 	public float delayToCreate;
+	public float countdown;
+
+	private int index = 1;
+
+	public GameObject[] number;
 
 	private float allPlayersInSession;
 	private GameObject PlayerInst;
@@ -27,40 +32,35 @@ public class GameSetupController : MonoBehaviour
 	void Start()
 	{
 		
-		gameObject.GetComponent<PhotonView>().RPC("CreatePlayer", RpcTarget.All, allPlayersInSession);
-		PlayerInst = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PhotonPlayer"), spawnPoints[Random.Range(0, spawnPoints.Length - 1)].position, Quaternion.identity);
+		gameObject.GetComponent<PhotonView>().RPC("SpawnPlayer", RpcTarget.All, allPlayersInSession);
+		PlayerInst = (GameObject)PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PhotonPlayer"), 
+							spawnPoints[Random.Range(0, spawnPoints.Length - 1)].position, Quaternion.identity);
 		PlayerInst.SetActive(false);
 	}
 
 	[PunRPC]
-	private void CreatePlayer(float alterPlayerCount)
+	private void SpawnPlayer(float alterPlayerCount)
 	{
 		if (alterPlayerCount > allPlayersInSession)														//Contador pra sincronizar e adicionar quantos players entraram na cena
 			allPlayersInSession = alterPlayerCount;
 
 		allPlayersInSession++;
-		if (PhotonNetwork.PlayerList.Length == allPlayersInSession || alterPlayerCount == 0)                                     //Checando se todos entraram, se sim, todos são criados ao mesmo tempo(se falhar, outro player vai passar pelo mesmo)
+		if (PhotonNetwork.PlayerList.Length == allPlayersInSession || alterPlayerCount == 0)            //Checando se todos entraram, se sim, todos são criados ao mesmo tempo(se falhar, outro player vai passar pelo mesmo)
 		{
 			StartCoroutine("UniteSynchronization", delayToCreate);
 		}
 	}
 
-	void Conectou()
-	{
-		//Instantiate(Resources.Load("PhotonPrefabs/PhotonPlayer"), spawnPoints[Random.Range(0, spawnPoints.Length - 1)].position, Quaternion.identity);
-		//CreatePlayer(0);
-	}
-
-	
 	public IEnumerator UniteSynchronization(float delay)
-	{		
+	{
 		yield return new WaitForSeconds(delay);
-		/*if (gameObject.GetComponent<PhotonView>().IsMine)
-		{
-			Debug.Log(gameObject.GetComponent<PhotonView>().Owner.UserId);
-			PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PhotonPlayer"), spawnPoints[Random.Range(0, spawnPoints.Length - 1)].position, Quaternion.identity);
-		}
-		*/
-		PlayerInst.SetActive(true);
+			number[number.Length - index].SetActive(true);
+		yield return new WaitForSeconds(1);
+			number[number.Length - index].SetActive(false);
+			if(index<number.Length)
+				StartCoroutine("UniteSynchronization", 0);
+			else
+				PlayerInst.SetActive(true);
+		index++;
 	}
 }
