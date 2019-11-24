@@ -20,6 +20,8 @@ public class PlayerMovement : MonoBehaviour
     public bool ganhouCorrida;
     [HideInInspector]
     public bool perdeuCorrida;
+	[SerializeField]
+	private float delayForWinScreen;
 
 
 
@@ -134,7 +136,7 @@ public class PlayerMovement : MonoBehaviour
 		{
 			identificador.SetActive(true);
 			VC = gameObject.transform.GetChild(0).GetComponent<CinemachineVirtualCamera>();
-			VC.Priority = 15;
+			VC.Priority = 40;
 
 			if (joyStick.isActiveAndEnabled)
 			{
@@ -155,13 +157,15 @@ public class PlayerMovement : MonoBehaviour
 			FindObjectOfType<Coroa>().ganhador = transform;
             playerAC.SetTrigger("Won");
             transform.position = new Vector3(0, 0, 0);
+			coletavel = -1;
 		}
 
         if (SceneManager.GetActiveScene().name == "TelaVitoria" && (int)PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] == 0)
         {
             playerAC.SetTrigger("Lost");
             transform.position = new Vector3(0, 0, 0);
-        }
+			coletavel = -1;
+		}
 
         PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 0;
 		gameObject.GetComponent<PhotonView>().RPC("ZeraPontuacao", RpcTarget.All);
@@ -319,7 +323,8 @@ public class PlayerMovement : MonoBehaviour
 
         if (PhotonNetwork.PlayerList.Length == 1)
         {
-            gameObject.GetComponent<PhotonView>().RPC("TrocaSala", RpcTarget.MasterClient);
+           // gameObject.GetComponent<PhotonView>().RPC("TrocaSala", RpcTarget.MasterClient);
+		   StartCoroutine(Venceu());
         }
         //TrocaSala();
     }
@@ -391,20 +396,20 @@ public class PlayerMovement : MonoBehaviour
 
 	IEnumerator Venceu()
 	{
-		VC.Priority = 0;
+		VC.Priority = -1;
 		for (int i = 0; i < PhotonNetwork.PlayerList.Length; i++)
 		{
 			if ((int)PhotonNetwork.PlayerList[i].CustomProperties["Ganhador"] == 1)
 				StopCoroutine(Venceu());
 		}
 		
-		PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 1;
-		yield return new WaitForSeconds(3);
 		
+		yield return new WaitForSeconds(delayForWinScreen);
+		PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 1;
 
 		gameObject.GetComponent<PhotonView>().RPC("ZeraPontuacao", RpcTarget.All);
 
 		gameObject.GetComponent<PhotonView>().RPC("TrocaSala", RpcTarget.MasterClient);
-		coletavel = 0;
+		coletavel = -1;
 	}
 }
