@@ -284,9 +284,31 @@ public class PlayerMovement : MonoBehaviour
 			//Physics.IgnoreLayerCollision(10, 11, true);
 			jump = false;
 
-		}
+        }
 
-	}
+        if(rb2d.velocity.y > 0)
+        {
+            playerAC.SetBool("Up", true);
+            playerAC.SetBool("Falling", false);
+            playerAC.SetBool("onFloor", false);
+        }
+
+
+        else if (rb2d.velocity.y < 0)
+        {
+            playerAC.SetBool("Up", false);
+            playerAC.SetBool("Falling", true);
+            playerAC.SetBool("onFloor", false);
+        }
+
+        else if (rb2d.velocity.y == 0)
+        {
+            playerAC.SetBool("onFloor", true);
+            playerAC.SetBool("Up", false);
+            playerAC.SetBool("Falling", false);
+        }
+
+    }
 
 
     [PunRPC]

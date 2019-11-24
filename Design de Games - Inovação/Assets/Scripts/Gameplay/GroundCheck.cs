@@ -36,6 +36,7 @@ public class GroundCheck : MonoBehaviour
 		if (!col.CompareTag("Coletavel") && playerRB.velocity.y <= 0)
 		{
 			playerAC.SetBool("isGrounded", true);
+            playerAC.SetBool("Falling", false);
 			player.grounded = true;
 			canJump.Value = true;
 		}

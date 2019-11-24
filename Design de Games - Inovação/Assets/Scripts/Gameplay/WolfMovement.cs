@@ -23,6 +23,8 @@ public class WolfMovement : MonoBehaviour
 
 	private Vector3 oldPosition;
 
+    public Animator dogAC;
+
 
 
 	void Start()
@@ -86,9 +88,11 @@ public class WolfMovement : MonoBehaviour
         {
 
             followSpeed = 0;
+            dogAC.SetBool("isWalking", false);
             //wolfAnim.SetBool("isWalking", false);
 
         }
+
 
 
 		if (rb.velocity.y == 0 && vitoria)
