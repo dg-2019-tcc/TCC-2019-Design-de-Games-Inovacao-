@@ -54,9 +54,12 @@ public class GameSetupController : MonoBehaviour
 	public IEnumerator UniteSynchronization(float delay)
 	{
 		yield return new WaitForSeconds(delay);
+		if (number.Length > 0)
+		{
 			number[number.Length - index].SetActive(true);
-		yield return new WaitForSeconds(1);
+			yield return new WaitForSeconds(1);
 			number[number.Length - index].SetActive(false);
+		}
 			if(index<number.Length)
 				StartCoroutine("UniteSynchronization", 0);
 			else
