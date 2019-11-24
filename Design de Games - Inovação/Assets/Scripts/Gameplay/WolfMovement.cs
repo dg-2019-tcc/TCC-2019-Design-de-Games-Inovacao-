@@ -59,8 +59,8 @@ public class WolfMovement : MonoBehaviour
             followSpeed = 0.1f;
             //wolfAnim.SetBool("isWalking", true);
             transform.position = Vector3.MoveTowards(transform.position, player.transform.position, followSpeed);
+            dogAC.SetBool("isWalking", true);
 
-            
 
 
 
@@ -88,7 +88,6 @@ public class WolfMovement : MonoBehaviour
         {
 
             followSpeed = 0;
-            dogAC.SetBool("isWalking", false);
             //wolfAnim.SetBool("isWalking", false);
 
         }
@@ -99,6 +98,7 @@ public class WolfMovement : MonoBehaviour
 		{
 			rb.AddForce(Vector2.up * 100);
 		} 
+
     }
 
 }

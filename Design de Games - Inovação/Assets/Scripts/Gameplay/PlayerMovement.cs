@@ -88,6 +88,7 @@ public class PlayerMovement : MonoBehaviour
 
 	public Animator playerAC;
     public Animator carroAC;
+    public Animator dogAC;
 	private PlayerFaceAnimations playerFaceAnimations;
 
 
@@ -254,6 +255,7 @@ public class PlayerMovement : MonoBehaviour
 				rb2d.velocity = new Vector3(stats.speed.Value * moveHorizontal, rb2d.velocity.y, 0);
 				playerAC.SetBool("isWalking", true);
                 carroAC.SetBool("isWalking", true);
+                dogAC.SetBool("isWalking", true);
 				//playerAC.SetBool("isWalking", true);
 				//walkSom.SetActive(true);
 			}
@@ -262,6 +264,7 @@ public class PlayerMovement : MonoBehaviour
 			{
 				playerAC.SetBool("isWalking", false);
                 carroAC.SetBool("isWalking", false);
+                dogAC.SetBool("isWalking", false);
             }
 		}
 
