@@ -120,6 +120,7 @@ public class PlayerMovement : MonoBehaviour
 		PV = GetComponent<PhotonView>();
 		stats.speed = playerSpeed;
 		stats.jumpForce = playerJump;
+		
 
 		menuCustom = false;
 
@@ -137,6 +138,7 @@ public class PlayerMovement : MonoBehaviour
 			identificador.SetActive(true);
 			VC = gameObject.transform.GetChild(0).GetComponent<CinemachineVirtualCamera>();
 			VC.Priority = 40;
+			PV.Owner.SetScore(0);
 
 			if (joyStick.isActiveAndEnabled)
 			{
@@ -158,6 +160,7 @@ public class PlayerMovement : MonoBehaviour
             playerAC.SetTrigger("Won");
             transform.position = new Vector3(0, 0, 0);
 			coletavel = -1;
+			PV.Owner.SetScore(-1);
 		}
 
         if (SceneManager.GetActiveScene().name == "TelaVitoria" && (int)PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] == 0)
@@ -165,6 +168,7 @@ public class PlayerMovement : MonoBehaviour
             playerAC.SetTrigger("Lost");
             transform.position = new Vector3(0, 0, 0);
 			coletavel = -1;
+			PV.Owner.SetScore(-1);
 		}
 
         PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 0;
@@ -196,16 +200,16 @@ public class PlayerMovement : MonoBehaviour
             PerdeuCorrida();
         }
 
-        if((int)PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] == 1)
-        {
-            playerAC.SetTrigger("Won");
-        }
+        
 
         if (PhotonNetwork.PlayerList.Length >= 1)
 		{
 			coletavel = PV.Owner.GetScore();
-
-        }
+			if ((int)PV.Owner.CustomProperties["Ganhador"] == 1)
+			{
+				playerAC.SetTrigger("Won");
+			}
+		}
 
 
 		if (coletavel >= numeroDeColetaveis)
@@ -402,14 +406,15 @@ public class PlayerMovement : MonoBehaviour
 			if ((int)PhotonNetwork.PlayerList[i].CustomProperties["Ganhador"] == 1)
 				StopCoroutine(Venceu());
 		}
-		
-		
+
+		coletavel = -1;
+		PV.Owner.SetScore(-1);
 		yield return new WaitForSeconds(delayForWinScreen);
 		PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 1;
 
 		gameObject.GetComponent<PhotonView>().RPC("ZeraPontuacao", RpcTarget.All);
 
 		gameObject.GetComponent<PhotonView>().RPC("TrocaSala", RpcTarget.MasterClient);
-		coletavel = -1;
+		
 	}
 }
