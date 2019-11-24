@@ -179,8 +179,8 @@ public class PlayerMovement : MonoBehaviour
     {
         if(LinhaDeChegada.changeRoom == true)
         {
-            TrocaSala();
-        }
+			StartCoroutine(Venceu());
+		}
 
         if (ganhouCorrida)
         {
@@ -206,12 +206,7 @@ public class PlayerMovement : MonoBehaviour
 
 		if (coletavel >= numeroDeColetaveis)
 		{
-			PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 1;
-
-			gameObject.GetComponent<PhotonView>().RPC("ZeraPontuacao", RpcTarget.All);
-
-			gameObject.GetComponent<PhotonView>().RPC("TrocaSala", RpcTarget.MasterClient);
-			coletavel = 0;
+			StartCoroutine(Venceu());
 		}
 
 		if (!PV.IsMine && !menuCustom) return;
@@ -393,4 +388,23 @@ public class PlayerMovement : MonoBehaviour
         playerAC.SetBool("Dogada", false);
         levouDogada = false;
     }
+
+	IEnumerator Venceu()
+	{
+		VC.Priority = 0;
+		for (int i = 0; i < PhotonNetwork.PlayerList.Length; i++)
+		{
+			if ((int)PhotonNetwork.PlayerList[i].CustomProperties["Ganhador"] == 1)
+				StopCoroutine(Venceu());
+		}
+		
+		PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 1;
+		yield return new WaitForSeconds(3);
+		
+
+		gameObject.GetComponent<PhotonView>().RPC("ZeraPontuacao", RpcTarget.All);
+
+		gameObject.GetComponent<PhotonView>().RPC("TrocaSala", RpcTarget.MasterClient);
+		coletavel = 0;
+	}
 }
