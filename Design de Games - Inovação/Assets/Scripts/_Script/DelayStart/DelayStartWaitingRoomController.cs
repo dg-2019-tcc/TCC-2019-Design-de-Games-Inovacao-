@@ -171,24 +171,30 @@ public class DelayStartWaitingRoomController : MonoBehaviourPunCallbacks
         fullRoomTimer = maxFullGameWaitTime;
     }
 
-    public void StartGame()
-    {
+	[PunRPC]
+	public void StartGame()
+	{
+		if (tutorialMode == false)
+		{
+			PhotonNetwork.LoadLevel(gameMode);
+		}
+		else
+		{
+			PhotonNetwork.LoadLevel(tutorialSceneIndex);
+		}
+	}
+
+	public void OnStartGameButton()
+	{
 		startGameNow.SetActive(false);
 		startingGame = true;
-        if (!PhotonNetwork.IsMasterClient)
-            return;
-        PhotonNetwork.CurrentRoom.IsOpen = false;
-        if(tutorialMode == false)
-        {
-            PhotonNetwork.LoadLevel(gameMode);
-        }
-        else
-        {
-            PhotonNetwork.LoadLevel(tutorialSceneIndex);
-        }
-    }
-    
-    public void DelayCancel()
+		if (!PhotonNetwork.IsMasterClient)
+			return;
+		PhotonNetwork.CurrentRoom.IsOpen = false;
+		myPhotonView.RPC("StartGame", RpcTarget.All);
+	}
+
+	public void DelayCancel()
     {
         PhotonNetwork.LeaveRoom();
         SceneManager.LoadScene(menuSceneIndex);
