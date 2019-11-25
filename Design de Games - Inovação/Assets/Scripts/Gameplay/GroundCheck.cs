@@ -9,25 +9,22 @@ public class GroundCheck : MonoBehaviour
     protected Joystick joystick;
 
     public Animator playerAC;
-	public Rigidbody2D playerRB;
+    public Rigidbody2D playerRB;
 
     public BoolVariable canJump;
 
     public AudioSource caiuSom;
 
-     void Start()
+    void Start()
     {
         player = gameObject.GetComponentInParent<PlayerMovement>();
-
     }
-
-
 
 
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.CompareTag("Plataforma"))
+        if (col.CompareTag("Plataforma") || col.CompareTag("Dragao"))
         {
             player.grounded = true;
             playerAC.SetBool("onFloor", true);
@@ -36,21 +33,23 @@ public class GroundCheck : MonoBehaviour
         }
     }
 
-     void OnTriggerStay2D(Collider2D col)
+
+    void OnTriggerStay2D(Collider2D col)
     {
-		if (col.CompareTag("Plataforma") && playerRB.velocity.y <= 0)
-		{
-			playerAC.SetBool("isGrounded", true);
+        if ((col.CompareTag("Plataforma") || col.CompareTag("Dragao")) && playerRB.velocity.y <= 0)
+        {
+            playerAC.SetBool("isGrounded", true);
             playerAC.SetBool("Falling", false);
             playerAC.SetBool("onFloor", true);
             player.grounded = true;
-			canJump.Value = true;
-		}
+            canJump.Value = true;
+        }
     }
+
 
     void OnTriggerExit2D(Collider2D col)
     {
-        if (col.CompareTag("Plataforma"))
+        if (col.CompareTag("Plataforma") || col.CompareTag("Dragao"))
         {
             player.grounded = false;
             playerAC.SetBool("isGrounded", false);
@@ -58,8 +57,4 @@ public class GroundCheck : MonoBehaviour
             canJump.Value = false;
         }
     }
-
-    
-
-    
 }
