@@ -13,6 +13,8 @@ public class GroundCheck : MonoBehaviour
 
     public BoolVariable canJump;
 
+    public AudioSource caiuSom;
+
      void Start()
     {
         player = gameObject.GetComponentInParent<PlayerMovement>();
@@ -25,10 +27,11 @@ public class GroundCheck : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        if (!col.CompareTag("Coletavel"))
+        if (!col.CompareTag("Coletavel") || !col.CompareTag("Porta"))
         
         player.grounded = true;
         playerAC.ResetTrigger("Jump");
+        caiuSom.Play();
     }
 
      void OnTriggerStay2D(Collider2D col)

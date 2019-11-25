@@ -24,6 +24,8 @@ public class ThrowObject : MonoBehaviour
 
     public Animator playerAC;
 
+    public AudioSource tiroSom;
+
     private void Awake()
     {
         photonView = gameObject.GetComponent<PhotonView>();
@@ -60,7 +62,8 @@ public class ThrowObject : MonoBehaviour
         GameObject bullet;
         bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);// as GameObject;
         bullet.GetComponent<ItemThrow>().InitializeBullet(photonView.Owner);
-		cooldownDelta = cooldown;
+        tiroSom.Play();
+        cooldownDelta = cooldown;
 		StartCoroutine("CooldownEffect");
 		photonView.Owner.CustomProperties["atirou"] = true;
 		SwipeDetector.shoot = false;

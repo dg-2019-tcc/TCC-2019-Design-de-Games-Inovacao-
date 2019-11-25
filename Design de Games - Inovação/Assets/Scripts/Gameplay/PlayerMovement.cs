@@ -84,6 +84,7 @@ public class PlayerMovement : MonoBehaviour
 	public GameObject walkSom;
     public AudioSource perdeuSom;
     public AudioSource levouDogadaSom;
+    public AudioSource ganhouSom;
 
 
 
@@ -161,6 +162,7 @@ public class PlayerMovement : MonoBehaviour
 		{
 			FindObjectOfType<Coroa>().ganhador = transform;
             playerAC.SetTrigger("Won");
+            ganhouSom.Play();
             transform.position = new Vector3(0, 0, 0);
 			coletavel = -1;
 			PV.Owner.SetScore(-1);
@@ -170,6 +172,7 @@ public class PlayerMovement : MonoBehaviour
         {
             playerAC.SetTrigger("Lost");
             transform.position = new Vector3(0, 0, 0);
+            perdeuSom.Play();
 			coletavel = -1;
 			PV.Owner.SetScore(-1);
 		}
@@ -328,6 +331,7 @@ public class PlayerMovement : MonoBehaviour
     {
         Debug.Log("Ganhou");
         PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 1;
+        ganhouSom.Play();
         playerAC.SetTrigger("Won");
         ganhouCorrida = false;
         acabou = true;
