@@ -9,7 +9,7 @@ public class LinhaDeChegada : MonoBehaviour
 {
     PhotonView playerView;
 
-    public bool finished;
+    static bool finished;
 
     public int totalPlayers;
 
@@ -34,7 +34,7 @@ public class LinhaDeChegada : MonoBehaviour
                 {
                     PlayerMovement jogador = other.GetComponent<PlayerMovement>();
                     jogador.ganhouCorrida = true;
-                    Acabou();
+                    playerView.RPC("Acabou", RpcTarget.All);
                     totalPlayers++;
                     euAcabei = true;
                 }
@@ -48,7 +48,7 @@ public class LinhaDeChegada : MonoBehaviour
                     totalPlayers++;
                     euAcabei = true;
                     changeRoom = true;
-                    
+
                 }
             }
         }
@@ -59,4 +59,4 @@ public class LinhaDeChegada : MonoBehaviour
     {
         finished = true;
     }
-    }
+}
