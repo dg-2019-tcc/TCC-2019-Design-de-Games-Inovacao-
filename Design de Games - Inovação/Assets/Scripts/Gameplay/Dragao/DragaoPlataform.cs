@@ -16,7 +16,6 @@ public class DragaoPlataform : MonoBehaviour
     void Start()
     {
         effector = GetComponent<PlatformEffector2D>();
-        joyStick = FindObjectOfType<Joystick>();
     }
 
     private void Update()
@@ -31,20 +30,22 @@ public class DragaoPlataform : MonoBehaviour
         }
     }
 
-    void OnTriggerStay2D(Collider2D col)
-    {
-        if (col.CompareTag("GroundCheck") && joyStick.Vertical <= -0.5 || Input.GetKeyDown(KeyCode.S))
-        {
-            turnPlataforma = true;
-        }
-    }
-
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("GroundCheck"))
         {
+            joyStick = FindObjectOfType<Joystick>();
             collision.GetComponent<BoxCollider2D>().transform.parent.SetParent(transform);
+        }
+    }
+
+
+    void OnTriggerStay2D(Collider2D col)
+    {
+        if ((col.CompareTag("GroundCheck") && joyStick.Vertical <= -0.5) || Input.GetKeyDown(KeyCode.S))
+        {
+            turnPlataforma = true;
         }
     }
 
