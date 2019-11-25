@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Photon.Pun;
 
 
@@ -14,8 +15,11 @@ public class FinalizaTutorial : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            PhotonNetwork.LoadLevel(victoryLevel);
-			PhotonNetwork.Disconnect();
+			//    PhotonNetwork.LoadLevel(victoryLevel);
+			/*PhotonNetwork.Disconnect();
+			SceneManager.LoadScene(victoryLevel);*/
+			FindObjectOfType<PauseManager>().VoltaMenu();
+			
         }
     }
 }
