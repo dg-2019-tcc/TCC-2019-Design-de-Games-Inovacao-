@@ -32,8 +32,11 @@ public class LinhaDeChegada : MonoBehaviour
             {
                 if (playerView.IsMine == true && euAcabei == false)
                 {
+                    Debug.Log("Linhadechegada");
                     PlayerMovement jogador = other.GetComponent<PlayerMovement>();
-                    playerView.RPC("Acabou", RpcTarget.All);
+                    Debug.Log(jogador.ganhouCorrida);
+                    //playerView.RPC("Acabou", RpcTarget.All);
+                    jogador.ganhouCorrida = true;
                     totalPlayers++;
                     euAcabei = true;
                     changeRoom = true;
