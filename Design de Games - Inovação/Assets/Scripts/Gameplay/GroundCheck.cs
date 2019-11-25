@@ -28,11 +28,12 @@ public class GroundCheck : MonoBehaviour
     void OnTriggerEnter2D(Collider2D col)
     {
         if (!col.CompareTag("Coletavel") || !col.CompareTag("Porta"))
-        
-        player.grounded = true;
-        playerAC.SetBool("onFloor", true);
-        playerAC.ResetTrigger("Jump");
-        caiuSom.Play();
+        {
+            player.grounded = true;
+            playerAC.SetBool("onFloor", true);
+            playerAC.ResetTrigger("Jump");
+            caiuSom.Play();
+        }
     }
 
      void OnTriggerStay2D(Collider2D col)
