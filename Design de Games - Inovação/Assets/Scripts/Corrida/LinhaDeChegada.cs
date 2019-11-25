@@ -47,6 +47,7 @@ public class LinhaDeChegada : MonoBehaviour
                     jogador.perdeuCorrida = true;
                     totalPlayers++;
                     euAcabei = true;
+                    changeRoom = true;
                     
                 }
             }
