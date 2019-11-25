@@ -15,6 +15,7 @@ public class FinalizaTutorial : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             PhotonNetwork.LoadLevel(victoryLevel);
+			PhotonNetwork.Disconnect();
         }
     }
 }
