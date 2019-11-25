@@ -339,7 +339,7 @@ public class PlayerMovement : MonoBehaviour
 
         gameObject.GetComponent<PhotonView>().RPC("ZeraPontuacao", RpcTarget.All);
 
-        gameObject.GetComponent<PhotonView>().RPC("TrocaSala", RpcTarget.MasterClient);
+        gameObject.GetComponent<PhotonView>().RPC("TrocaSala", RpcTarget.All);
         ganhouCorrida = false;
         acabou = true;
 
@@ -445,7 +445,7 @@ public class PlayerMovement : MonoBehaviour
 
 		gameObject.GetComponent<PhotonView>().RPC("ZeraPontuacao", RpcTarget.All);
 
-		gameObject.GetComponent<PhotonView>().RPC("TrocaSala", RpcTarget.MasterClient);
+		gameObject.GetComponent<PhotonView>().RPC("TrocaSala", RpcTarget.All);
 		
 	}
 }
