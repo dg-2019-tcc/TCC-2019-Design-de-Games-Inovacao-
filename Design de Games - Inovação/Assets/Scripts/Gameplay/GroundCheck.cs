@@ -15,6 +15,10 @@ public class GroundCheck : MonoBehaviour
 
     public AudioSource caiuSom;
 
+    public float jumpCooldown;
+
+    public GameObject jumpButton;
+
     void Start()
     {
         player = gameObject.GetComponentInParent<PlayerMovement>();
@@ -30,19 +34,26 @@ public class GroundCheck : MonoBehaviour
             playerAC.SetBool("onFloor", true);
             playerAC.ResetTrigger("Jump");
             caiuSom.Play();
+            jumpButton.SetActive(true);
         }
     }
 
 
     void OnTriggerStay2D(Collider2D col)
     {
-        if ((col.CompareTag("Plataforma") || col.CompareTag("Dragao")) && playerRB.velocity.y <= 0)
+        if ((col.CompareTag("Plataforma") || col.CompareTag("Dragao")))
         {
             playerAC.SetBool("isGrounded", true);
             playerAC.SetBool("Falling", false);
             playerAC.SetBool("onFloor", true);
             player.grounded = true;
-            canJump.Value = true;
+            jumpCooldown += Time.deltaTime;
+
+            if (jumpCooldown >= 0.3f)
+            {
+                jumpButton.SetActive(true);
+                canJump.Value = true;
+            }
         }
     }
 
@@ -51,6 +62,8 @@ public class GroundCheck : MonoBehaviour
     {
         if (col.CompareTag("Plataforma") || col.CompareTag("Dragao"))
         {
+            jumpButton.SetActive(false);
+            jumpCooldown = 0;
             player.grounded = false;
             playerAC.SetBool("isGrounded", false);
             playerAC.SetBool("onFloor", false);
