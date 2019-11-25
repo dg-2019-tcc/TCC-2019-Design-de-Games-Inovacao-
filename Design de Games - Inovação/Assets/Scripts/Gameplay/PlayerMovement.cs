@@ -82,7 +82,8 @@ public class PlayerMovement : MonoBehaviour
 	public SimpleAudioEvent puloAudioEvent;
 	public AudioSource puloSom;
 	public GameObject walkSom;
-	public AudioSource coleta;
+    public AudioSource perdeuSom;
+    public AudioSource levouDogadaSom;
 
 
 
@@ -342,6 +343,7 @@ public class PlayerMovement : MonoBehaviour
     [PunRPC]
     void PerdeuCorrida()
     {
+        perdeuSom.Play();
         Debug.Log("Perdeu");
         perdeuCorrida = true;
         acabou = true;
@@ -399,6 +401,7 @@ public class PlayerMovement : MonoBehaviour
 	
     IEnumerator LevouDogada()
     {
+        levouDogadaSom.Play();
         playerAC.SetBool("Dogada", true);
         levouDogada = true;
         yield  return new WaitForSeconds(2f);

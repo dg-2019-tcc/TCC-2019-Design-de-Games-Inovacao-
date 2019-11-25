@@ -9,11 +9,13 @@ public class DestroyColetavel2D : MonoBehaviourPunCallbacks
 {
     PhotonView playerView;
     public static int index;
+    public AudioSource coletaSom;
     
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
+            coletaSom.Play();
             playerView = other.GetComponent<PhotonView>();
             if (playerView.IsMine == true)
             {

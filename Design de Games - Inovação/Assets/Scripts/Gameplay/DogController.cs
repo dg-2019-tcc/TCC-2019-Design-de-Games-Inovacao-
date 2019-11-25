@@ -30,6 +30,8 @@ public class DogController : MonoBehaviour
     [Header("Som")]
 
     public AudioSource tokenSom;
+    public AudioSource carroSom;
+    public AudioSource pipaSom;
     public SimpleAudioEvent tokenAudioEvent;
 
 
@@ -71,6 +73,8 @@ public class DogController : MonoBehaviour
 
         if (poderEstaAtivo == false)//efeitoCarro.ativa.Value == false || efeitoPipa.ativa.Value == false)
         {
+            pipaSom.Stop();
+            carroSom.Stop();
             gameObject.GetComponent<PhotonView>().RPC("DesativaPowerUps", RpcTarget.All);
         }
 
@@ -140,6 +144,7 @@ public class DogController : MonoBehaviour
     public void Carro()
     {
         Debug.Log("ativou no multiplayer o carrinho");
+        carroSom.Play();
         PV.Controller.CustomProperties["dogValue"] = false;
         carrinhoObj.SetActive(true);
         playerModel.SetActive(false);
@@ -154,6 +159,7 @@ public class DogController : MonoBehaviour
     public void Pipa()
     {
         Debug.Log("ativou no multiplayer a pipa");
+        pipaSom.Play();
         PV.Controller.CustomProperties["dogValue"] = false;
         pipaObj.SetActive(true);
         playerModel.SetActive(false);
