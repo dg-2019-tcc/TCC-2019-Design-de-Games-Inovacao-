@@ -16,8 +16,8 @@ public class PlayerMovement : MonoBehaviour
 	private float numeroDeColetaveis;
 	[HideInInspector]
 	public static float coletavel;
-    public bool ganhouCorrida;
-    public bool perdeuCorrida;
+    public static bool ganhouCorrida;
+    public static bool perdeuCorrida;
 	[SerializeField]
 	private float delayForWinScreen;
 
@@ -334,14 +334,20 @@ public class PlayerMovement : MonoBehaviour
         PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 1;
         ganhouSom.Play();
         playerAC.SetTrigger("Won");
+
+        PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 1;
+
+        gameObject.GetComponent<PhotonView>().RPC("ZeraPontuacao", RpcTarget.All);
+
+        gameObject.GetComponent<PhotonView>().RPC("TrocaSala", RpcTarget.MasterClient);
         ganhouCorrida = false;
         acabou = true;
 
-        if (PhotonNetwork.PlayerList.Length == 1)
+        /*if (PhotonNetwork.PlayerList.Length == 1)
         {
            // gameObject.GetComponent<PhotonView>().RPC("TrocaSala", RpcTarget.MasterClient);
 		   StartCoroutine(Venceu());
-        }
+        }*/
         //TrocaSala();
     }
 
