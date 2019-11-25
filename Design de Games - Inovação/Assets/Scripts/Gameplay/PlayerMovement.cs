@@ -422,12 +422,16 @@ public class PlayerMovement : MonoBehaviour
 
 	IEnumerator Venceu()
 	{
+        Debug.Log("Venceu rodando");
 		VC.Priority = -1;
         PV.RPC("Terminou", RpcTarget.All);
 		for (int i = 0; i < PhotonNetwork.PlayerList.Length; i++)
 		{
 			if ((int)PhotonNetwork.PlayerList[i].CustomProperties["Ganhador"] == 1)
-				StopCoroutine(Venceu());
+            {
+                StopCoroutine(Venceu());
+                Debug.Log("RodouStopCorrotine");
+            }
 		}
 		coletavel = -1;
 		PV.Owner.SetScore(-1);
