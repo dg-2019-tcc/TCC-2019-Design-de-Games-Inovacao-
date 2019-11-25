@@ -36,6 +36,7 @@ public class LinhaDeChegada : MonoBehaviour
                     playerView.RPC("Acabou", RpcTarget.All);
                     totalPlayers++;
                     euAcabei = true;
+                    changeRoom = true;
                 }
             }
             else
@@ -45,7 +46,7 @@ public class LinhaDeChegada : MonoBehaviour
                     PlayerMovement jogador = other.GetComponent<PlayerMovement>();
                     totalPlayers++;
                     euAcabei = true;
-                    changeRoom = true;
+                    
 
                 }
             }
