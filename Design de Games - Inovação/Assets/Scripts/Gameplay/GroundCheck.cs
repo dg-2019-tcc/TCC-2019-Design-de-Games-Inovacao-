@@ -30,6 +30,7 @@ public class GroundCheck : MonoBehaviour
         if (!col.CompareTag("Coletavel") || !col.CompareTag("Porta"))
         
         player.grounded = true;
+        playerAC.SetBool("onFloor", true);
         playerAC.ResetTrigger("Jump");
         caiuSom.Play();
     }
@@ -40,7 +41,8 @@ public class GroundCheck : MonoBehaviour
 		{
 			playerAC.SetBool("isGrounded", true);
             playerAC.SetBool("Falling", false);
-			player.grounded = true;
+            playerAC.SetBool("onFloor", true);
+            player.grounded = true;
 			canJump.Value = true;
 		}
     }
@@ -50,6 +52,7 @@ public class GroundCheck : MonoBehaviour
 		if (!col.CompareTag("Coletavel"))
 			player.grounded = false;
         playerAC.SetBool("isGrounded", false);
+        playerAC.SetBool("onFloor", false);
         canJump.Value = false;
     }
 

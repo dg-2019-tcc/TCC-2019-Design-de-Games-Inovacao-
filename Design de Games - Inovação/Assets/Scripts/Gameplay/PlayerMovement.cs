@@ -303,6 +303,7 @@ public class PlayerMovement : MonoBehaviour
 
         if(rb2d.velocity.y > 0)
         {
+            canJump.Value = false;
             playerAC.SetBool("Up", true);
             playerAC.SetBool("Falling", false);
             playerAC.SetBool("onFloor", false);
