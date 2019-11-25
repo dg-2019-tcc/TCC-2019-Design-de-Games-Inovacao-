@@ -27,7 +27,7 @@ public class GroundCheck : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        if (!col.CompareTag("Coletavel") || !col.CompareTag("Porta"))
+        if (col.CompareTag("Plataforma"))
         {
             player.grounded = true;
             playerAC.SetBool("onFloor", true);
@@ -38,7 +38,7 @@ public class GroundCheck : MonoBehaviour
 
      void OnTriggerStay2D(Collider2D col)
     {
-		if (!col.CompareTag("Coletavel") && playerRB.velocity.y <= 0)
+		if (col.CompareTag("Plataforma") && playerRB.velocity.y <= 0)
 		{
 			playerAC.SetBool("isGrounded", true);
             playerAC.SetBool("Falling", false);
@@ -50,11 +50,13 @@ public class GroundCheck : MonoBehaviour
 
     void OnTriggerExit2D(Collider2D col)
     {
-		if (!col.CompareTag("Coletavel"))
-			player.grounded = false;
-        playerAC.SetBool("isGrounded", false);
-        playerAC.SetBool("onFloor", false);
-        canJump.Value = false;
+        if (col.CompareTag("Plataforma"))
+        {
+            player.grounded = false;
+            playerAC.SetBool("isGrounded", false);
+            playerAC.SetBool("onFloor", false);
+            canJump.Value = false;
+        }
     }
 
     
