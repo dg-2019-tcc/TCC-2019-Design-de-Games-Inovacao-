@@ -9,7 +9,7 @@ public class LinhaDeChegada : MonoBehaviour
 {
     PhotonView playerView;
 
-    static bool finished;
+    public static bool finished;
 
     public int totalPlayers;
 

@@ -16,9 +16,7 @@ public class PlayerMovement : MonoBehaviour
 	private float numeroDeColetaveis;
 	[HideInInspector]
 	public static float coletavel;
-    [HideInInspector]
     public bool ganhouCorrida;
-    [HideInInspector]
     public bool perdeuCorrida;
 	[SerializeField]
 	private float delayForWinScreen;
