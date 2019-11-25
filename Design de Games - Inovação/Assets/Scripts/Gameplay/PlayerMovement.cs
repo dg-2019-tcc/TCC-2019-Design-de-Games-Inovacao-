@@ -25,7 +25,6 @@ public class PlayerMovement : MonoBehaviour
 
 
 
-
     [Header("Movimentação física")]
 
 	public GameObject player;
@@ -42,6 +41,8 @@ public class PlayerMovement : MonoBehaviour
 	private bool leftDir;
 	private bool rightDir;
 	public BoolVariable canJump;
+    private bool acabouPartida = false;
+
 
 
 	[Header("Canvas")]
@@ -191,7 +192,7 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-
+        if (acabouPartida == true) return;
 
         if(LinhaDeChegada.changeRoom == true)
         {
@@ -403,6 +404,10 @@ public class PlayerMovement : MonoBehaviour
 
 	}
 
+    public void Terminou()
+    {
+        acabouPartida = true;
+    }
 	
     IEnumerator LevouDogada()
     {
@@ -417,12 +422,12 @@ public class PlayerMovement : MonoBehaviour
 	IEnumerator Venceu()
 	{
 		VC.Priority = -1;
+        PV.RPC("Terminou", RpcTarget.All);
 		for (int i = 0; i < PhotonNetwork.PlayerList.Length; i++)
 		{
 			if ((int)PhotonNetwork.PlayerList[i].CustomProperties["Ganhador"] == 1)
 				StopCoroutine(Venceu());
 		}
-
 		coletavel = -1;
 		PV.Owner.SetScore(-1);
         ganhouCorrida = false;

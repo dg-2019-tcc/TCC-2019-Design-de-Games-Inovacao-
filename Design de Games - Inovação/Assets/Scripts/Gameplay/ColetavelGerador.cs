@@ -8,7 +8,6 @@ public class ColetavelGerador : MonoBehaviour
 
     public int indexCole;
     
-    // Update is called once per frame
     void Update()
     {
         indexCole = DestroyColetavel2D.index;
