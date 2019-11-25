@@ -108,11 +108,13 @@ public class PlayerMovement : MonoBehaviour
 	public float newPos;
 
 	private bool menuCustom;
+    public static bool acabou = false;
 
 
 
 	void Start()
 	{
+        acabou = false;
 		//Get and store a reference to the Rigidbody2D component so that we can access it.
 		rb2d = GetComponent<Rigidbody2D>();
 		joyStick = FindObjectOfType<Joystick>();
@@ -185,6 +187,8 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
+
+
         if(LinhaDeChegada.changeRoom == true)
         {
 			StartCoroutine(Venceu());
@@ -205,16 +209,17 @@ public class PlayerMovement : MonoBehaviour
         if (PhotonNetwork.PlayerList.Length >= 1)
 		{
 			coletavel = PV.Owner.GetScore();
-			if ((int)PV.Owner.CustomProperties["Ganhador"] == 1)
+			/*if ((int)PV.Owner.CustomProperties["Ganhador"] == 1)
 			{
 				playerAC.SetTrigger("Won");
-			}
+			}*/
 		}
 
 
 		if (coletavel >= numeroDeColetaveis)
 		{
-			StartCoroutine(Venceu());
+            //StartCoroutine(Venceu());
+            ganhouCorrida = true;
 		}
 
 		if (!PV.IsMine && !menuCustom) return;
@@ -252,7 +257,7 @@ public class PlayerMovement : MonoBehaviour
 
 			//Movimentação do player no joystick
 			float moveHorizontal = joyStick.Horizontal + Input.GetAxisRaw("Horizontal");
-			if (moveHorizontal != 0 && levouDogada == false)
+			if (moveHorizontal != 0 && levouDogada == false && acabou == false)
 			{
 
 				rb2d.velocity = new Vector3(stats.speed.Value * moveHorizontal, rb2d.velocity.y, 0);
@@ -282,7 +287,7 @@ public class PlayerMovement : MonoBehaviour
         }*/
 
 		// Pulo
-		if (grounded == true && jump == true && canJump.Value == true)
+		if (grounded == true && jump == true && canJump.Value == true && acabou == false)
 		{
 			playerAC.SetTrigger("Jump");
 			puloAudioEvent.Play(puloSom);
@@ -324,6 +329,7 @@ public class PlayerMovement : MonoBehaviour
         PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 1;
         playerAC.SetTrigger("Won");
         ganhouCorrida = false;
+        acabou = true;
 
         if (PhotonNetwork.PlayerList.Length == 1)
         {
@@ -337,6 +343,8 @@ public class PlayerMovement : MonoBehaviour
     void PerdeuCorrida()
     {
         Debug.Log("Perdeu");
+        perdeuCorrida = true;
+        acabou = true;
         PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 0;
         gameObject.GetComponent<PhotonView>().RPC("TrocaSala", RpcTarget.MasterClient);
     }
@@ -409,6 +417,7 @@ public class PlayerMovement : MonoBehaviour
 
 		coletavel = -1;
 		PV.Owner.SetScore(-1);
+        ganhouCorrida = false;
 		yield return new WaitForSeconds(delayForWinScreen);
 		PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 1;
 

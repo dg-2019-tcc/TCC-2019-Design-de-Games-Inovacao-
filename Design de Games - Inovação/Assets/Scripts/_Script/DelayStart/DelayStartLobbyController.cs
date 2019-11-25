@@ -70,7 +70,7 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
 
     public void Update()
     {
-        Debug.Log(PhotonNetwork.IsConnected);
+        //Debug.Log(PhotonNetwork.IsConnected);
     }
 
 

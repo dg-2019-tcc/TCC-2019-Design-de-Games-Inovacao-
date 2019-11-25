@@ -61,6 +61,13 @@ public class DogController : MonoBehaviour
     {
         if (PV != null && !PV.IsMine) return;
 
+        if(PlayerMovement.acabou == true)
+        {
+            carrinhoObj.SetActive(false);
+            pipaObj.SetActive(false);
+            playerModel.SetActive(true);
+        }
+
 
         if (poderEstaAtivo == false)//efeitoCarro.ativa.Value == false || efeitoPipa.ativa.Value == false)
         {
