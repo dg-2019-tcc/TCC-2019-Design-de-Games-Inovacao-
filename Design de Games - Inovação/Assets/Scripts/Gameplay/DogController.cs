@@ -43,6 +43,8 @@ public class DogController : MonoBehaviour
     public CarroEffect efeitoCarro;
     public BoolVariable hitTotemCarro;
     public BoolVariable hitTotemPipa;
+    public BoolVariable carroActive;
+    public BoolVariable pipaActive;
     //public BoolVariable dog;
 
     public Animator playerAC;
@@ -143,7 +145,7 @@ public class DogController : MonoBehaviour
     [PunRPC]
     public void Carro()
     {
-        Debug.Log("ativou no multiplayer o carrinho");
+        carroActive.Value = true;
         carroSom.Play();
         PV.Controller.CustomProperties["dogValue"] = false;
         carrinhoObj.SetActive(true);
@@ -158,7 +160,7 @@ public class DogController : MonoBehaviour
     [PunRPC]
     public void Pipa()
     {
-        Debug.Log("ativou no multiplayer a pipa");
+        pipaActive.Value = true;
         pipaSom.Play();
         PV.Controller.CustomProperties["dogValue"] = false;
         pipaObj.SetActive(true);
@@ -173,11 +175,13 @@ public class DogController : MonoBehaviour
     {
         if (efeitoPipa.ativa.Value == false)
         {
+            pipaActive.Value = false;
             pipaObj.SetActive(false);
             playerModel.SetActive(true);
         }
         if (efeitoCarro.ativa.Value == false)
         {
+            carroActive.Value = false;
             carrinhoObj.SetActive(false);
             playerModel.SetActive(true);
         }

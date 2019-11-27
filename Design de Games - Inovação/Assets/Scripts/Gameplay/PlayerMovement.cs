@@ -98,8 +98,8 @@ public class PlayerMovement : MonoBehaviour
 
 	[Header("SkillsState")]
 
-	public BoolVariable carroState;
-	public BoolVariable pipaState;
+	public BoolVariable carroActive;
+	public BoolVariable pipaActive;
 	public BoolVariable hitCarroToken;
 	public BoolVariable hitPipaToken;
 	public BoolVariable startPipa;
@@ -213,16 +213,12 @@ public class PlayerMovement : MonoBehaviour
         if (PhotonNetwork.PlayerList.Length >= 1)
 		{
 			coletavel = PV.Owner.GetScore();
-			/*if ((int)PV.Owner.CustomProperties["Ganhador"] == 1)
-			{
-				playerAC.SetTrigger("Won");
-			}*/
+
 		}
 
 
 		if (coletavel >= numeroDeColetaveis)
 		{
-            //StartCoroutine(Venceu());
             ganhouCorrida = true;
 		}
 
@@ -265,30 +261,34 @@ public class PlayerMovement : MonoBehaviour
 			{
 
 				rb2d.velocity = new Vector3(stats.speed.Value * moveHorizontal, rb2d.velocity.y, 0);
-				playerAC.SetBool("isWalking", true);
-                carroAC.SetBool("isWalking", true);
-                dogAC.SetBool("isWalking", true);
-				//playerAC.SetBool("isWalking", true);
-				//walkSom.SetActive(true);
+
+                if (carroActive.Value == false && pipaActive.Value == false)
+                {
+                    playerAC.SetBool("isWalking", true);
+                    dogAC.SetBool("isWalking", true);
+                }
+
+                if (carroActive.Value == true)
+                {
+                    carroAC.SetBool("isWalking", true);
+                }
 			}
 
 			else
 			{
-				playerAC.SetBool("isWalking", false);
-                carroAC.SetBool("isWalking", false);
-                dogAC.SetBool("isWalking", false);
+                if (carroActive.Value == false && pipaActive.Value == false)
+                {
+                    playerAC.SetBool("isWalking", false);
+                    dogAC.SetBool("isWalking", false);
+                }
+
+                if (carroActive.Value == true)
+                {
+                    carroAC.SetBool("isWalking", false);
+                }
             }
 		}
 
-		/*if (grounded)
-        {
-            playerAC.SetBool("isGrounded", true);
-        }
-        else
-        {
-            playerAC.SetBool("isGrounded", false);
-
-        }*/
 
 		// Pulo
 		if (grounded == true && jump == true && canJump.Value == true && acabou == false)
@@ -296,7 +296,6 @@ public class PlayerMovement : MonoBehaviour
 			playerAC.SetTrigger("Jump");
 			puloAudioEvent.Play(puloSom);
 			rb2d.AddForce(new Vector2(0, stats.jumpForce.Value), ForceMode2D.Impulse);
-			//Physics.IgnoreLayerCollision(10, 11, true);
 			jump = false;
 
         }
@@ -343,12 +342,6 @@ public class PlayerMovement : MonoBehaviour
         ganhouCorrida = false;
         acabou = true;
 
-        /*if (PhotonNetwork.PlayerList.Length == 1)
-        {
-           // gameObject.GetComponent<PhotonView>().RPC("TrocaSala", RpcTarget.MasterClient);
-		   StartCoroutine(Venceu());
-        }*/
-        //TrocaSala();
     }
 
     [PunRPC]
@@ -394,11 +387,6 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-	/*[PunRPC]
-    private void TransformaPet(bool isDog, string transformation)
-    {
-        Pet.SetActive(isDog);
-    }*/
 
 
 	//Função para o botão de pulo
