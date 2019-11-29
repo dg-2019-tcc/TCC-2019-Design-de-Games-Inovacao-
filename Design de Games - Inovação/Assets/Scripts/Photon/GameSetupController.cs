@@ -32,10 +32,11 @@ public class GameSetupController : MonoBehaviour
 	void Start()
 	{
 		
-		gameObject.GetComponent<PhotonView>().RPC("SpawnPlayer", RpcTarget.All, allPlayersInSession);
 		PlayerInst = (GameObject)PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PhotonPlayer"), 
 							spawnPoints[Random.Range(0, spawnPoints.Length - 1)].position, Quaternion.identity);
 		PlayerInst.SetActive(false);
+		gameObject.GetComponent<PhotonView>().RPC("SpawnPlayer", RpcTarget.All, allPlayersInSession);
+
 	}
 
 	[PunRPC]

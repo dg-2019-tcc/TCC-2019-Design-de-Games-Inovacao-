@@ -142,14 +142,10 @@ public class PlayerMovement : MonoBehaviour
 			identificador.SetActive(true);
 			VC = gameObject.transform.GetChild(0).GetComponent<CinemachineVirtualCamera>();
 			VC.Priority = 40;
+			CC = gameObject.transform.GetChild(0).GetComponent<CinemachineConfiner>();
+			CC.m_BoundingShape2D = GameObject.Find("CameraConfiner").GetComponent<PolygonCollider2D>();
+			CC.InvalidatePathCache();
 			PV.Owner.SetScore(0);
-
-			if (joyStick.isActiveAndEnabled)
-			{
-				CC = gameObject.transform.GetChild(0).GetComponent<CinemachineConfiner>();
-				CC.m_BoundingShape2D = GameObject.Find("CameraConfiner").GetComponent<PolygonCollider2D>();
-				CC.InvalidatePathCache();
-			}
 			rb2d.gravityScale = 0.7f;
 		}
 		else
