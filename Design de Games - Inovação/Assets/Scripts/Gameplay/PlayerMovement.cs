@@ -47,6 +47,7 @@ public class PlayerMovement : MonoBehaviour
 
 	[SerializeField]
 	protected Joystick joyStick;
+    public GameObject jumpButton;
 	protected FixedButton fixedButton;
 	public GameObject canvasSelf;
 	public GameObject canvasPause;
@@ -98,7 +99,9 @@ public class PlayerMovement : MonoBehaviour
 
 	[Header("SkillsState")]
 
-	public BoolVariable carroActive;
+    public PipaEffect efeitoPipa;
+    public CarroEffect efeitoCarro;
+    public BoolVariable carroActive;
 	public BoolVariable pipaActive;
 	public BoolVariable hitCarroToken;
 	public BoolVariable hitPipaToken;
@@ -110,6 +113,22 @@ public class PlayerMovement : MonoBehaviour
 
 	private bool menuCustom;
     public static bool acabou = false;
+    public bool isCustomiza;
+
+    public SwipeDirection dir;
+
+    private void Awake()
+    {
+        if (SceneManager.GetActiveScene().name == "Customiza")
+        {
+            PhotonNetwork.OfflineMode = true;
+            isCustomiza = true;
+        }
+        else
+        {
+            isCustomiza = false;
+        }
+    }
 
 
 
@@ -137,7 +156,7 @@ public class PlayerMovement : MonoBehaviour
 		}
 
 		//if (!PhotonNetwork.IsConnected) return;
-		if (PV.IsMine || menuCustom)
+		if (PV.IsMine || menuCustom && isCustomiza == false)
 		{
 			identificador.SetActive(true);
 			VC = gameObject.transform.GetChild(0).GetComponent<CinemachineVirtualCamera>();
@@ -187,6 +206,8 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
+
+
         if (acabouPartida == true) return;
 
         if(LinhaDeChegada.changeRoom == true)
@@ -220,15 +241,15 @@ public class PlayerMovement : MonoBehaviour
 
 		if (!PV.IsMine && !menuCustom) return;
 
-
 		if (joyStick != null)
 		{
-			if (joyStick.Horizontal > 0 || ThrowObject.direction.Equals(SwipeDirection.Right) && rightDir == false)
+			if (joyStick.Horizontal > 0|| ThrowObject.dirRight == true && rightDir == false)
 			{
-
 				rightDir = true;
 				leftDir = false;
-				gameObject.GetComponent<PhotonView>().RPC("GiraPlayer", RpcTarget.All, rightDir);
+                ThrowObject.dirRight = false;
+
+                gameObject.GetComponent<PhotonView>().RPC("GiraPlayer", RpcTarget.All, rightDir);
 				if (!PhotonNetwork.InRoom)
 				{
 					player.transform.rotation = Quaternion.Euler(0, 90, 0);
@@ -237,12 +258,13 @@ public class PlayerMovement : MonoBehaviour
 				}
 
 			}
-			else if (joyStick.Horizontal < 0 || ThrowObject.direction.Equals(SwipeDirection.Left) && leftDir == false)
+			else if (joyStick.Horizontal < 0 || ThrowObject.dirLeft == true && leftDir == false)
 			{
 
 				leftDir = true;
 				rightDir = false;
-				gameObject.GetComponent<PhotonView>().RPC("GiraPlayer", RpcTarget.All, rightDir);
+                ThrowObject.dirLeft = false;
+                gameObject.GetComponent<PhotonView>().RPC("GiraPlayer", RpcTarget.All, rightDir);
 				if (!PhotonNetwork.InRoom)
 				{
 					player.transform.rotation = Quaternion.Euler(0, -90, 0);
@@ -289,24 +311,38 @@ public class PlayerMovement : MonoBehaviour
 
 
         // Pulo
-        float moveVertical = joyStick.Vertical;
-
-        if (moveVertical >= 0.7f && grounded == true && canJump.Value == true && acabou == false)
+        //float moveVertical = joyStick.Vertical;
+        /*foreach (Touch touch in Input.touches)
         {
-            jump = true;
+
+            if (touch.fingerId == 0 && touch.position.x > Screen.width / 2 && touch.phase != TouchPhase.Began)
+            {
+                Debug.Log("Pulo");
+                // Finger 1 is touching! (remember, we count from 0)
+                jump = true;
+            }
+
+        }*/
+
+        if(canJump.Value == true || efeitoCarro.ativa.Value == true || efeitoPipa.ativa.Value == true)
+        {
+            jumpButton.SetActive(true);
         }
 
         else
         {
-            jump = false;
+            jumpButton.SetActive(false);
         }
-	
-		if (jump == true)
+
+
+
+        if (jump == true && grounded == true && canJump.Value == true && acabou == false)
 		{
 			playerAC.SetTrigger("Jump");
 			puloAudioEvent.Play(puloSom);
 			rb2d.AddForce(new Vector2(0, stats.jumpForce.Value), ForceMode2D.Impulse);
 			jump = false;
+
 
         }
 
@@ -321,7 +357,7 @@ public class PlayerMovement : MonoBehaviour
             playerAC.SetBool("onFloor", false);
         }
 
-        else if (rb2d.velocity.y < 0)
+        else if (rb2d.velocity.y < 0 && !isCustomiza)
         {
             playerAC.SetBool("Up", false);
             playerAC.SetBool("Falling", true);
@@ -402,12 +438,23 @@ public class PlayerMovement : MonoBehaviour
 
 
 	//Função para o botão de pulo
-	/*public void Jump()
+	public void Jump()
 	{
-		playerAC.SetTrigger("Jump");
-		jump = true;
+        foreach (Touch touch in Input.touches)
+        {
 
-	}*/
+            if (touch.pressure == 1f && touch.position.x > Screen.width / 2 && canJump.Value == true)
+            {
+
+                    Debug.Log("Pulo");
+                    // Finger 1 is touching! (remember, we count from 0)
+                    jump = true;
+                DogController.poderEstaAtivo = false;
+            }
+
+        }
+
+	}
 
     public void Terminou()
     {

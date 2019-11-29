@@ -19,6 +19,9 @@ public class GroundCheck : MonoBehaviour
 
     public GameObject jumpButton;
 
+    public PipaEffect efeitoPipa;
+    public CarroEffect efeitoCarro;
+
     void Start()
     {
         player = gameObject.GetComponentInParent<PlayerMovement>();
@@ -61,8 +64,7 @@ public class GroundCheck : MonoBehaviour
     void OnTriggerExit2D(Collider2D col)
     {
         if (col.CompareTag("Plataforma") || col.CompareTag("Dragao"))
-        {
-            jumpButton.SetActive(false);
+        { 
             jumpCooldown = 0;
             player.grounded = false;
             playerAC.SetBool("isGrounded", false);

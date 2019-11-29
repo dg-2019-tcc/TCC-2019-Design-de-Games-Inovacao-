@@ -16,7 +16,8 @@ public class DogController : MonoBehaviour
 
     public GameObject Pet;
     public GameObject dogSpawn;
-    public bool poderEstaAtivo;
+    public static bool poderEstaAtivo;
+    public static bool desativaPoder;
 
     [Header("Pet pipa")]
 
@@ -75,10 +76,12 @@ public class DogController : MonoBehaviour
 
         if (poderEstaAtivo == false)//efeitoCarro.ativa.Value == false || efeitoPipa.ativa.Value == false)
         {
+
             pipaSom.Stop();
             carroSom.Stop();
             gameObject.GetComponent<PhotonView>().RPC("DesativaPowerUps", RpcTarget.All);
         }
+
 
 
         /*
@@ -173,13 +176,15 @@ public class DogController : MonoBehaviour
     [PunRPC]
     public void DesativaPowerUps()
     {
-        if (efeitoPipa.ativa.Value == false)
+
+
+        if (efeitoPipa.ativa.Value == false || efeitoPipa.ativa.Value == true)
         {
             pipaActive.Value = false;
             pipaObj.SetActive(false);
             playerModel.SetActive(true);
         }
-        if (efeitoCarro.ativa.Value == false)
+        if (efeitoCarro.ativa.Value == false || efeitoCarro.ativa.Value == true)
         {
             carroActive.Value = false;
             carrinhoObj.SetActive(false);

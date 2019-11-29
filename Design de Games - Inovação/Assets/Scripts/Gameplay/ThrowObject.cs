@@ -26,6 +26,10 @@ public class ThrowObject : MonoBehaviour
 
     public AudioSource tiroSom;
 
+    public static bool dirRight;
+
+    public static bool dirLeft;
+
     private void Awake()
     {
         photonView = gameObject.GetComponent<PhotonView>();
@@ -89,5 +93,15 @@ public class ThrowObject : MonoBehaviour
     private void SwipeDirection(SwipeData data)
     {
         direction = (data.StartPosition - data.EndPosition).normalized;
+
+        if (data.Direction.Equals("Right"))
+        {
+            dirRight = true;
+        }
+
+        else if (data.Direction.Equals("Left"))
+        {
+            dirLeft = true;
+        }
     }
 }

@@ -879,17 +879,17 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1335752014152005251}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -0.000000063837}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2535700088857652702}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 498.9, y: -78.7}
-  m_SizeDelta: {x: 922.1, y: 922.6}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: -135, y: 131}
+  m_SizeDelta: {x: 256, y: 256}
+  m_Pivot: {x: 1, y: 0}
 --- !u!222 &1837157352917182370
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -911,15 +911,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 54628aafa20f64b40ae661038ee7abf0, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -4762,11 +4762,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 75658487164400753}
     m_Modifications:
-    - target: {fileID: -6057140222963153312, guid: 8cd6d1ece23087848969526e5bc7f6b3,
-        type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: 26959c0351e8bdc45b3632da274fac82, type: 2}
     - target: {fileID: -927199367670048503, guid: 8cd6d1ece23087848969526e5bc7f6b3,
         type: 3}
       propertyPath: m_Name
@@ -4842,6 +4837,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 40.391838
       objectReference: {fileID: 0}
+    - target: {fileID: -6057140222963153312, guid: 8cd6d1ece23087848969526e5bc7f6b3,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 26959c0351e8bdc45b3632da274fac82, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8cd6d1ece23087848969526e5bc7f6b3, type: 3}
 --- !u!95 &2124340976271758345 stripped
@@ -4873,11 +4873,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 7300243054960186455, guid: 2f7f4d58b5128704e820e9dd94650955,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7430412753401574263, guid: 2f7f4d58b5128704e820e9dd94650955,
         type: 3}
@@ -5071,6 +5066,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 2b148dcb36b964e408d5c1ff0758f00a,
         type: 2}
+    - target: {fileID: 7300243054960186455, guid: 2f7f4d58b5128704e820e9dd94650955,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7430412753401574218, guid: 2f7f4d58b5128704e820e9dd94650955,
         type: 3}
       propertyPath: m_GravityScale
@@ -5105,6 +5105,31 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PersonagemPipa
+      objectReference: {fileID: 0}
+    - target: {fileID: 3904763173873699515, guid: 2f7f4d58b5128704e820e9dd94650955,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3904763173873699515, guid: 2f7f4d58b5128704e820e9dd94650955,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 3904763173873699515, guid: 2f7f4d58b5128704e820e9dd94650955,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3904763173873699515, guid: 2f7f4d58b5128704e820e9dd94650955,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 3904763173873699515, guid: 2f7f4d58b5128704e820e9dd94650955,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 3356511894367029047, guid: 2f7f4d58b5128704e820e9dd94650955,
         type: 3}
@@ -5182,6 +5207,23 @@ PrefabInstance:
       propertyPath: pipaActive
       value: 
       objectReference: {fileID: 11400000, guid: 2b148dcb36b964e408d5c1ff0758f00a,
+        type: 2}
+    - target: {fileID: 3356511894367029047, guid: 2f7f4d58b5128704e820e9dd94650955,
+        type: 3}
+      propertyPath: jumpButton
+      value: 
+      objectReference: {fileID: 1335752014152005251}
+    - target: {fileID: 3356511894367029047, guid: 2f7f4d58b5128704e820e9dd94650955,
+        type: 3}
+      propertyPath: efeitoPipa
+      value: 
+      objectReference: {fileID: 11400000, guid: b117867086f011044b974379b31fcacb,
+        type: 2}
+    - target: {fileID: 3356511894367029047, guid: 2f7f4d58b5128704e820e9dd94650955,
+        type: 3}
+      propertyPath: efeitoCarro
+      value: 
+      objectReference: {fileID: 11400000, guid: a3b1e39dbd2387942854b07ac0b5ae30,
         type: 2}
     - target: {fileID: 6686298707941592108, guid: 2f7f4d58b5128704e820e9dd94650955,
         type: 3}
@@ -5298,6 +5340,18 @@ PrefabInstance:
       propertyPath: caiuSom
       value: 
       objectReference: {fileID: 816669671774942641}
+    - target: {fileID: 7430412752537440428, guid: 2f7f4d58b5128704e820e9dd94650955,
+        type: 3}
+      propertyPath: efeitoPipa
+      value: 
+      objectReference: {fileID: 11400000, guid: b117867086f011044b974379b31fcacb,
+        type: 2}
+    - target: {fileID: 7430412752537440428, guid: 2f7f4d58b5128704e820e9dd94650955,
+        type: 3}
+      propertyPath: efeitoCarro
+      value: 
+      objectReference: {fileID: 11400000, guid: a3b1e39dbd2387942854b07ac0b5ae30,
+        type: 2}
     - target: {fileID: 4440257278182443838, guid: 2f7f4d58b5128704e820e9dd94650955,
         type: 3}
       propertyPath: m_Controller
@@ -5307,31 +5361,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3904763173873699515, guid: 2f7f4d58b5128704e820e9dd94650955,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3904763173873699515, guid: 2f7f4d58b5128704e820e9dd94650955,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 3904763173873699515, guid: 2f7f4d58b5128704e820e9dd94650955,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3904763173873699515, guid: 2f7f4d58b5128704e820e9dd94650955,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 3904763173873699515, guid: 2f7f4d58b5128704e820e9dd94650955,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 90
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2f7f4d58b5128704e820e9dd94650955, type: 3}
