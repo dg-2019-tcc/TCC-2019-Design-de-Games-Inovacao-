@@ -113,7 +113,7 @@ public class PlayerMovement : MonoBehaviour
 
 
 
-	void Start()
+    void Start()
 	{
         acabou = false;
         acabouPartida = false;
@@ -223,7 +223,7 @@ public class PlayerMovement : MonoBehaviour
 
 		if (joyStick != null)
 		{
-			if (joyStick.Horizontal > 0 && rightDir == false)
+			if (joyStick.Horizontal > 0 || ThrowObject.direction.Equals(SwipeDirection.Right) && rightDir == false)
 			{
 
 				rightDir = true;
@@ -237,7 +237,7 @@ public class PlayerMovement : MonoBehaviour
 				}
 
 			}
-			else if (joyStick.Horizontal < 0 && leftDir == false)
+			else if (joyStick.Horizontal < 0 || ThrowObject.direction.Equals(SwipeDirection.Left) && leftDir == false)
 			{
 
 				leftDir = true;
@@ -250,6 +250,7 @@ public class PlayerMovement : MonoBehaviour
 					pipa.transform.rotation = Quaternion.Euler(0, -90, 0);
 				}
 			}
+
 
 			//Movimentação do player no joystick
 			float moveHorizontal = joyStick.Horizontal + Input.GetAxisRaw("Horizontal");
@@ -286,8 +287,21 @@ public class PlayerMovement : MonoBehaviour
 		}
 
 
-		// Pulo
-		if (grounded == true && jump == true && canJump.Value == true && acabou == false)
+
+        // Pulo
+        float moveVertical = joyStick.Vertical;
+
+        if (moveVertical >= 0.7f && grounded == true && canJump.Value == true && acabou == false)
+        {
+            jump = true;
+        }
+
+        else
+        {
+            jump = false;
+        }
+	
+		if (jump == true)
 		{
 			playerAC.SetTrigger("Jump");
 			puloAudioEvent.Play(puloSom);
@@ -296,6 +310,9 @@ public class PlayerMovement : MonoBehaviour
 
         }
 
+
+        //Para ativar as animações  no ar
+
         if(rb2d.velocity.y > 0)
         {
             canJump.Value = false;
@@ -303,7 +320,6 @@ public class PlayerMovement : MonoBehaviour
             playerAC.SetBool("Falling", false);
             playerAC.SetBool("onFloor", false);
         }
-
 
         else if (rb2d.velocity.y < 0)
         {
@@ -386,12 +402,12 @@ public class PlayerMovement : MonoBehaviour
 
 
 	//Função para o botão de pulo
-	public void Jump()
+	/*public void Jump()
 	{
 		playerAC.SetTrigger("Jump");
 		jump = true;
 
-	}
+	}*/
 
     public void Terminou()
     {
@@ -432,4 +448,5 @@ public class PlayerMovement : MonoBehaviour
 		gameObject.GetComponent<PhotonView>().RPC("TrocaSala", RpcTarget.All);
 		
 	}
+
 }

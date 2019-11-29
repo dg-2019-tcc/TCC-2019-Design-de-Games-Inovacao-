@@ -40,9 +40,10 @@ public class ThrowObject : MonoBehaviour
     {
         if (photonView.IsMine == true)
         {
-            if (SwipeDetector.shoot == true)
+            if (SwipeDetector.shoot == true && cooldownDelta <= 0)
             {
                 StartCoroutine("StartTiro");
+                SwipeDetector.shoot = false;
             }
             if (Input.GetKeyDown(KeyCode.Z))
             {
