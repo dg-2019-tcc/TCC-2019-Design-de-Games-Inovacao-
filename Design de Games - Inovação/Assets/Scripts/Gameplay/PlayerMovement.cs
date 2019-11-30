@@ -454,6 +454,13 @@ public class PlayerMovement : MonoBehaviour
 
         }
 
+#if UNITY_EDITOR
+		Debug.Log("Pulo");
+		// Finger 1 is touching! (remember, we count from 0)
+		jump = true;
+		DogController.poderEstaAtivo = false;
+#endif
+
 	}
 
     public void Terminou()

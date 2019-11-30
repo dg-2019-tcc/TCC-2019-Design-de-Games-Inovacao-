@@ -4211,7 +4211,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   musicMixer: {fileID: 24100000, guid: d8053f26e97503e49b821b3324894177, type: 2}
+  musicVol: {fileID: 0}
+  musicSlider: {fileID: 0}
   SFXMixer: {fileID: 24100000, guid: f2488c6516cf4254fad3f8adcc793b47, type: 2}
+  sfxVol: {fileID: 0}
+  sfxSlider: {fileID: 0}
 --- !u!1 &8541961762024572898
 GameObject:
   m_ObjectHideFlags: 0
@@ -4762,6 +4766,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 75658487164400753}
     m_Modifications:
+    - target: {fileID: -6057140222963153312, guid: 8cd6d1ece23087848969526e5bc7f6b3,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 26959c0351e8bdc45b3632da274fac82, type: 2}
     - target: {fileID: -927199367670048503, guid: 8cd6d1ece23087848969526e5bc7f6b3,
         type: 3}
       propertyPath: m_Name
@@ -4837,11 +4846,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 40.391838
       objectReference: {fileID: 0}
-    - target: {fileID: -6057140222963153312, guid: 8cd6d1ece23087848969526e5bc7f6b3,
-        type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: 26959c0351e8bdc45b3632da274fac82, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8cd6d1ece23087848969526e5bc7f6b3, type: 3}
 --- !u!95 &2124340976271758345 stripped
@@ -4873,6 +4877,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 7300243054960186455, guid: 2f7f4d58b5128704e820e9dd94650955,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7430412753401574263, guid: 2f7f4d58b5128704e820e9dd94650955,
         type: 3}
@@ -5066,11 +5075,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 2b148dcb36b964e408d5c1ff0758f00a,
         type: 2}
-    - target: {fileID: 7300243054960186455, guid: 2f7f4d58b5128704e820e9dd94650955,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7430412753401574218, guid: 2f7f4d58b5128704e820e9dd94650955,
         type: 3}
       propertyPath: m_GravityScale
