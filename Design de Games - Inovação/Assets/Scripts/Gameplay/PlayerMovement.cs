@@ -117,7 +117,7 @@ public class PlayerMovement : MonoBehaviour
 
     public SwipeDirection dir;
 
-    private void Awake()
+    /*private void Awake()
     {
         if (SceneManager.GetActiveScene().name == "Customiza")
         {
@@ -127,7 +127,7 @@ public class PlayerMovement : MonoBehaviour
         {
             isCustomiza = false;
         }
-    }
+    }*/
 
 
 
@@ -167,11 +167,6 @@ public class PlayerMovement : MonoBehaviour
 			rb2d.gravityScale = 0.7f;
 		}
 
-        else if (PV.IsMine || isCustomiza)
-        {
-            PV.Owner.SetScore(0);
-            rb2d.gravityScale = 0f;
-        }
 		else
 		{
 			canvasSelf.SetActive(false);
