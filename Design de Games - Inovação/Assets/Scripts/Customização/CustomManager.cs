@@ -86,7 +86,6 @@ public class CustomManager : MonoBehaviour
             prop.propIndex = 0;
             arrayModelos[prop.propIndex].SetActive(true);
             arrayCollor[prop.propIndex].material = prop.color.corData[prop.colorIndex];
-            Debug.Log("Acabou");
         }
         else
         {
