@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Photon.Pun.UtilityScripts;
 using Cinemachine;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -48,6 +49,7 @@ public class PlayerMovement : MonoBehaviour
 	[SerializeField]
 	protected Joystick joyStick;
     public GameObject jumpButton;
+    private Image jumpImage;
 	protected FixedButton fixedButton;
 	public GameObject canvasSelf;
 	public GameObject canvasPause;
@@ -133,6 +135,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
 	{
+        jumpImage = jumpButton.GetComponent<Image>();
         acabou = false;
         acabouPartida = false;
 		//Get and store a reference to the Rigidbody2D component so that we can access it.
@@ -323,15 +326,21 @@ public class PlayerMovement : MonoBehaviour
             }
 
         }*/
+        var tempColor = jumpImage.color;
 
-        if(canJump.Value == true || efeitoCarro.ativa.Value == true || efeitoPipa.ativa.Value == true)
+        if (canJump.Value == true || efeitoCarro.ativa.Value == true || efeitoPipa.ativa.Value == true)
         {
-            jumpButton.SetActive(true);
+
+            //jumpButton.SetActive(true);
+            tempColor.a = 1f;
+            jumpImage.color = tempColor;
         }
 
         else
         {
-            jumpButton.SetActive(false);
+            //jumpButton.SetActive(false);
+            tempColor.a = 0.5f;
+            jumpImage.color = tempColor;
         }
 
 
