@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 3
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 2100000, guid: 0890eef861cd40b46b2640c60b77053b, type: 2}
+  m_SkyboxMaterial: {fileID: 2100000, guid: d15e4bbf86dd0ab4a89e1f9179e0a7ee, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.6493949, g: 0.7037668, b: 0.8432368, a: 1}
+  m_IndirectSpecularColor: {r: 0.9311918, g: 0.75896674, b: 0.7168119, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3860,20 +3860,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   joyStick: {fileID: 0}
   turnPlataforma: 0
---- !u!114 &1841544046
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7975835538729680982}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5b98b919ab2e5743b66b6b1bad012b0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  joyStick: {fileID: 0}
-  turnPlataforma: 0
 --- !u!114 &1841544047
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7524,7 +7510,7 @@ BoxCollider2D:
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_UsedByEffector: 1
+  m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
@@ -7550,8 +7536,6 @@ GameObject:
   - component: {fileID: 7975835538729680978}
   - component: {fileID: 7975835538729680979}
   - component: {fileID: 7975835538729680980}
-  - component: {fileID: 1841544046}
-  - component: {fileID: 7975835538729680983}
   m_Layer: 0
   m_Name: Plataforma_
   m_TagString: Plataforma
@@ -7559,25 +7543,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!251 &7975835538729680983
-PlatformEffector2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7975835538729680982}
-  m_Enabled: 1
-  m_UseColliderMask: 1
-  m_ColliderMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_RotationalOffset: 0
-  m_UseOneWay: 1
-  m_UseOneWayGrouping: 0
-  m_SurfaceArc: 179
-  m_UseSideFriction: 0
-  m_UseSideBounce: 0
-  m_SideArc: 1
 --- !u!4 &7975835539315559108
 Transform:
   m_ObjectHideFlags: 0
