@@ -97,6 +97,16 @@ public class PlayerMovement : MonoBehaviour
     public Animator dogAC;
 	private PlayerFaceAnimations playerFaceAnimations;
 
+	//settando id de animação pra pesar menos no update
+	private int animatorIsWalking;
+	private int animatorJump;
+	private int animatorUp;
+	private int animatorFalling;
+	private int animatorOnFloor;
+	private int animatorDogada;
+	private int animatorWon;
+	private int animatorLost;
+
 
 
 	[Header("SkillsState")]
@@ -138,14 +148,13 @@ public class PlayerMovement : MonoBehaviour
         jumpImage = jumpButton.GetComponent<Image>();
         acabou = false;
         acabouPartida = false;
-		//Get and store a reference to the Rigidbody2D component so that we can access it.
 		rb2d = GetComponent<Rigidbody2D>();
 		joyStick = FindObjectOfType<Joystick>();
 		fixedButton = FindObjectOfType<FixedButton>();
 		PV = GetComponent<PhotonView>();
 		stats.speed = playerSpeed;
 		stats.jumpForce = playerJump;
-		
+		SetAnimations();
 
 		menuCustom = false;
 
@@ -157,7 +166,6 @@ public class PlayerMovement : MonoBehaviour
 			canvasSelf.SetActive(false);
 		}
 
-		//if (!PhotonNetwork.IsConnected) return;
 		if (PV.IsMine || menuCustom)
 		{
 			identificador.SetActive(true);
@@ -179,16 +187,16 @@ public class PlayerMovement : MonoBehaviour
 		if (SceneManager.GetActiveScene().name == "TelaVitoria" && (int)PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] == 1)
 		{
 			FindObjectOfType<Coroa>().ganhador = transform;
-            playerAC.SetTrigger("Won");
+            playerAC.SetTrigger(animatorWon);
             ganhouSom.Play();
             transform.position = new Vector3(0, 0, 0);
 			coletavel = -1;
 			PV.Owner.SetScore(-1);
 		}
 
-        if (SceneManager.GetActiveScene().name == "TelaVitoria" && (int)PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] == 0)
+        else if (SceneManager.GetActiveScene().name == "TelaVitoria" && (int)PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] == 0)
         {
-            playerAC.SetTrigger("Lost");
+            playerAC.SetTrigger(animatorLost);
             transform.position = new Vector3(0, 0, 0);
             perdeuSom.Play();
 			coletavel = -1;
@@ -230,10 +238,13 @@ public class PlayerMovement : MonoBehaviour
 
         
 
-        if (PhotonNetwork.PlayerList.Length >= 1)
+        if (!menuCustom)
 		{
 			coletavel = PV.Owner.GetScore();
-
+			if (!PV.IsMine)
+			{
+				return;
+			}
 		}
 
 
@@ -242,7 +253,6 @@ public class PlayerMovement : MonoBehaviour
             ganhouCorrida = true;
 		}
 
-		if (!PV.IsMine && !menuCustom) return;
 
 		if (joyStick != null)
 		{
@@ -286,13 +296,13 @@ public class PlayerMovement : MonoBehaviour
 
                 if (carroActive.Value == false && pipaActive.Value == false)
                 {
-                    playerAC.SetBool("isWalking", true);
-                    dogAC.SetBool("isWalking", true);
+                    playerAC.SetBool(animatorIsWalking, true);
+                    dogAC.SetBool(animatorIsWalking, true);
                 }
 
                 if (carroActive.Value == true)
                 {
-                    carroAC.SetBool("isWalking", true);
+                    carroAC.SetBool(animatorIsWalking, true);
                 }
 			}
 
@@ -300,13 +310,13 @@ public class PlayerMovement : MonoBehaviour
 			{
                 if (carroActive.Value == false && pipaActive.Value == false)
                 {
-                    playerAC.SetBool("isWalking", false);
-                    dogAC.SetBool("isWalking", false);
+                    playerAC.SetBool(animatorIsWalking, false);
+                    dogAC.SetBool(animatorIsWalking, false);
                 }
 
                 if (carroActive.Value == true)
                 {
-                    carroAC.SetBool("isWalking", false);
+                    carroAC.SetBool(animatorIsWalking, false);
                 }
             }
 		}
@@ -347,7 +357,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (jump == true && grounded == true && canJump.Value == true && acabou == false)
 		{
-			playerAC.SetTrigger("Jump");
+			playerAC.SetTrigger(animatorJump);
 			puloAudioEvent.Play(puloSom);
 			rb2d.AddForce(new Vector2(0, stats.jumpForce.Value), ForceMode2D.Impulse);
 			jump = false;
@@ -361,23 +371,23 @@ public class PlayerMovement : MonoBehaviour
         if(rb2d.velocity.y > 0)
         {
             canJump.Value = false;
-            playerAC.SetBool("Up", true);
-            playerAC.SetBool("Falling", false);
-            playerAC.SetBool("onFloor", false);
+            playerAC.SetBool(animatorUp, true);
+            playerAC.SetBool(animatorFalling, false);
+            playerAC.SetBool(animatorOnFloor, false);
         }
 
         else if (rb2d.velocity.y < 0 && !isCustomiza)
         {
-            playerAC.SetBool("Up", false);
-            playerAC.SetBool("Falling", true);
-            playerAC.SetBool("onFloor", false);
+            playerAC.SetBool(animatorUp, false);
+            playerAC.SetBool(animatorFalling, true);
+            playerAC.SetBool(animatorOnFloor, false);
         }
 
         else if (rb2d.velocity.y == 0)
         {
-            playerAC.SetBool("onFloor", true);
-            playerAC.SetBool("Up", false);
-            playerAC.SetBool("Falling", false);
+            playerAC.SetBool(animatorOnFloor, true);
+            playerAC.SetBool(animatorUp, false);
+            playerAC.SetBool(animatorFalling, false);
         }
 
     }
@@ -389,7 +399,7 @@ public class PlayerMovement : MonoBehaviour
         Debug.Log("Ganhou");
         PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 1;
         ganhouSom.Play();
-        playerAC.SetTrigger("Won");
+        playerAC.SetTrigger(animatorWon);
 
         PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 1;
 
@@ -480,10 +490,10 @@ public class PlayerMovement : MonoBehaviour
     IEnumerator LevouDogada()
     {
         levouDogadaSom.Play();
-        playerAC.SetBool("Dogada", true);
+        playerAC.SetBool(animatorDogada, true);
         levouDogada = true;
         yield  return new WaitForSeconds(2f);
-        playerAC.SetBool("Dogada", false);
+        playerAC.SetBool(animatorDogada, false);
         levouDogada = false;
     }
 
@@ -510,6 +520,18 @@ public class PlayerMovement : MonoBehaviour
 
 		gameObject.GetComponent<PhotonView>().RPC("TrocaSala", RpcTarget.All);
 		
+	}
+
+	private void SetAnimations()
+	{
+		animatorIsWalking = Animator.StringToHash("isWalking");
+		animatorJump = Animator.StringToHash("Jump");
+		animatorUp = Animator.StringToHash("Up");
+		animatorFalling = Animator.StringToHash("Falling");
+		animatorOnFloor = Animator.StringToHash("onFloor");
+		animatorDogada = Animator.StringToHash("Dogada");
+		animatorWon = Animator.StringToHash("Won");
+		animatorLost = Animator.StringToHash("Lost");
 	}
 
 }
