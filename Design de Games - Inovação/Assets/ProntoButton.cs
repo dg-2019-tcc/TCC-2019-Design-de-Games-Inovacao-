@@ -8,6 +8,14 @@ using UnityEngine.SceneManagement;
 
 public class ProntoButton : MonoBehaviour
 {
+    [SerializeField]
+    private string nomeDoMenu;
+
+    public void ComecaJogo()
+    {
+        SceneManager.LoadScene(nomeDoMenu);
+    }
+
     void ChamaTutorial()
     {
         if (PlayerPrefs.HasKey("NickName"))
