@@ -25,10 +25,23 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
     [SerializeField]
     private GameObject tutorialButton;
     public InputField playerNameInput;
+	public GameObject PlayerCanvas;
+
+	[Header("Fade específico de modo de jogo")]
+
+	[SerializeField]
+	private GameObject ColetaFade;
+	[SerializeField]
+	private GameObject CorridaFade;
+	[SerializeField]
+	private GameObject TutorialFade;
+
+	[SerializeField]
+	private float tempoPraFade;
 
 
 
-    [Header("Configurações de sala")]
+	[Header("Configurações de sala")]
     
     [SerializeField]
     private int RoomSize; //Utilizado para setar manualmente o numero de jogadores de uma sala
@@ -65,50 +78,87 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
 			PhotonNetwork.NickName = "Player " + Random.Range(0, 1000);
 		}
 		playerNameInput.text = PhotonNetwork.NickName;
+
+		CorridaFade.SetActive(false);
+		ColetaFade.SetActive(false);
+		TutorialFade.SetActive(false);
 	}
 
-
-    public void Update()
-    {
-        //Debug.Log(PhotonNetwork.IsConnected);
-    }
-
-
-    public override void OnConnectedToMaster()
-    {
-        //PhotonNetwork.AutomaticallySyncScene = true;
-    }
 
 
     public void DelayStart(string gameMode)
     {
-        startSound.Play();
-        delayStartButton.SetActive(false);
-		delayStartButton2.SetActive(false);
+		startSound.Play();
+		//delayStartButton.SetActive(false);
+		//delayStartButton2.SetActive(false);
 		delayCancelButton.SetActive(true);
-        tutorialButton.SetActive(false);
-        loadingScene.SetActive(true);
-        DelayStartWaitingRoomController.minPlayerToStart = 2;
-        DelayStartWaitingRoomController.tutorialMode = false;
-		DelayStartWaitingRoomController.gameMode = gameMode;
-        PhotonNetwork.JoinRandomRoom();
-        
+		tutorialButton.SetActive(false);
+		loadingScene.SetActive(true);
+		PlayerCanvas.SetActive(false);
+
+		StartCoroutine(StartGamemode(gameMode));
         //ExitGames.Client.Photon.Hashtable expectedCustomRoomProperties = new ExitGames.Client.Photon.Hashtable() { { "map", modo } };  
         //PhotonNetwork.JoinRandomRoom(expectedCustomRoomProperties, (byte)RoomSize);        
     }
 
-    public void TutorialStart()
-    {
-        startSound.Play();
-        delayStartButton.SetActive(false);
-		delayStartButton2.SetActive(false);
-		delayCancelButton.SetActive(true);
-        tutorialButton.SetActive(false);
-        loadingScene.SetActive(true);
-        DelayStartWaitingRoomController.minPlayerToStart = 1;
-        DelayStartWaitingRoomController.tutorialMode = true;
-        CreateTutorialRoom();
-    }
+	private IEnumerator StartGamemode(string gameMode)
+	{
+
+		switch (gameMode)
+		{
+			case "Corrida Blocada":
+				
+				CorridaFade.SetActive(true);
+
+				yield return new WaitForSeconds(tempoPraFade);
+
+				DelayStartWaitingRoomController.minPlayerToStart = 2;
+				DelayStartWaitingRoomController.tutorialMode = false;
+				DelayStartWaitingRoomController.gameMode = gameMode;
+				PhotonNetwork.JoinRandomRoom();
+				break;
+
+			case "Fase01Prototipo":
+				
+				ColetaFade.SetActive(true);
+
+				yield return new WaitForSeconds(tempoPraFade);
+
+				DelayStartWaitingRoomController.minPlayerToStart = 2;
+				DelayStartWaitingRoomController.tutorialMode = false;
+				DelayStartWaitingRoomController.gameMode = gameMode;
+				PhotonNetwork.JoinRandomRoom();
+				break;
+
+			case "Tutorial":
+				
+				TutorialFade.SetActive(true);
+
+				yield return new WaitForSeconds(tempoPraFade);
+
+				DelayStartWaitingRoomController.minPlayerToStart = 1;
+				DelayStartWaitingRoomController.tutorialMode = true;
+				CreateTutorialRoom();
+				break;
+
+			default:																										//Caso padrão vai pro Tutorial
+				
+				TutorialFade.SetActive(true);
+
+				yield return new WaitForSeconds(tempoPraFade);
+
+				DelayStartWaitingRoomController.minPlayerToStart = 1;
+				DelayStartWaitingRoomController.tutorialMode = true;
+				CreateTutorialRoom();
+				break;
+		}
+
+		
+
+		
+	}
+
+ 
     
     public void PlayerNameUpdate(string nameInput)
     {
@@ -197,6 +247,13 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
     //  delayStartButton.SetActive(true);
 	//	tutorialButton.SetActive(true);
 		loadingScene.SetActive(false);
+		PlayerCanvas.SetActive(true);
+
+		CorridaFade.SetActive(false);
+		ColetaFade.SetActive(false);
+		TutorialFade.SetActive(false);
+		StopAllCoroutines();
+
         if(PhotonNetwork.CurrentRoom != null)
         {
             PhotonNetwork.LeaveRoom();
