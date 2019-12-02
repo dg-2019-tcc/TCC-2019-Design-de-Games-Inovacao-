@@ -25,28 +25,22 @@ public class QuickStartLobbyController : MonoBehaviourPunCallbacks
 		quickStartButton.SetActive(false);
 		quickCancelButton.SetActive(true);
 		PhotonNetwork.JoinRandomRoom();
-		Debug.Log("Quick start");
 	}
 
 	public override void OnJoinRandomFailed(short returnCode, string message)
 	{
-		Debug.Log("não consegui achar a sala");
 		CreateRoom();
 	}
 
 	void CreateRoom()
 	{
-		Debug.Log("Criando sala");
 		int randomRoomNumber = Random.Range(0, 10000);
 		RoomOptions roomOps = new RoomOptions() { IsVisible = true, IsOpen = true, MaxPlayers = (byte)RoomSize };
 		PhotonNetwork.CreateRoom("Room" + randomRoomNumber, roomOps);
-		Debug.Log(randomRoomNumber);
-
 	}
 
 	public override void OnCreateRoomFailed(short returnCode, string message)
 	{
-		Debug.Log("Falhei em criar a sala, tentando de novo");
 		CreateRoom();
 
 	}

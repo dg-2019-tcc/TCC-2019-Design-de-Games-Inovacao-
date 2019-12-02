@@ -20,7 +20,6 @@ public class QuickStartRoomController : MonoBehaviourPunCallbacks
 
 	public override void OnJoinedRoom()
 	{
-		Debug.Log("Entrou na sala");
 		StartGame();
 	}
 
@@ -28,7 +27,6 @@ public class QuickStartRoomController : MonoBehaviourPunCallbacks
 	{
 		if (PhotonNetwork.IsMasterClient)
 		{
-			Debug.Log("Começando jogo");
 			PhotonNetwork.LoadLevel(multiplayerSceneIndex);
 		}
 	}
