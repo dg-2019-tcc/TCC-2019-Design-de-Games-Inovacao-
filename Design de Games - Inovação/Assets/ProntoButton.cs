@@ -10,14 +10,28 @@ public class ProntoButton : MonoBehaviour
 {
     void ChamaTutorial()
     {
-
+        if (PlayerPrefs.HasKey("NickName"))
+        {
+            if (PlayerPrefs.GetString("NickName") == "")
+            {
+                PhotonNetwork.NickName = "Player " + Random.Range(0, 1000);
+            }
+            else
+            {
+                PhotonNetwork.NickName = PlayerPrefs.GetString("NickName");
+            }
+        }
+        else
+        {
+            PhotonNetwork.NickName = "Player " + Random.Range(0, 1000);
+        }        
     }
 
     public void TutorialStart()
     {
         DelayStartWaitingRoomController.minPlayerToStart = 1;
         DelayStartWaitingRoomController.tutorialMode = true;
-        CreateTutorialRoom();
+        CreateTutorialRoom();        
     }
 
     void CreateTutorialRoom()
