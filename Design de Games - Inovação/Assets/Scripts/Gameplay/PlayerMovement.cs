@@ -66,8 +66,8 @@ public class PlayerMovement : MonoBehaviour
 
 	[HideInInspector]
 	public PhotonView PV;
-	[SerializeField]
-	private GameObject identificador;
+	//[SerializeField]
+	//private GameObject identificador;
 
 
 
@@ -168,7 +168,7 @@ public class PlayerMovement : MonoBehaviour
 
 		if (PV.IsMine || menuCustom)
 		{
-			identificador.SetActive(true);
+			//identificador.SetActive(true);
 			VC = gameObject.transform.GetChild(0).GetComponent<CinemachineVirtualCamera>();
 			VC.Priority = 40;
 			CC = gameObject.transform.GetChild(0).GetComponent<CinemachineConfiner>();
