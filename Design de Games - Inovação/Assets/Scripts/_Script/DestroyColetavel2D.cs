@@ -26,16 +26,7 @@ public class DestroyColetavel2D : MonoBehaviourPunCallbacks
             }
         }
 
-        /*if (other.gameObject.CompareTag("DogTiro"))
-        {
-            if (playerView.IsMine)
-            {
-                ItemThrow bullet = other.gameObject.GetComponent<ItemThrow>();
-                bullet.Owner.AddScore(1);
-                Destroy(gameObject);
-                index++;
-            }
-        }*/
+        
     }
 
 	void Coleta()

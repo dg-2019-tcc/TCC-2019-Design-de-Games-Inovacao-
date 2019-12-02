@@ -31,9 +31,9 @@ public class NetworkController : MonoBehaviourPunCallbacks
         PhotonNetwork.ConnectUsingSettings(); //Conecta com os servidores mestres do photon
     }
 
-    public override void OnConnectedToMaster()
+   /* public override void OnConnectedToMaster()
     {
         //Basicamente debug para facilitar saber o que acontece aonde
         Debug.Log("Nós estamos conectados ao servidor " + PhotonNetwork.CloudRegion + "!!");
-    }
+    }*/
 }
