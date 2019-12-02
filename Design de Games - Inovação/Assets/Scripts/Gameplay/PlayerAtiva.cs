@@ -31,8 +31,6 @@ public class PlayerAtiva : MonoBehaviour
 			PM = FindObjectsOfType<PlataformaManager>();
 			for (int i = 0; i < PM.Length; i++)
 			{
-
-
 				PM[i].joyStick = FindObjectOfType<Joystick>();
 			}
 		}

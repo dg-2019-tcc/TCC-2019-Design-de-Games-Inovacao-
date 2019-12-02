@@ -19,9 +19,7 @@ public class EmotesManager : MonoBehaviour
 	[PunRPC]
 	private void MandaSticker(int index)
 	{
-
 		emote[index].SetActive(true);
-
 	}
 
 }

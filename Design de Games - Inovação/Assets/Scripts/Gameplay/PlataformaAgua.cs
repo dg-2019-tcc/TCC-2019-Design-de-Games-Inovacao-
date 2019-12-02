@@ -7,14 +7,7 @@ public class PlataformaAgua : MonoBehaviour
     public Transform target;
     public Transform startPos;
     public float speed = 1.0f;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
+	
     void Update()
     {
         float step = speed * Time.deltaTime; // calculate distance to move

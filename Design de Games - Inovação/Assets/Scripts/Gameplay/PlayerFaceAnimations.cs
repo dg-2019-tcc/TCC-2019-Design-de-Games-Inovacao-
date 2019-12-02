@@ -5,6 +5,7 @@ using Photon.Pun;
 
 public class PlayerFaceAnimations : MonoBehaviour
 {
+	/*
 	public SkinnedMeshRenderer playerMesh;
 	public Texture[] textures;
 
@@ -59,4 +60,5 @@ public class PlayerFaceAnimations : MonoBehaviour
 	{
 		playerMesh.materials[0].mainTexture = textures[index];
 	}
+	*/
 }
