@@ -12,13 +12,6 @@ public class IndexDisplay : MonoBehaviour
 
 	public Text[] indexText;
 
-
-    void Start()
-    {
-        
-    }
-
-
     void Update()
     {
         indexText[0].text = (hair.propIndex + 1) + "/4";

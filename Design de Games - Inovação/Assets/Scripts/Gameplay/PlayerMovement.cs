@@ -396,7 +396,6 @@ public class PlayerMovement : MonoBehaviour
     [PunRPC]
     void GanhouCorrida()
     {
-        Debug.Log("Ganhou");
         PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 1;
         ganhouSom.Play();
         playerAC.SetTrigger(animatorWon);
@@ -415,7 +414,6 @@ public class PlayerMovement : MonoBehaviour
     void PerdeuCorrida()
     {
         perdeuSom.Play();
-        Debug.Log("Perdeu");
         perdeuCorrida = true;
         acabou = true;
         PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 0;
@@ -464,8 +462,6 @@ public class PlayerMovement : MonoBehaviour
 
             if (touch.pressure == 1f && touch.position.x > Screen.width / 2 && canJump.Value == true)
             {
-
-                    Debug.Log("Pulo");
                     // Finger 1 is touching! (remember, we count from 0)
                     jump = true;
                 DogController.poderEstaAtivo = false;
@@ -474,7 +470,6 @@ public class PlayerMovement : MonoBehaviour
         }
 
 #if UNITY_EDITOR
-		Debug.Log("Pulo");
 		// Finger 1 is touching! (remember, we count from 0)
 		jump = true;
 		DogController.poderEstaAtivo = false;
@@ -499,7 +494,6 @@ public class PlayerMovement : MonoBehaviour
 
 	IEnumerator Venceu()
 	{
-        Debug.Log("Venceu rodando");
 		VC.Priority = -1;
         PV.RPC("Terminou", RpcTarget.All);
 		for (int i = 0; i < PhotonNetwork.PlayerList.Length; i++)
@@ -507,7 +501,6 @@ public class PlayerMovement : MonoBehaviour
 			if ((int)PhotonNetwork.PlayerList[i].CustomProperties["Ganhador"] == 1)
             {
                 StopCoroutine(Venceu());
-                Debug.Log("RodouStopCorrotine");
             }
 		}
 		coletavel = -1;

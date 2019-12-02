@@ -228,7 +228,7 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
 
     public override void OnCreateRoomFailed(short returnCode, string message)
     {
-        Debug.Log("Failed to create a room... trying again");
+        
         if(tutorialMode == false)
         {
             CreateRoom();
