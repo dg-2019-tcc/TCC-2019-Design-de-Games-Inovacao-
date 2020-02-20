@@ -365,6 +365,11 @@ public class PlayerMovement : MonoBehaviour
 
         }
 
+        else
+        {
+            jump = false;
+        }
+
 
         //Para ativar as animações  no ar
 
