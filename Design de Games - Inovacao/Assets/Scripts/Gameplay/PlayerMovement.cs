@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Photon.Pun.UtilityScripts;
-using Cinemachine;
 using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
@@ -37,8 +36,8 @@ public class PlayerMovement : MonoBehaviour
 	public PlayerStat stats;
 	public FloatVariable playerSpeed;
 	public FloatVariable playerJump;
-	private bool leftDir;
-	private bool rightDir;
+	public bool leftDir;
+	public bool rightDir;
 	public BoolVariable canJump;
     static bool acabouPartida;
 
@@ -69,13 +68,8 @@ public class PlayerMovement : MonoBehaviour
 	//[SerializeField]
 	//private GameObject identificador;
 
-
-
-	[Header("Cinemachine")]
-
-	private CinemachineConfiner CC;
-	private CinemachineVirtualCamera VC;
-
+	[Header("Camera Manager")]
+	public CameraManager cameraManager;
 
 
 
@@ -169,11 +163,7 @@ public class PlayerMovement : MonoBehaviour
 		if (PV.IsMine || menuCustom)
 		{
 			//identificador.SetActive(true);
-			VC = gameObject.transform.GetChild(0).GetComponent<CinemachineVirtualCamera>();
-			VC.Priority = 40;
-			CC = gameObject.transform.GetChild(0).GetComponent<CinemachineConfiner>();
-			CC.m_BoundingShape2D = GameObject.Find("CameraConfiner").GetComponent<PolygonCollider2D>();
-			CC.InvalidatePathCache();
+			cameraManager.SendMessage("ActivateCamera", true);
 			PV.Owner.SetScore(0);
 			rb2d.gravityScale = 0.7f;
 		}
@@ -494,8 +484,8 @@ public class PlayerMovement : MonoBehaviour
 
 	IEnumerator Venceu()
 	{
-		VC.Priority = -1;
-        PV.RPC("Terminou", RpcTarget.All);
+		cameraManager.SendMessage("ActivateCamera", false);
+		PV.RPC("Terminou", RpcTarget.All);
 		for (int i = 0; i < PhotonNetwork.PlayerList.Length; i++)
 		{
 			if ((int)PhotonNetwork.PlayerList[i].CustomProperties["Ganhador"] == 1)
