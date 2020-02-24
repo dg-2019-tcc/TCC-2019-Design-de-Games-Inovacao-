@@ -7,23 +7,15 @@ public class CameraManager : MonoBehaviour
 {
 
 	private bool isOn;
+	private CamLookaheadAim CLA;
 
 	[Header("Cinemachine")]
-	private CinemachineConfiner CC;
+	public CinemachineConfiner CC;
 	private CinemachineVirtualCamera VC;
 
 	private void Start()
 	{
-/*
-		if (isOn)
-		{
-			VC = GetComponent<CinemachineVirtualCamera>();
-			VC.Priority = 40;
-			CC = GetComponent<CinemachineConfiner>();
-			CC.m_BoundingShape2D = GameObject.Find("CameraConfiner").GetComponent<PolygonCollider2D>();
-			CC.InvalidatePathCache();
-		}
-		*/
+		//CLA = transform.parent.GetComponent<CamLookaheadAim>();
 	}
 
 	public void ActivateCamera(bool state)
@@ -32,11 +24,13 @@ public class CameraManager : MonoBehaviour
 
 		if (isOn)
 		{
+			
 			VC = GetComponent<CinemachineVirtualCamera>();
 			VC.Priority = 40;
 			CC = GetComponent<CinemachineConfiner>();
 			CC.m_BoundingShape2D = GameObject.Find("CameraConfiner").GetComponent<PolygonCollider2D>();
 			CC.InvalidatePathCache();
+			//CLA.cameraMidpoint = CC.m_BoundingShape2D.gameObject;
 		}
 		else
 		{
