@@ -83,26 +83,6 @@ public class PlayerMovement : MonoBehaviour
     public AudioSource ganhouSom;
 
 
-
-	[Header("Animação")]
-
-	public Animator playerAC;
-    public Animator carroAC;
-    public Animator dogAC;
-	private PlayerFaceAnimations playerFaceAnimations;
-
-	//settando id de animação pra pesar menos no update
-	private int animatorIsWalking;
-	private int animatorJump;
-	private int animatorUp;
-	private int animatorFalling;
-	private int animatorOnFloor;
-	private int animatorDogada;
-	private int animatorWon;
-	private int animatorLost;
-
-
-
 	[Header("SkillsState")]
 
     public PipaEffect efeitoPipa;
@@ -120,6 +100,8 @@ public class PlayerMovement : MonoBehaviour
 	private bool menuCustom;
     public static bool acabou = false;
     public bool isCustomiza;
+
+	private PlayerAnimations playerAnimations;
 
     public SwipeDirection dir;
 
@@ -148,7 +130,8 @@ public class PlayerMovement : MonoBehaviour
 		PV = GetComponent<PhotonView>();
 		stats.speed = playerSpeed;
 		stats.jumpForce = playerJump;
-		SetAnimations();
+		playerAnimations = GetComponent<PlayerAnimations>();
+		playerAnimations.rb2d = rb2d;
 
 		menuCustom = false;
 
@@ -177,7 +160,7 @@ public class PlayerMovement : MonoBehaviour
 		if (SceneManager.GetActiveScene().name == "TelaVitoria" && (int)PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] == 1)
 		{
 			FindObjectOfType<Coroa>().ganhador = transform;
-            playerAC.SetTrigger(animatorWon);
+            playerAnimations.playerAC.SetTrigger(playerAnimations.animatorWon);
             ganhouSom.Play();
             transform.position = new Vector3(0, 0, 0);
 			coletavel = -1;
@@ -186,7 +169,7 @@ public class PlayerMovement : MonoBehaviour
 
         else if (SceneManager.GetActiveScene().name == "TelaVitoria" && (int)PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] == 0)
         {
-            playerAC.SetTrigger(animatorLost);
+			playerAnimations.playerAC.SetTrigger(playerAnimations.animatorLost);
             transform.position = new Vector3(0, 0, 0);
             perdeuSom.Play();
 			coletavel = -1;
@@ -246,13 +229,13 @@ public class PlayerMovement : MonoBehaviour
 
 		if (joyStick != null)
 		{
-			if (joyStick.Horizontal > 0|| ThrowObject.dirRight == true && rightDir == false)
+			if (joyStick.Horizontal > 0 || ThrowObject.dirRight == true && rightDir == false)
 			{
 				rightDir = true;
 				leftDir = false;
-                ThrowObject.dirRight = false;
+				ThrowObject.dirRight = false;
 
-                gameObject.GetComponent<PhotonView>().RPC("GiraPlayer", RpcTarget.All, rightDir);
+				gameObject.GetComponent<PhotonView>().RPC("GiraPlayer", RpcTarget.All, rightDir);
 				if (!PhotonNetwork.InRoom)
 				{
 					player.transform.rotation = Quaternion.Euler(0, 90, 0);
@@ -266,8 +249,8 @@ public class PlayerMovement : MonoBehaviour
 
 				leftDir = true;
 				rightDir = false;
-                ThrowObject.dirLeft = false;
-                gameObject.GetComponent<PhotonView>().RPC("GiraPlayer", RpcTarget.All, rightDir);
+				ThrowObject.dirLeft = false;
+				gameObject.GetComponent<PhotonView>().RPC("GiraPlayer", RpcTarget.All, rightDir);
 				if (!PhotonNetwork.InRoom)
 				{
 					player.transform.rotation = Quaternion.Euler(0, -90, 0);
@@ -281,34 +264,18 @@ public class PlayerMovement : MonoBehaviour
 			float moveHorizontal = joyStick.Horizontal + Input.GetAxisRaw("Horizontal");
 			if (moveHorizontal != 0 && levouDogada == false && acabou == false)
 			{
-
 				rb2d.velocity = new Vector3(stats.speed.Value * moveHorizontal, rb2d.velocity.y, 0);
-
-                if (carroActive.Value == false && pipaActive.Value == false)
-                {
-                    playerAC.SetBool(animatorIsWalking, true);
-                    dogAC.SetBool(animatorIsWalking, true);
-                }
-
-                if (carroActive.Value == true)
-                {
-                    carroAC.SetBool(animatorIsWalking, true);
-                }
+				playerAnimations.Walk(true);
 			}
 
 			else
 			{
-                if (carroActive.Value == false && pipaActive.Value == false)
-                {
-                    playerAC.SetBool(animatorIsWalking, false);
-                    dogAC.SetBool(animatorIsWalking, false);
-                }
-
-                if (carroActive.Value == true)
-                {
-                    carroAC.SetBool(animatorIsWalking, false);
-                }
-            }
+				playerAnimations.Walk(false);
+			}
+			if (rb2d.velocity.y > 0)
+			{
+				canJump.Value = false;
+			}
 		}
 
 
@@ -347,7 +314,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (jump == true && grounded == true && canJump.Value == true && acabou == false)
 		{
-			playerAC.SetTrigger(animatorJump);
+			playerAnimations.playerAC.SetTrigger(playerAnimations.animatorJump);
 			puloAudioEvent.Play(puloSom);
 			rb2d.AddForce(new Vector2(0, stats.jumpForce.Value), ForceMode2D.Impulse);
 			jump = false;
@@ -361,29 +328,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
 
-        //Para ativar as animações  no ar
-
-        if(rb2d.velocity.y > 0)
-        {
-            canJump.Value = false;
-            playerAC.SetBool(animatorUp, true);
-            playerAC.SetBool(animatorFalling, false);
-            playerAC.SetBool(animatorOnFloor, false);
-        }
-
-        else if (rb2d.velocity.y < 0 && !isCustomiza)
-        {
-            playerAC.SetBool(animatorUp, false);
-            playerAC.SetBool(animatorFalling, true);
-            playerAC.SetBool(animatorOnFloor, false);
-        }
-
-        else if (rb2d.velocity.y == 0)
-        {
-            playerAC.SetBool(animatorOnFloor, true);
-            playerAC.SetBool(animatorUp, false);
-            playerAC.SetBool(animatorFalling, false);
-        }
+   
 
     }
 
@@ -393,7 +338,7 @@ public class PlayerMovement : MonoBehaviour
     {
         PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 1;
         ganhouSom.Play();
-        playerAC.SetTrigger(animatorWon);
+		playerAnimations.playerAC.SetTrigger(playerAnimations.animatorWon);
 
         PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 1;
 
@@ -435,16 +380,18 @@ public class PlayerMovement : MonoBehaviour
 	{
         if (dir)
         {
-            player.transform.rotation = Quaternion.Euler(0, 90, 0);
-            carro.transform.rotation = Quaternion.Euler(0, 90, 0);
-            pipa.transform.rotation = Quaternion.Euler(0, 90, 0);
-        }
+			Quaternion direction = Quaternion.Euler(0, 90, 0);
+			player.transform.rotation = direction;
+            carro.transform.rotation = direction;
+			pipa.transform.rotation = direction;
+		}
         else
         {
-            player.transform.rotation = Quaternion.Euler(0, -90, 0);
-            carro.transform.rotation = Quaternion.Euler(0, -90, 0);
-            pipa.transform.rotation = Quaternion.Euler(0, -90, 0);
-        }
+			Quaternion direction = Quaternion.Euler(0, 90, 0);
+			player.transform.rotation = direction;
+            carro.transform.rotation = direction;
+			pipa.transform.rotation = direction;
+		}
     }
 
 
@@ -480,10 +427,10 @@ public class PlayerMovement : MonoBehaviour
     IEnumerator LevouDogada()
     {
         levouDogadaSom.Play();
-        playerAC.SetBool(animatorDogada, true);
+		playerAnimations.playerAC.SetBool(playerAnimations.animatorDogada, true);
         levouDogada = true;
         yield  return new WaitForSeconds(2f);
-        playerAC.SetBool(animatorDogada, false);
+		playerAnimations.playerAC.SetBool(playerAnimations.animatorDogada, false);
         levouDogada = false;
     }
 
@@ -510,16 +457,5 @@ public class PlayerMovement : MonoBehaviour
 		
 	}
 
-	private void SetAnimations()
-	{
-		animatorIsWalking = Animator.StringToHash("isWalking");
-		animatorJump = Animator.StringToHash("Jump");
-		animatorUp = Animator.StringToHash("Up");
-		animatorFalling = Animator.StringToHash("Falling");
-		animatorOnFloor = Animator.StringToHash("onFloor");
-		animatorDogada = Animator.StringToHash("Dogada");
-		animatorWon = Animator.StringToHash("Won");
-		animatorLost = Animator.StringToHash("Lost");
-	}
 
 }

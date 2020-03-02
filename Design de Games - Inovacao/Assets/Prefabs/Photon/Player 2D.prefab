@@ -1023,6 +1023,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7430412753401574263}
   - component: {fileID: 3356511894367029047}
+  - component: {fileID: 9030307873400832875}
   - component: {fileID: 8156258575323302846}
   - component: {fileID: 7430412753401574218}
   - component: {fileID: 7430412753401574261}
@@ -1102,9 +1103,6 @@ MonoBehaviour:
   perdeuSom: {fileID: 0}
   levouDogadaSom: {fileID: 0}
   ganhouSom: {fileID: 0}
-  playerAC: {fileID: 7138322510822924470}
-  carroAC: {fileID: 0}
-  dogAC: {fileID: 0}
   efeitoPipa: {fileID: 0}
   efeitoCarro: {fileID: 0}
   carroActive: {fileID: 0}
@@ -1117,6 +1115,30 @@ MonoBehaviour:
   newPos: 0
   isCustomiza: 0
   dir: 0
+--- !u!114 &9030307873400832875
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7430412753401574262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33b15700a0d5c4645a243d48b9b98154, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerAC: {fileID: 7138322510822924470}
+  carroAC: {fileID: 4440257278182443838}
+  dogAC: {fileID: 0}
+  rb2d: {fileID: 0}
+  animatorIsWalking: 0
+  animatorJump: 0
+  animatorUp: 0
+  animatorFalling: 0
+  animatorOnFloor: 0
+  animatorDogada: 0
+  animatorWon: 0
+  animatorLost: 0
 --- !u!114 &8156258575323302846
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1519,6 +1541,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1616301296684715358}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &4440257278182443838 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: -6057140222963153312, guid: 9849a6c5a040cee40b6ff10e17d68654,
+    type: 3}
+  m_PrefabInstance: {fileID: 1616301296684715358}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5251440775560652502
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1526,11 +1554,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7430412753401574263}
     m_Modifications:
-    - target: {fileID: -927199367670048503, guid: 22f818d4f0fb0f049bac57d00240d716,
-        type: 3}
-      propertyPath: m_Name
-      value: Personagem T5
-      objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 22f818d4f0fb0f049bac57d00240d716,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1600,6 +1623,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 56.75076
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 22f818d4f0fb0f049bac57d00240d716,
+        type: 3}
+      propertyPath: m_Name
+      value: Personagem T5
       objectReference: {fileID: 0}
     - target: {fileID: -6057140222963153312, guid: 22f818d4f0fb0f049bac57d00240d716,
         type: 3}
@@ -1781,11 +1809,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7430412753401574263}
     m_Modifications:
-    - target: {fileID: -927199367670048503, guid: 84edc9d4981088b4690f18734ab9642a,
-        type: 3}
-      propertyPath: m_Name
-      value: Pipa Move_001
-      objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 84edc9d4981088b4690f18734ab9642a,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1840,6 +1863,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 84edc9d4981088b4690f18734ab9642a,
+        type: 3}
+      propertyPath: m_Name
+      value: Pipa Move_001
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 84edc9d4981088b4690f18734ab9642a, type: 3}
