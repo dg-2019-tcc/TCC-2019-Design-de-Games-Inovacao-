@@ -9,6 +9,10 @@ public class DestroyColetavel2D : MonoBehaviourPunCallbacks
 {
     PhotonView playerView;
     public static int index;
+	[HideInInspector]
+	public static float coletavel;
+	public AudioSource coletaSom;
+    
     public AudioSource coletaSom;
 
     public FloatVariable CurrentLevelIndex;
@@ -20,26 +24,17 @@ public class DestroyColetavel2D : MonoBehaviourPunCallbacks
         {
             if (CurrentLevelIndex.Value == 1 && index == 6)
             {
-                LevelManager.Instance.GoVitoria();
-            }
+                PlayerMovement jogador = other.GetComponent<PlayerMovement>();
+                jogador.PV.Owner.AddScore(1);
+				index++;
 
-            else if (CurrentLevelIndex.Value == 2)
-            {
-                LevelManager.Instance.GoVitoria();
-            }
-            else
-            {
-
-                coletaSom.Play();
-                playerView = other.GetComponent<PhotonView>();
-                if (playerView.IsMine == true)
-                {
-                    PlayerMovement jogador = other.GetComponent<PlayerMovement>();
-                    jogador.PV.Owner.AddScore(1);
-                    Destroy(gameObject);
-                    index++;
-                }
-            }
+				if (jogador.PV.Owner.GetScore() >= LevelManager.Instance.variavelquedizquantoscoletaveistemquepegar)
+				{
+					LevelManager.Instance.GoPodium();
+				}
+              
+				Destroy(gameObject);
+			}
         }
 
         

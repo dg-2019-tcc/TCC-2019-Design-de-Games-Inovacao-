@@ -12,10 +12,8 @@ public class PlayerMovement : MonoBehaviour
 
 	[Header("Coletáveis")]
 
-	[SerializeField]
-	private float numeroDeColetaveis;
-	[HideInInspector]
-	public static float coletavel;
+	
+	
     public bool ganhouCorrida;
     public bool perdeuCorrida;
 	[SerializeField]
@@ -99,25 +97,10 @@ public class PlayerMovement : MonoBehaviour
 
 	private bool menuCustom;
     public static bool acabou = false;
-    public bool isCustomiza;
 
 	private PlayerAnimations playerAnimations;
 
     public SwipeDirection dir;
-
-    /*private void Awake()
-    {
-        if (SceneManager.GetActiveScene().name == "Customiza")
-        {
-            isCustomiza = true;
-        }
-        else
-        {
-            isCustomiza = false;
-        }
-    }*/
-
-
 
     void Start()
 	{
@@ -163,7 +146,6 @@ public class PlayerMovement : MonoBehaviour
             playerAnimations.playerAC.SetTrigger(playerAnimations.animatorWon);
             ganhouSom.Play();
             transform.position = new Vector3(0, 0, 0);
-			coletavel = -1;
 			PV.Owner.SetScore(-1);
 		}
 
@@ -172,7 +154,6 @@ public class PlayerMovement : MonoBehaviour
 			playerAnimations.playerAC.SetTrigger(playerAnimations.animatorLost);
             transform.position = new Vector3(0, 0, 0);
             perdeuSom.Play();
-			coletavel = -1;
 			PV.Owner.SetScore(-1);
 		}
 
@@ -213,19 +194,11 @@ public class PlayerMovement : MonoBehaviour
 
         if (!menuCustom)
 		{
-			coletavel = PV.Owner.GetScore();
 			if (!PV.IsMine)
 			{
 				return;
 			}
 		}
-
-
-		if (coletavel >= numeroDeColetaveis)
-		{
-            ganhouCorrida = true;
-		}
-
 
 		if (joyStick != null)
 		{
@@ -238,9 +211,10 @@ public class PlayerMovement : MonoBehaviour
 				gameObject.GetComponent<PhotonView>().RPC("GiraPlayer", RpcTarget.All, rightDir);
 				if (!PhotonNetwork.InRoom)
 				{
-					player.transform.rotation = Quaternion.Euler(0, 90, 0);
-					carro.transform.rotation = Quaternion.Euler(0, 90, 0);
-					pipa.transform.rotation = Quaternion.Euler(0, 90, 0);
+					Quaternion direction = Quaternion.Euler(0, 90, 0);
+					player.transform.rotation = direction;
+					carro.transform.rotation = direction;
+					pipa.transform.rotation = direction;
 				}
 
 			}
@@ -253,9 +227,10 @@ public class PlayerMovement : MonoBehaviour
 				gameObject.GetComponent<PhotonView>().RPC("GiraPlayer", RpcTarget.All, rightDir);
 				if (!PhotonNetwork.InRoom)
 				{
-					player.transform.rotation = Quaternion.Euler(0, -90, 0);
-					carro.transform.rotation = Quaternion.Euler(0, -90, 0);
-					pipa.transform.rotation = Quaternion.Euler(0, -90, 0);
+					Quaternion direction = Quaternion.Euler(0, -90, 0);
+					player.transform.rotation = direction;
+					carro.transform.rotation = direction;
+					pipa.transform.rotation = direction;
 				}
 			}
 
@@ -445,7 +420,6 @@ public class PlayerMovement : MonoBehaviour
                 StopCoroutine(Venceu());
             }
 		}
-		coletavel = -1;
 		PV.Owner.SetScore(-1);
         ganhouCorrida = false;
 		yield return new WaitForSeconds(delayForWinScreen);
