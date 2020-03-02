@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class PlayerAnimations : MonoBehaviour
 {
@@ -26,7 +27,14 @@ public class PlayerAnimations : MonoBehaviour
     {
 		playerMovement = GetComponent<PlayerMovement>();
 		SetAnimations();
-    }
+
+		if ((int)PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] == 1)
+		{
+			var coroa = PhotonNetwork.Instantiate("Coroa", new Vector3(0, 0, 0), new Quaternion(0, 0, 0, 0));
+			coroa.transform.parent = transform;
+		}
+
+	}
 
     // Update is called once per frame
     void FixedUpdate()
@@ -72,4 +80,5 @@ public class PlayerAnimations : MonoBehaviour
 		dogAC.SetBool(animatorIsWalking, state);
 		carroAC.SetBool(animatorIsWalking, state);
 	}
+
 }

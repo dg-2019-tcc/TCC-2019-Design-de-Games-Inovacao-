@@ -13,7 +13,6 @@ public class DestroyColetavel2D : MonoBehaviourPunCallbacks
 	public static float coletavel;
 	public AudioSource coletaSom;
     
-    public AudioSource coletaSom;
 
     public FloatVariable CurrentLevelIndex;
 
