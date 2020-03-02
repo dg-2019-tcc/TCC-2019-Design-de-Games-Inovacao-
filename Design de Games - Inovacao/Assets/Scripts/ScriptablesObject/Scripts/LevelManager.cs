@@ -31,7 +31,7 @@ public class LevelManager : GameManager
     }
 
     [PunRPC]
-     void GoVitoria()
+     public void GoVitoria()
     {
         PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 1;
         CurrentLevelIndex.Value = 3;
