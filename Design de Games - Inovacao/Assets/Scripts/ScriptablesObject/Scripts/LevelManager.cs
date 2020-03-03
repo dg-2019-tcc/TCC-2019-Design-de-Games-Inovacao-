@@ -10,7 +10,7 @@ public class LevelManager : GameManager
 
     public FloatVariable CurrentLevelIndex;
 
-    public int totalPoints;
+    public int coletaMax = 7;
     
 
 

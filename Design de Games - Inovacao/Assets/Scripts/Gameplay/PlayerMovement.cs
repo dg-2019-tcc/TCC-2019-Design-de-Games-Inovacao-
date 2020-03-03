@@ -140,7 +140,7 @@ public class PlayerMovement : MonoBehaviour
 			rb2d.isKinematic = true;
 		}
 
-		if (SceneManager.GetActiveScene().name == "TelaVitoria" && (int)PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] == 1)
+		/*if (SceneManager.GetActiveScene().name == "TelaVitoria" && (int)PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] == 1)
 		{
 			FindObjectOfType<Coroa>().ganhador = transform;
             playerAnimations.playerAC.SetTrigger(playerAnimations.animatorWon);
@@ -155,7 +155,7 @@ public class PlayerMovement : MonoBehaviour
             transform.position = new Vector3(0, 0, 0);
             perdeuSom.Play();
 			PV.Owner.SetScore(-1);
-		}
+		}*/
 
         PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 0;
 		gameObject.GetComponent<PhotonView>().RPC("ZeraPontuacao", RpcTarget.All);

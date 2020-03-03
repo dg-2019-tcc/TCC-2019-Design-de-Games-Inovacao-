@@ -32,7 +32,8 @@ public class PlayerAnimations : MonoBehaviour
 		{
 			var coroa = PhotonNetwork.Instantiate("Coroa", new Vector3(0, 0, 0), new Quaternion(0, 0, 0, 0));
 			coroa.transform.parent = transform;
-		}
+            playerAC.SetTrigger(animatorWon);
+        }
 
 	}
 

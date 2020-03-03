@@ -12,37 +12,28 @@ public class DestroyColetavel2D : MonoBehaviourPunCallbacks
 	[HideInInspector]
 	public static float coletavel;
 	public AudioSource coletaSom;
-    
 
-    public FloatVariable CurrentLevelIndex;
 
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
-            if (CurrentLevelIndex.Value == 1 && index == 6)
-            {
-                PlayerMovement jogador = other.GetComponent<PlayerMovement>();
-                jogador.PV.Owner.AddScore(1);
-				index++;
+            PlayerMovement jogador = other.GetComponent<PlayerMovement>();
+            jogador.PV.Owner.AddScore(1);
+            index++;
 
-				if (jogador.PV.Owner.GetScore() >= LevelManager.Instance.variavelquedizquantoscoletaveistemquepegar)
-				{
-					LevelManager.Instance.GoPodium();
-				}
-              
-				Destroy(gameObject);
-			}
+            if (/*jogador.PV.Owner.GetScore()*/index >= LevelManager.Instance.coletaMax)
+            {
+                PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 1;
+                LevelManager.Instance.GoPodium();
+            }
+
+
+            Destroy(gameObject);
+
         }
 
-        
+
     }
-
-	void Coleta()
-	{
-		Destroy(gameObject);
-		index++;
-	}
-
 }
