@@ -76,9 +76,11 @@ public class DogController : MonoBehaviour
 
         if (poderEstaAtivo == false)//efeitoCarro.ativa.Value == false || efeitoPipa.ativa.Value == false)
         {
-
+            efeitoPipa.effectVar = 0;
+            efeitoCarro.effectTime = 0;
             pipaSom.Stop();
             carroSom.Stop();
+            PV.Controller.CustomProperties["dogValue"] = true;
             gameObject.GetComponent<PhotonView>().RPC("DesativaPowerUps", RpcTarget.All);
         }
 
@@ -128,6 +130,7 @@ public class DogController : MonoBehaviour
         {
             if (efeitoCarro.ativa.Value == false && efeitoPipa.ativa.Value == false)
             {
+                efeitoPipa.effectVar = 8;
                 StartCoroutine(efeitoPipa.Enumerator(this));
                 gameObject.GetComponent<PhotonView>().RPC("Pipa", RpcTarget.All);
                 hitTotemPipa.Value = false;
@@ -138,6 +141,7 @@ public class DogController : MonoBehaviour
         {
             if (efeitoCarro.ativa.Value == false && efeitoPipa.ativa.Value == false)
             {
+                efeitoCarro.effectTime = 6;
                 StartCoroutine(efeitoCarro.Enumerator(this));
                 gameObject.GetComponent<PhotonView>().RPC("Carro", RpcTarget.All);
                 hitTotemCarro.Value = false;
