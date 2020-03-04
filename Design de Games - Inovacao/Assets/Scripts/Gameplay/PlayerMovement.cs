@@ -63,8 +63,6 @@ public class PlayerMovement : MonoBehaviour
 
 	[HideInInspector]
 	public PhotonView PV;
-	//[SerializeField]
-	//private GameObject identificador;
 
 	[Header("Camera Manager")]
 	public CameraManager cameraManager;
@@ -128,7 +126,6 @@ public class PlayerMovement : MonoBehaviour
 
 		if (PV.IsMine || menuCustom)
 		{
-			//identificador.SetActive(true);
 			cameraManager.SendMessage("ActivateCamera", true);
 			PV.Owner.SetScore(0);
 			rb2d.gravityScale = 0.7f;
