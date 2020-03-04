@@ -10,6 +10,7 @@ public class CamLookaheadAim : MonoBehaviour
 	public GameObject cameraMidpoint;
 
 	private Vector2 aimPos;
+	protected Joystick joyStick;
 
 	[Header ("Distância para visão")]
 	public float distance;
@@ -20,6 +21,7 @@ public class CamLookaheadAim : MonoBehaviour
 	{
 		player = transform.parent.transform;
 		playerScript = player.GetComponent<PlayerMovement>();
+		joyStick = FindObjectOfType<Joystick>();
 		aimPos = new Vector2(distance, aimPos.y);
 		//cameraConfiner = playerScript.cameraManager.CC.gameObject;
 		cameraMidpoint = GameObject.Find("CameraMidpoint");
@@ -30,7 +32,7 @@ public class CamLookaheadAim : MonoBehaviour
 	private void Update()
 	{
 		gameObject.transform.position = new Vector3(Mathf.Lerp(gameObject.transform.position.x, player.position.x + aimPos.x, velocidade),
-														Mathf.Lerp(player.position.y, cameraMidpoint.transform.position.y, deltaAltura),
+														Mathf.Lerp(player.position.y, cameraMidpoint.transform.position.y + joyStick.Vertical*2, deltaAltura) ,
 														gameObject.transform.position.z);
 
 

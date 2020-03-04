@@ -44,7 +44,7 @@ public class PlayerMovement : MonoBehaviour
 	[Header("Canvas")]
 
 	[SerializeField]
-	protected Joystick joyStick;
+	public Joystick joyStick;
     public GameObject jumpButton;
     private Image jumpImage;
 	protected FixedButton fixedButton;
