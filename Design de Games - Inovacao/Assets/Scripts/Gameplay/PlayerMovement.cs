@@ -362,7 +362,7 @@ public class PlayerMovement : MonoBehaviour
 		}
         else
         {
-			Quaternion direction = Quaternion.Euler(0, 90, 0);
+			Quaternion direction = Quaternion.Euler(0, -90, 0);
 			player.transform.rotation = direction;
             carro.transform.rotation = direction;
 			pipa.transform.rotation = direction;
