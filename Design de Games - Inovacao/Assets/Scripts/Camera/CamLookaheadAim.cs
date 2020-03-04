@@ -17,6 +17,8 @@ public class CamLookaheadAim : MonoBehaviour
 	public float deltaAltura;
 	public float velocidade;
 
+    private float verticalCamPos;
+
 	private void Start()
 	{
 		player = transform.parent.transform;
@@ -31,8 +33,18 @@ public class CamLookaheadAim : MonoBehaviour
 
 	private void Update()
 	{
+        if(joyStick.Vertical >= 0.9 || joyStick.Vertical <= -0.9)
+        {
+            verticalCamPos = joyStick.Vertical * 3;
+        }
+
+        else
+        {
+            verticalCamPos = 0;
+        }
+
 		gameObject.transform.position = new Vector3(Mathf.Lerp(gameObject.transform.position.x, player.position.x + aimPos.x, velocidade),
-														Mathf.Lerp(player.position.y, cameraMidpoint.transform.position.y + joyStick.Vertical*2, deltaAltura) ,
+														Mathf.Lerp(player.position.y, cameraMidpoint.transform.position.y + verticalCamPos, deltaAltura) ,
 														gameObject.transform.position.z);
 
 
