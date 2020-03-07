@@ -41,6 +41,7 @@ public class PlataformaManager : MonoBehaviour
         if(col.CompareTag("GroundCheck") && joyStick.Vertical <= -0.5 && jump.Value || Input.GetKey(KeyCode.S) && jump.Value)
         {
             turnPlataforma = true;
+			jump.Value = false;
         }
     }
 

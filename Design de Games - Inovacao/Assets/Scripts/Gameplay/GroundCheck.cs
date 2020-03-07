@@ -12,6 +12,7 @@ public class GroundCheck : MonoBehaviour
     public Rigidbody2D playerRB;
 
     public BoolVariable canJump;
+	public BoolVariable jump;
 
     public AudioSource caiuSom;
 
@@ -25,7 +26,8 @@ public class GroundCheck : MonoBehaviour
     void Start()
     {
         player = gameObject.GetComponentInParent<PlayerMovement>();
-    }
+		jump = Resources.Load<BoolVariable>("Jump");
+	}
 
 
 
@@ -70,6 +72,7 @@ public class GroundCheck : MonoBehaviour
             playerAC.SetBool("isGrounded", false);
             playerAC.SetBool("onFloor", false);
             canJump.Value = false;
+			jump.Value = false;
         }
     }
 }
