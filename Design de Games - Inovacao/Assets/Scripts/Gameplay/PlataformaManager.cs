@@ -7,6 +7,8 @@ public class PlataformaManager : MonoBehaviour
     private PlatformEffector2D effector;
 
     public Joystick joyStick;
+	public BoolVariable jump;
+	
 
     public bool turnPlataforma;
 
@@ -15,6 +17,8 @@ public class PlataformaManager : MonoBehaviour
         effector = GetComponent<PlatformEffector2D>();
 
         joyStick = FindObjectOfType<Joystick>();
+
+		jump = Resources.Load<BoolVariable>("Jump");
     }
 
     private void Update()
@@ -30,9 +34,11 @@ public class PlataformaManager : MonoBehaviour
         }
     }
 
-    void OnTriggerStay2D(Collider2D col)
+	
+
+	void OnTriggerStay2D(Collider2D col)
     {
-        if(col.CompareTag("GroundCheck") && joyStick.Vertical <= -0.5 || Input.GetKeyDown(KeyCode.S))
+        if(col.CompareTag("GroundCheck") && joyStick.Vertical <= -0.5 && jump.Value || Input.GetKey(KeyCode.S) && jump.Value)
         {
             turnPlataforma = true;
         }

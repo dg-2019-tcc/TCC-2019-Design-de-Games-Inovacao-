@@ -27,7 +27,7 @@ public class PlayerMovement : MonoBehaviour
     public GameObject carro;
     public GameObject pipa;
 	private Rigidbody2D rb2d;
-	public bool jump;
+	public BoolVariable jump;
 	public Transform groundCheck;
 	public bool grounded;
 	public bool levouDogada;
@@ -289,19 +289,19 @@ public class PlayerMovement : MonoBehaviour
 
 
 
-        if (jump == true && grounded == true && canJump.Value == true && acabou == false)
+        if (jump.Value == true && grounded == true && canJump.Value == true && acabou == false && (joyStick.Vertical > -0.5 || !Input.GetKey(KeyCode.S)))
 		{
 			playerAnimations.playerAC.SetTrigger(playerAnimations.animatorJump);
 			puloAudioEvent.Play(puloSom);
 			rb2d.AddForce(new Vector2(0, stats.jumpForce.Value), ForceMode2D.Impulse);
-			jump = false;
+			jump.Value = false;
 
 
         }
 
         else
         {
-            jump = false;
+            jump.Value = false;
         }
 
 
@@ -382,7 +382,7 @@ public class PlayerMovement : MonoBehaviour
             if (touch.pressure == 1f && touch.position.x > Screen.width / 2 && canJump.Value == true)
             {
                     // Finger 1 is touching! (remember, we count from 0)
-                    jump = true;
+                    jump.Value = true;
                 DogController.poderEstaAtivo = false;
             }
 
@@ -390,7 +390,7 @@ public class PlayerMovement : MonoBehaviour
 
 #if UNITY_EDITOR
 		// Finger 1 is touching! (remember, we count from 0)
-		jump = true;
+		jump.Value = true;
 		DogController.poderEstaAtivo = false;
 #endif
 
