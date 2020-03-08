@@ -6,19 +6,35 @@ public class PortaManager : MonoBehaviour
 {
 	public string qualPorta;
 
-	public GameObject ButtonJogarCorrida;
-	public GameObject ButtonJogarColeta;
+	public bool ButtonJogarCorrida;
+	public bool ButtonJogarColeta;
 	public GameObject ButtonRoupa;
+
+    public DelayStartLobbyController lobbyController;
+
+    public Joystick joy;
 
 	private void Start()
 	{
-		ButtonJogarCorrida.SetActive(false);
-		ButtonJogarColeta.SetActive(false);
-		ButtonRoupa.SetActive(false);
-
+        joy = FindObjectOfType<Joystick>();
+        ButtonRoupa.SetActive(false);
 	}
 
-	private void OnTriggerEnter2D(Collider2D collision)
+    private void Update()
+    {
+        if (joy.Vertical >= 0.5f && ButtonJogarCorrida == true)
+        {
+            lobbyController.DelayStart("Corrida Blocada");
+            ButtonJogarCorrida = false;
+        }
+        if (joy.Vertical >= 0.5f && ButtonJogarColeta == true)
+        {
+            lobbyController.DelayStart("Fase01Prototipo");
+            ButtonJogarColeta = false;
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
 	{
 		if (collision.CompareTag("Player")){
 			switch (qualPorta)
@@ -27,15 +43,15 @@ public class PortaManager : MonoBehaviour
 					break;
 
 				case "Corrida":
-					ButtonJogarCorrida.SetActive(true);
+                    ButtonJogarCorrida = true;
 					break;
 
 				case "Coleta":
-					ButtonJogarColeta.SetActive(true);
+                    ButtonJogarColeta = true;
 					break;
 
 				case "Customizar":
-					ButtonRoupa.SetActive(true);
+                    ButtonRoupa.SetActive(true);
 					break;
 			}
 
@@ -52,19 +68,18 @@ public class PortaManager : MonoBehaviour
 					break;
 
 				case "Corrida":
-					ButtonJogarCorrida.SetActive(false);
+					ButtonJogarCorrida = false;
 					break;
 
 				case "Coleta":
-					ButtonJogarColeta.SetActive(false);
+                    ButtonJogarColeta = false;
 					break;
 
 				case "Customizar":
-					ButtonRoupa.SetActive(false);
+                    ButtonRoupa.SetActive(false);
 					break;
 			}
 
 		}
 	}
-
 }

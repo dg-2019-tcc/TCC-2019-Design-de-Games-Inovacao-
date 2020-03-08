@@ -101,7 +101,7 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
         //PhotonNetwork.JoinRandomRoom(expectedCustomRoomProperties, (byte)RoomSize);        
     }
 
-	private IEnumerator StartGamemode(string gameMode)
+	public IEnumerator StartGamemode(string gameMode)
 	{
 
 		switch (gameMode)

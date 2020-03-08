@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.92967874, g: 0.77323, b: 0.71038127, a: 1}
+  m_IndirectSpecularColor: {r: 0.9303454, g: 0.7731999, b: 0.7105082, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -237,12 +237,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 4943447918325397739}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1299219093 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4943447919578413694, guid: 81bb1786957ccda438fccd0238f00cd1,
-    type: 3}
-  m_PrefabInstance: {fileID: 4943447918325397739}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1496374521 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4943447919247041554, guid: 81bb1786957ccda438fccd0238f00cd1,
@@ -419,48 +413,63 @@ PrefabInstance:
     - target: {fileID: 2397957983837989283, guid: ad7cc3a67b66e20468169031ac7ec256,
         type: 3}
       propertyPath: ButtonJogarCorrida
-      value: 
-      objectReference: {fileID: 1853988115}
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2397957983837989283, guid: ad7cc3a67b66e20468169031ac7ec256,
         type: 3}
       propertyPath: ButtonJogarColeta
-      value: 
-      objectReference: {fileID: 1853988115}
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2397957983837989283, guid: ad7cc3a67b66e20468169031ac7ec256,
         type: 3}
       propertyPath: ButtonRoupa
       value: 
-      objectReference: {fileID: 1299219093}
+      objectReference: {fileID: 4943447918325397740}
+    - target: {fileID: 2397957983837989283, guid: ad7cc3a67b66e20468169031ac7ec256,
+        type: 3}
+      propertyPath: lobbyController
+      value: 
+      objectReference: {fileID: 1508584124}
     - target: {fileID: 2397957984010729338, guid: ad7cc3a67b66e20468169031ac7ec256,
         type: 3}
       propertyPath: ButtonJogarCorrida
-      value: 
-      objectReference: {fileID: 1068981283}
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2397957984010729338, guid: ad7cc3a67b66e20468169031ac7ec256,
         type: 3}
       propertyPath: ButtonJogarColeta
-      value: 
-      objectReference: {fileID: 1853988115}
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2397957984010729338, guid: ad7cc3a67b66e20468169031ac7ec256,
         type: 3}
       propertyPath: ButtonRoupa
       value: 
-      objectReference: {fileID: 1299219093}
+      objectReference: {fileID: 4943447918325397740}
+    - target: {fileID: 2397957984010729338, guid: ad7cc3a67b66e20468169031ac7ec256,
+        type: 3}
+      propertyPath: lobbyController
+      value: 
+      objectReference: {fileID: 1508584124}
     - target: {fileID: 2397957983136591785, guid: ad7cc3a67b66e20468169031ac7ec256,
         type: 3}
       propertyPath: ButtonJogarCorrida
-      value: 
-      objectReference: {fileID: 1853988115}
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2397957983136591785, guid: ad7cc3a67b66e20468169031ac7ec256,
         type: 3}
       propertyPath: ButtonJogarColeta
-      value: 
-      objectReference: {fileID: 1853988115}
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2397957983136591785, guid: ad7cc3a67b66e20468169031ac7ec256,
         type: 3}
       propertyPath: ButtonRoupa
       value: 
-      objectReference: {fileID: 1299219093}
+      objectReference: {fileID: 4943447918325397740}
+    - target: {fileID: 2397957983136591785, guid: ad7cc3a67b66e20468169031ac7ec256,
+        type: 3}
+      propertyPath: lobbyController
+      value: 
+      objectReference: {fileID: 1508584124}
     - target: {fileID: 2305728975500189476, guid: ad7cc3a67b66e20468169031ac7ec256,
         type: 3}
       propertyPath: viewIdField
@@ -484,6 +493,21 @@ PrefabInstance:
     - target: {fileID: 2707123452658918068, guid: ad7cc3a67b66e20468169031ac7ec256,
         type: 3}
       propertyPath: viewIdField
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5758026114996337474, guid: ad7cc3a67b66e20468169031ac7ec256,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5758026116207162145, guid: ad7cc3a67b66e20468169031ac7ec256,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5758026116529933294, guid: ad7cc3a67b66e20468169031ac7ec256,
+        type: 3}
+      propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -744,6 +768,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 81bb1786957ccda438fccd0238f00cd1, type: 3}
+--- !u!1 &4943447918325397740 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4943447917922293996, guid: 81bb1786957ccda438fccd0238f00cd1,
+    type: 3}
+  m_PrefabInstance: {fileID: 4943447918325397739}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6990902320676516750
 PrefabInstance:
   m_ObjectHideFlags: 0
