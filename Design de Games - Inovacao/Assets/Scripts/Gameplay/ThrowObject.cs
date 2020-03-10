@@ -30,10 +30,12 @@ public class ThrowObject : MonoBehaviour
 
     public static bool dirLeft;
 
+    public bool atirou;
+
     private void Awake()
     {
         photonView = gameObject.GetComponent<PhotonView>();
-        SwipeDetector.OnSwipe += SwipeDirection;
+       // SwipeDetector.OnSwipe += SwipeDirection;
 		cooldownDelta = 0;
 		EfeitoDeCooldown.SetActive(false);
 
@@ -44,10 +46,11 @@ public class ThrowObject : MonoBehaviour
     {
         if (photonView.IsMine == true)
         {
-            if (SwipeDetector.shoot == true && cooldownDelta <= 0)
+            if (/*SwipeDetector.shoot == true*/ atirou == true && cooldownDelta <= 0)
             {
                 StartCoroutine("StartTiro");
-                SwipeDetector.shoot = false;
+                atirou = false;
+                //SwipeDetector.shoot = false;
             }
             if (Input.GetKeyDown(KeyCode.Z))
             {
