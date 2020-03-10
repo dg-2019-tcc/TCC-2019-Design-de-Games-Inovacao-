@@ -100,6 +100,9 @@ public class PlayerMovement : MonoBehaviour
 
     public SwipeDirection dir;
 
+    public GameObject playerParado;
+    public GameObject playerAndando;
+
     void Start()
 	{
         jumpImage = jumpButton.GetComponent<Image>();
@@ -243,16 +246,22 @@ public class PlayerMovement : MonoBehaviour
             if(moveHorizontal >0.1f || moveHorizontal< -0.1f)
             {
                 playerAnimations.Walk(true);
+                playerAndando.SetActive(true);
+                playerParado.SetActive(false);
             }
 
 			else
 			{
 				playerAnimations.Walk(false);
-			}
+                playerAndando.SetActive(false);
+                playerParado.SetActive(true);
+            }
 			if (rb2d.velocity.y > 0)
 			{
 				canJump.Value = false;
-			}
+                playerAndando.SetActive(true);
+                playerParado.SetActive(false);
+            }
 		}
 
 
