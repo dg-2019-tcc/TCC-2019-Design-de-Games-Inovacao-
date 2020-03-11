@@ -6,9 +6,11 @@ public class PortaManager : MonoBehaviour
 {
 	public string qualPorta;
 
-	public bool ButtonJogarCorrida;
-	public bool ButtonJogarColeta;
+	public GameObject ButtonJogarCorrida;
+	public GameObject ButtonJogarColeta;
 	public GameObject ButtonRoupa;
+
+    public GameObject customButtons;
 
     public DelayStartLobbyController lobbyController;
 
@@ -22,16 +24,16 @@ public class PortaManager : MonoBehaviour
 
     private void Update()
     {
-        if (joy.Vertical >= 0.5f && ButtonJogarCorrida == true)
+        /*if (joy.Vertical >= 0.5f && ButtonJogarCorrida == true)
         {
             lobbyController.DelayStart("Corrida Blocada");
-            ButtonJogarCorrida = false;
+            //ButtonJogarCorrida = false;
         }
         if (joy.Vertical >= 0.5f && ButtonJogarColeta == true)
         {
             lobbyController.DelayStart("Fase01Prototipo");
-            ButtonJogarColeta = false;
-        }
+            //ButtonJogarColeta = false;
+        }*/
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -43,12 +45,12 @@ public class PortaManager : MonoBehaviour
 					break;
 
 				case "Corrida":
-                    ButtonJogarCorrida = true;
-					break;
+                    ButtonJogarCorrida.SetActive(true);
+                    break;
 
 				case "Coleta":
-                    ButtonJogarColeta = true;
-					break;
+                    ButtonJogarColeta.SetActive(true);
+                    break;
 
 				case "Customizar":
                     ButtonRoupa.SetActive(true);
@@ -68,15 +70,16 @@ public class PortaManager : MonoBehaviour
 					break;
 
 				case "Corrida":
-					ButtonJogarCorrida = false;
-					break;
+                    ButtonJogarCorrida.SetActive(false);
+                    break;
 
 				case "Coleta":
-                    ButtonJogarColeta = false;
-					break;
+                    ButtonJogarColeta.SetActive(false);
+                    break;
 
 				case "Customizar":
                     ButtonRoupa.SetActive(false);
+                    customButtons.SetActive(false);
 					break;
 			}
 
