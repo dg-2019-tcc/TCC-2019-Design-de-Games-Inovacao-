@@ -38,6 +38,11 @@ public class PlataformaManager : MonoBehaviour
 			joyStick = FindObjectOfType<Joystick>();
 		}
 
+        if( jumpButtonImage == null)
+        {
+            jumpButtonImage = GameObject.FindGameObjectWithTag("ArrowImage");
+        }
+
         if(turnPlataforma == true)
         {
             StartCoroutine("PlatDown");
