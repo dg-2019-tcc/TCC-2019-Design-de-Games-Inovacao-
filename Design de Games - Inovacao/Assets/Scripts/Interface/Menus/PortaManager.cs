@@ -22,7 +22,12 @@ public class PortaManager : MonoBehaviour
 
     private void Update()
     {
-        if (joy.Vertical >= 0.5f && ButtonJogarCorrida == true)
+		if (joy == null)
+		{
+			joy = FindObjectOfType<Joystick>();
+		}
+
+		if (joy.Vertical >= 0.5f && ButtonJogarCorrida == true)
         {
             lobbyController.DelayStart("Corrida Blocada");
             ButtonJogarCorrida = false;

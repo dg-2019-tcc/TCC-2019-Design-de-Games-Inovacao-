@@ -23,6 +23,12 @@ public class PlataformaManager : MonoBehaviour
 
     private void Update()
     {
+
+		if (joyStick == null)
+		{
+			joyStick = FindObjectOfType<Joystick>();
+		}
+
         if(turnPlataforma == true)
         {
             StartCoroutine("PlatDown");
