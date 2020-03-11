@@ -12,6 +12,7 @@ public class DogColetaTutorial : MonoBehaviour
 	public GameObject coletavel;
 
 	public bool dog;
+	private bool araki = true;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,11 +27,16 @@ public class DogColetaTutorial : MonoBehaviour
 		coletavel.SetActive(false);
     }
 
-    // Update is called once per frame
-   /* void Update()
-    {
-        
-    }*/
+	// Update is called once per frame
+	 void Update()
+	 {
+		if (dog && araki)
+		{
+			pv.Controller.CustomProperties["dogValue"] = false;
+			//dog = false;
+			araki = false;
+		}
+	 }
 
 
 	private void OnTriggerEnter2D(Collider2D collision)
