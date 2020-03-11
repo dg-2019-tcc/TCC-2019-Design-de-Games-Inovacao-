@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlataformaManager : MonoBehaviour
 {
@@ -8,6 +9,10 @@ public class PlataformaManager : MonoBehaviour
 
     public Joystick joyStick;
 	public BoolVariable jump;
+
+    public GameObject jumpButtonImage;
+    public Image arrowImage;
+
 	
 
     public bool turnPlataforma;
@@ -19,6 +24,10 @@ public class PlataformaManager : MonoBehaviour
         joyStick = FindObjectOfType<Joystick>();
 
 		jump = Resources.Load<BoolVariable>("Jump");
+
+        jumpButtonImage = GameObject.FindGameObjectWithTag("ArrowImage");
+
+        arrowImage = jumpButtonImage.GetComponent<Image>();
     }
 
     private void Update()
@@ -44,20 +53,36 @@ public class PlataformaManager : MonoBehaviour
 
 	void OnTriggerStay2D(Collider2D col)
     {
-        if(col.CompareTag("GroundCheck") && joyStick.Vertical <= -0.5 && jump.Value || Input.GetKey(KeyCode.S) && jump.Value)
+        if (col.CompareTag("GroundCheck") && joyStick.Vertical <= -0.8)
+        {
+            arrowImage.rectTransform.localRotation = Quaternion.Euler(0f, 0f, -90f);
+        }
+
+        if (col.CompareTag("GroundCheck") && joyStick.Vertical >= -0.8)
+        {
+            arrowImage.rectTransform.localRotation = Quaternion.Euler(0f, 0f, 90f);
+        }
+
+        if (col.CompareTag("GroundCheck") && joyStick.Vertical <= -0.5 && jump.Value || Input.GetKey(KeyCode.S) && jump.Value)
         {
             turnPlataforma = true;
 			jump.Value = false;
         }
     }
 
-    /*void OnTriggerExit2D(Collider2D col)
+
+    void OnTriggerExit2D(Collider2D col)
     {
         if (col.CompareTag("GroundCheck"))
         {
-            turnPlataforma = true;
+
+            arrowImage.rectTransform.localRotation = Quaternion.Euler(0f, 0f, 90f);
+
+            //turnPlataforma = true;
         }
-    }*/
+
+
+    }
 
 
     IEnumerator PlatDown()

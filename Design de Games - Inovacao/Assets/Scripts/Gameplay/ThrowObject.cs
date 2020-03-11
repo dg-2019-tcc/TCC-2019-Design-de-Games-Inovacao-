@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
+using UnityEngine.UI;
 
 
 public class ThrowObject : MonoBehaviour
@@ -13,11 +14,16 @@ public class ThrowObject : MonoBehaviour
 
     public static Vector2 direction;
 
+    public GameObject tiroButton;
+    private Image tiroImage;
+    public Image dogImage;
+
 	[Header("Cooldown em segundos")]
 	public float cooldown;
 	private float cooldownDelta;
 
 	public GameObject EfeitoDeCooldown;
+    
 
 	[HideInInspector]
     public PhotonView photonView;
@@ -38,6 +44,8 @@ public class ThrowObject : MonoBehaviour
        // SwipeDetector.OnSwipe += SwipeDirection;
 		cooldownDelta = 0;
 		EfeitoDeCooldown.SetActive(false);
+
+        tiroImage = tiroButton.GetComponent<Image>();
 
 	}
 
@@ -62,6 +70,7 @@ public class ThrowObject : MonoBehaviour
 			if (cooldown > 0)
 				cooldownDelta -= Time.deltaTime;
         }
+
     }
 
     public void Atirou()
@@ -94,10 +103,20 @@ public class ThrowObject : MonoBehaviour
 
 	IEnumerator CooldownEffect()
 	{
-		EfeitoDeCooldown.SetActive(true);
+        var tempColor = tiroImage.color;
+
+        tempColor.a = 0.1f;
+        tiroImage.color = tempColor;
+        dogImage.color = tempColor;
+
+        EfeitoDeCooldown.SetActive(true);
 		yield return new WaitForSeconds(cooldownDelta);
 		EfeitoDeCooldown.SetActive(false);
-	}
+
+        tempColor.a = 1f;
+        tiroImage.color = tempColor;
+        dogImage.color = tempColor;
+    }
 
     //Funciona somente na build, para conseguir atirar usando a tecla "Z"
 
