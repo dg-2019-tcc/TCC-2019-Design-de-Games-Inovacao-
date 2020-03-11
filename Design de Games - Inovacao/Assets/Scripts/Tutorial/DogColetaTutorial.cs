@@ -30,7 +30,7 @@ public class DogColetaTutorial : MonoBehaviour
 	// Update is called once per frame
 	 void Update()
 	 {
-		if (dog && araki)
+		if (dog && araki && (bool)pv.Controller.CustomProperties["dogValue"] == true)
 		{
 			pv.Controller.CustomProperties["dogValue"] = false;
 			//dog = false;
