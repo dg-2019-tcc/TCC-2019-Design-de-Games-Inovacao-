@@ -10,13 +10,19 @@ public class DogColetaTutorial : MonoBehaviour
 
 	private PhotonView pv;
 	public GameObject coletavel;
+
+	public bool dog;
     // Start is called before the first frame update
     void Start()
     {
 		// dogSpawn = gsp.PlayerInst.GetComponent<PhotonPlayer>().myAvatar.GetComponent<DogController>().Pet;
 		//		dogSpawn.Value = false;
-		pv = GetComponent<PhotonView>();
-		pv.Controller.CustomProperties["dogValue"] = false;
+		if (dog)
+		{
+			pv = GetComponent<PhotonView>();
+		
+			pv.Controller.CustomProperties["dogValue"] = false;
+		}
 		coletavel.SetActive(false);
     }
 
@@ -32,7 +38,10 @@ public class DogColetaTutorial : MonoBehaviour
 		//		dogSpawn.Value = true;
 		if (collision.CompareTag("Player"))
 		{
-			pv.Controller.CustomProperties["dogValue"] = true;
+			if (dog)
+			{
+				pv.Controller.CustomProperties["dogValue"] = true;
+			}
 			coletavel.SetActive(true);
 			Destroy(gameObject);
 		}
