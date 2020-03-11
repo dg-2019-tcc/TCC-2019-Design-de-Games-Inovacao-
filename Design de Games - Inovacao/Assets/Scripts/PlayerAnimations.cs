@@ -79,7 +79,7 @@ public class PlayerAnimations : MonoBehaviour
 	{
 		playerAC.SetBool(animatorIsWalking, state);
 		dogAC.SetBool(animatorIsWalking, state);
-		carroAC.SetBool(animatorIsWalking, state);
+		//carroAC.SetBool(animatorIsWalking, state);
 	}
 
 }

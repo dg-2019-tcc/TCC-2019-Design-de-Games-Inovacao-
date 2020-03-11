@@ -48,11 +48,11 @@ public class CamLookaheadAim : MonoBehaviour
 														gameObject.transform.position.z);
 
 
-		if (playerScript.rightDir)
+		if (PlayerMovement.rightDir)
 		{
 			aimPos = new Vector2(distance, aimPos.y);
 		}
-		if (playerScript.leftDir)
+		if (PlayerMovement.leftDir)
 		{
 			aimPos = new Vector2(-distance, aimPos.y);
 		}

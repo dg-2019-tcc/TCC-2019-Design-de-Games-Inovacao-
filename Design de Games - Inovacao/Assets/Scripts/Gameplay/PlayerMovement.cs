@@ -34,8 +34,8 @@ public class PlayerMovement : MonoBehaviour
 	public PlayerStat stats;
 	public FloatVariable playerSpeed;
 	public FloatVariable playerJump;
-	public bool leftDir;
-	public bool rightDir;
+	public static bool leftDir;
+	public static bool rightDir;
 	public BoolVariable canJump;
     static bool acabouPartida;
 
