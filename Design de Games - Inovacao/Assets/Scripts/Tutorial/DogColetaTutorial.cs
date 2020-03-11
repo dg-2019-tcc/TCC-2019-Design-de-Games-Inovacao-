@@ -34,7 +34,7 @@ public class DogColetaTutorial : MonoBehaviour
 		{
 			pv.Controller.CustomProperties["dogValue"] = true;
 			coletavel.SetActive(true);
-			Debug.Log("foi");
+			Destroy(gameObject);
 		}
 	}
 }
