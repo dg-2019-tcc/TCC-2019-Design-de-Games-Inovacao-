@@ -65,7 +65,7 @@ public class DogController : MonoBehaviour
 
     void Update()
     {
-		if (PV == null || !PV.IsMine)
+		if (PV == null || PV.IsMine)
 		{
 			
 
@@ -110,7 +110,7 @@ public class DogController : MonoBehaviour
 				transform.position = Vector3.MoveTowards(transform.position, target.position, step);
 			}
 
-			PV.Controller.CustomProperties["dogValue"] = dogAtivo.Value;
+			//PV.Controller.CustomProperties["dogValue"] = dogAtivo.Value;
 
 
 		}
