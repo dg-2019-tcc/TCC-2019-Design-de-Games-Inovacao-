@@ -32,7 +32,17 @@ public class ItemThrow : MonoBehaviour
     {
         Owner = owner;
 
-        shootDirection = ThrowObject.direction;
+        //shootDirection = ThrowObject.direction;
+
+        if(PlayerMovement.leftDir == true)
+        {
+            shootDirection = new Vector2(-0.5f, 0);
+        }
+
+        if(PlayerMovement.rightDir == true)
+        {
+            shootDirection = new Vector2(0.5f, 0);
+        }
 
         rb.velocity = shootDirection * bulletSpeed.Value;
         rb.position += rb.velocity;

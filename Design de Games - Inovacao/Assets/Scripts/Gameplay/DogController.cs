@@ -162,7 +162,7 @@ public class DogController : MonoBehaviour
         carroSom.Play();
         PV.Controller.CustomProperties["dogValue"] = false;
         carrinhoObj.SetActive(true);
-        playerModel.SetActive(false);
+        //playerModel.SetActive(false);
         poderEstaAtivo = true;
         tokenAudioEvent.Play(tokenSom);
         StartCoroutine(TempoParaDesativar(6f));
@@ -177,7 +177,7 @@ public class DogController : MonoBehaviour
         pipaSom.Play();
         PV.Controller.CustomProperties["dogValue"] = false;
         pipaObj.SetActive(true);
-        playerModel.SetActive(false);
+        //playerModel.SetActive(false);
         poderEstaAtivo = true;
         tokenAudioEvent.Play(tokenSom);
         StartCoroutine(TempoParaDesativar(6f));

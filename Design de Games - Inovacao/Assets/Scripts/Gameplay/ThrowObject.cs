@@ -48,7 +48,8 @@ public class ThrowObject : MonoBehaviour
         {
             if (/*SwipeDetector.shoot == true*/ atirou == true && cooldownDelta <= 0)
             {
-                StartCoroutine("StartTiro");
+                //StartCoroutine("StartTiro");
+                photonView.RPC("Shoot", RpcTarget.All);
                 atirou = false;
                 //SwipeDetector.shoot = false;
             }
@@ -62,6 +63,13 @@ public class ThrowObject : MonoBehaviour
 				cooldownDelta -= Time.deltaTime;
         }
     }
+
+    public void Atirou()
+    {
+        atirou = true;
+    }
+
+
 
     [PunRPC]
     void Shoot()
