@@ -298,7 +298,7 @@ public class PlayerMovement : MonoBehaviour
 
 
 
-        if (jump.Value == true && grounded == true && canJump.Value == true && acabou == false && (joyStick.Vertical > -0.5)) //|| !Input.GetKey(KeyCode.S)))
+        if (jump.Value == true && grounded == true && canJump.Value == true && acabou == false && (joyStick.Vertical > -0.5 && !Input.GetKey(KeyCode.S)))
 		{
 			playerAnimations.playerAC.SetTrigger(playerAnimations.animatorJump);
 			puloAudioEvent.Play(puloSom);
