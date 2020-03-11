@@ -12,7 +12,7 @@ public class SaveChecker : MonoBehaviour
 	{
 		//debug
 		//PlayerPrefs.SetInt("hasPlayed", 0);
-		if (PlayerPrefs.GetInt("hasPlayed") != 1){
+		if (true){//PlayerPrefs.GetInt("hasPlayed") != 1){
 			player.SetActive(false);
 			delayStartMenu.SetActive(false);
 			StartCoroutine("Showoff");
