@@ -18,7 +18,9 @@ public class GameSetupController : MonoBehaviour
 	public GameObject[] number;
 
 	private float allPlayersInSession;
-	private GameObject PlayerInst;
+
+	[HideInInspector]
+	public GameObject PlayerInst;
 
 
 	private void OnEnable()
@@ -27,17 +29,19 @@ public class GameSetupController : MonoBehaviour
 		{
 			GameSetupController.GS = this;
 		}
-	}
 
-	void Start()
-	{
-		
-		PlayerInst = (GameObject)PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PhotonPlayer"), 
+		PlayerInst = (GameObject)PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PhotonPlayer"),
 							spawnPoints[Random.Range(0, spawnPoints.Length - 1)].position, Quaternion.identity);
 		PlayerInst.SetActive(false);
 		gameObject.GetComponent<PhotonView>().RPC("SpawnPlayer", RpcTarget.All, allPlayersInSession);
-
 	}
+
+	/*void Start()
+	{
+		
+		
+
+	}*/
 
 	[PunRPC]
 	private void SpawnPlayer(float alterPlayerCount)
