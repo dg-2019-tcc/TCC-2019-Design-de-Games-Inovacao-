@@ -15,7 +15,7 @@ public class DelayStartRoomController : MonoBehaviourPunCallbacks
     [Header("Nome do menu de customização")]
 
     [SerializeField]
-    private string menuCustomizacao;
+    private string HUB;
 
 
 
@@ -39,9 +39,5 @@ public class DelayStartRoomController : MonoBehaviourPunCallbacks
     {
         SceneManager.LoadScene(SalaDeEsperaNomeDaCena);
 
-		if (SceneManager.GetActiveScene().name != menuCustomizacao)
-		{
-			gameObject.GetComponent<PhotonView>().RPC("TrocaSala", RpcTarget.MasterClient);
-		}
 	}    
 }

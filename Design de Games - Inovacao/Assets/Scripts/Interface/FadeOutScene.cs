@@ -15,6 +15,7 @@ public class FadeOutScene : MonoBehaviour
 
 	private void OnEnable()
 	{
+		image = GetComponent<Image>();
 		image.color = new Color(image.color.r, image.color.g, image.color.b, 0);
 	}
 

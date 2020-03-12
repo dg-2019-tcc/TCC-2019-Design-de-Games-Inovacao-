@@ -12,7 +12,7 @@ public class WolfMovement : MonoBehaviour
     public float allowedDistance = 5;
     public GameObject wolf;
 	private Rigidbody2D rb;
-    public float followSpeed;
+   // public float followSpeed;
     public RaycastHit shot;
     Animator wolfAnim;
 
@@ -56,12 +56,18 @@ public class WolfMovement : MonoBehaviour
     void Update()
     {
 		if (!pv.IsMine && !menuCustom) return;
-        
-        if (player != null && Vector3.Distance(transform.position, player.transform.position) > allowedDistance)
+
+		if (rb.velocity.y <= -1 && rb.velocity.y >= 1 && transform.position.y + allowedDistance/2 < player.transform.position.y)
+		{
+			rb.AddForce(Vector2.up * 500 * (player.transform.position.y - transform.position.y));
+		}
+
+		if (player != null && Vector3.Distance(transform.position, player.transform.position) > allowedDistance)
         {
-            followSpeed = 0.1f;
-            //wolfAnim.SetBool("isWalking", true);
-            transform.position = Vector3.MoveTowards(transform.position, player.transform.position, followSpeed);
+			//followSpeed = 0.1f;
+			//wolfAnim.SetBool("isWalking", true);
+			//  transform.position = Vector3.MoveTowards(transform.position, player.transform.position, followSpeed);
+			rb.velocity += new Vector2(player.transform.position.x - transform.position.x, player.transform.position.y - transform.position.y);//*followSpeed;
             dogAC.SetBool(dogWalking, true);
 
 
@@ -77,23 +83,20 @@ public class WolfMovement : MonoBehaviour
                 transform.rotation = Quaternion.Euler(0, 180, 0);
             }
 
-			if (rb.velocity.y == 0 && transform.position.y + allowedDistance < player.transform.position.y)
-			{
-				rb.AddForce(Vector2.up * 300);
-			}
+			
 			
 
 
 		}
 
 
-        else
+       /* else
         {
 
             followSpeed = 0;
             //wolfAnim.SetBool("isWalking", false);
 
-        }
+        }*/
 
 
 
