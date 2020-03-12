@@ -282,6 +282,8 @@ public class PlayerMovement : MonoBehaviour
 
             else if (rb2d.velocity.y < 0)
             {
+                
+
                 canJump.Value = false;
                 playerAndando.SetActive(true);
                 playerParado.SetActive(false);
@@ -332,13 +334,18 @@ public class PlayerMovement : MonoBehaviour
 
         }
 
-       /*else
+        if (jump.Value == true && rb2d.velocity.y < 0)
         {
-            jump.Value = false;
+            canDoubleJump = true;
         }
-		*/
 
-   
+        /*else
+         {
+             jump.Value = false;
+         }
+         */
+
+
 
     }
 
@@ -418,9 +425,12 @@ public class PlayerMovement : MonoBehaviour
             canDoubleJump = true;
         }
 
+
+
         else if (canDoubleJump == true && joyStick.Vertical > -0.8)
         {
             canDoubleJump = false;
+            jump.Value = false;
             Vector2 v = rb2d.velocity;
             v.y = 0;
             rb2d.velocity = v;
