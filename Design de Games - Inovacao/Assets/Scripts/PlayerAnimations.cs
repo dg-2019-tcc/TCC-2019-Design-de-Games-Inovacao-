@@ -28,7 +28,7 @@ public class PlayerAnimations : MonoBehaviour
 		playerMovement = GetComponent<PlayerMovement>();
 		SetAnimations();
 
-		if ((int)PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] == 1)
+		if (PhotonNetwork.InRoom && (int)PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] == 1)
 		{
 			var coroa = PhotonNetwork.Instantiate("Coroa", new Vector3(0, 0, 0), new Quaternion(0, 0, 0, 0));
 			coroa.transform.parent = transform;
