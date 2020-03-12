@@ -247,7 +247,7 @@ public class PlayerMovement : MonoBehaviour
 				}
 				else
 				{
-					gameObject.GetComponent<PhotonView>().RPC("GiraPlayer", RpcTarget.All, leftDir);
+					gameObject.GetComponent<PhotonView>().RPC("GiraPlayer", RpcTarget.All, rightDir);
 				}
 			}
 
