@@ -9,6 +9,7 @@ public class PlataformaManager : MonoBehaviour
 
     public Joystick joyStick;
 	public BoolVariable jump;
+    public BoolVariable turnPlat;
 
     public GameObject jumpButtonImage;
     public Image arrowImage;
@@ -20,7 +21,7 @@ public class PlataformaManager : MonoBehaviour
      void Start()
     {
         effector = GetComponent<PlatformEffector2D>();
-		jump = Resources.Load<BoolVariable>("Jump");
+        turnPlat = Resources.Load<BoolVariable>("TurnPlat");
 	}
 
     private void Update()
@@ -62,10 +63,10 @@ public class PlataformaManager : MonoBehaviour
 				arrowImage.rectTransform.localRotation = Quaternion.Euler(0f, 0f, 90f);
 			}
 
-			if (joyStick.Vertical <= -0.5 && jump.Value || Input.GetKey(KeyCode.S) && jump.Value)
+			if (joyStick.Vertical <= -0.5 && turnPlat.Value /*|| Input.GetKey(KeyCode.S) && jump.Value*/)
 			{
 				turnPlataforma = true;
-				jump.Value = false;
+				turnPlat.Value = false;
 			}
 		}
     }
