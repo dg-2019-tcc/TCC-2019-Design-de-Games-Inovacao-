@@ -131,10 +131,16 @@ public class PlayerMovement : MonoBehaviour
 			canvasSelf.SetActive(false);
 		}
 
-		if (PV.IsMine || menuCustom)
+		if (PV.IsMine)
 		{
 			cameraManager.SendMessage("ActivateCamera", true);
 			PV.Owner.SetScore(0);
+			gameObject.GetComponent<PhotonView>().RPC("ZeraPontuacao", RpcTarget.All);
+			rb2d.gravityScale = 0.7f;
+		}
+		else if (menuCustom)
+		{
+			cameraManager.SendMessage("ActivateCamera", true);
 			rb2d.gravityScale = 0.7f;
 		}
 
@@ -162,7 +168,7 @@ public class PlayerMovement : MonoBehaviour
 		}*/
 
         PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 0;
-		gameObject.GetComponent<PhotonView>().RPC("ZeraPontuacao", RpcTarget.All);
+		
 		oldPos = transform.position.x;
 		newPos = transform.position.x;
 	}
@@ -212,13 +218,17 @@ public class PlayerMovement : MonoBehaviour
 				leftDir = false;
 				ThrowObject.dirRight = false;
 
-				gameObject.GetComponent<PhotonView>().RPC("GiraPlayer", RpcTarget.All, rightDir);
+				
 				if (!PhotonNetwork.InRoom)
 				{
 					Quaternion direction = Quaternion.Euler(0, 90, 0);
 					player.transform.rotation = direction;
 					carro.transform.rotation = direction;
 					pipa.transform.rotation = direction;
+				}
+				else
+				{
+					gameObject.GetComponent<PhotonView>().RPC("GiraPlayer", RpcTarget.All, rightDir);
 				}
 
 			}
@@ -228,13 +238,16 @@ public class PlayerMovement : MonoBehaviour
 				leftDir = true;
 				rightDir = false;
 				ThrowObject.dirLeft = false;
-				gameObject.GetComponent<PhotonView>().RPC("GiraPlayer", RpcTarget.All, rightDir);
 				if (!PhotonNetwork.InRoom)
 				{
 					Quaternion direction = Quaternion.Euler(0, -90, 0);
 					player.transform.rotation = direction;
 					carro.transform.rotation = direction;
 					pipa.transform.rotation = direction;
+				}
+				else
+				{
+					gameObject.GetComponent<PhotonView>().RPC("GiraPlayer", RpcTarget.All, leftDir);
 				}
 			}
 
