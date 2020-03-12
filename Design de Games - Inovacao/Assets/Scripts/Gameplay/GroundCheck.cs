@@ -58,6 +58,7 @@ public class GroundCheck : MonoBehaviour
             {
                 jumpButton.SetActive(true);
                 canJump.Value = true;
+                jump.Value = true;
             }
         }
     }
@@ -72,7 +73,7 @@ public class GroundCheck : MonoBehaviour
             playerAC.SetBool("isGrounded", false);
             playerAC.SetBool("onFloor", false);
             canJump.Value = false;
-			jump.Value = false;
+			//jump.Value = false;
         }
     }
 }
