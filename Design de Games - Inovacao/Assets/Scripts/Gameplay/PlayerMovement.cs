@@ -38,14 +38,15 @@ public class PlayerMovement : MonoBehaviour
 	public static bool rightDir;
 	public BoolVariable canJump;
     static bool acabouPartida;
+    public bool canDoubleJump;
 
 
 
-	[Header("Canvas")]
+    [Header("Canvas")]
 
 	[SerializeField]
 	public Joystick joyStick;
-    public GameObject jumpButton;
+    public Button jumpButton;
     private Image jumpImage;
 	protected FixedButton fixedButton;
 	public GameObject canvasSelf;
@@ -103,8 +104,11 @@ public class PlayerMovement : MonoBehaviour
     public GameObject playerParado;
     public GameObject playerAndando;
 
+    public BoolVariable turnPlat;
+
     void Start()
 	{
+        turnPlat = Resources.Load<BoolVariable>("TurnPlat");
         jumpImage = jumpButton.GetComponent<Image>();
         acabou = false;
         acabouPartida = false;
@@ -275,6 +279,13 @@ public class PlayerMovement : MonoBehaviour
                 playerAndando.SetActive(true);
                 playerParado.SetActive(false);
             }
+
+            else if (rb2d.velocity.y < 0)
+            {
+                canJump.Value = false;
+                playerAndando.SetActive(true);
+                playerParado.SetActive(false);
+            }
 		}
 
 
@@ -294,17 +305,17 @@ public class PlayerMovement : MonoBehaviour
         }*/
         var tempColor = jumpImage.color;
 
-        if (canJump.Value == true || efeitoCarro.ativa.Value == true || efeitoPipa.ativa.Value == true)
+        if (canJump.Value == true || efeitoCarro.ativa.Value == true || efeitoPipa.ativa.Value == true || canDoubleJump == true)
         {
 
-            //jumpButton.SetActive(true);
+            jumpButton.interactable = true;
             tempColor.a = 1f;
             jumpImage.color = tempColor;
         }
 
         else
         {
-            //jumpButton.SetActive(false);
+            jumpButton.interactable = false;
             tempColor.a = 0.5f;
             jumpImage.color = tempColor;
         }
@@ -315,8 +326,8 @@ public class PlayerMovement : MonoBehaviour
 		{
 			playerAnimations.playerAC.SetTrigger(playerAnimations.animatorJump);
 			puloAudioEvent.Play(puloSom);
-			rb2d.AddForce(new Vector2(0, stats.jumpForce.Value), ForceMode2D.Impulse);
-			jump.Value = false;
+			//rb2d.AddForce(new Vector2(0, stats.jumpForce.Value), ForceMode2D.Impulse);
+			//jump.Value = false;
 
 
         }
@@ -395,30 +406,36 @@ public class PlayerMovement : MonoBehaviour
 
 
 
-	//Função para o botão de pulo
-	public void Jump()
-	{
-        foreach (Touch touch in Input.touches)
+    //Função para o botão de pulo
+    public void Jump()
+    {
+
+        if (grounded == true && joyStick.Vertical > -0.8)
         {
-
-            if (touch.pressure == 1f && touch.position.x > Screen.width / 2 && canJump.Value == true)
-            {
-                    // Finger 1 is touching! (remember, we count from 0)
-                    jump.Value = true;
-                DogController.poderEstaAtivo = false;
-            }
-
+            jump.Value = true;
+            DogController.poderEstaAtivo = false;
+            rb2d.AddForce(new Vector2(0, stats.jumpForce.Value), ForceMode2D.Impulse);
+            canDoubleJump = true;
         }
 
-#if UNITY_EDITOR
-		// Finger 1 is touching! (remember, we count from 0)
-		jump.Value = true;
-		DogController.poderEstaAtivo = false;
-#endif
+        else if (canDoubleJump == true && joyStick.Vertical > -0.8)
+        {
+            canDoubleJump = false;
+            Vector2 v = rb2d.velocity;
+            v.y = 0;
+            rb2d.velocity = v;
+            rb2d.AddForce(new Vector2(0, stats.jumpForce.Value), ForceMode2D.Impulse);
+        }
 
-	}
+        else if(joyStick.Vertical < -0.8)
+        {
+            turnPlat.Value = true;
+            canDoubleJump = true;
+            canJump.Value = false;
+        }
+    }
 
-    public void Terminou()
+        public void Terminou()
     {
         acabouPartida = true;
     }
