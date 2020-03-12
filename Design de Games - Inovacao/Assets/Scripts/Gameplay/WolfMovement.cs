@@ -40,7 +40,7 @@ public class WolfMovement : MonoBehaviour
 
 		menuCustom = false;
 
-		if (SceneManager.GetActiveScene().name == "MenuCustomizacao") menuCustom = true;
+		if (SceneManager.GetActiveScene().name == "HUB") menuCustom = true;
 
 
 		if (vitoria && (int)PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] == 1)
