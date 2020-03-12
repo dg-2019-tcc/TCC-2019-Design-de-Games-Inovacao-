@@ -119,7 +119,7 @@ public class PlayerMovement : MonoBehaviour
 
 		menuCustom = false;
 
-		if (SceneManager.GetActiveScene().name == "MenuCustomizacao") menuCustom = true;
+		if (SceneManager.GetActiveScene().name == "HUB") menuCustom = true;
 
 
 		if (desativaCanvas == true)

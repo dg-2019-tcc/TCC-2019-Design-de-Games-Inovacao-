@@ -26,6 +26,6 @@ public class SaveChecker : MonoBehaviour
 		yield return new WaitForSeconds(10);
 		player.SetActive(true);
 		delayStartMenu.SetActive(true);
-		PlayerPrefs.SetInt("hasPlayed", 1);
+		//PlayerPrefs.SetInt("hasPlayed", 1);
 	}
 }
