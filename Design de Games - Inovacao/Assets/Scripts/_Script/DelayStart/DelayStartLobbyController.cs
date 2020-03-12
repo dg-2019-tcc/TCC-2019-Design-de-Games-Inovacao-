@@ -106,7 +106,7 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
 
 		switch (gameMode)
 		{
-			case "Corrida Blocada":
+			case "Corrida":
 				
 				CorridaFade.SetActive(true);
 
@@ -118,7 +118,7 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
 				PhotonNetwork.JoinRandomRoom();
 				break;
 
-			case "Fase01Prototipo":
+			case "Coleta":
 				
 				ColetaFade.SetActive(true);
 

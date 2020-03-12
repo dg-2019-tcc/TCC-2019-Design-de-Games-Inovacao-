@@ -49,8 +49,8 @@ public class DelayStartWaitingRoomController : MonoBehaviourPunCallbacks
 
     [Header("Transições de cena")]
 
-    [SerializeField]
-    private string multiplayerSceneIndex;
+   // [SerializeField]
+   // private string multiplayerSceneIndex;
     [SerializeField]
     private string tutorialSceneIndex;
     [SerializeField]
