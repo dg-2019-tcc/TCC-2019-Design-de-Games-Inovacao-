@@ -20,28 +20,20 @@ public class PlataformaManager : MonoBehaviour
      void Start()
     {
         effector = GetComponent<PlatformEffector2D>();
-
-        joyStick = FindObjectOfType<Joystick>();
-
 		jump = Resources.Load<BoolVariable>("Jump");
-
-        jumpButtonImage = GameObject.FindGameObjectWithTag("ArrowImage");
-
-        arrowImage = jumpButtonImage.GetComponent<Image>();
-    }
+	}
 
     private void Update()
     {
 
-		if (joyStick == null)
+		if (jumpButtonImage == null)
 		{
 			joyStick = FindObjectOfType<Joystick>();
-		}
-
-        if( jumpButtonImage == null)
-        {
             jumpButtonImage = GameObject.FindGameObjectWithTag("ArrowImage");
+			if (jumpButtonImage == null) return;
+				arrowImage = jumpButtonImage.GetComponent<Image>();
         }
+
 
         if(turnPlataforma == true)
         {
@@ -58,21 +50,24 @@ public class PlataformaManager : MonoBehaviour
 
 	void OnTriggerStay2D(Collider2D col)
     {
-        if (col.CompareTag("GroundCheck") && joyStick.Vertical <= -0.8)
-        {
-            arrowImage.rectTransform.localRotation = Quaternion.Euler(0f, 0f, -90f);
-        }
+		if (col.CompareTag("GroundCheck")){
 
-        if (col.CompareTag("GroundCheck") && joyStick.Vertical >= -0.8)
-        {
-            arrowImage.rectTransform.localRotation = Quaternion.Euler(0f, 0f, 90f);
-        }
+			if (joyStick.Vertical <= -0.8)
+			{
+				arrowImage.rectTransform.localRotation = Quaternion.Euler(0f, 0f, -90f);
+			}
 
-        if (col.CompareTag("GroundCheck") && joyStick.Vertical <= -0.5 && jump.Value || Input.GetKey(KeyCode.S) && jump.Value)
-        {
-            turnPlataforma = true;
-			jump.Value = false;
-        }
+			if (joyStick.Vertical >= -0.8)
+			{
+				arrowImage.rectTransform.localRotation = Quaternion.Euler(0f, 0f, 90f);
+			}
+
+			if (joyStick.Vertical <= -0.5 && jump.Value || Input.GetKey(KeyCode.S) && jump.Value)
+			{
+				turnPlataforma = true;
+				jump.Value = false;
+			}
+		}
     }
 
 

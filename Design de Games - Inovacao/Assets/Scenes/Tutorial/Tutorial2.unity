@@ -370,6 +370,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   joyStick: {fileID: 0}
   jump: {fileID: 0}
+  jumpButtonImage: {fileID: 0}
+  arrowImage: {fileID: 0}
   turnPlataforma: 0
 --- !u!251 &70288779
 PlatformEffector2D:
@@ -1129,6 +1131,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   joyStick: {fileID: 0}
   jump: {fileID: 0}
+  jumpButtonImage: {fileID: 0}
+  arrowImage: {fileID: 0}
   turnPlataforma: 0
 --- !u!251 &286148736
 PlatformEffector2D:
@@ -2066,6 +2070,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   joyStick: {fileID: 0}
   jump: {fileID: 0}
+  jumpButtonImage: {fileID: 0}
+  arrowImage: {fileID: 0}
   turnPlataforma: 0
 --- !u!251 &525027939
 PlatformEffector2D:
@@ -2657,6 +2663,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac54ab11bd3a2194cbdbf03915783bc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dogSpawn: {fileID: 11400000, guid: 6f11dcbab6c351e40aaf777b45cd52e6, type: 2}
   coletavel: {fileID: 923909537434498100}
   dog: 1
 --- !u!1 &609032103
@@ -2738,6 +2745,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   joyStick: {fileID: 0}
   jump: {fileID: 0}
+  jumpButtonImage: {fileID: 0}
+  arrowImage: {fileID: 0}
   turnPlataforma: 0
 --- !u!251 &623636191
 PlatformEffector2D:
@@ -3707,6 +3716,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   joyStick: {fileID: 0}
   jump: {fileID: 0}
+  jumpButtonImage: {fileID: 0}
+  arrowImage: {fileID: 0}
   turnPlataforma: 0
 --- !u!251 &1014989167
 PlatformEffector2D:
@@ -3831,6 +3842,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   joyStick: {fileID: 0}
   jump: {fileID: 0}
+  jumpButtonImage: {fileID: 0}
+  arrowImage: {fileID: 0}
   turnPlataforma: 0
 --- !u!251 &1074111847
 PlatformEffector2D:
@@ -3912,6 +3925,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   joyStick: {fileID: 0}
   jump: {fileID: 0}
+  jumpButtonImage: {fileID: 0}
+  arrowImage: {fileID: 0}
   turnPlataforma: 0
 --- !u!251 &1098940663
 PlatformEffector2D:
@@ -4583,6 +4598,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   joyStick: {fileID: 0}
   jump: {fileID: 0}
+  jumpButtonImage: {fileID: 0}
+  arrowImage: {fileID: 0}
   turnPlataforma: 0
 --- !u!251 &1294999814
 PlatformEffector2D:
@@ -4881,6 +4898,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   joyStick: {fileID: 0}
   jump: {fileID: 0}
+  jumpButtonImage: {fileID: 0}
+  arrowImage: {fileID: 0}
   turnPlataforma: 0
 --- !u!251 &1411562139
 PlatformEffector2D:
@@ -6999,6 +7018,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   joyStick: {fileID: 0}
   jump: {fileID: 0}
+  jumpButtonImage: {fileID: 0}
+  arrowImage: {fileID: 0}
   turnPlataforma: 0
 --- !u!251 &2083941797
 PlatformEffector2D:
@@ -7514,6 +7535,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac54ab11bd3a2194cbdbf03915783bc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dogSpawn: {fileID: 0}
   coletavel: {fileID: 125772820}
   dog: 0
 --- !u!23 &951043551506317781
@@ -8695,6 +8717,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: Camera
       objectReference: {fileID: 0}
+    - target: {fileID: 3372553702974495689, guid: bc17408c5de03fe42bf27d7125208e61,
+        type: 3}
+      propertyPath: orthographic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3372553702974495689, guid: bc17408c5de03fe42bf27d7125208e61,
+        type: 3}
+      propertyPath: orthographic size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3372553702974495689, guid: bc17408c5de03fe42bf27d7125208e61,
+        type: 3}
+      propertyPath: far clip plane
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 3372553702974495689, guid: bc17408c5de03fe42bf27d7125208e61,
+        type: 3}
+      propertyPath: near clip plane
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 3372553702974495734, guid: bc17408c5de03fe42bf27d7125208e61,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -8749,26 +8791,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3372553702974495689, guid: bc17408c5de03fe42bf27d7125208e61,
-        type: 3}
-      propertyPath: orthographic
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3372553702974495689, guid: bc17408c5de03fe42bf27d7125208e61,
-        type: 3}
-      propertyPath: orthographic size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 3372553702974495689, guid: bc17408c5de03fe42bf27d7125208e61,
-        type: 3}
-      propertyPath: far clip plane
-      value: 5000
-      objectReference: {fileID: 0}
-    - target: {fileID: 3372553702974495689, guid: bc17408c5de03fe42bf27d7125208e61,
-        type: 3}
-      propertyPath: near clip plane
-      value: 0.1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bc17408c5de03fe42bf27d7125208e61, type: 3}

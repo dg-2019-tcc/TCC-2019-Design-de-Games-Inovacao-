@@ -6,7 +6,7 @@ using Photon.Pun;
 public class DogColetaTutorial : MonoBehaviour
 {
 	//	public GameSetupController gsp;
-	//	public BoolVariable dogSpawn;
+		public BoolVariable dogSpawn;
 
 	private PhotonView pv;
 	public GameObject coletavel;
@@ -22,7 +22,7 @@ public class DogColetaTutorial : MonoBehaviour
 		{
 			pv = GetComponent<PhotonView>();
 		
-			pv.Controller.CustomProperties["dogValue"] = false;
+			dogSpawn.Value = false;
 		}
 		coletavel.SetActive(false);
     }
@@ -30,9 +30,9 @@ public class DogColetaTutorial : MonoBehaviour
 	// Update is called once per frame
 	 void Update()
 	 {
-		if (dog && araki && (bool)pv.Controller.CustomProperties["dogValue"] == true)
+		if (dog && araki && dogSpawn.Value)
 		{
-			pv.Controller.CustomProperties["dogValue"] = false;
+			dogSpawn.Value = false;
 			//dog = false;
 			araki = false;
 		}
@@ -46,7 +46,7 @@ public class DogColetaTutorial : MonoBehaviour
 		{
 			if (dog)
 			{
-				pv.Controller.CustomProperties["dogValue"] = true;
+				dogSpawn.Value = true;
 			}
 			coletavel.SetActive(true);
 			Destroy(gameObject);

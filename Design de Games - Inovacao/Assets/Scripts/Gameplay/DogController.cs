@@ -47,7 +47,6 @@ public class DogController : MonoBehaviour
     public BoolVariable hitTotemPipa;
     public BoolVariable carroActive;
     public BoolVariable pipaActive;
-    //public BoolVariable dog;
 
     public Animator playerAC;
 
@@ -59,7 +58,8 @@ public class DogController : MonoBehaviour
         PV = gameObject.GetComponent<PhotonView>();
         efeitoCarro.ativa.Value = false;
         efeitoPipa.ativa.Value = false;
-        PV.Controller.CustomProperties["dogValue"] = true;
+		// PV.Controller.CustomProperties["dogValue"] = true;
+		dogAtivo.Value = true;
     }
 
 
@@ -67,7 +67,7 @@ public class DogController : MonoBehaviour
     {
 		if (PV == null || PV.IsMine)
 		{
-			
+
 
 			if (PlayerMovement.acabou == true)
 			{
@@ -77,30 +77,15 @@ public class DogController : MonoBehaviour
 			}
 
 
-			if (poderEstaAtivo == false)//efeitoCarro.ativa.Value == false || efeitoPipa.ativa.Value == false)
+			if (poderEstaAtivo == false)
 			{
 				efeitoPipa.effectVar = 0;
 				efeitoCarro.effectTime = 0;
 				pipaSom.Stop();
 				carroSom.Stop();
-				dogAtivo.Value = true;
+			//	dogAtivo.Value = true;
 				gameObject.GetComponent<PhotonView>().RPC("DesativaPowerUps", RpcTarget.All);
 			}
-
-
-
-			/*
-			if (efeitoCarro.ativa.Value == false)
-			{
-				carrinhoObj.SetActive(false);
-				Pet.SetActive(true);
-			}
-
-			if (efeitoPipa.ativa.Value == false)
-			{
-				pipaObj.SetActive(false);
-				Pet.SetActive(true);
-			}*/
 
 
 			if (hitTotemCarro.Value == true || hitTotemPipa.Value == true)
@@ -112,18 +97,20 @@ public class DogController : MonoBehaviour
 
 			//PV.Controller.CustomProperties["dogValue"] = dogAtivo.Value;
 
+			if (!dogAtivo.Value)
+			{
+				gameObject.GetComponent<PhotonView>().RPC("TransformaPet", RpcTarget.All, false);
+			}
+
+			else
+			{
+				gameObject.GetComponent<PhotonView>().RPC("TransformaPet", RpcTarget.All, true);
+			}
 
 		}
+		
 
-		if ((bool)PV.Controller.CustomProperties["dogValue"] == false)
-		{
-			gameObject.GetComponent<PhotonView>().RPC("TransformaPet", RpcTarget.All, false);
-		}
-
-		else
-		{
-			gameObject.GetComponent<PhotonView>().RPC("TransformaPet", RpcTarget.All, true);
-		}
+		
 	}
 
 
@@ -131,7 +118,7 @@ public class DogController : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (!PV.IsMine && PV != null) return;
-		if (!(bool)PV.Controller.CustomProperties["dogValue"]) return;
+		if (!dogAtivo.Value) return;
         if (collision.CompareTag("Pipa"))
         {
             if (efeitoCarro.ativa.Value == false && efeitoPipa.ativa.Value == false)
@@ -160,7 +147,7 @@ public class DogController : MonoBehaviour
     {
         carroActive.Value = true;
         carroSom.Play();
-        PV.Controller.CustomProperties["dogValue"] = false;
+        dogAtivo.Value = false;
         carrinhoObj.SetActive(true);
         //playerModel.SetActive(false);
         poderEstaAtivo = true;
@@ -175,7 +162,7 @@ public class DogController : MonoBehaviour
     {
         pipaActive.Value = true;
         pipaSom.Play();
-        PV.Controller.CustomProperties["dogValue"] = false;
+        dogAtivo.Value = false;
         pipaObj.SetActive(true);
         //playerModel.SetActive(false);
         poderEstaAtivo = true;
@@ -216,7 +203,7 @@ public class DogController : MonoBehaviour
     {
         yield return new WaitForSeconds(waitTime);
         poderEstaAtivo = false;
-        PV.Controller.CustomProperties["dogValue"] = true;
+        dogAtivo.Value = true;
     }
 
 	
