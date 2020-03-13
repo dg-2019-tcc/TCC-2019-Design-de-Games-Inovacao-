@@ -36,8 +36,8 @@ public class GroundCheck : MonoBehaviour
         if (col.CompareTag("Plataforma") || col.CompareTag("Dragao"))
         {
             player.grounded = true;
-            playerAC.SetBool("onFloor", true);
-            playerAC.ResetTrigger("Jump");
+            /*playerAC.SetBool("onFloor", true);
+            playerAC.ResetTrigger("Jump");*/
             caiuSom.Play();
             jumpButton.SetActive(true);
         }
@@ -48,9 +48,9 @@ public class GroundCheck : MonoBehaviour
     {
         if ((col.CompareTag("Plataforma") || col.CompareTag("Dragao")))
         {
-            playerAC.SetBool("isGrounded", true);
+            /*playerAC.SetBool("isGrounded", true);
             playerAC.SetBool("Falling", false);
-            playerAC.SetBool("onFloor", true);
+            playerAC.SetBool("onFloor", true);*/
             player.grounded = true;
             jumpCooldown += Time.deltaTime;
 
@@ -70,8 +70,8 @@ public class GroundCheck : MonoBehaviour
         { 
             jumpCooldown = 0;
             player.grounded = false;
-            playerAC.SetBool("isGrounded", false);
-            playerAC.SetBool("onFloor", false);
+            /*playerAC.SetBool("isGrounded", false);
+            playerAC.SetBool("onFloor", false);*/
             canJump.Value = false;
 			//jump.Value = false;
         }
