@@ -27,7 +27,7 @@ public class WinnerManager : MonoBehaviour
 		{
 			gameObject.GetComponent<PhotonView>().RPC("ZeraPontuacao", RpcTarget.All);
 
-			pv.Owner.SetScore(0);
+			pv.Controller.SetScore(0);
 		}
 	}
 
@@ -65,7 +65,7 @@ public class WinnerManager : MonoBehaviour
 	{
 		PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 1;
 		player.ganhouSom.Play();
-		player.playerAnimations.playerAC.SetTrigger(player.playerAnimations.animatorWon);
+		//player.playerAnimations.playerAC.SetTrigger(player.playerAnimations.animatorWon);
 
 		PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 1;
 
@@ -99,9 +99,10 @@ public class WinnerManager : MonoBehaviour
 	[PunRPC]
 	void ZeraPontuacao()
 	{
-		pv.Owner.SetScore(0);
+		pv.Controller.SetScore(0);
 	}
 
+	[PunRPC]
 	public void Terminou()
 	{
 		PlayerMovement.acabouPartida = true;
