@@ -43,7 +43,7 @@ public class ThrowObject : MonoBehaviour
         photonView = gameObject.GetComponent<PhotonView>();
        // SwipeDetector.OnSwipe += SwipeDirection;
 		cooldownDelta = 0;
-		EfeitoDeCooldown.SetActive(false);
+		//EfeitoDeCooldown.SetActive(false);
 
         tiroImage = tiroButton.GetComponent<Image>();
 
@@ -109,9 +109,9 @@ public class ThrowObject : MonoBehaviour
         tiroImage.color = tempColor;
         dogImage.color = tempColor;
 
-        EfeitoDeCooldown.SetActive(true);
+        //EfeitoDeCooldown.SetActive(true);
 		yield return new WaitForSeconds(cooldownDelta);
-		EfeitoDeCooldown.SetActive(false);
+		//EfeitoDeCooldown.SetActive(false);
 
         tempColor.a = 1f;
         tiroImage.color = tempColor;

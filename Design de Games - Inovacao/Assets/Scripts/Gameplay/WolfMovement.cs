@@ -23,7 +23,6 @@ public class WolfMovement : MonoBehaviour
 
 	private Vector3 oldPosition;
 
-    public Animator dogAC;
 	private int dogWalking;
 
 
@@ -48,7 +47,7 @@ public class WolfMovement : MonoBehaviour
 
 		if (!pv.IsMine && !menuCustom) rb.isKinematic = true;
 
-		dogWalking = Animator.StringToHash("isWalking");
+		//dogWalking = Animator.StringToHash("isWalking");
 	}
 
 
@@ -68,7 +67,6 @@ public class WolfMovement : MonoBehaviour
 			//wolfAnim.SetBool("isWalking", true);
 			//  transform.position = Vector3.MoveTowards(transform.position, player.transform.position, followSpeed);
 			rb.velocity += new Vector2(player.transform.position.x - transform.position.x, player.transform.position.y - transform.position.y);//*followSpeed;
-            dogAC.SetBool(dogWalking, true);
 
 
 
