@@ -48,7 +48,7 @@ public class DogController : MonoBehaviour
     public BoolVariable carroActive;
     public BoolVariable pipaActive;
 
-    public Animator playerAC;
+    //public Animator playerAC;
 
 
 
@@ -58,7 +58,7 @@ public class DogController : MonoBehaviour
         PV = gameObject.GetComponent<PhotonView>();
         efeitoCarro.ativa.Value = false;
         efeitoPipa.ativa.Value = false;
-		// PV.Controller.CustomProperties["dogValue"] = true;
+		PV.Controller.CustomProperties["dogValue"] = true;
 		dogAtivo.Value = true;
     }
 
@@ -95,7 +95,7 @@ public class DogController : MonoBehaviour
 				transform.position = Vector3.MoveTowards(transform.position, target.position, step);
 			}
 
-			//PV.Controller.CustomProperties["dogValue"] = dogAtivo.Value;
+			PV.Controller.CustomProperties["dogValue"] = dogAtivo.Value;
 
 			if (!dogAtivo.Value)
 			{

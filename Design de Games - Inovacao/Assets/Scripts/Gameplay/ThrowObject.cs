@@ -28,7 +28,7 @@ public class ThrowObject : MonoBehaviour
 	[HideInInspector]
     public PhotonView photonView;
 
-    public Animator playerAC;
+    //public Animator playerAC;
 
     public AudioSource tiroSom;
 
@@ -43,7 +43,7 @@ public class ThrowObject : MonoBehaviour
         photonView = gameObject.GetComponent<PhotonView>();
        // SwipeDetector.OnSwipe += SwipeDirection;
 		cooldownDelta = 0;
-		//EfeitoDeCooldown.SetActive(false);
+		EfeitoDeCooldown.SetActive(false);
 
         tiroImage = tiroButton.GetComponent<Image>();
 
@@ -96,7 +96,7 @@ public class ThrowObject : MonoBehaviour
 
     IEnumerator StartTiro()
     {
-        playerAC.SetTrigger("Atirou");
+        //playerAC.SetTrigger("Atirou");
         yield return new WaitForSeconds(1f);
         photonView.RPC("Shoot", RpcTarget.All);
     }
