@@ -10,17 +10,6 @@ using UnityEngine.UI;
 public class PlayerMovement : MonoBehaviour
 {
 
-	[Header("Coletáveis")]
-
-	
-	
-    public bool ganhouCorrida;
-    public bool perdeuCorrida;
-	[SerializeField]
-	private float delayForWinScreen;
-
-
-
     [Header("Movimentação física")]
 
 	public GameObject player;
@@ -37,7 +26,7 @@ public class PlayerMovement : MonoBehaviour
 	public static bool leftDir;
 	public static bool rightDir;
 	public BoolVariable canJump;
-    static bool acabouPartida;
+    static public bool acabouPartida;
     public bool canDoubleJump;
 
 
@@ -97,7 +86,7 @@ public class PlayerMovement : MonoBehaviour
 	private bool menuCustom;
     public static bool acabou = false;
 
-	private PlayerAnimations playerAnimations;
+	public PlayerAnimations playerAnimations;
 
     public SwipeDirection dir;
 
@@ -118,8 +107,9 @@ public class PlayerMovement : MonoBehaviour
 		PV = GetComponent<PhotonView>();
 		stats.speed = playerSpeed;
 		stats.jumpForce = playerJump;
-		playerAnimations = GetComponent<PlayerAnimations>();
-		playerAnimations.rb2d = rb2d;
+
+		//playerAnimations = GetComponent<PlayerAnimations>();
+		//playerAnimations.rb2d = rb2d;
 
 		menuCustom = false;
 
@@ -134,8 +124,6 @@ public class PlayerMovement : MonoBehaviour
 		if (PV.IsMine)
 		{
 			cameraManager.SendMessage("ActivateCamera", true);
-			PV.Owner.SetScore(0);
-			gameObject.GetComponent<PhotonView>().RPC("ZeraPontuacao", RpcTarget.All);
 			rb2d.gravityScale = 0.7f;
 		}
 		else if (menuCustom)
@@ -150,22 +138,6 @@ public class PlayerMovement : MonoBehaviour
 			rb2d.isKinematic = true;
 		}
 
-		/*if (SceneManager.GetActiveScene().name == "TelaVitoria" && (int)PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] == 1)
-		{
-			FindObjectOfType<Coroa>().ganhador = transform;
-            playerAnimations.playerAC.SetTrigger(playerAnimations.animatorWon);
-            ganhouSom.Play();
-            transform.position = new Vector3(0, 0, 0);
-			PV.Owner.SetScore(-1);
-		}
-
-        else if (SceneManager.GetActiveScene().name == "TelaVitoria" && (int)PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] == 0)
-        {
-			playerAnimations.playerAC.SetTrigger(playerAnimations.animatorLost);
-            transform.position = new Vector3(0, 0, 0);
-            perdeuSom.Play();
-			PV.Owner.SetScore(-1);
-		}*/
 
         PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 0;
 		
@@ -175,7 +147,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void LateUpdate()
     {
-
         transform.rotation = Quaternion.identity;
     }
 
@@ -185,29 +156,11 @@ public class PlayerMovement : MonoBehaviour
 
         if (acabouPartida == true) return;
 
-        if(LinhaDeChegada.changeRoom == true)
-        {
-			StartCoroutine(Venceu());
-		}
+              
 
-        if (ganhouCorrida)
-        {
-            GanhouCorrida();
-        }
-
-        if (perdeuCorrida)
-        {
-            PerdeuCorrida();
-        }
-
-        
-
-        if (!menuCustom)
+        if (!menuCustom && !PV.IsMine)
 		{
-			if (!PV.IsMine)
-			{
-				return;
-			}
+			return;
 		}
 
 		if (joyStick != null)
@@ -221,7 +174,7 @@ public class PlayerMovement : MonoBehaviour
 				
 				if (!PhotonNetwork.InRoom)
 				{
-					Quaternion direction = Quaternion.Euler(0, 90, 0);
+					Quaternion direction = Quaternion.Euler(0, 0, 0);
 					player.transform.rotation = direction;
 					carro.transform.rotation = direction;
 					pipa.transform.rotation = direction;
@@ -240,7 +193,7 @@ public class PlayerMovement : MonoBehaviour
 				ThrowObject.dirLeft = false;
 				if (!PhotonNetwork.InRoom)
 				{
-					Quaternion direction = Quaternion.Euler(0, -90, 0);
+					Quaternion direction = Quaternion.Euler(0, 180, 0);
 					player.transform.rotation = direction;
 					carro.transform.rotation = direction;
 					pipa.transform.rotation = direction;
@@ -257,19 +210,18 @@ public class PlayerMovement : MonoBehaviour
 			if (moveHorizontal != 0 && levouDogada == false && acabou == false)
 			{
 				rb2d.velocity = new Vector3(stats.speed.Value * moveHorizontal, rb2d.velocity.y, 0);
-				//playerAnimations.Walk(true);
 			}
 
             if(moveHorizontal >0.1f || moveHorizontal< -0.1f)
             {
-                playerAnimations.Walk(true);
+              //  playerAnimations.Walk(true);
                 playerAndando.SetActive(true);
                 playerParado.SetActive(false);
             }
 
 			else
 			{
-				playerAnimations.Walk(false);
+				//playerAnimations.Walk(false);
                 playerAndando.SetActive(false);
                 playerParado.SetActive(true);
             }
@@ -292,19 +244,6 @@ public class PlayerMovement : MonoBehaviour
 
 
 
-        // Pulo
-        //float moveVertical = joyStick.Vertical;
-        /*foreach (Touch touch in Input.touches)
-        {
-
-            if (touch.fingerId == 0 && touch.position.x > Screen.width / 2 && touch.phase != TouchPhase.Began)
-            {
-                Debug.Log("Pulo");
-                // Finger 1 is touching! (remember, we count from 0)
-                jump = true;
-            }
-
-        }*/
         var tempColor = jumpImage.color;
 
         if (canJump.Value == true || efeitoCarro.ativa.Value == true || efeitoPipa.ativa.Value == true || canDoubleJump == true)
@@ -326,10 +265,8 @@ public class PlayerMovement : MonoBehaviour
 
         if (jump.Value == true && grounded == true && canJump.Value == true && acabou == false && (joyStick.Vertical > -0.5 && !Input.GetKey(KeyCode.S)))
 		{
-			playerAnimations.playerAC.SetTrigger(playerAnimations.animatorJump);
+			//playerAnimations.playerAC.SetTrigger(playerAnimations.animatorJump);
 			puloAudioEvent.Play(puloSom);
-			//rb2d.AddForce(new Vector2(0, stats.jumpForce.Value), ForceMode2D.Impulse);
-			//jump.Value = false;
 
 
         }
@@ -339,72 +276,26 @@ public class PlayerMovement : MonoBehaviour
             canDoubleJump = true;
         }
 
-        /*else
-         {
-             jump.Value = false;
-         }
-         */
-
-
-
     }
 
 
-    [PunRPC]
-    void GanhouCorrida()
-    {
-        PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 1;
-        ganhouSom.Play();
-		playerAnimations.playerAC.SetTrigger(playerAnimations.animatorWon);
+    
 
-        PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 1;
-
-        gameObject.GetComponent<PhotonView>().RPC("ZeraPontuacao", RpcTarget.All);
-
-        gameObject.GetComponent<PhotonView>().RPC("TrocaSala", RpcTarget.All);
-        ganhouCorrida = false;
-        acabou = true;
-
-    }
-
-    [PunRPC]
-    void PerdeuCorrida()
-    {
-        perdeuSom.Play();
-        perdeuCorrida = true;
-        acabou = true;
-        PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 0;
-        gameObject.GetComponent<PhotonView>().RPC("TrocaSala", RpcTarget.MasterClient);
-    }
-
-
-	[PunRPC]
-	void TrocaSala()
-	{
-        ganhouCorrida = false;
-        perdeuCorrida = false;
-		PhotonNetwork.LoadLevel("TelaVitoria");
-	}
-
-	[PunRPC]
-	void ZeraPontuacao()
-	{
-		PV.Owner.SetScore(0);
-	}
+	
 
 	[PunRPC]
 	void GiraPlayer(bool dir)
 	{
         if (dir)
         {
-			Quaternion direction = Quaternion.Euler(0, 90, 0);
+			Quaternion direction = Quaternion.Euler(0, 0, 0);
 			player.transform.rotation = direction;
             carro.transform.rotation = direction;
 			pipa.transform.rotation = direction;
 		}
         else
         {
-			Quaternion direction = Quaternion.Euler(0, -90, 0);
+			Quaternion direction = Quaternion.Euler(0, 180, 0);
 			player.transform.rotation = direction;
             carro.transform.rotation = direction;
 			pipa.transform.rotation = direction;
@@ -445,42 +336,19 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-        public void Terminou()
-    {
-        acabouPartida = true;
-    }
+       
 	
     IEnumerator LevouDogada()
     {
         levouDogadaSom.Play();
-		playerAnimations.playerAC.SetBool(playerAnimations.animatorDogada, true);
+		//playerAnimations.playerAC.SetBool(playerAnimations.animatorDogada, true);
         levouDogada = true;
         yield  return new WaitForSeconds(2f);
-		playerAnimations.playerAC.SetBool(playerAnimations.animatorDogada, false);
+		//playerAnimations.playerAC.SetBool(playerAnimations.animatorDogada, false);
         levouDogada = false;
     }
 
-	IEnumerator Venceu()
-	{
-		cameraManager.SendMessage("ActivateCamera", false);
-		PV.RPC("Terminou", RpcTarget.All);
-		for (int i = 0; i < PhotonNetwork.PlayerList.Length; i++)
-		{
-			if ((int)PhotonNetwork.PlayerList[i].CustomProperties["Ganhador"] == 1)
-            {
-                StopCoroutine(Venceu());
-            }
-		}
-		PV.Owner.SetScore(-1);
-        ganhouCorrida = false;
-		yield return new WaitForSeconds(delayForWinScreen);
-		PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 1;
-
-		gameObject.GetComponent<PhotonView>().RPC("ZeraPontuacao", RpcTarget.All);
-
-		gameObject.GetComponent<PhotonView>().RPC("TrocaSala", RpcTarget.All);
-		
-	}
+	
 
 
 }

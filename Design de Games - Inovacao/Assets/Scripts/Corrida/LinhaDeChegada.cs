@@ -17,10 +17,13 @@ public class LinhaDeChegada : MonoBehaviour
 
     public bool euAcabei = false;
 
+	private WinnerManager winnerManager;
+
     public void Start()
     {
         euAcabei = false;
         finished = false;
+		winnerManager = FindObjectOfType<WinnerManager>();
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -32,9 +35,9 @@ public class LinhaDeChegada : MonoBehaviour
             {
                 if (playerView.IsMine == true && euAcabei == false)
                 {
-                    PlayerMovement jogador = other.GetComponent<PlayerMovement>();
+                   // PlayerMovement jogador = other.GetComponent<PlayerMovement>();
                     //playerView.RPC("Acabou", RpcTarget.All);
-                    jogador.ganhouCorrida = true;
+                    winnerManager.ganhouCorrida = true;
                     totalPlayers++;
                     euAcabei = true;
                     changeRoom = true;
