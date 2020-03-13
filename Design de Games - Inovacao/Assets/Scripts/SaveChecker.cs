@@ -11,7 +11,7 @@ public class SaveChecker : MonoBehaviour
 	private void Start()
 	{
 		//debug
-		//PlayerPrefs.SetInt("hasPlayed", 0);
+		PlayerPrefs.SetInt("hasPlayed", 0);
 		if (PlayerPrefs.GetInt("hasPlayed") != 1){
 			player.SetActive(false);
 			delayStartMenu.SetActive(false);
