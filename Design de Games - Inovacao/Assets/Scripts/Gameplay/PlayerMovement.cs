@@ -108,8 +108,8 @@ public class PlayerMovement : MonoBehaviour
 		stats.speed = playerSpeed;
 		stats.jumpForce = playerJump;
 
-		playerAnimations = GetComponent<PlayerAnimations>();
-		playerAnimations.rb2d = rb2d;
+		//playerAnimations = GetComponent<PlayerAnimations>();
+		//playerAnimations.rb2d = rb2d;
 
 		menuCustom = false;
 
@@ -174,7 +174,7 @@ public class PlayerMovement : MonoBehaviour
 				
 				if (!PhotonNetwork.InRoom)
 				{
-					Quaternion direction = Quaternion.Euler(0, 90, 0);
+					Quaternion direction = Quaternion.Euler(0, 0, 0);
 					player.transform.rotation = direction;
 					carro.transform.rotation = direction;
 					pipa.transform.rotation = direction;
@@ -193,7 +193,7 @@ public class PlayerMovement : MonoBehaviour
 				ThrowObject.dirLeft = false;
 				if (!PhotonNetwork.InRoom)
 				{
-					Quaternion direction = Quaternion.Euler(0, -90, 0);
+					Quaternion direction = Quaternion.Euler(0, 180, 0);
 					player.transform.rotation = direction;
 					carro.transform.rotation = direction;
 					pipa.transform.rotation = direction;
@@ -214,14 +214,14 @@ public class PlayerMovement : MonoBehaviour
 
             if(moveHorizontal >0.1f || moveHorizontal< -0.1f)
             {
-                playerAnimations.Walk(true);
+              //  playerAnimations.Walk(true);
                 playerAndando.SetActive(true);
                 playerParado.SetActive(false);
             }
 
 			else
 			{
-				playerAnimations.Walk(false);
+				//playerAnimations.Walk(false);
                 playerAndando.SetActive(false);
                 playerParado.SetActive(true);
             }
@@ -265,7 +265,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (jump.Value == true && grounded == true && canJump.Value == true && acabou == false && (joyStick.Vertical > -0.5 && !Input.GetKey(KeyCode.S)))
 		{
-			playerAnimations.playerAC.SetTrigger(playerAnimations.animatorJump);
+			//playerAnimations.playerAC.SetTrigger(playerAnimations.animatorJump);
 			puloAudioEvent.Play(puloSom);
 
 
@@ -288,14 +288,14 @@ public class PlayerMovement : MonoBehaviour
 	{
         if (dir)
         {
-			Quaternion direction = Quaternion.Euler(0, 90, 0);
+			Quaternion direction = Quaternion.Euler(0, 0, 0);
 			player.transform.rotation = direction;
             carro.transform.rotation = direction;
 			pipa.transform.rotation = direction;
 		}
         else
         {
-			Quaternion direction = Quaternion.Euler(0, -90, 0);
+			Quaternion direction = Quaternion.Euler(0, 180, 0);
 			player.transform.rotation = direction;
             carro.transform.rotation = direction;
 			pipa.transform.rotation = direction;
@@ -341,10 +341,10 @@ public class PlayerMovement : MonoBehaviour
     IEnumerator LevouDogada()
     {
         levouDogadaSom.Play();
-		playerAnimations.playerAC.SetBool(playerAnimations.animatorDogada, true);
+		//playerAnimations.playerAC.SetBool(playerAnimations.animatorDogada, true);
         levouDogada = true;
         yield  return new WaitForSeconds(2f);
-		playerAnimations.playerAC.SetBool(playerAnimations.animatorDogada, false);
+		//playerAnimations.playerAC.SetBool(playerAnimations.animatorDogada, false);
         levouDogada = false;
     }
 
