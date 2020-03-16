@@ -12,13 +12,8 @@ public class CameraManager : MonoBehaviour
 	[Header("Cinemachine")]
 	public CinemachineConfiner CC;
 	private CinemachineVirtualCamera VC;
-
-    public GameObject mc;
-
-    private void Awake()
-    {
-        mc = GameObject.FindGameObjectWithTag("MC");
-    }
+	
+  
 
 
     public void ActivateCamera(bool state)
