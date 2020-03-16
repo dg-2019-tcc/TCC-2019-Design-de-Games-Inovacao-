@@ -9,6 +9,8 @@ public class SaveChecker : MonoBehaviour
 
 	public float timeToSpawn;
 
+    public GameObject mc;
+
 
 	private void Start()
 	{
@@ -29,5 +31,6 @@ public class SaveChecker : MonoBehaviour
 		player.SetActive(true);
 		delayStartMenu.SetActive(true);
 		PlayerPrefs.SetInt("hasPlayed", 1);
+        mc.SetActive(false);
 	}
 }

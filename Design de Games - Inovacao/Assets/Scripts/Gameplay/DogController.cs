@@ -93,7 +93,29 @@ public class DogController : MonoBehaviour
 				target = ItemThrow.totemTarget;
 				float step = speedToTotem * Time.deltaTime;
 				transform.position = Vector3.MoveTowards(transform.position, target.position, step);
-			}
+                Debug.Log("Acertou");
+
+                if (Vector3.Distance(transform.position, target.position) < 1f)
+                {
+                    if (hitTotemCarro.Value == true)
+                    {
+                        hitTotemCarro.Value = false;
+                        efeitoCarro.effectTime = 6;
+                        StartCoroutine(efeitoCarro.Enumerator(this));
+                        gameObject.GetComponent<PhotonView>().RPC("Carro", RpcTarget.All);
+                    }
+
+                    else if(hitTotemPipa.Value == true)
+                    {
+                        hitTotemPipa.Value = false;
+                        efeitoPipa.effectVar = 8;
+                        StartCoroutine(efeitoPipa.Enumerator(this));
+                        gameObject.GetComponent<PhotonView>().RPC("Pipa", RpcTarget.All);
+                    }
+                }
+
+
+            }
 
 			PV.Controller.CustomProperties["dogValue"] = dogAtivo.Value;
 
@@ -119,14 +141,19 @@ public class DogController : MonoBehaviour
     {
         if (!PV.IsMine && PV != null) return;
 		if (!dogAtivo.Value) return;
-        if (collision.CompareTag("Pipa"))
+        if (collision.CompareTag("Pipa")|| hitTotemPipa.Value == true)
         {
             if (efeitoCarro.ativa.Value == false && efeitoPipa.ativa.Value == false)
             {
+                hitTotemPipa.Value = false;
                 efeitoPipa.effectVar = 8;
                 StartCoroutine(efeitoPipa.Enumerator(this));
                 gameObject.GetComponent<PhotonView>().RPC("Pipa", RpcTarget.All);
-                hitTotemPipa.Value = false;
+                //collision.GetComponent<CircleCollider2D>().enabled = false;
+
+                Debug.Log("Pipa");
+                
+
             }
         }
 
@@ -134,12 +161,35 @@ public class DogController : MonoBehaviour
         {
             if (efeitoCarro.ativa.Value == false && efeitoPipa.ativa.Value == false)
             {
+                hitTotemCarro.Value = false;
                 efeitoCarro.effectTime = 6;
                 StartCoroutine(efeitoCarro.Enumerator(this));
                 gameObject.GetComponent<PhotonView>().RPC("Carro", RpcTarget.All);
-                hitTotemCarro.Value = false;
+                //collision.GetComponent<CircleCollider2D>().enabled = false;
+                
+
             }
         }
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        
+    }
+
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Carrinho"))
+        {
+            collision.GetComponent<CircleCollider2D>().enabled = true;
+        }
+
+        if (collision.CompareTag("Pipa"))
+        {
+            collision.GetComponent<CircleCollider2D>().enabled = true;
+        }
+
     }
 
     [PunRPC]
