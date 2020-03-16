@@ -7,6 +7,8 @@ public class SaveChecker : MonoBehaviour
 	public GameObject player;
 	public GameObject delayStartMenu;
 
+	public float timeToSpawn;
+
 
 	private void Start()
 	{
@@ -23,7 +25,7 @@ public class SaveChecker : MonoBehaviour
 
 	private IEnumerator Showoff()
 	{
-		yield return new WaitForSeconds(10);
+		yield return new WaitForSeconds(timeToSpawn);
 		player.SetActive(true);
 		delayStartMenu.SetActive(true);
 		PlayerPrefs.SetInt("hasPlayed", 1);
