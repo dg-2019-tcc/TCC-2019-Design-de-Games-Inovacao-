@@ -34,23 +34,20 @@ public class ItemThrow : MonoBehaviour
 
         //shootDirection = ThrowObject.direction;
 
-
         if(PlayerMovement.leftDir == true)
         {
-            shootDirection = new Vector2(-1f, 0);
+            shootDirection = new Vector2(-0.5f, 0);
         }
 
         if(PlayerMovement.rightDir == true)
         {
-            shootDirection = new Vector2(1f, 0);
+            shootDirection = new Vector2(0.5f, 0);
         }
 
-
-        //rb.velocity = shootDirection * bulletSpeed.Value;
+        rb.velocity = shootDirection * bulletSpeed.Value;
         rb.position += rb.velocity;
 
-
-        Owner.CustomProperties["atirou"] = true;
+		Owner.CustomProperties["atirou"] = true;
 		Owner.CustomProperties["dogValue"] = false;
 	}
 
