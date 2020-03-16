@@ -13,23 +13,32 @@ public class CameraManager : MonoBehaviour
 	public CinemachineConfiner CC;
 	private CinemachineVirtualCamera VC;
 
+    public GameObject mc;
 
-	public void ActivateCamera(bool state)
+    private void Awake()
+    {
+        mc = GameObject.FindGameObjectWithTag("MC");
+    }
+
+
+    public void ActivateCamera(bool state)
 	{
 		isOn = state;
 
 		if (isOn)
 		{
-			
+
 			VC = GetComponent<CinemachineVirtualCamera>();
 			VC.Priority = 40;
 			CC = GetComponent<CinemachineConfiner>();
 			CC.m_BoundingShape2D = GameObject.Find("CameraConfiner").GetComponent<PolygonCollider2D>();
 			CC.InvalidatePathCache();
-		}
+
+        }
 		else
 		{
-			VC.Priority = -1;
+
+            VC.Priority = -1;
 		}
 	}
 }

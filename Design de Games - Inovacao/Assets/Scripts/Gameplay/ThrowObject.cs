@@ -76,6 +76,8 @@ public class ThrowObject : MonoBehaviour
     public void Atirou()
     {
         atirou = true;
+        DogController.poderEstaAtivo = false;
+        gameObject.GetComponent<PhotonView>().RPC("TransformaPet", RpcTarget.All, true);
     }
 
 
@@ -111,7 +113,9 @@ public class ThrowObject : MonoBehaviour
 
         //EfeitoDeCooldown.SetActive(true);
 		yield return new WaitForSeconds(cooldownDelta);
-		//EfeitoDeCooldown.SetActive(false);
+        //EfeitoDeCooldown.SetActive(false);
+
+        gameObject.GetComponent<PhotonView>().RPC("TransformaPet", RpcTarget.All, false);
 
         tempColor.a = 1f;
         tiroImage.color = tempColor;

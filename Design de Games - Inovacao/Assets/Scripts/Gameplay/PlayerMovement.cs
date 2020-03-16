@@ -311,7 +311,7 @@ public class PlayerMovement : MonoBehaviour
         if (grounded == true && joyStick.Vertical > -0.8)
         {
             jump.Value = true;
-            DogController.poderEstaAtivo = false;
+            //DogController.poderEstaAtivo = false;
             rb2d.AddForce(new Vector2(0, stats.jumpForce.Value), ForceMode2D.Impulse);
             canDoubleJump = true;
         }
