@@ -29,6 +29,8 @@ public class PlayerMovement : MonoBehaviour
     static public bool acabouPartida;
     public bool canDoubleJump;
 
+	public Quaternion normal;
+
 
 
     [Header("Canvas")]
@@ -209,7 +211,7 @@ public class PlayerMovement : MonoBehaviour
 			float moveHorizontal = joyStick.Horizontal + Input.GetAxisRaw("Horizontal");
 			if (moveHorizontal != 0 && levouDogada == false && acabou == false)
 			{
-				rb2d.velocity = new Vector3(stats.speed.Value * moveHorizontal, rb2d.velocity.y, 0);
+				rb2d.velocity = normal * new Vector3(stats.speed.Value * moveHorizontal, rb2d.velocity.y, 0);
 			}
 
             if(moveHorizontal >0.1f || moveHorizontal< -0.1f)
@@ -278,10 +280,22 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
+	private void OnCollisionStay2D(Collision2D collision)
+	{
+		
+			foreach (ContactPoint2D contact in collision.contacts)
+			{
+				print(contact.collider.name + " hit " + contact.otherCollider.name);
+				normal = Quaternion.Euler(contact.normal); // Quaternion.Slerp(normal, Quaternion.Euler(contact.normal), 0.5f);
+				Debug.DrawRay(contact.point, contact.normal, Color.white);
+			}
+		
+	}
 
-    
 
-	
+
+
+
 
 	[PunRPC]
 	void GiraPlayer(bool dir)
