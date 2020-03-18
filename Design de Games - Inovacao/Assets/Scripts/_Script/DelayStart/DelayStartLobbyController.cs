@@ -8,7 +8,7 @@ using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
-
+using TMPro;
 
 public class DelayStartLobbyController : MonoBehaviourPunCallbacks
 {
@@ -26,6 +26,8 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
     private GameObject tutorialButton;
     public InputField playerNameInput;
 	public GameObject PlayerCanvas;
+
+
 
 	[Header("Fade específico de modo de jogo")]
 
@@ -49,6 +51,8 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
     private bool tutorialMode;
     [HideInInspector]
     public bool modo;
+    [HideInInspector]
+    public string gameModeAtual;
 
 
 
@@ -96,15 +100,18 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
 		loadingScene.SetActive(true);
 		PlayerCanvas.SetActive(false);
 
-		StartCoroutine(StartGamemode(gameMode));
-        //ExitGames.Client.Photon.Hashtable expectedCustomRoomProperties = new ExitGames.Client.Photon.Hashtable() { { "map", modo } };  
-        //PhotonNetwork.JoinRandomRoom(expectedCustomRoomProperties, (byte)RoomSize);        
+		StartCoroutine(StartGamemode(gameMode));     
     }
 
-	public IEnumerator StartGamemode(string gameMode)
-	{
 
-		switch (gameMode)
+
+   
+
+
+
+    public IEnumerator StartGamemode(string gameMode)
+	{
+        switch (gameMode)
 		{
 			case "Corrida":
 				
@@ -115,7 +122,8 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
 				DelayStartWaitingRoomController.minPlayerToStart = 2;
 				DelayStartWaitingRoomController.tutorialMode = false;
 				DelayStartWaitingRoomController.gameMode = gameMode;
-				PhotonNetwork.JoinRandomRoom();
+                gameModeAtual = gameMode;
+                OnJoinRoomButton(gameModeAtual);
 				break;
 
 			case "Coleta":
@@ -127,8 +135,10 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
 				DelayStartWaitingRoomController.minPlayerToStart = 2;
 				DelayStartWaitingRoomController.tutorialMode = false;
 				DelayStartWaitingRoomController.gameMode = gameMode;
-				PhotonNetwork.JoinRandomRoom();
-				break;
+                gameModeAtual = gameMode;
+                OnJoinRoomButton(gameModeAtual);
+
+                break;
 
 			case "Tutorial":
 				
@@ -152,10 +162,6 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
 				CreateTutorialRoom();
 				break;
 		}
-
-		
-
-		
 	}
 
  
@@ -172,7 +178,7 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
         //Debug.Log("Failed to join a room");
         if(tutorialMode == false)
         {
-            CreateRoom();
+            CreateRoomWithMode(gameModeAtual);
         }
         else
         {
@@ -186,37 +192,34 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
         //Debug.Log("Creating room now");
         int randomRoomNumber = Random.Range(0, 10000);
         RoomOptions roomOps = new RoomOptions() { IsVisible = true, IsOpen = true, MaxPlayers = (byte)RoomSize };
-        /*
-        RoomOptions roomOps = new RoomOptions();
-        roomOps.CustomRoomProperties = new ExitGames.Client.Photon.Hashtable();
-
-        roomOps.CustomRoomProperties.Add("map", modo);
-
-        roomOps.CustomRoomProperties["map"] = 1;
-        Debug.Log(roomOps.CustomRoomProperties["map"]);
-        //roomOps.CustomRoomProperties.SetValue("map", 3);
-        
-
-        roomOps.MaxPlayers = (byte)RoomSize;
-        */
-        
-
-
-        //RoomOptions roomOptions = new RoomOptions();
-
-
-        //roomOptions.CustomRoomProperties = new ExitGames.Client.Photon.Hashtable { { "map", modo } };
-
-        //roomOptions.CustomRoomPropertiesForLobby = { "map", 1} ;
-
-
-        //roomOptions.CustomRoomProperties["map"] = modo;
-
-        //Debug.Log(roomOptions.CustomRoomProperties[2]);
-        //roomOptions.MaxPlayers = (byte)RoomSize;
         PhotonNetwork.CreateRoom("Room" + randomRoomNumber, roomOps);
-        //Debug.Log(randomRoomNumber + " / " + modo);
     }
+
+    public void CreateRoomWithMode(string gameMode)
+    {
+
+        int randomRoomNumber = Random.Range(0, 10000);
+
+
+        RoomOptions newRoomOptions = new RoomOptions();
+        newRoomOptions.CustomRoomProperties = new ExitGames.Client.Photon.Hashtable();
+        newRoomOptions.MaxPlayers = 4;
+        newRoomOptions.CustomRoomProperties.Add(gameMode, 1); //diminuir o tamanho de "Modo" para "MD"
+        newRoomOptions.CustomRoomPropertiesForLobby = new string[] { gameMode };
+
+        PhotonNetwork.CreateRoom("Room" + randomRoomNumber, newRoomOptions, null, null);
+    }
+
+
+
+    public void OnJoinRoomButton(string gameMode)
+    {
+        ExitGames.Client.Photon.Hashtable expectecProperties = new ExitGames.Client.Photon.Hashtable();
+        expectecProperties.Add(gameMode, 1);
+
+        PhotonNetwork.JoinRandomRoom(expectecProperties, 4);
+    }
+
 
     void CreateTutorialRoom()
     {
@@ -231,7 +234,7 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
         
         if(tutorialMode == false)
         {
-            CreateRoom();
+            CreateRoomWithMode(gameModeAtual);
         }
         else
         {
