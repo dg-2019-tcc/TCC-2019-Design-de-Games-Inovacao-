@@ -174,6 +174,7 @@ public class DelayStartWaitingRoomController : MonoBehaviourPunCallbacks
 	[PunRPC]
 	public void StartGame()
 	{
+		startingGame = true;
 		if (tutorialMode == false)
 		{
 			PhotonNetwork.LoadLevel(gameMode);
@@ -187,7 +188,6 @@ public class DelayStartWaitingRoomController : MonoBehaviourPunCallbacks
 	public void OnStartGameButton()
 	{
 		startGameNow.SetActive(false);
-		startingGame = true;
 		if (!PhotonNetwork.IsMasterClient)
 			return;
 		PhotonNetwork.CurrentRoom.IsOpen = false;
