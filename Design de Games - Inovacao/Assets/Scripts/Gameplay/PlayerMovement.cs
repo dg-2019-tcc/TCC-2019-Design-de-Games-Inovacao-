@@ -285,7 +285,7 @@ public class PlayerMovement : MonoBehaviour
 		
 			foreach (ContactPoint2D contact in collision.contacts)
 			{
-				print(contact.collider.name + " hit " + contact.otherCollider.name);
+				//print(contact.collider.name + " hit " + contact.otherCollider.name);
 				normal = Quaternion.Euler(contact.normal); // Quaternion.Slerp(normal, Quaternion.Euler(contact.normal), 0.5f);
 				Debug.DrawRay(contact.point, contact.normal, Color.white);
 			}
