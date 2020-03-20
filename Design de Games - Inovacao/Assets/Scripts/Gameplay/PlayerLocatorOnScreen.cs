@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Photon.Pun;
 
 public class PlayerLocatorOnScreen : MonoBehaviour
 {
@@ -18,6 +19,10 @@ public class PlayerLocatorOnScreen : MonoBehaviour
 		instance = Instantiate(pointerPrefab, GetComponent<PlayerMovement>().canvasSelf.transform);
 		cam = FindObjectOfType<Camera>();
 		instance.SetActive(false);
+		if (PhotonNetwork.InRoom)
+		{
+			instance.GetComponentInChildren<PointerName>().nickname = GetComponent<PhotonView>().Owner.NickName;
+		}
     }
 
     

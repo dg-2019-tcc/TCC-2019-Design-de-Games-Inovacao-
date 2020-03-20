@@ -8,14 +8,17 @@ public class PointerName : MonoBehaviour
 {
 
 	private TextMeshProUGUI text;
+	[HideInInspector]
+	public string nickname;
     void Start()
     {
 		text = GetComponent<TextMeshProUGUI>();
-		text.text = PhotonNetwork.NickName;
+		
     }
 	
     void Update()
     {
+		text.text = nickname;
 		transform.up = Vector3.up;
     }
 }
