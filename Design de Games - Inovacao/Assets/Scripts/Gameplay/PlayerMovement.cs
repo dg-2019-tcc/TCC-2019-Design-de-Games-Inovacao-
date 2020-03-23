@@ -115,7 +115,12 @@ public class PlayerMovement : MonoBehaviour
 
 		menuCustom = false;
 
-		if (SceneManager.GetActiveScene().name == "HUB" || SceneManager.GetActiveScene().name == "Debug") menuCustom = true;
+		if (SceneManager.GetActiveScene().name == "HUB" || !PhotonNetwork.InRoom)
+		{
+			menuCustom = true;
+		}
+
+		
 
 
 		if (desativaCanvas == true)
@@ -158,9 +163,11 @@ public class PlayerMovement : MonoBehaviour
 
         if (acabouPartida == true) return;
 
-              
 
-        if (!menuCustom && !PV.IsMine)
+		
+
+
+		if (!menuCustom && !PV.IsMine)
 		{
 			return;
 		}
