@@ -12,11 +12,13 @@ public class PlayerLocatorOnScreen : MonoBehaviour
 
 	public Vector3 positionAdjust;
 	public float adjustToScreen;
+
+	public Transform canvas;
     
     void Start()
     {
-		
-		instance = Instantiate(pointerPrefab, GetComponent<PlayerMovement>().canvasSelf.transform);
+
+		instance = Instantiate(pointerPrefab, canvas);
 		cam = FindObjectOfType<Camera>();
 		instance.SetActive(false);
 		if (PhotonNetwork.InRoom)
