@@ -5,7 +5,8 @@ using UnityEngine;
 public class MotoFlip : MonoBehaviour
 {
 	public bool leftDir;
-   
+
+	public ThrowObject to;
     void Update()
     {
 		leftDir = PlayerMovement.leftDir;
