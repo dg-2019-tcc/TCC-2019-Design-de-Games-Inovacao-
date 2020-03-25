@@ -42,6 +42,7 @@ public class ScoreManager : MonoBehaviourPunCallbacks
     {
         Destroy(playerListEntries[otherPlayer.ActorNumber].gameObject);
         playerListEntries.Remove(otherPlayer.ActorNumber);
+		otherPlayer.SetScore(0);
     }
 
     public override void OnPlayerPropertiesUpdate(Photon.Realtime.Player targetPlayer, Hashtable changedProps)
