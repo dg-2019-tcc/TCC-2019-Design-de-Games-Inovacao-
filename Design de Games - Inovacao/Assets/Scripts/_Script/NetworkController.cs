@@ -24,11 +24,18 @@ public class NetworkController : MonoBehaviourPunCallbacks
 
     void Start()
     {
-        if (PhotonNetwork.IsConnected)
+        if(OfflineMode.modoDoOffline == true)
+        {
+            PhotonNetwork.OfflineMode = true;
+        }
+        else if (PhotonNetwork.IsConnected)
         {
             return;
         }
-        PhotonNetwork.ConnectUsingSettings(); //Conecta com os servidores mestres do photon
+        else
+        {
+            PhotonNetwork.ConnectUsingSettings(); //Conecta com os servidores mestres do photon
+        }
     }
 
    /* public override void OnConnectedToMaster()

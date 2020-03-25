@@ -123,7 +123,14 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
 				DelayStartWaitingRoomController.tutorialMode = false;
 				DelayStartWaitingRoomController.gameMode = gameMode;
                 gameModeAtual = gameMode;
-                OnJoinRoomButton(gameModeAtual);
+                if (PhotonNetwork.OfflineMode == false)
+                {
+                    OnJoinRoomButton(gameModeAtual);
+                }
+                else
+                {
+                    CreateRoomWithMode(gameModeAtual);
+                }
 				break;
 
 			case "Coleta":
@@ -136,7 +143,14 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
 				DelayStartWaitingRoomController.tutorialMode = false;
 				DelayStartWaitingRoomController.gameMode = gameMode;
                 gameModeAtual = gameMode;
-                OnJoinRoomButton(gameModeAtual);
+                if (PhotonNetwork.OfflineMode == false)
+                {
+                    OnJoinRoomButton(gameModeAtual);
+                }
+                else
+                {
+                    CreateRoomWithMode(gameModeAtual);
+                }
 
                 break;
 

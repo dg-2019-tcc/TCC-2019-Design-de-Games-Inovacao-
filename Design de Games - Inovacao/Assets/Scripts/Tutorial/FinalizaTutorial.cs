@@ -15,11 +15,15 @@ public class FinalizaTutorial : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-			//    PhotonNetwork.LoadLevel(victoryLevel);
-			/*PhotonNetwork.Disconnect();
+            //    PhotonNetwork.LoadLevel(victoryLevel);
+            /*PhotonNetwork.Disconnect();
 			SceneManager.LoadScene(victoryLevel);*/
-			FindObjectOfType<PauseManager>().VoltaMenu();
-			
+            if (PhotonNetwork.OfflineMode == true)
+            {
+                SceneManager.LoadScene("HUB");
+            }
+            FindObjectOfType<PauseManager>().VoltaMenu();
+
         }
     }
 }
