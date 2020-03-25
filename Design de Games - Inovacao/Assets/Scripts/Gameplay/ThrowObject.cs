@@ -23,6 +23,8 @@ public class ThrowObject : MonoBehaviour
 	private float cooldownDelta;
 
 	public GameObject EfeitoDeCooldown;
+
+	public BoolVariable buttonPressed;
     
 
 	[HideInInspector]
@@ -71,15 +73,20 @@ public class ThrowObject : MonoBehaviour
 				cooldownDelta -= Time.deltaTime;
         }
 
+		if (buttonPressed.Value)
+		{
+			atirou = true;
+			DogController.poderEstaAtivo = false;
+			
+			gameObject.GetComponent<PhotonView>().RPC("TransformaPet", RpcTarget.All, true);
+			
+		}
     }
 
     public void Atirou()
     {
-        atirou = true;
-        DogController.poderEstaAtivo = false;
-        gameObject.GetComponent<PhotonView>().RPC("TransformaPet", RpcTarget.All, true);
+		buttonPressed.Value = true;
     }
-
 
 
     [PunRPC]

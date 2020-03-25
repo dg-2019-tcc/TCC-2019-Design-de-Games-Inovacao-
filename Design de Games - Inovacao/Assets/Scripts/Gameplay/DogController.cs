@@ -47,6 +47,7 @@ public class DogController : MonoBehaviour
     public BoolVariable hitTotemPipa;
     public BoolVariable carroActive;
     public BoolVariable pipaActive;
+	public BoolVariable buttonPressed;
 
     //public Animator playerAC;
 
@@ -196,7 +197,9 @@ public class DogController : MonoBehaviour
         if (!isDog)
         {
             Pet.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, Pet.transform.position.z);
-        }
+			buttonPressed.Value = false;
+
+		}
     }
 
     private IEnumerator TempoParaDesativar(float waitTime)
@@ -204,6 +207,7 @@ public class DogController : MonoBehaviour
         yield return new WaitForSeconds(waitTime);
         poderEstaAtivo = false;
         dogAtivo.Value = true;
+
     }
 
 	
