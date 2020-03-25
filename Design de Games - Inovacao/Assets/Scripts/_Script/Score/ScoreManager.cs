@@ -34,11 +34,15 @@ public class ScoreManager : MonoBehaviourPunCallbacks
         }
     }
 
-    #endregion
+	private void OnDestroy()
+	{
+		PhotonNetwork.LocalPlayer.SetScore(0);
+	}
+	#endregion
 
-    #region PUN CALLBACKS
+	#region PUN CALLBACKS
 
-    public override void OnPlayerLeftRoom(Photon.Realtime.Player otherPlayer)
+	public override void OnPlayerLeftRoom(Photon.Realtime.Player otherPlayer)
     {
         Destroy(playerListEntries[otherPlayer.ActorNumber].gameObject);
         playerListEntries.Remove(otherPlayer.ActorNumber);
