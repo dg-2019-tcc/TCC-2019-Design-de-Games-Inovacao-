@@ -112,11 +112,11 @@ public class ThrowObject : MonoBehaviour
 
 	IEnumerator CooldownEffect()
 	{
-        var tempColor = tiroImage.color;
+        /*var tempColor = tiroImage.color;
 
         tempColor.a = 0.1f;
         tiroImage.color = tempColor;
-        dogImage.color = tempColor;
+        dogImage.color = tempColor;*/
 
         //EfeitoDeCooldown.SetActive(true);
 		yield return new WaitForSeconds(cooldownDelta);
@@ -124,9 +124,9 @@ public class ThrowObject : MonoBehaviour
 
         gameObject.GetComponent<PhotonView>().RPC("TransformaPet", RpcTarget.All, false);
 
-        tempColor.a = 1f;
+        /*tempColor.a = 1f;
         tiroImage.color = tempColor;
-        dogImage.color = tempColor;
+        dogImage.color = tempColor;*/
     }
 
     //Funciona somente na build, para conseguir atirar usando a tecla "Z"
