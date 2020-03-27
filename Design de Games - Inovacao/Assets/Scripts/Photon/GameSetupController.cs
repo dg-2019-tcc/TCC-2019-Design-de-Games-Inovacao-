@@ -19,6 +19,8 @@ public class GameSetupController : MonoBehaviour
 
 	private float allPlayersInSession;
 
+    public string playerPrefabName;
+
 	[HideInInspector]
 	public GameObject PlayerInst;
 

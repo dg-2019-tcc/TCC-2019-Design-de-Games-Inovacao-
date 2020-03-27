@@ -11,15 +11,19 @@ public class PhotonPlayer : MonoBehaviour
 
     [HideInInspector]
 	public GameObject myAvatar;
+
+    public PlayerType playerTypePrefabs;
    
     void Start()
     {
 		PV = GetComponent<PhotonView>();
 		int spawnPicker = Random.Range(0, GameSetupController.GS.spawnPoints.Length);
-	    if (PV.IsMine || !PhotonNetwork.InRoom)
+        string prefabName = GameSetupController.GS.playerPrefabName;
+
+        if (PV.IsMine || !PhotonNetwork.InRoom)
 		{
 
-            myAvatar = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PlayerAvatar2D"),
+            myAvatar = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", prefabName),
                 GameSetupController.GS.spawnPoints[spawnPicker].position, GameSetupController.GS.spawnPoints[spawnPicker].rotation, 0);
 			
 		}
