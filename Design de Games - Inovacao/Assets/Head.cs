@@ -25,8 +25,9 @@ public class Head : MonoBehaviour
             ballrb = col.GetComponent<Rigidbody2D>();
 
             float forceVertical = headForceY * joyStick.Vertical;
+            float forceHorizontal = headForceX * joyStick.Horizontal;
 
-            ballrb.AddForce(new Vector2(headForceX, forceVertical), ForceMode2D.Impulse);
+            ballrb.AddForce(new Vector2(forceHorizontal, forceVertical), ForceMode2D.Impulse);
         }
     }
 }

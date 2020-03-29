@@ -31,13 +31,13 @@ public class Kick : MonoBehaviour
     {
         if(PlayerMovement.leftDir == true)
         {
-            kickSizeX = -0.3f;
+            kickSizeX = -0.5f;
             kickForceX = -5f;
         }
 
         else
         {
-            kickSizeX = 0.3f;
+            kickSizeX = 0.5f;
             kickForceX = 5f;
         }
     }
