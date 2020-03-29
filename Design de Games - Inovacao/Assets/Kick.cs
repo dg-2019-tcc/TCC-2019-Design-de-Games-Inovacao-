@@ -7,13 +7,40 @@ public class Kick : MonoBehaviour
 
     public float cooldownKick;
 
-    public float kickSize;
+    public float kickSizeX;
 
-    public float kickForcex;
+    public float kickSizeY;
+
+    public float kickForceX;
+
+    public float kickForceY;
 
     private bool kicked;
 
     private Rigidbody2D ballrb;
+
+    public Joystick joyStick;
+
+    public void Start()
+    {
+        joyStick = FindObjectOfType<Joystick>();
+    }
+
+
+    public void Update()
+    {
+        if(PlayerMovement.leftDir == true)
+        {
+            kickSizeX = -0.3f;
+            kickForceX = -5f;
+        }
+
+        else
+        {
+            kickSizeX = 0.3f;
+            kickForceX = 5f;
+        }
+    }
 
 
     public void KickBall()
@@ -26,12 +53,13 @@ public class Kick : MonoBehaviour
 
     IEnumerator CoolKick()
     {
-        transform.position = transform.position + new Vector3(kickSize, 0, 0);
+
+        transform.position = transform.position + new Vector3(kickSizeX, kickSizeY, 0);
         kicked = true;
 
         yield return new WaitForSeconds(cooldownKick);
 
-        transform.position = transform.position + new Vector3(-kickSize, 0, 0);
+        transform.position = transform.position + new Vector3(-kickSizeX, -kickSizeY, 0);
         kicked = false;
     }
 
@@ -41,7 +69,11 @@ public class Kick : MonoBehaviour
         {
             ballrb = col.GetComponent<Rigidbody2D>();
 
-            ballrb.AddForce(new Vector2(kickForcex, Random.Range(-5f,5f)), ForceMode2D.Impulse);
+            float forceVertical = kickForceY * joyStick.Vertical;
+
+            Debug.Log(forceVertical);
+
+            ballrb.AddForce(new Vector2(kickForceX, forceVertical), ForceMode2D.Impulse);
         }
     }
 }

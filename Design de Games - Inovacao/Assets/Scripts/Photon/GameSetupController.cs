@@ -21,6 +21,7 @@ public class GameSetupController : MonoBehaviour
 
     public string playerPrefabName;
 
+
 	[HideInInspector]
 	public GameObject PlayerInst;
 
@@ -38,12 +39,6 @@ public class GameSetupController : MonoBehaviour
 		gameObject.GetComponent<PhotonView>().RPC("SpawnPlayer", RpcTarget.All, allPlayersInSession);
 	}
 
-	/*void Start()
-	{
-		
-		
-
-	}*/
 
 	[PunRPC]
 	private void SpawnPlayer(float alterPlayerCount)
