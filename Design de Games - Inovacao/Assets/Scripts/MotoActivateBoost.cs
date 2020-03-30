@@ -11,9 +11,17 @@ public class MotoActivateBoost : MonoBehaviour
 
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
-		if (collision.CompareTag("Player") && collision.GetComponent<PhotonView>().IsMine)
+		if (collision.CompareTag("Player")) //&& collision.GetComponent<PhotonView>().IsMine)
 		{
 			EmpinaMoto.carregado = true;
+		}
+	}
+
+	private void OnTriggerExit2D(Collider2D collision)
+	{
+		if (collision.CompareTag("Player")) //&& collision.GetComponent<PhotonView>().IsMine)
+		{
+			EmpinaMoto.carregado = false;
 		}
 	}
 }
