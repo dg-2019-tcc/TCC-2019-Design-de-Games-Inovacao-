@@ -33,6 +33,7 @@ public class EmpinaMoto : MonoBehaviour
 
 		if (carregado)
 		{
+			Debug.Log("Vai filhão");
 			//brilha a moto
 		}
 
@@ -42,6 +43,7 @@ public class EmpinaMoto : MonoBehaviour
 	{
 		if (carregado)
 		{
+			Debug.Log("empinou");
 			isEmpinando = true;
 			daGrau();
 		}
