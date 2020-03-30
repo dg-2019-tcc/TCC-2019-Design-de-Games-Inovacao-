@@ -15,6 +15,8 @@ public class Kick : MonoBehaviour
 
     public float kickForceY;
 
+    private float forceVertical;
+
     private bool kicked;
 
     private Rigidbody2D ballrb;
@@ -69,8 +71,15 @@ public class Kick : MonoBehaviour
         {
             ballrb = col.GetComponent<Rigidbody2D>();
 
-            float forceVertical = kickForceY * joyStick.Vertical;
+            if (joyStick.Vertical != 0)
+            {
+                forceVertical = kickForceY * joyStick.Vertical;
+            }
 
+            else
+            {
+                forceVertical = 2f;
+            }
             Debug.Log(forceVertical);
 
             ballrb.AddForce(new Vector2(kickForceX, forceVertical), ForceMode2D.Impulse);
