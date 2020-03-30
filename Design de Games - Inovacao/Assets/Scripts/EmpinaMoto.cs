@@ -5,9 +5,14 @@ using Photon.Pun;
 
 public class EmpinaMoto : MonoBehaviour
 {
-	public MotoFlip script;
+	public PlayerMovement script;
 
 	public bool isEmpinando;
+
+	public static bool carregado;
+
+
+
 
 	private void Start()
 	{
@@ -25,12 +30,21 @@ public class EmpinaMoto : MonoBehaviour
 			transform.localRotation = Quaternion.Slerp(transform.localRotation, Quaternion.Euler(transform.localRotation.x, transform.localRotation.y, 0), 0.5f);
 		}
 
+
+		if (carregado)
+		{
+			//brilha a moto
+		}
+
 	}
 
 	public void buttonEmpina()
 	{
-		isEmpinando = true;
-		daGrau();
+		if (carregado)
+		{
+			isEmpinando = true;
+			daGrau();
+		}
 
 		
 	}

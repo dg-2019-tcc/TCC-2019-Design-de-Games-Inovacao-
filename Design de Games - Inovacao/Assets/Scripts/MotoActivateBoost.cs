@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class MotoActivateBoost : MonoBehaviour
 {
@@ -10,10 +11,9 @@ public class MotoActivateBoost : MonoBehaviour
 
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
-		if (collision.CompareTag("Player"))
+		if (collision.CompareTag("Player") && collision.GetComponent<PhotonView>().IsMine)
 		{
-
-
+			EmpinaMoto.carregado = true;
 		}
 	}
 }
