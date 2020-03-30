@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Photon.Pun;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -45,7 +46,7 @@ public class Kick : MonoBehaviour
     }
 
 
-    public void KickBall()
+    public void KickedBall()
     {
         if (kicked == false)
         {
@@ -70,19 +71,25 @@ public class Kick : MonoBehaviour
         if(col.CompareTag("Bola") && kicked == true)
         {
             ballrb = col.GetComponent<Rigidbody2D>();
-
-            if (joyStick.Vertical != 0)
-            {
-                forceVertical = kickForceY * joyStick.Vertical;
-            }
-
-            else
-            {
-                forceVertical = 5f;
-            }
-            Debug.Log(forceVertical);
-
-            ballrb.AddForce(new Vector2(kickForceX, forceVertical), ForceMode2D.Impulse);
+            KickBola();
         }
+    }
+
+    [PunRPC]
+    public void KickBola()
+    {
+
+        if (joyStick.Vertical != 0)
+        {
+            forceVertical = kickForceY * joyStick.Vertical;
+        }
+
+        else
+        {
+            forceVertical = 5f;
+        }
+        Debug.Log(forceVertical);
+
+        ballrb.AddForce(new Vector2(kickForceX, forceVertical), ForceMode2D.Impulse);
     }
 }
