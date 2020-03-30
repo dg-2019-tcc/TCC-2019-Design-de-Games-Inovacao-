@@ -22,9 +22,9 @@ public class GolManager : MonoBehaviourPunCallbacks
             bola = other.gameObject;
 
             GolSelect playerGol = GetComponentInParent<GolSelect>();
-
-            playerGol.jogador.PV.Owner.AddScore(1);
             index++;
+            playerGol.jogador.PV.Owner.AddScore(1);
+            
         }
 
     }

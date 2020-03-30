@@ -14,7 +14,14 @@ public class GolSelect : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             jogador = other.GetComponent<PlayerMovement>();
-            this.gameObject.GetComponent<BoxCollider2D>().enabled = false;
+            DesabilitaColider();
         }
+    }
+
+    [PunRPC]
+
+    public void DesabilitaColider()
+    {
+         this.gameObject.GetComponent<BoxCollider2D>().enabled = false;
     }
 }
