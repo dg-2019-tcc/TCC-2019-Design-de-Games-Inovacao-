@@ -78,7 +78,7 @@ public class Kick : MonoBehaviour
 
             else
             {
-                forceVertical = 2f;
+                forceVertical = 5f;
             }
             Debug.Log(forceVertical);
 
