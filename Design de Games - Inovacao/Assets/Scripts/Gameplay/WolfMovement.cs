@@ -73,12 +73,12 @@ public class WolfMovement : MonoBehaviour
 
             if (transform.position.x > player.transform.position.x)
             {
-                transform.rotation = Quaternion.Euler(0, 0, 0);
+                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, 0, 0), 0.5f);
 
             }
             else if (transform.position.x < player.transform.position.x)
             {
-                transform.rotation = Quaternion.Euler(0, 180, 0);
+                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, 180, 0), 0.5f);
             }
 
 			
