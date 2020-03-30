@@ -6,8 +6,7 @@ using Photon.Pun;
 public class MotoFlip : MonoBehaviour
 {
 	public bool leftDir;
-
-	public EmpinaMoto script;
+	
 	
 	void Update()
     {
@@ -22,11 +21,5 @@ public class MotoFlip : MonoBehaviour
 		}
 
     }
-
-	
-
-
-	
-
 	
 }
