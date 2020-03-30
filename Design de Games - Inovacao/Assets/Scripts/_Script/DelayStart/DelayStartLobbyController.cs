@@ -18,7 +18,9 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
 	private GameObject delayStartButton; //Botão utilizado para criar e entrar em um jogo
 	[SerializeField]
 	private GameObject delayStartButton2;
-	[SerializeField]
+    [SerializeField]
+    private GameObject delayStartButton3;
+    [SerializeField]
     private GameObject delayCancelButton; //Botão utilizado para parar de procurar uma sala de jogo
 	[SerializeField]
 	private GameObject loadingScene; //Feedback pro jogador de que a cena está carregando, o "esperando"
@@ -154,7 +156,28 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
 
                 break;
 
-			case "Tutorial":
+            case "Futebol":
+
+                ColetaFade.SetActive(true);
+
+                yield return new WaitForSeconds(tempoPraFade);
+
+                DelayStartWaitingRoomController.minPlayerToStart = 2;
+                DelayStartWaitingRoomController.tutorialMode = false;
+                DelayStartWaitingRoomController.gameMode = gameMode;
+                gameModeAtual = gameMode;
+                if (PhotonNetwork.OfflineMode == false)
+                {
+                    OnJoinRoomButton(gameModeAtual);
+                }
+                else
+                {
+                    CreateRoomWithMode(gameModeAtual);
+                }
+
+                break;
+
+            case "Tutorial":
 				
 				TutorialFade.SetActive(true);
 

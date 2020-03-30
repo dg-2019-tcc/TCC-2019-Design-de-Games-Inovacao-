@@ -8,7 +8,8 @@ public class PortaManager : MonoBehaviour
 
 	public GameObject ButtonJogarCorrida;
 	public GameObject ButtonJogarColeta;
-	public GameObject ButtonRoupa;
+    public GameObject ButtonJogarFutebol;
+    public GameObject ButtonRoupa;
 
     public GameObject customButtons;
 
@@ -56,7 +57,11 @@ public class PortaManager : MonoBehaviour
                     ButtonJogarColeta.SetActive(true);
                     break;
 
-				case "Customizar":
+                case "Futebol":
+                    ButtonJogarFutebol.SetActive(true);
+                    break;
+
+                case "Customizar":
                     ButtonRoupa.SetActive(true);
 					break;
 			}
