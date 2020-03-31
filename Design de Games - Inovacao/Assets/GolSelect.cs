@@ -19,7 +19,6 @@ public class GolSelect : MonoBehaviour
     }
 
     [PunRPC]
-
     public void DesabilitaColider()
     {
          this.gameObject.GetComponent<BoxCollider2D>().enabled = false;
