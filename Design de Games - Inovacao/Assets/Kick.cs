@@ -45,7 +45,7 @@ public class Kick : MonoBehaviour
         }
     }
 
-
+    [PunRPC]
     public void KickedBall()
     {
         if (kicked == false)
