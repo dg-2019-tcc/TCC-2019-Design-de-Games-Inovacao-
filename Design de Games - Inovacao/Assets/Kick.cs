@@ -64,12 +64,12 @@ public class Kick : MonoBehaviour
     IEnumerator CoolKick()
     {
 
-        foot.transform.position = transform.position + new Vector3(kickSizeX, kickSizeY, 0);
+        foot.transform.position = foot.transform.position + new Vector3(kickSizeX, kickSizeY, 0);
         kicked = true;
 
         yield return new WaitForSeconds(cooldownKick);
 
-        foot.transform.position = transform.position + new Vector3(-kickSizeX, -kickSizeY, 0);
+        foot.transform.position = foot.transform.position + new Vector3(-kickSizeX, -kickSizeY, 0);
         kicked = false;
     }
 
