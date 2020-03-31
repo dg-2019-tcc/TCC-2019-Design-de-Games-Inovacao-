@@ -78,7 +78,7 @@ public class Kick : MonoBehaviour
         if(col.CompareTag("Bola") && kicked == true)
         {
             ballrb = col.GetComponent<Rigidbody2D>();
-            KickBola();
+            gameObject.GetComponent<PhotonView>().RPC("KickBola", RpcTarget.MasterClient);
         }
     }
 
