@@ -45,6 +45,11 @@ public class Kick : MonoBehaviour
         }
     }
 
+    public void Chute()
+    {
+        gameObject.GetComponent<PhotonView>().RPC("KickedBall", RpcTarget.MasterClient);
+    }
+
     [PunRPC]
     public void KickedBall()
     {

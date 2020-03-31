@@ -15,7 +15,7 @@ public class GolManager : MonoBehaviourPunCallbacks
 
     public Transform bolaSpawnPoint;
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerStay2D(Collider2D other)
     {
         if (other.CompareTag("Bola"))
         {
@@ -24,17 +24,28 @@ public class GolManager : MonoBehaviourPunCallbacks
             GolSelect playerGol = GetComponentInParent<GolSelect>();
             index++;
             playerGol.jogador.PV.Owner.AddScore(1);
+
+            StartCoroutine("ResetaBola");
             
         }
 
     }
 
-    IEnumerator ResataBola()
+    IEnumerator ResetaBola()
     {
+        bola.SetActive(false);
+
+        bola.GetComponent<Rigidbody2D>().isKinematic = true;
+
         bola.transform.position = bolaSpawnPoint.position;
+
+        index++;
 
         yield return new WaitForSeconds(3f);
 
-        StopAllCoroutines();
+        bola.SetActive(true);
+
+        bola.GetComponent<Rigidbody2D>().isKinematic = false;
+
     }
 }
