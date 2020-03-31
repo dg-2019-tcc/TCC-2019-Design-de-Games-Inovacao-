@@ -27,12 +27,12 @@ public class EmpinaMoto : MonoBehaviour
 		if (isEmpinando)
 		{
 		 	transform.localRotation = Quaternion.Slerp(transform.localRotation, Quaternion.Euler(transform.localRotation.x, transform.localRotation.y, 45), 0.5f);
-			playerSpeed.Value = boostSpeed;
+			playerSpeed.Value = Mathf.Lerp(playerSpeed.Value, boostSpeed, 0.5f);
 		}
 		else
 		{
 			transform.localRotation = Quaternion.Slerp(transform.localRotation, Quaternion.Euler(transform.localRotation.x, transform.localRotation.y, 0), 0.5f);
-			playerSpeed.Value = originalSpeed;
+			playerSpeed.Value = Mathf.Lerp(playerSpeed.Value, originalSpeed, 0.5f);
 		}
 
 
