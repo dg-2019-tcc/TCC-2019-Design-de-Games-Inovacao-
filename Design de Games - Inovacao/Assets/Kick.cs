@@ -24,6 +24,8 @@ public class Kick : MonoBehaviour
 
     public Joystick joyStick;
 
+    public GameObject foot;
+
     public void Start()
     {
         joyStick = FindObjectOfType<Joystick>();
