@@ -5,18 +5,21 @@ using Photon.Pun;
 
 public class EmpinaMoto : MonoBehaviour
 {
-	public PlayerMovement script;
+	public FloatVariable playerSpeed;
 
 	public bool isEmpinando;
 
 	public static bool carregado;
 
+	private float originalSpeed;
+	public float boostSpeed;
 
 
 
 	private void Start()
 	{
 		isEmpinando = false;
+		originalSpeed = playerSpeed.Value;
 	}
 
 	private void Update()
@@ -24,10 +27,12 @@ public class EmpinaMoto : MonoBehaviour
 		if (isEmpinando)
 		{
 		 	transform.localRotation = Quaternion.Slerp(transform.localRotation, Quaternion.Euler(transform.localRotation.x, transform.localRotation.y, 45), 0.5f);
+			playerSpeed.Value = boostSpeed;
 		}
 		else
 		{
 			transform.localRotation = Quaternion.Slerp(transform.localRotation, Quaternion.Euler(transform.localRotation.x, transform.localRotation.y, 0), 0.5f);
+			playerSpeed.Value = originalSpeed;
 		}
 
 
