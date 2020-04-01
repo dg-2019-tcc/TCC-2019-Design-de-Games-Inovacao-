@@ -28,6 +28,10 @@ public class Kick : MonoBehaviour
 
     public GameObject foot;
 
+    public Transform footIncialPos;
+
+    public Transform footKickPos;
+
     public void Start()
     {
 		if (GetComponent<PhotonView>().IsMine || PhotonNetwork.InRoom)
@@ -84,12 +88,12 @@ public class Kick : MonoBehaviour
     IEnumerator CoolKick()
     {
 
-        foot.transform.position = foot.transform.position + new Vector3(kickSizeX, kickSizeY, 0);
+        foot.transform.position = footKickPos.transform.position;
         kicked = true;
 
         yield return new WaitForSeconds(cooldownKick);
 
-        foot.transform.position = foot.transform.position + new Vector3(-kickSizeX, -kickSizeY, 0);
+        foot.transform.position = footIncialPos.transform.position;
         kicked = false;
     }
 
