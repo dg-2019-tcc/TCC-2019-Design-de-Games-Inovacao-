@@ -156,28 +156,49 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
 
                 break;
 
-            case "Futebol":
+			case "Futebol":
 
-                ColetaFade.SetActive(true);
+				ColetaFade.SetActive(true);
 
-                yield return new WaitForSeconds(tempoPraFade);
+				yield return new WaitForSeconds(tempoPraFade);
 
-                DelayStartWaitingRoomController.minPlayerToStart = 2;
-                DelayStartWaitingRoomController.tutorialMode = false;
-                DelayStartWaitingRoomController.gameMode = gameMode;
-                gameModeAtual = gameMode;
-                if (PhotonNetwork.OfflineMode == false)
-                {
-                    OnJoinRoomButton(gameModeAtual);
-                }
-                else
-                {
-                    CreateRoomWithMode(gameModeAtual);
-                }
+				DelayStartWaitingRoomController.minPlayerToStart = 2;
+				DelayStartWaitingRoomController.tutorialMode = false;
+				DelayStartWaitingRoomController.gameMode = gameMode;
+				gameModeAtual = gameMode;
+				if (PhotonNetwork.OfflineMode == false)
+				{
+					OnJoinRoomButton(gameModeAtual);
+				}
+				else
+				{
+					CreateRoomWithMode(gameModeAtual);
+				}
 
-                break;
+				break;
 
-            case "Tutorial":
+			case "Moto":
+
+				ColetaFade.SetActive(true);
+
+				yield return new WaitForSeconds(tempoPraFade);
+
+				DelayStartWaitingRoomController.minPlayerToStart = 2;
+				DelayStartWaitingRoomController.tutorialMode = false;
+				DelayStartWaitingRoomController.gameMode = gameMode;
+				gameModeAtual = gameMode;
+				if (PhotonNetwork.OfflineMode == false)
+				{
+					OnJoinRoomButton(gameModeAtual);
+				}
+				else
+				{
+					CreateRoomWithMode(gameModeAtual);
+				}
+
+				break;
+
+			case "Tutorial":
 				
 				TutorialFade.SetActive(true);
 
