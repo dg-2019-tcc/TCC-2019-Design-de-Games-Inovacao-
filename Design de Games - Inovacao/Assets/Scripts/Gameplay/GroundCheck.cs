@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class GroundCheck : MonoBehaviour
 {
@@ -25,6 +26,10 @@ public class GroundCheck : MonoBehaviour
 
     void Start()
     {
+		if (PhotonNetwork.InRoom && !GetComponent<PhotonView>().IsMine)
+		{
+			transform.gameObject.SetActive(false);
+		}
         player = gameObject.GetComponentInParent<PlayerMovement>();
 		jump = Resources.Load<BoolVariable>("Jump");
 	}
