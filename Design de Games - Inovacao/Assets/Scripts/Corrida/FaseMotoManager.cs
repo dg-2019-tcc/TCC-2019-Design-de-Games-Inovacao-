@@ -8,27 +8,15 @@ public class FaseMotoManager : MonoBehaviour
 
 	public Vector3 speed;
 
-	[HideInInspector]
-	public static bool rodaFase;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-		rodaFase = true;
-    }
-
-    // Update is called once per frame
+	public BoolVariable partidaComecou;
+	
+   
     void Update()
     {
-		if (rodaFase)
+		if (partidaComecou.Value)
 		{
 			transform.position += -speed;
 		}
     }
-	[PunRPC]
-	public void comeca()
-	{
-
-		rodaFase = true;
-	}
+	
 }

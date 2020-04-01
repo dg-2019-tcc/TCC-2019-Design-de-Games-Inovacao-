@@ -21,6 +21,7 @@ public class GameSetupController : MonoBehaviour
 
     public string playerPrefabName;
 
+	public BoolVariable partidaComecou;
 
 	[HideInInspector]
 	public GameObject PlayerInst;
@@ -67,6 +68,7 @@ public class GameSetupController : MonoBehaviour
 				StartCoroutine("UniteSynchronization", 0);
 			else
 				PlayerInst.SetActive(true);
+		partidaComecou.Value = true;
 		index++;
 	}
 }
