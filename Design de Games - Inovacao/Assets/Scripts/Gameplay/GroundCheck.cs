@@ -26,7 +26,7 @@ public class GroundCheck : MonoBehaviour
 
     void Start()
     {
-		if (PhotonNetwork.InRoom && !GetComponent<PhotonView>().IsMine)
+		if (PhotonNetwork.InRoom && !GetComponentInParent<PhotonView>().IsMine)
 		{
 			transform.gameObject.SetActive(false);
 		}
