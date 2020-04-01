@@ -30,7 +30,10 @@ public class Kick : MonoBehaviour
 
     public void Start()
     {
-        joyStick = FindObjectOfType<Joystick>();
+		if (GetComponent<PhotonView>().IsMine || PhotonNetwork.InRoom)
+		{
+			joyStick = FindObjectOfType<Joystick>();
+		}
     }
 
 
@@ -55,12 +58,23 @@ public class Kick : MonoBehaviour
 
     public void Chute()
     {
-        gameObject.GetComponent<PhotonView>().RPC("KickedBall", RpcTarget.MasterClient);
+		if (joyStick.Vertical != 0)
+		{
+			forceVertical = kickForceY * joyStick.Vertical;
+		}
+
+		else
+		{
+			forceVertical = 5f;
+		}
+		Debug.Log(forceVertical);
+		gameObject.GetComponent<PhotonView>().RPC("KickedBall", RpcTarget.MasterClient, forceVertical);
     }
 
     [PunRPC]
-    public void KickedBall()
+    public void KickedBall(float force)
     {
+		forceVertical = force;
         if (kicked == false)
         {
             StartCoroutine("CoolKick");
@@ -91,17 +105,6 @@ public class Kick : MonoBehaviour
     [PunRPC]
     public void KickBola()
     {
-
-        if (joyStick.Vertical != 0)
-        {
-            forceVertical = kickForceY * joyStick.Vertical;
-        }
-
-        else
-        {
-            forceVertical = 5f;
-        }
-        Debug.Log(forceVertical);
 
         ballrb.AddForce(new Vector2(kickForceX, forceVertical), ForceMode2D.Impulse);
     }
