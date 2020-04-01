@@ -20,6 +20,8 @@ public class Kick : MonoBehaviour
 
     private bool kicked;
 
+    private bool rightDir;
+
     private Rigidbody2D ballrb;
 
     public Joystick joyStick;
@@ -34,16 +36,20 @@ public class Kick : MonoBehaviour
 
     public void Update()
     {
-        if(PlayerMovement.leftDir == true)
-        {
-            kickSizeX = -0.5f;
-            kickForceX = -5f;
-        }
 
-        else
+        if (joyStick != null)
         {
-            kickSizeX = 0.5f;
-            kickForceX = 5f;
+            if (joyStick.Horizontal > 0)
+            {
+                rightDir = true;
+                gameObject.GetComponent<PhotonView>().RPC("GiraPlayer", RpcTarget.All, rightDir);
+            }
+
+            else if (joyStick.Horizontal < 0)
+            {
+                rightDir = false;
+                gameObject.GetComponent<PhotonView>().RPC("GiraPlayer", RpcTarget.All, rightDir);
+            }
         }
     }
 
@@ -98,5 +104,21 @@ public class Kick : MonoBehaviour
         Debug.Log(forceVertical);
 
         ballrb.AddForce(new Vector2(kickForceX, forceVertical), ForceMode2D.Impulse);
+    }
+
+    [PunRPC]
+    void GiraPlayer(bool dir)
+    {
+        if (dir)
+        {
+            kickSizeX = 0.5f;
+            kickForceX = 5f;
+        }
+
+        else
+        {
+            kickSizeX = -0.5f;
+            kickForceX = -5f;
+        }
     }
 }
