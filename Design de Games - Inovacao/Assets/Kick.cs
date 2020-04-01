@@ -42,13 +42,13 @@ public class Kick : MonoBehaviour
             if (joyStick.Horizontal > 0)
             {
                 rightDir = true;
-                gameObject.GetComponent<PhotonView>().RPC("GiraPlayer", RpcTarget.All, rightDir);
+                gameObject.GetComponent<PhotonView>().RPC("GiraFoot", RpcTarget.All, rightDir);
             }
 
             else if (joyStick.Horizontal < 0)
             {
                 rightDir = false;
-                gameObject.GetComponent<PhotonView>().RPC("GiraPlayer", RpcTarget.All, rightDir);
+                gameObject.GetComponent<PhotonView>().RPC("GiraFoot", RpcTarget.All, rightDir);
             }
         }
     }
@@ -107,7 +107,7 @@ public class Kick : MonoBehaviour
     }
 
     [PunRPC]
-    void GiraPlayer(bool dir)
+    void GiraFoot(bool dir)
     {
         if (dir)
         {
