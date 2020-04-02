@@ -21,6 +21,7 @@ public class PauseManager : MonoBehaviourPunCallbacks
 
 	public void Pause()
     {
+        FMODUnity.RuntimeManager.PlayOneShot("event:/HUD/Click", GetComponent<Transform>().position);
         pausebuttons.SetActive(true);
     }
 
@@ -31,12 +32,14 @@ public class PauseManager : MonoBehaviourPunCallbacks
 
     public void VoltaMenu()
     {
-		PhotonNetwork.Disconnect();
+        FMODUnity.RuntimeManager.PlayOneShot("event:/HUD/Click", GetComponent<Transform>().position);
+        PhotonNetwork.Disconnect();
 		goBack = true;
     }
 
     public void VoltaJogo()
     {
+        FMODUnity.RuntimeManager.PlayOneShot("event:/HUD/Click", GetComponent<Transform>().position);
         pausebuttons.SetActive(false);
     }
 

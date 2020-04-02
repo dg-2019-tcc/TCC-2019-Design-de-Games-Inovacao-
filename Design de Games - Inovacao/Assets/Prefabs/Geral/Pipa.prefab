@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 2039419664027468612}
   - component: {fileID: 2039419664027468602}
   - component: {fileID: 2039419664027468603}
+  - component: {fileID: 468281214047533049}
   m_Layer: 0
-  m_Name: Pipa_t
+  m_Name: Pipa
   m_TagString: Pipa
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -97,3 +98,26 @@ CircleCollider2D:
   m_Offset: {x: 0.0000009536743, y: 0}
   serializedVersion: 2
   m_Radius: 0.905
+--- !u!114 &468281214047533049
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2039419664027468613}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: Player
+  Event: event:/SFX/Player/Token
+  PlayEvent: 5
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 0
+  OverrideMaxDistance: 0

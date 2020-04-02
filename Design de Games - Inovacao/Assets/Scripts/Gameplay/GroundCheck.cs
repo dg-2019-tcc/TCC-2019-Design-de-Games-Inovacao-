@@ -40,10 +40,10 @@ public class GroundCheck : MonoBehaviour
     {
         if (col.CompareTag("Plataforma") || col.CompareTag("Dragao"))
         {
+            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Queda", GetComponent<Transform>().position);
             player.grounded = true;
             /*playerAC.SetBool("onFloor", true);
             playerAC.ResetTrigger("Jump");*/
-            caiuSom.Play();
             jumpButton.SetActive(true);
         }
     }

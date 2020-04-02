@@ -331,6 +331,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (grounded == true && joyStick.Vertical > -0.8)
         {
+            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Pulo", GetComponent<Transform>().position);
             jump.Value = true;
             //DogController.poderEstaAtivo = false;
             rb2d.AddForce(new Vector2(0, stats.jumpForce.Value), ForceMode2D.Impulse);
@@ -341,6 +342,7 @@ public class PlayerMovement : MonoBehaviour
 
         else if (canDoubleJump == true && joyStick.Vertical > -0.8)
         {
+            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Pulo", GetComponent<Transform>().position);
             canDoubleJump = false;
             jump.Value = false;
             Vector2 v = rb2d.velocity;

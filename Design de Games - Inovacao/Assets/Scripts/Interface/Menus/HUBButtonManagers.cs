@@ -21,7 +21,8 @@ public class HUBButtonManagers : MonoBehaviour
 
 	public void AtivaCustom()
 	{
-		customizationMenu.SetActive(!customizationMenu.activeSelf);
+        FMODUnity.RuntimeManager.PlayOneShot("event:/HUD/Roupas", GetComponent<Transform>().position);
+        customizationMenu.SetActive(!customizationMenu.activeSelf);
 		tutorialButton.SetActive(!customizationMenu.activeSelf);
 
 	}

@@ -19,6 +19,7 @@ public class HistoriaManager : MonoBehaviour
 
     public void SkipHist()
     {
+        FMODUnity.RuntimeManager.PlayOneShot("event:/HUD/Click", GetComponent<Transform>().position);
         SceneManager.LoadScene(nomeDoMenu);
     }
 

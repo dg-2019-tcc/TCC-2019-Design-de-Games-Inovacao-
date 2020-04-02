@@ -94,10 +94,10 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
 
     public void DelayStart(string gameMode)
     {
-		startSound.Play();
-		//delayStartButton.SetActive(false);
-		//delayStartButton2.SetActive(false);
-		delayCancelButton.SetActive(true);
+        FMODUnity.RuntimeManager.PlayOneShot("event:/HUD/Start", GetComponent<Transform>().position);
+        //delayStartButton.SetActive(false);
+        //delayStartButton2.SetActive(false);
+        delayCancelButton.SetActive(true);
 		tutorialButton.SetActive(false);
 		loadingScene.SetActive(true);
 		PlayerCanvas.SetActive(false);
@@ -116,8 +116,8 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
         switch (gameMode)
 		{
 			case "Corrida":
-				
-				CorridaFade.SetActive(true);
+
+                CorridaFade.SetActive(true);
 
 				yield return new WaitForSeconds(tempoPraFade);
 
@@ -136,8 +136,8 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
 				break;
 
 			case "Coleta":
-				
-				ColetaFade.SetActive(true);
+
+                ColetaFade.SetActive(true);
 
 				yield return new WaitForSeconds(tempoPraFade);
 
@@ -158,7 +158,7 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
 
 			case "Futebol":
 
-				ColetaFade.SetActive(true);
+                ColetaFade.SetActive(true);
 
 				yield return new WaitForSeconds(tempoPraFade);
 
@@ -179,7 +179,7 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
 
 			case "Moto":
 
-				ColetaFade.SetActive(true);
+                ColetaFade.SetActive(true);
 
 				yield return new WaitForSeconds(tempoPraFade);
 
@@ -199,8 +199,8 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
 				break;
 
 			case "Tutorial":
-				
-				TutorialFade.SetActive(true);
+
+                TutorialFade.SetActive(true);
 
 				yield return new WaitForSeconds(tempoPraFade);
 
@@ -303,6 +303,7 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
 
     public void DelayCancel()
     {
+        FMODUnity.RuntimeManager.PlayOneShot("event:/HUD/Click", GetComponent<Transform>().position);
         delayCancelButton.SetActive(false);
         tutorialButton.SetActive(true);
     //  delayStartButton.SetActive(true);
