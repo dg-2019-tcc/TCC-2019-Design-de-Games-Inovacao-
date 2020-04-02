@@ -12,11 +12,13 @@ public class MenuPrincipal : MonoBehaviour
 
     public void ComecaJogo()
     {
+        FMODUnity.RuntimeManager.PlayOneShot("event:/HUD/Start", GetComponent<Transform>().position);
         SceneManager.LoadScene(nomeDoMenu);
     }
 
 	public void Creditos()
 	{
-		SceneManager.LoadScene(nomeDosCreditos);
+        FMODUnity.RuntimeManager.PlayOneShot("event:/HUD/Click", GetComponent<Transform>().position);
+        SceneManager.LoadScene(nomeDosCreditos);
 	}
 }

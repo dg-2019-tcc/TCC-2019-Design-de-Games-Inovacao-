@@ -8,6 +8,7 @@ public class CreditosManager : MonoBehaviour
 	public string nomeDoMenu;
 	public void VoltaMenu()
 	{
-		SceneManager.LoadScene(nomeDoMenu);
+        FMODUnity.RuntimeManager.PlayOneShot("event:/HUD/Click", GetComponent<Transform>().position);
+        SceneManager.LoadScene(nomeDoMenu);
 	}
 }

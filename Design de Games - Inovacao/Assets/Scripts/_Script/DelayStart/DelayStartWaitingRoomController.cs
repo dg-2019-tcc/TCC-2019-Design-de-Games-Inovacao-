@@ -187,6 +187,7 @@ public class DelayStartWaitingRoomController : MonoBehaviourPunCallbacks
 
 	public void OnStartGameButton()
 	{
+        FMODUnity.RuntimeManager.PlayOneShot("event:/HUD/Start", GetComponent<Transform>().position);
 		startGameNow.SetActive(false);
 		if (!PhotonNetwork.IsMasterClient)
 			return;

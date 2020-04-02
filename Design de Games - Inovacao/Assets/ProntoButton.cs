@@ -13,6 +13,7 @@ public class ProntoButton : MonoBehaviour
 
     public void ComecaJogo()
     {
+        FMODUnity.RuntimeManager.PlayOneShot("event:/HUD/Start", GetComponent<Transform>().position);
         SceneManager.LoadScene(nomeDoMenu);
     }
 
@@ -37,6 +38,7 @@ public class ProntoButton : MonoBehaviour
 
     public void TutorialStart()
     {
+        FMODUnity.RuntimeManager.PlayOneShot("event:/HUD/Start", GetComponent<Transform>().position);
         DelayStartWaitingRoomController.minPlayerToStart = 1;
         DelayStartWaitingRoomController.tutorialMode = true;
         CreateTutorialRoom();        

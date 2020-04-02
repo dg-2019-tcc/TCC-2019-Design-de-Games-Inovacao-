@@ -78,6 +78,7 @@ public class Custom2D : MonoBehaviour
     [PunRPC]
     public void ChangeHair()
     {
+        FMODUnity.RuntimeManager.PlayOneShot("event:/HUD/Click", GetComponent<Transform>().position);
         hairs[hairInd.prop2DInd].SetActive(false);
         hairs2[hairInd.prop2DInd].SetActive(false);
 
@@ -98,6 +99,7 @@ public class Custom2D : MonoBehaviour
     [PunRPC]
     public void ChangeShirt()
     {
+        FMODUnity.RuntimeManager.PlayOneShot("event:/HUD/Click", GetComponent<Transform>().position);
         shirt[shirtInd.prop2DInd].SetActive(false);
         shirt2[shirtInd.prop2DInd].SetActive(false);
 
@@ -116,6 +118,7 @@ public class Custom2D : MonoBehaviour
     [PunRPC]
     public void ChangeShort()
     {
+        FMODUnity.RuntimeManager.PlayOneShot("event:/HUD/Click", GetComponent<Transform>().position);
         shorts[shortsInd.prop2DInd].SetActive(false);
 
         shortsInd.prop2DInd += 1;
@@ -133,6 +136,7 @@ public class Custom2D : MonoBehaviour
     [PunRPC]
     public void ChangeShoes()
     {
+        FMODUnity.RuntimeManager.PlayOneShot("event:/HUD/Click", GetComponent<Transform>().position);
         shoes[shoesInd.prop2DInd].SetActive(false);
 
         shoesInd.prop2DInd += 1;

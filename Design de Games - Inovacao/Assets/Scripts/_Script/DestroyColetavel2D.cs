@@ -11,7 +11,6 @@ public class DestroyColetavel2D : MonoBehaviourPunCallbacks
     public static int index;
 	[HideInInspector]
 	public static float coletavel;
-	public AudioSource coletaSom;
 
 
 
