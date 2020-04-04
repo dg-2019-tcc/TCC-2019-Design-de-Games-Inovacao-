@@ -42,10 +42,10 @@ public class WinnerManager : MonoBehaviour
 		}
 		else
 		{
-			if (LinhaDeChegada.changeRoom == true)
+			/*if (LinhaDeChegada.changeRoom == true)
 			{
 				StartCoroutine(Venceu());
-			}
+			}*/
 
 			if (ganhouCorrida)
 			{
@@ -63,6 +63,8 @@ public class WinnerManager : MonoBehaviour
 	[PunRPC]
 	void GanhouCorrida()
 	{
+
+        Debug.Log("Ganhou");
 		PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 1;
 		player.ganhouSom.Play();
 		//player.playerAnimations.playerAC.SetTrigger(player.playerAnimations.animatorWon);
@@ -90,7 +92,8 @@ public class WinnerManager : MonoBehaviour
 	[PunRPC]
 	void TrocaSala()
 	{
-		ganhouCorrida = false;
+        Debug.Log("TrocaSala");
+        ganhouCorrida = false;
 		perdeuCorrida = false;
 		PhotonNetwork.LoadLevel("TelaVitoria");
 	}
@@ -109,6 +112,7 @@ public class WinnerManager : MonoBehaviour
 
 	IEnumerator Venceu()
 	{
+        Debug.Log("Venceu");
 		player.cameraManager.SendMessage("ActivateCamera", false);
 		pv.RPC("Terminou", RpcTarget.All);
 		for (int i = 0; i < PhotonNetwork.PlayerList.Length; i++)
