@@ -66,8 +66,7 @@ public class WinnerManager : MonoBehaviour
 		PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 1;
 		player.ganhouSom.Play();
 		//player.playerAnimations.playerAC.SetTrigger(player.playerAnimations.animatorWon);
-
-		PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 1;
+		
 
 		gameObject.GetComponent<PhotonView>().RPC("ZeraPontuacao", RpcTarget.All);
 

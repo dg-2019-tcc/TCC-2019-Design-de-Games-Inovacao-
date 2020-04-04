@@ -24,7 +24,7 @@ public class GameSetupController : MonoBehaviour
 	public BoolVariable partidaComecou;
 
 	[HideInInspector]
-	public GameObject PlayerInst;
+	static public GameObject PlayerInst;
 
 
 	private void OnEnable()
