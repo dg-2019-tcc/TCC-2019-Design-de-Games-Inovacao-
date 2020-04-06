@@ -17,8 +17,12 @@ public class Custom2D : MonoBehaviour
 
     public GameObject[] hairs2;
     public GameObject[] shirt2;
-    public GameObject[] shorts2;
-    public GameObject[] shoes2;
+    public GameObject[] shirt2A;
+    public GameObject[] shirt2B;
+    public GameObject[] shorts2A;
+    public GameObject[] shorts2B;
+    public GameObject[] shoes2A;
+    public GameObject[] shoes2B;
 
 
     void Awake()
@@ -34,14 +38,34 @@ public class Custom2D : MonoBehaviour
             shirt2[i].SetActive(false);
         }
 
-        for (int i = 0; i < shorts2.Length; i++)
+        for (int i = 0; i < shirt2A.Length; i++)
         {
-            shorts2[i].SetActive(false);
+            shirt2A[i].SetActive(false);
         }
 
-        for (int i = 0; i < shoes2.Length; i++)
+        for (int i = 0; i < shirt2B.Length; i++)
         {
-            shoes2[i].SetActive(false);
+            shirt2B[i].SetActive(false);
+        }
+
+        for (int i = 0; i < shorts2A.Length; i++)
+        {
+            shorts2A[i].SetActive(false);
+        }
+
+        for (int i = 0; i < shorts2B.Length; i++)
+        {
+            shorts2B[i].SetActive(false);
+        }
+
+        for (int i = 0; i < shoes2A.Length; i++)
+        {
+            shoes2A[i].SetActive(false);
+        }
+
+        for (int i = 0; i < shoes2B.Length; i++)
+        {
+            shoes2B[i].SetActive(false);
         }
 
         for (int i = 0; i < hairs.Length; i++)
@@ -71,8 +95,12 @@ public class Custom2D : MonoBehaviour
 
         hairs2[hairInd.prop2DInd].SetActive(true);
         shirt2[shirtInd.prop2DInd].SetActive(true);
-        shorts2[shortsInd.prop2DInd].SetActive(true);
-        shoes2[shoesInd.prop2DInd].SetActive(true);
+        shirt2A[shirtInd.prop2DInd].SetActive(true);
+        shirt2B[shirtInd.prop2DInd].SetActive(true);
+        shorts2A[shortsInd.prop2DInd].SetActive(true);
+        shorts2B[shortsInd.prop2DInd].SetActive(true);
+        shoes2A[shoesInd.prop2DInd].SetActive(true);
+        shoes2B[shoesInd.prop2DInd].SetActive(true);
     }
 
     [PunRPC]
@@ -102,6 +130,8 @@ public class Custom2D : MonoBehaviour
         FMODUnity.RuntimeManager.PlayOneShot("event:/HUD/Click", GetComponent<Transform>().position);
         shirt[shirtInd.prop2DInd].SetActive(false);
         shirt2[shirtInd.prop2DInd].SetActive(false);
+        shirt2A[shirtInd.prop2DInd].SetActive(false);
+        shirt2B[shirtInd.prop2DInd].SetActive(false);
 
         shirtInd.prop2DInd += 1;
 
@@ -112,6 +142,8 @@ public class Custom2D : MonoBehaviour
 
         shirt[shirtInd.prop2DInd].SetActive(true);
         shirt2[shirtInd.prop2DInd].SetActive(true);
+        shirt2A[shirtInd.prop2DInd].SetActive(true);
+        shirt2B[shirtInd.prop2DInd].SetActive(true);
 
     }
 
@@ -120,6 +152,8 @@ public class Custom2D : MonoBehaviour
     {
         FMODUnity.RuntimeManager.PlayOneShot("event:/HUD/Click", GetComponent<Transform>().position);
         shorts[shortsInd.prop2DInd].SetActive(false);
+        shorts2A[shortsInd.prop2DInd].SetActive(false);
+        shorts2B[shortsInd.prop2DInd].SetActive(false);
 
         shortsInd.prop2DInd += 1;
 
@@ -129,7 +163,8 @@ public class Custom2D : MonoBehaviour
         }
 
         shorts[shortsInd.prop2DInd].SetActive(true);
-        shorts2[shortsInd.prop2DInd].SetActive(true);
+        shorts2A[shortsInd.prop2DInd].SetActive(true);
+        shorts2B[shortsInd.prop2DInd].SetActive(true);
 
     }
 
@@ -138,6 +173,8 @@ public class Custom2D : MonoBehaviour
     {
         FMODUnity.RuntimeManager.PlayOneShot("event:/HUD/Click", GetComponent<Transform>().position);
         shoes[shoesInd.prop2DInd].SetActive(false);
+        shoes2A[shoesInd.prop2DInd].SetActive(false);
+        shoes2B[shoesInd.prop2DInd].SetActive(false);
 
         shoesInd.prop2DInd += 1;
 
@@ -147,7 +184,8 @@ public class Custom2D : MonoBehaviour
         }
 
         shoes[shoesInd.prop2DInd].SetActive(true);
-        shoes2[shoesInd.prop2DInd].SetActive(true);
+        shoes2A[shoesInd.prop2DInd].SetActive(true);
+        shoes2B[shoesInd.prop2DInd].SetActive(true);
 
     }
 
