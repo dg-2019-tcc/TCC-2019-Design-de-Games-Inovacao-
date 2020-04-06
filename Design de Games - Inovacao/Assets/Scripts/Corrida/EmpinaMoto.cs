@@ -23,6 +23,7 @@ public class EmpinaMoto : MonoBehaviour
 	private void Start()
 	{
 		isEmpinando = false;
+		isManobrandoNoAr = false;
 		originalSpeed = playerSpeed.Value;
 	}
 
@@ -35,7 +36,7 @@ public class EmpinaMoto : MonoBehaviour
 		}
 		else if (isManobrandoNoAr)
 		{
-			transform.localRotation = Quaternion.Slerp(transform.localRotation, Quaternion.Euler(transform.localRotation.x, transform.localRotation.y, Mathf.Sin(Time.time) * transform.localRotation.z), 0.5f);
+			transform.localRotation = Quaternion.Slerp(transform.localRotation, Quaternion.Euler(transform.localRotation.x, transform.localRotation.y, Mathf.Sin(Time.time) * (transform.localRotation.z + 45)), 0.5f);
 			playerSpeed.Value = Mathf.Lerp(playerSpeed.Value, boostSpeed, 0.5f);
 		}
 		else
@@ -55,8 +56,6 @@ public class EmpinaMoto : MonoBehaviour
 
 	public void buttonEmpina()
 	{
-		if (PV.IsMine)
-		{
 			if (carregado)
 			{
 				Debug.Log("empinou");
@@ -64,7 +63,7 @@ public class EmpinaMoto : MonoBehaviour
 				PV.RPC("daGrau", RpcTarget.All, 1);
 			}
 
-			if (!canJump)
+			if (!canJump.Value)
 			{
 
 				Debug.Log("manobrou no ar");
@@ -72,7 +71,7 @@ public class EmpinaMoto : MonoBehaviour
 				PV.RPC("daGrau", RpcTarget.All, 2);
 
 			}
-		}
+		
 
 		
 	}
