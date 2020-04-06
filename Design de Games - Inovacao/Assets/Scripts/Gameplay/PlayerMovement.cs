@@ -28,6 +28,7 @@ public class PlayerMovement : MonoBehaviour
 	public BoolVariable canJump;
     static public bool acabouPartida;
     public bool canDoubleJump;
+	public float autoScroll;
 
 	public Quaternion normal;
 
@@ -215,7 +216,7 @@ public class PlayerMovement : MonoBehaviour
 
 
 			//Movimentação do player no joystick
-			float moveHorizontal = joyStick.Horizontal + Input.GetAxisRaw("Horizontal");
+			float moveHorizontal = Mathf.Clamp(joyStick.Horizontal + Input.GetAxisRaw("Horizontal") + autoScroll, -2, 2);
 			if (moveHorizontal != 0 && levouDogada == false && acabou == false)
 			{
 				rb2d.velocity = normal * new Vector3(stats.speed.Value * moveHorizontal, rb2d.velocity.y, 0);
