@@ -12,10 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6756c60e088b5740ba3fb008b203a9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: {x: 0, y: 0, z: 0}
   partidaComecou: {fileID: 11400000, guid: 8aa6409e81a3af141bb6c166599b2b68, type: 2}
-  joystick: {fileID: 0}
-  rb2d: {fileID: 0}
   playerMovement: {fileID: 0}
 --- !u!61 &1401951525
 BoxCollider2D:
@@ -55,8 +52,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9dc143bc5cf35d4980a8699ba9a118a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PV: {fileID: 95333374770581058}
   playerSpeed: {fileID: 11400000, guid: 95cfeda8d1e4db640ba9a88702cee2e0, type: 2}
+  canJump: {fileID: 11400000, guid: cca4e70c02594c9478e10780c2f6b0e2, type: 2}
   isEmpinando: 0
+  isManobrandoNoAr: 0
   boostSpeed: 6
 --- !u!1001 &5591792968978839090
 PrefabInstance:
@@ -189,6 +189,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 5591792968978839090}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &95333374770581058 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5532877919072958576, guid: 650c79142e52b1a46944cd798e3de766,
+    type: 3}
+  m_PrefabInstance: {fileID: 5591792968978839090}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8840837752875728348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &5591792969963504070
 PrefabInstance:
   m_ObjectHideFlags: 0

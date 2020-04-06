@@ -5,9 +5,13 @@ using Photon.Pun;
 
 public class EmpinaMoto : MonoBehaviour
 {
+	public PhotonView PV;
+
 	public FloatVariable playerSpeed;
+	public BoolVariable canJump;
 
 	public bool isEmpinando;
+	public bool isManobrandoNoAr;
 
 	public static bool carregado;
 
@@ -26,7 +30,12 @@ public class EmpinaMoto : MonoBehaviour
 	{
 		if (isEmpinando)
 		{
-		 	transform.localRotation = Quaternion.Slerp(transform.localRotation, Quaternion.Euler(transform.localRotation.x, transform.localRotation.y, 45), 0.5f);
+			transform.localRotation = Quaternion.Slerp(transform.localRotation, Quaternion.Euler(transform.localRotation.x, transform.localRotation.y, 45), 0.5f);
+			playerSpeed.Value = Mathf.Lerp(playerSpeed.Value, boostSpeed, 0.5f);
+		}
+		else if (isManobrandoNoAr)
+		{
+			transform.localRotation = Quaternion.Slerp(transform.localRotation, Quaternion.Euler(transform.localRotation.x, transform.localRotation.y, Mathf.Sin(Time.time) * transform.localRotation.z), 0.5f);
 			playerSpeed.Value = Mathf.Lerp(playerSpeed.Value, boostSpeed, 0.5f);
 		}
 		else
@@ -46,24 +55,49 @@ public class EmpinaMoto : MonoBehaviour
 
 	public void buttonEmpina()
 	{
-		if (carregado)
+		if (PV.IsMine)
 		{
-			Debug.Log("empinou");
-			isEmpinando = true;
-			daGrau();
+			if (carregado)
+			{
+				Debug.Log("empinou");
+				isEmpinando = true;
+				PV.RPC("daGrau", RpcTarget.All, 1);
+			}
+
+			if (!canJump)
+			{
+
+				Debug.Log("manobrou no ar");
+				isManobrandoNoAr = true;
+				PV.RPC("daGrau", RpcTarget.All, 2);
+
+			}
 		}
 
 		
 	}
 
 	[PunRPC]
-	public void daGrau()
+	public void daGrau(float modo)
 	{
-		if (isEmpinando)
+		switch (modo)
 		{
-			StartCoroutine("Empinando");
-			isEmpinando = true;
+			case 1:
+				StartCoroutine("Empinando");
+				isEmpinando = true;
+				break;
+
+			case 2:
+				StartCoroutine("Manobrando");
+				isManobrandoNoAr = true;
+				break;
+
+			default:
+				break;
+				
 		}
+		
+		
 	}
 
 	public IEnumerator Empinando()
@@ -72,5 +106,6 @@ public class EmpinaMoto : MonoBehaviour
 		
 		yield return new WaitForSeconds(2);
 		isEmpinando = false;
+		isManobrandoNoAr = false;
 	}
 }
