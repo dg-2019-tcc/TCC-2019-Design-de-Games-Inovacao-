@@ -5,7 +5,8 @@ using Photon.Pun;
 
 public class EmpinaMoto : MonoBehaviour
 {
-	public PhotonView PV;
+	public PhotonView playerPV;
+	public PhotonView motoPV;
 
 	public FloatVariable playerSpeed;
 	public BoolVariable canJump;
@@ -25,6 +26,8 @@ public class EmpinaMoto : MonoBehaviour
 		isEmpinando = false;
 		isManobrandoNoAr = false;
 		originalSpeed = playerSpeed.Value;
+		motoPV = GetComponent<PhotonView>();
+		//motoPV.ViewID = playerPV.ViewID;
 	}
 
 	private void Update()
@@ -60,7 +63,8 @@ public class EmpinaMoto : MonoBehaviour
 			{
 				Debug.Log("empinou");
 				isEmpinando = true;
-				PV.RPC("daGrau", RpcTarget.All, 1);
+				motoPV.RPC("daGrau", RpcTarget.All, 1);
+			
 			}
 
 			if (!canJump.Value)
@@ -68,7 +72,7 @@ public class EmpinaMoto : MonoBehaviour
 
 				Debug.Log("manobrou no ar");
 				isManobrandoNoAr = true;
-				PV.RPC("daGrau", RpcTarget.All, 2);
+				motoPV.RPC("daGrau", RpcTarget.All, 2);
 
 			}
 		
@@ -77,7 +81,7 @@ public class EmpinaMoto : MonoBehaviour
 	}
 
 	[PunRPC]
-	public void daGrau(float modo)
+	public void daGrau(int modo)
 	{
 		switch (modo)
 		{
@@ -87,7 +91,7 @@ public class EmpinaMoto : MonoBehaviour
 				break;
 
 			case 2:
-				StartCoroutine("Manobrando");
+				StartCoroutine("Empinando");
 				isManobrandoNoAr = true;
 				break;
 
