@@ -35,17 +35,33 @@ public class GameSetupController : MonoBehaviour
 		}
 
 
-		PlayerInst = (GameObject)PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PhotonPlayer"),
-							spawnPoints[Random.Range(0, spawnPoints.Length - 1)].position, Quaternion.identity);
-		PlayerInst.SetActive(false);
-		gameObject.GetComponent<PhotonView>().RPC("SpawnPlayer", RpcTarget.All, allPlayersInSession);
+
+        for (int i = 0; i < PhotonNetwork.PlayerList.Length; i++)
+        {
+
+            Debug.Log(i);
+            Debug.Log(spawnPoints[i].position);
+            Debug.Log(spawnPoints[0].position);
+            Debug.Log(spawnPoints[1].position);
+
+            PlayerInst = (GameObject)PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PhotonPlayer"),
+                                spawnPoints[i].position, Quaternion.identity);
+            Debug.Log(spawnPoints[i].position);
+            Debug.Log(i);
+            PlayerInst.SetActive(false);
+           
+        }
+     
+            gameObject.GetComponent<PhotonView>().RPC("SpawnPlayer", RpcTarget.All, allPlayersInSession);
 	}
 
 
 	[PunRPC]
 	private void SpawnPlayer(float alterPlayerCount)
 	{
-		if (alterPlayerCount > allPlayersInSession)														//Contador pra sincronizar e adicionar quantos players entraram na cena
+
+        Debug.Log("Spawn");
+        if (alterPlayerCount > allPlayersInSession)														//Contador pra sincronizar e adicionar quantos players entraram na cena
 			allPlayersInSession = alterPlayerCount;
 
 		allPlayersInSession++;
