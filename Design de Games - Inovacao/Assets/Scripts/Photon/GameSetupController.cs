@@ -26,6 +26,8 @@ public class GameSetupController : MonoBehaviour
 	[HideInInspector]
 	static public GameObject PlayerInst;
 
+    public bool isFut;
+
 
 	private void OnEnable()
 	{
@@ -34,25 +36,40 @@ public class GameSetupController : MonoBehaviour
 			GameSetupController.GS = this;
 		}
 
-
-
-        for (int i = 0; i < PhotonNetwork.PlayerList.Length; i++)
+        if (isFut)
         {
+            if (PhotonNetwork.IsMasterClient.Equals(true))
+            {
+                PlayerInst = (GameObject)PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PhotonPlayer"),
+                               spawnPoints[0].position, Quaternion.identity);
+                PlayerInst.SetActive(false);
 
-            Debug.Log(i);
-            Debug.Log(spawnPoints[i].position);
-            Debug.Log(spawnPoints[0].position);
-            Debug.Log(spawnPoints[1].position);
+                gameObject.GetComponent<PhotonView>().RPC("SpawnPlayer", RpcTarget.All, allPlayersInSession);
+                Debug.Log("isMaster");
+            }
 
-            PlayerInst = (GameObject)PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PhotonPlayer"),
-                                spawnPoints[i].position, Quaternion.identity);
-            Debug.Log(spawnPoints[i].position);
-            Debug.Log(i);
-            PlayerInst.SetActive(false);
-           
+            else
+            {
+                PlayerInst = (GameObject)PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PhotonPlayer"),
+                               spawnPoints[1].position, Quaternion.identity);
+                PlayerInst.SetActive(false);
+
+
+                gameObject.GetComponent<PhotonView>().RPC("SpawnPlayer", RpcTarget.All, allPlayersInSession);
+                Debug.Log("isClient");
+            }
         }
-     
+        else
+        {
+            PlayerInst = (GameObject)PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PhotonPlayer"),
+                               spawnPoints[0].position, Quaternion.identity);
+            PlayerInst.SetActive(false);
+
+
             gameObject.GetComponent<PhotonView>().RPC("SpawnPlayer", RpcTarget.All, allPlayersInSession);
+
+            Debug.Log("NãoÉFut");
+        }
 	}
 
 
