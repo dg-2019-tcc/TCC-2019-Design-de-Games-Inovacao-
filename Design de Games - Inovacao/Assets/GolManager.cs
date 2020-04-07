@@ -15,7 +15,7 @@ public class GolManager : MonoBehaviourPunCallbacks
 
     public Transform bolaSpawnPoint;
 
-    private void OnTriggerStay2D(Collider2D other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Bola"))
         {
@@ -25,7 +25,15 @@ public class GolManager : MonoBehaviourPunCallbacks
             index++;
             playerGol.jogador.PV.Owner.AddScore(1);
 
+            Debug.Log(index);
+
             StartCoroutine("ResetaBola");
+
+            if(playerGol.jogador.PV.Owner.GetScore() >= 5)
+            {
+                PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 1;
+                LevelManager.Instance.GoPodium();
+            }
             
         }
 

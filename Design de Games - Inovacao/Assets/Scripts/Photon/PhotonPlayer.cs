@@ -17,7 +17,23 @@ public class PhotonPlayer : MonoBehaviour
     void Start()
     {
 		PV = GetComponent<PhotonView>();
-		int spawnPicker = Random.Range(0, GameSetupController.GS.spawnPoints.Length);
+
+        int spawnPicker;
+
+
+            if (PhotonNetwork.IsMasterClient.Equals(true))
+            {
+                spawnPicker = 0;
+            }
+
+            else
+            {
+                spawnPicker = 1;
+            }
+
+
+
+		//int spawnPicker = Random.Range(0, GameSetupController.GS.spawnPoints.Length);
         string prefabName = GameSetupController.GS.playerPrefabName;
 
         if (PV.IsMine || !PhotonNetwork.InRoom)
