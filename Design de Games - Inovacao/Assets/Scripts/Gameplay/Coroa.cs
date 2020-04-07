@@ -12,10 +12,10 @@ public class Coroa : MonoBehaviour
 	{
 		if ((int)PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] == 1)
 		{
-			
+            euGanhei();
 		}
-	}
-	*/
+	}*/
+	
 
 	void Update()
     {

@@ -8,7 +8,7 @@ public class LevelManager : GameManager
 {
     public new static LevelManager Instance => GameManager.Instance as LevelManager;
 
-    public FloatVariable CurrentLevelIndex;
+    //public FloatVariable CurrentLevelIndex;
 
     public int coletaMax = 7;
     
@@ -17,24 +17,24 @@ public class LevelManager : GameManager
 
     public void GoHub()
     {
-        CurrentLevelIndex.Value = 0;
+        //CurrentLevelIndex.Value = 0;
     }
 
     public void GoColeta()
     {
-        CurrentLevelIndex.Value = 1;
+        //CurrentLevelIndex.Value = 1;
     }
 
     public void GoCorrida()
     {
-        CurrentLevelIndex.Value = 2;
+        //CurrentLevelIndex.Value = 2;
     }
 
     [PunRPC]
      public void GoVitoria()
     {
         PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 1;
-        CurrentLevelIndex.Value = 3;
+        //CurrentLevelIndex.Value = 3;
         gameObject.GetComponent<PhotonView>().RPC("GoPodium", RpcTarget.All);
         // Manda o jogador q ganhou pra tela como vitorioso
         // e ativa o GoDerrota() para todos os outros
@@ -45,7 +45,7 @@ public class LevelManager : GameManager
     {
         PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 0;
         //Só é ativado quando alguem ganha
-        CurrentLevelIndex.Value = 3;
+        //CurrentLevelIndex.Value = 3;
         gameObject.GetComponent<PhotonView>().RPC("GoPodium", RpcTarget.MasterClient);
     }
 
