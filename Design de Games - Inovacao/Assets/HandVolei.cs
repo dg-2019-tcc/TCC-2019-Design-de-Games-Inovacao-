@@ -69,7 +69,7 @@ public class HandVolei : MonoBehaviour
             forceVertical = 5f;
         }
         //Debug.Log(forceVertical);
-        gameObject.GetComponent<PhotonView>().RPC("KickedBall", RpcTarget.MasterClient, forceVertical);
+        gameObject.GetComponent<PhotonView>().RPC("CortouBall", RpcTarget.MasterClient, forceVertical);
     }
 
     [PunRPC]
@@ -78,7 +78,7 @@ public class HandVolei : MonoBehaviour
         forceVertical = force;
         if (kicked == false)
         {
-            StartCoroutine("CoolKick");
+            StartCoroutine("CoolHand");
         }
     }
 
@@ -101,7 +101,7 @@ public class HandVolei : MonoBehaviour
         if (col.CompareTag("Bola") && kicked == true)
         {
             ballrb = col.GetComponent<Rigidbody2D>();
-            gameObject.GetComponent<PhotonView>().RPC("KickBola", RpcTarget.MasterClient);
+            gameObject.GetComponent<PhotonView>().RPC("CortaBola", RpcTarget.MasterClient);
         }
     }
 
