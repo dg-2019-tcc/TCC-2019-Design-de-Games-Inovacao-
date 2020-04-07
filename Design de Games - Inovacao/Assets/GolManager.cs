@@ -27,7 +27,7 @@ public class GolManager : MonoBehaviourPunCallbacks
 
             Debug.Log(index);
 
-            StartCoroutine("ResetaBola");
+            Recomeca();
 
             if(playerGol.jogador.PV.Owner.GetScore() >= 5)
             {
@@ -37,6 +37,12 @@ public class GolManager : MonoBehaviourPunCallbacks
             
         }
 
+    }
+
+    [PunRPC]
+    public void Recomeca()
+    {
+        StartCoroutine("ResetaBola");
     }
 
     IEnumerator ResetaBola()
