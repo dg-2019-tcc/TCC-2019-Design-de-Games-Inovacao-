@@ -1,9 +1,9 @@
-﻿ using Photon.Pun;
+﻿using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Kick : MonoBehaviour
+public class HandVolei : MonoBehaviour
 {
 
     public float cooldownKick;
@@ -26,18 +26,18 @@ public class Kick : MonoBehaviour
 
     public Joystick joyStick;
 
-    public GameObject foot;
+    public GameObject hand;
 
-    public Transform footIncialPos;
+    public Transform handIncialPos;
 
-    public Transform footKickPos;
+    public Transform handKickPos;
 
     public void Start()
     {
-		if (GetComponent<PhotonView>().IsMine || PhotonNetwork.InRoom)
-		{
-			joyStick = FindObjectOfType<Joystick>();
-		}
+        if (GetComponent<PhotonView>().IsMine || PhotonNetwork.InRoom)
+        {
+            joyStick = FindObjectOfType<Joystick>();
+        }
     }
 
 
@@ -60,25 +60,25 @@ public class Kick : MonoBehaviour
         }
     }
 
-    public void Chute()
+    public void Corte()
     {
-		if (joyStick.Vertical != 0)
-		{
-			forceVertical = kickForceY * joyStick.Vertical;
-		}
+        if (joyStick.Vertical != 0)
+        {
+            forceVertical = kickForceY * joyStick.Vertical;
+        }
 
-		else
-		{
-			forceVertical = 5f;
-		}
-		//Debug.Log(forceVertical);
-		gameObject.GetComponent<PhotonView>().RPC("KickedBall", RpcTarget.MasterClient, forceVertical);
+        else
+        {
+            forceVertical = 5f;
+        }
+        //Debug.Log(forceVertical);
+        gameObject.GetComponent<PhotonView>().RPC("KickedBall", RpcTarget.MasterClient, forceVertical);
     }
 
     [PunRPC]
-    public void KickedBall(float force)
+    public void CortouBall(float force)
     {
-		forceVertical = force;
+        forceVertical = force;
         if (kicked == false)
         {
             StartCoroutine("CoolKick");
@@ -88,18 +88,20 @@ public class Kick : MonoBehaviour
     IEnumerator CoolKick()
     {
 
-        foot.transform.position = footKickPos.transform.position;
+        //hand.transform.position = handKickPos.transform.position;
+        hand.SetActive(true);
         kicked = true;
 
         yield return new WaitForSeconds(cooldownKick);
 
-        foot.transform.position = footIncialPos.transform.position;
+        //hand.transform.position = handIncialPos.transform.position;
+        hand.SetActive(false);
         kicked = false;
     }
 
     private void OnTriggerEnter2D(Collider2D col)
     {
-        if(col.CompareTag("Bola") && kicked == true)
+        if (col.CompareTag("Bola") && kicked == true)
         {
             ballrb = col.GetComponent<Rigidbody2D>();
             gameObject.GetComponent<PhotonView>().RPC("KickBola", RpcTarget.MasterClient);
@@ -116,7 +118,7 @@ public class Kick : MonoBehaviour
     }*/
 
     [PunRPC]
-    public void KickBola()
+    public void CortaBola()
     {
         Debug.Log("KickBola");
         ballrb.AddForce(new Vector2(kickForceX, forceVertical), ForceMode2D.Impulse);

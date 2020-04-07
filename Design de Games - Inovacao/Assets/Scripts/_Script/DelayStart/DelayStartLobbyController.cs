@@ -177,7 +177,28 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
 
 				break;
 
-			case "Moto":
+            case "Volei":
+
+                ColetaFade.SetActive(true);
+
+                yield return new WaitForSeconds(tempoPraFade);
+
+                DelayStartWaitingRoomController.minPlayerToStart = 2;
+                DelayStartWaitingRoomController.tutorialMode = false;
+                DelayStartWaitingRoomController.gameMode = gameMode;
+                gameModeAtual = gameMode;
+                if (PhotonNetwork.OfflineMode == false)
+                {
+                    OnJoinRoomButton(gameModeAtual);
+                }
+                else
+                {
+                    CreateRoomWithMode(gameModeAtual);
+                }
+
+                break;
+
+            case "Moto":
 
                 ColetaFade.SetActive(true);
 
