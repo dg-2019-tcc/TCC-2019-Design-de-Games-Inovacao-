@@ -71,7 +71,7 @@ public class Kick : MonoBehaviour
 		{
 			forceVertical = 5f;
 		}
-		Debug.Log(forceVertical);
+		//Debug.Log(forceVertical);
 		gameObject.GetComponent<PhotonView>().RPC("KickedBall", RpcTarget.MasterClient, forceVertical);
     }
 
