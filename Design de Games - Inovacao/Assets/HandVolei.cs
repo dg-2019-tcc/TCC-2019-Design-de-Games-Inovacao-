@@ -28,9 +28,6 @@ public class HandVolei : MonoBehaviour
 
     public GameObject hand;
 
-    public Transform handIncialPos;
-
-    public Transform handKickPos;
 
     public void Start()
     {
@@ -85,7 +82,7 @@ public class HandVolei : MonoBehaviour
         }
     }
 
-    IEnumerator CoolKick()
+    IEnumerator CoolHand()
     {
 
         //hand.transform.position = handKickPos.transform.position;
