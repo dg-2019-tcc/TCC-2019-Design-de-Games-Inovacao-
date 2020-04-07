@@ -7,14 +7,14 @@ public class Coroa : MonoBehaviour
 {
 	public Transform ganhador;
 
-	
+	/*
 	private void Start()
 	{
 		if ((int)PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] == 1)
 		{
             euGanhei();
 		}
-	}
+	}*/
 	
 
 	void Update()
