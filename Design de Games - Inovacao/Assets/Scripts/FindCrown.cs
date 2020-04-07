@@ -7,9 +7,14 @@ public class FindCrown : MonoBehaviour
 {
     void Start()
     {
-		GameObject.FindObjectOfType<Coroa>().ganhador = transform;
+		if ((int)PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] == 1)
+		{
 
-		GameObject.FindObjectOfType<Coroa>().GetComponent<PhotonView>().RPC("euGanhei", RpcTarget.All, transform);
+
+			GameObject.FindObjectOfType<Coroa>().ganhador = transform;
+
+			GameObject.FindObjectOfType<Coroa>().GetComponent<PhotonView>().RPC("euGanhei", RpcTarget.All, transform);
+		}
 	}
 	
 }

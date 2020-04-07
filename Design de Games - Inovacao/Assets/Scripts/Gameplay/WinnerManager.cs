@@ -70,7 +70,7 @@ public class WinnerManager : MonoBehaviour
 		//player.playerAnimations.playerAC.SetTrigger(player.playerAnimations.animatorWon);
 		
 
-		gameObject.GetComponent<PhotonView>().RPC("ZeraPontuacao", RpcTarget.All);
+	//	gameObject.GetComponent<PhotonView>().RPC("ZeraPontuacao", RpcTarget.All);
 
 		gameObject.GetComponent<PhotonView>().RPC("TrocaSala", RpcTarget.All);
 		ganhouCorrida = false;
@@ -127,7 +127,7 @@ public class WinnerManager : MonoBehaviour
 		yield return new WaitForSeconds(delayForWinScreen);
 		PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 1;
 
-		gameObject.GetComponent<PhotonView>().RPC("ZeraPontuacao", RpcTarget.All);
+		//gameObject.GetComponent<PhotonView>().RPC("ZeraPontuacao", RpcTarget.All);
 
 		gameObject.GetComponent<PhotonView>().RPC("TrocaSala", RpcTarget.All);
 

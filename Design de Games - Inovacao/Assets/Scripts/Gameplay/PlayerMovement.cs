@@ -147,7 +147,7 @@ public class PlayerMovement : MonoBehaviour
 		}
 
 
-        PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 0;
+      //  PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 0;
 		
 		oldPos = transform.position.x;
 		newPos = transform.position.x;
