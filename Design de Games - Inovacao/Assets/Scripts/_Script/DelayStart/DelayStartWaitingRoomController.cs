@@ -200,4 +200,13 @@ public class DelayStartWaitingRoomController : MonoBehaviourPunCallbacks
         PhotonNetwork.LeaveRoom();
         SceneManager.LoadScene(menuSceneIndex);
     }
+
+    public override void OnMasterClientSwitched(Player newMasterClient)
+    {
+        base.OnMasterClientSwitched(newMasterClient);
+        if (PhotonNetwork.IsMasterClient)
+        {
+            startGameNow.SetActive(true);
+        }
+    }
 }
