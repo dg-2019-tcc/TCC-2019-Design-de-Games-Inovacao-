@@ -111,4 +111,9 @@ public class EmpinaMoto : MonoBehaviour
 		isEmpinando = false;
 		isManobrandoNoAr = false;
 	}
+
+	private void OnDestroy()
+	{
+		playerSpeed.Value = originalSpeed;
+	}
 }
