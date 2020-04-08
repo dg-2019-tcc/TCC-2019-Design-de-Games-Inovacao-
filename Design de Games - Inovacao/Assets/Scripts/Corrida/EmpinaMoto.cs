@@ -5,19 +5,25 @@ using Photon.Pun;
 
 public class EmpinaMoto : MonoBehaviour
 {
+	[Header ("PhotonViews")]
 	public PhotonView playerPV;
 	public PhotonView motoPV;
 
+	[Header ("ScriptableObjects")]
 	public FloatVariable playerSpeed;
 	public BoolVariable canJump;
 
+	[Header ("Booleans (tá visível pra checar se ta dando certo, mas tem script vendo tbm)")]
 	public bool isEmpinando;
 	public bool isManobrandoNoAr;
 
 	public static bool carregado;
 
-	private float originalSpeed;
+	
+	[Header("Velocidades")]
+	public float baseSpeed;
 	public float boostSpeed;
+	private float originalSpeed;
 
 
 
@@ -26,6 +32,7 @@ public class EmpinaMoto : MonoBehaviour
 		isEmpinando = false;
 		isManobrandoNoAr = false;
 		originalSpeed = playerSpeed.Value;
+		playerSpeed.Value = baseSpeed;
 		motoPV = GetComponent<PhotonView>();
 		//motoPV.ViewID = playerPV.ViewID;
 	}
@@ -45,7 +52,7 @@ public class EmpinaMoto : MonoBehaviour
 		else
 		{
 			transform.localRotation = Quaternion.Slerp(transform.localRotation, Quaternion.Euler(transform.localRotation.x, transform.localRotation.y, 0), 0.5f);
-			playerSpeed.Value = Mathf.Lerp(playerSpeed.Value, originalSpeed, 0.5f);
+			playerSpeed.Value = Mathf.Lerp(playerSpeed.Value, baseSpeed, 0.5f);
 		}
 
 
@@ -99,8 +106,8 @@ public class EmpinaMoto : MonoBehaviour
 				break;
 				
 		}
-		
-		
+
+		baseSpeed = Mathf.Lerp(baseSpeed, boostSpeed, 0.1f);
 	}
 
 	public IEnumerator Empinando()
