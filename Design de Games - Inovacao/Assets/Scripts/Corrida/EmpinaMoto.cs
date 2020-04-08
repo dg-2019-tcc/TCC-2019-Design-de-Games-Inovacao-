@@ -17,6 +17,7 @@ public class EmpinaMoto : MonoBehaviour
 	public static bool carregado;
 
 	private float originalSpeed;
+	private float baseSpeed;
 	public float boostSpeed;
 
 
@@ -45,7 +46,7 @@ public class EmpinaMoto : MonoBehaviour
 		else
 		{
 			transform.localRotation = Quaternion.Slerp(transform.localRotation, Quaternion.Euler(transform.localRotation.x, transform.localRotation.y, 0), 0.5f);
-			playerSpeed.Value = Mathf.Lerp(playerSpeed.Value, originalSpeed, 0.5f);
+			playerSpeed.Value = Mathf.Lerp(playerSpeed.Value, baseSpeed, 0.5f);
 		}
 
 
