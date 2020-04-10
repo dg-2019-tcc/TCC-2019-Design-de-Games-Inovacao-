@@ -29,6 +29,9 @@ public class PlayerMovement : MonoBehaviour
     static public bool acabouPartida;
     public bool canDoubleJump;
 	public float autoScroll;
+    public bool isWalking;
+    public float turnCool;
+    public bool turn;
 
 	public Quaternion normal;
 
@@ -177,9 +180,24 @@ public class PlayerMovement : MonoBehaviour
 		{
 			if (joyStick.Horizontal > 0 || ThrowObject.dirRight == true && rightDir == false)
 			{
-				rightDir = true;
-				leftDir = false;
-				ThrowObject.dirRight = false;
+                if(isWalking == true)
+                {
+                    turnCool = 0f;
+                }
+
+                else if (turnCool <= 0.2f)
+                {
+                    isWalking = false;
+                    rightDir = true;
+                    leftDir = false;
+                    ThrowObject.dirRight = false;
+                    turnCool += Time.deltaTime;
+                }
+
+                else
+                {
+                    isWalking = true;
+                }
 
 				
 				if (!PhotonNetwork.InRoom)
@@ -197,11 +215,27 @@ public class PlayerMovement : MonoBehaviour
 			}
 			else if (joyStick.Horizontal < 0 || ThrowObject.dirLeft == true && leftDir == false)
 			{
+                if (isWalking == true)
+                {
+                    turnCool = 0f;
+                }
 
-				leftDir = true;
-				rightDir = false;
-				ThrowObject.dirLeft = false;
-				if (!PhotonNetwork.InRoom)
+                else if (turnCool <= 0.2f)
+                {
+                    isWalking = false;
+                    leftDir = true;
+                    rightDir = false;
+                    ThrowObject.dirLeft = false;
+                    turnCool += Time.deltaTime;
+
+                }
+
+                else
+                {
+                    isWalking = true;
+                }
+
+                if (!PhotonNetwork.InRoom)
 				{
 					Quaternion direction = Quaternion.Euler(0, 180, 0);
 					player.transform.rotation = direction;
@@ -238,6 +272,8 @@ public class PlayerMovement : MonoBehaviour
 
 			else
 			{
+                isWalking = false;
+                turnCool = 0f;
 				//playerAnimations.Walk(false);
                 playerAndando.SetActive(false);
                 playerParado.SetActive(true);
