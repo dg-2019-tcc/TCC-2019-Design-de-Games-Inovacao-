@@ -1,26 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &2226752748761367037
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4128057485983258276}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e983df72684a0cd4a8cd97c5e6ee9027, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cooldownKick: 0.5
-  kickSizeX: 0
-  kickSizeY: 0.1
-  kickForceX: 0
-  kickForceY: 10
-  joyStick: {fileID: 0}
-  foot: {fileID: 1036728851663742918}
-  footIncialPos: {fileID: 4044857388599364668}
-  footKickPos: {fileID: 5166162658795472919}
 --- !u!1 &1561911866789206415
 GameObject:
   m_ObjectHideFlags: 0
@@ -51,6 +30,30 @@ Transform:
   m_Father: {fileID: 180959016855565648}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2226752748761367037
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4128057485983258276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e983df72684a0cd4a8cd97c5e6ee9027, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cooldownKick: 0.5
+  kickSizeX: 0
+  kickSizeY: 0.1
+  kickForce: {fileID: 11400000, guid: c0a7b296d419c2c4997caeb459849117, type: 2}
+  kickForceX: 0
+  kickForceY: 10
+  superKickForce: {fileID: 0}
+  superKickForceX: 0
+  joyStick: {fileID: 0}
+  foot: {fileID: 1036728851663742918}
+  footIncialPos: {fileID: 4044857388599364668}
+  footKickPos: {fileID: 5166162658795472919}
 --- !u!1 &4483178186814864022
 GameObject:
   m_ObjectHideFlags: 0
@@ -153,6 +156,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 121371279, guid: 650c79142e52b1a46944cd798e3de766, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.042
+      objectReference: {fileID: 0}
+    - target: {fileID: 121371279, guid: 650c79142e52b1a46944cd798e3de766, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.054
+      objectReference: {fileID: 0}
     - target: {fileID: 1251940359770625851, guid: 650c79142e52b1a46944cd798e3de766,
         type: 3}
       propertyPath: m_RootOrder
@@ -163,20 +174,40 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6305284216371522052, guid: 650c79142e52b1a46944cd798e3de766,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: Chute
+    - target: {fileID: 121371276, guid: 650c79142e52b1a46944cd798e3de766, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 6305284216371522052, guid: 650c79142e52b1a46944cd798e3de766,
+    - target: {fileID: 1253768275922279408, guid: 650c79142e52b1a46944cd798e3de766,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 2226752748761367037}
+    - target: {fileID: 1253768275922279408, guid: 650c79142e52b1a46944cd798e3de766,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Chute
+      objectReference: {fileID: 0}
     - target: {fileID: 7091625717154300825, guid: 650c79142e52b1a46944cd798e3de766,
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 121371278, guid: 650c79142e52b1a46944cd798e3de766, type: 3}
+      propertyPath: m_Offset.x
+      value: 0.38296413
+      objectReference: {fileID: 0}
+    - target: {fileID: 121371278, guid: 650c79142e52b1a46944cd798e3de766, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.07787006
+      objectReference: {fileID: 0}
+    - target: {fileID: 121371278, guid: 650c79142e52b1a46944cd798e3de766, type: 3}
+      propertyPath: m_Size.x
+      value: 0.9017942
+      objectReference: {fileID: 0}
+    - target: {fileID: 121371278, guid: 650c79142e52b1a46944cd798e3de766, type: 3}
+      propertyPath: m_Size.y
+      value: 0.90179414
       objectReference: {fileID: 0}
     - target: {fileID: 121371277, guid: 650c79142e52b1a46944cd798e3de766, type: 3}
       propertyPath: kickSizeY
@@ -384,6 +415,16 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 6305284216371522052, guid: 650c79142e52b1a46944cd798e3de766,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Chute
+      objectReference: {fileID: 0}
+    - target: {fileID: 6305284216371522052, guid: 650c79142e52b1a46944cd798e3de766,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2226752748761367037}
     m_RemovedComponents:
     - {fileID: 121371277, guid: 650c79142e52b1a46944cd798e3de766, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 650c79142e52b1a46944cd798e3de766, type: 3}

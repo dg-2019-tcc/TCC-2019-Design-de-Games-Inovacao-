@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Kick : MonoBehaviour
 {
+    private PlayerMovement player;
 
     public float cooldownKick;
 
@@ -12,9 +13,15 @@ public class Kick : MonoBehaviour
 
     public float kickSizeY;
 
+    public FloatVariable kickForce;
+
     public float kickForceX;
 
     public float kickForceY;
+
+    public FloatVariable superKickForce;
+
+    public float superKickForceX;
 
     private float forceVertical;
 
@@ -38,6 +45,8 @@ public class Kick : MonoBehaviour
 		{
 			joyStick = FindObjectOfType<Joystick>();
 		}
+
+        player = gameObject.GetComponentInParent<PlayerMovement>();
     }
 
 
@@ -88,21 +97,29 @@ public class Kick : MonoBehaviour
     IEnumerator CoolKick()
     {
 
-        foot.transform.position = footKickPos.transform.position;
+        //foot.transform.position = footKickPos.transform.position;
+        foot.SetActive(true);
         kicked = true;
 
         yield return new WaitForSeconds(cooldownKick);
 
-        foot.transform.position = footIncialPos.transform.position;
+        foot.SetActive(false);
+        //foot.transform.position = footIncialPos.transform.position;
         kicked = false;
     }
 
     private void OnTriggerEnter2D(Collider2D col)
     {
-        if(col.CompareTag("Bola") && kicked == true)
+        if(col.CompareTag("Bola") && kicked == true && player.grounded == true)
         {
             ballrb = col.GetComponent<Rigidbody2D>();
             gameObject.GetComponent<PhotonView>().RPC("KickBola", RpcTarget.MasterClient);
+        }
+
+        if (col.CompareTag("Bola") && kicked == true && player.grounded == false)
+        {
+            ballrb = col.GetComponent<Rigidbody2D>();
+            gameObject.GetComponent<PhotonView>().RPC("SuperKickBola", RpcTarget.MasterClient);
         }
     }
 
@@ -123,18 +140,28 @@ public class Kick : MonoBehaviour
     }
 
     [PunRPC]
+    public void SuperKickBola()
+    {
+        Debug.Log("SuperKickBola");
+        ballrb.AddForce(new Vector2(superKickForceX, forceVertical), ForceMode2D.Impulse);
+    }
+
+    [PunRPC]
     void GiraFoot(bool dir)
     {
         if (dir)
         {
-            kickSizeX = 0.5f;
-            kickForceX = 5f;
+            //kickSizeX = 0.5f;
+            kickForceX = kickForce.Value;
+            superKickForceX = superKickForce.Value;
         }
 
         else
         {
-            kickSizeX = -0.5f;
-            kickForceX = -5f;
+            //kickSizeX = -0.5f;
+            kickForceX = kickForce.Value * -1;
+            superKickForceX = superKickForce.Value * -1;
+
         }
     }
 }
