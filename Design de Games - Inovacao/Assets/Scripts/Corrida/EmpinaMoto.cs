@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Photon.Pun;
 
 public class EmpinaMoto : MonoBehaviour
@@ -26,6 +27,12 @@ public class EmpinaMoto : MonoBehaviour
 	private float originalSpeed;
 
 
+	[Header("Feedbacks")]
+	public Image acelerometro;
+	public Image brilhoDeBoost;
+	public SpriteRenderer motoBrilho;
+
+
 
 	private void Start()
 	{
@@ -34,6 +41,8 @@ public class EmpinaMoto : MonoBehaviour
 		originalSpeed = playerSpeed.Value;
 		playerSpeed.Value = baseSpeed;
 		motoPV = GetComponent<PhotonView>();
+		brilhoDeBoost.gameObject.SetActive(false);
+		motoBrilho.gameObject.SetActive(false);
 		//motoPV.ViewID = playerPV.ViewID;
 	}
 
@@ -56,11 +65,25 @@ public class EmpinaMoto : MonoBehaviour
 		}
 
 
-		if (carregado)
+
+		if (motoPV.IsMine || !PhotonNetwork.InRoom)
 		{
-			Debug.Log("Vai filhão");
-			//brilha a moto
+			acelerometro.fillAmount = playerSpeed.Value / boostSpeed;
+
+			if (carregado || !canJump.Value)
+			{
+				Debug.Log("Vai filhão");
+				brilhoDeBoost.gameObject.SetActive(true);
+				motoBrilho.gameObject.SetActive(true);
+				motoBrilho.color = Color.Lerp(motoBrilho.color, Random.ColorHSV(0, 1), 0.1f);
+			}
+			else
+			{
+				brilhoDeBoost.gameObject.SetActive(false);
+				motoBrilho.gameObject.SetActive(false);
+			}
 		}
+				
 
 	}
 
