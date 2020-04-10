@@ -251,9 +251,16 @@ public class PlayerMovement : MonoBehaviour
 
 			//Movimentação do player no joystick
 			float moveHorizontal = Mathf.Clamp(joyStick.Horizontal + Input.GetAxisRaw("Horizontal") + autoScroll, -2, 2);
-			if (moveHorizontal != 0 && levouDogada == false && acabou == false && isWalking == true)
+			if (levouDogada == false && acabou == false)
 			{
-				rb2d.velocity = normal * new Vector3(stats.speed.Value * moveHorizontal, rb2d.velocity.y, 0);
+				if (moveHorizontal != 0)
+				{
+					rb2d.velocity = normal * new Vector3(stats.speed.Value * moveHorizontal, rb2d.velocity.y, 0);
+				}
+				else
+				{
+					rb2d.velocity = normal * new Vector3(Mathf.Lerp(rb2d.velocity.x, 0, 0.1f), rb2d.velocity.y, 0);
+				}
 			}
 
             if(moveHorizontal >0.1f || moveHorizontal< -0.1f)
