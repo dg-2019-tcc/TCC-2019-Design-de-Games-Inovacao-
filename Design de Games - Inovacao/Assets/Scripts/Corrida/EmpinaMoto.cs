@@ -89,26 +89,38 @@ public class EmpinaMoto : MonoBehaviour
 
 	public void buttonEmpina()
 	{
-			if (carregado)
-			{
+		if (isManobrandoNoAr || isEmpinando) return;
+
+		if (carregado)
+		{
 				Debug.Log("empinou");
 				isEmpinando = true;
 				motoPV.RPC("daGrau", RpcTarget.All, 1);
 			
-			}
+		}
 
-			if (!canJump.Value)
-			{
+		if (!canJump.Value)
+		{
 
 				Debug.Log("manobrou no ar");
 				isManobrandoNoAr = true;
 				motoPV.RPC("daGrau", RpcTarget.All, 2);
 
-			}
+		}
 		
 
 		
 	}
+
+
+	public void stopManobra()
+	{
+
+		isManobrandoNoAr = false;
+		motoPV.RPC("daGrau", RpcTarget.All, 0);
+
+	}
+
 
 	[PunRPC]
 	public void daGrau(int modo)
@@ -121,11 +133,12 @@ public class EmpinaMoto : MonoBehaviour
 				break;
 
 			case 2:
-				StartCoroutine("Empinando");
+				//StartCoroutine("Empinando");
 				isManobrandoNoAr = true;
 				break;
 
 			default:
+				isManobrandoNoAr = false;
 				break;
 				
 		}
@@ -139,7 +152,7 @@ public class EmpinaMoto : MonoBehaviour
 		
 		yield return new WaitForSeconds(2);
 		isEmpinando = false;
-		isManobrandoNoAr = false;
+		//isManobrandoNoAr = false;
 	}
 
 	private void OnDestroy()
