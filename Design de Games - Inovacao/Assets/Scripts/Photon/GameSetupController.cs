@@ -68,7 +68,7 @@ public class GameSetupController : MonoBehaviour
 
             gameObject.GetComponent<PhotonView>().RPC("SpawnPlayer", RpcTarget.All, allPlayersInSession);
 
-            Debug.Log("NãoÉFut");
+            //Debug.Log("NãoÉFut");
         }
 	}
 

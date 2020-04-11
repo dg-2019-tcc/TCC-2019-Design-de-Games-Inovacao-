@@ -4,15 +4,28 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class LevelManager : GameManager
+public class LevelManager : MonoBehaviour
 {
-    public new static LevelManager Instance => GameManager.Instance as LevelManager;
 
     //public FloatVariable CurrentLevelIndex;
 
     public int coletaMax = 7;
-    
 
+    public static LevelManager Instance;
+    protected virtual void Awake()
+    {
+        #region Singleton
+
+        if (Instance)
+        {
+            Debug.Log("There is a Soccer Manager Instance already. Destroying " + this.name);
+            Destroy(this);
+            return;
+        }
+        Instance = this;
+
+        #endregion
+    }
 
 
     public void GoHub()

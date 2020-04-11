@@ -1,34 +1,34 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
-public abstract class GameManager : MonoBehaviour
+
+namespace Complete
 {
-    public bool GamePaused = false;
-
-    public static GameManager Instance;
-    protected virtual void Awake()
+    public class GameManager : MonoBehaviour
     {
-        #region Singleton
 
-        if (Instance)
+        public GameObject[] aiPrefab;
+        public AIManager[] m_AI;
+        public List<Transform> wayPointsForAI;
+
+
+        private void Start()
         {
-            Debug.Log("There is a Soccer Manager Instance already. Destroying " + this.name);
-            Destroy(this);
-            return;
+            SpawnAI();
         }
-        Instance = this;
 
-        #endregion
-    }
+        private void SpawnAI()
+        {
+            
+                m_AI[0].m_Instance =
+                    Instantiate(aiPrefab[0], m_AI[0].m_SpawnPoint.position, m_AI[0].m_SpawnPoint.rotation) as GameObject;
+                m_AI[0].SetupAI(wayPointsForAI);
 
-
-    public virtual void SetPauseState(bool pauseState)
-    {
-        GamePaused = pauseState;
-        Debug.Log($"GamePaused: {GamePaused}");
-    }
-
-    public virtual void ChangePauseState()
-    {
-        SetPauseState(!GamePaused);
+            Debug.Log("Spawn");
+            
+        }
     }
 }
