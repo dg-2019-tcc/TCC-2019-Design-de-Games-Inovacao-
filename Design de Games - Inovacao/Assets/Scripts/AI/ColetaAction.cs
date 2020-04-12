@@ -12,19 +12,18 @@ public class ColetaAction : Actions
 
     private void Coleta(StateController controller)
     {
-        Debug.Log("Coleta");
+        Vector3 controllerPos = controller.transform.position;
+        Vector3 coletaPos = controller.wayPointList[controller.nextWayPoint].transform.position;
 
-        controller.target = controller.wayPointList [controller.nextWayPoint].transform;
-
-        float step = controller.enemyStats.moveSpeed * Time.deltaTime;
-
-        controller.transform.position = Vector3.MoveTowards(controller.transform.position, controller.target.position, step);
-
-        if (Vector3.Distance(controller.transform.position, controller.target.position) < 0.001f)
+        if(controllerPos.x - coletaPos.x <= -1)
         {
-            controller.nextWayPoint = (controller.nextWayPoint + 1) % controller.wayPointList.Count;
+            controller.rb.velocity = new Vector3(controller.enemyStats.moveSpeed, 0, 0);
         }
 
+        else if (controllerPos.x - coletaPos.x >= 1)
+        {
+            controller.rb.velocity = new Vector3(-controller.enemyStats.moveSpeed, 0, 0);
+        }
 
     }
 }
