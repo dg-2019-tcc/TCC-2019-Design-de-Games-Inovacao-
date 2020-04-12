@@ -12,9 +12,16 @@ public class JumpAction : Actions
 
     private void Jump(StateController controller)
     {
-        Debug.Log("Jump");
+        controller.target = controller.wayPointList[controller.nextWayPoint].transform;
 
-        controller.rb.AddForce(new Vector2(0, controller.enemyStats.jumpForce), ForceMode2D.Impulse);
+        float step = controller.enemyStats.moveSpeed * Time.deltaTime;
+
+        controller.transform.position = Vector3.MoveTowards(controller.transform.position, controller.target.position, step);
+
+        if (Vector3.Distance(controller.transform.position, controller.target.position) < 1f)
+        {
+            controller.nextWayPoint = (controller.nextWayPoint + 1) % controller.wayPointList.Count;
+        }
     }
 
 }

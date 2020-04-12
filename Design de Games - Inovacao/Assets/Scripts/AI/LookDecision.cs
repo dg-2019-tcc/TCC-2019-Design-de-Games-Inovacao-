@@ -18,7 +18,6 @@ public class LookDecision : Decision
 
         if(coletaPos.y - controllerPos.y <= 2)
         {
-            Debug.Log(coletaPos.y - controllerPos.y);
             return false;
         }
 
