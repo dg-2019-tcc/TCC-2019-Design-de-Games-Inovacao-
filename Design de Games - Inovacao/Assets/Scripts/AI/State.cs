@@ -6,12 +6,12 @@ using UnityEngine;
 public class State : ScriptableObject
 {
     public Actions[] actions;
-    //public Transition[] transitions;
+    public Transition[] transitions;
 
     public void UpdateState(StateController controller)
     {
         DoActions(controller);
-        //CheckTransitions(controller);
+        CheckTransitions(controller);
     }
 
     private void DoActions(StateController controller)
@@ -22,7 +22,7 @@ public class State : ScriptableObject
         }
     }
 
-   /* private void CheckTransitions(StateController controller)
+    private void CheckTransitions(StateController controller)
     {
         for (int i = 0; i < transitions.Length; i++)
         {
@@ -37,5 +37,5 @@ public class State : ScriptableObject
                 controller.TransitionToState(transitions[i].falseState);
             }
         }
-    }*/
+    }
 }

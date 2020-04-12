@@ -7,4 +7,5 @@ using UnityEngine;
 public class AIStats : ScriptableObject
 {
     public float moveSpeed = 1f;
+    public float jumpForce = 5f;
 }

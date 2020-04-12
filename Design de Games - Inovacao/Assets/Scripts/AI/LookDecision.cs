@@ -7,14 +7,18 @@ public class LookDecision : Decision
 {
    public override bool Decide(StateController controller)
     {
-        bool targetVisible = Look(controller);
-        return targetVisible;
+        bool targetNotVisible = Look(controller);
+        return targetNotVisible;
     }
 
     private bool Look(StateController controller)
     {
-        if(controller.wayPointList[controller.nextWayPoint].transform.position.y - controller.pos.transform.position.y >= 2)
+        Vector3 controllerPos = controller.transform.position;
+        Vector3 coletaPos = controller.wayPointList[controller.nextWayPoint].transform.position;
+
+        if(coletaPos.y - controllerPos.y <= 2)
         {
+            Debug.Log(coletaPos.y - controllerPos.y);
             return false;
         }
 

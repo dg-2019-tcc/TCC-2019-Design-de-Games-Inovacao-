@@ -6,11 +6,12 @@ using UnityEngine.AI;
 
 public class StateController : MonoBehaviour
 {
-    public State currentState;
     public AIStats enemyStats;
     public Transform pos;
-    //public State remainState;
+    public State remainState;
+    public State currentState;
 
+    public Rigidbody2D rb;
 
     [HideInInspector] public List<Transform> wayPointList;
     [HideInInspector] public int nextWayPoint;
@@ -18,6 +19,11 @@ public class StateController : MonoBehaviour
     [HideInInspector] public Transform target;
 
     private bool aiActive;
+
+    private void Awake()
+    {
+        rb = GetComponent<Rigidbody2D>();
+    }
 
 
     public void SetupAI(bool aiActivationFromAIManager, List<Transform> wayPointsFromTankManager)
@@ -35,14 +41,14 @@ public class StateController : MonoBehaviour
         currentState.UpdateState(this);
     }
 
-    /*public void TransitionToState(State nextState)
+    public void TransitionToState(State nextState)
     {
         if (nextState != remainState)
         {
             currentState = nextState;
-            OnExitState();
+            //OnExitState();
         }
-    }*/
+    }
 
     private void OnExitState()
     {
