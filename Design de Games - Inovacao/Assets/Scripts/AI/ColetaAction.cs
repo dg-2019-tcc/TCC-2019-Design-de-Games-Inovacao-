@@ -14,11 +14,11 @@ public class ColetaAction : Actions
     {
         controller.target = controller.wayPointList[controller.nextWayPoint].transform;
 
-        float step = controller.enemyStats.moveSpeed * Time.deltaTime;
+        float step = controller.botStats.moveSpeed * Time.deltaTime;
 
         controller.transform.position = Vector3.MoveTowards(controller.transform.position, controller.target.position, step);
 
-        if (Vector3.Distance(controller.transform.position, controller.target.position) < 1f)
+        if (Vector3.Distance(controller.transform.position, controller.target.position) < 0.5f)
         {
             controller.nextWayPoint = (controller.nextWayPoint + 1) % controller.wayPointList.Count;
         }

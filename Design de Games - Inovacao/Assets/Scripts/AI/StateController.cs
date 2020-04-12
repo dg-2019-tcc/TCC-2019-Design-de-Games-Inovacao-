@@ -6,7 +6,7 @@ using UnityEngine.AI;
 
 public class StateController : MonoBehaviour
 {
-    public AIStats enemyStats;
+    public AIStats botStats;
     public Transform pos;
     public State remainState;
     public State currentState;
@@ -17,6 +17,7 @@ public class StateController : MonoBehaviour
     [HideInInspector] public int nextWayPoint;
     [HideInInspector] public float stateTimeElapsed;
     [HideInInspector] public Transform target;
+    [HideInInspector] public bool canJump;
 
     private bool aiActive;
 

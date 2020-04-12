@@ -16,7 +16,6 @@ public class VoleiAction : Actions
         Vector3 coletaPos = controller.wayPointList[0].transform.position;
 
         float distance =Mathf.Abs(coletaPos.x - controllerPos.x);
-        Debug.Log(distance);
 
 
         if (distance <= 3)
@@ -30,7 +29,7 @@ public class VoleiAction : Actions
         }
 
 
-        float step = controller.enemyStats.moveSpeed * Time.deltaTime;
+        float step = controller.botStats.moveSpeed * Time.deltaTime;
 
         controller.transform.position = Vector3.MoveTowards(controller.transform.position, controller.target.position, step);
 
