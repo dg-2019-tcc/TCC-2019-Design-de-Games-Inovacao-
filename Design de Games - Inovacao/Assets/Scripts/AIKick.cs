@@ -10,8 +10,12 @@ public class AIKick : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D col)
     {
-        ballrb = col.GetComponent<Rigidbody2D>();
+        if (col.CompareTag("Bola"))
+        {
 
-        ballrb.AddForce(new Vector2(controller.botStats.kickForceX, controller.botStats.kickForceY), ForceMode2D.Impulse);
+            ballrb = col.GetComponent<Rigidbody2D>();
+
+            ballrb.AddForce(new Vector2(controller.botStats.kickForceX, controller.botStats.kickForceY), ForceMode2D.Impulse);
+        }
     }
 }
