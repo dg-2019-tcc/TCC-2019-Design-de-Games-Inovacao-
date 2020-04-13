@@ -9,18 +9,11 @@ public class Kick : MonoBehaviour
 
     public float cooldownKick;
 
-    public float kickSizeX;
-
-    public float kickSizeY;
-
     public FloatVariable kickForce;
-
     public float kickForceX;
-
     public float kickForceY;
 
     public FloatVariable superKickForce;
-
     public float superKickForceX;
 
     private float forceVertical;
@@ -30,6 +23,8 @@ public class Kick : MonoBehaviour
     private bool rightDir;
 
     private Rigidbody2D ballrb;
+
+    private BolaFutebol bola;
 
     public Joystick joyStick;
 
@@ -71,15 +66,6 @@ public class Kick : MonoBehaviour
 
     public void Chute()
     {
-		if (joyStick.Vertical != 0)
-		{
-			forceVertical = kickForceY * joyStick.Vertical;
-		}
-
-		else
-		{
-			forceVertical = 5f;
-		}
 		//Debug.Log(forceVertical);
 		gameObject.GetComponent<PhotonView>().RPC("KickedBall", RpcTarget.MasterClient, forceVertical);
     }
@@ -113,12 +99,20 @@ public class Kick : MonoBehaviour
         if(col.CompareTag("Bola") && kicked == true && player.grounded == true)
         {
             ballrb = col.GetComponent<Rigidbody2D>();
+            bola = col.GetComponent<BolaFutebol>();
+            bola.kick = true;
+            bola.normal = false;
+            bola.superKick = false;
             gameObject.GetComponent<PhotonView>().RPC("KickBola", RpcTarget.MasterClient);
         }
 
         if (col.CompareTag("Bola") && kicked == true && player.grounded == false)
         {
             ballrb = col.GetComponent<Rigidbody2D>();
+            bola = col.GetComponent<BolaFutebol>();
+            bola.superKick = true;
+            bola.kick = false;
+            bola.normal = false;
             gameObject.GetComponent<PhotonView>().RPC("SuperKickBola", RpcTarget.MasterClient);
         }
     }

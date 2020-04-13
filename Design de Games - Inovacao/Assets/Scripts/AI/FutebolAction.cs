@@ -23,13 +23,11 @@ public class FutebolAction : Actions
 
         if(distance > 0)
         {
-            Debug.Log("Left");
             controller.target = controller.wayPointList[0].transform;
         }
 
         else if(distance < 0)
         {
-            Debug.Log("Right");
             controller.target = controller.wayPointList[1].transform;
         }
 
