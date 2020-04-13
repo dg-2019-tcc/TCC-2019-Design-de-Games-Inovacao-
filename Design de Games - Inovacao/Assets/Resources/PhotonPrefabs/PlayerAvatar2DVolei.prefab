@@ -1,46 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &2226752748761367037
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4128057485983258276}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e983df72684a0cd4a8cd97c5e6ee9027, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cooldownKick: 0.5
-  kickForce: {fileID: 0}
-  kickForceX: 0
-  kickForceY: 10
-  superKickForce: {fileID: 0}
-  superKickForceX: 0
-  joyStick: {fileID: 0}
-  foot: {fileID: 1036728851663742918}
-  footIncialPos: {fileID: 4044857388599364668}
-  footKickPos: {fileID: 5166162658795472919}
---- !u!114 &6175603945072450974
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4128057485983258276}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7fca654c4340afa4eb9055082b46900c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cooldownKick: 5
-  corteForceX: 3
-  corteForceY: 7
-  superForceX: 8
-  cortou: 0
-  joyStick: {fileID: 0}
-  hand: {fileID: 1036728851663742918}
 --- !u!61 &7799355154448259591
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -97,6 +56,47 @@ Transform:
   m_Father: {fileID: 180959016855565648}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2226752748761367037
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4128057485983258276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e983df72684a0cd4a8cd97c5e6ee9027, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cooldownKick: 0.5
+  kickForce: {fileID: 0}
+  kickForceX: 0
+  kickForceY: 10
+  superKickForce: {fileID: 0}
+  superKickForceX: 0
+  joyStick: {fileID: 0}
+  foot: {fileID: 1036728851663742918}
+  footIncialPos: {fileID: 4044857388599364668}
+  footKickPos: {fileID: 5166162658795472919}
+--- !u!114 &6175603945072450974
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4128057485983258276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fca654c4340afa4eb9055082b46900c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cooldownKick: 5
+  corteForceX: 3
+  corteForceY: 7
+  superForceX: 8
+  cortou: 0
+  joyStick: {fileID: 0}
+  hand: {fileID: 1036728851663742918}
 --- !u!1 &4483178186814864022
 GameObject:
   m_ObjectHideFlags: 0
@@ -138,14 +138,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PlayerAvatar2DVolei
-      objectReference: {fileID: 0}
-    - target: {fileID: 121371276, guid: 650c79142e52b1a46944cd798e3de766, type: 3}
-      propertyPath: m_Name
-      value: Hand
-      objectReference: {fileID: 0}
-    - target: {fileID: 121371276, guid: 650c79142e52b1a46944cd798e3de766, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2662577324277118414, guid: 650c79142e52b1a46944cd798e3de766,
         type: 3}
@@ -240,10 +232,33 @@ PrefabInstance:
       propertyPath: m_RootOrder
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 7808886549799187414, guid: 650c79142e52b1a46944cd798e3de766,
+        type: 3}
+      propertyPath: viewIdField
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2379033092979356454, guid: 650c79142e52b1a46944cd798e3de766,
         type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5532877919072958576, guid: 650c79142e52b1a46944cd798e3de766,
+        type: 3}
+      propertyPath: viewIdField
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3774666481171245066, guid: 650c79142e52b1a46944cd798e3de766,
+        type: 3}
+      propertyPath: viewIdField
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 121371276, guid: 650c79142e52b1a46944cd798e3de766, type: 3}
+      propertyPath: m_Name
+      value: Hand
+      objectReference: {fileID: 0}
+    - target: {fileID: 121371276, guid: 650c79142e52b1a46944cd798e3de766, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1253768275922279408, guid: 650c79142e52b1a46944cd798e3de766,
         type: 3}
@@ -316,6 +331,11 @@ PrefabInstance:
         type: 3}
       propertyPath: joyStick
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 348712840111027082, guid: 650c79142e52b1a46944cd798e3de766,
+        type: 3}
+      propertyPath: viewIdField
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7052896187202775554, guid: 650c79142e52b1a46944cd798e3de766,
         type: 3}
@@ -497,41 +517,6 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 6175603945072450974}
-    - target: {fileID: 5532877919072958576, guid: 650c79142e52b1a46944cd798e3de766,
-        type: 3}
-      propertyPath: viewIdField
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7808886549799187414, guid: 650c79142e52b1a46944cd798e3de766,
-        type: 3}
-      propertyPath: viewIdField
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3774666481171245066, guid: 650c79142e52b1a46944cd798e3de766,
-        type: 3}
-      propertyPath: viewIdField
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 348712840111027082, guid: 650c79142e52b1a46944cd798e3de766,
-        type: 3}
-      propertyPath: viewIdField
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7345734631145716267, guid: 650c79142e52b1a46944cd798e3de766,
-        type: 3}
-      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 6175603945072450974}
-    - target: {fileID: 7345734631145716267, guid: 650c79142e52b1a46944cd798e3de766,
-        type: 3}
-      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: Corte
-      objectReference: {fileID: 0}
-    - target: {fileID: 7345734631145716267, guid: 650c79142e52b1a46944cd798e3de766,
-        type: 3}
-      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 121371277, guid: 650c79142e52b1a46944cd798e3de766, type: 3}
     - {fileID: 121371278, guid: 650c79142e52b1a46944cd798e3de766, type: 3}
