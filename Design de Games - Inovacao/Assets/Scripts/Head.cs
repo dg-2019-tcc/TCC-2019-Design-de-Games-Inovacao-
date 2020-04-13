@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Head : MonoBehaviour
+public class    Head : MonoBehaviour
 {
     public float headForceX;
     public float headForceY;
@@ -16,6 +16,7 @@ public class Head : MonoBehaviour
     private BolaFutebol bola;
 
     public Joystick joyStick;
+
 
     public void Start()
     {
@@ -30,13 +31,13 @@ public class Head : MonoBehaviour
             if (joyStick.Horizontal > 0)
             {
                 rightDir = true;
-                gameObject.GetComponent<PhotonView>().RPC("GiraFoot", RpcTarget.All, rightDir);
+                gameObject.GetComponent<PhotonView>().RPC("GiraHead", RpcTarget.All, rightDir);
             }
 
             else if (joyStick.Horizontal < 0)
             {
                 rightDir = false;
-                gameObject.GetComponent<PhotonView>().RPC("GiraFoot", RpcTarget.All, rightDir);
+                gameObject.GetComponent<PhotonView>().RPC("GiraHead", RpcTarget.All, rightDir);
             }
         }
     }
@@ -59,13 +60,15 @@ public class Head : MonoBehaviour
     [PunRPC]
     void HeadBall()
     {
+        ballrb.velocity = new Vector2(0, 0);
+
         bola.normal = true;  
 
         ballrb.AddForce(new Vector2(headForceX, headForceY), ForceMode2D.Impulse);
     }
 
     [PunRPC]
-    void GiraFoot(bool dir)
+    void GiraHead(bool dir)
     {
         if (dir)
         {
