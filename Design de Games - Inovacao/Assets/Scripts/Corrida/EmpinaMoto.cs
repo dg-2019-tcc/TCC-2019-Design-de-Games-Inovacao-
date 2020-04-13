@@ -13,6 +13,9 @@ public class EmpinaMoto : MonoBehaviour
 	[Header ("ScriptableObjects")]
 	public FloatVariable playerSpeed;
 	public BoolVariable canJump;
+	public FloatVariable jumpForce;
+	private float originalJumpForce;
+
 
 	[Header ("Booleans (tá visível pra checar se ta dando certo, mas tem script vendo tbm)")]
 	public bool isEmpinando;
@@ -25,6 +28,7 @@ public class EmpinaMoto : MonoBehaviour
 	public float baseSpeed;
 	public float boostSpeed;
 	private float originalSpeed;
+	public float jumpMoto;
 
 
 	[Header("Feedbacks")]
@@ -43,6 +47,8 @@ public class EmpinaMoto : MonoBehaviour
 		motoPV = GetComponent<PhotonView>();
 		brilhoDeBoost.gameObject.SetActive(false);
 		motoBrilho.gameObject.SetActive(false);
+		originalJumpForce = jumpForce.Value;
+		jumpForce.Value = jumpMoto;
 		//motoPV.ViewID = playerPV.ViewID;
 	}
 
@@ -163,5 +169,6 @@ public class EmpinaMoto : MonoBehaviour
 	private void OnDestroy()
 	{
 		playerSpeed.Value = originalSpeed;
+		jumpForce.Value = originalJumpForce;
 	}
 }

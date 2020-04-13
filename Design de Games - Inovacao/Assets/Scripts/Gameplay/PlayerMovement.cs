@@ -23,6 +23,7 @@ public class PlayerMovement : MonoBehaviour
 	public PlayerStat stats;
 	public FloatVariable playerSpeed;
 	public FloatVariable playerJump;
+	public bool shouldTurn;
 	public static bool leftDir;
 	public static bool rightDir;
 	public BoolVariable canJump;
@@ -110,6 +111,7 @@ public class PlayerMovement : MonoBehaviour
 		PV = GetComponent<PhotonView>();
 		stats.speed = playerSpeed;
 		stats.jumpForce = playerJump;
+		rightDir = true;
 
 		//playerAnimations = GetComponent<PlayerAnimations>();
 		//playerAnimations.rb2d = rb2d;
@@ -132,12 +134,12 @@ public class PlayerMovement : MonoBehaviour
 		if (PV.IsMine)
 		{
 			cameraManager.SendMessage("ActivateCamera", true);
-			rb2d.gravityScale = 0.7f;
+		//	rb2d.gravityScale = 0.7f;
 		}
 		else if (menuCustom)
 		{
 			cameraManager.SendMessage("ActivateCamera", true);
-			rb2d.gravityScale = 0.7f;
+		//	rb2d.gravityScale = 0.7f;
 		}
 
 		else
@@ -175,50 +177,53 @@ public class PlayerMovement : MonoBehaviour
 
 		if (joyStick != null)
 		{
-			if (joyStick.Horizontal > 0 || ThrowObject.dirRight == true && rightDir == false)
+			if (shouldTurn)
 			{
-
-
-
-                    rightDir = true;
-                    leftDir = false;
-                    ThrowObject.dirRight = false;
-
-
-				
-				if (!PhotonNetwork.InRoom)
+				if (joyStick.Horizontal > 0 || ThrowObject.dirRight == true && rightDir == false)
 				{
-					Quaternion direction = Quaternion.Euler(0, 0, 0);
-					player.transform.rotation = direction;
-					carro.transform.rotation = direction;
-					pipa.transform.rotation = direction;
+
+
+
+					rightDir = true;
+					leftDir = false;
+					ThrowObject.dirRight = false;
+
+
+
+					if (!PhotonNetwork.InRoom)
+					{
+						Quaternion direction = Quaternion.Euler(0, 0, 0);
+						player.transform.rotation = direction;
+						carro.transform.rotation = direction;
+						pipa.transform.rotation = direction;
+					}
+					else
+					{
+						gameObject.GetComponent<PhotonView>().RPC("GiraPlayer", RpcTarget.All, rightDir);
+					}
+
 				}
-				else
+				else if (joyStick.Horizontal < 0 || ThrowObject.dirLeft == true && leftDir == false)
 				{
-					gameObject.GetComponent<PhotonView>().RPC("GiraPlayer", RpcTarget.All, rightDir);
-				}
-
-			}
-			else if (joyStick.Horizontal < 0 || ThrowObject.dirLeft == true && leftDir == false)
-			{
 
 
-                    leftDir = true;
-                    rightDir = false;
-                    ThrowObject.dirLeft = false;
+					leftDir = true;
+					rightDir = false;
+					ThrowObject.dirLeft = false;
 
 
 
-                if (!PhotonNetwork.InRoom)
-				{
-					Quaternion direction = Quaternion.Euler(0, 180, 0);
-					player.transform.rotation = direction;
-					carro.transform.rotation = direction;
-					pipa.transform.rotation = direction;
-				}
-				else
-				{
-					gameObject.GetComponent<PhotonView>().RPC("GiraPlayer", RpcTarget.All, rightDir);
+					if (!PhotonNetwork.InRoom)
+					{
+						Quaternion direction = Quaternion.Euler(0, 180, 0);
+						player.transform.rotation = direction;
+						carro.transform.rotation = direction;
+						pipa.transform.rotation = direction;
+					}
+					else
+					{
+						gameObject.GetComponent<PhotonView>().RPC("GiraPlayer", RpcTarget.All, rightDir);
+					}
 				}
 			}
 
