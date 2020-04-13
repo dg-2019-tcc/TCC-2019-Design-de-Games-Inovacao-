@@ -100,9 +100,7 @@ public class Kick : MonoBehaviour
         {
             ballrb = col.GetComponent<Rigidbody2D>();
             bola = col.GetComponent<BolaFutebol>();
-            bola.kick = true;
-            bola.normal = false;
-            bola.superKick = false;
+            
             gameObject.GetComponent<PhotonView>().RPC("KickBola", RpcTarget.MasterClient);
         }
 
@@ -110,9 +108,7 @@ public class Kick : MonoBehaviour
         {
             ballrb = col.GetComponent<Rigidbody2D>();
             bola = col.GetComponent<BolaFutebol>();
-            bola.superKick = true;
-            bola.kick = false;
-            bola.normal = false;
+            
             gameObject.GetComponent<PhotonView>().RPC("SuperKickBola", RpcTarget.MasterClient);
         }
     }
@@ -129,6 +125,9 @@ public class Kick : MonoBehaviour
     [PunRPC]
     public void KickBola()
     {
+        bola.kick = true;
+        bola.normal = false;
+        bola.superKick = false;
         Debug.Log("KickBola");
         ballrb.AddForce(new Vector2(kickForceX, forceVertical), ForceMode2D.Impulse);
     }
@@ -136,6 +135,9 @@ public class Kick : MonoBehaviour
     [PunRPC]
     public void SuperKickBola()
     {
+        bola.superKick = true;
+        bola.kick = false;
+        bola.normal = false;
         Debug.Log("SuperKickBola");
         ballrb.AddForce(new Vector2(superKickForceX, forceVertical), ForceMode2D.Impulse);
     }

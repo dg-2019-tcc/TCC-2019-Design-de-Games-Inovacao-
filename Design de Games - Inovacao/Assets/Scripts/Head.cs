@@ -59,6 +59,8 @@ public class Head : MonoBehaviour
     [PunRPC]
     void HeadBall()
     {
+        ballrb.velocity = new Vector2(0, 0);
+
         bola.normal = true;  
 
         ballrb.AddForce(new Vector2(headForceX, headForceY), ForceMode2D.Impulse);
