@@ -49,6 +49,8 @@ public class GolManager : MonoBehaviourPunCallbacks
     {
         bola.SetActive(false);
 
+        bola.GetComponent<BolaFutebol>().bolaTimer += 5f;
+
         bola.GetComponent<Rigidbody2D>().isKinematic = true;
 
         bola.transform.position = bolaSpawnPoint.position;

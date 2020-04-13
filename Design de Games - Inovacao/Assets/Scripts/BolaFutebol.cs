@@ -6,6 +6,7 @@ using UnityEngine;
 public class BolaFutebol : MonoBehaviour
 {
     private SpriteRenderer bolaSprite;
+    private Rigidbody2D rb2d;
 
     public bool normal;
     public bool kick;
@@ -13,15 +14,28 @@ public class BolaFutebol : MonoBehaviour
 
     public float bolaTimer;
 
+    public float maxSpeed = 1f;
+
     // Start is called before the first frame update  
     void Start()
     {
         bolaSprite = GetComponent<SpriteRenderer>();
+
+        rb2d = GetComponent <Rigidbody2D>();
     }
 
     // Update is called once per frame  
     void Update()
     {
+        Vector2 vel = rb2d.velocity;
+
+        if (vel.magnitude > maxSpeed)
+        {
+            rb2d.velocity = vel.normalized * maxSpeed;
+        }
+
+        Debug.Log(rb2d.velocity);
+
         if (normal)
         {
             gameObject.GetComponent<PhotonView>().RPC("BolaAzul", RpcTarget.MasterClient);
@@ -46,6 +60,20 @@ public class BolaFutebol : MonoBehaviour
         {
             gameObject.GetComponent<PhotonView>().RPC("BolaBranca", RpcTarget.MasterClient);
         }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Plataforma"))
+        {
+            gameObject.GetComponent<PhotonView>().RPC("SlowBola", RpcTarget.MasterClient);
+        }
+    }
+
+    [PunRPC]
+    void SlowBola()
+    {
+        rb2d.velocity /= 2;
     }
 
     [PunRPC]
