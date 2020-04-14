@@ -10,6 +10,7 @@ public class WolfMovement : MonoBehaviour
     public GameObject player;
     public float targetDistance;
     public float allowedDistance = 5;
+	public float jumpPower;
     public GameObject wolf;
 	private Rigidbody2D rb;
    // public float followSpeed;
@@ -19,6 +20,7 @@ public class WolfMovement : MonoBehaviour
 
 	private bool vitoria = false;
 	private bool menuCustom;
+	public bool grounded;
 
 
 	private Vector3 oldPosition;
@@ -52,21 +54,22 @@ public class WolfMovement : MonoBehaviour
 
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
 		if (!pv.IsMine && !menuCustom) return;
 
-		if (rb.velocity.y <= -1 && rb.velocity.y >= 1 && transform.position.y + allowedDistance/2 < player.transform.position.y)
+		if (grounded &&  transform.position.y + allowedDistance/2 < player.transform.position.y)
 		{
-			rb.AddForce(Vector2.up * 500 * (player.transform.position.y - transform.position.y));
+			rb.AddForce(Vector2.up * jumpPower * Mathf.Lerp((player.transform.position.y - transform.position.y), 1, 0.1f));
 		}
 
-		if (player != null && Vector3.Distance(transform.position, player.transform.position) > allowedDistance)
+		if (Mathf.Abs(transform.position.x - player.transform.position.x) > allowedDistance)
         {
 			//followSpeed = 0.1f;
 			//wolfAnim.SetBool("isWalking", true);
 			//  transform.position = Vector3.MoveTowards(transform.position, player.transform.position, followSpeed);
-			rb.velocity += new Vector2(player.transform.position.x - transform.position.x, player.transform.position.y - transform.position.y);//*followSpeed;
+			//rb.velocity += new Vector2(player.transform.position.x - transform.position.x, rb.velocity.y-Physics2D.gravity.magnitude*Time.deltaTime);//*followSpeed;
+			rb.AddForce(Vector2.right * (player.transform.position.x - transform.position.x));
 
 
 
@@ -88,13 +91,12 @@ public class WolfMovement : MonoBehaviour
 		}
 
 
-       /* else
+        else
         {
 
-            followSpeed = 0;
-            //wolfAnim.SetBool("isWalking", false);
+			rb.velocity -= rb.velocity/20;
 
-        }*/
+        }
 
 
 
@@ -104,5 +106,23 @@ public class WolfMovement : MonoBehaviour
 		} 
 
     }
+
+
+	private void OnCollisionEnter2D(Collision2D collision)
+	{
+		if (collision.gameObject.CompareTag("Plataforma") || collision.gameObject.CompareTag("Dragao"))
+		{
+			grounded = true;
+		}
+	}
+
+	private void OnCollisionExit2D(Collision2D collision)
+	{
+		if (collision.gameObject.CompareTag("Plataforma") || collision.gameObject.CompareTag("Dragao"))
+		{
+			grounded = false;
+		}
+	}
+
 
 }
