@@ -30,7 +30,7 @@ public class PlayerMovement : MonoBehaviour
     static public bool acabouPartida;
     public bool canDoubleJump;
 	public float autoScroll;
-    public float maxSpeed = 10f;
+    public float maxSpeed = 12f;
 
     public Quaternion normal;
 
