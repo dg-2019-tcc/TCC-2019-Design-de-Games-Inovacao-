@@ -22,6 +22,8 @@ public class HandVolei : MonoBehaviour
 
     private Rigidbody2D ballrb;
 
+    private BolaVolei bola;
+
     public Joystick joyStick;
 
     public GameObject hand;
@@ -96,12 +98,14 @@ public class HandVolei : MonoBehaviour
         if (col.CompareTag("Bola") && cortou == true && player.grounded == false)
         {
             ballrb = col.GetComponent<Rigidbody2D>();
+            bola = col.GetComponent<BolaVolei>();
             gameObject.GetComponent<PhotonView>().RPC("SuperCortaBola", RpcTarget.MasterClient);
         }
 
         if (col.CompareTag("Bola"))
         {
             ballrb = col.GetComponent<Rigidbody2D>();
+            bola = col.GetComponent<BolaVolei>();
             gameObject.GetComponent<PhotonView>().RPC("CortaBola", RpcTarget.MasterClient);
         }
     }
@@ -112,6 +116,7 @@ public class HandVolei : MonoBehaviour
     public void CortaBola()
     {
         Debug.Log("CortaBola");
+        bola.corte = true;
         ballrb.AddForce(new Vector2(corteForceX, forceVertical), ForceMode2D.Impulse);
     }
 
@@ -119,6 +124,7 @@ public class HandVolei : MonoBehaviour
     public void SuperCortaBola()
     {
         Debug.Log("SuperCortaBola");
+        bola.superCorte = true;
         ballrb.AddForce(new Vector2(superForceX, forceVertical), ForceMode2D.Impulse);
     }
 

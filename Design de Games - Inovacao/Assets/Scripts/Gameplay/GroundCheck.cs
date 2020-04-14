@@ -59,7 +59,7 @@ public class GroundCheck : MonoBehaviour
             player.grounded = true;
             jumpCooldown += Time.deltaTime;
 
-            if (jumpCooldown >= 0.001f)
+            if (jumpCooldown >= 0.1f)
             {
                 jumpButton.SetActive(true);
                 canJump.Value = true;

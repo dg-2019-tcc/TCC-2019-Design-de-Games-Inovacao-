@@ -30,13 +30,13 @@ public class Head : MonoBehaviour
             if (joyStick.Horizontal > 0)
             {
                 rightDir = true;
-                gameObject.GetComponent<PhotonView>().RPC("GiraFoot", RpcTarget.All, rightDir);
+                gameObject.GetComponent<PhotonView>().RPC("GiraHead", RpcTarget.All, rightDir);
             }
 
             else if (joyStick.Horizontal < 0)
             {
                 rightDir = false;
-                gameObject.GetComponent<PhotonView>().RPC("GiraFoot", RpcTarget.All, rightDir);
+                gameObject.GetComponent<PhotonView>().RPC("GiraHead", RpcTarget.All, rightDir);
             }
         }
     }
@@ -67,7 +67,7 @@ public class Head : MonoBehaviour
     }
 
     [PunRPC]
-    void GiraFoot(bool dir)
+    void GiraHead(bool dir)
     {
         if (dir)
         {
