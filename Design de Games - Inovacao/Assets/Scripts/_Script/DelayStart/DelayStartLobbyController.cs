@@ -37,7 +37,13 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
 	private GameObject ColetaFade;
 	[SerializeField]
 	private GameObject CorridaFade;
-	[SerializeField]
+    [SerializeField]
+    private GameObject FutebolFade;
+    [SerializeField]
+    private GameObject VoleiFade;
+    [SerializeField]
+    private GameObject MotoFade;
+    [SerializeField]
 	private GameObject TutorialFade;
 
 	[SerializeField]
@@ -158,7 +164,7 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
 
 			case "Futebol":
 
-                ColetaFade.SetActive(true);
+                FutebolFade.SetActive(true);
 
 				yield return new WaitForSeconds(tempoPraFade);
 
@@ -179,7 +185,7 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
 
             case "Volei":
 
-                ColetaFade.SetActive(true);
+                VoleiFade.SetActive(true);
 
                 yield return new WaitForSeconds(tempoPraFade);
 
@@ -200,7 +206,7 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
 
             case "Moto":
 
-                ColetaFade.SetActive(true);
+                MotoFade.SetActive(true);
 
 				yield return new WaitForSeconds(tempoPraFade);
 
@@ -333,6 +339,9 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
 		PlayerCanvas.SetActive(true);
 
 		CorridaFade.SetActive(false);
+		FutebolFade.SetActive(false);
+		MotoFade.SetActive(false);
+		VoleiFade.SetActive(false);
 		ColetaFade.SetActive(false);
 		TutorialFade.SetActive(false);
 		StopAllCoroutines();
