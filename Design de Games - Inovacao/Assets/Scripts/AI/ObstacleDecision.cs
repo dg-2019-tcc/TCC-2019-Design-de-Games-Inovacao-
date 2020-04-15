@@ -16,22 +16,21 @@ public class ObstacleDecision : Decision
 		Vector3 controllerPos = controller.transform.position;
 		Vector3 coletaPos = controller.wayPointList[controller.nextWayPoint].transform.position;
 
-		RaycastHit hit;
-		if (!Physics.Raycast(controllerPos, controller.transform.TransformDirection(Vector3.forward), out hit, 3))
+		RaycastHit2D hit = Physics2D.Raycast(controllerPos, controller.transform.right, 3, LayerMask.GetMask("Obstacle"));
+
+		Debug.DrawRay(controllerPos, controller.transform.right.normalized * 3, Color.yellow);
+
+		if (hit
+			&& hit.collider.CompareTag("Obstacle"))
 		{
-			Debug.DrawRay(controller.transform.position, controller.transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
+			
 			//controller.nextWayPoint = (controller.nextWayPoint + 1) % controller.wayPointList.Count;
-			return false;
-		}
-		else if (controller.rb.velocity.magnitude != 0)
-		{
-			Debug.DrawRay(controller.transform.position, controller.transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
-			return false;
+			return true;
 		}
 		else
 		{
-			Debug.DrawRay(controllerPos, controller.transform.TransformDirection(Vector3.forward) * 1000, Color.white);
-			return true;
+			
+			return false;
 		}
 	}
 }
