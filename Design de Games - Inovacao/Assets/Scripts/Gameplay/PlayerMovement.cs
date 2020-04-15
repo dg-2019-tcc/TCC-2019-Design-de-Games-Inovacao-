@@ -30,8 +30,9 @@ public class PlayerMovement : MonoBehaviour
     static public bool acabouPartida;
     public bool canDoubleJump;
 	public float autoScroll;
+    public float maxSpeed = 12f;
 
-	public Quaternion normal;
+    public Quaternion normal;
 
 
 
@@ -166,11 +167,16 @@ public class PlayerMovement : MonoBehaviour
 
         if (acabouPartida == true) return;
 
+        Vector2 vel = rb2d.velocity;
 
-		
+        if (vel.magnitude > maxSpeed)
+        {
+            rb2d.velocity = vel.normalized * maxSpeed;
+        }
 
 
-		if (!menuCustom && !PV.IsMine)
+
+        if (!menuCustom && !PV.IsMine)
 		{
 			return;
 		}
