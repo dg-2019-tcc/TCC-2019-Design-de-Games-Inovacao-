@@ -17,8 +17,6 @@ public class HeadAI : MonoBehaviour
             ballrb = col.GetComponent<Rigidbody2D>();
 
             ballrb.AddForce(new Vector2(headForceX, headForceY), ForceMode2D.Impulse);
-
-            Debug.Log("Cabeçada");
         }
     }
 }
