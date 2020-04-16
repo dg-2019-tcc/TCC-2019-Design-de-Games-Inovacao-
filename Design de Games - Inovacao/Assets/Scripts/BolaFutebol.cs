@@ -34,7 +34,6 @@ public class BolaFutebol : MonoBehaviour
             rb2d.velocity = vel.normalized * maxSpeed;
         }
 
-        Debug.Log(rb2d.velocity);
 
         if (normal)
         {

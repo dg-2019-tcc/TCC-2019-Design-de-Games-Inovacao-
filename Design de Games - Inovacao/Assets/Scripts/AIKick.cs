@@ -16,6 +16,8 @@ public class AIKick : MonoBehaviour
             ballrb = col.GetComponent<Rigidbody2D>();
 
             ballrb.AddForce(new Vector2(controller.botStats.kickForceX, controller.botStats.kickForceY), ForceMode2D.Impulse);
+
+            Debug.Log("Chute");
         }
     }
 }
