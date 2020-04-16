@@ -16,14 +16,16 @@ public class LookDecision : Decision
         Vector3 controllerPos = controller.transform.position;
         Vector3 coletaPos = controller.wayPointList[controller.nextWayPoint].transform.position;
 
-        if(coletaPos.y - controllerPos.y <= 2)
+        Debug.Log(coletaPos.y - controllerPos.y);
+
+        if(coletaPos.y - controllerPos.y >= 1.7f)
         {
-            return false;
+            return true;
         }
 
         else
         {
-            return true;
+            return false;
         }
     }
 }
