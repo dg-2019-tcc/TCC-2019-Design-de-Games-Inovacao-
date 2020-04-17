@@ -47,15 +47,20 @@ public class WinnerManager : MonoBehaviour
 				StartCoroutine(Venceu());
 			}*/
 
-			if (ganhouCorrida)
+			if (perdeuCorrida && ganhouCorrida)
+			{
+				PerdeuCorrida();
+			}
+			else if (ganhouCorrida)
 			{
 				GanhouCorrida();
 			}
-
+			/*
 			if (perdeuCorrida)
 			{
 				PerdeuCorrida();
 			}
+			*/
 		}
 
     }
