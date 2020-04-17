@@ -18,6 +18,7 @@ public class ColetaGoUpDecision : Decision
 
         if (coletaPos.y - controllerPos.y >= 1.7f && controller.canJump == true)
         {
+            Debug.Log(controller.canJump);
             return true;
         }
 

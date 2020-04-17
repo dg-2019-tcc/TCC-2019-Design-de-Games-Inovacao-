@@ -110,12 +110,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3431203731166426326}
-  - component: {fileID: 4103605386657375496}
   - component: {fileID: 2700582158741809303}
   - component: {fileID: 7905963219780327666}
   - component: {fileID: 1180006529593646847}
   - component: {fileID: 3635934274564906073}
   - component: {fileID: 6225377891534051969}
+  - component: {fileID: 7067479881053494379}
   m_Layer: 0
   m_Name: AIFutebol
   m_TagString: AI
@@ -141,32 +141,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &4103605386657375496
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4365968576456348327}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.0025367737, y: 0.7025776}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.6527176, y: 1.1618891}
-  m_EdgeRadius: 0
 --- !u!50 &2700582158741809303
 Rigidbody2D:
   serializedVersion: 4
@@ -182,7 +156,7 @@ Rigidbody2D:
   m_Mass: 2
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 0.73
+  m_GravityScale: 1.7
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -210,6 +184,9 @@ MonoBehaviour:
   stateTimeElapsed: 0
   target: {fileID: 0}
   canJump: 0
+  points: 0
+  jumpCooldown: 0
+  forceVertical: 0
 --- !u!114 &1180006529593646847
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -223,6 +200,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ai: {fileID: 4365968576456348327}
+  turnCooldown: 0
 --- !u!70 &3635934274564906073
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -251,8 +229,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7fd49d84657d7345b27fa1c85244744, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  headForceX: 2.5
-  headForceY: 5
+  headForceX: -2.5
+  headForceY: 10
+--- !u!61 &7067479881053494379
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4365968576456348327}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.055728912, y: 0.8890104}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.7930069, y: 0.9946928}
+  m_EdgeRadius: 0
 --- !u!1 &6695229372137038910
 GameObject:
   m_ObjectHideFlags: 0

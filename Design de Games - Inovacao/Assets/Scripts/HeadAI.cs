@@ -16,6 +16,8 @@ public class HeadAI : MonoBehaviour
         {
             ballrb = col.GetComponent<Rigidbody2D>();
 
+            ballrb.velocity = new Vector2(0, 0);
+
             ballrb.AddForce(new Vector2(headForceX, headForceY), ForceMode2D.Impulse);
         }
     }

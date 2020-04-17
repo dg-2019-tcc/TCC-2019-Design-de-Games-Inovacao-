@@ -19,6 +19,8 @@ public class StateController : MonoBehaviour
     [HideInInspector] public Transform target;
     [HideInInspector] public bool canJump;
     [HideInInspector] public int points;
+    [HideInInspector] public float jumpCooldown;
+    [HideInInspector] public float forceVertical;
 
     private bool aiActive;
 

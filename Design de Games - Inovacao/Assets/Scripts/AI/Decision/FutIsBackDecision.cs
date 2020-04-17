@@ -22,7 +22,7 @@ public class FutIsBackDecision : Decision
 
         float distance = aiPos + bolaPos;
 
-        if (distance > 0)
+        if (distance > 0.8f)
         {   
             return true;
         }

@@ -17,7 +17,6 @@ public class AIKick : MonoBehaviour
 
             ballrb.AddForce(new Vector2(controller.botStats.kickForceX, controller.botStats.kickForceY), ForceMode2D.Impulse);
 
-            Debug.Log("Chute");
         }
     }
 }

@@ -13,11 +13,13 @@ public class FutGoUpAction : Actions
 
     private void GoUp(StateController controller)
     {
-        if (controller.canJump == true)
+        if (controller.canJump == true && controller.jumpCooldown > 2f)
         {
-            Debug.Log("Jump");
+            Debug.Log(controller.canJump);
 
-            controller.rb.AddForce(new Vector2(0, controller.botStats.jumpForce), ForceMode2D.Impulse);
+            controller.rb.AddForce(new Vector2(controller.rb.velocity.x, controller.botStats.jumpForce ), ForceMode2D.Impulse);
         }
+
+
     }
 }

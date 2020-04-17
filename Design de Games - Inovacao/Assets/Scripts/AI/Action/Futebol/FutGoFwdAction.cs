@@ -12,6 +12,6 @@ public class FutGoFwdAction : Actions
 
     private void GoFoward(StateController controller)
     {
-        controller.rb.velocity = new Vector2(-controller.botStats.moveSpeed, 0);
+        controller.rb.velocity = new Vector2(-controller.botStats.moveSpeed, controller.rb.velocity.y);
     }
 }

@@ -11,7 +11,13 @@ public class AIGroundCheck : MonoBehaviour
     {
         if (col.CompareTag("Plataforma") || col.CompareTag("Dragao"))
         {
-            controller.canJump = true;
+            
+            controller.jumpCooldown += Time.deltaTime;
+
+            if (controller.jumpCooldown >= 2f)
+            {
+                controller.canJump = true;
+            }
         }
     }
 
@@ -19,6 +25,7 @@ public class AIGroundCheck : MonoBehaviour
     {
         if (col.CompareTag("Plataforma") || col.CompareTag("Dragao"))
         {
+            controller.jumpCooldown = 0f;
             controller.canJump = false;
         }
     }

@@ -14,7 +14,7 @@ public class FutIsUpDecision : Decision
     private bool BallUp(StateController controller)
     {
         float aiPosY = Mathf.Abs(controller.transform.position.y);
-        float bolaPosY = controller.wayPointList[0].transform.position.y;
+        float bolaPosY = Mathf.Abs(controller.wayPointList[0].transform.position.y);
 
         float distanceY = aiPosY - bolaPosY;
 
@@ -23,9 +23,9 @@ public class FutIsUpDecision : Decision
         //float distance = AngleDir(controllerPos, bolaPos);
 
         float distanceX = aiPosX + bolaPosX;
-        Debug.Log(distanceX);
+        //Debug.Log(distanceX);
 
-        if (distanceY < -2 && distanceX > -1 && controller.canJump == true)
+        if (distanceY < -1.5f && distanceX > -1f && distanceX < 1f && controller.canJump == true)
         {
             return true;
         }
