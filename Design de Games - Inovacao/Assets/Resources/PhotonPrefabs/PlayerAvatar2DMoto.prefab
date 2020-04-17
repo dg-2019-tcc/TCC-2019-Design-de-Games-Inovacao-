@@ -1,5 +1,52 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &9116104690667363050
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 713808415115712959}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 2
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 3740592994993016483}
+          m_MethodName: buttonEmpina
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
+        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  - eventID: 3
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 3740592994993016483}
+          m_MethodName: stopManobra
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
+        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 --- !u!1 &3413600273990208137
 GameObject:
   m_ObjectHideFlags: 0
@@ -185,53 +232,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   partidaComecou: {fileID: 11400000, guid: 8aa6409e81a3af141bb6c166599b2b68, type: 2}
   playerMovement: {fileID: 0}
---- !u!114 &9116104690667363050
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 713808415115712959}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Delegates:
-  - eventID: 2
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 3740592994993016483}
-          m_MethodName: buttonEmpina
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
-        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  - eventID: 3
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 3740592994993016483}
-          m_MethodName: stopManobra
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
-        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 --- !u!1001 &5591792968978839090
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -299,15 +299,75 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7808886549799187414, guid: 650c79142e52b1a46944cd798e3de766,
+        type: 3}
+      propertyPath: viewIdField
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5532877919072958576, guid: 650c79142e52b1a46944cd798e3de766,
+        type: 3}
+      propertyPath: viewIdField
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6982215898503162387, guid: 650c79142e52b1a46944cd798e3de766,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.25999594
+      objectReference: {fileID: 0}
+    - target: {fileID: 6982215898503162387, guid: 650c79142e52b1a46944cd798e3de766,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -14.91
+      objectReference: {fileID: 0}
+    - target: {fileID: 3774666481171245066, guid: 650c79142e52b1a46944cd798e3de766,
+        type: 3}
+      propertyPath: viewIdField
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 348712840111027082, guid: 650c79142e52b1a46944cd798e3de766,
+        type: 3}
+      propertyPath: viewIdField
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3767302687736169670, guid: 650c79142e52b1a46944cd798e3de766,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 7752378112545424684, guid: 650c79142e52b1a46944cd798e3de766,
         type: 3}
       propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9124404734949670831, guid: 650c79142e52b1a46944cd798e3de766,
+        type: 3}
+      propertyPath: shouldTurn
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2379033092979356454, guid: 650c79142e52b1a46944cd798e3de766,
         type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3975267850507488210, guid: 650c79142e52b1a46944cd798e3de766,
+        type: 3}
+      propertyPath: m_Mass
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3975267850507488210, guid: 650c79142e52b1a46944cd798e3de766,
+        type: 3}
+      propertyPath: m_GravityScale
+      value: 1.56
+      objectReference: {fileID: 0}
+    - target: {fileID: 3543110506285325597, guid: 650c79142e52b1a46944cd798e3de766,
+        type: 3}
+      propertyPath: distance
+      value: 7.16
+      objectReference: {fileID: 0}
+    - target: {fileID: 3543110506285325597, guid: 650c79142e52b1a46944cd798e3de766,
+        type: 3}
+      propertyPath: deltaAltura
+      value: 0.06
       objectReference: {fileID: 0}
     - target: {fileID: 1253768275922279408, guid: 650c79142e52b1a46944cd798e3de766,
         type: 3}
@@ -499,66 +559,6 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: buttonEmpina
       objectReference: {fileID: 0}
-    - target: {fileID: 3767302687736169670, guid: 650c79142e52b1a46944cd798e3de766,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 9124404734949670831, guid: 650c79142e52b1a46944cd798e3de766,
-        type: 3}
-      propertyPath: shouldTurn
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3975267850507488210, guid: 650c79142e52b1a46944cd798e3de766,
-        type: 3}
-      propertyPath: m_Mass
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3975267850507488210, guid: 650c79142e52b1a46944cd798e3de766,
-        type: 3}
-      propertyPath: m_GravityScale
-      value: 1.56
-      objectReference: {fileID: 0}
-    - target: {fileID: 5532877919072958576, guid: 650c79142e52b1a46944cd798e3de766,
-        type: 3}
-      propertyPath: viewIdField
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6982215898503162387, guid: 650c79142e52b1a46944cd798e3de766,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.25999594
-      objectReference: {fileID: 0}
-    - target: {fileID: 6982215898503162387, guid: 650c79142e52b1a46944cd798e3de766,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -14.91
-      objectReference: {fileID: 0}
-    - target: {fileID: 3543110506285325597, guid: 650c79142e52b1a46944cd798e3de766,
-        type: 3}
-      propertyPath: distance
-      value: 7.16
-      objectReference: {fileID: 0}
-    - target: {fileID: 3543110506285325597, guid: 650c79142e52b1a46944cd798e3de766,
-        type: 3}
-      propertyPath: deltaAltura
-      value: 0.06
-      objectReference: {fileID: 0}
-    - target: {fileID: 7808886549799187414, guid: 650c79142e52b1a46944cd798e3de766,
-        type: 3}
-      propertyPath: viewIdField
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3774666481171245066, guid: 650c79142e52b1a46944cd798e3de766,
-        type: 3}
-      propertyPath: viewIdField
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 348712840111027082, guid: 650c79142e52b1a46944cd798e3de766,
-        type: 3}
-      propertyPath: viewIdField
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5003097593700339573, guid: 650c79142e52b1a46944cd798e3de766,
         type: 3}
       propertyPath: m_Mesh
@@ -724,7 +724,8 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7345734631145716267, guid: 650c79142e52b1a46944cd798e3de766, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 650c79142e52b1a46944cd798e3de766, type: 3}
 --- !u!1 &8840837752875728348 stripped
 GameObject:
@@ -775,32 +776,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8840837752875728349}
     m_Modifications:
-    - target: {fileID: 9111709582139068261, guid: f1b41f92f071e9649b6ab918fbfc26c2,
-        type: 3}
-      propertyPath: playerPV
-      value: 
-      objectReference: {fileID: 95333374770581058}
-    - target: {fileID: 9111709582139068261, guid: f1b41f92f071e9649b6ab918fbfc26c2,
-        type: 3}
-      propertyPath: acelerometro
-      value: 
-      objectReference: {fileID: 619096823883500549}
-    - target: {fileID: 9111709582139068261, guid: f1b41f92f071e9649b6ab918fbfc26c2,
-        type: 3}
-      propertyPath: brilhoDeBoost
-      value: 
-      objectReference: {fileID: 7136209775297966273}
-    - target: {fileID: 9111709582139068261, guid: f1b41f92f071e9649b6ab918fbfc26c2,
-        type: 3}
-      propertyPath: jumpForce
-      value: 
-      objectReference: {fileID: 11400000, guid: a48f8551aa9251e40bfdc9d77510e761,
-        type: 2}
-    - target: {fileID: 9111709582139068261, guid: f1b41f92f071e9649b6ab918fbfc26c2,
-        type: 3}
-      propertyPath: jumpMoto
-      value: 16
-      objectReference: {fileID: 0}
     - target: {fileID: 1394978030909710334, guid: f1b41f92f071e9649b6ab918fbfc26c2,
         type: 3}
       propertyPath: m_Name
@@ -870,6 +845,32 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SortingOrder
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 9111709582139068261, guid: f1b41f92f071e9649b6ab918fbfc26c2,
+        type: 3}
+      propertyPath: playerPV
+      value: 
+      objectReference: {fileID: 95333374770581058}
+    - target: {fileID: 9111709582139068261, guid: f1b41f92f071e9649b6ab918fbfc26c2,
+        type: 3}
+      propertyPath: acelerometro
+      value: 
+      objectReference: {fileID: 619096823883500549}
+    - target: {fileID: 9111709582139068261, guid: f1b41f92f071e9649b6ab918fbfc26c2,
+        type: 3}
+      propertyPath: brilhoDeBoost
+      value: 
+      objectReference: {fileID: 7136209775297966273}
+    - target: {fileID: 9111709582139068261, guid: f1b41f92f071e9649b6ab918fbfc26c2,
+        type: 3}
+      propertyPath: jumpForce
+      value: 
+      objectReference: {fileID: 11400000, guid: a48f8551aa9251e40bfdc9d77510e761,
+        type: 2}
+    - target: {fileID: 9111709582139068261, guid: f1b41f92f071e9649b6ab918fbfc26c2,
+        type: 3}
+      propertyPath: jumpMoto
+      value: 16
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f1b41f92f071e9649b6ab918fbfc26c2, type: 3}

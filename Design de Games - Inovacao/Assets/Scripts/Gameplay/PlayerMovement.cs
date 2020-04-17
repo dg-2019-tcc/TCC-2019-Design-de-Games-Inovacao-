@@ -112,6 +112,7 @@ public class PlayerMovement : MonoBehaviour
 		PV = GetComponent<PhotonView>();
 		stats.speed = playerSpeed;
 		stats.jumpForce = playerJump;
+		leftDir = false;
 		rightDir = true;
 
 		//playerAnimations = GetComponent<PlayerAnimations>();
