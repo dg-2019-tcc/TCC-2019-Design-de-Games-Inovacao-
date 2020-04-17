@@ -14,10 +14,11 @@ public class StateController : MonoBehaviour
     public Rigidbody2D rb;
 
     [HideInInspector] public List<Transform> wayPointList;
-    /*[HideInInspector]*/ public int nextWayPoint;
+    [HideInInspector] public int nextWayPoint;
     [HideInInspector] public float stateTimeElapsed;
     [HideInInspector] public Transform target;
-    /*[HideInInspector]*/ public bool canJump;
+    [HideInInspector] public bool canJump;
+    [HideInInspector] public int points;
 
     private bool aiActive;
 

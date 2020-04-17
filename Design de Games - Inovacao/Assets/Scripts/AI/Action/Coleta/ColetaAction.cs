@@ -18,6 +18,8 @@ public class ColetaAction : Actions
 
         controller.transform.position = Vector3.MoveTowards(controller.transform.position, controller.target.position, step);
 
+        controller.rb.velocity = new Vector2(step, step);
+
         if (Vector3.Distance(controller.transform.position, controller.target.position) < 0.5f)
         {
             controller.nextWayPoint = (controller.nextWayPoint + 1) % controller.wayPointList.Count;

@@ -10,10 +10,10 @@ public class ColetavelAI : MonoBehaviour
     {
         if (col.CompareTag("AI"))
         {
-            aiController = GetComponent<StateController>();
-            Debug.Log(aiController.nextWayPoint);
-            aiController.nextWayPoint++;
-            Debug.Log(aiController.nextWayPoint);
+            aiController = col.GetComponent<StateController>();
+            aiController.points++;
+            Debug.Log(aiController.points);
+            Destroy(gameObject);
 
         }
     }
