@@ -13,17 +13,13 @@ public class ColetaGoRigthDecision : Decision
 
     private bool IsRight(StateController controller)
     {
-        float aiPos = Mathf.Abs(controller.transform.position.x);
-        float coletavelPos = controller.wayPointList[controller.nextWayPoint].transform.position.x;
-
-        float distance = aiPos + coletavelPos;
-
-        Debug.Log(controller.nextWayPoint);
+        Vector2 aiPos = controller.transform.position;
+        Vector2 coletavelPos = controller.wayPointList[controller.nextWayPoint].transform.position;
 
         Vector3 controllerPos = controller.transform.position;
         Vector3 coletaPos = controller.wayPointList[controller.nextWayPoint].transform.position;
 
-        if (distance > 0 && coletaPos.y - controllerPos.y <= 1.7f)
+        if (aiPos.x - coletaPos.x < 0 && coletavelPos.y - aiPos.y < 1.7f)
         {
             return true;
         }

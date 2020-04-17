@@ -15,8 +15,6 @@ public class JumpAction : Actions
 
         if(controller.canJump == true)
         {
-            Debug.Log("Jump");
-
             controller.rb.AddForce(new Vector2(0, controller.botStats.jumpForce), ForceMode2D.Impulse);
         }
     }

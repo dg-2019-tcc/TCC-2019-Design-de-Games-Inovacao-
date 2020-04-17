@@ -13,15 +13,14 @@ public class ColetaGoLeftDecision : Decision
 
     private bool IsLeft(StateController controller)
     {
-        float aiPos = Mathf.Abs(controller.transform.position.x);
-        float coletavelPos = controller.wayPointList[controller.nextWayPoint].transform.position.x;
+        Vector2 aiPos = controller.transform.position;
+        Vector2 coletavelPos = controller.wayPointList[controller.nextWayPoint].transform.position;
 
-        float distance = aiPos + coletavelPos;
 
         Vector3 controllerPos = controller.transform.position;
         Vector3 coletaPos = controller.wayPointList[controller.nextWayPoint].transform.position;
 
-        if (distance < 0 && coletaPos.y - controllerPos.y <= 1.7f)
+        if (aiPos.x - coletaPos.x > 0 && coletavelPos.y - aiPos.y < 1.7f)
         {
             return true;
         }
