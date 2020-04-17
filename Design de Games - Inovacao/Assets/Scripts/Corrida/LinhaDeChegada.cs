@@ -55,6 +55,11 @@ public class LinhaDeChegada : MonoBehaviour
                 }
             }
         }
+
+		if (other.CompareTag("AI"))
+		{
+			winnerManager.perdeuCorrida = true;
+		}
     }
 
     [PunRPC]

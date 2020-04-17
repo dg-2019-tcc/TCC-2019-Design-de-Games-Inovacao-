@@ -6,15 +6,25 @@ using Photon.Pun;
 public class Coroa : MonoBehaviour
 {
 	public Transform ganhador;
+	public GameObject IAStarter;
+	public GameObject IASetup;
 
-	/*
+
+	bool botGanhou;
+	
 	private void Start()
 	{
-		if ((int)PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] == 1)
+		botGanhou = true;
+
+		for (int i = 0; i < PhotonNetwork.PlayerList.Length; i++)
 		{
-            euGanhei();
+			if ((int)PhotonNetwork.PlayerList[i].CustomProperties["Ganhador"] != 0)
+			{
+				botGanhou = false;
+			}
 		}
-	}*/
+		
+	}
 	
 
 	void Update()
@@ -25,7 +35,11 @@ public class Coroa : MonoBehaviour
 
 			PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 0;
 		}
-		
+		else if(botGanhou)
+		{
+			IAStarter.SetActive(true);
+			IASetup.SetActive(true);
+		}
 
 
 	}
