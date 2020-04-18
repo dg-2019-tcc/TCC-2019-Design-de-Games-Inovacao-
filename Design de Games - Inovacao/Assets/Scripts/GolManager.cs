@@ -11,9 +11,21 @@ public class GolManager : MonoBehaviourPunCallbacks
 
     public  int index;
 
+    public float maxPoints;
+
     public GameObject bola;
 
     public Transform bolaSpawnPoint;
+    public FloatVariable botScore;
+
+    private void Update()
+    {
+        if (botScore.Value >= maxPoints)
+        {
+            PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 0;
+            LevelManager.Instance.GoPodium();
+        }
+    }
 
     private void OnTriggerEnter2D(Collider2D other)
     {

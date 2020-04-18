@@ -13,10 +13,17 @@ public class StopJumpDecision : Decision
 
     private bool StopJump(StateController controller)
     {
-        Vector3 controllerPos = controller.transform.position;
-        Vector3 coletaPos = controller.wayPointList[controller.nextWayPoint].transform.position;
+        float aiPosY = Mathf.Abs(controller.transform.position.y);
+        float bolaPosY = Mathf.Abs(controller.wayPointList[controller.nextWayPoint].transform.position.y);
 
-        if(controllerPos.y - coletaPos.y < 0)
+        float distanceY = aiPosY - bolaPosY;
+
+        float aiPosX = Mathf.Abs(controller.transform.position.x);
+        float bolaPosX = Mathf.Abs(controller.wayPointList[controller.nextWayPoint].transform.position.x);
+
+        float distanceX = aiPosX - bolaPosX;
+
+        if (distanceY < 1.5f)
         {
             return true;
         }

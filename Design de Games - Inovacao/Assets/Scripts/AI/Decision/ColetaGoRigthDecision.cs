@@ -19,7 +19,7 @@ public class ColetaGoRigthDecision : Decision
         Vector3 controllerPos = controller.transform.position;
         Vector3 coletaPos = controller.wayPointList[controller.nextWayPoint].transform.position;
 
-        if (aiPos.x - coletaPos.x < 0 && coletavelPos.y - aiPos.y < 1.7f)
+        if (aiPos.x - coletaPos.x < 0)
         {
             return true;
         }

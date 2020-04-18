@@ -11,8 +11,7 @@ public class ColetavelAI : MonoBehaviour
         if (col.CompareTag("AI"))
         {
             aiController = col.GetComponent<StateController>();
-            aiController.points++;
-            Debug.Log(aiController.points);
+            aiController.botScore.Value++;
             Destroy(gameObject);
 
         }

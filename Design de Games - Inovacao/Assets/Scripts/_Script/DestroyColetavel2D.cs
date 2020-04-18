@@ -12,6 +12,8 @@ public class DestroyColetavel2D : MonoBehaviourPunCallbacks
 	[HideInInspector]
 	public static float coletavel;
 
+    public FloatVariable botScore;
+
 
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -24,7 +26,16 @@ public class DestroyColetavel2D : MonoBehaviourPunCallbacks
 
             if (/*jogador.PV.Owner.GetScore()*/index >= LevelManager.Instance.coletaMax)
             {
-                PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 1;
+                if (botScore.Value >= 8)
+                {
+                    PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 0;
+                }
+
+                else
+                {
+                    PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 1;
+                }
+                
                 LevelManager.Instance.GoPodium();
             }
 

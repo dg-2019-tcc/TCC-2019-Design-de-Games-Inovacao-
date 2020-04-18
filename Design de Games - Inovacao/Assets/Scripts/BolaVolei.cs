@@ -34,20 +34,21 @@ public class BolaVolei : MonoBehaviour
             rb2d.velocity = vel.normalized * maxSpeed;
         }
 
-        Debug.Log(rb2d.velocity);
 
         if (normal)
         {
             gameObject.GetComponent<PhotonView>().RPC("BolaVoleiAzul", RpcTarget.MasterClient);
         }
 
-        else if (corte)
+        else if (corte && superCorte == false)
         {
             gameObject.GetComponent<PhotonView>().RPC("BolaVoleiAmarela", RpcTarget.MasterClient);
         }
 
         else if (superCorte)
         {
+            normal = false;
+            corte = false;  
             gameObject.GetComponent<PhotonView>().RPC("BolaVoleiVermelha", RpcTarget.MasterClient);
         }
 

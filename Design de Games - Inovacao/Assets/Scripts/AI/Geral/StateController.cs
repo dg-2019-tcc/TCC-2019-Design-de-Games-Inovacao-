@@ -10,6 +10,8 @@ public class StateController : MonoBehaviour
     public Transform pos;
     public State remainState;
     public State currentState;
+    public int maxPoints;
+    public FloatVariable botScore;
 
     public Rigidbody2D rb;
 
@@ -18,16 +20,20 @@ public class StateController : MonoBehaviour
     [HideInInspector] public float stateTimeElapsed;
     [HideInInspector] public Transform target;
     [HideInInspector] public bool canJump;
-    [HideInInspector] public int points;
     [HideInInspector] public float jumpCooldown;
     [HideInInspector] public float forceVertical;
 
     private bool aiActive;
+    private StateController controller;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        controller = GetComponent<StateController>();
+
+        botScore.Value = 0;
     }
+
 
 
     public void SetupAI(bool aiActivationFromAIManager, List<Transform> wayPointsFromTankManager)
@@ -43,6 +49,11 @@ public class StateController : MonoBehaviour
         if (!aiActive)
             return;
         currentState.UpdateState(this);
+
+        if(botScore.Value >= maxPoints)
+        {
+            controller.enabled = false;
+        }
     }
 
     public void TransitionToState(State nextState)

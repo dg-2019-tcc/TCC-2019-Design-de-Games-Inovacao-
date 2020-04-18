@@ -4,41 +4,64 @@ using UnityEngine;
 
 public class AIMovement : MonoBehaviour
 {
-    private Rigidbody2D rb;
-
     private StateController controller;
-
 
     public GameObject ai;
 
     public float turnCooldown;
 
+    public bool isColteta;
+
     // Start is called before the first frame update
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
         controller = GetComponent<StateController>();
     }
 
     // Update is called once per frame
     void LateUpdate()
     {
-        if(rb.velocity.x < 0f)
+        if (!isColteta)
         {
-            Quaternion direction = Quaternion.Euler(0, 180, 0);
-            ai.transform.rotation = direction;
-        }
+            if (controller.rb.velocity.x < 0f)
+            {
+                Debug.Log("Esquerda");
+                Quaternion direction = Quaternion.Euler(0, 180, 0);
+                ai.transform.rotation = direction;
+            }
 
-        else if (rb.velocity.x > 0f)
-        {
-            Quaternion direction = Quaternion.Euler(0, 0, 0);
-            ai.transform.rotation = direction;
+            else if (controller.rb.velocity.x > 0f)
+            {
+                Quaternion direction = Quaternion.Euler(0, 0, 0);
+                ai.transform.rotation = direction;
+            }
+
+            else
+            {
+                Quaternion direction = Quaternion.Euler(0, 180, 0);
+                ai.transform.rotation = direction;
+            }
         }
 
         else
         {
-            Quaternion direction = Quaternion.Euler(0, 180, 0);
-            ai.transform.rotation = direction;
+            float aiPosX = Mathf.Abs(controller.transform.position.x);
+            float bolaPosX = Mathf.Abs(controller.wayPointList[controller.nextWayPoint].transform.position.x);
+
+            float distance = aiPosX - bolaPosX;
+
+            if(distance < 0)
+            {
+                Quaternion direction = Quaternion.Euler(0, 180, 0);
+                ai.transform.rotation = direction;
+            }
+
+            else
+            {
+                Quaternion direction = Quaternion.Euler(0, 0, 0);
+                ai.transform.rotation = direction;
+
+            }
         }
     }
 
