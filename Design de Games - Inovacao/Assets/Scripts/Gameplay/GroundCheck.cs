@@ -63,7 +63,7 @@ public class GroundCheck : MonoBehaviour
             {
                 jumpButton.SetActive(true);
                 canJump.Value = true;
-                jump.Value = true;
+              //  jump.Value = true;
             }
         }
     }

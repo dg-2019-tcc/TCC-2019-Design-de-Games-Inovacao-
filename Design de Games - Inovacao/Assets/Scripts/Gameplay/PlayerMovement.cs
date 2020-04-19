@@ -23,6 +23,7 @@ public class PlayerMovement : MonoBehaviour
 	public PlayerStat stats;
 	public FloatVariable playerSpeed;
 	public FloatVariable playerJump;
+	private float tempJump;
 	public bool shouldTurn;
 	public static bool leftDir;
 	public static bool rightDir;
@@ -299,21 +300,21 @@ public class PlayerMovement : MonoBehaviour
         }
 
 
-
-        if (jump.Value == true && grounded == true && canJump.Value == true && acabou == false && (joyStick.Vertical > -0.5 && !Input.GetKey(KeyCode.S)))
+		if (jump.Value == true)
 		{
-			//playerAnimations.playerAC.SetTrigger(playerAnimations.animatorJump);
-			puloAudioEvent.Play(puloSom);
+			
+			tempJump = Mathf.Lerp(tempJump, 0, 0.3f);																		//Fazendo o pulo ser contínuo enquanto o botão estiver apertado(mesmo se for o pulo duplo)
+				//playerAnimations.playerAC.SetTrigger(playerAnimations.animatorJump);
+				puloAudioEvent.Play(puloSom);
+				rb2d.AddForce(new Vector2(0,  tempJump), ForceMode2D.Impulse);
+						
+		}
+		if (canJump.Value == false && rb2d.velocity.y < 0)
+		{
+			canDoubleJump = true;
+		}
 
-
-        }
-
-        if (jump.Value == true && rb2d.velocity.y < 0)
-        {
-            canDoubleJump = true;
-        }
-
-    }
+	}
 
 	private void OnCollisionStay2D(Collision2D collision)
 	{
@@ -357,13 +358,13 @@ public class PlayerMovement : MonoBehaviour
     public void Jump()
     {
 
-        if (grounded == true && joyStick.Vertical > -0.8)
+        if (grounded == true && joyStick.Vertical > -0.8 && canJump.Value == true && acabou == false && !Input.GetKey(KeyCode.S))
         {
             FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Pulo", GetComponent<Transform>().position);
             jump.Value = true;
-            //DogController.poderEstaAtivo = false;
-            rb2d.AddForce(new Vector2(0, stats.jumpForce.Value), ForceMode2D.Impulse);
-            canDoubleJump = true;
+			//DogController.poderEstaAtivo = false;
+			tempJump = stats.jumpForce.Value;
+			canDoubleJump = true;
         }
 
 
@@ -372,12 +373,12 @@ public class PlayerMovement : MonoBehaviour
         {
             FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Pulo", GetComponent<Transform>().position);
             canDoubleJump = false;
-            jump.Value = false;
-            Vector2 v = rb2d.velocity;
-            v.y = 0;
-            rb2d.velocity = v;
-            rb2d.AddForce(new Vector2(0, stats.jumpForce.Value), ForceMode2D.Impulse);
-        }
+            jump.Value = true;
+			tempJump = stats.jumpForce.Value;
+			Vector2 v = rb2d.velocity;
+			v.y = 0;
+			rb2d.velocity = v;
+		}
 
         else if(joyStick.Vertical < -0.8)
         {
@@ -386,6 +387,12 @@ public class PlayerMovement : MonoBehaviour
             canJump.Value = false;
         }
     }
+
+	public void stopJump()
+	{
+		jump.Value = false;
+
+	}
 
        
 	

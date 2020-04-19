@@ -1,5 +1,17 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &2879204265855332935
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6412273861197391270}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb57cd7586cddb44bbc28613d6c4138a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &4172490415935640825
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -46,18 +58,6 @@ MonoBehaviour:
   OverrideAttenuation: 0
   OverrideMinDistance: 0
   OverrideMaxDistance: 0
---- !u!114 &2879204265855332935
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6412273861197391270}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb57cd7586cddb44bbc28613d6c4138a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &8384263984757958684
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -69,16 +69,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PlayerAvatar2DVictory
-      objectReference: {fileID: 0}
-    - target: {fileID: 7290345354900191739, guid: 035994962d7ecd546b6c6b6d597a2c29,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4088277191126084534, guid: 035994962d7ecd546b6c6b6d597a2c29,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4575578340670550938, guid: 035994962d7ecd546b6c6b6d597a2c29,
         type: 3}
@@ -135,6 +125,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4088277191126084534, guid: 035994962d7ecd546b6c6b6d597a2c29,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8077519755820860280, guid: 035994962d7ecd546b6c6b6d597a2c29,
         type: 3}
       propertyPath: m_IsActive
@@ -185,6 +180,11 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7290345354900191739, guid: 035994962d7ecd546b6c6b6d597a2c29,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2078772684796901857, guid: 035994962d7ecd546b6c6b6d597a2c29,
         type: 3}
       propertyPath: m_SortingOrder
@@ -196,18 +196,49 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6807020371302565022, guid: 035994962d7ecd546b6c6b6d597a2c29,
         type: 3}
-      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      propertyPath: m_Delegates.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6807020371302565022, guid: 035994962d7ecd546b6c6b6d597a2c29,
+        type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6807020371302565022, guid: 035994962d7ecd546b6c6b6d597a2c29,
+        type: 3}
+      propertyPath: m_Delegates.Array.data[1].eventID
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6807020371302565022, guid: 035994962d7ecd546b6c6b6d597a2c29,
+        type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1258300714730901991}
     - target: {fileID: 6807020371302565022, guid: 035994962d7ecd546b6c6b6d597a2c29,
         type: 3}
-      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: Jump
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: stopJump
       objectReference: {fileID: 0}
     - target: {fileID: 6807020371302565022, guid: 035994962d7ecd546b6c6b6d597a2c29,
         type: 3}
-      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6807020371302565022, guid: 035994962d7ecd546b6c6b6d597a2c29,
+        type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 6807020371302565022, guid: 035994962d7ecd546b6c6b6d597a2c29,
+        type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6807020371302565022, guid: 035994962d7ecd546b6c6b6d597a2c29,
+        type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_TypeName
+      value: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI, Version=1.0.0.0,
+        Culture=neutral, PublicKeyToken=null
       objectReference: {fileID: 0}
     - target: {fileID: 2019621256388944685, guid: 035994962d7ecd546b6c6b6d597a2c29,
         type: 3}
