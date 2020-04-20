@@ -30,6 +30,7 @@ public class PlayerMovement : MonoBehaviour
 	public BoolVariable canJump;
     static public bool acabouPartida;
     public bool canDoubleJump;
+	public bool noMoreJumps;
 	public float autoScroll;
     public float maxSpeed = 12f;
 
@@ -309,9 +310,10 @@ public class PlayerMovement : MonoBehaviour
 				rb2d.AddForce(new Vector2(0,  tempJump), ForceMode2D.Impulse);
 						
 		}
-		if (canJump.Value == false && rb2d.velocity.y < 0)
+		if (canJump.Value == false && rb2d.velocity.y < 0 && noMoreJumps == false)
 		{
 			canDoubleJump = true;
+			noMoreJumps = true;
 		}
 
 	}
@@ -360,6 +362,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (grounded == true && joyStick.Vertical > -0.8 && canJump.Value == true && acabou == false && !Input.GetKey(KeyCode.S))
         {
+			noMoreJumps = false;
             FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Pulo", GetComponent<Transform>().position);
             jump.Value = true;
 			//DogController.poderEstaAtivo = false;
