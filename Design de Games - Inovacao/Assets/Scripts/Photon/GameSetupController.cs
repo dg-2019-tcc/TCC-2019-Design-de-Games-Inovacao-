@@ -4,104 +4,121 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
-public class GameSetupController : MonoBehaviour
+namespace Complete
 {
-	public static GameSetupController GS;
+    public class GameSetupController : MonoBehaviour
+    {
+        public GameManager gameManager;
 
-	public Transform[] spawnPoints;
+        public static GameSetupController GS;
 
-	public float delayToCreate;
-	public float countdown;
+        public Transform[] spawnPoints;
 
-	private int index = 1;
+        public float delayToCreate;
+        public float countdown;
 
-	public GameObject[] number;
+        private int index = 1;
 
-	private float allPlayersInSession;
+        public GameObject[] number;
 
-    public string playerPrefabName;
+        private float allPlayersInSession;
 
-	public BoolVariable partidaComecou;
+        public string playerPrefabName;
 
-	[HideInInspector]
-	static public GameObject PlayerInst;
+        public BoolVariable partidaComecou;
 
-    public bool isFut;
+        [HideInInspector]
+        static public GameObject PlayerInst;
+
+        public bool isFut;
+
+        public float aiSpawnCooldown;
 
 
-	private void OnEnable()
-	{
-		if (GameSetupController.GS == null)
-		{
-			GameSetupController.GS = this;
-		}
-
-        if (isFut)
+        private void OnEnable()
         {
-            if (PhotonNetwork.IsMasterClient.Equals(true))
+            if (GameSetupController.GS == null)
             {
-                PlayerInst = (GameObject)PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PhotonPlayer"),
-                               spawnPoints[0].position, Quaternion.identity);
-                PlayerInst.SetActive(false);
-
-                gameObject.GetComponent<PhotonView>().RPC("SpawnPlayer", RpcTarget.All, allPlayersInSession);
-                Debug.Log("isMaster");
+                GameSetupController.GS = this;
             }
 
+            if (isFut)
+            {
+                if (PhotonNetwork.IsMasterClient.Equals(true))
+                {
+                    PlayerInst = (GameObject)PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PhotonPlayer"),
+                                   spawnPoints[0].position, Quaternion.identity);
+                    PlayerInst.SetActive(false);
+
+                    gameObject.GetComponent<PhotonView>().RPC("SpawnPlayer", RpcTarget.All, allPlayersInSession);
+                    Debug.Log("isMaster");
+                }
+
+                else
+                {
+                    PlayerInst = (GameObject)PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PhotonPlayer"),
+                                   spawnPoints[1].position, Quaternion.identity);
+                    PlayerInst.SetActive(false);
+
+
+                    gameObject.GetComponent<PhotonView>().RPC("SpawnPlayer", RpcTarget.All, allPlayersInSession);
+                    Debug.Log("isClient");
+                }
+            }
             else
             {
                 PlayerInst = (GameObject)PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PhotonPlayer"),
-                               spawnPoints[1].position, Quaternion.identity);
+                                   spawnPoints[0].position, Quaternion.identity);
                 PlayerInst.SetActive(false);
 
 
                 gameObject.GetComponent<PhotonView>().RPC("SpawnPlayer", RpcTarget.All, allPlayersInSession);
-                Debug.Log("isClient");
+
+                //Debug.Log("NãoÉFut");
             }
         }
-        else
+
+
+        [PunRPC]
+        private void SpawnPlayer(float alterPlayerCount)
         {
-            PlayerInst = (GameObject)PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PhotonPlayer"),
-                               spawnPoints[0].position, Quaternion.identity);
-            PlayerInst.SetActive(false);
 
+            Debug.Log("Spawn");
+            if (alterPlayerCount > allPlayersInSession)                                                     //Contador pra sincronizar e adicionar quantos players entraram na cena
+                allPlayersInSession = alterPlayerCount;
 
-            gameObject.GetComponent<PhotonView>().RPC("SpawnPlayer", RpcTarget.All, allPlayersInSession);
-
-            //Debug.Log("NãoÉFut");
+            allPlayersInSession++;
+            if (PhotonNetwork.PlayerList.Length == allPlayersInSession || alterPlayerCount == 0)            //Checando se todos entraram, se sim, todos são criados ao mesmo tempo(se falhar, outro player vai passar pelo mesmo)
+            {
+                StartCoroutine("UniteSynchronization", delayToCreate);
+                StartCoroutine("SpawnAI");
+            }
         }
-	}
+
+        public IEnumerator UniteSynchronization(float delay)
+        {
+            yield return new WaitForSeconds(delay);
+            if (number.Length > 0)
+            {
+                number[number.Length - index].SetActive(true);
+                yield return new WaitForSeconds(1);
+                number[number.Length - index].SetActive(false);
+            }
+            if (index < number.Length)
+                StartCoroutine("UniteSynchronization", 0);
+            else
+                PlayerInst.SetActive(true);
 
 
-	[PunRPC]
-	private void SpawnPlayer(float alterPlayerCount)
-	{
+            partidaComecou.Value = true;
+            index++;
 
-        Debug.Log("Spawn");
-        if (alterPlayerCount > allPlayersInSession)														//Contador pra sincronizar e adicionar quantos players entraram na cena
-			allPlayersInSession = alterPlayerCount;
+        }
 
-		allPlayersInSession++;
-		if (PhotonNetwork.PlayerList.Length == allPlayersInSession || alterPlayerCount == 0)            //Checando se todos entraram, se sim, todos são criados ao mesmo tempo(se falhar, outro player vai passar pelo mesmo)
-		{
-			StartCoroutine("UniteSynchronization", delayToCreate);
-		}
-	}
-
-	public IEnumerator UniteSynchronization(float delay)
-	{
-		yield return new WaitForSeconds(delay);
-		if (number.Length > 0)
-		{
-			number[number.Length - index].SetActive(true);
-			yield return new WaitForSeconds(1);
-			number[number.Length - index].SetActive(false);
-		}
-			if(index<number.Length)
-				StartCoroutine("UniteSynchronization", 0);
-			else
-				PlayerInst.SetActive(true);
-		partidaComecou.Value = true;
-		index++;
-	}
+        public IEnumerator SpawnAI()
+        {
+            yield return new WaitForSeconds(aiSpawnCooldown);
+            gameManager.SpawnAI();
+        }
+    }
 }

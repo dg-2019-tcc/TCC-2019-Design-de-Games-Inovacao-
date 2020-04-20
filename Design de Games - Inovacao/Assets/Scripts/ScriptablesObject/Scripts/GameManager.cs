@@ -17,10 +17,10 @@ namespace Complete
 
         private void Start()
         {
-            SpawnAI();
+            //SpawnAI();
         }
 
-        private void SpawnAI()
+        public void SpawnAI()
         {
             
                 m_AI[0].m_Instance =
