@@ -16,6 +16,8 @@ public class BolaFutebol : MonoBehaviour
 
     public float maxSpeed = 1f;
 
+    public Transform bolaSpawnPoint;
+
     // Start is called before the first frame update  
     void Start()
     {
@@ -66,6 +68,11 @@ public class BolaFutebol : MonoBehaviour
         if (collision.CompareTag("Plataforma"))
         {
             gameObject.GetComponent<PhotonView>().RPC("SlowBola", RpcTarget.MasterClient);
+        }
+
+        if (collision.CompareTag("ResetBall"))
+        {
+            gameObject.GetComponent<Transform>().position = bolaSpawnPoint.transform.position;
         }
     }
 

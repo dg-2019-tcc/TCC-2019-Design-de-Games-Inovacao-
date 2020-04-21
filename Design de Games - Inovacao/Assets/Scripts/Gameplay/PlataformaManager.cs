@@ -79,7 +79,6 @@ public class PlataformaManager : MonoBehaviour
 
             arrowImage.rectTransform.localRotation = Quaternion.Euler(0f, 0f, 90f);
 
-            //turnPlataforma = true;
         }
 
 
