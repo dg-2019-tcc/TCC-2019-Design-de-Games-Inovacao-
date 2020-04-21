@@ -17,7 +17,10 @@ namespace Complete
 
         private void Start()
         {
-            //SpawnAI();
+			if (OfflineMode.modoDoOffline)
+			{
+				SpawnAI();
+			}
         }
 
         public void SpawnAI()
