@@ -14,7 +14,7 @@ namespace Complete
         public AIManager[] m_AI;
         public List<Transform> wayPointsForAI;
 
-
+		/*
         private void Start()
         {
 			if (OfflineMode.modoDoOffline)
@@ -22,6 +22,7 @@ namespace Complete
 				SpawnAI();
 			}
         }
+		*/
 
         public void SpawnAI()
         {

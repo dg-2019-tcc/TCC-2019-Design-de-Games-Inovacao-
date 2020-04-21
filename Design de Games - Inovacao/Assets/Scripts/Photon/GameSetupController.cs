@@ -118,7 +118,10 @@ namespace Complete
         public IEnumerator SpawnAI()
         {
             yield return new WaitForSeconds(aiSpawnCooldown);
-            gameManager.SpawnAI();
+			if (OfflineMode.modoDoOffline)
+			{
+				gameManager.SpawnAI();
+			}
         }
     }
 }
