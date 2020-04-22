@@ -32,7 +32,7 @@ public class Controller2D : MonoBehaviour
 
 
 
-    public void Move(Vector3 velocity, Vector2 input)
+    public void Move(Vector2 velocity, Vector2 input)
     {
         UpdateRaycastOrigins();
         collisions.Reset();
@@ -56,7 +56,7 @@ public class Controller2D : MonoBehaviour
         transform.Translate(velocity);
     }
 
-    void HorizontalCollisions(ref Vector3 velocity)
+    void HorizontalCollisions(ref Vector2 velocity)
     {
         float directionX = Mathf.Sign(velocity.x);
         float rayLenght = Mathf.Abs(velocity.x) + skinWidth;
@@ -130,7 +130,7 @@ public class Controller2D : MonoBehaviour
     }
 
 
-    void VerticalCollisions(ref Vector3 velocity)
+    void VerticalCollisions(ref Vector2 velocity)
     {
         float directionY = Mathf.Sign(velocity.y);
         float rayLenght = Mathf.Abs(velocity.y) + skinWidth;
@@ -200,7 +200,7 @@ public class Controller2D : MonoBehaviour
 
     }
 
-    void ClimbSlope(ref Vector3 velocity, float slopeAngle)
+    void ClimbSlope(ref Vector2 velocity, float slopeAngle)
     {
         float moveDistance = Mathf.Abs(velocity.x);
         float climbVelocityY = Mathf.Sin(slopeAngle * Mathf.Deg2Rad) * moveDistance;
@@ -217,7 +217,7 @@ public class Controller2D : MonoBehaviour
         }
     }
 
-    void DescendSlope(ref Vector3 velocity)
+    void DescendSlope(ref Vector2 velocity)
     {
         float directionX = Mathf.Sign(velocity.x);
         Vector2 rayOrigin = (directionX == -1) ? raycastOrigins.bottomRight : raycastOrigins.bottomLeft;
@@ -284,7 +284,7 @@ public class Controller2D : MonoBehaviour
         public bool climbingSlope;
         public bool descendingSlope;
 
-        public Vector3 velocityOld;
+        public Vector2 velocityOld;
 
         public float slopeAngle, slopeAngleOld;
 
