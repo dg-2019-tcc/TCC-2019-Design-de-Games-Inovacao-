@@ -7,7 +7,7 @@ public class NewPlayerMovent : MonoBehaviour
 {
     float moveSpeed = 6;
     float velocityXSmoothing;
-    float accelerationTimeAirborne = 0.8f;
+    float accelerationTimeAirborne = 0.1f;
     float accelerationTimeGrounded = 0.05f;
 
     float maxJumpVelocity;
@@ -37,8 +37,10 @@ public class NewPlayerMovent : MonoBehaviour
         joyStick = FindObjectOfType<Joystick>();
     }
 
-    void FixedUpdate()
+    void Update()
     {
+
+        Debug.Log(velocity.y);
 
         Vector2 input = new Vector2(joyStick.Horizontal, joyStick.Vertical);
         //Vector2 input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
@@ -64,7 +66,7 @@ public class NewPlayerMovent : MonoBehaviour
         if (controller.collisions.below)
         {
             jump = true;
-            Debug.Log("minJump");
+            Debug.Log(velocity.y);
         }
     }
 
@@ -73,7 +75,7 @@ public class NewPlayerMovent : MonoBehaviour
         if (velocity.y > minJumpVelocity)
         {
             velocity.y = minJumpVelocity;
-            Debug.Log("minJump");
+            Debug.Log(velocity.y);
         }
         jump = false;
     }
