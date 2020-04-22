@@ -5,10 +5,10 @@ using UnityEngine;
 [RequireComponent (typeof (Controller2D))]
 public class NewPlayerMovent : MonoBehaviour
 {
-    float moveSpeed = 5;
+    float moveSpeed = 6;
     float velocityXSmoothing;
-    float accelerationTimeAirborne = .6f;
-    float accelerationTimeGrounded = .4f;
+    float accelerationTimeAirborne = 0.8f;
+    float accelerationTimeGrounded = 0.05f;
 
     float maxJumpVelocity;
     float minJumpVelocity;
@@ -31,8 +31,8 @@ public class NewPlayerMovent : MonoBehaviour
         controller = GetComponent<Controller2D>();
 
         gravity = -(2 * maxJumpHeight) / Mathf.Pow(timeToJumpApex, 2);
-        maxJumpHeight = Mathf.Abs(gravity * timeToJumpApex);
-        minJumpHeight = Mathf.Sqrt(2 * Mathf.Abs(gravity) * minJumpHeight);
+        maxJumpVelocity = Mathf.Abs(gravity * timeToJumpApex);
+        minJumpVelocity = Mathf.Sqrt(2* Mathf.Abs(gravity)*minJumpHeight);
 
         joyStick = FindObjectOfType<Joystick>();
     }
@@ -52,7 +52,6 @@ public class NewPlayerMovent : MonoBehaviour
         velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (controller.collisions.below)?accelerationTimeGrounded:accelerationTimeAirborne);
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime, input);
-        print(input.y);
 
         if (controller.collisions.above || controller.collisions.below)
         {
@@ -65,14 +64,16 @@ public class NewPlayerMovent : MonoBehaviour
         if (controller.collisions.below)
         {
             jump = true;
+            Debug.Log("minJump");
         }
     }
 
     public void StopJump()
     {
-        if(velocity.y > minJumpVelocity)
+        if (velocity.y > minJumpVelocity)
         {
             velocity.y = minJumpVelocity;
+            Debug.Log("minJump");
         }
         jump = false;
     }
