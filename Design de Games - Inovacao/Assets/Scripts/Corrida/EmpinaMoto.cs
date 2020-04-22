@@ -94,7 +94,11 @@ public class EmpinaMoto : MonoBehaviour
 				motoBrilho.gameObject.SetActive(false);
 			}
 		}
-				
+
+
+		baseSpeed = Mathf.Lerp(baseSpeed, boostSpeed, 0.01f * Time.deltaTime);
+
+
 
 	}
 
@@ -154,7 +158,6 @@ public class EmpinaMoto : MonoBehaviour
 				
 		}
 
-		baseSpeed = Mathf.Lerp(baseSpeed, boostSpeed, 0.1f);
 	}
 
 	public IEnumerator Empinando()
