@@ -40,13 +40,15 @@ public class NewPlayerMovent : MonoBehaviour
     void Update()
     {
 
-        Vector2 input = new Vector2(joyStick.Horizontal, joyStick.Vertical);
+        Debug.Log(velocity.y);
 
+        Vector2 input = new Vector2(joyStick.Horizontal, joyStick.Vertical);
+        //Vector2 input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         if (jump == true && controller.collisions.below)
         {
             velocity.y = maxJumpHeight;
         }
-
+        //Vector2 input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
 
         float targetVelocityX = input.x * moveSpeed;
         velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (controller.collisions.below)?accelerationTimeGrounded:accelerationTimeAirborne);
@@ -64,6 +66,7 @@ public class NewPlayerMovent : MonoBehaviour
         if (controller.collisions.below)
         {
             jump = true;
+            Debug.Log(velocity.y);
         }
     }
 
