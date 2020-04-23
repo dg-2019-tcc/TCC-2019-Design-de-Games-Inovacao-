@@ -46,7 +46,7 @@ public class AIMovement : MonoBehaviour
         else
         {
             float aiPosX = Mathf.Abs(controller.transform.position.x);
-            float bolaPosX = Mathf.Abs(controller.wayPointList[controller.nextWayPoint].transform.position.x);
+            float bolaPosX = Mathf.Abs(controller.wayPointList[(int)controller.botScore.Value].transform.position.x);
 
             float distance = aiPosX - bolaPosX;
 

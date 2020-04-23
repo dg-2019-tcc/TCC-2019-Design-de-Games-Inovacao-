@@ -12,9 +12,9 @@ public class ColetaAction : Actions
 
     private void Coleta(StateController controller)
     {
-        controller.target = controller.wayPointList[controller.nextWayPoint].transform;
+		controller.target = controller.wayPointList[(int)controller.botScore.Value].transform;
 
-        float step = controller.botStats.moveSpeed  * Time.deltaTime;
+		float step = controller.botStats.moveSpeed  * Time.deltaTime;
 
 		if (controller.transform.position.x - controller.target.position.x > 0)                         //moveesquerda
 		{
@@ -24,11 +24,7 @@ public class ColetaAction : Actions
 		{
 			controller.rb.velocity = new Vector2(controller.botStats.moveSpeed, controller.rb.velocity.y);
 		}
-
-        if (Vector3.Distance(controller.transform.position, controller.target.position) < 0.5f)
-        {
-            controller.nextWayPoint = (controller.nextWayPoint + 1) % controller.wayPointList.Count;
-        }
+		
     }
 }
 

@@ -16,17 +16,24 @@ namespace Complete
 
         public GameObject thingsAI;
 
-		
-        /*private void Start()
+
+		/*private void Start()
         {
 			if (OfflineMode.modoDoOffline)
 			{
 				//SpawnAI();
 			}
         }*/
-		
 
-        public void SpawnAI()
+		private void Update()
+		{
+			if (Input.GetKeyDown(KeyCode.Space))
+			{
+				SpawnAI();
+			}
+		}
+
+		public void SpawnAI()
         {
      
             

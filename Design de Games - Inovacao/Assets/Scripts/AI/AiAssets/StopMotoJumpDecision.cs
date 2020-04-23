@@ -13,13 +13,13 @@ public class StopMotoJumpDecision : Decision
 	private bool StopJump(StateController controller)
 	{
 		Vector3 controllerPos = controller.transform.position;
-		Vector3 coletaPos = controller.wayPointList[controller.nextWayPoint].transform.position;
+		Vector3 coletaPos = controller.wayPointList[(int)controller.botScore.Value].transform.position;
 
 		RaycastHit2D hit = Physics2D.Raycast(controllerPos, -controller.transform.up, 3, LayerMask.GetMask("Default"));
 
 		Debug.DrawRay(controllerPos, -controller.transform.up.normalized * 3, Color.yellow);
 
-		if (hit)// && hit.collider.CompareTag("Plataforma"))
+		if (hit || !controller.canJump)// && hit.collider.CompareTag("Plataforma"))
 		{
 			return true;
 		}

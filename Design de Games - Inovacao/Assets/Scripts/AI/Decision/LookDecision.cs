@@ -14,17 +14,21 @@ public class LookDecision : Decision
     private bool Look(StateController controller)
     {
         Vector3 controllerPos = controller.transform.position;
-        Vector3 coletaPos = controller.wayPointList[controller.nextWayPoint].transform.position;
+        Vector3 coletaPos = controller.wayPointList[(int)controller.botScore.Value].transform.position;
 
 
-        if(coletaPos.y - controllerPos.y >= 0.5f)
-        {
-            return true;
-        }
+		if (coletaPos.y - controllerPos.y >= 0.2f)
+		{
+			return true;
+		}
+		else if (coletaPos == null)
+		{
+			return true;
+		}
 
-        else
-        {
-            return false;
-        }
+		else
+		{
+			return false;
+		}
     }
 }
