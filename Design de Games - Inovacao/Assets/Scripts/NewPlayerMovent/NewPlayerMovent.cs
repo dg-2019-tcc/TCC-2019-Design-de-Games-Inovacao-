@@ -23,12 +23,15 @@ public class NewPlayerMovent : MonoBehaviour
 
     Controller2D controller;
 
+    TriggerCollisionsController triggerController;
+
     [SerializeField]
     public Joystick joyStick;
 
     void Start()
     {
         controller = GetComponent<Controller2D>();
+        triggerController = GetComponent<TriggerCollisionsController>();
 
         gravity = -(2 * maxJumpHeight) / Mathf.Pow(timeToJumpApex, 2);
         maxJumpVelocity = Mathf.Abs(gravity * timeToJumpApex);
@@ -51,6 +54,7 @@ public class NewPlayerMovent : MonoBehaviour
         velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (controller.collisions.below)?accelerationTimeGrounded:accelerationTimeAirborne);
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime, input);
+        triggerController.MoveDirection(velocity);
 
         if (controller.collisions.above || controller.collisions.below)
         {
@@ -63,7 +67,7 @@ public class NewPlayerMovent : MonoBehaviour
         if (controller.collisions.below)
         {
             jump = true;
-            Debug.Log(velocity.y);
+
         }
     }
 
