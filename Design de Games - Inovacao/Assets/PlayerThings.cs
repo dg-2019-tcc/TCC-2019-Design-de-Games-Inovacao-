@@ -89,8 +89,8 @@ public class PlayerThings : MonoBehaviour
 
         if (joyStick != null)
         {
-            if (shouldTurn)
-            {
+            /*if (shouldTurn)
+            {*/
                 if (joyStick.Horizontal > 0 || ThrowObject.dirRight == true && rightDir == false)
                 {
 
@@ -111,7 +111,7 @@ public class PlayerThings : MonoBehaviour
                     }
                     else
                     {
-                        gameObject.GetComponent<PhotonView>().RPC("GiraPlayer", RpcTarget.All, rightDir);
+                        gameObject.GetComponent<PhotonView>().RPC("NewGiraPlayer", RpcTarget.All, rightDir);
                     }
 
                 }
@@ -134,10 +134,10 @@ public class PlayerThings : MonoBehaviour
                     }
                     else
                     {
-                        gameObject.GetComponent<PhotonView>().RPC("GiraPlayer", RpcTarget.All, rightDir);
+                        gameObject.GetComponent<PhotonView>().RPC("NewGiraPlayer", RpcTarget.All, rightDir);
                     }
                 }
-            }
+            //}
 
             float moveHorizontal = Mathf.Clamp(joyStick.Horizontal + Input.GetAxisRaw("Horizontal") + autoScroll, -2, 2);
 
@@ -160,7 +160,7 @@ public class PlayerThings : MonoBehaviour
 
 
     [PunRPC]
-    void GiraPlayer(bool dir)
+    void NewGiraPlayer(bool dir)
     {
         if (dir)
         {

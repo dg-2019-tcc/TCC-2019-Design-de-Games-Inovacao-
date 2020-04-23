@@ -1,4 +1,7 @@
-﻿using System.Collections;
+﻿using Photon.Pun;
+using Photon.Realtime;
+using Photon.Pun.UtilityScripts;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,11 +10,21 @@ public class TriggerCollisionsController : RaycastController
 
     public TriggerCollisionInfo collisions;
 
-    private PortaManager porta;
+    private PlayerThings playerThings;
+
+    private DogController dogController;
+
+    private HandVolei handVolei;
+
+    public bool isBallGame;
+
 
     public override void Start()
     {
         base.Start();
+
+        playerThings = GetComponent<PlayerThings>();
+        dogController = GetComponent<DogController>();
     }
 
 
@@ -20,21 +33,32 @@ public class TriggerCollisionsController : RaycastController
         UpdateRaycastOrigins();
         collisions.Reset();
 
-        if (dir.x > 0)
+        if (isBallGame)
         {
             RightCollisions();
-        }
-        else if (dir.x < 0)
-        {
             LeftCollisions();
-        }
-        else if (dir.y > 0)
-        {
             UpCollisions();
         }
+
         else
         {
-            DownCollisions();
+
+            if (dir.x > 0)
+            {
+                RightCollisions();
+            }
+            else if (dir.x < 0)
+            {
+                LeftCollisions();
+            }
+            else if (dir.y > 0)
+            {
+                UpCollisions();
+            }
+            else
+            {
+                DownCollisions();
+            }
         }
     }
 
@@ -56,9 +80,40 @@ public class TriggerCollisionsController : RaycastController
                 if(hit.collider.tag == "Porta")
                 {
                     Debug.Log("Right");
-                    porta = hit.collider.GetComponent<PortaManager>();
+                    PortaManager porta = hit.collider.GetComponent<PortaManager>();
                     porta.OpenDoor();
                     return;
+                }
+
+                if(hit.collider.tag == "Coletavel")
+                {
+                    DestroyColetavel2D coletavel2D = hit.collider.GetComponent<DestroyColetavel2D>();
+                    coletavel2D.PegouColetavel();
+
+                    Scored();
+
+                }
+
+                if (hit.collider.tag == "Carrinho")
+                {
+                    dogController.Carro();
+                }
+
+                if(hit.collider.tag == "Pipa")
+                {
+                    dogController.Pipa();
+                }
+
+                if(hit.collider.tag == "Volei")
+                {
+                    if (PlayerThings.rightDir)
+                    {
+                        collisions.cortaBola = true;
+                    }
+                    if (PlayerThings.leftDir)
+                    {
+                        collisions.tocouBola = true;
+                    }
                 }
             }
         }
@@ -85,6 +140,38 @@ public class TriggerCollisionsController : RaycastController
                     hit.collider.GetComponent<PortaManager>().OpenDoor();
                     continue;
                 }
+
+                if (hit.collider.tag == "Coletavel")
+                {
+                    DestroyColetavel2D coletavel2D = hit.collider.GetComponent<DestroyColetavel2D>();
+                    coletavel2D.PegouColetavel();
+
+                    Scored();
+
+                }
+
+                if (hit.collider.tag == "Carrinho")
+                {
+                    dogController.Carro();
+                }
+
+                if (hit.collider.tag == "Pipa")
+                {
+                    dogController.Pipa();
+                }
+
+                if (hit.collider.tag == "Volei")
+                {
+                    if (PlayerThings.rightDir)
+                    {
+                        collisions.tocouBola = true;
+                    }
+
+                    if (PlayerThings.leftDir)
+                    {
+                        collisions.cortaBola = true;
+                    }
+                }
             }
         }
     }
@@ -109,6 +196,30 @@ public class TriggerCollisionsController : RaycastController
                     Debug.Log("up");
                     hit.collider.GetComponent<PortaManager>().OpenDoor();
                     continue;
+                }
+
+                if (hit.collider.tag == "Coletavel")
+                {
+                    DestroyColetavel2D coletavel2D = hit.collider.GetComponent<DestroyColetavel2D>();
+                    coletavel2D.PegouColetavel();
+
+                    Scored();
+
+                }
+
+                if (hit.collider.tag == "Carrinho")
+                {
+                    dogController.Carro();
+                }
+
+                if (hit.collider.tag == "Pipa")
+                {
+                    dogController.Pipa();
+                }
+
+                if (hit.collider.tag == "Volei")
+                {
+                    collisions.tocouBola = true;
                 }
             }
         }
@@ -135,17 +246,48 @@ public class TriggerCollisionsController : RaycastController
                     hit.collider.GetComponent<PortaManager>().OpenDoor();
                     continue;
                 }
+
+                if (hit.collider.tag == "Coletavel")
+                {
+                    DestroyColetavel2D coletavel2D = hit.collider.GetComponent<DestroyColetavel2D>();
+                    coletavel2D.PegouColetavel();
+
+                    Scored();
+
+                }
+
+                if(hit.collider.tag == "Carrinho")
+                {
+                    dogController.Carro();
+                }
+
+                if (hit.collider.tag == "Pipa")
+                {
+                    dogController.Pipa();
+                }
             }
         }
+    }
+
+    public void Scored()
+    {
+        playerThings.PV.Owner.AddScore(1);
+
     }
 
     public struct TriggerCollisionInfo
     {
         public bool isDoor;
 
+        public bool cortaBola;
+
+        public bool tocouBola;
+
         public void Reset()
         {
             isDoor = false;
+            cortaBola = false;
+            tocouBola = false;
         }
     }
 }

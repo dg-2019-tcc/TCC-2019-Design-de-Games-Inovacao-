@@ -11,6 +11,8 @@ public class Controller2D : RaycastController
 
     Vector2 playerInput;
 
+    public BoolVariable pipaActive;
+
 
     public override void Start()
     {
@@ -47,6 +49,7 @@ public class Controller2D : RaycastController
         float directionX = Mathf.Sign(moveAmount.x);
         float rayLenght = Mathf.Abs(moveAmount.x) + skinWidth;
 
+
         for (int i = 0; i < horizontalRayCount; i++)
         {
             Vector2 rayOrigin = (directionX == -1) ? raycastOrigins.bottomLeft : raycastOrigins.bottomRight;
@@ -61,6 +64,11 @@ public class Controller2D : RaycastController
 
                 if (hit.collider.tag == "Through")
                 {
+
+                    if (pipaActive.Value == true)
+                    {
+                        continue;
+                    }
                     if (directionX == 1 || hit.distance == 0)
                     {
                         continue;
@@ -133,6 +141,11 @@ public class Controller2D : RaycastController
 
                 if (hit.collider.tag == "Through")
                 {
+                    if(pipaActive.Value == true)
+                    {
+                        continue;
+                    }
+
                     if(directionY == 1 || hit.distance == 0)
                     {
                         continue;

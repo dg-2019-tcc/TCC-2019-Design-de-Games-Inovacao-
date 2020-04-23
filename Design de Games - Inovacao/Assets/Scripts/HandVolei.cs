@@ -22,7 +22,9 @@ public class HandVolei : MonoBehaviour
 
     private Rigidbody2D ballrb;
 
-    private BolaVolei bola;
+    private GameObject bola;
+
+    private BolaVolei bolaVolei;
 
     public Joystick joyStick;
 
@@ -32,6 +34,10 @@ public class HandVolei : MonoBehaviour
 
     public GameObject superHand;
 
+    public TriggerCollisionsController triggerController;
+
+    public Controller2D controller;
+
 
     public void Start()
     {
@@ -40,7 +46,13 @@ public class HandVolei : MonoBehaviour
             joyStick = FindObjectOfType<Joystick>();
         }
 
+        bola = GameObject.FindWithTag("Volei");
+        bolaVolei = bola.GetComponent<BolaVolei>();
+        ballrb = bola.GetComponent<Rigidbody2D>();
+
         player = gameObject.GetComponentInParent<PlayerMovement>();
+        triggerController = GetComponent<TriggerCollisionsController>();
+        controller = GetComponent<Controller2D>();
     }
 
 
@@ -52,14 +64,26 @@ public class HandVolei : MonoBehaviour
             if (joyStick.Horizontal > 0)
             {
                 rightDir = true;
-                gameObject.GetComponent<PhotonView>().RPC("GiraHand", RpcTarget.All, rightDir);
+                //gameObject.GetComponent<PhotonView>().RPC("GiraHand", RpcTarget.All, rightDir);
             }
 
             else if (joyStick.Horizontal < 0)
             {
                 rightDir = false;
-                gameObject.GetComponent<PhotonView>().RPC("GiraHand", RpcTarget.All, rightDir);
+                //gameObject.GetComponent<PhotonView>().RPC("GiraHand", RpcTarget.All, rightDir);
             }
+        }
+
+        if(triggerController.collisions.cortaBola == true && cortou == true && controller.collisions.above == false)
+        {
+            Debug.Log("SUPER");
+            gameObject.GetComponent<PhotonView>().RPC("SuperCortaBola", RpcTarget.MasterClient);
+        }
+
+        if(triggerController.collisions.cortaBola == true)
+        {
+            Debug.Log("nORMAL");
+            gameObject.GetComponent<PhotonView>().RPC("CortaBola", RpcTarget.MasterClient);
         }
     }
 
@@ -99,30 +123,28 @@ public class HandVolei : MonoBehaviour
         cortou = false;
     }
 
-    private void OnTriggerEnter2D(Collider2D col)
+    /*private void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.CompareTag("Bola") && cortou == true && player.grounded == false)
+        if (col.CompareTag("Bola") && cortou == true && controller.collisions.above == false)
         {
-            ballrb = col.GetComponent<Rigidbody2D>();
-            bola = col.GetComponent<BolaVolei>();
+            Debug.Log("Super    CortaBola");
             gameObject.GetComponent<PhotonView>().RPC("SuperCortaBola", RpcTarget.MasterClient);
         }
 
         if (col.CompareTag("Bola"))
         {
+            Debug.Log("CortaBola");
             ballrb = col.GetComponent<Rigidbody2D>();
-            bola = col.GetComponent<BolaVolei>();
             gameObject.GetComponent<PhotonView>().RPC("CortaBola", RpcTarget.MasterClient);
         }
-    }
+    }*/
 
 
 
     [PunRPC]
     public void CortaBola()
-    {
-        Debug.Log("CortaBola");
-        bola.corte = true;
+    { 
+        bolaVolei.corte = true;
         ballrb.velocity = new Vector2(0, 0);
         ballrb.AddForce(new Vector2(corteForceX, forceVertical), ForceMode2D.Impulse);
     }
@@ -130,6 +152,7 @@ public class HandVolei : MonoBehaviour
     [PunRPC]
     public void SuperCortaBola()
     {
+
         Debug.Log("SuperCortaBola");
         superHand.SetActive(true);
         normalHand.SetActive(false);
@@ -143,11 +166,11 @@ public class HandVolei : MonoBehaviour
         {
             forceVertical = 5f;
         }
-        bola.superCorte = true;
+        bolaVolei.superCorte = true;
         ballrb.AddForce(new Vector2(superForceX, forceVertical), ForceMode2D.Impulse);
     }
 
-    [PunRPC]
+    /*[PunRPC]
     void GiraHand(bool dir)
     {
         if (dir)
@@ -159,5 +182,5 @@ public class HandVolei : MonoBehaviour
         {
             corteForceX = -5f;
         }
-    }
+    }*/
 }
