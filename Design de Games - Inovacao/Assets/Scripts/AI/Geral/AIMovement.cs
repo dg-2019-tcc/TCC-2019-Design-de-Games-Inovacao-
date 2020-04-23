@@ -23,14 +23,14 @@ public class AIMovement : MonoBehaviour
     {
         if (!isColteta)
         {
-            if (controller.rb.velocity.x < 0f)
+            if (controller.rb.velocity.x > 0f)
             {
                 Debug.Log("Esquerda");
                 Quaternion direction = Quaternion.Euler(0, 180, 0);
                 ai.transform.rotation = direction;
             }
 
-            else if (controller.rb.velocity.x > 0f)
+            else if (controller.rb.velocity.x < 0f)
             {
                 Quaternion direction = Quaternion.Euler(0, 0, 0);
                 ai.transform.rotation = direction;

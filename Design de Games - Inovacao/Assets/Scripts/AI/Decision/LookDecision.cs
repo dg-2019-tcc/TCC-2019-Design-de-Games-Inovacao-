@@ -17,7 +17,7 @@ public class LookDecision : Decision
         Vector3 coletaPos = controller.wayPointList[controller.nextWayPoint].transform.position;
 
 
-        if(coletaPos.y - controllerPos.y >= 1.5f)
+        if(coletaPos.y - controllerPos.y >= 0.5f)
         {
             return true;
         }

@@ -16,7 +16,14 @@ public class ColetaAction : Actions
 
         float step = controller.botStats.moveSpeed  * Time.deltaTime;
 
-        controller.transform.position = Vector3.MoveTowards(controller.transform.position, controller.target.position, step);
+		if (controller.transform.position.x - controller.target.position.x > 0)                         //moveesquerda
+		{
+			controller.rb.velocity = new Vector2(-controller.botStats.moveSpeed, controller.rb.velocity.y);
+		}
+		else
+		{
+			controller.rb.velocity = new Vector2(controller.botStats.moveSpeed, controller.rb.velocity.y);
+		}
 
         if (Vector3.Distance(controller.transform.position, controller.target.position) < 0.5f)
         {
