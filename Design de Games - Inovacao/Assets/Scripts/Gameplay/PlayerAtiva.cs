@@ -10,7 +10,7 @@ public class PlayerAtiva : MonoBehaviour
     public bool desativaCanvas;
 
 	private PhotonView PV;
-	public PlataformaManager[] PM;
+	//public PlataformaManager[] PM;
 	public GameObject canvas;
 
 	void Start()
@@ -28,11 +28,11 @@ public class PlayerAtiva : MonoBehaviour
 
 
 
-			PM = FindObjectsOfType<PlataformaManager>();
+			/*PM = FindObjectsOfType<PlataformaManager>();
 			for (int i = 0; i < PM.Length; i++)
 			{
 				PM[i].joyStick = FindObjectOfType<Joystick>();
-			}
+			}*/
 		}
 	}
 }

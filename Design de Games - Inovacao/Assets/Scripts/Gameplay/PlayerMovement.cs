@@ -335,7 +335,7 @@ public class PlayerMovement : MonoBehaviour
 
 
 
-	[PunRPC]
+	/*[PunRPC]
 	void GiraPlayer(bool dir)
 	{
         if (dir)
@@ -352,7 +352,7 @@ public class PlayerMovement : MonoBehaviour
             carro.transform.rotation = direction;
 			pipa.transform.rotation = direction;
 		}
-    }
+    }*/
 
 
 
