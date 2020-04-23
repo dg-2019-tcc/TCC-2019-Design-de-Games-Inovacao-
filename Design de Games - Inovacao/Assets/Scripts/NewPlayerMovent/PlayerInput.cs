@@ -5,7 +5,7 @@ using UnityEngine;
 [RequireComponent (typeof(Player2D))]
 public class PlayerInput : MonoBehaviour
 {
-    Player2D player2D;
+    /*Player2D player2D;
 
     [SerializeField]
     public Joystick joyStick;
@@ -20,5 +20,5 @@ public class PlayerInput : MonoBehaviour
     {
         Vector2 directionalInput = new Vector2(joyStick.Horizontal, joyStick.Vertical);
         player2D.SetDirectionalInput(directionalInput);
-    }
+    }*/
 }

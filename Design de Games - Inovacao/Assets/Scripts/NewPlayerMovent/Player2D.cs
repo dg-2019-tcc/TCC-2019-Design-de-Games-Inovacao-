@@ -5,7 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(Controller2D))]
 public class Player2D : MonoBehaviour
 {
-    [Header("Movimentação Horizontal")]
+    /*[Header("Movimentação Horizontal")]
     float moveSpeed = 6;
     float velocityXSmoothing;
     float accelerationTimeAirborne = 0.1f;
@@ -79,5 +79,5 @@ public class Player2D : MonoBehaviour
             velocity.y = minJumpVelocity;
         }
         jump = false;
-    }
+    }*/
 }

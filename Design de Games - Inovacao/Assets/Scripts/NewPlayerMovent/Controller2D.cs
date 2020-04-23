@@ -5,11 +5,12 @@ using UnityEngine;
 public class Controller2D : RaycastController
 {
     float maxClimbAngle = 80;
-    float maxDescendAngle = 75;
+    float maxDescendAngle = 80;
 
     public CollisionInfo collisions;
 
     Vector2 playerInput;
+
 
     public override void Start()
     {
@@ -52,11 +53,10 @@ public class Controller2D : RaycastController
             rayOrigin += Vector2.up * (horizontalRaySpacing * i);
             RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.right * directionX, rayLenght, collisionMask);
 
-            Debug.DrawRay(rayOrigin, Vector2.right * directionX, Color.red);
+            //Debug.DrawRay(rayOrigin, Vector2.right * directionX, Color.red);
 
             if (hit)
             {
-
                 float slopeAngle = Vector2.Angle(hit.normal, Vector2.up);
 
                 if (hit.collider.tag == "Through")
@@ -77,6 +77,7 @@ public class Controller2D : RaycastController
                         continue;
                     }
                 }
+
 
                     if (i == 0 && slopeAngle <= maxClimbAngle)
                 {
@@ -114,7 +115,6 @@ public class Controller2D : RaycastController
         }
     }
 
-
     void VerticalCollisions(ref Vector2 moveAmount)
     {
         float directionY = Mathf.Sign(moveAmount.y);
@@ -126,12 +126,12 @@ public class Controller2D : RaycastController
             rayOrigin += Vector2.right * (verticalRaySpacing * i + moveAmount.x);
             RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.up * directionY, rayLenght, collisionMask);
 
-            Debug.DrawRay(rayOrigin , Vector2.up * directionY, Color.red);
+           // Debug.DrawRay(rayOrigin , Vector2.up * directionY, Color.red);
 
             if (hit)
             {
 
-                if(hit.collider.tag == "Through")
+                if (hit.collider.tag == "Through")
                 {
                     if(directionY == 1 || hit.distance == 0)
                     {
@@ -160,6 +160,7 @@ public class Controller2D : RaycastController
 
                 collisions.below = directionY == -1;
                 collisions.above = directionY == 1;
+
             }
 
         }
@@ -233,28 +234,7 @@ public class Controller2D : RaycastController
         }
     }
 
-    void UpdateRaycastOrigins()
-    {
-        Bounds bounds = collider.bounds;
-        bounds.Expand(skinWidth * -2);
 
-        raycastOrigins.bottomLeft = new Vector2(bounds.min.x, bounds.min.y);
-        raycastOrigins.bottomRight = new Vector2(bounds.max.x, bounds.min.y);
-        raycastOrigins.topLeft = new Vector2(bounds.min.x, bounds.max.y);
-        raycastOrigins.topRight = new Vector2(bounds.max.x, bounds.max.y);
-    }
-
-    void CalculateRaySpacing()
-    {
-        Bounds bounds = collider.bounds;
-        bounds.Expand(skinWidth * -2);
-
-        horizontalRayCount = Mathf.Clamp(horizontalRayCount, 2, int.MaxValue);
-        verticalRayCount = Mathf.Clamp(verticalRayCount, 2, int.MaxValue);
-
-        horizontalRaySpacing = bounds.size.y / (horizontalRayCount - 1);
-        verticalRaySpacing = bounds.size.x / (verticalRayCount - 1);
-    }
 
     void ResetFallingPlatform()
     {
@@ -275,21 +255,19 @@ public class Controller2D : RaycastController
 
         public bool fallingPlatform;
 
+        public bool isDoor;
+
         public void Reset()
         {
             above = below = false;
             left = right = false;
             climbingSlope = false;
             descendingSlope = false;
+            isDoor = false;
 
             slopeAngleOld = slopeAngle;
             slopeAngle = 0;
         }
     }
 
-    struct RaycastOrigins
-    {
-        public Vector2 topLeft, topRight;
-        public Vector2 bottomLeft, bottomRight;
-    }
 }
