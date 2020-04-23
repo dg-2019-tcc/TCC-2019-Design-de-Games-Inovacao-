@@ -17,9 +17,25 @@ public class NewPlayerMovent : MonoBehaviour
     public float minJumpHeight = 2;
     public float timeToJumpApex = 0.4f;
 
+    float pipaMoveSpeed = 4;
+    float pipaVelocityXSmoothing;
+    float pipaAccelerationTimeAirborne = 0.8f;
+    //float piaAccelerationTimeGrounded = 0.5f;
+    public float pipaGravity; 
+
+    float carroMoveSpeed = 12;
+    float carroVelocityXSmoothing;
+    float carroAccelerationTimeAirborne = 0.5f;
+    float carroAccelerationTimeGrounded = 0.3f;
+
     bool jump;
 
+    public BoolVariable carroActive;
+    public BoolVariable pipaActive;
+
     Vector3 velocity;
+    Vector3 carroVelocity;
+    Vector3 pipaVelocity;
 
     Controller2D controller;
 
@@ -45,20 +61,63 @@ public class NewPlayerMovent : MonoBehaviour
 
         Vector2 input = new Vector2(joyStick.Horizontal, joyStick.Vertical);
 
-        if (jump == true && controller.collisions.below)
+        if (carroActive.Value == false && pipaActive.Value == false)
         {
-            velocity.y = maxJumpHeight;
+
+            if (jump == true && controller.collisions.below)
+            {
+                velocity.y = maxJumpHeight;
+            }
+
+            float targetVelocityX = input.x * moveSpeed;
+            velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (controller.collisions.below) ? accelerationTimeGrounded : accelerationTimeAirborne);
+            velocity.y += gravity * Time.deltaTime;
+            controller.Move(velocity * Time.deltaTime, input);
+            triggerController.MoveDirection(velocity);
+            if (controller.collisions.above ||controller.collisions.below)
+            {
+                velocity.y = 0;
+            }
         }
 
-        float targetVelocityX = input.x * moveSpeed;
-        velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (controller.collisions.below)?accelerationTimeGrounded:accelerationTimeAirborne);
-        velocity.y += gravity * Time.deltaTime;
-        controller.Move(velocity * Time.deltaTime, input);
-        triggerController.MoveDirection(velocity);
-
-        if (controller.collisions.above || controller.collisions.below)
+        else
         {
-            velocity.y = 0;
+            if (carroActive.Value == true)
+            {
+                if (jump == true && controller.collisions.below)
+                {
+                    carroVelocity.y = maxJumpHeight;
+                }
+
+                float targetVelocityX = input.x * carroMoveSpeed;
+                carroVelocity.x = Mathf.SmoothDamp(carroVelocity.x, targetVelocityX, ref carroVelocityXSmoothing, (controller.collisions.below) ? carroAccelerationTimeGrounded : carroAccelerationTimeAirborne);
+                carroVelocity.y += gravity * Time.deltaTime;
+                controller.Move(carroVelocity * Time.deltaTime, input);
+                triggerController.MoveDirection(carroVelocity);
+
+                if (controller.collisions.above || controller.collisions.below)
+                {
+                    carroVelocity.y = 0;
+                }
+
+            }
+            if (pipaActive.Value == true)
+            {
+                float targetVelocityX = input.x * pipaMoveSpeed;
+                pipaVelocity.x = Mathf.SmoothDamp(pipaVelocity.x, targetVelocityX, ref pipaVelocityXSmoothing, pipaAccelerationTimeAirborne);
+
+                if (input.y >= 0)
+                {
+                    pipaVelocity.y += pipaGravity * Time.deltaTime;
+                }
+                else
+                {
+                    pipaVelocity.y -= pipaGravity * Time.deltaTime;
+                }
+
+                triggerController.MoveDirection(pipaVelocity);
+                controller.Move(pipaVelocity * Time.deltaTime, input);
+            }
         }
     }
 

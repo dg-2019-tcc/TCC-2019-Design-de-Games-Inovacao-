@@ -6,7 +6,7 @@ public class CamLookaheadAim : MonoBehaviour
 {
 	
 	private Transform player;
-	private PlayerMovement playerScript;
+	private PlayerThings playerScript;
 	public GameObject cameraMidpoint;
 
 	private Vector2 aimPos;
@@ -22,7 +22,7 @@ public class CamLookaheadAim : MonoBehaviour
 	private void Start()
 	{
 		player = transform.parent.transform;
-		playerScript = player.GetComponent<PlayerMovement>();
+		playerScript = player.GetComponent<PlayerThings>();
 		joyStick = FindObjectOfType<Joystick>();
 		aimPos = new Vector2(distance, aimPos.y);
 		//cameraConfiner = playerScript.cameraManager.CC.gameObject;
@@ -50,11 +50,11 @@ public class CamLookaheadAim : MonoBehaviour
 														gameObject.transform.position.z);
 
 
-		if (PlayerMovement.rightDir)
+		if (PlayerThings.rightDir)
 		{
 			aimPos = new Vector2(distance, aimPos.y);
 		}
-		if (PlayerMovement.leftDir)
+		if (PlayerThings.leftDir)
 		{
 			aimPos = new Vector2(-distance, aimPos.y);
 		}

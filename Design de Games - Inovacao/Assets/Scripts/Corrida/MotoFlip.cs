@@ -10,7 +10,7 @@ public class MotoFlip : MonoBehaviour
 	
 	void Update()
     {
-		leftDir = PlayerMovement.leftDir;
+		leftDir = PlayerThings.leftDir;
 		if (leftDir)
 		{
 			transform.rotation = Quaternion.Euler(transform.rotation.x, 180, transform.rotation.z);

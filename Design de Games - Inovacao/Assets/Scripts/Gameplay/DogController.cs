@@ -31,10 +31,10 @@ public class DogController : MonoBehaviour
 
     [Header("Som")]
 
-    public AudioSource tokenSom;
+    /*public AudioSource tokenSom;
     public AudioSource carroSom;
     public AudioSource pipaSom;
-    public SimpleAudioEvent tokenAudioEvent;
+    public SimpleAudioEvent tokenAudioEvent;*/
 
 
     [HideInInspector]
@@ -82,8 +82,8 @@ public class DogController : MonoBehaviour
 			{
 				efeitoPipa.effectVar = 0;
 				efeitoCarro.effectTime = 0;
-				pipaSom.Stop();
-				carroSom.Stop();
+				//pipaSom.Stop();
+				//carroSom.Stop();
 			//	dogAtivo.Value = true;
 				gameObject.GetComponent<PhotonView>().RPC("DesativaPowerUps", RpcTarget.All);
 			}
@@ -146,14 +146,20 @@ public class DogController : MonoBehaviour
     [PunRPC]
     public void Carro()
     {
-        carroActive.Value = true;
-        carroSom.Play();
-        dogAtivo.Value = false;
-        carrinhoObj.SetActive(true);
-        //playerModel.SetActive(false);
-        poderEstaAtivo = true;
-        tokenAudioEvent.Play(tokenSom);
-        StartCoroutine(TempoParaDesativar(6f));
+        if (efeitoCarro.ativa.Value == false && efeitoPipa.ativa.Value == false)
+        {
+            Debug.Log("Carro");
+
+            hitTotemCarro.Value = false;
+            carroActive.Value = true;
+            //carroSom.Play();
+            dogAtivo.Value = false;
+            carrinhoObj.SetActive(true);
+            //playerModel.SetActive(false);
+            poderEstaAtivo = true;
+//tokenAudioEvent.Play(tokenSom);
+            StartCoroutine(TempoParaDesativar(6f));
+        }
     }
 
 
@@ -161,13 +167,14 @@ public class DogController : MonoBehaviour
     [PunRPC]
     public void Pipa()
     {
+        hitTotemPipa.Value = false;
         pipaActive.Value = true;
-        pipaSom.Play();
+        //pipaSom.Play();
         dogAtivo.Value = false;
         pipaObj.SetActive(true);
         //playerModel.SetActive(false);
         poderEstaAtivo = true;
-        tokenAudioEvent.Play(tokenSom);
+        //tokenAudioEvent.Play(tokenSom);
         StartCoroutine(TempoParaDesativar(6f));
     }
 

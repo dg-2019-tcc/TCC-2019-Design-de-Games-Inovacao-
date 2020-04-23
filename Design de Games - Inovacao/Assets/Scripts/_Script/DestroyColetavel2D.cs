@@ -14,6 +14,29 @@ public class DestroyColetavel2D : MonoBehaviourPunCallbacks
 
     public FloatVariable botScore;
 
+    public void PegouColetavel()
+    {
+        index++;
+        Debug.Log(index);
+        if (/*jogador.PV.Owner.GetScore()*/index >= LevelManager.Instance.coletaMax)
+        {
+            if (botScore.Value >= 8)
+            {
+                PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 0;
+            }
+
+            else
+            {
+                PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 1;
+            }
+
+            LevelManager.Instance.GoPodium();
+        }
+
+
+        Destroy(gameObject);
+    }
+
 
 
     private void OnTriggerEnter2D(Collider2D other)

@@ -34,12 +34,12 @@ public class ItemThrow : MonoBehaviour
 
         //shootDirection = ThrowObject.direction;
 
-        if(PlayerMovement.leftDir == true)
+        if(PlayerThings.leftDir == true)
         {
             shootDirection = new Vector2(-0.5f, 0);
         }
 
-        if(PlayerMovement.rightDir == true)
+        if(PlayerThings.rightDir == true)
         {
             shootDirection = new Vector2(0.5f, 0);
         }
@@ -92,8 +92,8 @@ public class ItemThrow : MonoBehaviour
         }
 
         if (collision.CompareTag("Player") && collision.GetComponent<PhotonView>().Owner != Owner) 
-        { 
-			PlayerMovement jogador = collision.GetComponent<PlayerMovement>(); 
+        {
+            PlayerThings jogador = collision.GetComponent<PlayerThings>(); 
 			jogador.StartCoroutine("LevouDogada"); 
 			//collision.GetComponent<PhotonView>().RPC("LevouDogada", RpcTarget.All); 
 			 
