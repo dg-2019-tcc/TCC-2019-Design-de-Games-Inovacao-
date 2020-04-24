@@ -13,10 +13,11 @@ public class HandVolei : MonoBehaviour
     public float corteForceY;
 
     public float superForceX;
+    public float superForceY;
 
     private float forceVertical;
 
-    public bool cortou;
+    public static bool cortou;
 
     private bool rightDir;
 
@@ -74,6 +75,11 @@ public class HandVolei : MonoBehaviour
             }
         }
 
+        if(triggerController.collisions.tocouBola == true)
+        {
+            gameObject.GetComponent<PhotonView>().RPC("BateBola", RpcTarget.MasterClient);
+        }
+
         if(triggerController.collisions.cortaBola == true && cortou == true && controller.collisions.above == false)
         {
             Debug.Log("SUPER");
@@ -100,7 +106,7 @@ public class HandVolei : MonoBehaviour
             forceVertical = 5f;
         }*/
         //Debug.Log(forceVertical);
-        gameObject.GetComponent<PhotonView>().RPC("CortouBall", RpcTarget.MasterClient, forceVertical);
+        gameObject.GetComponent<PhotonView>().RPC("CortouBall", RpcTarget.MasterClient, corteForceY);
     }
 
     [PunRPC]
@@ -123,30 +129,19 @@ public class HandVolei : MonoBehaviour
         cortou = false;
     }
 
-    /*private void OnTriggerEnter2D(Collider2D col)
+    [PunRPC]
+    public void BateBola()
     {
-        if (col.CompareTag("Bola") && cortou == true && controller.collisions.above == false)
-        {
-            Debug.Log("Super    CortaBola");
-            gameObject.GetComponent<PhotonView>().RPC("SuperCortaBola", RpcTarget.MasterClient);
-        }
-
-        if (col.CompareTag("Bola"))
-        {
-            Debug.Log("CortaBola");
-            ballrb = col.GetComponent<Rigidbody2D>();
-            gameObject.GetComponent<PhotonView>().RPC("CortaBola", RpcTarget.MasterClient);
-        }
-    }*/
-
+        ballrb.AddForce(new Vector2(corteForceX, 35), ForceMode2D.Impulse);
+    }
 
 
     [PunRPC]
     public void CortaBola()
     { 
         bolaVolei.corte = true;
-        ballrb.velocity = new Vector2(0, 0);
-        ballrb.AddForce(new Vector2(corteForceX, forceVertical), ForceMode2D.Impulse);
+        //ballrb.velocity = new Vector2(0, 0);
+        ballrb.AddForce(new Vector2(corteForceX, corteForceY), ForceMode2D.Impulse);
     }
 
     [PunRPC]
@@ -156,7 +151,7 @@ public class HandVolei : MonoBehaviour
         Debug.Log("SuperCortaBola");
         superHand.SetActive(true);
         normalHand.SetActive(false);
-        if (joyStick.Vertical != 0)
+        /*if (joyStick.Vertical != 0)
         {
             forceVertical = corteForceY * joyStick.Vertical * 2;
             Debug.Log(forceVertical);
@@ -164,23 +159,10 @@ public class HandVolei : MonoBehaviour
 
         else
         {
-            forceVertical = 5f;
-        }
+            forceVertical = 50f;
+        }*/
         bolaVolei.superCorte = true;
-        ballrb.AddForce(new Vector2(superForceX, forceVertical), ForceMode2D.Impulse);
+        ballrb.AddForce(new Vector2(superForceX, superForceY), ForceMode2D.Impulse);
     }
 
-    /*[PunRPC]
-    void GiraHand(bool dir)
-    {
-        if (dir)
-        {
-            corteForceX = 5f;
-        }
-
-        else
-        {
-            corteForceX = -5f;
-        }
-    }*/
 }

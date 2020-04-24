@@ -15,7 +15,7 @@ public class TriggerCollisionsController : RaycastController
 
     public bool isBallGame;
 
-    public float hitLenght = 3f;
+    public float hitLenght = 5f;
 
 
     public override void Start()
@@ -66,7 +66,7 @@ public class TriggerCollisionsController : RaycastController
     {
         float directionX = 1;
         float rayLenght;
-        if (isBallGame && PlayerThings.rightDir)
+        if (isBallGame && PlayerThings.rightDir && FutebolPlayer.kicked == true && HandVolei.cortou)
         {
             rayLenght = hitLenght + skinWidth;
         }
@@ -143,7 +143,7 @@ public class TriggerCollisionsController : RaycastController
     {
         float directionX = -1;
         float rayLenght;
-        if (isBallGame && PlayerThings.leftDir)
+        if (isBallGame && PlayerThings.leftDir && FutebolPlayer.kicked == true || HandVolei.cortou)
         {
             rayLenght = hitLenght + skinWidth;
         }
