@@ -138,6 +138,7 @@ GameObject:
   - component: {fileID: 1401951525}
   - component: {fileID: 1860367546}
   - component: {fileID: 9111709582139068261}
+  - component: {fileID: 1832330698587828721}
   m_Layer: 0
   m_Name: Moto
   m_TagString: Moto
@@ -272,11 +273,34 @@ MonoBehaviour:
   playerPV: {fileID: 0}
   motoPV: {fileID: 0}
   playerSpeed: {fileID: 11400000, guid: 95cfeda8d1e4db640ba9a88702cee2e0, type: 2}
-  canJump: {fileID: 11400000, guid: cca4e70c02594c9478e10780c2f6b0e2, type: 2}
+  jumpForce: {fileID: 0}
+  controller: {fileID: 0}
   isEmpinando: 0
   isManobrandoNoAr: 0
   baseSpeed: 2
   boostSpeed: 6
+  jumpMoto: 0
   acelerometro: {fileID: 0}
   brilhoDeBoost: {fileID: 0}
   motoBrilho: {fileID: 3819009067637833654}
+--- !u!50 &1832330698587828721
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3745032104144006903}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
