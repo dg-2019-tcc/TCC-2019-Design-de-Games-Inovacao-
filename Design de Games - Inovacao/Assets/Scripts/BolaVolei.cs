@@ -14,7 +14,7 @@ public class BolaVolei : MonoBehaviour
 
     public float bolaTimer;
 
-    public float maxSpeed = 1f;
+    public float maxSpeed = 12f;
 
     // Start is called before the first frame update  
     void Start()

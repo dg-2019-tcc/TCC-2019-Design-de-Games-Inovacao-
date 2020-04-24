@@ -14,7 +14,7 @@ public class BolaFutebol : MonoBehaviour
 
     public float bolaTimer;
 
-    public float maxSpeed = 1f;
+    public float maxSpeed = 20f;
 
     public Transform bolaSpawnPoint;
 
