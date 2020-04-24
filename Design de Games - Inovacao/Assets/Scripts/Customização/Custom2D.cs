@@ -103,28 +103,49 @@ public class Custom2D : MonoBehaviour
         shoes2B[shoesInd.prop2DInd].SetActive(true);
     }
 
-    [PunRPC]
-    public void ChangeHair()
-    {
-        FMODUnity.RuntimeManager.PlayOneShot("event:/HUD/Click", GetComponent<Transform>().position);
-        hairs[hairInd.prop2DInd].SetActive(false);
-        hairs2[hairInd.prop2DInd].SetActive(false);
+	[PunRPC]
+	public void ChangeHair()
+	{
+		FMODUnity.RuntimeManager.PlayOneShot("event:/HUD/Click", GetComponent<Transform>().position);
+		hairs[hairInd.prop2DInd].SetActive(false);
+		hairs2[hairInd.prop2DInd].SetActive(false);
 
-        hairInd.prop2DInd += 1;
+		hairInd.prop2DInd += 1;
 
-        if(hairInd.prop2DInd + 1 > hairs.Length )
-        {
-            hairInd.prop2DInd = 0;
-        }
+		if (hairInd.prop2DInd + 1 > hairs.Length)
+		{
+			hairInd.prop2DInd = 0;
+		}
 
-        hairs[hairInd.prop2DInd].SetActive(true);
-        hairs2[hairInd.prop2DInd].SetActive(true);
+		hairs[hairInd.prop2DInd].SetActive(true);
+		hairs2[hairInd.prop2DInd].SetActive(true);
 
 
 
-    }
+	}
 
-    [PunRPC]
+	[PunRPC]
+	public void ChangeSpecificHair(int index)
+	{
+		FMODUnity.RuntimeManager.PlayOneShot("event:/HUD/Click", GetComponent<Transform>().position);
+		hairs[hairInd.prop2DInd].SetActive(false);
+		hairs2[hairInd.prop2DInd].SetActive(false);
+
+		hairInd.prop2DInd = index;
+
+		if (hairInd.prop2DInd + 1 > hairs.Length)
+		{
+			hairInd.prop2DInd = 0;
+		}
+
+		hairs[hairInd.prop2DInd].SetActive(true);
+		hairs2[hairInd.prop2DInd].SetActive(true);
+
+
+
+	}
+
+	[PunRPC]
     public void ChangeShirt()
     {
         FMODUnity.RuntimeManager.PlayOneShot("event:/HUD/Click", GetComponent<Transform>().position);
