@@ -9,7 +9,7 @@ public class TriggerCollisionsController : RaycastController
 {
 
     public TriggerCollisionInfo collisions;
-    private PlayerThings playerThings;
+    public PlayerThings playerThings;
     private DogController dogController;
     private HandVolei handVolei;
 
@@ -37,6 +37,7 @@ public class TriggerCollisionsController : RaycastController
             RightCollisions();
             LeftCollisions();
             UpCollisions();
+            DownCollisions();
         }
 
         else
@@ -314,6 +315,14 @@ public class TriggerCollisionsController : RaycastController
                 if (hit.collider.tag == "Futebol")
                 {
                     collisions.cabecaBola = true;
+                }
+
+                if(hit.collider.tag == "GolSelect")
+                {
+                    Debug.Log("Select");
+                    GolSelect select = hit.collider.GetComponent<GolSelect>();
+                    select.jogador = playerThings.GetComponent<PlayerThings>();
+                    hit.collider.GetComponent<BoxCollider2D>().enabled = false;
                 }
             }
         }

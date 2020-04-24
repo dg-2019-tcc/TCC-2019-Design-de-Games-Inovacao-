@@ -5,11 +5,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GolManager : MonoBehaviourPunCallbacks
+
+public class VoleiManager : MonoBehaviour
 {
     PhotonView playerView;
 
-    public  int index;
+    public int index;
 
     public float maxPoints;
 
@@ -29,7 +30,7 @@ public class GolManager : MonoBehaviourPunCallbacks
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Futebol"))
+        if (other.CompareTag("Volei"))
         {
             bola = other.gameObject;
 
@@ -39,20 +40,20 @@ public class GolManager : MonoBehaviourPunCallbacks
 
             Debug.Log(index);
 
-            Recomeca();
+            RecomecaVolei();
 
-            if(playerGol.jogador.PV.Owner.GetScore() >= 5)
+            if (playerGol.jogador.PV.Owner.GetScore() >= 7)
             {
                 PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 1;
                 LevelManager.Instance.GoPodium();
             }
-            
+
         }
 
     }
 
     [PunRPC]
-    public void Recomeca()
+    public void RecomecaVolei()
     {
         StartCoroutine("ResetaBola");
     }
