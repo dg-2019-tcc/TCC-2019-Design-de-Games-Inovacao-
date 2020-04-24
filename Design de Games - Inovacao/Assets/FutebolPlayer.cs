@@ -39,6 +39,18 @@ public class FutebolPlayer : MonoBehaviour
 
     void Update()
     {
+        if (PlayerThings.rightDir)
+        {
+            kickForceX = kickForce.Value;
+            superKickForceX = superKickForce.Value;
+        }
+
+        if (PlayerThings.leftDir)
+        {
+            kickForceX = kickForce.Value * -1;
+            superKickForceX = superKickForce.Value * -1;
+        }
+
         if (kicked == true && triggerController.collisions.chutouBola == true && controller.collisions.below == true)
         {
             Debug.Log("Normal");
@@ -88,8 +100,9 @@ public class FutebolPlayer : MonoBehaviour
         bolaFutebol.kick = true;
         bolaFutebol.normal = false;
         bolaFutebol.superKick = false;
+        bolaFutebol.velocity = new Vector2(kickForceX, forceVertical);
         Debug.Log("KickBola");
-        ballrb.AddForce(new Vector2(kickForceX, forceVertical), ForceMode2D.Impulse);
+        //ballrb.AddForce(new Vector2(kickForceX, forceVertical *2), ForceMode2D.Impulse);
     }
 
     [PunRPC]
@@ -98,7 +111,8 @@ public class FutebolPlayer : MonoBehaviour
         bolaFutebol.superKick = true;
         bolaFutebol.kick = false;
         bolaFutebol.normal = false;
+        bolaFutebol.velocity = new Vector2(superKickForceX, forceVertical);
         Debug.Log("SuperKickBola");
-        ballrb.AddForce(new Vector2(superKickForceX, forceVertical), ForceMode2D.Impulse);
+        //ballrb.AddForce(new Vector2(superKickForceX, forceVertical *2), ForceMode2D.Impulse);
     }
 }

@@ -532,6 +532,7 @@ MonoBehaviour:
   index: 0
   maxPoints: 0
   bola: {fileID: 0}
+  goool: {fileID: 0}
   bolaSpawnPoint: {fileID: 0}
   botScore: {fileID: 0}
 --- !u!1 &285380741
@@ -547,9 +548,9 @@ GameObject:
   - component: {fileID: 285380744}
   - component: {fileID: 285380743}
   - component: {fileID: 285380742}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: Cube (3)
-  m_TagString: Untagged
+  m_TagString: GolSelect
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -913,6 +914,12 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 356429681}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &369174298 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7731533945826718539, guid: 55f46624d96faa8458790a713e6a1a23,
+    type: 3}
+  m_PrefabInstance: {fileID: 123174896}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &392084884
 GameObject:
   m_ObjectHideFlags: 0
@@ -925,7 +932,7 @@ GameObject:
   - component: {fileID: 392084887}
   - component: {fileID: 392084886}
   - component: {fileID: 392084885}
-  - component: {fileID: 392084890}
+  - component: {fileID: 392084889}
   m_Layer: 0
   m_Name: Gol_Esq
   m_TagString: Untagged
@@ -1019,7 +1026,7 @@ Transform:
   m_Father: {fileID: 285380746}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &392084890
+--- !u!114 &392084889
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1028,12 +1035,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 392084884}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26276c3b5a8909d48b84fe44d5c74cc4, type: 3}
+  m_Script: {fileID: 11500000, guid: 503bc93337d2cd443bcc71c603273507, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  botScore: {fileID: 11400000, guid: 8b566134829c06c4f870959dc3f30b67, type: 2}
+  index: 0
+  maxPoints: 5
   bola: {fileID: 0}
+  goool: {fileID: 369174298}
   bolaSpawnPoint: {fileID: 319484464}
+  botScore: {fileID: 11400000, guid: 8b566134829c06c4f870959dc3f30b67, type: 2}
 --- !u!1 &426634527
 GameObject:
   m_ObjectHideFlags: 0
@@ -1050,7 +1060,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!61 &426634528
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1937,7 +1947,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!61 &1228767496
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2148,9 +2158,9 @@ GameObject:
   - component: {fileID: 1432917797}
   - component: {fileID: 1432917796}
   - component: {fileID: 1432917800}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: Cube (2)
-  m_TagString: Untagged
+  m_TagString: GolSelect
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2523,12 +2533,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8de5dbe7ebaf88549a37f90092070107, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rb2d: {fileID: 0}
   normal: 0
   kick: 0
   superKick: 0
   bolaTimer: 0
   maxSpeed: 10
   bolaSpawnPoint: {fileID: 319484464}
+--- !u!114 &1464855742
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1464855740}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e851947869a068b4080407ff52bf0c45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1542992619
 GameObject:
   m_ObjectHideFlags: 0
@@ -3071,6 +3094,7 @@ MonoBehaviour:
   index: 0
   maxPoints: 5
   bola: {fileID: 0}
+  goool: {fileID: 369174298}
   bolaSpawnPoint: {fileID: 319484464}
   botScore: {fileID: 11400000, guid: 8b566134829c06c4f870959dc3f30b67, type: 2}
 --- !u!1001 &1746269014891251711

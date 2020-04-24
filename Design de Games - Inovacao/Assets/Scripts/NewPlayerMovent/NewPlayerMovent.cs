@@ -20,7 +20,6 @@ public class NewPlayerMovent : MonoBehaviour
     float pipaMoveSpeed = 4;
     float pipaVelocityXSmoothing;
     float pipaAccelerationTimeAirborne = 0.8f;
-    //float piaAccelerationTimeGrounded = 0.5f;
     public float pipaGravity; 
 
     float carroMoveSpeed = 12;

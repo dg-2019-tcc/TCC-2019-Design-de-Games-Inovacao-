@@ -14,6 +14,7 @@ public class GolManager : MonoBehaviourPunCallbacks
     public float maxPoints;
 
     public GameObject bola;
+    public GameObject goool;
 
     public Transform bolaSpawnPoint;
     public FloatVariable botScore;
@@ -59,6 +60,7 @@ public class GolManager : MonoBehaviourPunCallbacks
 
     IEnumerator ResetaBola()
     {
+        goool.SetActive(true);
         bola.SetActive(false);
 
         //bola.GetComponent<BolaFutebol>().bolaTimer += 5f;
@@ -74,6 +76,8 @@ public class GolManager : MonoBehaviourPunCallbacks
         bola.SetActive(true);
 
         bola.GetComponent<Rigidbody2D>().isKinematic = false;
+        goool.SetActive(false);
+
 
     }
 }
