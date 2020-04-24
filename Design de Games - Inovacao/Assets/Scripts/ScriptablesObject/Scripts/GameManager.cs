@@ -15,15 +15,17 @@ namespace Complete
         public List<Transform> wayPointsForAI;
 
         public GameObject thingsAI;
+        public GameObject thingsOnline;
 
 
-		/*private void Start()
+		private void Start()
         {
-			if (OfflineMode.modoDoOffline)
+			if (!OfflineMode.modoDoOffline)
 			{
-				//SpawnAI();
+                thingsOnline.SetActive(true);
+                thingsAI.SetActive(false);
 			}
-        }*/
+        }
 
 		private void Update()
 		{

@@ -7,13 +7,13 @@ using UnityEngine;
 
 public class GolSelect : MonoBehaviour
 {
-    public PlayerMovement jogador;
+    public PlayerThings jogador;
 
     public void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
-            jogador = other.GetComponent<PlayerMovement>();
+            jogador = other.GetComponent<PlayerThings>();
             DesabilitaColider();
         }
     }

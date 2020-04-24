@@ -89,8 +89,8 @@ public class PlayerThings : MonoBehaviour
 
         if (joyStick != null)
         {
-            /*if (shouldTurn)
-            {*/
+            if (shouldTurn)
+            {
                 if (joyStick.Horizontal > 0 || ThrowObject.dirRight == true && rightDir == false)
                 {
 
@@ -137,7 +137,7 @@ public class PlayerThings : MonoBehaviour
                         gameObject.GetComponent<PhotonView>().RPC("NewGiraPlayer", RpcTarget.All, rightDir);
                     }
                 }
-            //}
+            }
 
             float moveHorizontal = Mathf.Clamp(joyStick.Horizontal + Input.GetAxisRaw("Horizontal") + autoScroll, -2, 2);
 

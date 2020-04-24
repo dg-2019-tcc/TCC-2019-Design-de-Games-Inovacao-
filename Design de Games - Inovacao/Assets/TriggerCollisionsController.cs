@@ -9,14 +9,13 @@ public class TriggerCollisionsController : RaycastController
 {
 
     public TriggerCollisionInfo collisions;
-
-    private PlayerThings playerThings;
-
+    public PlayerThings playerThings;
     private DogController dogController;
-
     private HandVolei handVolei;
 
     public bool isBallGame;
+
+    public float hitLenght = 3f;
 
 
     public override void Start()
@@ -38,6 +37,7 @@ public class TriggerCollisionsController : RaycastController
             RightCollisions();
             LeftCollisions();
             UpCollisions();
+            DownCollisions();
         }
 
         else
@@ -65,7 +65,15 @@ public class TriggerCollisionsController : RaycastController
     void RightCollisions()
     {
         float directionX = 1;
-        float rayLenght = 0.1f + skinWidth;
+        float rayLenght;
+        if (isBallGame && PlayerThings.rightDir)
+        {
+            rayLenght = hitLenght + skinWidth;
+        }
+        else
+        {
+            rayLenght = 0.1f + skinWidth;
+        }
 
         for (int i = 0; i < horizontalRayCount; i++)
         {
@@ -115,6 +123,18 @@ public class TriggerCollisionsController : RaycastController
                         collisions.tocouBola = true;
                     }
                 }
+
+                if(hit.collider.tag == "Futebol")
+                {
+                    if (PlayerThings.rightDir)
+                    {
+                        collisions.chutouBola = true;
+                    }
+                    if (PlayerThings.leftDir)
+                    {
+                        collisions.cabecaBola = true;
+                    }
+                }
             }
         }
     }
@@ -122,7 +142,15 @@ public class TriggerCollisionsController : RaycastController
     void LeftCollisions()
     {
         float directionX = -1;
-        float rayLenght = 0.1f + skinWidth;
+        float rayLenght;
+        if (isBallGame && PlayerThings.leftDir)
+        {
+            rayLenght = hitLenght + skinWidth;
+        }
+        else
+        {
+            rayLenght = 0.1f + skinWidth;
+        }
 
         for (int i = 0; i < horizontalRayCount; i++)
         {
@@ -170,6 +198,19 @@ public class TriggerCollisionsController : RaycastController
                     if (PlayerThings.leftDir)
                     {
                         collisions.cortaBola = true;
+                    }
+                }
+
+                if (hit.collider.tag == "Futebol")
+                {
+                    if (PlayerThings.rightDir)
+                    {
+                        collisions.cabecaBola = true;
+                    }
+
+                    if (PlayerThings.leftDir)
+                    {
+                        collisions.chutouBola = true;
                     }
                 }
             }
@@ -221,6 +262,11 @@ public class TriggerCollisionsController : RaycastController
                 {
                     collisions.tocouBola = true;
                 }
+
+                if(hit.collider.tag == "Futebol")
+                {
+                    collisions.cabecaBola = true;
+                }
             }
         }
     }
@@ -265,6 +311,19 @@ public class TriggerCollisionsController : RaycastController
                 {
                     dogController.Pipa();
                 }
+
+                if (hit.collider.tag == "Futebol")
+                {
+                    collisions.cabecaBola = true;
+                }
+
+                if(hit.collider.tag == "GolSelect")
+                {
+                    Debug.Log("Select");
+                    GolSelect select = hit.collider.GetComponent<GolSelect>();
+                    select.jogador = playerThings.GetComponent<PlayerThings>();
+                    hit.collider.GetComponent<BoxCollider2D>().enabled = false;
+                }
             }
         }
     }
@@ -279,15 +338,15 @@ public class TriggerCollisionsController : RaycastController
     {
         public bool isDoor;
 
-        public bool cortaBola;
+        public bool cortaBola, tocouBola;
 
-        public bool tocouBola;
+        public bool cabecaBola, chutouBola;
 
         public void Reset()
         {
             isDoor = false;
-            cortaBola = false;
-            tocouBola = false;
+            cortaBola = tocouBola = false;
+            cabecaBola = tocouBola = false;
         }
     }
 }

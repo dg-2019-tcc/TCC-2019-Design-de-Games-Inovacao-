@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Kick : MonoBehaviour
 {
-    private PlayerMovement player;
+    /*private PlayerMovement player;
 
     public float cooldownKick;
 
@@ -120,7 +120,7 @@ public class Kick : MonoBehaviour
             ballrb = col.GetComponent<Rigidbody2D>();
             gameObject.GetComponent<PhotonView>().RPC("KickBola", RpcTarget.MasterClient);
         }
-    }*/
+    }*//*
 
     [PunRPC]
     public void KickBola()
@@ -159,5 +159,5 @@ public class Kick : MonoBehaviour
             superKickForceX = superKickForce.Value * -1;
 
         }
-    }
+    }*/
 }
