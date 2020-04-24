@@ -47,16 +47,40 @@ public class PortaManager : MonoBehaviour
         {
             CloseDoor();
         }
-		/*if (joy.Vertical >= 0.5f && ButtonJogarCorrida == true)
-        {
-            lobbyController.DelayStart("Corrida Blocada");
-            //ButtonJogarCorrida = false;
-        }
-        if (joy.Vertical >= 0.5f && ButtonJogarColeta == true)
-        {
-            lobbyController.DelayStart("Fase01Prototipo");
-            //ButtonJogarColeta = false;
-        }*/
+		if (joy.Vertical >= 0.5f && ButtonJogarCorrida == true)
+		{
+
+			lobbyController.DelayStart("Corrida");
+			//ButtonJogarCorrida = false;
+		}
+		if (joy.Vertical >= 0.5f && ButtonJogarColeta == true)
+		{
+			lobbyController.DelayStart("Coleta");
+			//ButtonJogarColeta = false;
+		}
+		if (joy.Vertical >= 0.5f && ButtonJogarFutebol == true)
+		{
+
+			lobbyController.DelayStart("Futebol");
+			//ButtonJogarCorrida = false;
+		}
+		if (joy.Vertical >= 0.5f && ButtonJogarMoto == true)
+		{
+			lobbyController.DelayStart("Moto");
+			//ButtonJogarColeta = false;
+		}
+		if (joy.Vertical >= 0.5f && ButtonJogarVolei == true)
+		{
+
+			lobbyController.DelayStart("Volei");
+			//ButtonJogarCorrida = false;
+		}
+		if (joy.Vertical >= 0.5f && ButtonRoupa == true)
+		{
+			lobbyController.DelayStart("Customizar");
+			//ButtonJogarColeta = false;
+		}
+
 	}
 
     public void OpenDoor()
