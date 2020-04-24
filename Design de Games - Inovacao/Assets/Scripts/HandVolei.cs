@@ -132,7 +132,7 @@ public class HandVolei : MonoBehaviour
     [PunRPC]
     public void BateBola()
     {
-        ballrb.AddForce(new Vector2(corteForceX, 35), ForceMode2D.Impulse);
+        ballrb.AddForce(new Vector2(corteForceX, 15), ForceMode2D.Impulse);
     }
 
 

@@ -20,6 +20,7 @@ public class FutebolPlayer : MonoBehaviour
 
     public FloatVariable superKickForce;
     public float superKickForceX;
+    public float superKickForceY;
 
     private float forceVertical;
 
@@ -121,7 +122,7 @@ public class FutebolPlayer : MonoBehaviour
     public void TocouBola()
     {
         bolaFutebol.normal = true;
-        ballrb.AddForce(new Vector2(kickForceX/10, 35), ForceMode2D.Impulse);
+        ballrb.AddForce(new Vector2(kickForceX/10, 20), ForceMode2D.Impulse);
     }
 
     [PunRPC]
@@ -132,7 +133,6 @@ public class FutebolPlayer : MonoBehaviour
         bolaFutebol.superKick = false;
         Debug.Log("KickBola");
         ballrb.AddForce(new Vector2(kickForceX, kickForceY), ForceMode2D.Impulse);
-        Debug.Log(forceVertical * 5);
     }
 
     [PunRPC]
