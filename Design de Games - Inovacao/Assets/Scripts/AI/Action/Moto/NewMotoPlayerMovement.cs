@@ -37,7 +37,7 @@ public class NewMotoPlayerMovement : MonoBehaviour
 	Vector3 velocity;
 	Vector3 motoVelocity;
 
-	Controller2D controller;
+	public Controller2D controller;
 
 	TriggerCollisionsController triggerController;
 

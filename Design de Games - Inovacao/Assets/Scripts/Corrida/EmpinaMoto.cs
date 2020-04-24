@@ -12,10 +12,10 @@ public class EmpinaMoto : MonoBehaviour
 
 	[Header ("ScriptableObjects")]
 	public FloatVariable playerSpeed;
-	public BoolVariable canJump;
+	//spublic BoolVariable canJump;
 	public FloatVariable jumpForce;
 	private float originalJumpForce;
-
+	public Controller2D controller;
 
 	[Header ("Booleans (tá visível pra checar se ta dando certo, mas tem script vendo tbm)")]
 	public bool isEmpinando;
@@ -63,7 +63,7 @@ public class EmpinaMoto : MonoBehaviour
 		{
 			transform.localRotation = Quaternion.Slerp(transform.localRotation, Quaternion.Euler(transform.localRotation.x, transform.localRotation.y, Mathf.Sin(Time.time) * (transform.localRotation.z + 45)), 0.5f);
 			playerSpeed.Value = Mathf.Lerp(playerSpeed.Value, boostSpeed, 0.5f);
-			if (canJump.Value)
+			if (controller.collisions.below)
 			{
 				playerSpeed.Value = Mathf.Lerp(playerSpeed.Value, 0, 0.5f);
 				transform.localRotation = Random.rotation;
@@ -81,7 +81,7 @@ public class EmpinaMoto : MonoBehaviour
 		{
 			acelerometro.fillAmount = playerSpeed.Value / boostSpeed;
 
-			if (carregado || !canJump.Value)
+			if (carregado || !controller.collisions.below)
 			{
 				Debug.Log("Vai filhão");
 				brilhoDeBoost.gameObject.SetActive(true);
@@ -114,7 +114,7 @@ public class EmpinaMoto : MonoBehaviour
 			
 		}
 
-		if (!canJump.Value)
+		if (!controller.collisions.below)
 		{
 
 				Debug.Log("manobrou no ar");
