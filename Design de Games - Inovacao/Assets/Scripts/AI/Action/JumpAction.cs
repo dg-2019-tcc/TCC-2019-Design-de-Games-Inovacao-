@@ -12,10 +12,12 @@ public class JumpAction : Actions
 
     private void Jump(StateController controller)
     {
+		Vector3 controllerPos = controller.transform.position;
+		Vector3 coletaPos = controller.wayPointList[(int)controller.botScore.Value].transform.position;
 
-        if(controller.canJump == true)
+		if (controller.canJump == true)
         {
-            controller.rb.AddForce(new Vector2(0, controller.botStats.jumpForce), ForceMode2D.Impulse);
+            controller.rb.AddForce(new Vector2(0, controller.botStats.jumpForce * (coletaPos.y - controllerPos.y) * 0.4f), ForceMode2D.Impulse);
         }
     }
 
