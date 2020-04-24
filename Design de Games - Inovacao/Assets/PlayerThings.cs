@@ -43,6 +43,8 @@ public class PlayerThings : MonoBehaviour
     {
         PV = GetComponent<PhotonView>();
         joyStick = FindObjectOfType<Joystick>();
+		rightDir = true;
+		leftDir = false;
 
         menuCustom = false;
 
