@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class HandVolei : MonoBehaviour
 {
-    private PlayerMovement player;
+    private PlayerThings player;
 
     public float cooldownKick;
 
@@ -50,7 +50,7 @@ public class HandVolei : MonoBehaviour
         bolaVolei = bola.GetComponent<BolaVolei>();
         ballrb = bola.GetComponent<Rigidbody2D>();
 
-        player = gameObject.GetComponentInParent<PlayerMovement>();
+        player = gameObject.GetComponentInParent<PlayerThings>();
         triggerController = GetComponent<TriggerCollisionsController>();
         controller = GetComponent<Controller2D>();
     }

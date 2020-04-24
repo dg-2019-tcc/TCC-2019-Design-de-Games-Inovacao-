@@ -28,6 +28,18 @@ public class NewPlayerMovent : MonoBehaviour
     float carroAccelerationTimeAirborne = 0.5f;
     float carroAccelerationTimeGrounded = 0.3f;
 
+    float motoMoveSpeed = 6;
+    float motoVelocityXSmoothing;
+    float motoAccelerationTimeAirborne = 0.1f;
+    float motoAccelerationTimeGrounded = 0.05f;
+
+    float motoMaxJumpVelocity;
+    float motoMinJumpVelocity;
+    float motoGravity;
+    public float motoMaxJumpHeight = 4;
+    public float motoMinJumpHeight = 2;
+    public float motoTimeToJumpApex = 0.4f;
+
     bool jump;
 
     public BoolVariable carroActive;
@@ -36,6 +48,7 @@ public class NewPlayerMovent : MonoBehaviour
     Vector3 velocity;
     Vector3 carroVelocity;
     Vector3 pipaVelocity;
+    Vector3 motoVelocity;
 
     Controller2D controller;
 
