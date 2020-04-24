@@ -1,5 +1,63 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &7516677840852827250
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4622475355481343129}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fca654c4340afa4eb9055082b46900c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cooldownKick: 1
+  corteForceX: 30
+  corteForceY: 55
+  superForceX: 50
+  superForceY: 25
+  joyStick: {fileID: 0}
+  hand: {fileID: 6273237155439358868}
+  normalHand: {fileID: 3360052979080974040}
+  superHand: {fileID: 6911970193960184861}
+  triggerController: {fileID: 3521012900674014058}
+  controller: {fileID: 4622475355481343131}
+--- !u!114 &2226752748761367037
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4128057485983258276}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e983df72684a0cd4a8cd97c5e6ee9027, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6175603945072450974
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4128057485983258276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fca654c4340afa4eb9055082b46900c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cooldownKick: 5
+  corteForceX: 3
+  corteForceY: 7
+  superForceX: 8
+  superForceY: 0
+  joyStick: {fileID: 0}
+  hand: {fileID: 1036728851663742918}
+  normalHand: {fileID: 7438622897003338709}
+  superHand: {fileID: 6186330903099662370}
+  triggerController: {fileID: 0}
+  controller: {fileID: 0}
 --- !u!61 &7799355154448259591
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -134,41 +192,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!114 &2226752748761367037
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4128057485983258276}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e983df72684a0cd4a8cd97c5e6ee9027, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &6175603945072450974
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4128057485983258276}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7fca654c4340afa4eb9055082b46900c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cooldownKick: 5
-  corteForceX: 3
-  corteForceY: 7
-  superForceX: 8
-  superForceY: 0
-  joyStick: {fileID: 0}
-  hand: {fileID: 1036728851663742918}
-  normalHand: {fileID: 7438622897003338709}
-  superHand: {fileID: 6186330903099662370}
-  triggerController: {fileID: 0}
-  controller: {fileID: 0}
 --- !u!1 &4483178186814864022
 GameObject:
   m_ObjectHideFlags: 0
@@ -199,29 +222,6 @@ Transform:
   m_Father: {fileID: 180959016855565648}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7516677840852827250
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4622475355481343129}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7fca654c4340afa4eb9055082b46900c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cooldownKick: 1
-  corteForceX: 30
-  corteForceY: 55
-  superForceX: 50
-  superForceY: 25
-  joyStick: {fileID: 0}
-  hand: {fileID: 6273237155439358868}
-  normalHand: {fileID: 3360052979080974040}
-  superHand: {fileID: 6911970193960184861}
-  triggerController: {fileID: 3521012900674014058}
-  controller: {fileID: 4622475355481343131}
 --- !u!1 &6186330903099662370
 GameObject:
   m_ObjectHideFlags: 0
@@ -761,6 +761,11 @@ PrefabInstance:
         type: 3}
       propertyPath: collisionMask.m_Bits
       value: 98304
+      objectReference: {fileID: 0}
+    - target: {fileID: 8508697067573004208, guid: 650c79142e52b1a46944cd798e3de766,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4521075223018411552, guid: 650c79142e52b1a46944cd798e3de766,
         type: 3}

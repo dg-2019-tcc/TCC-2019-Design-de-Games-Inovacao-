@@ -40,6 +40,7 @@ public class NewPlayerMovent : MonoBehaviour
     public float motoTimeToJumpApex = 0.4f;
 
     bool jump;
+    bool stopJump;
 
     public BoolVariable carroActive;
     public BoolVariable pipaActive;
@@ -64,6 +65,7 @@ public class NewPlayerMovent : MonoBehaviour
         gravity = -(2 * maxJumpHeight) / Mathf.Pow(timeToJumpApex, 2);
         maxJumpVelocity = Mathf.Abs(gravity * timeToJumpApex);
         minJumpVelocity = Mathf.Sqrt(2* Mathf.Abs(gravity)*minJumpHeight);
+        print("Gravity: " + gravity + "  Jump Velocity: " + maxJumpVelocity +"Min Jump" + minJumpVelocity);
 
         joyStick = FindObjectOfType<Joystick>();
     }
@@ -76,19 +78,37 @@ public class NewPlayerMovent : MonoBehaviour
         if (carroActive.Value == false && pipaActive.Value == false)
         {
 
-            if (jump == true && controller.collisions.below)
+            /*if (jump == true && controller.collisions.below)
             {
                 velocity.y = maxJumpHeight;
-            }
+            }*/
 
             float targetVelocityX = input.x * moveSpeed;
             velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (controller.collisions.below) ? accelerationTimeGrounded : accelerationTimeAirborne);
+
+            /*if (controller.collisions.below && jump)
+            {
+                velocity.y = maxJumpHeight;
+
+            }
+
+            if(stopJump && velocity.y > minJumpVelocity)
+            {
+                velocity.y = minJumpVelocity;
+            }*/
+
             velocity.y += gravity * Time.deltaTime;
+            if (velocity.y < -15)
+            {
+                Debug.Log(velocity.y);
+            }
             controller.Move(velocity * Time.deltaTime, input);
             triggerController.MoveDirection(velocity);
             if (controller.collisions.above ||controller.collisions.below)
             {
                 velocity.y = 0;
+                jump = false;
+                stopJump = false;
             }
         }
 
@@ -110,6 +130,7 @@ public class NewPlayerMovent : MonoBehaviour
                 if (controller.collisions.above || controller.collisions.below)
                 {
                     carroVelocity.y = 0;
+                    stopJump = false;
                 }
 
             }
@@ -135,20 +156,27 @@ public class NewPlayerMovent : MonoBehaviour
 
     public void Jump()
     {
-        if (controller.collisions.below)
+
+        jump = true;
+        stopJump = false;
+        Debug.Log("Jump");
+        if (controller.collisions.below && jump /*&& !stopJump*/)
         {
-            jump = true;
+            velocity.y = maxJumpHeight;
 
         }
     }
 
     public void StopJump()
     {
+        Debug.Log("Stop");
+        //stopJump = true;
+        //jump = false;
         if (velocity.y > minJumpVelocity)
         {
             velocity.y = minJumpVelocity;
             Debug.Log(velocity.y);
         }
-        jump = false;
+        //jump = false;
     }
 }
