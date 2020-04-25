@@ -8,73 +8,103 @@ public class Player2DAnimations : MonoBehaviour
     public GameObject frente;
     public GameObject lado;
 
+    public string walkAnimation = "0_Corrida";
+    public string startJumpAnimation = "1_Pulo";
+    public string subindoJumpAnimation = "1_NoAr(1_Subindo)";
+    public string transitionJumpAnimation = "1_NoAr(2_Transicao)";
+    public string descendoJumpAnimation = "1_NoAr(3_Descendo)";
+
+    enum State { Walking, Jumping, Rising, Falling, TransitionAir}
+
+    private State state = State.Walking;
+
+    private Controller2D controller;
 
     public UnityArmatureComponent player;
+    private DragonBones.AnimationState aimState = null;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        
+        controller = GetComponent<Controller2D>();
     }
+
 
 
     public void ChangeMoveAnim(Vector2 moveAmount, Vector2 input, bool jump)
     {
-        if(input.x != 0 && jump == false)
-        {
-            lado.SetActive(true);
-            frente.SetActive(false);
-        }
+        //frente.SetActive(false);
+        //lado.SetActive(true);
 
-        else
-        {
-            frente.SetActive(true);
-            lado.SetActive(false);
-        }
-
-
-        if(moveAmount.x > 0 || moveAmount.x < 0 && moveAmount.y == 0)
+        if(moveAmount.x > 0 || moveAmount.x < 0 && controller.collisions.below)
         {
             Walking();
         }
 
-        if (jump)
+        /*else if (moveAmount.x < 0 && controller.collisions.below)
         {
-            StartPulo();
+            Walking();
+        }*/
+
+        else if(moveAmount.y>-1 && moveAmount.y < 1)
+        {
+            TransitionAir();
         }
 
-        if (moveAmount.y > 0)
+        else if(moveAmount.y < -1)
         {
-            NoArUp();
+            Fall();
         }
 
-        if (moveAmount.y < 0)
-        {
-            NoArDown();
-        }
+
+
     }
 
     public void Walking()
     {
-        Debug.Log("Walking");
-        player.animation.Play("0_Corrida");
+        if (state != State.Walking)
+        {
+            Debug.Log("Walking");
+            player.animation.FadeIn(walkAnimation, 0.1f,-1);
+            state = State.Walking;
+        }
     }
 
     public void StartPulo()
     {
-        Debug.Log("Pulo");
-        player.animation.Play("1_Pulo");
+        if (state != State.Jumping)
+        {
+            Debug.Log("Pulo");
+            player.animation.FadeIn(startJumpAnimation,0.1f,1);
+            state = State.Jumping;
+            NoArUp();
+        }
     }
 
     public void NoArUp()
     {
-        player.animation.Play("1_NoAr(1_Subindo)");
-
+        if (state != State.Rising)
+        {
+            player.animation.FadeIn(subindoJumpAnimation, 0.1f, 1);
+            state = State.Rising;
+        }
     }
 
-    public void NoArDown()
+    public void Fall()
     {
-        player.animation.Play("1_NoAr(1_Descendo)");
+        if (state != State.Falling)
+        {
+            player.animation.FadeIn(descendoJumpAnimation, 0.1f,1);
+            state = State.Falling;
+        }
+    }
+
+    public void TransitionAir()
+    {
+        if(state != State.TransitionAir)
+        {
+            player.animation.FadeIn(transitionJumpAnimation, 0.1f, 1);
+            state = State.TransitionAir;
+        }
     }
 
 }
