@@ -50,6 +50,8 @@ public class NewPlayerMovent : MonoBehaviour
     Vector3 pipaVelocity;
     Vector3 motoVelocity;
 
+    Vector2 input;
+
     Controller2D controller;
     TriggerCollisionsController triggerController;
     Player2DAnimations animations;
@@ -74,38 +76,20 @@ public class NewPlayerMovent : MonoBehaviour
     void Update()
     {
 
-        Vector2 input = new Vector2(joyStick.Horizontal, joyStick.Vertical);
+        input = new Vector2(joyStick.Horizontal, joyStick.Vertical);
 
         if (carroActive.Value == false && pipaActive.Value == false)
         {
 
-            /*if (jump == true && controller.collisions.below)
-            {
-                velocity.y = maxJumpHeight;
-            }*/
-
             float targetVelocityX = input.x * moveSpeed;
             velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (controller.collisions.below) ? accelerationTimeGrounded : accelerationTimeAirborne);
 
-            /*if (controller.collisions.below && jump)
-            {
-                velocity.y = maxJumpHeight;
-
-            }
-
-            if(stopJump && velocity.y > minJumpVelocity)
-            {
-                velocity.y = minJumpVelocity;
-            }*/
 
             velocity.y += gravity * Time.deltaTime;
-            /*if (velocity.y < -15)
-            {
-                Debug.Log(velocity.y);
-            }*/
+
             controller.Move(velocity * Time.deltaTime, input);
             triggerController.MoveDirection(velocity);
-            animations.ChangeMoveAnim(velocity * Time.deltaTime, input, jump);
+            animations.ChangeMoveAnim(velocity, input, jump);
             if (controller.collisions.above ||controller.collisions.below)
             {
                 velocity.y = 0;
@@ -158,13 +142,14 @@ public class NewPlayerMovent : MonoBehaviour
 
     public void Jump()
     {
-
         jump = true;
         stopJump = false;
         //Debug.Log("Jump");
         if (controller.collisions.below && jump /*&& !stopJump*/)
         {
+            animations.ChangeMoveAnim(velocity * Time.deltaTime, input, jump);
             velocity.y = maxJumpHeight;
+            animations.StartPulo();
 
         }
     }
