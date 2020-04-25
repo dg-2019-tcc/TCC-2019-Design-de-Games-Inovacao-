@@ -34,8 +34,8 @@ public class PlayerThings : MonoBehaviour
     [SerializeField]
     public Joystick joyStick;
 
-    public GameObject playerParado;
-    public GameObject playerAndando;
+    //public GameObject playerParado;
+    //public GameObject playerAndando;
 
     public float autoScroll;
 
@@ -143,7 +143,7 @@ public class PlayerThings : MonoBehaviour
 
             float moveHorizontal = Mathf.Clamp(joyStick.Horizontal + Input.GetAxisRaw("Horizontal") + autoScroll, -2, 2);
 
-            if (moveHorizontal > 0.1f || moveHorizontal < -0.1f)
+            /*if (moveHorizontal > 0.1f || moveHorizontal < -0.1f)
             {
                 //  playerAnimations.Walk(true);
                 playerAndando.SetActive(true);
@@ -155,7 +155,7 @@ public class PlayerThings : MonoBehaviour
                 //playerAnimations.Walk(false);
                 playerAndando.SetActive(false);
                 playerParado.SetActive(true);
-            }
+            }*/
         }
     }
 

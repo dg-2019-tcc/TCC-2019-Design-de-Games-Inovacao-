@@ -51,8 +51,8 @@ public class NewPlayerMovent : MonoBehaviour
     Vector3 motoVelocity;
 
     Controller2D controller;
-
     TriggerCollisionsController triggerController;
+    Player2DAnimations animations;
 
     [SerializeField]
     public Joystick joyStick;
@@ -61,6 +61,7 @@ public class NewPlayerMovent : MonoBehaviour
     {
         controller = GetComponent<Controller2D>();
         triggerController = GetComponent<TriggerCollisionsController>();
+        animations = GetComponent<Player2DAnimations>();
 
         gravity = -(2 * maxJumpHeight) / Mathf.Pow(timeToJumpApex, 2);
         maxJumpVelocity = Mathf.Abs(gravity * timeToJumpApex);
@@ -98,12 +99,13 @@ public class NewPlayerMovent : MonoBehaviour
             }*/
 
             velocity.y += gravity * Time.deltaTime;
-            if (velocity.y < -15)
+            /*if (velocity.y < -15)
             {
                 Debug.Log(velocity.y);
-            }
+            }*/
             controller.Move(velocity * Time.deltaTime, input);
             triggerController.MoveDirection(velocity);
+            animations.ChangeMoveAnim(velocity * Time.deltaTime, input, jump);
             if (controller.collisions.above ||controller.collisions.below)
             {
                 velocity.y = 0;
@@ -159,7 +161,7 @@ public class NewPlayerMovent : MonoBehaviour
 
         jump = true;
         stopJump = false;
-        Debug.Log("Jump");
+        //Debug.Log("Jump");
         if (controller.collisions.below && jump /*&& !stopJump*/)
         {
             velocity.y = maxJumpHeight;
@@ -169,13 +171,13 @@ public class NewPlayerMovent : MonoBehaviour
 
     public void StopJump()
     {
-        Debug.Log("Stop");
+        //Debug.Log("Stop");
         //stopJump = true;
         //jump = false;
         if (velocity.y > minJumpVelocity)
         {
             velocity.y = minJumpVelocity;
-            Debug.Log(velocity.y);
+            //Debug.Log(velocity.y);
         }
         //jump = false;
     }
