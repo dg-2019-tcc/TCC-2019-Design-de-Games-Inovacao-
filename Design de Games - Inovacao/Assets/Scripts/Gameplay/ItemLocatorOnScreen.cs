@@ -21,8 +21,9 @@ public class ItemLocatorOnScreen : MonoBehaviour
 		instance = Instantiate(pointerPrefab, canvas);
 		cam = FindObjectOfType<Camera>();
 		instance.SetActive(false);
-		
-			instance.GetComponentInChildren<PointerName>().nickname = GetComponent<PhotonView>().Owner.NickName;
+
+		image = GetComponent<SpriteRenderer>().sprite;
+			instance.GetComponentInChildren<PointerName>().sprite = image;
 		
 	}
 
