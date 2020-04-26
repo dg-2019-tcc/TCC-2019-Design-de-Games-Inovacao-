@@ -60,6 +60,8 @@ public class Player2DAnimations : MonoBehaviour
             lado.SetActive(true);
             frente.SetActive(false);
         }
+
+
     }
 
 
@@ -76,9 +78,17 @@ public class Player2DAnimations : MonoBehaviour
             NoArUp();
         }
 
-        else if (moveAmount.y < -2 && controller.collisions.below == false && dogButtonAnim == false)
+        else if (moveAmount.y < 9 && moveAmount.y >8.5 && controller.collisions.below == false && dogButtonAnim == false)
         {
-            Fall();
+            //Fall();
+            Debug.Log(moveAmount.y);
+            TransitionAir();
+        }
+
+        else if (moveAmount.y < 8.5 && controller.collisions.below == false && dogButtonAnim == false)
+        {
+            //Fall();
+            TransitionAir();
         }
 
         else if (moveAmount.y < -1 && controller.collisions.below == true && dogButtonAnim == false)
@@ -191,8 +201,8 @@ public class Player2DAnimations : MonoBehaviour
         if (state != State.Falling)
         {
 
-            player.animation.FadeIn(descendoJumpAnimation, 0.25f,0);
-            //player.animation.Play(descendoJumpAnimation);
+            //player.animation.FadeIn(descendoJumpAnimation, 0.25f,0);
+            player.animation.Play(descendoJumpAnimation);
             player.animation.timeScale = 1;
             state = State.Falling;
             //Debug.Log(state);
@@ -247,7 +257,7 @@ public class Player2DAnimations : MonoBehaviour
 
     public void TransitionAir()
     {
-        if(state != State.TransitionAir && state == State.Rising)
+        if(state != State.TransitionAir)
         {
             Debug.Log("Transition");
             player.animation.FadeIn(transitionJumpAnimation, 0.2f, 1);
