@@ -23,6 +23,8 @@ public class PortaManager : MonoBehaviour
 
     public Joystick joy;
 
+	private float joyGambiarra;
+
 	private void Start()
 	{
         controller = FindObjectOfType<Controller2D>();
@@ -42,44 +44,47 @@ public class PortaManager : MonoBehaviour
             OpenDoor();
             Debug.Log(controller.collisions.isDoor);
         }
-
         else
         {
             CloseDoor();
         }
-		if (joy.Vertical >= 0.5f && ButtonJogarCorrida != null && ButtonJogarCorrida.activeSelf == true)
-		{
 
-			lobbyController.DelayStart("Corrida");
-			//ButtonJogarCorrida = false;
-		}
-		if (joy.Vertical >= 0.5f && ButtonJogarColeta != null && ButtonJogarColeta.activeSelf == true)
+		if (joyGambiarra < joy.Vertical)
 		{
-			lobbyController.DelayStart("Coleta");
-			//ButtonJogarColeta = false;
-		}
-		if (joy.Vertical >= 0.5f && ButtonJogarFutebol != null && ButtonJogarFutebol.activeSelf == true)
-		{
+			if (joy.Vertical >= 0.5f && ButtonJogarCorrida != null && ButtonJogarCorrida.activeSelf == true)
+			{
+				lobbyController.DelayStart("Corrida");
+				//ButtonJogarCorrida = false;
+			}
+			if (joy.Vertical >= 0.5f && ButtonJogarColeta != null && ButtonJogarColeta.activeSelf == true)
+			{
+				lobbyController.DelayStart("Coleta");
+				//ButtonJogarColeta = false;
+			}
+			if (joy.Vertical >= 0.5f && ButtonJogarFutebol != null && ButtonJogarFutebol.activeSelf == true)
+			{
 
-			lobbyController.DelayStart("Futebol");
-			//ButtonJogarCorrida = false;
-		}
-		if (joy.Vertical >= 0.5f && ButtonJogarMoto != null && ButtonJogarMoto.activeSelf == true)
-		{
-			lobbyController.DelayStart("Moto");
-			//ButtonJogarColeta = false;
-		}
-		if (joy.Vertical >= 0.5f &&ButtonJogarVolei != null && ButtonJogarVolei.activeSelf == true)
-		{
+				lobbyController.DelayStart("Futebol");
+				//ButtonJogarCorrida = false;
+			}
+			if (joy.Vertical >= 0.5f && ButtonJogarMoto != null && ButtonJogarMoto.activeSelf == true)
+			{
+				lobbyController.DelayStart("Moto");
+				//ButtonJogarColeta = false;
+			}
+			if (joy.Vertical >= 0.5f && ButtonJogarVolei != null && ButtonJogarVolei.activeSelf == true)
+			{
 
-			lobbyController.DelayStart("Volei");
-			//ButtonJogarCorrida = false;
+				lobbyController.DelayStart("Volei");
+				//ButtonJogarCorrida = false;
+			}
+			if (joy.Vertical >= 0.5f && ButtonRoupa != null && ButtonRoupa.activeSelf == true)
+			{
+				lobbyController.DelayStart("Customizar");
+				//ButtonJogarColeta = false;
+			}
 		}
-		if (joy.Vertical >= 0.5f &&ButtonRoupa!= null && ButtonRoupa.activeSelf == true)
-		{
-			lobbyController.DelayStart("Customizar");
-			//ButtonJogarColeta = false;
-		}
+		joyGambiarra = joy.Vertical;
 
 	}
 
