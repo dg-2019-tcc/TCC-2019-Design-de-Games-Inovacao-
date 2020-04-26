@@ -56,16 +56,19 @@ public class Player2DAnimations : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(state == State.Idle)
+        if (!PhotonNetwork.InRoom || photonView.IsMine)
         {
-            frente.SetActive(true);
-            lado.SetActive(false);
-        }
+            if (state == State.Idle)
+            {
+                frente.SetActive(true);
+                lado.SetActive(false);
+            }
 
-        else
-        {
-            lado.SetActive(true);
-            frente.SetActive(false);
+            else
+            {
+                lado.SetActive(true);
+                frente.SetActive(false);
+            }
         }
 
 
@@ -75,110 +78,112 @@ public class Player2DAnimations : MonoBehaviour
 
     public void ChangeMoveAnim(Vector2 moveAmount, Vector2 oldPos, Vector2 input, bool Jump, bool stopJump)
     {
-        //frente.SetActive(false);
-        //lado.SetActive(true);
-        moveX = Mathf.Abs(moveAmount.x);
 
-
-        if (oldPos.y < moveAmount.y && controller.collisions.below == false && dogButtonAnim == false)
+        if (!PhotonNetwork.InRoom || photonView.IsMine)
         {
-            if (!PhotonNetwork.InRoom)
-            {
-                NoArUp();
-            }
-            else
-            {
-                photonView.RPC("NoArUp", RpcTarget.All);
-            }
-        }
+            //frente.SetActive(false);
+            //lado.SetActive(true);
+            moveX = Mathf.Abs(moveAmount.x);
 
-        else if (moveAmount.y < 9 && moveAmount.y > 0 && controller.collisions.below == false && dogButtonAnim == false)
-        {
-   
-            if (!PhotonNetwork.InRoom)
-            {
-                TransitionAir();
-            }
-            else
-            {
-                photonView.RPC("TransitionAir", RpcTarget.All);
-            }
-        }
 
-        else if (moveAmount.y <= 0   && controller.collisions.below == false && dogButtonAnim == false)
-        {
-            if (!PhotonNetwork.InRoom)
-            {
-                Fall();
-            }
-            else
-            {
-                photonView.RPC("Fall", RpcTarget.All);
-            }
-        }
-
-        else if (moveAmount.y < -1 && controller.collisions.below == true && dogButtonAnim == false)
-        {
-            if (!PhotonNetwork.InRoom)
-            {
-                Aterrisando();
-            }
-            else
-            {
-                photonView.RPC("Aterrisando", RpcTarget.All);
-            }
-        }
-
-        else if (controller.collisions.below && input.x == 0 && input.y < 0 && dogButtonAnim == false)
-        {
-            if (!PhotonNetwork.InRoom)
-            {
-                Abaixar();
-            }
-            else
-            {
-                photonView.RPC("Abaixar", RpcTarget.All);
-            }
-        }
-
-        else if (input.x != 0 && controller.collisions.below && dogButtonAnim == false)
-        {
-            if (!PhotonNetwork.InRoom)
-            {
-                Walking(inputX, oldPos, moveAmount);
-            }
-            else
-            {
-                photonView.RPC("Walking", RpcTarget.All, moveX, oldPos, moveAmount);
-            }
-
-        }
-
-        /*else if (ThrowObject.shootAnim == true)
-        {
-            Arremesso();
-        }
-
-        else if (FutebolPlayer.kicked)
-        {
-            Chute();
-        }*/
-
-        else
-        {
-            if (Jump == false && dogButtonAnim == false && stopJump == false)
+            if (oldPos.y < moveAmount.y && controller.collisions.below == false && dogButtonAnim == false)
             {
                 if (!PhotonNetwork.InRoom)
                 {
-                    Idle();
+                    NoArUp();
                 }
                 else
                 {
-                    photonView.RPC("Idle", RpcTarget.All);
+                    photonView.RPC("NoArUp", RpcTarget.All);
                 }
             }
 
-         
+            else if (moveAmount.y < 9 && moveAmount.y > 0 && controller.collisions.below == false && dogButtonAnim == false)
+            {
+
+                if (!PhotonNetwork.InRoom)
+                {
+                    TransitionAir();
+                }
+                else
+                {
+                    photonView.RPC("TransitionAir", RpcTarget.All);
+                }
+            }
+
+            else if (moveAmount.y <= 0 && controller.collisions.below == false && dogButtonAnim == false)
+            {
+                if (!PhotonNetwork.InRoom)
+                {
+                    Fall();
+                }
+                else
+                {
+                    photonView.RPC("Fall", RpcTarget.All);
+                }
+            }
+
+            else if (moveAmount.y < -1 && controller.collisions.below == true && dogButtonAnim == false)
+            {
+                if (!PhotonNetwork.InRoom)
+                {
+                    Aterrisando();
+                }
+                else
+                {
+                    photonView.RPC("Aterrisando", RpcTarget.All);
+                }
+            }
+
+            else if (controller.collisions.below && input.x == 0 && input.y < 0 && dogButtonAnim == false)
+            {
+                if (!PhotonNetwork.InRoom)
+                {
+                    Abaixar();
+                }
+                else
+                {
+                    photonView.RPC("Abaixar", RpcTarget.All);
+                }
+            }
+
+            else if (input.x != 0 && controller.collisions.below && dogButtonAnim == false)
+            {
+                if (!PhotonNetwork.InRoom)
+                {
+                    Walking(inputX, oldPos, moveAmount);
+                }
+                else
+                {
+                    photonView.RPC("Walking", RpcTarget.All, moveX, oldPos, moveAmount);
+                }
+
+            }
+
+            /*else if (ThrowObject.shootAnim == true)
+            {
+                Arremesso();
+            }
+
+            else if (FutebolPlayer.kicked)
+            {
+                Chute();
+            }*/
+
+            else
+            {
+                if (Jump == false && dogButtonAnim == false && stopJump == false)
+                {
+                    if (!PhotonNetwork.InRoom)
+                    {
+                        Idle();
+                    }
+                    else
+                    {
+                        photonView.RPC("Idle", RpcTarget.All);
+                    }
+                }
+            }
         }
     }
 
@@ -191,12 +196,26 @@ public class Player2DAnimations : MonoBehaviour
 
             if (fase == 0)
             {
-                Arremesso();
+                if (!PhotonNetwork.InRoom)
+                {
+                    Arremesso();
+                }
+                else
+                {
+                    photonView.RPC("Arremesso", RpcTarget.All);
+                }
             }
 
             else if (fase == 1)
             {
-                Chute();
+                if (!PhotonNetwork.InRoom)
+                {
+                    Chute();
+                }
+                else
+                {
+                    photonView.RPC("Chute", RpcTarget.All);
+                }
             }
         }
     }
