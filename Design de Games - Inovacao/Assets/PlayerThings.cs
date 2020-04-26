@@ -150,6 +150,7 @@ public class PlayerThings : MonoBehaviour
             }
 
             float moveHorizontal = Mathf.Clamp(joyStick.Horizontal + Input.GetAxisRaw("Horizontal") + autoScroll, -2, 2);
+			AtualizaPosicao(transform.position);
 
             /*if (moveHorizontal > 0.1f || moveHorizontal < -0.1f|| controller.collisions.below == false)
             {
@@ -199,6 +200,15 @@ public class PlayerThings : MonoBehaviour
 		else
 		{
 			yield return new WaitForSeconds(0);
+		}
+	}
+
+	[PunRPC]
+	void AtualizaPosicao(Vector3 newPos)
+	{
+		if (!PV.IsMine)
+		{
+			transform.position = newPos;
 		}
 	}
 }
