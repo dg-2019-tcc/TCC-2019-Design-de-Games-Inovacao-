@@ -17,9 +17,9 @@ public class NewPlayerMovent : MonoBehaviour
     public float minJumpHeight = 2;
     public float timeToJumpApex = 0.4f;
 
-    float pipaMoveSpeed = 4;
+    float pipaMoveSpeed = 5;
     float pipaVelocityXSmoothing;
-    float pipaAccelerationTimeAirborne = 0.8f;
+    float pipaAccelerationTimeAirborne = 0.6f;
     public float pipaGravity; 
 
     float carroMoveSpeed = 12;
@@ -78,10 +78,6 @@ public class NewPlayerMovent : MonoBehaviour
     {
 
         joyInput = new Vector2(joyStick.Horizontal, joyStick.Vertical);
-        if (jump)
-        {
-            animations.ChangeMoveAnim(velocity, oldPosition, input, jump);
-        }
 
         if (carroActive.Value == false && pipaActive.Value == false)
         {
@@ -94,6 +90,12 @@ public class NewPlayerMovent : MonoBehaviour
             {
                 input.x = 0;
             }
+
+            if (jump)
+            {
+                animations.ChangeMoveAnim(velocity, oldPosition, input, jump, stopJump);
+            }
+
             input.y = joyInput.y;
             float targetVelocityX = input.x * moveSpeed;
             velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (controller.collisions.below) ? accelerationTimeGrounded : accelerationTimeAirborne);
@@ -103,7 +105,7 @@ public class NewPlayerMovent : MonoBehaviour
 
             controller.Move(velocity * Time.deltaTime, input);
             triggerController.MoveDirection(velocity);
-            animations.ChangeMoveAnim(velocity, oldPosition, input, jump);
+            animations.ChangeMoveAnim(velocity, oldPosition, input, jump, stopJump);
             if (controller.collisions.above ||controller.collisions.below)
             {
                 velocity.y = 0;
@@ -114,10 +116,14 @@ public class NewPlayerMovent : MonoBehaviour
 
         else
         {
+
+            input = joyInput;
+
             if (carroActive.Value == true)
             {
                 if (jump == true && controller.collisions.below)
                 {
+                    Debug.Log("Jump");
                     carroVelocity.y = maxJumpHeight;
                 }
 
@@ -126,6 +132,7 @@ public class NewPlayerMovent : MonoBehaviour
                 carroVelocity.y += gravity * Time.deltaTime;
                 controller.Move(carroVelocity * Time.deltaTime, input);
                 triggerController.MoveDirection(carroVelocity);
+                animations.ChangeMoveAnim(velocity, oldPosition, input, jump, stopJump);
 
                 if (controller.collisions.above || controller.collisions.below)
                 {
@@ -150,6 +157,7 @@ public class NewPlayerMovent : MonoBehaviour
 
                 triggerController.MoveDirection(pipaVelocity);
                 controller.Move(pipaVelocity * Time.deltaTime, input);
+                animations.ChangeMoveAnim(velocity, oldPosition, input, jump, stopJump);
             }
         }
     }
@@ -161,12 +169,12 @@ public class NewPlayerMovent : MonoBehaviour
     public void Jump()
     {
         jump = true;
-        animations.ChangeMoveAnim(velocity, oldPosition, input, jump);
+        animations.ChangeMoveAnim(velocity, oldPosition, input, jump, stopJump);
         if (animations.state != Player2DAnimations.State.Chutando)
         {
             animations.StartPulo();
         }
-        stopJump = false;
+        //stopJump = false;
         if (controller.collisions.below && jump /*&& !stopJump*/)
         {
             velocity.y = maxJumpHeight;
@@ -176,14 +184,15 @@ public class NewPlayerMovent : MonoBehaviour
 
     public void StopJump()
     {
-        //stopJump = true;
+        stopJump = true;
         //jump = false;
+        animations.ChangeMoveAnim(velocity, oldPosition, input, jump, stopJump);
         //animations.TransitionAir();
         if (velocity.y > minJumpVelocity)
         {
             velocity.y = minJumpVelocity;
             //Debug.Log(velocity.y);
         }
-        //jump = false;
+        jump = false;
     }
 }

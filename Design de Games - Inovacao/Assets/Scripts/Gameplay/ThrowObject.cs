@@ -68,7 +68,6 @@ public class ThrowObject : MonoBehaviour
             {
                 atirando = true;
                 cooldownDelta += 1;
-                Debug.Log("Shoot00");
                 StartCoroutine("StartTiro");
                 atirou = false;
 
@@ -127,7 +126,6 @@ public class ThrowObject : MonoBehaviour
     void Shoot()
     {
 		if (!(bool)photonView.Owner.CustomProperties["dogValue"]) return;
-        Debug.Log("Shoot02");
         GameObject bullet;
         bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);// as GameObject;
         bullet.GetComponent<ItemThrow>().InitializeBullet(photonView.Owner);
@@ -137,7 +135,7 @@ public class ThrowObject : MonoBehaviour
 
     IEnumerator StartTiro()
     {
-        Debug.Log("Shoot01");
+        
         yield return new WaitForSeconds(1f);
 
         photonView.RPC("Shoot", RpcTarget.All);
@@ -145,12 +143,11 @@ public class ThrowObject : MonoBehaviour
 
 	IEnumerator CooldownEffect()
 	{
-
+        shootAnim = false;
+        atirando = false;
         yield return new WaitForSeconds(cooldown);
 
         gameObject.GetComponent<PhotonView>().RPC("TransformaPet", RpcTarget.All, false);
-        shootAnim = false;
-        atirando = false;
     }
 
 }

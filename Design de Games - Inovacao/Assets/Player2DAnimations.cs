@@ -56,7 +56,7 @@ public class Player2DAnimations : MonoBehaviour
 
 
 
-    public void ChangeMoveAnim(Vector2 moveAmount, Vector2 oldPos, Vector2 input, bool Jump)
+    public void ChangeMoveAnim(Vector2 moveAmount, Vector2 oldPos, Vector2 input, bool Jump, bool stopJump)
     {
         //frente.SetActive(false);
         //lado.SetActive(true);
@@ -100,7 +100,7 @@ public class Player2DAnimations : MonoBehaviour
 
         else
         {
-            if (Jump == false && FutebolPlayer.kicked == false && ThrowObject.shootAnim == false)
+            if (Jump == false && FutebolPlayer.kicked == false && ThrowObject.shootAnim == false && stopJump == false)
             {
                 state = State.Idle;
             }

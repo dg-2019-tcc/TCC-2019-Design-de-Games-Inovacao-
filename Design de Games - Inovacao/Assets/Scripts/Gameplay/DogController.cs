@@ -116,7 +116,7 @@ public class DogController : MonoBehaviour
 
 
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    /*private void OnTriggerEnter2D(Collider2D collision)
     {
         if (!PV.IsMine && PV != null) return;
 		if (!dogAtivo.Value) return;
@@ -141,7 +141,7 @@ public class DogController : MonoBehaviour
                 hitTotemCarro.Value = false;
             }
         }
-    }
+    }*/
 
     [PunRPC]
     public void Carro()
