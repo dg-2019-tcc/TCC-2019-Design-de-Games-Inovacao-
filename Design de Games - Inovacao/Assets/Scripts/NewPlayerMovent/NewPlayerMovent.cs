@@ -91,7 +91,7 @@ public class NewPlayerMovent : MonoBehaviour
                 input.x = 0;
             }
 
-            if (jump)
+            if (jump || stopJump)
             {
                 animations.ChangeMoveAnim(velocity, oldPosition, input, jump, stopJump);
             }
@@ -170,10 +170,10 @@ public class NewPlayerMovent : MonoBehaviour
     {
         jump = true;
         //animations.ChangeMoveAnim(velocity, oldPosition, input, jump, stopJump);
-        if (animations.state != Player2DAnimations.State.Chutando)
+        /*if (animations.state != Player2DAnimations.State.Chutando)
         {
             animations.StartPulo();
-        }
+        }*/
         //stopJump = false;
         if (controller.collisions.below && jump /*&& !stopJump*/)
         {
