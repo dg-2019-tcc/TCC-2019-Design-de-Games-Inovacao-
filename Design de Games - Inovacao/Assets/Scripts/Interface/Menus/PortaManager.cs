@@ -47,39 +47,39 @@ public class PortaManager : MonoBehaviour
         {
             CloseDoor();
         }
-		/*if (joy.Vertical >= 0.5f && ButtonJogarCorrida == true)
+		if (joy.Vertical >= 0.5f && ButtonJogarCorrida != null && ButtonJogarCorrida.activeSelf == true)
 		{
 
 			lobbyController.DelayStart("Corrida");
 			//ButtonJogarCorrida = false;
 		}
-		if (joy.Vertical >= 0.5f && ButtonJogarColeta == true)
+		if (joy.Vertical >= 0.5f && ButtonJogarColeta != null && ButtonJogarColeta.activeSelf == true)
 		{
 			lobbyController.DelayStart("Coleta");
 			//ButtonJogarColeta = false;
 		}
-		if (joy.Vertical >= 0.5f && ButtonJogarFutebol == true)
+		if (joy.Vertical >= 0.5f && ButtonJogarFutebol != null && ButtonJogarFutebol.activeSelf == true)
 		{
 
 			lobbyController.DelayStart("Futebol");
 			//ButtonJogarCorrida = false;
 		}
-		if (joy.Vertical >= 0.5f && ButtonJogarMoto == true)
+		if (joy.Vertical >= 0.5f && ButtonJogarMoto != null && ButtonJogarMoto.activeSelf == true)
 		{
 			lobbyController.DelayStart("Moto");
 			//ButtonJogarColeta = false;
 		}
-		if (joy.Vertical >= 0.5f && ButtonJogarVolei == true)
+		if (joy.Vertical >= 0.5f &&ButtonJogarVolei != null && ButtonJogarVolei.activeSelf == true)
 		{
 
 			lobbyController.DelayStart("Volei");
 			//ButtonJogarCorrida = false;
 		}
-		if (joy.Vertical >= 0.5f && ButtonRoupa == true)
+		if (joy.Vertical >= 0.5f &&ButtonRoupa!= null && ButtonRoupa.activeSelf == true)
 		{
 			lobbyController.DelayStart("Customizar");
 			//ButtonJogarColeta = false;
-		}*/
+		}
 
 	}
 

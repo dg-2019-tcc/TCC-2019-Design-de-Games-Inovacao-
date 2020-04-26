@@ -102,13 +102,14 @@ namespace Complete
                 yield return new WaitForSeconds(1);
                 number[number.Length - index].SetActive(false);
             }
-            if (index < number.Length)
-                StartCoroutine("UniteSynchronization", 0);
-            else
-                PlayerInst.SetActive(true);
-
-
-            partidaComecou.Value = true;
+			if (index < number.Length)
+				StartCoroutine("UniteSynchronization", 0);
+			else
+			{
+				PlayerInst.SetActive(true);
+				partidaComecou.Value = true;
+			}
+			
             index++;
 
         }
