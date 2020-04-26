@@ -60,12 +60,12 @@ public class ThrowObject : MonoBehaviour
     {
         if (photonView.IsMine == true)
         {
-            if (/*SwipeDetector.shoot == true*/ atirou == true && cooldownDelta <= 0)
+            if ( atirou == true && cooldownDelta <= 0)
             {
                 StartCoroutine("StartTiro");
-                //photonView.RPC("Shoot", RpcTarget.All);
                 atirou = false;
-                //SwipeDetector.shoot = false;
+                buttonPressed.Value = false;
+
             }
             if (Input.GetKeyDown(KeyCode.Z))
             {
@@ -97,15 +97,13 @@ public class ThrowObject : MonoBehaviour
     void Shoot()
     {
 		if (!(bool)photonView.Owner.CustomProperties["dogValue"] || cooldownDelta > 0) return;
-        Debug.Log(shootAnim);
+        Debug.Log("Shoot");
         GameObject bullet;
         bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);// as GameObject;
         bullet.GetComponent<ItemThrow>().InitializeBullet(photonView.Owner);
-        tiroSom.Play();
         cooldownDelta = cooldown;
 		StartCoroutine("CooldownEffect");
 		photonView.Owner.CustomProperties["atirou"] = true;
-        SwipeDetector.shoot = false;
     }
 
     IEnumerator StartTiro()
@@ -128,27 +126,9 @@ public class ThrowObject : MonoBehaviour
 
         gameObject.GetComponent<PhotonView>().RPC("TransformaPet", RpcTarget.All, false);
         shootAnim = false;
-        Debug.Log(shootAnim);
-        atirou = false;
         tempColor.a = 1f;
         tiroImage.color = tempColor;
         dogImage.color = tempColor;
     }
 
-    //Funciona somente na build, para conseguir atirar usando a tecla "Z"
-
-    private void SwipeDirection(SwipeData data)
-    {
-        direction = (data.StartPosition - data.EndPosition).normalized;
-
-        if (data.Direction.Equals("Right"))
-        {
-            dirRight = true;
-        }
-
-        else if (data.Direction.Equals("Left"))
-        {
-            dirLeft = true;
-        }
-    }
 }

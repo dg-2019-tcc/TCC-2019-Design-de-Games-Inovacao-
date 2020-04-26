@@ -204,6 +204,7 @@ public class DogController : MonoBehaviour
         if (!isDog)
         {
             Pet.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, Pet.transform.position.z);
+            Debug.Log("Pet");
 			buttonPressed.Value = false;
 
 		}

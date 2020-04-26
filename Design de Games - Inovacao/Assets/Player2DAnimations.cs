@@ -182,7 +182,6 @@ public class Player2DAnimations : MonoBehaviour
         if(state != State.Arremessando)
         {
             player.animation.FadeIn(arremessoAnimation, 0f, 1);
-            Debug.Log("Atira");
             state = State.Arremessando;
         }
     }
