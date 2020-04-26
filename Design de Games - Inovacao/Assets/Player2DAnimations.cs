@@ -40,6 +40,9 @@ public class Player2DAnimations : MonoBehaviour
     [HideInInspector]
     public PhotonView photonView;
 
+    float moveX;
+    float inputX;
+
 
     //private DragonBones.AnimationState aimState = null;
 
@@ -51,7 +54,7 @@ public class Player2DAnimations : MonoBehaviour
         state = State.Idle;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if(state == State.Idle)
         {
@@ -74,46 +77,81 @@ public class Player2DAnimations : MonoBehaviour
     {
         //frente.SetActive(false);
         //lado.SetActive(true);
+        moveX = Mathf.Abs(moveAmount.x);
 
-        float moveX = Mathf.Abs(moveAmount.x);
 
         if (oldPos.y < moveAmount.y && controller.collisions.below == false && dogButtonAnim == false)
         {
-
-            photonView.RPC("NoArUp", RpcTarget.All);
-            //NoArUp();
+            if (!PhotonNetwork.InRoom)
+            {
+                NoArUp();
+            }
+            else
+            {
+                photonView.RPC("NoArUp", RpcTarget.All);
+            }
         }
 
-        else if (moveAmount.y < 9 && moveAmount.y >7.5 && controller.collisions.below == false && dogButtonAnim == false)
+        else if (moveAmount.y < 9 && moveAmount.y > 0 && controller.collisions.below == false && dogButtonAnim == false)
         {
-            //Fall();
-            photonView.RPC("TransitionAir", RpcTarget.All);
-            //TransitionAir();
+   
+            if (!PhotonNetwork.InRoom)
+            {
+                TransitionAir();
+            }
+            else
+            {
+                photonView.RPC("TransitionAir", RpcTarget.All);
+            }
         }
 
-        else if (moveAmount.y <= 7.5   && controller.collisions.below == false && dogButtonAnim == false)
+        else if (moveAmount.y <= 0   && controller.collisions.below == false && dogButtonAnim == false)
         {
-            //Fall();
-            photonView.RPC("Fall", RpcTarget.All);
-            //TransitionAir();
+            if (!PhotonNetwork.InRoom)
+            {
+                Fall();
+            }
+            else
+            {
+                photonView.RPC("Fall", RpcTarget.All);
+            }
         }
 
         else if (moveAmount.y < -1 && controller.collisions.below == true && dogButtonAnim == false)
         {
-            photonView.RPC("Aterrisando", RpcTarget.All);
-            //Aterrisando();
+            if (!PhotonNetwork.InRoom)
+            {
+                Aterrisando();
+            }
+            else
+            {
+                photonView.RPC("Aterrisando", RpcTarget.All);
+            }
         }
 
         else if (controller.collisions.below && input.x == 0 && input.y < 0 && dogButtonAnim == false)
         {
-            photonView.RPC("Abaixar", RpcTarget.All);
-            //Abaixar();
+            if (!PhotonNetwork.InRoom)
+            {
+                Abaixar();
+            }
+            else
+            {
+                photonView.RPC("Abaixar", RpcTarget.All);
+            }
         }
 
         else if (input.x != 0 && controller.collisions.below && dogButtonAnim == false)
         {
-            photonView.RPC("Walking", RpcTarget.All);
-            //Walking();
+            if (!PhotonNetwork.InRoom)
+            {
+                Walking(inputX, oldPos, moveAmount);
+            }
+            else
+            {
+                photonView.RPC("Walking", RpcTarget.All, moveX, oldPos, moveAmount);
+            }
+
         }
 
         /*else if (ThrowObject.shootAnim == true)
@@ -130,7 +168,14 @@ public class Player2DAnimations : MonoBehaviour
         {
             if (Jump == false && dogButtonAnim == false && stopJump == false)
             {
-                photonView.RPC("Idle", RpcTarget.All);
+                if (!PhotonNetwork.InRoom)
+                {
+                    Idle();
+                }
+                else
+                {
+                    photonView.RPC("Idle", RpcTarget.All);
+                }
             }
 
          
@@ -165,9 +210,9 @@ public class Player2DAnimations : MonoBehaviour
     }
 
     [PunRPC]
-    public void Walking()
+    public void Walking(float animTime, Vector2 oldPos, Vector2 moveAmount)
     {
-        if (state != State.Walking)
+        if (state != State.Walking )
         {
             //player.animation.FadeIn(walkAnimation, 0.1f,0);
             player.animation.Play(walkAnimation);
@@ -242,16 +287,16 @@ public class Player2DAnimations : MonoBehaviour
     }
 
     [PunRPC]
-    public void Arremesso()
-    {
-        if(state != State.Arremessando)
+        public void Arremesso()
         {
-            //player.animation.FadeIn(arremessoAnimation, 0f, 1);
-            player.animation.Play(arremessoAnimation);
-            player.animation.timeScale = 1;
-            state = State.Arremessando;
+            if(state != State.Arremessando)
+            {
+                //player.animation.FadeIn(arremessoAnimation, 0f, 1);
+                player.animation.Play(arremessoAnimation);
+                player.animation.timeScale = 1;
+                state = State.Arremessando;
+            }
         }
-    }
 
     [PunRPC]
     public void Abaixar()
@@ -270,7 +315,8 @@ public class Player2DAnimations : MonoBehaviour
     {
         if(state != State.TransitionAir)
         {
-            player.animation.FadeIn(transitionJumpAnimation, 0.2f, 1);
+            //player.animation.FadeIn(transitionJumpAnimation, 0.2f, 1);
+            player.animation.Play(transitionJumpAnimation);
             state = State.TransitionAir;
         }
     }

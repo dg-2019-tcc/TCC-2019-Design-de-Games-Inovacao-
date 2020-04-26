@@ -2713,7 +2713,9 @@ MonoBehaviour:
   oldPos: {x: 0, y: 0}
   state: 1
   player: {fileID: 1408402004}
-  dogBotao: {fileID: 11400000, guid: 9128bc4da1f2bc948800eda328d8de6f, type: 2}
+  dogButtonAnim: 0
+  fase: 0
+  photonView: {fileID: 0}
 --- !u!1 &768868701
 GameObject:
   m_ObjectHideFlags: 0
@@ -15447,7 +15449,12 @@ PrefabInstance:
     - target: {fileID: 842964514470067558, guid: 6955624af53c6b446948add70e41b9a5,
         type: 3}
       propertyPath: animationName
-      value: 6_Arremessar(3_Arremesso)
+      value: 0_Corrida
+      objectReference: {fileID: 0}
+    - target: {fileID: 842964514470067558, guid: 6955624af53c6b446948add70e41b9a5,
+        type: 3}
+      propertyPath: _timeScale
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5964529505427211197, guid: 6955624af53c6b446948add70e41b9a5,
         type: 3}
@@ -19271,6 +19278,26 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 1698439783556910380, guid: 6955624af53c6b446948add70e41b9a5,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 38346b37fabc4d94d84f347ff4c2d69a, type: 2}
+    - target: {fileID: 5988644068765732373, guid: 6955624af53c6b446948add70e41b9a5,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 38346b37fabc4d94d84f347ff4c2d69a, type: 2}
+    - target: {fileID: 4221991922070982250, guid: 6955624af53c6b446948add70e41b9a5,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 38346b37fabc4d94d84f347ff4c2d69a, type: 2}
+    - target: {fileID: 6286800919568194612, guid: 6955624af53c6b446948add70e41b9a5,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 38346b37fabc4d94d84f347ff4c2d69a, type: 2}
     m_RemovedComponents:
     - {fileID: 3907264441298140004, guid: 6955624af53c6b446948add70e41b9a5, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 6955624af53c6b446948add70e41b9a5, type: 3}
