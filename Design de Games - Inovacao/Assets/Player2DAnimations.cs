@@ -216,7 +216,7 @@ public class Player2DAnimations : MonoBehaviour
         {
             //player.animation.FadeIn(walkAnimation, 0.1f,0);
             player.animation.Play(walkAnimation);
-            player.animation.timeScale = 1;
+            player.animation.timeScale = 1.75f;
             state = State.Walking;
             //Debug.Log(state);
         }
