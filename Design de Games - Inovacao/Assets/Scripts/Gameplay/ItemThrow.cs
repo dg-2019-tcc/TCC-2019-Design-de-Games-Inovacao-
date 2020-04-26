@@ -102,7 +102,8 @@ public class ItemThrow : MonoBehaviour
 
 		if (collision.CompareTag("Coletavel"))
 		{
-			collision.SendMessage("Coleta");
+            DestroyColetavel2D coletavel = collision.GetComponent<DestroyColetavel2D>();
+            coletavel.PegouColetavel();
 			Owner.AddScore(1);
 		}
     }

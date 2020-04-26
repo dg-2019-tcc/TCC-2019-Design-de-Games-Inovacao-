@@ -28,11 +28,14 @@ public class FutebolPlayer : MonoBehaviour
 
     public GameObject foot;
 
+    private Player2DAnimations anim;
+
 
     void Awake()
     {
         controller = GetComponent<Controller2D>();
         triggerController = GetComponent<TriggerCollisionsController>();
+        anim = GetComponent<Player2DAnimations>();
 
         bola = GameObject.FindWithTag("Futebol");
         ballrb = bola.GetComponent<Rigidbody2D>();
@@ -42,14 +45,6 @@ public class FutebolPlayer : MonoBehaviour
 
     void Update()
     {
-        if (kicked)
-        {
-            foot.SetActive(true);
-        }
-        else
-        {
-            foot.SetActive(false);
-        }
 
         if (PlayerThings.rightDir)
         {
@@ -65,7 +60,6 @@ public class FutebolPlayer : MonoBehaviour
 
         if (kicked == true && triggerController.collisions.chutouBola == true && controller.collisions.below == true)
         {
-            Debug.Log("Normal");
             gameObject.GetComponent<PhotonView>().RPC("KickBola", RpcTarget.MasterClient);
             triggerController.collisions.chutouBola = false;
         }
@@ -109,13 +103,11 @@ public class FutebolPlayer : MonoBehaviour
 
     IEnumerator CoolKick()
     {
-
-        //foot.transform.position = footKickPos.transform.position;
+        //anim.Chute();
         kicked = true;
 
         yield return new WaitForSeconds(cooldownKick);
 
-        //foot.transform.position = footIncialPos.transform.position;
         kicked = false;
     }
     [PunRPC]
@@ -131,7 +123,6 @@ public class FutebolPlayer : MonoBehaviour
         bolaFutebol.kick = true;
         bolaFutebol.normal = false;
         bolaFutebol.superKick = false;
-        Debug.Log("KickBola");
         ballrb.AddForce(new Vector2(kickForceX, kickForceY), ForceMode2D.Impulse);
     }
 
@@ -141,7 +132,6 @@ public class FutebolPlayer : MonoBehaviour
         bolaFutebol.superKick = true;
         bolaFutebol.kick = false;
         bolaFutebol.normal = false;
-        Debug.Log("SuperKickBola");
         ballrb.AddForce(new Vector2(superKickForceX, kickForceY), ForceMode2D.Impulse);
     }
 }

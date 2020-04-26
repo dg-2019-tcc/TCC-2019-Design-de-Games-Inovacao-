@@ -116,7 +116,7 @@ public class DogController : MonoBehaviour
 
 
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    /*private void OnTriggerEnter2D(Collider2D collision)
     {
         if (!PV.IsMine && PV != null) return;
 		if (!dogAtivo.Value) return;
@@ -141,7 +141,7 @@ public class DogController : MonoBehaviour
                 hitTotemCarro.Value = false;
             }
         }
-    }
+    }*/
 
     [PunRPC]
     public void Carro()
@@ -204,6 +204,7 @@ public class DogController : MonoBehaviour
         if (!isDog)
         {
             Pet.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, Pet.transform.position.z);
+            Debug.Log("Pet");
 			buttonPressed.Value = false;
 
 		}

@@ -51,7 +51,6 @@ namespace Complete
                     PlayerInst.SetActive(false);
 
                     gameObject.GetComponent<PhotonView>().RPC("SpawnPlayer", RpcTarget.All, allPlayersInSession);
-                    Debug.Log("isMaster");
                 }
 
                 else
@@ -83,7 +82,6 @@ namespace Complete
         private void SpawnPlayer(float alterPlayerCount)
         {
 
-            Debug.Log("Spawn");
             if (alterPlayerCount > allPlayersInSession)                                                     //Contador pra sincronizar e adicionar quantos players entraram na cena
                 allPlayersInSession = alterPlayerCount;
 

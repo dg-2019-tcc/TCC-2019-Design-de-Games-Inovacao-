@@ -37,10 +37,13 @@ public class PlayerThings : MonoBehaviour
     public GameObject playerParado;
     public GameObject playerAndando;
 
+    private Controller2D controller;
+
     public float autoScroll;
 
     void Start()
     {
+        controller = GetComponent<Controller2D>();
         PV = GetComponent<PhotonView>();
         joyStick = FindObjectOfType<Joystick>();
 		rightDir = true;
@@ -143,7 +146,7 @@ public class PlayerThings : MonoBehaviour
 
             float moveHorizontal = Mathf.Clamp(joyStick.Horizontal + Input.GetAxisRaw("Horizontal") + autoScroll, -2, 2);
 
-            if (moveHorizontal > 0.1f || moveHorizontal < -0.1f)
+            /*if (moveHorizontal > 0.1f || moveHorizontal < -0.1f|| controller.collisions.below == false)
             {
                 //  playerAnimations.Walk(true);
                 playerAndando.SetActive(true);
@@ -155,7 +158,7 @@ public class PlayerThings : MonoBehaviour
                 //playerAnimations.Walk(false);
                 playerAndando.SetActive(false);
                 playerParado.SetActive(true);
-            }
+            }*/
         }
     }
 

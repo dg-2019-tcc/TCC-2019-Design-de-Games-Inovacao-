@@ -17,9 +17,9 @@ public class NewPlayerMovent : MonoBehaviour
     public float minJumpHeight = 2;
     public float timeToJumpApex = 0.4f;
 
-    float pipaMoveSpeed = 4;
+    float pipaMoveSpeed = 5;
     float pipaVelocityXSmoothing;
-    float pipaAccelerationTimeAirborne = 0.8f;
+    float pipaAccelerationTimeAirborne = 0.6f;
     public float pipaGravity; 
 
     float carroMoveSpeed = 12;
@@ -50,7 +50,9 @@ public class NewPlayerMovent : MonoBehaviour
     Vector3 pipaVelocity;
     Vector3 motoVelocity;
 
+    public Vector2 oldPosition;
     Vector2 input;
+    Vector2 joyInput;
 
     Controller2D controller;
     TriggerCollisionsController triggerController;
@@ -68,7 +70,6 @@ public class NewPlayerMovent : MonoBehaviour
         gravity = -(2 * maxJumpHeight) / Mathf.Pow(timeToJumpApex, 2);
         maxJumpVelocity = Mathf.Abs(gravity * timeToJumpApex);
         minJumpVelocity = Mathf.Sqrt(2* Mathf.Abs(gravity)*minJumpHeight);
-        print("Gravity: " + gravity + "  Jump Velocity: " + maxJumpVelocity +"Min Jump" + minJumpVelocity);
 
         joyStick = FindObjectOfType<Joystick>();
     }
@@ -76,11 +77,26 @@ public class NewPlayerMovent : MonoBehaviour
     void Update()
     {
 
-        input = new Vector2(joyStick.Horizontal, joyStick.Vertical);
+        joyInput = new Vector2(joyStick.Horizontal, joyStick.Vertical);
 
         if (carroActive.Value == false && pipaActive.Value == false)
         {
+            if(joyInput.x > 0.3f || joyInput.x < -0.3f)
+            {
+                input.x = joyInput.x;
+            }
 
+            else
+            {
+                input.x = 0;
+            }
+
+            if (jump)
+            {
+                animations.ChangeMoveAnim(velocity, oldPosition, input, jump, stopJump);
+            }
+
+            input.y = joyInput.y;
             float targetVelocityX = input.x * moveSpeed;
             velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (controller.collisions.below) ? accelerationTimeGrounded : accelerationTimeAirborne);
 
@@ -89,7 +105,7 @@ public class NewPlayerMovent : MonoBehaviour
 
             controller.Move(velocity * Time.deltaTime, input);
             triggerController.MoveDirection(velocity);
-            animations.ChangeMoveAnim(velocity, input, jump);
+            animations.ChangeMoveAnim(velocity, oldPosition, input, jump, stopJump);
             if (controller.collisions.above ||controller.collisions.below)
             {
                 velocity.y = 0;
@@ -100,10 +116,14 @@ public class NewPlayerMovent : MonoBehaviour
 
         else
         {
+
+            input = joyInput;
+
             if (carroActive.Value == true)
             {
                 if (jump == true && controller.collisions.below)
                 {
+                    Debug.Log("Jump");
                     carroVelocity.y = maxJumpHeight;
                 }
 
@@ -112,6 +132,7 @@ public class NewPlayerMovent : MonoBehaviour
                 carroVelocity.y += gravity * Time.deltaTime;
                 controller.Move(carroVelocity * Time.deltaTime, input);
                 triggerController.MoveDirection(carroVelocity);
+                animations.ChangeMoveAnim(velocity, oldPosition, input, jump, stopJump);
 
                 if (controller.collisions.above || controller.collisions.below)
                 {
@@ -136,34 +157,42 @@ public class NewPlayerMovent : MonoBehaviour
 
                 triggerController.MoveDirection(pipaVelocity);
                 controller.Move(pipaVelocity * Time.deltaTime, input);
+                animations.ChangeMoveAnim(velocity, oldPosition, input, jump, stopJump);
             }
         }
+    }
+    private void LateUpdate()
+    {
+        oldPosition = velocity;
     }
 
     public void Jump()
     {
         jump = true;
-        stopJump = false;
-        //Debug.Log("Jump");
+        //animations.ChangeMoveAnim(velocity, oldPosition, input, jump, stopJump);
+        if (animations.state != Player2DAnimations.State.Chutando)
+        {
+            animations.StartPulo();
+        }
+        //stopJump = false;
         if (controller.collisions.below && jump /*&& !stopJump*/)
         {
-            animations.ChangeMoveAnim(velocity * Time.deltaTime, input, jump);
             velocity.y = maxJumpHeight;
-            animations.StartPulo();
 
         }
     }
 
     public void StopJump()
     {
-        //Debug.Log("Stop");
-        //stopJump = true;
+        stopJump = true;
         //jump = false;
+        //animations.ChangeMoveAnim(velocity, oldPosition, input, jump, stopJump);
+        //animations.TransitionAir();
         if (velocity.y > minJumpVelocity)
         {
             velocity.y = minJumpVelocity;
             //Debug.Log(velocity.y);
         }
-        //jump = false;
+        jump = false;
     }
 }
