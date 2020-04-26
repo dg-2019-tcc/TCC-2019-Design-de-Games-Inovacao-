@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class CamLookaheadAim : MonoBehaviour
 {
@@ -22,6 +23,7 @@ public class CamLookaheadAim : MonoBehaviour
 	private void Start()
 	{
 		player = transform.parent.transform;
+		if (!player.GetComponent<PhotonView>().IsMine && PhotonNetwork.InRoom) Destroy(gameObject);
 		playerScript = player.GetComponent<PlayerThings>();
 		joyStick = FindObjectOfType<Joystick>();
 		aimPos = new Vector2(distance, aimPos.y);
