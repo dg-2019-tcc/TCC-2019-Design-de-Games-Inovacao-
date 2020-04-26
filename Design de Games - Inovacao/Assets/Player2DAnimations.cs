@@ -54,7 +54,7 @@ public class Player2DAnimations : MonoBehaviour
         state = State.Idle;
     }
 
-    private void FixedUpdate()
+    /*private void LateUpdate()
     {
         if (!PhotonNetwork.InRoom)
         {
@@ -74,7 +74,7 @@ public class Player2DAnimations : MonoBehaviour
         }
 
 
-    }
+    }*/
 
     [PunRPC]
     void ChangeArmature()
@@ -242,6 +242,13 @@ public class Player2DAnimations : MonoBehaviour
     [PunRPC]
     public void Walking(float animTime, Vector2 oldPos, Vector2 moveAmount)
     {
+        if(state == State.Idle)
+        {
+            lado.SetActive(true);
+            frente.SetActive(false);
+        }
+
+
 
         if (state != State.Walking )
         {
@@ -268,6 +275,13 @@ public class Player2DAnimations : MonoBehaviour
     [PunRPC]
     public void NoArUp()
     {
+        if (state == State.Idle)
+        {
+            lado.SetActive(true);
+            frente.SetActive(false);
+        }
+
+
         if (state != State.Rising)
         {
             //player.animation.FadeIn(subindoJumpAnimation, 0.01f, 0);
@@ -281,6 +295,14 @@ public class Player2DAnimations : MonoBehaviour
     [PunRPC]
     public void Fall()
     {
+        if (state == State.Idle)
+        {
+            lado.SetActive(true);
+            frente.SetActive(false);
+        }
+
+
+
         if (state != State.Falling)
         {
 
@@ -295,7 +317,14 @@ public class Player2DAnimations : MonoBehaviour
     [PunRPC]
     public void Aterrisando()
     {
-        if(state != State.Aterrisando)
+        if (state == State.Idle)
+        {
+            lado.SetActive(true);
+            frente.SetActive(false);
+        }
+
+
+        if (state != State.Aterrisando)
         {
             //player.animation.FadeIn(aterrisandoAnimation, 0.01f, 1);
             player.animation.Play(aterrisandoAnimation);
@@ -307,7 +336,13 @@ public class Player2DAnimations : MonoBehaviour
     [PunRPC]
     public void Chute()
     {
-        if(state != State.Chutando)
+        if (state == State.Idle)
+        {
+            lado.SetActive(true);
+            frente.SetActive(false);
+        }
+
+        if (state != State.Chutando)
         {
             //player.animation.FadeIn(chuteAnimation, 0.1f, 1);
             player.animation.Play(chuteAnimation);
@@ -318,9 +353,16 @@ public class Player2DAnimations : MonoBehaviour
     }
 
     [PunRPC]
-        public void Arremesso()
+    public void Arremesso()
+    {
+
+        if (state == State.Idle)
         {
-            if(state != State.Arremessando)
+                lado.SetActive(true);
+                frente.SetActive(false);
+        }
+
+        if (state != State.Arremessando)
             {
                 //player.animation.FadeIn(arremessoAnimation, 0f, 1);
                 player.animation.Play(arremessoAnimation);
@@ -332,7 +374,14 @@ public class Player2DAnimations : MonoBehaviour
     [PunRPC]
     public void Abaixar()
     {
-        if(state != State.Abaixando)
+        if (state == State.Idle)
+        {
+            lado.SetActive(true);
+            frente.SetActive(false);
+        }
+
+
+        if (state != State.Abaixando)
         {
             //player.animation.FadeIn(abaixarAnimation, 0.01f, 1);
             player.animation.Play(abaixarAnimation);
@@ -344,7 +393,14 @@ public class Player2DAnimations : MonoBehaviour
     [PunRPC]
     public void TransitionAir()
     {
-        if(state != State.TransitionAir)
+        if (state == State.Idle)
+        {
+            lado.SetActive(true);
+            frente.SetActive(false);
+        }
+
+
+        if (state != State.TransitionAir)
         {
             //player.animation.FadeIn(transitionJumpAnimation, 0.2f, 1);
             player.animation.Play(transitionJumpAnimation);
