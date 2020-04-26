@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿using Photon.Pun;
+using Photon.Realtime;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DragonBones;
@@ -31,7 +33,9 @@ public class Player2DAnimations : MonoBehaviour
 
     public Armature armature;
 
-    public BoolVariable dogBotao;
+    public bool dogButtonAnim;
+
+    public int fase;
 
 
     //private DragonBones.AnimationState aimState = null;
@@ -43,7 +47,7 @@ public class Player2DAnimations : MonoBehaviour
         state = State.Idle;
     }
 
-    /*private void Update()
+    private void Update()
     {
         if(state == State.Idle)
         {
@@ -56,7 +60,7 @@ public class Player2DAnimations : MonoBehaviour
             lado.SetActive(true);
             frente.SetActive(false);
         }
-    }*/
+    }
 
 
 
@@ -67,52 +71,69 @@ public class Player2DAnimations : MonoBehaviour
 
         float moveX = Mathf.Abs(moveAmount.x);
 
-        if (input.x != 0 && controller.collisions.below && state != State.Jumping && state != State.Rising && state != State.Falling && state != State.Aterrisando && state != State.Chutando && Jump == false && FutebolPlayer.kicked == false && ThrowObject.shootAnim == false)
+        if (input.x != 0 && controller.collisions.below && state != State.Jumping && state != State.Rising && state != State.Falling && state != State.Aterrisando &&  Jump == false && dogButtonAnim == false)
         {
             Walking();
         }
 
-        else if(controller.collisions.below && input.x == 0 && input.y < 0 && ThrowObject.shootAnim == false)
+        else if(controller.collisions.below && input.x == 0 && input.y < 0 && dogButtonAnim == false)
         {
             Abaixar();
         }
 
-        else if (ThrowObject.shootAnim == true)
+        else if (oldPos.y < moveAmount.y && controller.collisions.below == false && dogButtonAnim == false)
+        {
+            NoArUp();
+        }
+
+        else if (moveAmount.y < -1 && controller.collisions.below == false && dogButtonAnim == false)
+        { 
+            Fall();
+        }
+
+        else if (moveAmount.y < -1 && controller.collisions.below == true && dogButtonAnim == false)
+        {
+            Aterrisando();
+        }
+
+        /*else if (ThrowObject.shootAnim == true)
         {
             Arremesso();
         }
 
         else if (FutebolPlayer.kicked)
         {
-           Chute();
-        }
-
-        else if (oldPos.y < moveAmount.y && controller.collisions.below == false && state != State.Chutando && ThrowObject.shootAnim == false)
-        {
-            NoArUp();
-        }
-
-        else if (moveAmount.y < -1 && controller.collisions.below == false && state != State.Chutando && ThrowObject.shootAnim == false)
-        { 
-            Fall();
-        }
-
-        else if (moveAmount.y < -1 && controller.collisions.below == true && state != State.Chutando && ThrowObject.shootAnim == false)
-        {
-            Aterrisando();
-        }
+            Chute();
+        }*/
 
         else
         {
-            if (Jump == false && FutebolPlayer.kicked == false && ThrowObject.shootAnim == false && stopJump == false)
+            if (Jump == false && dogButtonAnim == false && stopJump == false)
             {
                 state = State.Idle;
             }
         }
-
-
     }
 
+    public void DogButtonAnim(bool dogButtonOn)
+    {
+        dogButtonAnim = dogButtonOn;
+
+        if (dogButtonOn == true)
+        {
+
+            if (fase == 0)
+            {
+                Arremesso();
+            }
+
+            else if (fase == 1)
+            {
+                Chute();
+            }
+        }
+    }
+    [PunRPC]
     public void Idle()
     {
         if(state != State.Idle)
@@ -121,6 +142,7 @@ public class Player2DAnimations : MonoBehaviour
         }
     }
 
+    [PunRPC]
     public void Walking()
     {
         if (state != State.Walking)
@@ -132,6 +154,7 @@ public class Player2DAnimations : MonoBehaviour
         }
     }
 
+    [PunRPC]
     public void StartPulo()
     {
         if (state != State.Jumping)
@@ -143,6 +166,7 @@ public class Player2DAnimations : MonoBehaviour
         }
     }
 
+    [PunRPC]
     public void NoArUp()
     {
         if (state != State.Rising)
@@ -154,6 +178,7 @@ public class Player2DAnimations : MonoBehaviour
         }
     }
 
+    [PunRPC]
     public void Fall()
     {
         if (state != State.Falling)
@@ -166,6 +191,7 @@ public class Player2DAnimations : MonoBehaviour
         }
     }
 
+    [PunRPC]
     public void Aterrisando()
     {
         if(state != State.Aterrisando)
@@ -176,6 +202,7 @@ public class Player2DAnimations : MonoBehaviour
         }
     }
 
+    [PunRPC]
     public void Chute()
     {
         if(state != State.Chutando)
@@ -187,6 +214,7 @@ public class Player2DAnimations : MonoBehaviour
         }
     }
 
+    [PunRPC]
     public void Arremesso()
     {
         if(state != State.Arremessando)
@@ -197,6 +225,7 @@ public class Player2DAnimations : MonoBehaviour
         }
     }
 
+    [PunRPC]
     public void Abaixar()
     {
         if(state != State.Abaixando)
