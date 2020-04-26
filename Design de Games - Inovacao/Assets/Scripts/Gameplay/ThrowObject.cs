@@ -153,10 +153,10 @@ public class ThrowObject : MonoBehaviour
 	{
         shootAnim = false;
         anim.DogButtonAnim(shootAnim);
-        atirando = false;
         yield return new WaitForSeconds(cooldown);
 
         gameObject.GetComponent<PhotonView>().RPC("TransformaPet", RpcTarget.All, false);
+        atirando = false;
     }
 
 }
