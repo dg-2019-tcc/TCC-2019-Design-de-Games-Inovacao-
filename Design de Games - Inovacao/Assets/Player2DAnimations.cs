@@ -78,14 +78,13 @@ public class Player2DAnimations : MonoBehaviour
             NoArUp();
         }
 
-        else if (moveAmount.y < 9 && moveAmount.y >8.5 && controller.collisions.below == false && dogButtonAnim == false)
+        else if (moveAmount.y < 8 && moveAmount.y >7.5 && controller.collisions.below == false && dogButtonAnim == false)
         {
             //Fall();
-            Debug.Log(moveAmount.y);
             TransitionAir();
         }
 
-        else if (moveAmount.y < 8.5 && controller.collisions.below == false && dogButtonAnim == false)
+        else if (moveAmount.y < 7.5 && controller.collisions.below == false && dogButtonAnim == false)
         {
             //Fall();
             TransitionAir();
@@ -259,7 +258,6 @@ public class Player2DAnimations : MonoBehaviour
     {
         if(state != State.TransitionAir)
         {
-            Debug.Log("Transition");
             player.animation.FadeIn(transitionJumpAnimation, 0.2f, 1);
             state = State.TransitionAir;
         }

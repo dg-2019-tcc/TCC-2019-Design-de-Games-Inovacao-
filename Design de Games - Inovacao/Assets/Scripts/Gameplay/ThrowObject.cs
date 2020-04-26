@@ -93,7 +93,7 @@ public class ThrowObject : MonoBehaviour
         }
         else
         {
-            atirou = false;
+            atirou = false; 
         }
 
         if (atirando)
