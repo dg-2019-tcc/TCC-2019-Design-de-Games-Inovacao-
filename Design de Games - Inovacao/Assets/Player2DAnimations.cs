@@ -37,11 +37,15 @@ public class Player2DAnimations : MonoBehaviour
 
     public int fase;
 
+    [HideInInspector]
+    public PhotonView photonView;
+
 
     //private DragonBones.AnimationState aimState = null;
 
     private void Start()
     {
+        photonView = gameObject.GetComponent<PhotonView>();
         controller = GetComponent<Controller2D>();
         player.animation.Init(armature);
         state = State.Idle;
@@ -75,34 +79,41 @@ public class Player2DAnimations : MonoBehaviour
 
         if (oldPos.y < moveAmount.y && controller.collisions.below == false && dogButtonAnim == false)
         {
-            NoArUp();
+
+            photonView.RPC("NoArUp", RpcTarget.All);
+            //NoArUp();
         }
 
         else if (moveAmount.y < 9 && moveAmount.y >7.5 && controller.collisions.below == false && dogButtonAnim == false)
         {
             //Fall();
-            TransitionAir();
+            photonView.RPC("TransitionAir", RpcTarget.All);
+            //TransitionAir();
         }
 
         else if (moveAmount.y <= 7.5   && controller.collisions.below == false && dogButtonAnim == false)
         {
             //Fall();
-            TransitionAir();
+            photonView.RPC("Fall", RpcTarget.All);
+            //TransitionAir();
         }
 
         else if (moveAmount.y < -1 && controller.collisions.below == true && dogButtonAnim == false)
         {
-            Aterrisando();
+            photonView.RPC("Aterrisando", RpcTarget.All);
+            //Aterrisando();
         }
 
         else if (controller.collisions.below && input.x == 0 && input.y < 0 && dogButtonAnim == false)
         {
-            Abaixar();
+            photonView.RPC("Abaixar", RpcTarget.All);
+            //Abaixar();
         }
 
         else if (input.x != 0 && controller.collisions.below && dogButtonAnim == false)
         {
-            Walking();
+            photonView.RPC("Walking", RpcTarget.All);
+            //Walking();
         }
 
         /*else if (ThrowObject.shootAnim == true)
@@ -119,13 +130,10 @@ public class Player2DAnimations : MonoBehaviour
         {
             if (Jump == false && dogButtonAnim == false && stopJump == false)
             {
-                state = State.Idle;
+                photonView.RPC("Idle", RpcTarget.All);
             }
 
-            else
-            {
-                state = State.Walking;
-            }
+         
         }
     }
 
