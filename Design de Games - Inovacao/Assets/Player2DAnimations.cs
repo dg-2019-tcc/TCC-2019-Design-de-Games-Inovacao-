@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿using Photon.Pun;
+using Photon.Realtime;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DragonBones;
@@ -131,7 +133,7 @@ public class Player2DAnimations : MonoBehaviour
             }
         }
     }
-
+    [PunRPC]
     public void Idle()
     {
         if(state != State.Idle)
@@ -140,6 +142,7 @@ public class Player2DAnimations : MonoBehaviour
         }
     }
 
+    [PunRPC]
     public void Walking()
     {
         if (state != State.Walking)
@@ -151,6 +154,7 @@ public class Player2DAnimations : MonoBehaviour
         }
     }
 
+    [PunRPC]
     public void StartPulo()
     {
         if (state != State.Jumping)
@@ -162,6 +166,7 @@ public class Player2DAnimations : MonoBehaviour
         }
     }
 
+    [PunRPC]
     public void NoArUp()
     {
         if (state != State.Rising)
@@ -173,6 +178,7 @@ public class Player2DAnimations : MonoBehaviour
         }
     }
 
+    [PunRPC]
     public void Fall()
     {
         if (state != State.Falling)
@@ -185,6 +191,7 @@ public class Player2DAnimations : MonoBehaviour
         }
     }
 
+    [PunRPC]
     public void Aterrisando()
     {
         if(state != State.Aterrisando)
@@ -195,6 +202,7 @@ public class Player2DAnimations : MonoBehaviour
         }
     }
 
+    [PunRPC]
     public void Chute()
     {
         if(state != State.Chutando)
@@ -206,6 +214,7 @@ public class Player2DAnimations : MonoBehaviour
         }
     }
 
+    [PunRPC]
     public void Arremesso()
     {
         if(state != State.Arremessando)
@@ -216,6 +225,7 @@ public class Player2DAnimations : MonoBehaviour
         }
     }
 
+    [PunRPC]
     public void Abaixar()
     {
         if(state != State.Abaixando)
