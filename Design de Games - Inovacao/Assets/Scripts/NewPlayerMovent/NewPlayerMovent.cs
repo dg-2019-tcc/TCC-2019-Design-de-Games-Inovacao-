@@ -77,7 +77,7 @@ public class NewPlayerMovent : MonoBehaviour
 
     void Update()
     {
-		if (levouDogada) return;
+		if (levouDogada.Value) return;
 		joyInput = new Vector2(joyStick.Horizontal, joyStick.Vertical);
 
         if (carroActive.Value == false && pipaActive.Value == false)
