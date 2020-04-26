@@ -58,20 +58,26 @@ public class Player2DAnimations : MonoBehaviour
     {
         if (!PhotonNetwork.InRoom || photonView.IsMine)
         {
-            if (state == State.Idle)
+            if (state != State.Idle)
             {
-                frente.SetActive(true);
-                lado.SetActive(false);
+                ChangeArmature();
             }
 
-            else
-            {
-                lado.SetActive(true);
-                frente.SetActive(false);
-            }
+        }
+
+        else
+        {
+            photonView.RPC("ChangeArmature", RpcTarget.All);
         }
 
 
+    }
+
+    [PunRPC]
+    void ChangeArmature()
+    {
+        lado.SetActive(true);
+        frente.SetActive(false);
     }
 
 
