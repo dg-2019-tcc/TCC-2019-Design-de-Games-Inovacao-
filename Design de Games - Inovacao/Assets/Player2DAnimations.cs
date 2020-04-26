@@ -71,22 +71,19 @@ public class Player2DAnimations : MonoBehaviour
 
         float moveX = Mathf.Abs(moveAmount.x);
 
-        if (input.x != 0 && controller.collisions.below && state != State.Jumping && state != State.Rising && state != State.Falling && state != State.Aterrisando &&  Jump == false && dogButtonAnim == false)
-        {
-            Walking();
-        }
 
-        else if(controller.collisions.below && input.x == 0 && input.y < 0 && dogButtonAnim == false)
+
+        if(controller.collisions.below && input.x == 0 && input.y < 0 && dogButtonAnim == false)
         {
             Abaixar();
         }
 
-        else if (oldPos.y < moveAmount.y && controller.collisions.below == false && dogButtonAnim == false)
+        else if (oldPos.y < moveAmount.y /*&& controller.collisions.below == false */&& dogButtonAnim == false)
         {
             NoArUp();
         }
 
-        else if (moveAmount.y < -1 && controller.collisions.below == false && dogButtonAnim == false)
+        else if (moveAmount.y < -1 /*&& controller.collisions.below == false */&& dogButtonAnim == false)
         { 
             Fall();
         }
@@ -94,6 +91,11 @@ public class Player2DAnimations : MonoBehaviour
         else if (moveAmount.y < -1 && controller.collisions.below == true && dogButtonAnim == false)
         {
             Aterrisando();
+        }
+
+        else if (input.x != 0 && controller.collisions.below && dogButtonAnim == false)
+        {
+            Walking();
         }
 
         /*else if (ThrowObject.shootAnim == true)
