@@ -44,8 +44,9 @@ public class NewPlayerMovent : MonoBehaviour
 
     public BoolVariable carroActive;
     public BoolVariable pipaActive;
+	public BoolVariable levouDogada;
 
-    Vector3 velocity;
+	Vector3 velocity;
     Vector3 carroVelocity;
     Vector3 pipaVelocity;
     Vector3 motoVelocity;
@@ -76,8 +77,8 @@ public class NewPlayerMovent : MonoBehaviour
 
     void Update()
     {
-
-        joyInput = new Vector2(joyStick.Horizontal, joyStick.Vertical);
+		if (levouDogada) return;
+		joyInput = new Vector2(joyStick.Horizontal, joyStick.Vertical);
 
         if (carroActive.Value == false && pipaActive.Value == false)
         {

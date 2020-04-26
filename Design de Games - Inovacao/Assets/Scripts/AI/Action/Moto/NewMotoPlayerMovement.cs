@@ -30,9 +30,7 @@ public class NewMotoPlayerMovement : MonoBehaviour
 	public float motoTimeToJumpApex = 0.4f;
 
 	bool jump;
-
-	public BoolVariable carroActive;
-	public BoolVariable pipaActive;
+	
 
 	Vector3 velocity;
 	Vector3 motoVelocity;
@@ -58,7 +56,6 @@ public class NewMotoPlayerMovement : MonoBehaviour
 
 	void Update()
 	{
-
 		Vector2 input = new Vector2(joyStick.Horizontal, joyStick.Vertical);
 
 			if (jump == true && controller.collisions.below)
