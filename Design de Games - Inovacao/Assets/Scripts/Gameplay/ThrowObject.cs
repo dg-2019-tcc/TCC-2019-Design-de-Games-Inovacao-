@@ -44,7 +44,7 @@ public class ThrowObject : MonoBehaviour
 
     public bool atirando;
 
-    public static bool shootAnim;
+    public bool shootAnim;
 
     private void Awake()
     {
@@ -83,6 +83,7 @@ public class ThrowObject : MonoBehaviour
 		if (buttonPressed.Value)
 		{
             shootAnim = true;
+            anim.DogButtonAnim(shootAnim);
             atirou = true;
 			DogController.poderEstaAtivo = false;
 
@@ -144,6 +145,7 @@ public class ThrowObject : MonoBehaviour
 	IEnumerator CooldownEffect()
 	{
         shootAnim = false;
+        anim.DogButtonAnim(shootAnim);
         atirando = false;
         yield return new WaitForSeconds(cooldown);
 

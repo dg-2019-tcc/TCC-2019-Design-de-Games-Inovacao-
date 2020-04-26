@@ -25,6 +25,7 @@ public class FutebolPlayer : MonoBehaviour
     private float forceVertical;
 
     public static bool kicked;
+    public bool kickAnim;
 
     public GameObject foot;
 
@@ -105,9 +106,12 @@ public class FutebolPlayer : MonoBehaviour
     {
         //anim.Chute();
         kicked = true;
+        kickAnim = true;
+        anim.DogButtonAnim(kickAnim);
 
         yield return new WaitForSeconds(cooldownKick);
-
+        kickAnim = false;
+        anim.DogButtonAnim(kickAnim);
         kicked = false;
     }
     [PunRPC]
