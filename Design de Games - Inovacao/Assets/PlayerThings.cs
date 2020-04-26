@@ -9,7 +9,8 @@ using UnityEngine.UI;
 
 public class PlayerThings : MonoBehaviour
 {
-    private bool menuCustom;
+	public FloatVariable moveSpeed;
+	private bool menuCustom;
     [SerializeField]
     private bool desativaCanvas;
 

@@ -5,8 +5,8 @@ using UnityEngine;
 [RequireComponent (typeof (Controller2D))]
 public class NewPlayerMovent : MonoBehaviour
 {
-    float moveSpeed = 6;
-    float velocityXSmoothing;
+	public FloatVariable moveSpeed;
+	float velocityXSmoothing;
     float accelerationTimeAirborne = 0.1f;
     float accelerationTimeGrounded = 0.05f;
 
@@ -97,7 +97,7 @@ public class NewPlayerMovent : MonoBehaviour
             }
 
             input.y = joyInput.y;
-            float targetVelocityX = input.x * moveSpeed;
+            float targetVelocityX = input.x * moveSpeed.Value;
             velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (controller.collisions.below) ? accelerationTimeGrounded : accelerationTimeAirborne);
 
 
