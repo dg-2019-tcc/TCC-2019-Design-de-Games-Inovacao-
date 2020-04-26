@@ -66,6 +66,8 @@ public class ThrowObject : MonoBehaviour
         {
             if ( atirou == true && cooldownDelta == 0 && atirando == false)
             {
+                Debug.Log(atirou);
+                Debug.Log(buttonPressed.Value);
                 atirando = true;
                 cooldownDelta += 1;
                 StartCoroutine("StartTiro");
@@ -88,6 +90,10 @@ public class ThrowObject : MonoBehaviour
 			DogController.poderEstaAtivo = false;
 
             gameObject.GetComponent<PhotonView>().RPC("TransformaPet", RpcTarget.All, true);
+        }
+        else
+        {
+            atirou = false;
         }
 
         if (atirando)
@@ -127,6 +133,7 @@ public class ThrowObject : MonoBehaviour
     void Shoot()
     {
 		if (!(bool)photonView.Owner.CustomProperties["dogValue"]) return;
+        Debug.Log("Shoot");
         GameObject bullet;
         bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);// as GameObject;
         bullet.GetComponent<ItemThrow>().InitializeBullet(photonView.Owner);
@@ -136,7 +143,7 @@ public class ThrowObject : MonoBehaviour
 
     IEnumerator StartTiro()
     {
-        
+        atirou = false;
         yield return new WaitForSeconds(1f);
 
         photonView.RPC("Shoot", RpcTarget.All);
