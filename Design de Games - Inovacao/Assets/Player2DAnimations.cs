@@ -78,13 +78,13 @@ public class Player2DAnimations : MonoBehaviour
             NoArUp();
         }
 
-        else if (moveAmount.y < 8 && moveAmount.y >7.5 && controller.collisions.below == false && dogButtonAnim == false)
+        else if (moveAmount.y < 9 && moveAmount.y >7.5 && controller.collisions.below == false && dogButtonAnim == false)
         {
             //Fall();
             TransitionAir();
         }
 
-        else if (moveAmount.y < 7.5 && controller.collisions.below == false && dogButtonAnim == false)
+        else if (moveAmount.y <= 7.5   && controller.collisions.below == false && dogButtonAnim == false)
         {
             //Fall();
             TransitionAir();
@@ -225,7 +225,8 @@ public class Player2DAnimations : MonoBehaviour
     {
         if(state != State.Chutando)
         {
-            player.animation.FadeIn(chuteAnimation, 0.1f, 1);
+            //player.animation.FadeIn(chuteAnimation, 0.1f, 1);
+            player.animation.Play(chuteAnimation);
             player.animation.timeScale = 1;
             state = State.Chutando;
             Debug.Log(state);
@@ -237,7 +238,8 @@ public class Player2DAnimations : MonoBehaviour
     {
         if(state != State.Arremessando)
         {
-            player.animation.FadeIn(arremessoAnimation, 0f, 1);
+            //player.animation.FadeIn(arremessoAnimation, 0f, 1);
+            player.animation.Play(arremessoAnimation);
             player.animation.timeScale = 1;
             state = State.Arremessando;
         }
@@ -248,12 +250,14 @@ public class Player2DAnimations : MonoBehaviour
     {
         if(state != State.Abaixando)
         {
-            player.animation.FadeIn(abaixarAnimation, 0.01f, 1);
+            //player.animation.FadeIn(abaixarAnimation, 0.01f, 1);
+            player.animation.Play(abaixarAnimation);
             player.animation.timeScale = 1;
             state = State.Abaixando;
         }
     }
 
+    [PunRPC]
     public void TransitionAir()
     {
         if(state != State.TransitionAir)
