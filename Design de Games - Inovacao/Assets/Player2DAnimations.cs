@@ -67,7 +67,10 @@ public class Player2DAnimations : MonoBehaviour
 
         else
         {
-            photonView.RPC("ChangeArmature", RpcTarget.All);
+            if (state != State.Idle)
+            {
+                photonView.RPC("ChangeArmature", RpcTarget.All);
+            }
         }
 
 
