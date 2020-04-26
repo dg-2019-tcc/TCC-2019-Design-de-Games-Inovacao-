@@ -25,7 +25,7 @@ public class Player2DAnimations : MonoBehaviour
 
     public enum State {Idle, Walking, Jumping, Rising, Falling, TransitionAir, Aterrisando, Chutando, Abaixando, Arremessando}
 
-    public State state = State.Walking;
+    public State state = State.Idle;
 
     private Controller2D controller;
     [SerializeField]
@@ -71,26 +71,24 @@ public class Player2DAnimations : MonoBehaviour
 
         float moveX = Mathf.Abs(moveAmount.x);
 
-
-
-        if(controller.collisions.below && input.x == 0 && input.y < 0 && dogButtonAnim == false)
-        {
-            Abaixar();
-        }
-
-        else if (oldPos.y < moveAmount.y /*&& controller.collisions.below == false */&& dogButtonAnim == false)
+        if (oldPos.y < moveAmount.y && controller.collisions.below == false && dogButtonAnim == false)
         {
             NoArUp();
         }
 
-        else if (moveAmount.y < -1 /*&& controller.collisions.below == false */&& dogButtonAnim == false)
-        { 
+        else if (moveAmount.y < -2 && controller.collisions.below == false && dogButtonAnim == false)
+        {
             Fall();
         }
 
         else if (moveAmount.y < -1 && controller.collisions.below == true && dogButtonAnim == false)
         {
             Aterrisando();
+        }
+
+        else if (controller.collisions.below && input.x == 0 && input.y < 0 && dogButtonAnim == false)
+        {
+            Abaixar();
         }
 
         else if (input.x != 0 && controller.collisions.below && dogButtonAnim == false)
@@ -113,6 +111,11 @@ public class Player2DAnimations : MonoBehaviour
             if (Jump == false && dogButtonAnim == false && stopJump == false)
             {
                 state = State.Idle;
+            }
+
+            else
+            {
+                state = State.Walking;
             }
         }
     }
