@@ -34,17 +34,8 @@ public class ItemThrow : MonoBehaviour
 
         //shootDirection = ThrowObject.direction;
 
-        if(PlayerThings.leftDir == true)
-        {
-            shootDirection = new Vector2(-0.5f, 0);
-        }
 
-        if(PlayerThings.rightDir == true)
-        {
-            shootDirection = new Vector2(0.5f, 0);
-        }
-
-        rb.velocity = shootDirection * bulletSpeed.Value;
+        //rb.velocity = Vector3.forward * bulletSpeed.Value;
         rb.position += rb.velocity;
 
 		Owner.CustomProperties["atirou"] = true;
@@ -53,7 +44,7 @@ public class ItemThrow : MonoBehaviour
 
     private void Update()
     {
-        rb.velocity = shootDirection * bulletSpeed.Value;
+        rb.velocity = transform.right * bulletSpeed.Value * Time.deltaTime;
         rb.position += rb.velocity;
 
         timeDestroy += Time.deltaTime;
