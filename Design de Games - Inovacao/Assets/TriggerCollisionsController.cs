@@ -81,13 +81,12 @@ public class TriggerCollisionsController : RaycastController
             rayOrigin += Vector2.up * (horizontalRaySpacing * i);
             RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.right * directionX, rayLenght, collisionMask);
 
-            Debug.DrawRay(rayOrigin, Vector2.right * directionX, Color.red);
+            //Debug.DrawRay(rayOrigin, Vector2.right * directionX, Color.red);
 
             if (hit)
             {
                 if(hit.collider.tag == "Porta")
                 {
-                    Debug.Log("Right");
                     PortaManager porta = hit.collider.GetComponent<PortaManager>();
                     porta.OpenDoor();
                     return;
@@ -158,13 +157,12 @@ public class TriggerCollisionsController : RaycastController
             rayOrigin += Vector2.up * (horizontalRaySpacing * i);
             RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.right * directionX, rayLenght, collisionMask);
 
-            Debug.DrawRay(rayOrigin, Vector2.right * directionX, Color.red);
+            //Debug.DrawRay(rayOrigin, Vector2.right * directionX, Color.red);
 
             if (hit)
             {
                 if (hit.collider.tag == "Porta")
                 {
-                    Debug.Log("left");
                     hit.collider.GetComponent<PortaManager>().OpenDoor();
                     continue;
                 }
@@ -228,7 +226,7 @@ public class TriggerCollisionsController : RaycastController
             rayOrigin += Vector2.right * (verticalRaySpacing * i);
             RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.up * directionY, rayLenght, collisionMask);
 
-            Debug.DrawRay(rayOrigin, Vector2.up * directionY, Color.red);
+            //Debug.DrawRay(rayOrigin, Vector2.up * directionY, Color.red);
 
             if (hit)
             {
@@ -282,13 +280,12 @@ public class TriggerCollisionsController : RaycastController
             rayOrigin += Vector2.right * (verticalRaySpacing * i);
             RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.up * directionY, rayLenght, collisionMask);
 
-            Debug.DrawRay(rayOrigin, Vector2.up * directionY, Color.red);
+            //Debug.DrawRay(rayOrigin, Vector2.up * directionY, Color.red);
 
             if (hit)
             {
                 if (hit.collider.tag == "Porta")
                 {
-                    Debug.Log("down");
                     hit.collider.GetComponent<PortaManager>().OpenDoor();
                     continue;
                 }
@@ -319,7 +316,6 @@ public class TriggerCollisionsController : RaycastController
 
                 if(hit.collider.tag == "GolSelect")
                 {
-                    Debug.Log("Select");
                     GolSelect select = hit.collider.GetComponent<GolSelect>();
                     select.jogador = playerThings.GetComponent<PlayerThings>();
                     hit.collider.GetComponent<BoxCollider2D>().enabled = false;

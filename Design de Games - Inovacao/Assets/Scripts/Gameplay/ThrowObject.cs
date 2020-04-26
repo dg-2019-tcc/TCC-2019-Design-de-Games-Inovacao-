@@ -30,7 +30,7 @@ public class ThrowObject : MonoBehaviour
 	[HideInInspector]
     public PhotonView photonView;
 
-    //public Animator playerAC;
+    public Player2DAnimations anim;
 
     public AudioSource tiroSom;
 
@@ -40,16 +40,20 @@ public class ThrowObject : MonoBehaviour
 
     public bool atirou;
 
+    public static bool shootAnim;
+
     private void Awake()
     {
         photonView = gameObject.GetComponent<PhotonView>();
+        anim = GetComponent<Player2DAnimations>();
        // SwipeDetector.OnSwipe += SwipeDirection;
 		cooldownDelta = 0;
 		EfeitoDeCooldown.SetActive(false);
 
         tiroImage = tiroButton.GetComponent<Image>();
+        buttonPressed.Value = false;
 
-	}
+    }
 
 
     void Update()
@@ -58,8 +62,8 @@ public class ThrowObject : MonoBehaviour
         {
             if (/*SwipeDetector.shoot == true*/ atirou == true && cooldownDelta <= 0)
             {
-                //StartCoroutine("StartTiro");
-                photonView.RPC("Shoot", RpcTarget.All);
+                StartCoroutine("StartTiro");
+                //photonView.RPC("Shoot", RpcTarget.All);
                 atirou = false;
                 //SwipeDetector.shoot = false;
             }
@@ -75,7 +79,8 @@ public class ThrowObject : MonoBehaviour
 
 		if (buttonPressed.Value)
 		{
-			atirou = true;
+            shootAnim = true;
+            atirou = true;
 			DogController.poderEstaAtivo = false;
 			
 			gameObject.GetComponent<PhotonView>().RPC("TransformaPet", RpcTarget.All, true);
@@ -88,11 +93,11 @@ public class ThrowObject : MonoBehaviour
 		buttonPressed.Value = true;
     }
 
-
     [PunRPC]
     void Shoot()
     {
 		if (!(bool)photonView.Owner.CustomProperties["dogValue"] || cooldownDelta > 0) return;
+        Debug.Log(shootAnim);
         GameObject bullet;
         bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);// as GameObject;
         bullet.GetComponent<ItemThrow>().InitializeBullet(photonView.Owner);
@@ -100,7 +105,7 @@ public class ThrowObject : MonoBehaviour
         cooldownDelta = cooldown;
 		StartCoroutine("CooldownEffect");
 		photonView.Owner.CustomProperties["atirou"] = true;
-		SwipeDetector.shoot = false;
+        SwipeDetector.shoot = false;
     }
 
     IEnumerator StartTiro()
@@ -113,7 +118,6 @@ public class ThrowObject : MonoBehaviour
 	IEnumerator CooldownEffect()
 	{
         var tempColor = tiroImage.color;
-
         tempColor.a = 0.1f;
         tiroImage.color = tempColor;
         dogImage.color = tempColor;
@@ -123,7 +127,9 @@ public class ThrowObject : MonoBehaviour
         //EfeitoDeCooldown.SetActive(false);
 
         gameObject.GetComponent<PhotonView>().RPC("TransformaPet", RpcTarget.All, false);
-
+        shootAnim = false;
+        Debug.Log(shootAnim);
+        atirou = false;
         tempColor.a = 1f;
         tiroImage.color = tempColor;
         dogImage.color = tempColor;

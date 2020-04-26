@@ -47,7 +47,7 @@ public class PortaManager : MonoBehaviour
         {
             CloseDoor();
         }
-		if (joy.Vertical >= 0.5f && ButtonJogarCorrida == true)
+		/*if (joy.Vertical >= 0.5f && ButtonJogarCorrida == true)
 		{
 
 			lobbyController.DelayStart("Corrida");
@@ -79,7 +79,7 @@ public class PortaManager : MonoBehaviour
 		{
 			lobbyController.DelayStart("Customizar");
 			//ButtonJogarColeta = false;
-		}
+		}*/
 
 	}
 
