@@ -114,7 +114,12 @@ public class TriggerCollisionsController : RaycastController
                     dogController.Pipa();
                 }
 
-                if(hit.collider.tag == "Volei")
+				if (hit.collider.tag == "DogTiro")
+				{
+					playerThings.StartCoroutine("LevouDogada");
+				}
+
+				if (hit.collider.tag == "Volei")
                 {
                     if (PlayerThings.rightDir)
                     {
@@ -184,12 +189,17 @@ public class TriggerCollisionsController : RaycastController
                     dogController.Carro();
                 }
 
-                if (hit.collider.tag == "Pipa")
-                {
-                    dogController.Pipa();
-                }
+				if (hit.collider.tag == "Pipa")
+				{
+					dogController.Pipa();
+				}
 
-                if (hit.collider.tag == "Volei")
+				if (hit.collider.tag == "DogTiro")
+				{
+					playerThings.StartCoroutine("LevouDogada");
+				}
+
+				if (hit.collider.tag == "Volei")
                 {
                     if (PlayerThings.rightDir)
                     {

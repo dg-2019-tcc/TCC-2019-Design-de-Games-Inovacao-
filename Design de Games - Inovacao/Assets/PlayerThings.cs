@@ -9,7 +9,7 @@ using UnityEngine.UI;
 
 public class PlayerThings : MonoBehaviour
 {
-	public FloatVariable moveSpeed;
+	
 	private bool menuCustom;
     [SerializeField]
     private bool desativaCanvas;
@@ -30,7 +30,11 @@ public class PlayerThings : MonoBehaviour
     public GameObject carro;
     public GameObject pipa;
 
-    static public bool acabouPartida;
+	[Header ("Tiro")]
+	public BoolVariable levou;
+	public float StunTime;
+
+	static public bool acabouPartida;
 
     [SerializeField]
     public Joystick joyStick;
@@ -183,4 +187,18 @@ public class PlayerThings : MonoBehaviour
             pipa.transform.rotation = direction;
         }
     }
+
+	public IEnumerator LevouDogada()
+	{
+		if (PV.IsMine)
+		{
+			levou.Value = true;
+			yield return new WaitForSeconds(StunTime);
+			levou.Value = false;
+		}
+		else
+		{
+			yield return new WaitForSeconds(0);
+		}
+	}
 }

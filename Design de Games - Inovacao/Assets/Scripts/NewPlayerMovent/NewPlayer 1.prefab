@@ -183,6 +183,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 456369655638aba44b0b7a9ece680314, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveSpeed: {fileID: 0}
   maxJumpHeight: 16
   minJumpHeight: 2
   timeToJumpApex: 0.75
@@ -192,6 +193,7 @@ MonoBehaviour:
   motoTimeToJumpApex: 0.4
   carroActive: {fileID: 0}
   pipaActive: {fileID: 0}
+  levouDogada: {fileID: 0}
   oldPosition: {x: 0, y: 0}
   joyStick: {fileID: 0}
 --- !u!114 &7680839277090315728
@@ -214,6 +216,8 @@ MonoBehaviour:
   player: {fileID: 450271439136576786}
   carro: {fileID: 4146247769646661011}
   pipa: {fileID: 4146247768963180456}
+  levou: {fileID: 0}
+  StunTime: 3
   joyStick: {fileID: 0}
   playerParado: {fileID: 0}
   playerAndando: {fileID: 0}
@@ -327,6 +331,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   frente: {fileID: 0}
   lado: {fileID: 0}
+  idlePose: SettingPose_SD
   walkAnimation: 0_Corrida
   startJumpAnimation: 1_Pulo
   subindoJumpAnimation: 1_NoAr(1_Subindo)
@@ -334,8 +339,13 @@ MonoBehaviour:
   descendoJumpAnimation: 1_NoAr(3_Descendo)
   aterrisandoAnimation: 1_Aterrisando
   chuteAnimation: 3_Bicuda(SemPreparacao)
+  abaixarAnimation: 5_Abaixar(2_IdlePose)
+  arremessoAnimation: 6_Arremessar(3_Arremesso)
   oldPos: {x: 0, y: 0}
+  state: 1
   player: {fileID: 842964514470067558}
+  dogButtonAnim: 0
+  fase: 0
 --- !u!1 &7680839276383124131
 GameObject:
   m_ObjectHideFlags: 0
@@ -2444,10 +2454,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4637762345028519185}
     m_Modifications:
-    - target: {fileID: 7921874835016137745, guid: a596387b59d9d4d48b97c8dd869157ed,
+    - target: {fileID: 3976469194639683050, guid: a596387b59d9d4d48b97c8dd869157ed,
         type: 3}
-      propertyPath: m_Name
-      value: Personagem_SDs
+      propertyPath: _sortingLayerName
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 359175583785690188, guid: a596387b59d9d4d48b97c8dd869157ed,
         type: 3}
@@ -2519,10 +2529,10 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.10381
       objectReference: {fileID: 0}
-    - target: {fileID: 3976469194639683050, guid: a596387b59d9d4d48b97c8dd869157ed,
+    - target: {fileID: 7921874835016137745, guid: a596387b59d9d4d48b97c8dd869157ed,
         type: 3}
-      propertyPath: _sortingLayerName
-      value: Player
+      propertyPath: m_Name
+      value: Personagem_SDs
       objectReference: {fileID: 0}
     - target: {fileID: 7652440561157148523, guid: a596387b59d9d4d48b97c8dd869157ed,
         type: 3}
