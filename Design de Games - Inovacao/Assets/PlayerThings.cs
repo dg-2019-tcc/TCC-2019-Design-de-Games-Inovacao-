@@ -208,7 +208,7 @@ public class PlayerThings : MonoBehaviour
 	{
 		if (!PV.IsMine)
 		{
-			transform.position = newPos;
+			transform.position = Vector3.Lerp(transform.position, newPos, 0.5f);
 		}
 	}
 }
