@@ -28,10 +28,13 @@ public class ItemThrow : MonoBehaviour
     public BoolVariable dog;
 
 
+	private bool isLocal
+
+
     public void InitializeBullet(Photon.Realtime.Player owner)
     {
         Owner = owner;
-
+		isLocal = owner.IsLocal;
         //shootDirection = ThrowObject.direction;
 
 
@@ -61,23 +64,29 @@ public class ItemThrow : MonoBehaviour
 
         if (collision.CompareTag("Pipa"))
         {
-            totemTarget = collision.transform;
-            hitTotemPipa.Value = true;
-			Owner.CustomProperties["dogPipa"] = true;
-            //tokenSom.Play();
-            
-			Owner.CustomProperties["acertouTotem"] = true;
+			if (isLocal)
+			{
+				totemTarget = collision.transform;
+				hitTotemPipa.Value = true;
+				Owner.CustomProperties["dogPipa"] = true;
+				//tokenSom.Play();
+
+				Owner.CustomProperties["acertouTotem"] = true;
+			}
             timeDestroy = 4.9f;
         }
 
         if (collision.CompareTag("Carrinho"))
         {
-            totemTarget = collision.transform;
-            hitTotemCarro.Value = true;
-            Owner.CustomProperties["dogCarro"] = true;
-            //tokenSom.Play();
-            
-			Owner.CustomProperties["acertouTotem"] = true;
+			if (isLocal)
+			{
+				totemTarget = collision.transform;
+				hitTotemCarro.Value = true;
+				Owner.CustomProperties["dogCarro"] = true;
+				//tokenSom.Play();
+
+				Owner.CustomProperties["acertouTotem"] = true;
+			}
             timeDestroy = 4.9f;
 
         }
@@ -93,9 +102,12 @@ public class ItemThrow : MonoBehaviour
 
 		if (collision.CompareTag("Coletavel"))
 		{
-            DestroyColetavel2D coletavel = collision.GetComponent<DestroyColetavel2D>();
-            coletavel.PegouColetavel();
-			Owner.AddScore(1);
+			if (isLocal)
+			{
+				DestroyColetavel2D coletavel = collision.GetComponent<DestroyColetavel2D>();
+				coletavel.PegouColetavel();
+				Owner.AddScore(1);
+			}
 		}
     }
 }
