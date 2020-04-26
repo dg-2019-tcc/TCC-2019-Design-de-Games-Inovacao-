@@ -56,7 +56,7 @@ public class Player2DAnimations : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!PhotonNetwork.InRoom || photonView.IsMine)
+        if (!PhotonNetwork.InRoom)
         {
             if (state != State.Idle)
             {
@@ -242,6 +242,7 @@ public class Player2DAnimations : MonoBehaviour
     [PunRPC]
     public void Walking(float animTime, Vector2 oldPos, Vector2 moveAmount)
     {
+
         if (state != State.Walking )
         {
             //player.animation.FadeIn(walkAnimation, 0.1f,0);
