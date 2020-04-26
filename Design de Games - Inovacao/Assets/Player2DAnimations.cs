@@ -26,20 +26,24 @@ public class Player2DAnimations : MonoBehaviour
     public State state = State.Walking;
 
     private Controller2D controller;
+    [SerializeField]
+    private UnityArmatureComponent player;
 
-    public UnityArmatureComponent player;
+    public Armature armature;
 
     public BoolVariable dogBotao;
+
 
     //private DragonBones.AnimationState aimState = null;
 
     private void Start()
     {
         controller = GetComponent<Controller2D>();
+        player.animation.Init(armature);
         state = State.Idle;
     }
 
-    private void Update()
+    /*private void Update()
     {
         if(state == State.Idle)
         {
@@ -52,7 +56,7 @@ public class Player2DAnimations : MonoBehaviour
             lado.SetActive(true);
             frente.SetActive(false);
         }
-    }
+    }*/
 
 
 
@@ -122,6 +126,7 @@ public class Player2DAnimations : MonoBehaviour
         if (state != State.Walking)
         {
             player.animation.FadeIn(walkAnimation, 0.2f,0);
+            player.animation.timeScale = 1;
             state = State.Walking;
             //Debug.Log(state);
         }
@@ -132,6 +137,7 @@ public class Player2DAnimations : MonoBehaviour
         if (state != State.Jumping)
         {
             player.animation.FadeIn(startJumpAnimation,0f,1);
+            player.animation.timeScale = 1;
             state = State.Jumping;
             //Debug.Log(state);
         }
@@ -142,6 +148,7 @@ public class Player2DAnimations : MonoBehaviour
         if (state != State.Rising)
         {
             player.animation.FadeIn(subindoJumpAnimation, 0.1f, 0);
+            player.animation.timeScale = 1;
             state = State.Rising;
             //Debug.Log(state);
         }
@@ -153,6 +160,7 @@ public class Player2DAnimations : MonoBehaviour
         {
            
             player.animation.FadeIn(descendoJumpAnimation, 0.1f,0);
+            player.animation.timeScale = 1;
             state = State.Falling;
             //Debug.Log(state);
         }
@@ -163,6 +171,7 @@ public class Player2DAnimations : MonoBehaviour
         if(state != State.Aterrisando)
         {
             player.animation.FadeIn(aterrisandoAnimation, 0.1f, 1);
+            player.animation.timeScale = 1;
             state = State.Aterrisando;
         }
     }
@@ -172,6 +181,7 @@ public class Player2DAnimations : MonoBehaviour
         if(state != State.Chutando)
         {
             player.animation.FadeIn(chuteAnimation, 0.1f, 1);
+            player.animation.timeScale = 1;
             state = State.Chutando;
             Debug.Log(state);
         }
@@ -182,6 +192,7 @@ public class Player2DAnimations : MonoBehaviour
         if(state != State.Arremessando)
         {
             player.animation.FadeIn(arremessoAnimation, 0f, 1);
+            player.animation.timeScale = 1;
             state = State.Arremessando;
         }
     }
@@ -191,6 +202,7 @@ public class Player2DAnimations : MonoBehaviour
         if(state != State.Abaixando)
         {
             player.animation.FadeIn(abaixarAnimation, 0.2f, 1);
+            player.animation.timeScale = 1;
             state = State.Abaixando;
         }
     }

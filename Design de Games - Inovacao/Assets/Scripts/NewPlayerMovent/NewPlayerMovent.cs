@@ -169,7 +169,7 @@ public class NewPlayerMovent : MonoBehaviour
     public void Jump()
     {
         jump = true;
-        animations.ChangeMoveAnim(velocity, oldPosition, input, jump, stopJump);
+        //animations.ChangeMoveAnim(velocity, oldPosition, input, jump, stopJump);
         if (animations.state != Player2DAnimations.State.Chutando)
         {
             animations.StartPulo();
@@ -186,7 +186,7 @@ public class NewPlayerMovent : MonoBehaviour
     {
         stopJump = true;
         //jump = false;
-        animations.ChangeMoveAnim(velocity, oldPosition, input, jump, stopJump);
+        //animations.ChangeMoveAnim(velocity, oldPosition, input, jump, stopJump);
         //animations.TransitionAir();
         if (velocity.y > minJumpVelocity)
         {
