@@ -224,6 +224,8 @@ public class Player2DAnimations : MonoBehaviour
     {
         if(state != State.Idle)
         {
+            frente.SetActive(true);
+            lado.SetActive(false);
             state = State.Idle;
         }
     }
