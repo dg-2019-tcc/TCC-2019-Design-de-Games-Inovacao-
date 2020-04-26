@@ -28,7 +28,7 @@ public class ItemThrow : MonoBehaviour
     public BoolVariable dog;
 
 
-	private bool isLocal
+	private bool isLocal;
 
 
     public void InitializeBullet(Photon.Realtime.Player owner)
