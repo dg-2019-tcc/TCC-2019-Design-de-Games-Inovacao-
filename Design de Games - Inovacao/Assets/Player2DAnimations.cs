@@ -152,7 +152,8 @@ public class Player2DAnimations : MonoBehaviour
     {
         if (state != State.Walking)
         {
-            player.animation.FadeIn(walkAnimation, 0.2f,0);
+            //player.animation.FadeIn(walkAnimation, 0.1f,0);
+            player.animation.Play(walkAnimation);
             player.animation.timeScale = 1;
             state = State.Walking;
             //Debug.Log(state);
@@ -176,7 +177,8 @@ public class Player2DAnimations : MonoBehaviour
     {
         if (state != State.Rising)
         {
-            player.animation.FadeIn(subindoJumpAnimation, 0.1f, 0);
+            //player.animation.FadeIn(subindoJumpAnimation, 0.01f, 0);
+            player.animation.Play(subindoJumpAnimation);
             player.animation.timeScale = 1;
             state = State.Rising;
             //Debug.Log(state);
@@ -188,8 +190,9 @@ public class Player2DAnimations : MonoBehaviour
     {
         if (state != State.Falling)
         {
-           
-            player.animation.FadeIn(descendoJumpAnimation, 0.1f,0);
+
+            player.animation.FadeIn(descendoJumpAnimation, 0.25f,0);
+            //player.animation.Play(descendoJumpAnimation);
             player.animation.timeScale = 1;
             state = State.Falling;
             //Debug.Log(state);
@@ -201,7 +204,8 @@ public class Player2DAnimations : MonoBehaviour
     {
         if(state != State.Aterrisando)
         {
-            player.animation.FadeIn(aterrisandoAnimation, 0.1f, 1);
+            //player.animation.FadeIn(aterrisandoAnimation, 0.01f, 1);
+            player.animation.Play(aterrisandoAnimation);
             player.animation.timeScale = 1;
             state = State.Aterrisando;
         }
@@ -235,7 +239,7 @@ public class Player2DAnimations : MonoBehaviour
     {
         if(state != State.Abaixando)
         {
-            player.animation.FadeIn(abaixarAnimation, 0.2f, 1);
+            player.animation.FadeIn(abaixarAnimation, 0.01f, 1);
             player.animation.timeScale = 1;
             state = State.Abaixando;
         }

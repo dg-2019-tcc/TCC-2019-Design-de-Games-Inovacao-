@@ -113,6 +113,8 @@ public class NewPlayerMovent : MonoBehaviour
                 jump = false;
                 stopJump = false;
             }
+
+
         }
 
         else
