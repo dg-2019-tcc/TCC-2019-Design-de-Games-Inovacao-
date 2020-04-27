@@ -38,16 +38,19 @@ public class PortaManager : MonoBehaviour
 		{
 			joy = FindObjectOfType<Joystick>();
 		}
-
-        if (controller.collisions.isDoor == true)
+		
+        if (controller.collisions.isDoor != true)
         {
-            Debug.Log("Abri");
+			CloseDoor();
+			/*
+			Debug.Log("Abri");
             OpenDoor();
             Debug.Log(controller.collisions.isDoor);
+			*/
         }
         else
         {
-            CloseDoor();
+            
         }
 
 		if (joyGambiarra < joy.Vertical)
@@ -91,8 +94,10 @@ public class PortaManager : MonoBehaviour
 
     public void OpenDoor()
     {
+		controller.collisions.isDoor = true;
 
-        switch (qualPorta)
+
+		switch (qualPorta)
         {
             default:
                 break;
