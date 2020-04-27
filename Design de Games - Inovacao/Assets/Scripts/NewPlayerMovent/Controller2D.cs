@@ -56,7 +56,7 @@ public class Controller2D : RaycastController
             rayOrigin += Vector2.up * (horizontalRaySpacing * i);
             RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.right * directionX, rayLenght, collisionMask);
 
-            //Debug.DrawRay(rayOrigin, Vector2.right * directionX, Color.red);
+            Debug.DrawRay(rayOrigin, Vector2.right * directionX, Color.red);
 
             if (hit)
             {
@@ -78,9 +78,10 @@ public class Controller2D : RaycastController
                         continue;
                     }
 
-                    if (playerInput.x < -0.5 || playerInput.x > 0.5)
+                    if (playerInput.x < -0.5 || playerInput.x > 0.5 && collisions.climbingSlope == false && collisions.descendingSlope == false)
                     {
                         collisions.fallingPlatform = true;
+                        Debug.Log(collisions.climbingSlope);
                         Invoke("ResetFallingPlatform", 0.1f);
                         continue;
                     }
@@ -134,7 +135,7 @@ public class Controller2D : RaycastController
             rayOrigin += Vector2.right * (verticalRaySpacing * i + moveAmount.x);
             RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.up * directionY, rayLenght, collisionMask);
 
-           // Debug.DrawRay(rayOrigin , Vector2.up * directionY, Color.red);
+            Debug.DrawRay(rayOrigin , Vector2.up * directionY, Color.red);
 
             if (hit)
             {
