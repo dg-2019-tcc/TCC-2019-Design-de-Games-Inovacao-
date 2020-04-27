@@ -119,7 +119,7 @@ public class DogController : MonoBehaviour
 
             poderEstaAtivo = true;
 
-            StartCoroutine(TempoParaDesativar(6f));
+            //StartCoroutine(TempoParaDesativar(6f));
         }
 
     }
@@ -140,7 +140,7 @@ public class DogController : MonoBehaviour
 
             poderEstaAtivo = true;
             //tokenAudioEvent.Play(tokenSom);
-            StartCoroutine(TempoParaDesativar(6f));
+            //StartCoroutine(TempoParaDesativar(6f));
         }
     }
 
@@ -171,15 +171,15 @@ public class DogController : MonoBehaviour
 		}
     }
 
-    private IEnumerator TempoParaDesativar(float waitTime)
+    /*private IEnumerator TempoParaDesativar(float waitTime)
     {
         Debug.Log("VaiDesativar");
         yield return new WaitForSeconds(waitTime);
         Debug.Log("Desativou");
-        poderEstaAtivo = false;
+        //poderEstaAtivo = false;
         dogAtivo.Value = true;
 
-    }
+    }*/
 
 	
 }
