@@ -21,8 +21,6 @@ public class Player2DAnimations : MonoBehaviour
     public string abaixarAnimation = "5_Abaixar(2_IdlePose)";
     public string arremessoAnimation = "6_Arremessar(3_Arremesso)";
 
-    public Vector2 oldPos;
-
     public enum State {Idle, Walking, Jumping, Rising, Falling, TransitionAir, Aterrisando, Chutando, Abaixando, Arremessando}
 
     public State state = State.Idle;
@@ -43,6 +41,11 @@ public class Player2DAnimations : MonoBehaviour
     float moveX;
     float inputX;
 
+    [SerializeField]
+    private bool jaAterrisou;
+    [SerializeField]
+    private float coolToIdle;
+
 
     //private DragonBones.AnimationState aimState = null;
 
@@ -54,27 +57,6 @@ public class Player2DAnimations : MonoBehaviour
         state = State.Idle;
     }
 
-    /*private void LateUpdate()
-    {
-        if (!PhotonNetwork.InRoom)
-        {
-            if (state != State.Idle)
-            {
-                ChangeArmature();
-            }
-
-        }
-
-        else
-        {
-            if (state != State.Idle)
-            {
-                photonView.RPC("ChangeArmature", RpcTarget.All);
-            }
-        }
-
-
-    }*/
 
     [PunRPC]
     void ChangeArmature()
@@ -94,9 +76,26 @@ public class Player2DAnimations : MonoBehaviour
             //lado.SetActive(true);
             moveX = Mathf.Abs(moveAmount.x);
 
+            if (state == State.Aterrisando || state == State.Walking || state == State.Abaixando)
+            {
+                if (state == State.Walking && input.x == 0)
+                {
+                    coolToIdle = 0.66f;
+                }
+                else
+                {
+                    coolToIdle += Time.deltaTime;
+                }
+            }
+
+            if(moveAmount.y < -2 && jaAterrisou && state != State.Aterrisando)
+            {
+                jaAterrisou = false;
+            }
 
             if (oldPos.y < moveAmount.y && controller.collisions.below == false && dogButtonAnim == false)
             {
+                jaAterrisou = false;
                 if (!PhotonNetwork.InRoom)
                 {
                     NoArUp();
@@ -120,7 +119,7 @@ public class Player2DAnimations : MonoBehaviour
                 }
             }
 
-            else if (moveAmount.y <= 0 && controller.collisions.below == false && dogButtonAnim == false)
+            else if (moveAmount.y <= 0 && controller.collisions.below == false && dogButtonAnim == false && jaAterrisou == false)
             {
                 if (!PhotonNetwork.InRoom)
                 {
@@ -132,7 +131,7 @@ public class Player2DAnimations : MonoBehaviour
                 }
             }
 
-            else if (moveAmount.y < -1 && controller.collisions.below == true && dogButtonAnim == false)
+            else if (moveAmount.y < -1f && input.x == 0 && input.y >=0 && controller.collisions.below == true && dogButtonAnim == false && jaAterrisou == false)
             {
                 if (!PhotonNetwork.InRoom)
                 {
@@ -169,19 +168,9 @@ public class Player2DAnimations : MonoBehaviour
 
             }
 
-            /*else if (ThrowObject.shootAnim == true)
+            else 
             {
-                Arremesso();
-            }
-
-            else if (FutebolPlayer.kicked)
-            {
-                Chute();
-            }*/
-
-            else
-            {
-                if (Jump == false && dogButtonAnim == false && stopJump == false)
+                if (Jump == false && dogButtonAnim == false && stopJump == false && jaAterrisou == true && coolToIdle >= 0.66f)
                 {
                     if (!PhotonNetwork.InRoom)
                     {
@@ -233,6 +222,8 @@ public class Player2DAnimations : MonoBehaviour
     {
         if(state != State.Idle)
         {
+            coolToIdle = 0;
+            Debug.Log(state);
             frente.SetActive(true);
             lado.SetActive(false);
             state = State.Idle;
@@ -242,19 +233,17 @@ public class Player2DAnimations : MonoBehaviour
     [PunRPC]
     public void Walking(float animTime, Vector2 oldPos, Vector2 moveAmount)
     {
-            if(state == State.Idle)
+        if(state == State.Idle)
         {
             lado.SetActive(true);
             frente.SetActive(false);
         }
 
-
-
         if (state != State.Walking )
         {
             //player.animation.FadeIn(walkAnimation, 0.1f,0);
             player.animation.Play(walkAnimation);
-            player.animation.timeScale = 1.75f;
+            player.animation.timeScale = 1;
             state = State.Walking;
             //Debug.Log(state);
         }
@@ -330,6 +319,7 @@ public class Player2DAnimations : MonoBehaviour
             player.animation.Play(aterrisandoAnimation);
             player.animation.timeScale = 1;
             state = State.Aterrisando;
+            jaAterrisou = true;
         }
     }
 
