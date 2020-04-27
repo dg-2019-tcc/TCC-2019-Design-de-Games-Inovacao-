@@ -130,6 +130,7 @@ public class NewPlayerMovent : MonoBehaviour
 
             if (carroActive.Value == true)
             {
+                Debug.Log("Carro");
                 if (jump == true && controller.collisions.below)
                 {
                     Debug.Log("Jump");
@@ -152,6 +153,7 @@ public class NewPlayerMovent : MonoBehaviour
             }
             if (pipaActive.Value == true)
             {
+                Debug.Log("Pipa");
                 float targetVelocityX = input.x * pipaMoveSpeed;
                 pipaVelocity.x = Mathf.SmoothDamp(pipaVelocity.x, targetVelocityX, ref pipaVelocityXSmoothing, pipaAccelerationTimeAirborne);
 
