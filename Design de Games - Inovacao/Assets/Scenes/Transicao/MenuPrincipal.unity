@@ -332,12 +332,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 505884032}
   m_CullTransparentMesh: 0
---- !u!4 &591859258 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3093989556692425614, guid: b55d2e1ab2d7bd549ac89f31c645dccd,
-    type: 3}
-  m_PrefabInstance: {fileID: 3093989555294577672}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &730069968
 GameObject:
   m_ObjectHideFlags: 0
@@ -457,36 +451,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ListenerNumber: -1
---- !u!1 &1113608902
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1113608903}
-  m_Layer: 0
-  m_Name: "Bot\xE3o"
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1113608903
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1113608902}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 591859258}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1344388013 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3093989554993309796, guid: b55d2e1ab2d7bd549ac89f31c645dccd,
@@ -506,7 +470,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CollisionTag: 
-  Event: event:/MUSIC/Musica_MenuInicial
+  Event: event:/MUSIC/MenuInicial (Old)
   PlayEvent: 1
   StopEvent: 2
   AllowFadeout: 1
@@ -854,15 +818,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3093989555605102039, guid: b55d2e1ab2d7bd549ac89f31c645dccd,
+    - target: {fileID: 3093989556692425613, guid: b55d2e1ab2d7bd549ac89f31c645dccd,
         type: 3}
-      propertyPath: m_Mesh
+      propertyPath: m_Icon
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3093989556692425613, guid: b55d2e1ab2d7bd549ac89f31c645dccd,
+        type: 3}
+      propertyPath: m_Name
+      value: _Sons
+      objectReference: {fileID: 0}
+    - target: {fileID: 3093989554993309796, guid: b55d2e1ab2d7bd549ac89f31c645dccd,
+        type: 3}
+      propertyPath: m_Name
+      value: Musica MenuInicial
       objectReference: {fileID: 0}
     - target: {fileID: 3093989555086665139, guid: b55d2e1ab2d7bd549ac89f31c645dccd,
         type: 3}
       propertyPath: nomeDoMenu
       value: Historia
+      objectReference: {fileID: 0}
+    - target: {fileID: 3093989555605102039, guid: b55d2e1ab2d7bd549ac89f31c645dccd,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3093989555374318790, guid: b55d2e1ab2d7bd549ac89f31c645dccd, type: 3}
