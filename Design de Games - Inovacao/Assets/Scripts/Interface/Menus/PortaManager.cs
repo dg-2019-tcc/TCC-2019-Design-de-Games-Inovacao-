@@ -41,6 +41,7 @@ public class PortaManager : MonoBehaviour
 
         if (controller.collisions.isDoor == true)
         {
+            Debug.Log("Abri");
             OpenDoor();
             Debug.Log(controller.collisions.isDoor);
         }
@@ -160,7 +161,7 @@ public class PortaManager : MonoBehaviour
 
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    /*private void OnTriggerEnter2D(Collider2D collision)
 	{
 		if (collision.CompareTag("Player")){
 			switch (qualPorta)
@@ -232,5 +233,5 @@ public class PortaManager : MonoBehaviour
 			}
 
 		}
-	}
+	}*/
 }

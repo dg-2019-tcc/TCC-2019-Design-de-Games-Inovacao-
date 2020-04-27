@@ -70,21 +70,10 @@ public class DogController : MonoBehaviour
 		{
 
 
-			if (PlayerMovement.acabou == true)
-			{
-				carrinhoObj.SetActive(false);
-				pipaObj.SetActive(false);
-				playerModel.SetActive(true);
-			}
-
-
 			if (poderEstaAtivo == false)
 			{
-				//efeitoPipa.effectVar = 0;
 				efeitoCarro.effectTime = 0;
-				//pipaSom.Stop();
-				//carroSom.Stop();
-			//	dogAtivo.Value = true;
+
 				gameObject.GetComponent<PhotonView>().RPC("DesativaPowerUps", RpcTarget.All);
 			}
 
@@ -211,7 +200,9 @@ public class DogController : MonoBehaviour
 
     private IEnumerator TempoParaDesativar(float waitTime)
     {
+        Debug.Log("VaiDesativar");
         yield return new WaitForSeconds(waitTime);
+        Debug.Log("Desativou");
         poderEstaAtivo = false;
         dogAtivo.Value = true;
 

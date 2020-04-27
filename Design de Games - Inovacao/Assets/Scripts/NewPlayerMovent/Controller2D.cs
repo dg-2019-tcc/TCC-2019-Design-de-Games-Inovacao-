@@ -81,7 +81,6 @@ public class Controller2D : RaycastController
                     if (playerInput.x < -0.5 || playerInput.x > 0.5 && collisions.climbingSlope == false && collisions.descendingSlope == false)
                     {
                         collisions.fallingPlatform = true;
-                        Debug.Log(collisions.climbingSlope);
                         Invoke("ResetFallingPlatform", 0.1f);
                         continue;
                     }

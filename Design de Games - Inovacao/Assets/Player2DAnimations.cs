@@ -242,7 +242,7 @@ public class Player2DAnimations : MonoBehaviour
     [PunRPC]
     public void Walking(float animTime, Vector2 oldPos, Vector2 moveAmount)
     {
-        if(state == State.Idle)
+            if(state == State.Idle)
         {
             lado.SetActive(true);
             frente.SetActive(false);
@@ -254,7 +254,7 @@ public class Player2DAnimations : MonoBehaviour
         {
             //player.animation.FadeIn(walkAnimation, 0.1f,0);
             player.animation.Play(walkAnimation);
-            player.animation.timeScale = 1.75f;
+            player.animation.timeScale = 1f;
             state = State.Walking;
             //Debug.Log(state);
         }
