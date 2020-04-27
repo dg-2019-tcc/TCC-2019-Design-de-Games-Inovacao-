@@ -17,9 +17,6 @@ public class TriggerCollisionsController : RaycastController
 
     public float hitLenght = 5f;
 
-    public BoolVariable hitTotemCarro;
-    public BoolVariable hitTotemPipa;
-
 
     public override void Start()
     {

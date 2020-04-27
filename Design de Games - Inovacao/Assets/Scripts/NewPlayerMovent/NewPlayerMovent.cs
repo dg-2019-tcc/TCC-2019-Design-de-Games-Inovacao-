@@ -18,9 +18,9 @@ public class NewPlayerMovent : MonoBehaviour
     public float minJumpHeight = 2;
     public float timeToJumpApex = 0.4f;
 
-    float pipaMoveSpeed = 5;
+    float pipaMoveSpeed = 6;
     float pipaVelocityXSmoothing;
-    float pipaAccelerationTimeAirborne = 0.6f;
+    float pipaAccelerationTimeAirborne = 0.4f;
     public float pipaGravity; 
 
     float carroMoveSpeed = 12;

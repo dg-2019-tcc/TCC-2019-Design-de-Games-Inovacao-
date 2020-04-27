@@ -104,39 +104,11 @@ public class DogController : MonoBehaviour
 	}
 
 
-
-    /*private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (!PV.IsMine && PV != null) return;
-		if (!dogAtivo.Value) return;
-        if (collision.CompareTag("Pipa"))
-        {
-            if (efeitoCarro.ativa.Value == false && efeitoPipa.ativa.Value == false)
-            {
-                efeitoPipa.effectVar = 8;
-                StartCoroutine(efeitoPipa.Enumerator(this));
-                gameObject.GetComponent<PhotonView>().RPC("Pipa", RpcTarget.All);
-                hitTotemPipa.Value = false;
-            }
-        }
-
-        if (collision.CompareTag("Carrinho"))
-        {
-            if (efeitoCarro.ativa.Value == false && efeitoPipa.ativa.Value == false)
-            {
-                efeitoCarro.effectTime = 6;
-                StartCoroutine(efeitoCarro.Enumerator(this));
-                gameObject.GetComponent<PhotonView>().RPC("Carro", RpcTarget.All);
-                hitTotemCarro.Value = false;
-            }
-        }
-    }*/
-
     [PunRPC]
     public void Carro()
     {
-        //if (efeitoCarro.ativa.Value == false && efeitoPipa.ativa.Value == false)
-        //{
+        if (carroActive.Value == false && pipaActive.Value == false)
+        {
             Debug.Log("Carro");
 
             hitTotemCarro.Value = false;
@@ -148,7 +120,8 @@ public class DogController : MonoBehaviour
             poderEstaAtivo = true;
 
             StartCoroutine(TempoParaDesativar(6f));
-       // }
+        }
+
     }
 
 
@@ -156,8 +129,8 @@ public class DogController : MonoBehaviour
     [PunRPC]
     public void Pipa()
     {
-        //if (efeitoCarro.ativa.Value == false && efeitoPipa.ativa.Value == false)
-        //{
+        if (carroActive.Value == false && pipaActive.Value == false)
+        {
 
             hitTotemPipa.Value = false;
             pipaActive.Value = true;
@@ -168,7 +141,7 @@ public class DogController : MonoBehaviour
             poderEstaAtivo = true;
             //tokenAudioEvent.Play(tokenSom);
             StartCoroutine(TempoParaDesativar(6f));
-        //}
+        }
     }
 
     [PunRPC]
