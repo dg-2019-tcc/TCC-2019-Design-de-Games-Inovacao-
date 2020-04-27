@@ -41,12 +41,13 @@ public class DogController : MonoBehaviour
     private PhotonView PV;
 
     [Header("Skills")]
-    //public PipaEffect efeitoPipa;
-    public CarroEffect efeitoCarro;
+
     public BoolVariable hitTotemCarro;
     public BoolVariable hitTotemPipa;
+
     public BoolVariable carroActive;
     public BoolVariable pipaActive;
+
 	public BoolVariable buttonPressed;
 
     //public Animator playerAC;
@@ -57,7 +58,6 @@ public class DogController : MonoBehaviour
     void Start()
     {
         PV = gameObject.GetComponent<PhotonView>();
-        efeitoCarro.ativa.Value = false;
         //efeitoPipa.ativa.Value = false;
 		PV.Controller.CustomProperties["dogValue"] = true;
 		dogAtivo.Value = true;
@@ -72,8 +72,6 @@ public class DogController : MonoBehaviour
 
 			if (poderEstaAtivo == false)
 			{
-				efeitoCarro.effectTime = 0;
-
 				gameObject.GetComponent<PhotonView>().RPC("DesativaPowerUps", RpcTarget.All);
 			}
 
