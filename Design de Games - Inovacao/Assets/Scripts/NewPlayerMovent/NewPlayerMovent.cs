@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 [RequireComponent (typeof (Controller2D))]
 public class NewPlayerMovent : MonoBehaviour
@@ -62,6 +63,9 @@ public class NewPlayerMovent : MonoBehaviour
     [SerializeField]
     public Joystick joyStick;
 
+
+	private PhotonView pv;
+
     void Start()
     {
         controller = GetComponent<Controller2D>();
@@ -72,11 +76,13 @@ public class NewPlayerMovent : MonoBehaviour
         maxJumpVelocity = Mathf.Abs(gravity * timeToJumpApex);
         minJumpVelocity = Mathf.Sqrt(2* Mathf.Abs(gravity)*minJumpHeight);
 
+		pv = GetComponent<PhotonView>();
         joyStick = FindObjectOfType<Joystick>();
     }
 
     void Update()
     {
+		if (!pv.IsMine && PhotonNetwork.InRoom) return;
 		if (levouDogada.Value) return;
 		joyInput = new Vector2(joyStick.Horizontal, joyStick.Vertical);
 
