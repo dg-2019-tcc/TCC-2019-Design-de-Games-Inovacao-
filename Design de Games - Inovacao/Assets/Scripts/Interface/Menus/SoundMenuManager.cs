@@ -23,8 +23,8 @@ public class SoundMenuManager : MonoBehaviour
     Bus sfx;
 
     bool isMasterOn = true;
-    bool isMusicsOn;
-    bool isSFXOn;
+    bool isMusicsOn = true;
+    bool isSFXOn = true;
 
     void Awake()
     {
