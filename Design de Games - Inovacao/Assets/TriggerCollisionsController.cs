@@ -90,7 +90,6 @@ public class TriggerCollisionsController : RaycastController
                     collisions.isDoor = true;
                     PortaManager porta = hit.collider.GetComponent<PortaManager>();
                     porta.OpenDoor();
-                    Debug.Log("Porta");
                     return;
                 }
 
@@ -303,7 +302,6 @@ public class TriggerCollisionsController : RaycastController
                 {
                     collisions.isDoor = true;
                     hit.collider.GetComponent<PortaManager>().OpenDoor();
-                    Debug.Log("Porta");
                     continue;
                 }
 

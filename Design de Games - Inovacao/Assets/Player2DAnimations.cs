@@ -223,7 +223,6 @@ public class Player2DAnimations : MonoBehaviour
         if(state != State.Idle)
         {
             coolToIdle = 0;
-            Debug.Log(state);
             frente.SetActive(true);
             lado.SetActive(false);
             state = State.Idle;

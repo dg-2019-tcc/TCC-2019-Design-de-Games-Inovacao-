@@ -26,7 +26,10 @@ public class ThrowObject : MonoBehaviour
 
 	public GameObject EfeitoDeCooldown;
 
-	public BoolVariable buttonPressed;
+	public BoolVariable dogBotao;
+    public BoolVariable desativaPower;
+    public BoolVariable carroActive;
+    public BoolVariable pipaActive;
     
 
 	[HideInInspector]
@@ -50,12 +53,9 @@ public class ThrowObject : MonoBehaviour
     {
         photonView = gameObject.GetComponent<PhotonView>();
         anim = GetComponent<Player2DAnimations>();
-       // SwipeDetector.OnSwipe += SwipeDirection;
-		cooldownDelta = 0;
-		EfeitoDeCooldown.SetActive(false);
 
         tiroImage = tiroButton.GetComponent<Image>();
-        buttonPressed.Value = false;
+        dogBotao.Value = false;
 
     }
 
@@ -64,10 +64,8 @@ public class ThrowObject : MonoBehaviour
     {
         if (photonView.IsMine == true)
         {
-            if ( atirou == true && cooldownDelta == 0 && atirando == false)
+            if (atirou == true && cooldownDelta == 0 && atirando == false && carroActive.Value == false && pipaActive.Value == false)
             {
-                Debug.Log(atirou);
-                Debug.Log(buttonPressed.Value);
                 atirando = true;
                 cooldownDelta += 1;
                 StartCoroutine("StartTiro");
@@ -82,23 +80,34 @@ public class ThrowObject : MonoBehaviour
 
         }
 
-		if (buttonPressed.Value)
-		{
-            shootAnim = true;
-            anim.DogButtonAnim(shootAnim);
-            atirou = true;
-			DogController.poderEstaAtivo = false;
+        if (dogBotao.Value == true)
+        {
 
-            gameObject.GetComponent<PhotonView>().RPC("TransformaPet", RpcTarget.All, true);
+            if (carroActive.Value == true || pipaActive.Value == true)
+            {
+                Debug.Log("VaiDesativar");
+                desativaPower.Value = true;
+            }
+            else
+            {
+                Debug.Log("VaiAtirar");
+
+                shootAnim = true;
+                anim.DogButtonAnim(shootAnim);
+                atirou = true;
+
+                gameObject.GetComponent<PhotonView>().RPC("TransformaPet", RpcTarget.All, true);
+            }
+            dogBotao.Value = false;
         }
         else
         {
-            atirou = false; 
+            atirou = false;
         }
 
         if (atirando)
         {
-            buttonPressed.Value = false;
+            dogBotao.Value = false;
 
             var tempColor = tiroImage.color;
             tempColor.a = 0.1f;
@@ -125,15 +134,19 @@ public class ThrowObject : MonoBehaviour
     {
         if (atirando == false)
         {
-            buttonPressed.Value = true;
+            dogBotao.Value = true;
         }
+    }
+
+    public void StopAtirou()
+    {
+        dogBotao.Value = false;
     }
 
     [PunRPC]
     void Shoot()
     {
 		if (!(bool)photonView.Owner.CustomProperties["dogValue"]) return;
-        Debug.Log("Shoot");
         GameObject bullet;
         bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);// as GameObject;
         bullet.GetComponent<ItemThrow>().InitializeBullet(photonView.Owner);
