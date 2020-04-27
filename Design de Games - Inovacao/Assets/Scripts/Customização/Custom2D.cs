@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class Custom2D : MonoBehaviour
 {
     public Prop2D hairInd;
@@ -23,6 +24,8 @@ public class Custom2D : MonoBehaviour
     public GameObject[] shorts2B;
     public GameObject[] shoes2A;
     public GameObject[] shoes2B;
+          
+
 
 
     void Awake()
@@ -105,7 +108,7 @@ public class Custom2D : MonoBehaviour
 
 	[PunRPC]
 	public void ChangeHair()
-	{
+    {        
 		FMODUnity.RuntimeManager.PlayOneShot("event:/HUD/Click", GetComponent<Transform>().position);
 		hairs[hairInd.prop2DInd].SetActive(false);
 		hairs2[hairInd.prop2DInd].SetActive(false);
