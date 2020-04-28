@@ -9,7 +9,7 @@ public class AIGroundCheck : MonoBehaviour
 
     void OnTriggerStay2D(Collider2D col)
     {
-        if (col.CompareTag("Plataforma") || col.CompareTag("Dragao"))
+        if (col.CompareTag("Through") || col.CompareTag("Plataforma") || col.CompareTag("Dragao"))
         {
             
             controller.jumpCooldown += Time.deltaTime;
@@ -23,7 +23,7 @@ public class AIGroundCheck : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D col)
     {
-        if (col.CompareTag("Plataforma") || col.CompareTag("Dragao"))
+        if (col.CompareTag("Through") || col.CompareTag("Plataforma") || col.CompareTag("Dragao"))
         {
             controller.jumpCooldown = 0f;
             controller.canJump = false;
