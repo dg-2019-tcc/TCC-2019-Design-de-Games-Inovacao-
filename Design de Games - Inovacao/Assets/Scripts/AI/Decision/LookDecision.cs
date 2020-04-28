@@ -25,6 +25,10 @@ public class LookDecision : Decision
 		{
 			return true;
 		}
+		else if (Vector3.Distance(coletaPos, controllerPos) >= 1)
+		{
+			return true;
+		}
 
 		else
 		{

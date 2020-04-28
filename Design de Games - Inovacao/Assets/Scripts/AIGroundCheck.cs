@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class AIGroundCheck : MonoBehaviour
 {
-
-    public StateController controller;
+	
+	public StateController controller;
 
     void OnTriggerStay2D(Collider2D col)
     {
@@ -20,8 +20,9 @@ public class AIGroundCheck : MonoBehaviour
             }
         }
     }
+	
 
-    private void OnTriggerExit2D(Collider2D col)
+	private void OnTriggerExit2D(Collider2D col)
     {
         if (col.CompareTag("Through") || col.CompareTag("Plataforma") || col.CompareTag("Dragao"))
         {
@@ -29,4 +30,6 @@ public class AIGroundCheck : MonoBehaviour
             controller.canJump = false;
         }
     }
+
+	
 }
