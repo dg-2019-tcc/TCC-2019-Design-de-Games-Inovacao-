@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PortaManager : MonoBehaviour
 {
@@ -84,9 +85,10 @@ public class PortaManager : MonoBehaviour
 			}
 			if (joy.Vertical >= 0.5f && ButtonRoupa != null && ButtonRoupa.activeSelf == true)
 			{
-				lobbyController.DelayStart("Customizar");
-				//ButtonJogarColeta = false;
-			}
+                SceneManager.LoadScene("Customiza");
+                //lobbyController.DelayStart("Customizar");
+                //ButtonJogarColeta = false;
+            }
 		}
 		joyGambiarra = joy.Vertical;
 

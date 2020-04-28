@@ -11,7 +11,7 @@ public class Player2DAnimations : MonoBehaviour
     public GameObject lado;
 
     public string idlePose = "SettingPose_SD";
-    public string walkAnimation = "0_Corrida";
+    public string walkAnimation = "0_Corrida_V2";
     public string startJumpAnimation = "1_Pulo";
     public string subindoJumpAnimation = "1_NoAr(1_Subindo)";
     public string transitionJumpAnimation = "1_NoAr(2_Transicao)";

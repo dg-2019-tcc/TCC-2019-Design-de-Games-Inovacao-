@@ -1,13 +1,24 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class HUBButtonManagers : MonoBehaviour
 {
 	public GameObject customizationMenu;
 	public GameObject tutorialButton;
 
-	private void OnEnable()
+    public Joystick joy;
+
+    public string nomeDoMenu;
+
+    private void Start()
+    {
+        
+    }
+
+
+    /*private void OnEnable()
 	{
 		customizationMenu.SetActive(false);
 		
@@ -17,13 +28,14 @@ public class HUBButtonManagers : MonoBehaviour
 	{
 		customizationMenu.SetActive(false);
 		tutorialButton.SetActive(true);
-	}
+	}*/
 
-	public void AtivaCustom()
+    public void AtivaCustom()
 	{
         FMODUnity.RuntimeManager.PlayOneShot("event:/HUD/Roupas", GetComponent<Transform>().position);
-        customizationMenu.SetActive(!customizationMenu.activeSelf);
-		tutorialButton.SetActive(!customizationMenu.activeSelf);
+        SceneManager.LoadScene(nomeDoMenu);
+        /*customizationMenu.SetActive(!customizationMenu.activeSelf);
+		tutorialButton.SetActive(!customizationMenu.activeSelf);*/
 
-	}
+    }
 }
