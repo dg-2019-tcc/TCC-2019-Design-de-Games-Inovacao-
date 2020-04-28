@@ -7,12 +7,13 @@ public class AIGolManager : MonoBehaviour
     public FloatVariable botScore;
 
     public GameObject bola;
+    public GameObject goool;
 
     public Transform bolaSpawnPoint;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Bola"))
+        if (other.CompareTag("Futebol"))
         {
             bola = other.gameObject;
 
@@ -27,6 +28,7 @@ public class AIGolManager : MonoBehaviour
 
         IEnumerator ResetaBolaAI()
         {
+            goool.SetActive(true);
             bola.SetActive(false);
 
             //bola.GetComponent<BolaFutebol>().bolaTimer += 5f;
@@ -37,7 +39,8 @@ public class AIGolManager : MonoBehaviour
 
             botScore.Value++;
 
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForSeconds(0.8f);
+            goool.SetActive(false);
 
             bola.SetActive(true);
 

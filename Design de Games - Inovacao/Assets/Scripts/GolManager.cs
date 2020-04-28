@@ -71,7 +71,7 @@ public class GolManager : MonoBehaviourPunCallbacks
 
         index++;
 
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(0.8f);
 
         bola.SetActive(true);
 

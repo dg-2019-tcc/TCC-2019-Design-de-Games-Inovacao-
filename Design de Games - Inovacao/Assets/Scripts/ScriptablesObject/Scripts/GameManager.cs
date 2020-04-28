@@ -25,6 +25,11 @@ namespace Complete
                 thingsOnline.SetActive(true);
                 thingsAI.SetActive(false);
 			}
+            else
+            {
+                thingsOnline.SetActive(false);
+                thingsAI.SetActive(true);
+            }
         }
 
 		private void Update()

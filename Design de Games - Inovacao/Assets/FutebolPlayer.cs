@@ -14,12 +14,17 @@ public class FutebolPlayer : MonoBehaviour
 
     public float cooldownKick;
 
+    public FloatVariable normalKickForce;
+    public float normalX;
+    public float normalY;
+
     public FloatVariable kickForce;
-    public float kickForceX;
+    private float kickForceX;
     public float kickForceY;
+    public float randomForceY = 10f;
 
     public FloatVariable superKickForce;
-    public float superKickForceX;
+    private float superKickForceX;
     public float superKickForceY;
 
     private float forceVertical;
@@ -27,7 +32,6 @@ public class FutebolPlayer : MonoBehaviour
     public static bool kicked;
     public bool kickAnim;
 
-    public GameObject foot;
 
     private Player2DAnimations anim;
 
@@ -49,12 +53,14 @@ public class FutebolPlayer : MonoBehaviour
 
         if (PlayerThings.rightDir)
         {
+            normalX = normalKickForce.Value;
             kickForceX = kickForce.Value;
             superKickForceX = superKickForce.Value;
         }
 
         if (PlayerThings.leftDir)
         {
+            normalX = normalKickForce.Value * -1;
             kickForceX = kickForce.Value * -1;
             superKickForceX = superKickForce.Value * -1;
         }
@@ -109,6 +115,7 @@ public class FutebolPlayer : MonoBehaviour
 
         yield return new WaitForSeconds(cooldownKick);
         kickAnim = false;
+        Debug.Log("TerminouKick");
         anim.DogButtonAnim(kickAnim);
         kicked = false;
     }
@@ -116,7 +123,8 @@ public class FutebolPlayer : MonoBehaviour
     public void TocouBola()
     {
         bolaFutebol.normal = true;
-        ballrb.AddForce(new Vector2(kickForceX/10, 20), ForceMode2D.Impulse);
+        ballrb.velocity = new Vector2(0, 0);
+        ballrb.AddForce(new Vector2(normalX, normalY), ForceMode2D.Impulse);
     }
 
     [PunRPC]
@@ -125,7 +133,7 @@ public class FutebolPlayer : MonoBehaviour
         bolaFutebol.kick = true;
         bolaFutebol.normal = false;
         bolaFutebol.superKick = false;
-        ballrb.AddForce(new Vector2(kickForceX, kickForceY), ForceMode2D.Impulse);
+        ballrb.AddForce(new Vector2(kickForceX, Random.Range(kickForceY - randomForceY, kickForceY + randomForceY)), ForceMode2D.Impulse);
     }
 
     [PunRPC]

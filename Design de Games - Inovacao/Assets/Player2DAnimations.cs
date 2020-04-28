@@ -339,7 +339,7 @@ public class Player2DAnimations : MonoBehaviour
 
         if (state != State.Chutando)
         {
-            player.animation.timeScale = 1;
+            player.animation.timeScale = 0.5f;
             player.animation.Play(chuteAnimation);
             state = State.Chutando;
         }
