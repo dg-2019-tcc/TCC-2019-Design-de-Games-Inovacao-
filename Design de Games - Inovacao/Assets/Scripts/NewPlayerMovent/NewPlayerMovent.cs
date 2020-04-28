@@ -8,8 +8,8 @@ public class NewPlayerMovent : MonoBehaviour
 {
 	public FloatVariable moveSpeed;
 	float velocityXSmoothing;
-    float accelerationTimeAirborne = 0.1f;
-    float accelerationTimeGrounded = 0.05f;
+    float accelerationTimeAirborne = 0.35f;
+    float accelerationTimeGrounded = 0.175f;
 
     float maxJumpVelocity;
     float minJumpVelocity;

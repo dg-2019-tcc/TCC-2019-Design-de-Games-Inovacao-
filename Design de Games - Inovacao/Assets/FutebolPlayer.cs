@@ -74,14 +74,12 @@ public class FutebolPlayer : MonoBehaviour
 
         if (kicked == true && triggerController.collisions.chutouBola == true && controller.collisions.below == false)
         {
-            Debug.Log("Super");
             gameObject.GetComponent<PhotonView>().RPC("SuperKickBola", RpcTarget.MasterClient);
             triggerController.collisions.chutouBola = false;
         }
 
         if(triggerController.collisions.cabecaBola == true)
         {
-            Debug.Log("Tocou");
             gameObject.GetComponent<PhotonView>().RPC("TocouBola", RpcTarget.MasterClient);
         }
     }

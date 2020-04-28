@@ -30,6 +30,7 @@ public class ThrowObject : MonoBehaviour
     public BoolVariable desativaPower;
     public BoolVariable carroActive;
     public BoolVariable pipaActive;
+    public BoolVariable dogAtivo;
     
 
 	[HideInInspector]
@@ -85,24 +86,22 @@ public class ThrowObject : MonoBehaviour
 
             if (carroActive.Value == true || pipaActive.Value == true)
             {
-                Debug.Log("VaiDesativar");
                 desativaPower.Value = true;
             }
             else
             {
-                Debug.Log("VaiAtirar");
-
-                shootAnim = true;
-                anim.DogButtonAnim(shootAnim);
                 atirou = true;
-
-                gameObject.GetComponent<PhotonView>().RPC("TransformaPet", RpcTarget.All, true);
             }
             dogBotao.Value = false;
         }
         else
         {
             atirou = false;
+        }
+
+        if (carroActive.Value == true || pipaActive.Value == true)
+        {
+            atirando = false;
         }
 
         if (atirando)
@@ -149,6 +148,9 @@ public class ThrowObject : MonoBehaviour
 		if (!(bool)photonView.Owner.CustomProperties["dogValue"]) return;
         GameObject bullet;
         bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);// as GameObject;
+        shootAnim = false;
+        anim.DogButtonAnim(shootAnim);
+        Debug.Log(shootAnim);
         bullet.GetComponent<ItemThrow>().InitializeBullet(photonView.Owner);
 		StartCoroutine("CooldownEffect");
 		photonView.Owner.CustomProperties["atirou"] = true;
@@ -156,19 +158,21 @@ public class ThrowObject : MonoBehaviour
 
     IEnumerator StartTiro()
     {
+        shootAnim = true;
+        anim.DogButtonAnim(shootAnim);
         atirou = false;
         yield return new WaitForSeconds(1f);
-
+        shootAnim = false;
+        anim.DogButtonAnim(shootAnim);
         photonView.RPC("Shoot", RpcTarget.All);
     }
 
 	IEnumerator CooldownEffect()
 	{
-        shootAnim = false;
-        anim.DogButtonAnim(shootAnim);
+        dogAtivo.Value = false;
         yield return new WaitForSeconds(cooldown);
-
-        gameObject.GetComponent<PhotonView>().RPC("TransformaPet", RpcTarget.All, false);
+        dogAtivo.Value = true;
+        //gameObject.GetComponent<PhotonView>().RPC("TransformaPet", RpcTarget.All, false);
         atirando = false;
     }
 

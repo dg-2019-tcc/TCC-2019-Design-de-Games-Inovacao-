@@ -171,7 +171,6 @@ public class TriggerCollisionsController : RaycastController
                 {
                     collisions.isDoor = true;
                     hit.collider.GetComponent<PortaManager>().OpenDoor();
-                    Debug.Log("Porta");
                     continue;
                 }
 
@@ -246,7 +245,6 @@ public class TriggerCollisionsController : RaycastController
                 if (hit.collider.tag == "Porta")
                 {
                     collisions.isDoor = true;
-                    Debug.Log("up");
                     hit.collider.GetComponent<PortaManager>().OpenDoor();
                     continue;
                 }
