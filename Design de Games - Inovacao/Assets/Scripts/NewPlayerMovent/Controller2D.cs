@@ -78,7 +78,7 @@ public class Controller2D : RaycastController
                         continue;
                     }
 
-                    if (playerInput.x < -0.5 || playerInput.x > 0.5 && collisions.climbingSlope == false && collisions.descendingSlope == false)
+                    if (playerInput.x < -0.75 || playerInput.x > 0.75 && collisions.climbingSlope == false && collisions.descendingSlope == false)
                     {
                         collisions.fallingPlatform = true;
                         Invoke("ResetFallingPlatform", 0.1f);
@@ -155,7 +155,7 @@ public class Controller2D : RaycastController
                         continue;
                     }
 
-                    if(playerInput.y < -0.5)
+                    if(playerInput.y < -0.9)
                     {
                         collisions.fallingPlatform = true;
                         Invoke("ResetFallingPlatform", 0.1f);

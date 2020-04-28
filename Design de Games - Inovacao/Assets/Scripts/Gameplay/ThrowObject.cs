@@ -108,11 +108,6 @@ public class ThrowObject : MonoBehaviour
         {
             dogBotao.Value = false;
 
-            var tempColor = tiroImage.color;
-            tempColor.a = 0.1f;
-            tiroImage.color = tempColor;
-            dogImage.color = tempColor;
-
             tiroButton.enabled = false;
 
         }
@@ -120,10 +115,6 @@ public class ThrowObject : MonoBehaviour
         else
         {
             cooldownDelta = 0;
-            var tempColor = tiroImage.color;
-            tempColor.a = 1f;
-            tiroImage.color = tempColor;
-            dogImage.color = tempColor;
 
             tiroButton.enabled = true;
         }

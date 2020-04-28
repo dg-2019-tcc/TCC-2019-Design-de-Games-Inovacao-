@@ -254,7 +254,7 @@ public class Player2DAnimations : MonoBehaviour
 
         if (state != State.Walking )
         {
-            player.animation.timeScale = 1.75f;
+            player.animation.timeScale = 1.35f;
             player.animation.Play(walkAnimation);
             state = State.Walking;
         }
