@@ -15,14 +15,15 @@ public class ColetaAction : Actions
 		controller.target = controller.wayPointList[(int)controller.botScore.Value].transform;
 
 		float step = controller.botStats.moveSpeed  * Time.deltaTime;
-
 		if (controller.transform.position.x - controller.target.position.x > 0)                         //moveesquerda
 		{
-			controller.rb.velocity = new Vector2(-controller.botStats.moveSpeed, controller.rb.velocity.y);
+			controller.movement.Move(new Vector2(-controller.botStats.moveSpeed, 0));
+			//controller.rb.velocity = new Vector2(-controller.botStats.moveSpeed, controller.rb.velocity.y);
 		}
 		else
 		{
-			controller.rb.velocity = new Vector2(controller.botStats.moveSpeed, controller.rb.velocity.y);
+			controller.movement.Move(new Vector2(controller.botStats.moveSpeed, 0));
+			//controller.rb.velocity = new Vector2(controller.botStats.moveSpeed, controller.rb.velocity.y);
 		}
 		
     }
