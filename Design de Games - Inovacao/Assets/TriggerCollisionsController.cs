@@ -140,7 +140,11 @@ public class TriggerCollisionsController : RaycastController
                         collisions.cabecaBola = true;
                     }
                 }
-            }
+				if (hit.collider.tag == "LinhaDeChegada")
+				{
+					hit.collider.gameObject.GetComponent<LinhaDeChegada>().Colidiu(gameObject);
+				}
+			}
         }
     }
 
@@ -223,6 +227,10 @@ public class TriggerCollisionsController : RaycastController
                         collisions.chutouBola = true;
                     }
                 }
+				if (hit.collider.tag == "LinhaDeChegada")
+				{
+					hit.collider.gameObject.GetComponent<LinhaDeChegada>().Colidiu(gameObject);
+				}
             }
         }
     }

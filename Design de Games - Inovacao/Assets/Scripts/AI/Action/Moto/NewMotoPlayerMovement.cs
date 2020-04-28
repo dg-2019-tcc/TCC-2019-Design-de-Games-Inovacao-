@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 [RequireComponent(typeof(Controller2D))]
 public class NewMotoPlayerMovement : MonoBehaviour
@@ -30,7 +31,9 @@ public class NewMotoPlayerMovement : MonoBehaviour
 	public float motoTimeToJumpApex = 0.4f;
 
 	bool jump;
-	
+	bool stopJump;
+
+	public Vector2 oldPosition;
 
 	Vector3 velocity;
 	Vector3 motoVelocity;
@@ -38,29 +41,35 @@ public class NewMotoPlayerMovement : MonoBehaviour
 	public Controller2D controller;
 
 	TriggerCollisionsController triggerController;
+	Player2DAnimations animations;
 
 	[SerializeField]
 	public Joystick joyStick;
 
+	private PhotonView pv;
 	void Start()
 	{
 		controller = GetComponent<Controller2D>();
 		triggerController = GetComponent<TriggerCollisionsController>();
+		animations = GetComponent<Player2DAnimations>();
 
 		gravity = -(2 * maxJumpHeight) / Mathf.Pow(timeToJumpApex, 2);
 		maxJumpVelocity = Mathf.Abs(gravity * timeToJumpApex);
 		minJumpVelocity = Mathf.Sqrt(2 * Mathf.Abs(gravity) * minJumpHeight);
 
+		pv = GetComponent<PhotonView>();
 		joyStick = FindObjectOfType<Joystick>();
 	}
 
 	void Update()
 	{
+		if (!pv.IsMine && PhotonNetwork.InRoom) return;
 		Vector2 input = new Vector2(joyStick.Horizontal, joyStick.Vertical);
 
 			if (jump == true && controller.collisions.below)
 			{
 				velocity.y = maxJumpHeight;
+
 			}
 
 			float targetVelocityX = (Mathf.Clamp(input.x, -1, 0)+1) * (moveSpeed.Value + motoMoveSpeed);
@@ -68,11 +77,16 @@ public class NewMotoPlayerMovement : MonoBehaviour
 			velocity.y += gravity * Time.deltaTime;
 			controller.Move(velocity * Time.deltaTime, input);
 			triggerController.MoveDirection(velocity);
-			if (controller.collisions.above || controller.collisions.below)
+		animations.ChangeMoveAnim(velocity, oldPosition, input, jump, stopJump);
+		if (controller.collisions.above || controller.collisions.below)
 			{
 				velocity.y = 0;
 			}
 		
+	}
+	private void LateUpdate()
+	{
+		oldPosition = velocity;
 	}
 
 	public void Jump()

@@ -28,40 +28,41 @@ public class LinhaDeChegada : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
-        {
-            playerView = other.GetComponent<PhotonView>();
-            if (finished == false)
-            {
-                if (playerView.IsMine == true && euAcabei == false)
-                {
-                   // PlayerMovement jogador = other.GetComponent<PlayerMovement>();
-                    //playerView.RPC("Acabou", RpcTarget.All);
-                    winnerManager.ganhouCorrida = true;
-                    totalPlayers++;
-                    euAcabei = true;
-                    changeRoom = true;
-                }
-            }
-            else
-            {
-                if (playerView.IsMine == true && euAcabei == false)
-                {
-                    PlayerMovement jogador = other.GetComponent<PlayerMovement>();
-                    totalPlayers++;
-                    euAcabei = true;
-                    
-
-                }
-            }
-        }
-
-		if (other.CompareTag("AI"))
+        if (other.CompareTag("AI"))
 		{
 			winnerManager.perdeuCorrida = true;
 			other.GetComponent<StateController>().enabled = false;
 		}
     }
+
+	public void Colidiu(GameObject other)
+	{
+		Debug.Log("colidiu com linha");
+		playerView = other.GetComponent<PhotonView>();
+		if (finished == false)
+		{
+			if (playerView.IsMine == true && euAcabei == false)
+			{
+				// PlayerMovement jogador = other.GetComponent<PlayerMovement>();
+				//playerView.RPC("Acabou", RpcTarget.All);
+				winnerManager.ganhouCorrida = true;
+				totalPlayers++;
+				euAcabei = true;
+				changeRoom = true;
+			}
+		}
+		else
+		{
+			if (playerView.IsMine == true && euAcabei == false)
+			{
+				PlayerMovement jogador = other.GetComponent<PlayerMovement>();
+				totalPlayers++;
+				euAcabei = true;
+
+
+			}
+		}
+	}
 
     [PunRPC]
     public void Acabou()
