@@ -60,7 +60,6 @@ public class DogController : MonoBehaviour
         {
             if (desativaPower.Value == true)
             {
-                Debug.Log("VaiDesativar");
                 gameObject.GetComponent<PhotonView>().RPC("DesativaPowerUps", RpcTarget.All);
             }
 

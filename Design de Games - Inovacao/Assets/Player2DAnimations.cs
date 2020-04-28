@@ -46,6 +46,9 @@ public class Player2DAnimations : MonoBehaviour
     [SerializeField]
     private float coolToIdle;
 
+    public BoolVariable pipaActive;
+    public BoolVariable carroActive;
+
 
     //private DragonBones.AnimationState aimState = null;
 
@@ -72,6 +75,11 @@ public class Player2DAnimations : MonoBehaviour
 
         if (!PhotonNetwork.InRoom || photonView.IsMine)
         {
+            if(carroActive.Value == true || pipaActive.Value == true)
+            {
+                Idle();
+            }
+
             //frente.SetActive(false);
             //lado.SetActive(true);
             moveX = Mathf.Abs(moveAmount.x);
@@ -88,12 +96,12 @@ public class Player2DAnimations : MonoBehaviour
                 }
             }
 
-            if(moveAmount.y < -2 && jaAterrisou && state != State.Aterrisando)
+            if(moveAmount.y < -2 && jaAterrisou && state != State.Aterrisando && pipaActive.Value == false && carroActive.Value == false)
             {
                 jaAterrisou = false;
             }
 
-            if (oldPos.y < moveAmount.y && controller.collisions.below == false && dogButtonAnim == false)
+            if (oldPos.y < moveAmount.y && controller.collisions.below == false && dogButtonAnim == false && pipaActive.Value == false && carroActive.Value == false)
             {
                 jaAterrisou = false;
                 if (!PhotonNetwork.InRoom)
@@ -106,7 +114,7 @@ public class Player2DAnimations : MonoBehaviour
                 }
             }
 
-            else if (moveAmount.y < 9 && moveAmount.y > 0 && controller.collisions.below == false && dogButtonAnim == false)
+            else if (moveAmount.y < 9 && moveAmount.y > 0 && controller.collisions.below == false && dogButtonAnim == false && pipaActive.Value == false && carroActive.Value == false)
             {
 
                 if (!PhotonNetwork.InRoom)
@@ -119,7 +127,7 @@ public class Player2DAnimations : MonoBehaviour
                 }
             }
 
-            else if (moveAmount.y <= 0 && controller.collisions.below == false && dogButtonAnim == false && jaAterrisou == false)
+            else if (moveAmount.y <= 0 && controller.collisions.below == false && dogButtonAnim == false && jaAterrisou == false && pipaActive.Value == false && carroActive.Value == false)
             {
                 if (!PhotonNetwork.InRoom)
                 {
@@ -131,7 +139,7 @@ public class Player2DAnimations : MonoBehaviour
                 }
             }
 
-            else if (moveAmount.y < -1f && input.x == 0 && input.y >=0 && controller.collisions.below == true && dogButtonAnim == false && jaAterrisou == false)
+            else if (moveAmount.y < -1f && input.x == 0 && input.y >=0 && controller.collisions.below == true && dogButtonAnim == false && jaAterrisou == false && pipaActive.Value == false && carroActive.Value == false)
             {
                 if (!PhotonNetwork.InRoom)
                 {
@@ -143,7 +151,7 @@ public class Player2DAnimations : MonoBehaviour
                 }
             }
 
-            else if (controller.collisions.below && input.x == 0 && input.y < 0 && dogButtonAnim == false)
+            else if (controller.collisions.below && input.x == 0 && input.y < 0 && dogButtonAnim == false && pipaActive.Value == false && carroActive.Value == false)
             {
                 if (!PhotonNetwork.InRoom)
                 {
@@ -155,7 +163,7 @@ public class Player2DAnimations : MonoBehaviour
                 }
             }
 
-            else if (input.x != 0 && controller.collisions.below && dogButtonAnim == false)
+            else if (input.x != 0 && controller.collisions.below && dogButtonAnim == false && pipaActive.Value == false && carroActive.Value == false)
             {
                 if (!PhotonNetwork.InRoom)
                 {
@@ -170,7 +178,7 @@ public class Player2DAnimations : MonoBehaviour
 
             else 
             {
-                if (Jump == false && dogButtonAnim == false && stopJump == false && jaAterrisou == true && coolToIdle >= 0.66f)
+                if (Jump == false && dogButtonAnim == false && stopJump == false && jaAterrisou == true && coolToIdle >= 0.33f)
                 {
                     if (!PhotonNetwork.InRoom)
                     {
@@ -200,6 +208,7 @@ public class Player2DAnimations : MonoBehaviour
                 }
                 else
                 {
+                    Debug.Log("Anim");
                     photonView.RPC("Arremesso", RpcTarget.All);
                 }
             }
@@ -215,6 +224,11 @@ public class Player2DAnimations : MonoBehaviour
                     photonView.RPC("Chute", RpcTarget.All);
                 }
             }
+        }
+
+        else
+        {
+            Idle();
         }
     }
     [PunRPC]
@@ -240,11 +254,9 @@ public class Player2DAnimations : MonoBehaviour
 
         if (state != State.Walking )
         {
-            //player.animation.FadeIn(walkAnimation, 0.1f,0);
+            player.animation.timeScale = 1.75f;
             player.animation.Play(walkAnimation);
-            player.animation.timeScale = 1;
             state = State.Walking;
-            //Debug.Log(state);
         }
     }
 
@@ -272,11 +284,9 @@ public class Player2DAnimations : MonoBehaviour
 
         if (state != State.Rising)
         {
-            //player.animation.FadeIn(subindoJumpAnimation, 0.01f, 0);
-            player.animation.Play(subindoJumpAnimation);
             player.animation.timeScale = 1;
+            player.animation.Play(subindoJumpAnimation);
             state = State.Rising;
-            //Debug.Log(state);
         }
     }
 
@@ -293,12 +303,9 @@ public class Player2DAnimations : MonoBehaviour
 
         if (state != State.Falling)
         {
-
-            //player.animation.FadeIn(descendoJumpAnimation, 0.25f,0);
-            player.animation.Play(descendoJumpAnimation);
             player.animation.timeScale = 1;
+            player.animation.Play(descendoJumpAnimation);
             state = State.Falling;
-            //Debug.Log(state);
         }
     }
 
@@ -314,9 +321,8 @@ public class Player2DAnimations : MonoBehaviour
 
         if (state != State.Aterrisando)
         {
-            //player.animation.FadeIn(aterrisandoAnimation, 0.01f, 1);
+            player.animation.timeScale = 1.5f;
             player.animation.Play(aterrisandoAnimation);
-            player.animation.timeScale = 1;
             state = State.Aterrisando;
             jaAterrisou = true;
         }
@@ -333,11 +339,9 @@ public class Player2DAnimations : MonoBehaviour
 
         if (state != State.Chutando)
         {
-            //player.animation.FadeIn(chuteAnimation, 0.1f, 1);
-            player.animation.Play(chuteAnimation);
             player.animation.timeScale = 1;
+            player.animation.Play(chuteAnimation);
             state = State.Chutando;
-            Debug.Log(state);
         }
     }
 
@@ -353,9 +357,8 @@ public class Player2DAnimations : MonoBehaviour
 
         if (state != State.Arremessando)
             {
-                //player.animation.FadeIn(arremessoAnimation, 0f, 1);
-                player.animation.Play(arremessoAnimation);
                 player.animation.timeScale = 1;
+                player.animation.Play(arremessoAnimation);
                 state = State.Arremessando;
             }
         }
@@ -372,9 +375,8 @@ public class Player2DAnimations : MonoBehaviour
 
         if (state != State.Abaixando)
         {
-            //player.animation.FadeIn(abaixarAnimation, 0.01f, 1);
-            player.animation.Play(abaixarAnimation);
             player.animation.timeScale = 1;
+            player.animation.Play(abaixarAnimation);
             state = State.Abaixando;
         }
     }
@@ -391,7 +393,7 @@ public class Player2DAnimations : MonoBehaviour
 
         if (state != State.TransitionAir)
         {
-            //player.animation.FadeIn(transitionJumpAnimation, 0.2f, 1);
+            player.animation.timeScale = 1.5f;
             player.animation.Play(transitionJumpAnimation);
             state = State.TransitionAir;
         }
