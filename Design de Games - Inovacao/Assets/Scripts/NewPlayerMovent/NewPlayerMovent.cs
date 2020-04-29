@@ -91,6 +91,10 @@ public class NewPlayerMovent : MonoBehaviour
             if(joyInput.x > 0.3f || joyInput.x < -0.3f)
             {
                 input.x = joyInput.x;
+                if(jump == false)
+                {
+                    //FMODUnity.RuntimeManager.PlayOneShot("event:/HUD/Click", GetComponent<Transform>().position);
+                }
             }
 
             else
@@ -115,6 +119,10 @@ public class NewPlayerMovent : MonoBehaviour
             animations.ChangeMoveAnim(velocity, oldPosition, input, jump, stopJump);
             if (controller.collisions.above ||controller.collisions.below)
             {
+                if (stopJump == true)
+                {
+                    FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Queda", GetComponent<Transform>().position);                    
+                }
                 velocity.y = 0;
                 jump = false;
                 stopJump = false;
