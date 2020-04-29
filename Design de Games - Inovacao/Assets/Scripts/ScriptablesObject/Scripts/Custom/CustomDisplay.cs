@@ -84,7 +84,7 @@ public class CustomDisplay : MonoBehaviour
 			gameObject.GetComponent<PhotonView>().RPC("TrocaCalca", RpcTarget.All, legs.propIndex);
 			gameObject.GetComponent<PhotonView>().RPC("TrocaMaterialCalca", RpcTarget.All, legs.colorIndex);
 			
-		}*/
+		}
 		if (PhotonNetwork.InRoom)
 		{
 			TrocaCabelo((int)pv.Owner.CustomProperties["hairIndex"]);
@@ -95,9 +95,9 @@ public class CustomDisplay : MonoBehaviour
 			//TrocaMaterialCalca((int)pv.Owner.CustomProperties["legsColorIndex"]);
 			TrocaSapato((int)pv.Owner.CustomProperties["shoeIndex"]);
 			//TrocaMaterialSapato((int)pv.Owner.CustomProperties["shoeColorIndex"]);
-		}
+		}*/
 
-		else if (!PhotonNetwork.InRoom)
+		if (!PhotonNetwork.InRoom)
 		{
 			TrocaCabelo(hair.prop2DInd);
 			//TrocaMaterialCabelo(hair.colorIndex);
@@ -109,6 +109,18 @@ public class CustomDisplay : MonoBehaviour
 			//TrocaMaterialSapato(shoe.colorIndex);
 
 		}
+
+        else
+        {
+            TrocaCabelo((int)pv.Owner.CustomProperties["hairIndex"]);
+            //TrocaMaterialCabelo((int)pv.Owner.CustomProperties["hairColorIndex"]);
+            TrocaCamisa((int)pv.Owner.CustomProperties["shirtIndex"]);
+            //TrocaMaterialCamisa((int)pv.Owner.CustomProperties["shirtColorIndex"]);
+            TrocaCalca((int)pv.Owner.CustomProperties["legsIndex"]);
+            //TrocaMaterialCalca((int)pv.Owner.CustomProperties["legsColorIndex"]);
+            TrocaSapato((int)pv.Owner.CustomProperties["shoeIndex"]);
+            //TrocaMaterialSapato((int)pv.Owner.CustomProperties["shoeColorIndex"]);
+        }
     }
 
 
