@@ -3360,6 +3360,11 @@ PrefabInstance:
       propertyPath: m_Color.a
       value: 0.49019608
       objectReference: {fileID: 0}
+    - target: {fileID: 2879339300379382589, guid: 650c79142e52b1a46944cd798e3de766,
+        type: 3}
+      propertyPath: m_UseSpriteMesh
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5196970254129293298, guid: 650c79142e52b1a46944cd798e3de766,
         type: 3}
       propertyPath: m_Color.a
@@ -4415,7 +4420,18 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 5640028172459022802, guid: 650c79142e52b1a46944cd798e3de766,
+        type: 3}
+      propertyPath: footSoundRepeat
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 3300754430724448429, guid: 650c79142e52b1a46944cd798e3de766,
+        type: 3}
+      propertyPath: PlayEvent
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 3300754430724448429, guid: 650c79142e52b1a46944cd798e3de766, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 650c79142e52b1a46944cd798e3de766, type: 3}
 --- !u!1 &315098792
 GameObject:
@@ -24378,6 +24394,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 456369655638aba44b0b7a9ece680314, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  footSoundRepeat: 0
   moveSpeed: {fileID: 11400000, guid: 95cfeda8d1e4db640ba9a88702cee2e0, type: 2}
   maxJumpHeight: {fileID: 0}
   minJumpHeight: {fileID: 0}
