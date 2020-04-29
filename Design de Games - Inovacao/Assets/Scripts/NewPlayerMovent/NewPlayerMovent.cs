@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
-[RequireComponent (typeof (Controller2D))]
+[RequireComponent(typeof(Controller2D))]
 public class NewPlayerMovent : MonoBehaviour
 {
-	public FloatVariable moveSpeed;
-	float velocityXSmoothing;
+    public FloatVariable moveSpeed;
+    float velocityXSmoothing;
     float accelerationTimeAirborne = 0.35f;
     float accelerationTimeGrounded = 0.175f;
 
@@ -21,7 +21,7 @@ public class NewPlayerMovent : MonoBehaviour
     float pipaMoveSpeed = 6;
     float pipaVelocityXSmoothing;
     float pipaAccelerationTimeAirborne = 0.4f;
-    public float pipaGravity; 
+    public float pipaGravity;
 
     float carroMoveSpeed = 12;
     float carroVelocityXSmoothing;
@@ -45,9 +45,9 @@ public class NewPlayerMovent : MonoBehaviour
 
     public BoolVariable carroActive;
     public BoolVariable pipaActive;
-	public BoolVariable levouDogada;
+    public BoolVariable levouDogada;
 
-	Vector3 velocity;
+    Vector3 velocity;
     Vector3 carroVelocity;
     Vector3 pipaVelocity;
     Vector3 motoVelocity;
@@ -64,7 +64,7 @@ public class NewPlayerMovent : MonoBehaviour
     public Joystick joyStick;
 
 
-	private PhotonView pv;
+    private PhotonView pv;
 
     void Start()
     {
@@ -74,21 +74,24 @@ public class NewPlayerMovent : MonoBehaviour
 
         gravity = -(2 * maxJumpHeight.Value) / Mathf.Pow(timeToJumpApex.Value, 2);
         maxJumpVelocity = Mathf.Abs(gravity * timeToJumpApex.Value);
-        minJumpVelocity = Mathf.Sqrt(2* Mathf.Abs(gravity)*minJumpHeight.Value);
+        minJumpVelocity = Mathf.Sqrt(2 * Mathf.Abs(gravity) * minJumpHeight.Value);
 
-		pv = GetComponent<PhotonView>();
+        pv = GetComponent<PhotonView>();
         joyStick = FindObjectOfType<Joystick>();
+
+        //Utilizado para fazer os sons dos passos tocarem
+        InvokeRepeating("CallFootsteps", 0, 0.25f);
     }
 
     void Update()
     {
-		if (!pv.IsMine && PhotonNetwork.InRoom) return;
-		if (levouDogada.Value) return;
-		joyInput = new Vector2(joyStick.Horizontal, joyStick.Vertical);
+        if (!pv.IsMine && PhotonNetwork.InRoom) return;
+        if (levouDogada.Value) return;
+        joyInput = new Vector2(joyStick.Horizontal, joyStick.Vertical);
 
         if (carroActive.Value == false && pipaActive.Value == false)
         {
-            if(joyInput.x > 0.3f || joyInput.x < -0.3f)
+            if (joyInput.x > 0.3f || joyInput.x < -0.3f)
             {
                 input.x = joyInput.x;
             }
@@ -113,8 +116,12 @@ public class NewPlayerMovent : MonoBehaviour
             controller.Move(velocity * Time.deltaTime, input);
             triggerController.MoveDirection(velocity);
             animations.ChangeMoveAnim(velocity, oldPosition, input, jump, stopJump);
-            if (controller.collisions.above ||controller.collisions.below)
+            if (controller.collisions.above || controller.collisions.below)
             {
+                if (stopJump == true)
+                {
+                    FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Queda", GetComponent<Transform>().position);
+                }
                 velocity.y = 0;
                 jump = false;
                 stopJump = false;
@@ -177,6 +184,7 @@ public class NewPlayerMovent : MonoBehaviour
     public void Jump()
     {
         jump = true;
+        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Pulo", GetComponent<Transform>().position);
         //animations.ChangeMoveAnim(velocity, oldPosition, input, jump, stopJump);
         /*if (animations.state != Player2DAnimations.State.Chutando)
         {
@@ -202,5 +210,20 @@ public class NewPlayerMovent : MonoBehaviour
             //Debug.Log(velocity.y);
         }
         jump = false;
+    }
+
+    public void CallFootsteps()
+    {
+        if (carroActive.Value == false && pipaActive.Value == false)
+        {
+            if (joyInput.x > 0.3f || joyInput.x < -0.3f)
+            {
+                if (jump == false)
+                {
+                    Debug.Log("asd");
+                    FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Passos", GetComponent<Transform>().position);
+                }
+            }
+        }
     }
 }
