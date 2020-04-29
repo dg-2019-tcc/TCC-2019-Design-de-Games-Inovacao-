@@ -5,20 +5,20 @@ using UnityEngine;
 
 public class CustomDisplay : MonoBehaviour
 {
-    public PropsCustom legs;
-    public PropsCustom shirt;
-    public PropsCustom hair;
-    public PropsCustom shoe;
+    public Prop2D legs;
+    public Prop2D shirt;
+    public Prop2D hair;
+    public Prop2D shoe;
 
-    public GameObject[] hairModels;
-    public GameObject[] shirtModels;
-    public GameObject[] legModels;
-    public GameObject[] shoeModels;
+    public ChangeMultipleCustom[] hairModels;
+    public ChangeMultipleCustom[] shirtModels;
+    public ChangeMultipleCustom[] legModels;
+    public ChangeMultipleCustom[] shoeModels;
+    public ChangeMultipleCustom[] hair2Models;
+    public ChangeMultipleCustom[] shirt2Models;
+    public ChangeMultipleCustom[] leg2Models;
+    public ChangeMultipleCustom[] shoe2Models;
 
-    public SkinnedMeshRenderer[] hairColor;
-	public SkinnedMeshRenderer[] legsColor;
-    public SkinnedMeshRenderer[] shirtsColor;
-    public SkinnedMeshRenderer[] shoeColor;
 
 	private PhotonView pv;
 
@@ -58,14 +58,14 @@ public class CustomDisplay : MonoBehaviour
 
 		if (!pv.IsMine)
 		{
-			PhotonNetwork.LocalPlayer.CustomProperties["hairIndex"] = hair.propIndex;
-			PhotonNetwork.LocalPlayer.CustomProperties["shirtIndex"] = shirt.propIndex;
-			PhotonNetwork.LocalPlayer.CustomProperties["legsIndex"] = legs.propIndex;
-			PhotonNetwork.LocalPlayer.CustomProperties["hairColorIndex"] = hair.colorIndex;
-			PhotonNetwork.LocalPlayer.CustomProperties["shirtColorIndex"] = shirt.colorIndex;
-			PhotonNetwork.LocalPlayer.CustomProperties["legsColorIndex"] = legs.colorIndex;
-			PhotonNetwork.LocalPlayer.CustomProperties["shoeIndex"] = shoe.propIndex;
-			PhotonNetwork.LocalPlayer.CustomProperties["shoeColorIndex"] = shoe.colorIndex;
+			PhotonNetwork.LocalPlayer.CustomProperties["hairIndex"] = hair.prop2DInd;
+			PhotonNetwork.LocalPlayer.CustomProperties["shirtIndex"] = shirt.prop2DInd;
+			PhotonNetwork.LocalPlayer.CustomProperties["legsIndex"] = legs.prop2DInd;
+			//PhotonNetwork.LocalPlayer.CustomProperties["hairColorIndex"] = hair.colorIndex;
+			//PhotonNetwork.LocalPlayer.CustomProperties["shirtColorIndex"] = shirt.colorIndex;
+			//PhotonNetwork.LocalPlayer.CustomProperties["legsColorIndex"] = legs.colorIndex;
+			PhotonNetwork.LocalPlayer.CustomProperties["shoeIndex"] = shoe.prop2DInd;
+			//PhotonNetwork.LocalPlayer.CustomProperties["shoeColorIndex"] = shoe.colorIndex;
 		}
 
 
@@ -82,25 +82,25 @@ public class CustomDisplay : MonoBehaviour
 		if (PhotonNetwork.InRoom)
 		{
 			TrocaCabelo((int)pv.Owner.CustomProperties["hairIndex"]);
-			TrocaMaterialCabelo((int)pv.Owner.CustomProperties["hairColorIndex"]);
+			//TrocaMaterialCabelo((int)pv.Owner.CustomProperties["hairColorIndex"]);
 			TrocaCamisa((int)pv.Owner.CustomProperties["shirtIndex"]);
-			TrocaMaterialCamisa((int)pv.Owner.CustomProperties["shirtColorIndex"]);
+			//TrocaMaterialCamisa((int)pv.Owner.CustomProperties["shirtColorIndex"]);
 			TrocaCalca((int)pv.Owner.CustomProperties["legsIndex"]);
-			TrocaMaterialCalca((int)pv.Owner.CustomProperties["legsColorIndex"]);
+			//TrocaMaterialCalca((int)pv.Owner.CustomProperties["legsColorIndex"]);
 			TrocaSapato((int)pv.Owner.CustomProperties["shoeIndex"]);
-			TrocaMaterialSapato((int)pv.Owner.CustomProperties["shoeColorIndex"]);
+			//TrocaMaterialSapato((int)pv.Owner.CustomProperties["shoeColorIndex"]);
 		}
 
 		else if (!PhotonNetwork.InRoom)
 		{
-			TrocaCabelo(hair.propIndex);
-			TrocaMaterialCabelo(hair.colorIndex);
-			TrocaCamisa(shirt.propIndex);
-			TrocaMaterialCamisa(shirt.colorIndex);
-			TrocaCalca(legs.propIndex);
-			TrocaMaterialCalca(legs.colorIndex);
-			TrocaSapato(shoe.propIndex);
-			TrocaMaterialSapato(shoe.colorIndex);
+			TrocaCabelo(hair.prop2DInd);
+			//TrocaMaterialCabelo(hair.colorIndex);
+			TrocaCamisa(shirt.prop2DInd);
+			//TrocaMaterialCamisa(shirt.colorIndex);
+			TrocaCalca(legs.prop2DInd);
+			//TrocaMaterialCalca(legs.colorIndex);
+			TrocaSapato(shoe.prop2DInd);
+			//TrocaMaterialSapato(shoe.colorIndex);
 
 		}
     }
@@ -111,12 +111,14 @@ public class CustomDisplay : MonoBehaviour
     {
         for (int i = 0; i < hairModels.Length; i++)
         {
-            hairModels[i].SetActive(false);
+            hairModels[i].ChangeCustom(false);
+            hair2Models[i].ChangeCustom(false);
         }
-        hairModels[onlineIndex].SetActive(true);
+        hairModels[onlineIndex].ChangeCustom(true);
+        hair2Models[onlineIndex].ChangeCustom(true);
     }
 
-    [PunRPC]
+    /*[PunRPC]
     private void TrocaMaterialCabelo(int onlineIndex)
     {
         for (int i = 0; i < hairColor.Length; i++)
@@ -125,19 +127,21 @@ public class CustomDisplay : MonoBehaviour
         }
 
         hairColor[hair.propIndex].material = hair.color.corData[onlineIndex];
-    }
+    }*/
 
     [PunRPC]
     private void TrocaCamisa(int onlineIndex)
     {
         for (int i = 0; i < shirtModels.Length; i++)
         {
-            shirtModels[i].SetActive(false);
+            shirtModels[i].ChangeCustom(false);
+            shirt2Models[i].ChangeCustom(false);
         }
-        shirtModels[onlineIndex].SetActive(true);
+        shirtModels[onlineIndex].ChangeCustom(true);
+        shirt2Models[onlineIndex].ChangeCustom(true);
     }
 
-    [PunRPC]
+    /*[PunRPC]
     private void TrocaMaterialCamisa(int onlineIndex)
     {
         for (int i = 0; i < shirtsColor.Length; i++)
@@ -146,19 +150,21 @@ public class CustomDisplay : MonoBehaviour
         }
 
         shirtsColor[shirt.propIndex].material = shirt.color.corData[onlineIndex];
-    }
+    }*/
 
     [PunRPC]
     private void TrocaCalca(int onlineIndex)
     {
         for (int i = 0; i < legModels.Length; i++)
         {
-            legModels[i].SetActive(false);
+            legModels[i].ChangeCustom(false);
+            leg2Models[i].ChangeCustom(false);
         }
-        legModels[onlineIndex].SetActive(true);
+        legModels[onlineIndex].ChangeCustom(true);
+        leg2Models[onlineIndex].ChangeCustom(true);
     }
 
-    [PunRPC]
+    /*[PunRPC]
     private void TrocaMaterialCalca(int onlineIndex)
     {
         for (int i = 0; i < legsColor.Length; i++)
@@ -166,19 +172,21 @@ public class CustomDisplay : MonoBehaviour
             legsColor[i].material = legs.color.corData[onlineIndex];
         }
         legsColor[legs.propIndex].material = legs.color.corData[onlineIndex];
-    }
+    }*/
 
     [PunRPC]
     private void TrocaSapato(int onlineIndex)
     {
         for (int i = 0; i < shoeModels.Length; i++)
         {
-            shoeModels[i].SetActive(false);
+            shoeModels[i].ChangeCustom(false);
+            shoe2Models[i].ChangeCustom(false);
         }
-        shoeModels[onlineIndex].SetActive(true);
+        shoeModels[onlineIndex].ChangeCustom(true);
+        shoe2Models[onlineIndex].ChangeCustom(true);
     }
 
-    [PunRPC]
+    /*[PunRPC]
     private void TrocaMaterialSapato(int onlineIndex)
     {
         for (int i = 0; i < shoeColor.Length; i++)
@@ -186,5 +194,5 @@ public class CustomDisplay : MonoBehaviour
             shoeColor[i].material = shoe.color.corData[onlineIndex];
         }
         shoeColor[shoe.propIndex].material = shoe.color.corData[onlineIndex];
-    }
+    }*/
 }

@@ -61,6 +61,11 @@ public class PlayerThings : MonoBehaviour
             menuCustom = true;
         }
 
+        if(SceneManager.GetActiveScene().name == "Customiza")
+        {
+            desativaCanvas = true;
+        }
+
 
         if (desativaCanvas == true)
         {

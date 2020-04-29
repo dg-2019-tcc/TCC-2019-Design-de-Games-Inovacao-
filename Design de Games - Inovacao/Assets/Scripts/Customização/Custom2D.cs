@@ -27,7 +27,7 @@ public class Custom2D : MonoBehaviour
 
 
 
-    void Start()
+    /*void Start()
     {
         //CABELO E SOMBRANCELHAS
 
@@ -93,7 +93,7 @@ public class Custom2D : MonoBehaviour
         shirt2[shirtInd.prop2DInd].ChangeCustom(true);
         shorts2[shortsInd.prop2DInd].ChangeCustom(true);
         shoes2[shoesInd.prop2DInd].ChangeCustom(true);
-    }
+    }*/
 
 	[PunRPC]
 	public void ChangeHair()
@@ -111,6 +111,8 @@ public class Custom2D : MonoBehaviour
 
 		hairs[hairInd.prop2DInd].ChangeCustom(true);
 		hairs2[hairInd.prop2DInd].ChangeCustom(true);
+
+        PhotonNetwork.LocalPlayer.CustomProperties["hairIndex"] = hairInd.prop2DInd;
     }
 
 	[PunRPC]
@@ -148,6 +150,8 @@ public class Custom2D : MonoBehaviour
         shirt[shirtInd.prop2DInd].ChangeCustom(true);
         shirt2[shirtInd.prop2DInd].ChangeCustom(true);
 
+        PhotonNetwork.LocalPlayer.CustomProperties["shirtIndex"] = shirtInd.prop2DInd;
+
     }
 
     [PunRPC]
@@ -167,6 +171,7 @@ public class Custom2D : MonoBehaviour
         shorts[shortsInd.prop2DInd].ChangeCustom(true);
         shorts2[shortsInd.prop2DInd].ChangeCustom(true);
 
+        PhotonNetwork.LocalPlayer.CustomProperties["legsIndex"] = shortsInd.prop2DInd;
     }
 
     [PunRPC]
@@ -185,6 +190,8 @@ public class Custom2D : MonoBehaviour
 
         shoes[shoesInd.prop2DInd].ChangeCustom(true);
         shoes2[shoesInd.prop2DInd].ChangeCustom(true);
+
+        PhotonNetwork.LocalPlayer.CustomProperties["shoeIndex"] = shoesInd.prop2DInd;
 
     }
 
