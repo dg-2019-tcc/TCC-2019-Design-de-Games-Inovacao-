@@ -26,7 +26,13 @@ public class CustomDisplay : MonoBehaviour
     {
 		pv = GetComponent<PhotonView>();
 
-		/* //hair.propIndex = PlayerPrefs.GetInt("hairIndex");
+        PhotonNetwork.LocalPlayer.CustomProperties["hairIndex"] = hair.prop2DInd;
+        PhotonNetwork.LocalPlayer.CustomProperties["shirtIndex"] = shirt.prop2DInd;
+        PhotonNetwork.LocalPlayer.CustomProperties["legsIndex"] = legs.prop2DInd;
+        PhotonNetwork.LocalPlayer.CustomProperties["shoeIndex"] = shoe.prop2DInd;
+
+
+        /* //hair.propIndex = PlayerPrefs.GetInt("hairIndex");
 		 PhotonNetwork.LocalPlayer.CustomProperties["hairIndex"] = hair.propIndex;
 
 		 //PlayerPrefs.SetInt("shirtIndex", shirt.propIndex);
@@ -47,7 +53,7 @@ public class CustomDisplay : MonoBehaviour
 		 PhotonNetwork.LocalPlayer.CustomProperties["legsColorIndex"] = legs.colorIndex;*/
 
 
-		/*hairModels[hair.propIndex].SetActive(true);
+        /*hairModels[hair.propIndex].SetActive(true);
         shirtModels[shirt.propIndex].SetActive(true);
         legModels[legs.propIndex].SetActive(true);
 
@@ -56,7 +62,7 @@ public class CustomDisplay : MonoBehaviour
         legsColor[legs.propIndex].material = legs.color[legs.propIndex].corData[legs.colorIndex];*/
 
 
-		if (!pv.IsMine)
+        if (!pv.IsMine)
 		{
 			PhotonNetwork.LocalPlayer.CustomProperties["hairIndex"] = hair.prop2DInd;
 			PhotonNetwork.LocalPlayer.CustomProperties["shirtIndex"] = shirt.prop2DInd;
@@ -113,6 +119,7 @@ public class CustomDisplay : MonoBehaviour
         {
             hairModels[i].ChangeCustom(false);
             hair2Models[i].ChangeCustom(false);
+            Debug.Log("Desativa");
         }
         hairModels[onlineIndex].ChangeCustom(true);
         hair2Models[onlineIndex].ChangeCustom(true);

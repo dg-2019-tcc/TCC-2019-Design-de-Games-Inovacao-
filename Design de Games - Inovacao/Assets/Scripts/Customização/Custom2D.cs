@@ -27,9 +27,10 @@ public class Custom2D : MonoBehaviour
 
 
 
-    /*void Start()
+    void Start()
     {
-        //CABELO E SOMBRANCELHAS
+
+        /*//CABELO E SOMBRANCELHAS
 
         for (int i = 0; i < hairs.Length; i++)
         {
@@ -92,8 +93,8 @@ public class Custom2D : MonoBehaviour
         shirt2[shirtInd.prop2DInd].ChangeCustom(true);
         shirt2[shirtInd.prop2DInd].ChangeCustom(true);
         shorts2[shortsInd.prop2DInd].ChangeCustom(true);
-        shoes2[shoesInd.prop2DInd].ChangeCustom(true);
-    }*/
+        shoes2[shoesInd.prop2DInd].ChangeCustom(true);*/
+    }
 
 	[PunRPC]
 	public void ChangeHair()

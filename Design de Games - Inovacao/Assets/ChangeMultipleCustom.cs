@@ -16,7 +16,7 @@ public class ChangeMultipleCustom : MonoBehaviour
             for(int i = 0; i < multipleCustom.Length; i++)
             {
                 multipleCustom[i].SetActive(true);
-                Debug.Log("Ativa");
+                //Debug.Log("Ativa");
             }
         }
 
@@ -25,6 +25,7 @@ public class ChangeMultipleCustom : MonoBehaviour
             for (int i = 0; i < multipleCustom.Length; i++)
             {
                 multipleCustom[i].SetActive(false);
+                //Debug.Log("Desativa");
             }
         }
     }

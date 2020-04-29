@@ -341,6 +341,11 @@ public class TriggerCollisionsController : RaycastController
                     select.jogador = playerThings.GetComponent<PlayerThings>();
                     hit.collider.GetComponent<BoxCollider2D>().enabled = false;
                 }
+
+                if(hit.collider.tag == "CaixaDagua")
+                {
+                    collisions.caixaDagua = true;
+                }
             }
         }
     }
@@ -358,6 +363,8 @@ public class TriggerCollisionsController : RaycastController
         public bool cortaBola, tocouBola;
 
         public bool cabecaBola, chutouBola;
+
+        public bool caixaDagua;
 
         public void Reset()
         {
