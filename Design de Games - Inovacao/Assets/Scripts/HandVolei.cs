@@ -29,15 +29,11 @@ public class HandVolei : MonoBehaviour
 
     public Joystick joyStick;
 
-    public GameObject hand;
-
-    public GameObject normalHand;
-
-    public GameObject superHand;
-
     public TriggerCollisionsController triggerController;
 
     public Controller2D controller;
+
+    public Player2DAnimations anim;
 
 
     public void Start()
@@ -122,11 +118,11 @@ public class HandVolei : MonoBehaviour
     IEnumerator CoolHand()
     {
         cortou = true;
+        anim.DogButtonAnim(cortou);
 
         yield return new WaitForSeconds(cooldownKick);
-        superHand.SetActive(false);
-        normalHand.SetActive(true);
         cortou = false;
+        anim.DogButtonAnim(cortou);
     }
 
     [PunRPC]
@@ -149,8 +145,6 @@ public class HandVolei : MonoBehaviour
     {
 
         Debug.Log("SuperCortaBola");
-        superHand.SetActive(true);
-        normalHand.SetActive(false);
         /*if (joyStick.Vertical != 0)
         {
             forceVertical = corteForceY * joyStick.Vertical * 2;

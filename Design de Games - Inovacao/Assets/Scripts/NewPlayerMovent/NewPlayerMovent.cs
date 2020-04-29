@@ -14,9 +14,9 @@ public class NewPlayerMovent : MonoBehaviour
     float maxJumpVelocity;
     float minJumpVelocity;
     float gravity;
-    public float maxJumpHeight = 4;
-    public float minJumpHeight = 2;
-    public float timeToJumpApex = 0.4f;
+    public FloatVariable maxJumpHeight;
+    public FloatVariable minJumpHeight;
+    public FloatVariable timeToJumpApex;
 
     float pipaMoveSpeed = 6;
     float pipaVelocityXSmoothing;
@@ -72,9 +72,9 @@ public class NewPlayerMovent : MonoBehaviour
         triggerController = GetComponent<TriggerCollisionsController>();
         animations = GetComponent<Player2DAnimations>();
 
-        gravity = -(2 * maxJumpHeight) / Mathf.Pow(timeToJumpApex, 2);
-        maxJumpVelocity = Mathf.Abs(gravity * timeToJumpApex);
-        minJumpVelocity = Mathf.Sqrt(2* Mathf.Abs(gravity)*minJumpHeight);
+        gravity = -(2 * maxJumpHeight.Value) / Mathf.Pow(timeToJumpApex.Value, 2);
+        maxJumpVelocity = Mathf.Abs(gravity * timeToJumpApex.Value);
+        minJumpVelocity = Mathf.Sqrt(2* Mathf.Abs(gravity)*minJumpHeight.Value);
 
 		pv = GetComponent<PhotonView>();
         joyStick = FindObjectOfType<Joystick>();
@@ -132,7 +132,7 @@ public class NewPlayerMovent : MonoBehaviour
             {
                 if (jump == true && controller.collisions.below)
                 {
-                    carroVelocity.y = maxJumpHeight;
+                    carroVelocity.y = maxJumpHeight.Value;
                 }
 
                 float targetVelocityX = input.x * carroMoveSpeed;
@@ -185,7 +185,7 @@ public class NewPlayerMovent : MonoBehaviour
         //stopJump = false;
         if (controller.collisions.below && jump /*&& !stopJump*/)
         {
-            velocity.y = maxJumpHeight;
+            velocity.y = maxJumpHeight.Value;
 
         }
     }
