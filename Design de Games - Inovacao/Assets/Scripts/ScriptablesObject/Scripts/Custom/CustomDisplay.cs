@@ -22,7 +22,7 @@ public class CustomDisplay : MonoBehaviour
 
 	private PhotonView pv;
 
-    void Awake()
+    void Start()
     {
 		pv = GetComponent<PhotonView>();
 
