@@ -49,6 +49,8 @@ public class Player2DAnimations : MonoBehaviour
     public BoolVariable pipaActive;
     public BoolVariable carroActive;
 
+    public bool isCorrida;
+
 
     //private DragonBones.AnimationState aimState = null;
 
@@ -57,7 +59,15 @@ public class Player2DAnimations : MonoBehaviour
         photonView = gameObject.GetComponent<PhotonView>();
         controller = GetComponent<Controller2D>();
         player.animation.Init(armature);
-        state = State.Idle;
+        if (!isCorrida)
+        {
+            state = State.Idle;
+        }
+        else
+        {
+            state = State.Abaixando;
+            frente.SetActive(false);
+        }
     }
 
 

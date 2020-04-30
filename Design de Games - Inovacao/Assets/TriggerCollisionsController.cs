@@ -55,7 +55,7 @@ public class TriggerCollisionsController : RaycastController
             {
                 UpCollisions();
             }
-            else
+            else if(dir.y <0)
             {
                 DownCollisions();
             }
@@ -144,7 +144,12 @@ public class TriggerCollisionsController : RaycastController
 				{
 					hit.collider.gameObject.GetComponent<LinhaDeChegada>().Colidiu(gameObject);
 				}
-			}
+
+                if (hit.collider.tag == "CaixaDagua")
+                {
+                    collisions.caixaDagua = true;
+                }
+            }
         }
     }
 
@@ -300,7 +305,7 @@ public class TriggerCollisionsController : RaycastController
             rayOrigin += Vector2.right * (verticalRaySpacing * i);
             RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.up * directionY, rayLenght, collisionMask);
 
-            //Debug.DrawRay(rayOrigin, Vector2.up * directionY, Color.red);
+            Debug.DrawRay(rayOrigin, Vector2.up * directionY, Color.red);
 
             if (hit)
             {
@@ -371,6 +376,7 @@ public class TriggerCollisionsController : RaycastController
             isDoor = false;
             cortaBola = tocouBola = false;
             cabecaBola = tocouBola = false;
+            caixaDagua = false;
         }
     }
 }

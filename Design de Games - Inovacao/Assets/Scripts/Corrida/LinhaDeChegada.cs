@@ -37,15 +37,15 @@ public class LinhaDeChegada : MonoBehaviour
 
 	public void Colidiu(GameObject other)
 	{
-		Debug.Log("colidiu com linha");
 		playerView = other.GetComponent<PhotonView>();
 		if (finished == false)
 		{
 			if (playerView.IsMine == true && euAcabei == false)
 			{
-				// PlayerMovement jogador = other.GetComponent<PlayerMovement>();
-				//playerView.RPC("Acabou", RpcTarget.All);
-				winnerManager.ganhouCorrida = true;
+                Debug.Log("colidiu com linha");
+                // PlayerMovement jogador = other.GetComponent<PlayerMovement>();
+                //playerView.RPC("Acabou", RpcTarget.All);
+                winnerManager.ganhouCorrida = true;
 				totalPlayers++;
 				euAcabei = true;
 				changeRoom = true;

@@ -131,7 +131,6 @@ public class CustomDisplay : MonoBehaviour
         {
             hairModels[i].ChangeCustom(false);
             hair2Models[i].ChangeCustom(false);
-            Debug.Log("Desativa");
         }
         hairModels[onlineIndex].ChangeCustom(true);
         hair2Models[onlineIndex].ChangeCustom(true);
