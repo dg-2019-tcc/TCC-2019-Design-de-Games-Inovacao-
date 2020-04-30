@@ -20,6 +20,7 @@ public class PlayerThings : MonoBehaviour
     public PhotonView PV;
 
     public CameraManager cameraManager;
+    public bool comecou;
 
     public bool shouldTurn;
 
@@ -72,11 +73,7 @@ public class PlayerThings : MonoBehaviour
             canvasSelf.SetActive(false);
         }
 
-        if (PV.IsMine)
-        {
-            cameraManager.SendMessage("ActivateCamera", true);
-        }
-        else if (menuCustom)
+        if (menuCustom)
         {
             cameraManager.SendMessage("ActivateCamera", true);
         }
@@ -95,6 +92,11 @@ public class PlayerThings : MonoBehaviour
 
     void Update()
     {
+        if (PV.IsMine && comecou)
+        {
+            cameraManager.SendMessage("ActivateCamera", true);
+        }
+
         if (acabouPartida == true) return;
 
         if (!menuCustom && !PV.IsMine)
