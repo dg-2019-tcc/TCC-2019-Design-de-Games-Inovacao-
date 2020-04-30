@@ -30,10 +30,12 @@ public class FailMessageManager : MonoBehaviour
 		}
 		else
 		{
-			if (!PhotonNetwork.IsConnected && SceneManager.GetActiveScene().name != "HUB")
+			if (!PhotonNetwork.IsConnected && !message.activeSelf && SceneManager.GetActiveScene().name != "HUB")
 			{
+				startChecking = false;
 				StartCoroutine(WeHaveToGoBack());
 			}
+			
 		}
 	}
 
