@@ -24,23 +24,37 @@ public class NetworkController : MonoBehaviourPunCallbacks
 
     void Start()
     {
-        if(OfflineMode.modoDoOffline == true)
-        {
-            PhotonNetwork.OfflineMode = true;
-        }
-        else if (PhotonNetwork.IsConnected)
-        {
-            return;
-        }
-        else
-        {
-            PhotonNetwork.ConnectUsingSettings(); //Conecta com os servidores mestres do photon
-        }
+		Conecta();
     }
 
-   /* public override void OnConnectedToMaster()
-    {
-        //Basicamente debug para facilitar saber o que acontece aonde
-        Debug.Log("Nós estamos conectados ao servidor " + PhotonNetwork.CloudRegion + "!!");
-    }*/
+
+	void Conecta()
+	{
+		if (OfflineMode.modoDoOffline == true)
+		{
+			PhotonNetwork.OfflineMode = true;
+		}
+		else if (PhotonNetwork.IsConnected)
+		{
+			return;
+		}
+		else
+		{
+			PhotonNetwork.ConnectUsingSettings(); //Conecta com os servidores mestres do photon
+		}
+
+	}
+
+	private void Update()
+	{
+		if (!PhotonNetwork.IsConnected)
+		{
+			Conecta();
+		}
+	}
+	/* public override void OnConnectedToMaster()
+	 {
+		 //Basicamente debug para facilitar saber o que acontece aonde
+		 Debug.Log("Nós estamos conectados ao servidor " + PhotonNetwork.CloudRegion + "!!");
+	 }*/
 }
