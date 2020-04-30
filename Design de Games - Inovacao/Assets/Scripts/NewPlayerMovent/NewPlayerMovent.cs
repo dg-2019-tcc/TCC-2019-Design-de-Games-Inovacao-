@@ -190,7 +190,6 @@ public class NewPlayerMovent : MonoBehaviour
     public void Jump()
     {
         jump = true;
-        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Pulo", GetComponent<Transform>().position);
         //animations.ChangeMoveAnim(velocity, oldPosition, input, jump, stopJump);
         /*if (animations.state != Player2DAnimations.State.Chutando)
         {
@@ -200,7 +199,7 @@ public class NewPlayerMovent : MonoBehaviour
         if (controller.collisions.below && jump /*&& !stopJump*/)
         {
             velocity.y = maxJumpHeight.Value;
-
+            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Pulo", GetComponent<Transform>().position);
         }
     }
 
