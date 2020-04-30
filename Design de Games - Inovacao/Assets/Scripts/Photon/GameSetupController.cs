@@ -29,6 +29,7 @@ namespace Complete
 
         [HideInInspector]
         static public GameObject PlayerInst;
+        public PhotonPlayer playerMove;
 
         public bool isFut;
 
@@ -48,7 +49,8 @@ namespace Complete
                 {
                     PlayerInst = (GameObject)PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PhotonPlayer"),
                                    spawnPoints[0].position, Quaternion.identity);
-                    PlayerInst.SetActive(false);
+                    //PlayerInst.SetActive(false);
+                    playerMove = PlayerInst.GetComponent<PhotonPlayer>();
 
                     gameObject.GetComponent<PhotonView>().RPC("SpawnPlayer", RpcTarget.All, allPlayersInSession);
                 }
@@ -57,7 +59,8 @@ namespace Complete
                 {
                     PlayerInst = (GameObject)PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PhotonPlayer"),
                                    spawnPoints[1].position, Quaternion.identity);
-                    PlayerInst.SetActive(false);
+                    //PlayerInst.SetActive(false);
+                    playerMove = PlayerInst.GetComponent<PhotonPlayer>();
 
 
                     gameObject.GetComponent<PhotonView>().RPC("SpawnPlayer", RpcTarget.All, allPlayersInSession);
@@ -68,7 +71,8 @@ namespace Complete
             {
                 PlayerInst = (GameObject)PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PhotonPlayer"),
                                    spawnPoints[0].position, Quaternion.identity);
-                PlayerInst.SetActive(false);
+                //PlayerInst.SetActive(false);
+                playerMove = PlayerInst.GetComponent<PhotonPlayer>();
 
 
                 gameObject.GetComponent<PhotonView>().RPC("SpawnPlayer", RpcTarget.All, allPlayersInSession);
@@ -106,7 +110,8 @@ namespace Complete
 				StartCoroutine("UniteSynchronization", 0);
 			else
 			{
-				PlayerInst.SetActive(true);
+                //PlayerInst.SetActive(true);
+                playerMove.playerMove.enabled = true;
 				partidaComecou.Value = true;
 			}
 			

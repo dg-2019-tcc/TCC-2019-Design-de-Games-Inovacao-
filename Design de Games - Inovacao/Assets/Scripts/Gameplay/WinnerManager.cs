@@ -6,7 +6,7 @@ using Photon.Pun.UtilityScripts;
 
 public class WinnerManager : MonoBehaviour
 {
-	public PlayerMovement player;
+	public PlayerThings player;
 	private PhotonView pv;
 
 
@@ -38,7 +38,7 @@ public class WinnerManager : MonoBehaviour
     {
 		if (player == null)
 		{
-			player = FindObjectOfType<PlayerMovement>();
+			player = FindObjectOfType<PlayerThings>();
 		}
 		else
 		{
@@ -53,6 +53,7 @@ public class WinnerManager : MonoBehaviour
 			}
 			else if (ganhouCorrida)
 			{
+                Debug.Log(ganhouCorrida);
 				GanhouCorrida();
 			}
 			/*
@@ -71,7 +72,7 @@ public class WinnerManager : MonoBehaviour
 
         Debug.Log("Ganhou");
 		PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 1;
-		player.ganhouSom.Play();
+		//player.ganhouSom.Play();
 		//player.playerAnimations.playerAC.SetTrigger(player.playerAnimations.animatorWon);
 		
 
@@ -79,16 +80,16 @@ public class WinnerManager : MonoBehaviour
 
 		gameObject.GetComponent<PhotonView>().RPC("TrocaSala", RpcTarget.All);
 		ganhouCorrida = false;
-		PlayerMovement.acabou = true;
+		//PlayerMovement.acabou = true;
 
 	}
 
 	[PunRPC]
 	void PerdeuCorrida()
 	{
-		player.perdeuSom.Play();
+		//player.perdeuSom.Play();
 		perdeuCorrida = true;
-		PlayerMovement.acabou = true;
+		//PlayerThings.acabou = true;
 		PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 0;
 		gameObject.GetComponent<PhotonView>().RPC("TrocaSala", RpcTarget.MasterClient);
 	}
