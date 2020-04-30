@@ -236,6 +236,11 @@ public class TriggerCollisionsController : RaycastController
 				{
 					hit.collider.gameObject.GetComponent<LinhaDeChegada>().Colidiu(gameObject);
 				}
+
+                if (hit.collider.tag == "CaixaDagua")
+                {
+                    collisions.caixaDagua = true;
+                }
             }
         }
     }

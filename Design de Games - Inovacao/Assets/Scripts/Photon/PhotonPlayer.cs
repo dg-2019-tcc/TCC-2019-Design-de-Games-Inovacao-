@@ -18,6 +18,7 @@ namespace Complete
         public PlayerType playerTypePrefabs;
 
         public NewPlayerMovent playerMove;
+        public PlayerThings playerThings;
 
         void Start()
         {
@@ -50,6 +51,7 @@ namespace Complete
             }
 
             playerMove = myAvatar.GetComponentInChildren<NewPlayerMovent>();
+            playerThings = myAvatar.GetComponentInChildren<PlayerThings>();
             playerMove.enabled = false;
 
 

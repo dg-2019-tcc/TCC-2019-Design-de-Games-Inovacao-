@@ -112,6 +112,7 @@ namespace Complete
 			{
                 //PlayerInst.SetActive(true);
                 playerMove.playerMove.enabled = true;
+                playerMove.playerThings.comecou = true;
 				partidaComecou.Value = true;
 			}
 			

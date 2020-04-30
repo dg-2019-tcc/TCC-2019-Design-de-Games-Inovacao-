@@ -59,15 +59,9 @@ public class Player2DAnimations : MonoBehaviour
         photonView = gameObject.GetComponent<PhotonView>();
         controller = GetComponent<Controller2D>();
         player.animation.Init(armature);
-        if (!isCorrida)
-        {
-            state = State.Idle;
-        }
-        else
-        {
-            state = State.Abaixando;
-            frente.SetActive(false);
-        }
+        state = State.Abaixando;
+        frente.SetActive(false);
+        
     }
 
 
