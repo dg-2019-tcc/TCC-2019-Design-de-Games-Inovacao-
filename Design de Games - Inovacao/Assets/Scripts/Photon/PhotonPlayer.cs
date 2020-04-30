@@ -17,6 +17,9 @@ namespace Complete
 
         public PlayerType playerTypePrefabs;
 
+        public NewPlayerMovent playerMove;
+        public PlayerThings playerThings;
+
         void Start()
         {
             PV = GetComponent<PhotonView>();
@@ -46,6 +49,12 @@ namespace Complete
                     GameSetupController.GS.spawnPoints[spawnPicker].position, GameSetupController.GS.spawnPoints[spawnPicker].rotation, 0);
 
             }
+
+            playerMove = myAvatar.GetComponentInChildren<NewPlayerMovent>();
+            playerThings = myAvatar.GetComponentInChildren<PlayerThings>();
+            playerMove.enabled = false;
+
+
 
         }
 

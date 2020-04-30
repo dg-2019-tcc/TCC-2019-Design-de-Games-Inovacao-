@@ -127,9 +127,9 @@ public class NewPlayerMovent : MonoBehaviour
                 stopJump = false;
             }
 
-            if (controller.collisions.below && triggerController.collisions.caixaDagua)
+            if (/*controller.collisions.below &&*/ triggerController.collisions.caixaDagua)
             {
-                velocity.y = maxJumpHeight.Value * 1.5f;
+                velocity.y = maxJumpHeight.Value * 1.8f ;
 
             }
 
@@ -225,7 +225,6 @@ public class NewPlayerMovent : MonoBehaviour
             {
                 if (controller.collisions.below && jump == false)
                 {
-                    Debug.Log("asd");
                     FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Passos", GetComponent<Transform>().position);
                 }
             }
