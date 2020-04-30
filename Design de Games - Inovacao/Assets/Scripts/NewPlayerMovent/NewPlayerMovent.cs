@@ -223,7 +223,7 @@ public class NewPlayerMovent : MonoBehaviour
         {
             if (joyInput.x > 0.3f || joyInput.x < -0.3f)
             {
-                if (jump == false)
+                if (controller.collisions.below && jump == false)
                 {
                     Debug.Log("asd");
                     FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Passos", GetComponent<Transform>().position);
