@@ -12,6 +12,7 @@ public class FailMessageManager : MonoBehaviour
 
 	public bool startChecking = false;
 	public bool wasConnected;
+	public static bool manualShutdown = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -30,10 +31,14 @@ public class FailMessageManager : MonoBehaviour
 		}
 		else
 		{
-			if (!PhotonNetwork.IsConnected && !message.activeSelf && SceneManager.GetActiveScene().name != "HUB")
+			if (!PhotonNetwork.IsConnected && !manualShutdown && !message.activeSelf && SceneManager.GetActiveScene().name != "HUB")
 			{
 				startChecking = false;
 				StartCoroutine(WeHaveToGoBack());
+			}
+			else if (manualShutdown)
+			{
+				StartCoroutine(resetShutdownMode());
 			}
 			
 		}
@@ -49,6 +54,13 @@ public class FailMessageManager : MonoBehaviour
 			message.SetActive(false);
 			SceneManager.LoadScene("HUB");
 		
+
+	}
+
+	IEnumerator resetShutdownMode()
+	{
+		yield return new WaitForSeconds(timeToWait);
+		manualShutdown = false;
 
 	}
 }
