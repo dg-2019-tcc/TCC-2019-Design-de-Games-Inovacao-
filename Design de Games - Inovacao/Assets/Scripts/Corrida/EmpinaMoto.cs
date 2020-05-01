@@ -36,6 +36,10 @@ public class EmpinaMoto : MonoBehaviour
 	public Image brilhoDeBoost;
 	public SpriteRenderer motoBrilho;
 
+	[Header("GayTrail")]
+	public GameObject particula;
+	public ParticleSystem trail;
+
 
 
 	private void Start()
@@ -58,21 +62,41 @@ public class EmpinaMoto : MonoBehaviour
 		{
 			transform.localRotation = Quaternion.Slerp(transform.localRotation, Quaternion.Euler(transform.localRotation.x, transform.localRotation.y, 45), 0.5f);
 			playerSpeed.Value = Mathf.Lerp(playerSpeed.Value, boostSpeed, 0.5f);
+			//particula.SetActive(true);
+			if (!trail.isPlaying)
+			{
+				trail.Play();
+			}
 		}
 		else if (isManobrandoNoAr)
 		{
 			transform.localRotation = Quaternion.Slerp(transform.localRotation, Quaternion.Euler(transform.localRotation.x, transform.localRotation.y, Mathf.Sin(Time.time) * (transform.localRotation.z + 45)), 0.5f);
 			playerSpeed.Value = Mathf.Lerp(playerSpeed.Value, boostSpeed, 0.5f);
+			//particula.SetActive(true);
+			if (!trail.isPlaying)
+			{
+				trail.Play();
+			}
 			if (controller.collisions.below)
 			{
 				playerSpeed.Value = Mathf.Lerp(playerSpeed.Value, 0, 0.5f);
 				transform.localRotation = Random.rotation;
+				//particula.SetActive(false);
+				if (trail.isPlaying)
+				{
+					trail.Stop();
+				}
 			}
 		}
 		else
 		{
 			transform.localRotation = Quaternion.Slerp(transform.localRotation, Quaternion.Euler(transform.localRotation.x, transform.localRotation.y, 0), 0.5f);
 			playerSpeed.Value = Mathf.Lerp(playerSpeed.Value, baseSpeed, 0.5f);
+			//particula.SetActive(false);
+			if (trail.isPlaying)
+			{
+				trail.Stop();
+			}
 		}
 
 
