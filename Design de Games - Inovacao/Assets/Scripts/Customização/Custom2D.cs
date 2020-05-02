@@ -97,27 +97,7 @@ public class Custom2D : MonoBehaviour
     }
 
 	[PunRPC]
-	public void ChangeHair()
-    {        
-		FMODUnity.RuntimeManager.PlayOneShot("event:/HUD/Click", GetComponent<Transform>().position);
-		hairs[hairInd.prop2DInd].ChangeCustom(false);
-        hairs2[hairInd.prop2DInd].ChangeCustom(false);
-
-        hairInd.prop2DInd += 1;
-
-		if (hairInd.prop2DInd >= hairs.Length)
-		{
-			hairInd.prop2DInd = 0;
-		}
-
-		hairs[hairInd.prop2DInd].ChangeCustom(true);
-		hairs2[hairInd.prop2DInd].ChangeCustom(true);
-
-        PhotonNetwork.LocalPlayer.CustomProperties["hairIndex"] = hairInd.prop2DInd;
-    }
-
-	[PunRPC]
-	public void ChangeSpecificHair(int index)
+	public void ChangeHair(int index)
 	{
 		FMODUnity.RuntimeManager.PlayOneShot("event:/HUD/Click", GetComponent<Transform>().position);
 		hairs[hairInd.prop2DInd].ChangeCustom(false);
@@ -132,16 +112,20 @@ public class Custom2D : MonoBehaviour
 
 		hairs[hairInd.prop2DInd].ChangeCustom(true);
 		hairs2[hairInd.prop2DInd].ChangeCustom(true);
-	}
+
+		PhotonNetwork.LocalPlayer.CustomProperties["hairIndex"] = hairInd.prop2DInd;
+    }
+
+	
 
 	[PunRPC]
-    public void ChangeShirt()
+    public void ChangeShirt(int index)
     {
         FMODUnity.RuntimeManager.PlayOneShot("event:/HUD/Click", GetComponent<Transform>().position);
         shirt[shirtInd.prop2DInd].ChangeCustom(false);
         shirt2[shirtInd.prop2DInd].ChangeCustom(false);
 
-        shirtInd.prop2DInd += 1;
+        shirtInd.prop2DInd = index;
 
         if(shirtInd.prop2DInd >= shirt.Length )
         {
@@ -156,13 +140,13 @@ public class Custom2D : MonoBehaviour
     }
 
     [PunRPC]
-    public void ChangeShort()
+    public void ChangeShort(int index)
     {
         FMODUnity.RuntimeManager.PlayOneShot("event:/HUD/Click", GetComponent<Transform>().position);
         shorts[shortsInd.prop2DInd].ChangeCustom(false);
         shorts2[shortsInd.prop2DInd].ChangeCustom(false);
 
-        shortsInd.prop2DInd += 1;
+        shortsInd.prop2DInd = index;
 
         if(shortsInd.prop2DInd >= shorts.Length)
         {
@@ -176,13 +160,13 @@ public class Custom2D : MonoBehaviour
     }
 
     [PunRPC]
-    public void ChangeShoes()
+    public void ChangeShoes(int index)
     {
         FMODUnity.RuntimeManager.PlayOneShot("event:/HUD/Click", GetComponent<Transform>().position);
         shoes[shoesInd.prop2DInd].ChangeCustom(false);
         shoes2[shoesInd.prop2DInd].ChangeCustom(false);
 
-        shoesInd.prop2DInd += 1;
+        shoesInd.prop2DInd = index;
 
         if(shoesInd.prop2DInd >= shoes.Length)
         {
