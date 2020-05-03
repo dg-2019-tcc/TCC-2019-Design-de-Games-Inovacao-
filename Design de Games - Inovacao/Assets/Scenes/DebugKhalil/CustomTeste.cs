@@ -16,11 +16,14 @@ public class CustomTeste : MonoBehaviour
 
     public int qualModeloVaiSer;
 
+    public int quantasCoresExistem;
+
     public void qualBotaoFoiPressionado(int qualMenuAtiva)
     {
         switch (qualMenuAtiva)
         {
             case 1:
+                DesativaAsCores();
                 Menu1.SetActive(true);
                 Menu2.SetActive(false);
                 Menu3.SetActive(false);
@@ -48,15 +51,28 @@ public class CustomTeste : MonoBehaviour
         }
     }
 
+    public void QuantidadeDeCores(int quantasCores)
+    {
+        quantasCoresExistem = quantasCores;
+    }
+
     public void EscolheACor()
     {
-        int q = qualModeloVaiSer * 5;
-        for (int i = 0; i < 5; i++)
+        int q = qualModeloVaiSer * quantasCoresExistem;
+        for (int i = 0; i < quantasCoresExistem; i++)
         {
-            Debug.Log(i);
+            botaoDeCor[i].gameObject.SetActive(true);
             botaoDeCor[i].image.sprite = cabelo[q]; //Muda a sprite para a imagem de cor certa
             //botaoDeCor[i].CodigoInterno = q; //Vai mandar um valor para um script dentro do botão que vai determinar qual cabelo será ativado caso esse botão seja pressionado
             q++; //Aumenta o valor de "q" para poder mudar quando passar de botão
+        }
+    }
+
+    public void DesativaAsCores()
+    {
+        for (int i = 0; i < 5; i++)
+        {
+            botaoDeCor[i].gameObject.SetActive(false);
         }
     }
 }
