@@ -179,6 +179,4 @@ public class Custom2D : MonoBehaviour
         PhotonNetwork.LocalPlayer.CustomProperties["shoeIndex"] = shoesInd.prop2DInd;
 
     }
-
-
 }
