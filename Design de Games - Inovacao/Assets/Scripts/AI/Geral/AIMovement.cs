@@ -34,6 +34,7 @@ public class AIMovement : RaycastController
     public PlatformEffector2D[] effectors;
 
     public bool isColteta;
+    public bool isFut;
     float newVel = 0.01f;
     private bool found;
     public float maxSpeed = 1f;
@@ -57,6 +58,30 @@ public class AIMovement : RaycastController
 
     public void Update()
     {
+        if (isFut)
+        {
+            Vector2 vel = controller.rb.velocity;
+            if (vel.magnitude > maxSpeed)
+            {
+                controller.rb.velocity = vel.normalized * maxSpeed;
+            }
+
+            if (transform.position.x - target.transform.position.x > 1)
+            {
+                GoLeft();
+            }
+
+            else if (transform.position.x - target.transform.position.x < -1)
+            {
+                GoRight();
+            }
+
+            else if (triggerController.triggerCollision.isUp)
+            {
+                GoUp();
+            }
+        }
+
         if (isColteta)
         {
             Vector2 vel = controller.rb.velocity;
@@ -178,7 +203,7 @@ public class AIMovement : RaycastController
     public void GoUp()
     {
         isJumping = true;
-        controller.rb.AddForce(new Vector2(0f, 50f), ForceMode2D.Impulse);
+        controller.rb.AddForce(new Vector2(0f, 15f), ForceMode2D.Impulse);
         Move(controller.rb.velocity * Time.deltaTime);
     }
 

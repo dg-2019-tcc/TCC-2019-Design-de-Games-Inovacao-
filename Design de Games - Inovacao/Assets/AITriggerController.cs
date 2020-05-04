@@ -5,6 +5,7 @@ using UnityEngine;
 public class AITriggerController : RaycastController
 {
     public TriggerCollisionInfo triggerCollision;
+    public FloatVariable rayLenghtAI;
 
 
     public void RayTriggerDirection()
@@ -23,7 +24,7 @@ public class AITriggerController : RaycastController
         float directionX = 1;
         float rayLenght;
 
-        rayLenght = 20f + skinWidth;
+        rayLenght = rayLenghtAI.Value + skinWidth;
         
 
         for (int i = 0; i < horizontalRayCount; i++)
@@ -40,6 +41,11 @@ public class AITriggerController : RaycastController
                 {
                     triggerCollision.isRight = true;
                 }
+
+                if (hit.collider.tag == "Futebol")
+                {
+                    triggerCollision.isRight = true;
+                }
             }
         }
     }
@@ -49,7 +55,7 @@ public class AITriggerController : RaycastController
         float directionX = -1;
         float rayLenght;
 
-        rayLenght = 20f + skinWidth;
+        rayLenght = rayLenghtAI.Value + skinWidth;
         
 
         for (int i = 0; i < horizontalRayCount; i++)
@@ -66,6 +72,11 @@ public class AITriggerController : RaycastController
                 {
                     triggerCollision.isLeft = true;
                 }
+
+                if (hit.collider.tag == "Futebol")
+                {
+                    triggerCollision.isLeft = true;
+                }
             }
         }
     }
@@ -73,7 +84,7 @@ public class AITriggerController : RaycastController
     void UpCollisions()
     {
         float directionY = 1;
-        float rayLenght = 20f + skinWidth;
+        float rayLenght = rayLenghtAI.Value + skinWidth;
 
         for (int i = 0; i < verticalRayCount; i++)
         {
@@ -89,6 +100,11 @@ public class AITriggerController : RaycastController
                 {
                     triggerCollision.isUp = true;
                 }
+
+                if(hit.collider.tag == "Futebol")
+                {
+                    triggerCollision.isUp = true;
+                }
             }
         }
     }
@@ -96,7 +112,7 @@ public class AITriggerController : RaycastController
     void DownCollisions()
     {
         float directionY = -1;
-        float rayLenght = 20f + skinWidth;
+        float rayLenght = rayLenghtAI.Value + skinWidth;
 
         for (int i = 0; i < verticalRayCount; i++)
         {
