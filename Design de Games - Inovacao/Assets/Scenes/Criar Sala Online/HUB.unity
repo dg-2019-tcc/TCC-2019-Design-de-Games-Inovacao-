@@ -3106,6 +3106,16 @@ PrefabInstance:
       propertyPath: walkAnimation
       value: 0_Corrida_V2
       objectReference: {fileID: 0}
+    - target: {fileID: 3078843700560388366, guid: 650c79142e52b1a46944cd798e3de766,
+        type: 3}
+      propertyPath: playerFrente
+      value: 
+      objectReference: {fileID: 297971583}
+    - target: {fileID: 3078843700560388366, guid: 650c79142e52b1a46944cd798e3de766,
+        type: 3}
+      propertyPath: idlePose
+      value: 0_Idle
+      objectReference: {fileID: 0}
     - target: {fileID: 3774666481171245066, guid: 650c79142e52b1a46944cd798e3de766,
         type: 3}
       propertyPath: viewIdField
@@ -3374,7 +3384,7 @@ PrefabInstance:
     - target: {fileID: 2308090815668837783, guid: 650c79142e52b1a46944cd798e3de766,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2343311145666928868, guid: 650c79142e52b1a46944cd798e3de766,
         type: 3}
@@ -3604,7 +3614,7 @@ PrefabInstance:
     - target: {fileID: 6412357806758386736, guid: 650c79142e52b1a46944cd798e3de766,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6476489784807352363, guid: 650c79142e52b1a46944cd798e3de766,
         type: 3}
@@ -4180,7 +4190,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 94bad94531d3ec649970f6efe0616cca, type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 4124639184666294855, guid: 650c79142e52b1a46944cd798e3de766,
         type: 3}
       propertyPath: m_Mesh
@@ -4286,6 +4296,11 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 5095374834662321870, guid: 650c79142e52b1a46944cd798e3de766,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 5083552046536946489, guid: 650c79142e52b1a46944cd798e3de766,
         type: 3}
       propertyPath: m_Mesh
@@ -4345,7 +4360,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2100000, guid: 94bad94531d3ec649970f6efe0616cca, type: 2}
     - target: {fileID: 4730875390092448111, guid: 650c79142e52b1a46944cd798e3de766,
         type: 3}
       propertyPath: m_SortingLayerID
@@ -4430,7 +4445,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2100000, guid: 94bad94531d3ec649970f6efe0616cca, type: 2}
     - target: {fileID: 5900608647786359548, guid: 650c79142e52b1a46944cd798e3de766,
         type: 3}
       propertyPath: m_Mesh
@@ -5264,6 +5279,18 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 3300754430724448429, guid: 650c79142e52b1a46944cd798e3de766, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 650c79142e52b1a46944cd798e3de766, type: 3}
+--- !u!114 &297971583 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9055327351990949006, guid: 650c79142e52b1a46944cd798e3de766,
+    type: 3}
+  m_PrefabInstance: {fileID: 297971582}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1769254026}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f825bb5ce93d6ab429dfa508444119b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &315098792
 GameObject:
   m_ObjectHideFlags: 0
@@ -9688,8 +9715,10 @@ MonoBehaviour:
   chuteAnimation: 3_Bicuda(SemPreparacao)
   abaixarAnimation: 5_Abaixar(2_IdlePose)
   arremessoAnimation: 6_Arremesso(AcaoCompleta)
+  inativoAnimation: 1_Inatividade(2_IdlePose)
   state: 1
   player: {fileID: 1408402004}
+  playerFrente: {fileID: 0}
   dogButtonAnim: 0
   fase: 0
   photonView: {fileID: 0}
@@ -9698,6 +9727,7 @@ MonoBehaviour:
   pipaActive: {fileID: 0}
   carroActive: {fileID: 0}
   isCorrida: 0
+  inativoTime: 0
 --- !u!1 &709890533
 GameObject:
   m_ObjectHideFlags: 0
