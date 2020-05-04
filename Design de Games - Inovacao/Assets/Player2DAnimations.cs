@@ -70,15 +70,24 @@ public class Player2DAnimations : MonoBehaviour
 
     private void Update()
     {
-        if (state == State.Idle)
+        if (!PhotonNetwork.InRoom || photonView.IsMine)
         {
-            inativoTime += Time.deltaTime;
-        }
+            if (state == State.Idle)
+            {
+                inativoTime += Time.deltaTime;
+            }
 
-        if(inativoTime >= 5f)
-        {
-            playerFrente.animation.timeScale = 1;
-            playerFrente.animation.Play(inativoAnimation);
+            if (inativoTime >= 3f)
+            {
+                if (!PhotonNetwork.InRoom)
+                {
+                    Inatividade();
+                }
+                else
+                {
+                    photonView.RPC("Inatividade", RpcTarget.All);
+                }
+            }
         }
     }
 
@@ -268,12 +277,23 @@ public class Player2DAnimations : MonoBehaviour
         }
     }
 
+    [PunRPC]
+    public void Inatividade()
+    {
+        if(state != State.Inativo)
+        {
+            playerFrente.animation.timeScale = 1;
+            playerFrente.animation.Play(inativoAnimation);
+            state = State.Inativo;
+        }
+    }
+
 
     [PunRPC]
     public void Walking(float animTime, Vector2 oldPos, Vector2 moveAmount)
     {
         inativoTime = 0f;
-        if (state == State.Idle)
+        if (state == State.Idle || state == State.Inativo)
         {
             lado.SetActive(true);
             frente.SetActive(false);
@@ -303,7 +323,7 @@ public class Player2DAnimations : MonoBehaviour
     [PunRPC]
     public void NoArUp()
     {
-        if (state == State.Idle)
+        if (state == State.Idle || state == State.Inativo)
         {
             inativoTime = 0f;
             lado.SetActive(true);
@@ -323,7 +343,7 @@ public class Player2DAnimations : MonoBehaviour
     [PunRPC]
     public void Fall()
     {
-        if (state == State.Idle)
+        if (state == State.Idle || state == State.Inativo)
         {
             lado.SetActive(true);
             frente.SetActive(false);
@@ -343,7 +363,7 @@ public class Player2DAnimations : MonoBehaviour
     [PunRPC]
     public void Aterrisando()
     {
-        if (state == State.Idle)
+        if (state == State.Idle || state == State.Inativo)
         {
             lado.SetActive(true);
             frente.SetActive(false);
@@ -363,7 +383,7 @@ public class Player2DAnimations : MonoBehaviour
     [PunRPC]
     public void Chute()
     {
-        if (state == State.Idle)
+        if (state == State.Idle || state == State.Inativo)
         {
             lado.SetActive(true);
             frente.SetActive(false);
@@ -382,7 +402,7 @@ public class Player2DAnimations : MonoBehaviour
     public void Arremesso()
     {
 
-        if (state == State.Idle)
+        if (state == State.Idle || state == State.Inativo)
         {
                 lado.SetActive(true);
                 frente.SetActive(false);
@@ -400,7 +420,7 @@ public class Player2DAnimations : MonoBehaviour
     [PunRPC]
     public void Abaixar()
     {
-        if (state == State.Idle)
+        if (state == State.Idle || state == State.Inativo)
         {
             lado.SetActive(true);
             frente.SetActive(false);
@@ -419,7 +439,7 @@ public class Player2DAnimations : MonoBehaviour
     [PunRPC]
     public void TransitionAir()
     {
-        if (state == State.Idle)
+        if (state == State.Idle || state == State.Inativo)
         {
             lado.SetActive(true);
             frente.SetActive(false);
