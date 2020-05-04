@@ -13,6 +13,15 @@ public class CustomTeste : MonoBehaviour
     public Button[] botaoDeCor; //Qual o botão que a gente está mexendo
     public Button[] botaoDeModelo; //Qual botão dos modelos estamos mexendo
 
+    [Header("Quantidade de cores que cada modelo tem")]
+    public int[] coresCabelo;
+
+    [Header("Quantas variações (Cores) o modelo com mais variações tem")]
+    public int qtdModelosCabelo;
+    public int qtdModelosShirt;
+    public int qtdModelosShort;
+    public int qtdModelosTenis;
+
     [Header("Botão para confirmar escolha de modelo")]
     public Button ContinuaButton;
 
@@ -21,13 +30,17 @@ public class CustomTeste : MonoBehaviour
     public GameObject Menu2;
     public GameObject Menu3;
 
-    public int qualParteVaiSer;
-    public int qualModeloVaiSer;
-    public int quantasCoresExistem;
+    int qualParteVaiSer;
+    int qualModeloVaiSer;
+    int quantasCoresExistem;
 
     public Custom2D customizaScript;
 
-    public void qualBotaoFoiPressionado(int qualMenuAtiva)
+    int maiorQuantitadeDeCoresDessaParte;
+
+    int quantasCoresTem; // Fala para dos botões Modelo(2 Level) para os botões Cor (3 Level) quantas cores diferentes existem
+
+    public void qualBotaoFoiPressionado(int qualMenuAtiva) // Serve para trocar entre as telas dos menus da customização
     {
         switch (qualMenuAtiva)
         {
@@ -54,40 +67,80 @@ public class CustomTeste : MonoBehaviour
     public void SelecionaModelo(int qualModelo)
     {
         qualModeloVaiSer = qualModelo;
-        if(ContinuaButton.interactable == false)
+        switch (qualModelo)
+        {
+            case 0:
+                quantasCoresTem = coresCabelo[0];
+                break;
+            case 1:
+                quantasCoresTem = coresCabelo[1];
+                break;
+            case 2:
+                quantasCoresTem = coresCabelo[2];
+                break;
+            case 3:
+                quantasCoresTem = coresCabelo[3];
+                break;
+        }
+        if (ContinuaButton.interactable == false)
         {
             ContinuaButton.interactable = true;
         }
     }
 
-    public void QuantidadeDeCores(int quantasCores)
+    public void QuantidadeDeCores(int maiorQuantidadeDeCores)
     {
-        quantasCoresExistem = quantasCores;
+        maiorQuantitadeDeCoresDessaParte = maiorQuantidadeDeCores;
     }
 
     public void EscolheACor()
     {
-        int q = qualModeloVaiSer * quantasCoresExistem;
-        for (int i = 0; i < quantasCoresExistem; i++)
+        //int q = qualModeloVaiSer * quantasCoresExistem; //[OLD]
+        int startArrayFromThisPoint = qualModeloVaiSer * maiorQuantitadeDeCoresDessaParte;
+        int a, b, c, d, e;
+        for (int i = 0; i < quantasCoresTem; i++)/*for (int i = 0; i < quantasCoresExistem; i++)*/
         {
             botaoDeCor[i].gameObject.SetActive(true);
-            botaoDeCor[i].onClick.AddListener(delegate { QualParteVaiMudar(qualParteVaiSer, q); });
+            switch (i)
+            {
+                case 0:
+                    a = startArrayFromThisPoint;
+                    botaoDeCor[i].onClick.AddListener(delegate { QualParteVaiMudar(qualParteVaiSer, a); });
+                    break;
+                case 1:
+                    b = startArrayFromThisPoint;
+                    botaoDeCor[i].onClick.AddListener(delegate { QualParteVaiMudar(qualParteVaiSer, b); });
+                    break;
+                case 2:
+                    c = startArrayFromThisPoint;
+                    botaoDeCor[i].onClick.AddListener(delegate { QualParteVaiMudar(qualParteVaiSer, c); });
+                    break;
+                case 3:
+                    d = startArrayFromThisPoint;
+                    botaoDeCor[i].onClick.AddListener(delegate { QualParteVaiMudar(qualParteVaiSer, d); });
+                    break;
+                case 4:
+                    e = startArrayFromThisPoint;
+                    botaoDeCor[i].onClick.AddListener(delegate { QualParteVaiMudar(qualParteVaiSer, e); });
+                    break;
+            }
+            
             switch (qualParteVaiSer)
             {
                 case 1:
-                    botaoDeCor[i].image.sprite = cabelo[q]; //Muda a sprite para a imagem de cor certa
+                    botaoDeCor[i].image.sprite = cabelo[startArrayFromThisPoint]; //Muda a sprite para a imagem de cor certa
                     break;
                 case 2:
-                    botaoDeCor[i].image.sprite = shirt[q]; //Muda a sprite para a imagem de cor certa
+                    botaoDeCor[i].image.sprite = shirt[startArrayFromThisPoint]; //Muda a sprite para a imagem de cor certa
                     break;
                 case 3:
-                    botaoDeCor[i].image.sprite = shoes[q]; //Muda a sprite para a imagem de cor certa
+                    botaoDeCor[i].image.sprite = shoes[startArrayFromThisPoint]; //Muda a sprite para a imagem de cor certa
                     break;
                 case 4:
-                    botaoDeCor[i].image.sprite = shorts[q]; //Muda a sprite para a imagem de cor certa
-                    break;
+                    botaoDeCor[i].image.sprite = shorts[startArrayFromThisPoint]; //Muda a sprite para a imagem de cor certa
+                    break;                    
             }
-            q++; //Aumenta o valor de "q" para poder mudar quando passar de botão
+            startArrayFromThisPoint++; //Aumenta o valor de "q" para poder mudar quando passar de botão
         }
     }
 
@@ -98,8 +151,10 @@ public class CustomTeste : MonoBehaviour
         for (int i = 0; i < qtdDeModelos; i++)
         {
             botaoDeModelo[i].gameObject.SetActive(true);
-            //LEMBRA DE DESATIVAR OS BOTÕES QUE NÃO SERÃO USADOS PORFAVOR
-            switch (qualParteVaiSer)
+
+            
+
+            switch (qualParteVaiSer)//Decide qual sprite vai aparecer nos botões de Modelo(2 nível)
             {
                 case 1:
                     botaoDeModelo[i].image.sprite = cabelo[q * i];
@@ -127,6 +182,14 @@ public class CustomTeste : MonoBehaviour
         }
     }
 
+    public void DesativaOsModelos()
+    {
+        for (int i = 0; i < 5; i++)
+        {
+            botaoDeModelo[i].gameObject.SetActive(false);
+        }
+    }
+
 
     public void QualParte(int selectedPart)
     {
@@ -134,6 +197,7 @@ public class CustomTeste : MonoBehaviour
         {
             case 1:
                 qualParteVaiSer = 1;
+                QuantidadeDeCores(qtdModelosCabelo);
                 break;
             case 2:
                 qualParteVaiSer = 2;
