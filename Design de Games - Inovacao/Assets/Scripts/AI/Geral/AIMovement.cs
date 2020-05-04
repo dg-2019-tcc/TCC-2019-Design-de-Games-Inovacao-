@@ -36,7 +36,7 @@ public class AIMovement : RaycastController
     public bool isColteta;
     float newVel = 0.01f;
     private bool found;
-    public float maxSpeed = 3f;
+    public float maxSpeed = 1f;
    
     Transform target;
 
@@ -184,7 +184,7 @@ public class AIMovement : RaycastController
 
     public void GoDown()
     {
-        controller.rb.isKinematic = true;
+        controller.rb.AddForce(new Vector2(0f, -10f), ForceMode2D.Impulse);
         Move(velocity * Time.deltaTime);
     }
 

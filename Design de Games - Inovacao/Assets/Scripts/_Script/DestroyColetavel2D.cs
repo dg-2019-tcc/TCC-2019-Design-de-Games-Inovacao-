@@ -69,6 +69,12 @@ public class DestroyColetavel2D : MonoBehaviourPunCallbacks
 
         }
 
+        if (other.CompareTag("AI"))
+        {
+            botScore.Value++;
+            Destroy(gameObject);
+        }
+
 
     }
 }

@@ -77,7 +77,7 @@ public class Player2DAnimations : MonoBehaviour
                 inativoTime += Time.deltaTime;
             }
 
-            if (inativoTime >= 3f)
+            if (inativoTime >= 5f)
             {
                 if (!PhotonNetwork.InRoom)
                 {
@@ -88,9 +88,25 @@ public class Player2DAnimations : MonoBehaviour
                     photonView.RPC("Inatividade", RpcTarget.All);
                 }
             }
+
+            else
+            {
+                playerFrente.animation.Play(idlePose);
+
+                if (state == State.Inativo)
+                {
+                    if (!PhotonNetwork.InRoom)
+                    {
+                        Idle();
+                    }
+                    else
+                    {
+                        photonView.RPC("Idle", RpcTarget.All);
+                    }
+                }
+            }
         }
     }
-
 
     [PunRPC]
     void ChangeArmature()
@@ -271,8 +287,7 @@ public class Player2DAnimations : MonoBehaviour
             frente.SetActive(true);
             lado.SetActive(false);
             playerFrente.animation.timeScale = 1;
-            playerFrente.animation.Play(idlePose);
-            
+            playerFrente.animation.Play(idlePose);           
             state = State.Idle;
         }
     }
@@ -297,6 +312,7 @@ public class Player2DAnimations : MonoBehaviour
         {
             lado.SetActive(true);
             frente.SetActive(false);
+            playerFrente.animation.Play(idlePose);
         }
 
         if (state != State.Walking )
@@ -325,7 +341,7 @@ public class Player2DAnimations : MonoBehaviour
     {
         if (state == State.Idle || state == State.Inativo)
         {
-            inativoTime = 0f;
+            playerFrente.animation.Play(idlePose);
             lado.SetActive(true);
             frente.SetActive(false);
         }
@@ -347,6 +363,7 @@ public class Player2DAnimations : MonoBehaviour
         {
             lado.SetActive(true);
             frente.SetActive(false);
+            playerFrente.animation.Play(idlePose);
         }
 
 
@@ -367,6 +384,7 @@ public class Player2DAnimations : MonoBehaviour
         {
             lado.SetActive(true);
             frente.SetActive(false);
+            playerFrente.animation.Play(idlePose);
         }
 
 
@@ -387,6 +405,7 @@ public class Player2DAnimations : MonoBehaviour
         {
             lado.SetActive(true);
             frente.SetActive(false);
+            playerFrente.animation.Play(idlePose);
         }
 
         if (state != State.Chutando)
@@ -406,6 +425,7 @@ public class Player2DAnimations : MonoBehaviour
         {
                 lado.SetActive(true);
                 frente.SetActive(false);
+            playerFrente.animation.Play(idlePose);
         }
 
         if (state != State.Arremessando)
@@ -424,6 +444,7 @@ public class Player2DAnimations : MonoBehaviour
         {
             lado.SetActive(true);
             frente.SetActive(false);
+            playerFrente.animation.Play(idlePose);
         }
 
 
@@ -443,6 +464,7 @@ public class Player2DAnimations : MonoBehaviour
         {
             lado.SetActive(true);
             frente.SetActive(false);
+            playerFrente.animation.Play(idlePose);
         }
 
 
