@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class ColetavelGerador : MonoBehaviour
 {
@@ -23,12 +24,18 @@ public class ColetavelGerador : MonoBehaviour
     {
 		if (coletaveis[index] == null)
 		{
-			pickColetavel();
+			if (PhotonNetwork.LocalPlayer.IsMasterClient)
+			{
+				index = Random.Range(0, coletaveis.Length);
+				PhotonNetwork.LocalPlayer.CustomProperties["IndexColetavel"] = index;
+				
+			}
+			RearrangeColetavel();
 		}
 	}
 
 
-	void pickColetavel()
+	void RearrangeColetavel()
 	{
 		List<GameObject> tempColetaveis = new List<GameObject>();
 		foreach (GameObject item in coletaveis)
@@ -41,8 +48,18 @@ public class ColetavelGerador : MonoBehaviour
 		{
 			coletaveis[i].SetActive(false);
 		}
-		index = Random.Range(0, coletaveis.Length);
-		coletaveis[index].SetActive(true);
-        coletavelCerto = coletaveis[index];
+		
+		coletaveis[(int)PhotonNetwork.MasterClient.CustomProperties["IndexColetavel"]].SetActive(true);
+	}
+
+
+	[PunRPC]
+	void SincronizaColetaveis()
+	{
+		if (coletaveis[index] != null)
+		{
+			Destroy(coletaveis[index]);
+		}
+
 	}
 }
