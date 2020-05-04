@@ -32,8 +32,12 @@ public class ColetavelGerador : MonoBehaviour
 	{
 		if (PhotonNetwork.LocalPlayer.IsMasterClient)
 		{
-			index = Random.Range(0, coletaveis.Length-1);
+			index = Random.Range(0, coletaveis.Length - 1);
 			PhotonNetwork.CurrentRoom.CustomProperties["IndexColetavel"] = index;
+		}
+		else
+		{
+			PhotonNetwork.CurrentRoom.CustomProperties["IndexColetavel"] = 1;
 		}
 
 	}
