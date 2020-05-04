@@ -16,7 +16,7 @@ public class AIMovement : RaycastController
 	//public TriggerCollisionInfo collisions;
 	public CollisionInfo collisions;
     public AITriggerController triggerController;
-
+    public Rigidbody2D rbBola;
 	public GameObject ai;
 
     public float turnCooldown;
@@ -38,6 +38,8 @@ public class AIMovement : RaycastController
     float newVel = 0.01f;
     private bool found;
     public float maxSpeed = 1f;
+
+    public bool dirDir;
    
     Transform target;
 
@@ -56,18 +58,25 @@ public class AIMovement : RaycastController
         }*/
 	}
 
-    public void Update()
+    public void FixedUpdate()
     {
         if (isFut)
         {
             Vector2 vel = controller.rb.velocity;
+            velocity.x += speed;
             if (vel.magnitude > maxSpeed)
             {
                 controller.rb.velocity = vel.normalized * maxSpeed;
             }
 
+            if (collisions.below == true)
+            {
+                isJumping = false;
+            }
+
             if (transform.position.x - target.transform.position.x > 1)
             {
+    
                 GoLeft();
             }
 
@@ -76,10 +85,12 @@ public class AIMovement : RaycastController
                 GoRight();
             }
 
-            else if (triggerController.triggerCollision.isUp)
+            else if (triggerController.triggerCollision.isUp && isJumping == false)
             {
                 GoUp();
             }
+            Move(controller.rb.velocity * Time.deltaTime);
+            triggerController.RayTriggerDirection();
         }
 
         if (isColteta)
@@ -191,19 +202,28 @@ public class AIMovement : RaycastController
 
     public void GoRight()
     {
+        controller.rb.velocity = new Vector2(0, 0);
+        dirDir = true;
+        Quaternion direction = Quaternion.Euler(0, 0, 0);
+        transform.rotation = direction;
         controller.rb.velocity = new Vector2(velocity.x, 0);
     }
 
     public void GoLeft()
     {
+        controller.rb.velocity = new Vector2(0, 0);
+        dirDir = false;
+        Quaternion direction = Quaternion.Euler(0, 180, 0);
+        transform.rotation = direction;
         controller.rb.velocity = new Vector2(-velocity.x, 0);
     }
 
 
     public void GoUp()
     {
+        controller.rb.velocity = new Vector2(0, 0);
         isJumping = true;
-        controller.rb.AddForce(new Vector2(0f, 15f), ForceMode2D.Impulse);
+        controller.rb.AddForce(new Vector2(0f, 16f), ForceMode2D.Impulse);
         Move(controller.rb.velocity * Time.deltaTime);
     }
 
@@ -253,7 +273,7 @@ public class AIMovement : RaycastController
 			rayOrigin += Vector2.up * (horizontalRaySpacing * i);
 			RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.right * directionX, rayLenght, collisionMask);
 
-			Debug.DrawRay(rayOrigin, Vector2.right * directionX, Color.red);
+			//Debug.DrawRay(rayOrigin, Vector2.right * directionX, Color.red);
 
 			if (hit)
 			{
@@ -338,7 +358,7 @@ public class AIMovement : RaycastController
 			rayOrigin += Vector2.right * (verticalRaySpacing * i + moveAmount.x);
 			RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.up * directionY, rayLenght, collisionMask);
 
-			Debug.DrawRay(rayOrigin, Vector2.up * directionY, Color.red);
+			//Debug.DrawRay(rayOrigin, Vector2.up * directionY, Color.red);
 
 			if (hit)
 			{
