@@ -4,12 +4,18 @@ using UnityEngine;
 
 public class AIMovement : RaycastController
 {
+    public float speed = 3f;
+    public float jumpVelocity = 1f;
+    public bool isJumping;
 
-	float maxClimbAngle = 80;
+    Vector3 velocity;
+
+    float maxClimbAngle = 80;
 	float maxDescendAngle = 80;
 	private StateController controller;
 	//public TriggerCollisionInfo collisions;
 	public CollisionInfo collisions;
+    public AITriggerController triggerController;
 
 	public GameObject ai;
 
@@ -21,20 +27,169 @@ public class AIMovement : RaycastController
 
 	public float hitLenght = 5f;
 
+    private ColetavelGerador coletavelGerador;
+    private Vector2 coletavelPos;
+
 	//Vector2 botInput;
+    public PlatformEffector2D[] effectors;
 
+    public bool isColteta;
+    float newVel = 0.01f;
+    private bool found;
+    public float maxSpeed = 3f;
+   
+    Transform target;
 
-	public bool isColteta;
-
-	// Start is called before the first frame update
-	public override void Start()
+    // Start is called before the first frame update
+    public override void Start()
 	{
 		base.Start();
 		controller = GetComponent<StateController>();
+        target = controller.wayPointList[0];
+
+        effectors = FindObjectsOfType<PlatformEffector2D>();
+
+        /*if (isColteta)
+        {
+            coletavelGerador = FindObjectOfType<ColetavelGerador>();
+        }*/
 	}
 
+    public void Update()
+    {
+        if (isColteta)
+        {
+            Vector2 vel = controller.rb.velocity;
 
-	public void Move(Vector2 moveAmount)
+            if (vel.magnitude > maxSpeed)
+            {
+                controller.rb.velocity = vel.normalized * maxSpeed;
+            }
+
+            if (triggerController.triggerCollision.isRight || triggerController.triggerCollision.isLeft || triggerController.triggerCollision.isUp || triggerController.triggerCollision.isDown)
+            {
+                found = true;
+            }
+
+            else
+            {
+                found = false;
+            }
+
+            if (collisions.right == true)
+            {
+                Debug.Log("Right");
+                newVel = -0.01f;
+            }
+            else if (collisions.left == true)
+            {
+                Debug.Log("Left");
+                newVel = 0.01f;
+            }
+            //velocity.y += gravity * Time.deltaTime;
+            velocity.x += speed;
+            triggerController.RayTriggerDirection();
+            Move(controller.rb.velocity * Time.deltaTime);
+            //coletavelPos = coletavelGerador.coletavelCerto.transform.position;
+
+            //Vector2 aiPos = transform.position;
+            if (collisions.below == true)
+            {
+                isJumping = false;
+            }
+
+            if (triggerController.triggerCollision.isRight)
+            {
+                GoRight();
+                Move(controller.rb.velocity * Time.deltaTime);
+                //GoHorizontal(1);
+            }
+
+            else if (triggerController.triggerCollision.isLeft)
+            {
+                GoLeft();
+                Move(controller.rb.velocity * Time.deltaTime);
+                //GoHorizontal(-1);
+            }
+
+            else if (triggerController.triggerCollision.isUp)
+            {
+                for(int i =0; i< effectors.Length; i++)
+                {
+                    effectors[i].rotationalOffset = 0f;
+                }
+                GoUp();
+            }
+
+            else if (triggerController.triggerCollision.isDown)
+            {
+
+                for (int i = 0; i < effectors.Length; i++)
+                {
+                    effectors[i].rotationalOffset = 180f;
+                }
+                GoDown();
+            }
+
+
+            else if (found == false)
+            {
+                if (transform.position.x - target.transform.position.x > 1)
+                {
+                    GoLeft();
+                }
+
+                else if (transform.position.x - target.transform.position.x < -1)
+                {
+                    GoRight();
+                }
+
+                else
+                {
+                    if (target == controller.wayPointList[0])
+                    {
+                        target = controller.wayPointList[1];
+                    }
+
+                    else
+                    {
+                        target = controller.wayPointList[0];
+                    }
+                }
+
+
+
+            }
+        }
+  
+    }
+
+    public void GoRight()
+    {
+        controller.rb.velocity = new Vector2(velocity.x, 0);
+    }
+
+    public void GoLeft()
+    {
+        controller.rb.velocity = new Vector2(-velocity.x, 0);
+    }
+
+
+    public void GoUp()
+    {
+        isJumping = true;
+        controller.rb.AddForce(new Vector2(0f, 50f), ForceMode2D.Impulse);
+        Move(controller.rb.velocity * Time.deltaTime);
+    }
+
+    public void GoDown()
+    {
+        controller.rb.isKinematic = true;
+        Move(velocity * Time.deltaTime);
+    }
+
+
+    public void Move(Vector2 moveAmount)
 	{
 		UpdateRaycastOrigins();
 		collisions.Reset();
@@ -49,13 +204,16 @@ public class AIMovement : RaycastController
 		if (moveAmount.x != 0)
 		{
 			HorizontalCollisions(ref moveAmount);
-		}
-		if (moveAmount.y != 0)
+            Vector2 all = new Vector2(0, -1);
+            VerticalCollisions(ref all);
+        }
+		if (controller.rb.velocity.y <= 0)
 		{
+            Vector2 all = new Vector2(0,-1);
 			VerticalCollisions(ref moveAmount);
 		}
 
-		transform.Translate(moveAmount);
+		//transform.Translate(moveAmount);
 	}
 
 	void HorizontalCollisions(ref Vector2 moveAmount)
@@ -136,8 +294,18 @@ public class AIMovement : RaycastController
 
 	void VerticalCollisions(ref Vector2 moveAmount)
 	{
-		float directionY = Mathf.Sign(moveAmount.y);
-		float rayLenght = Mathf.Abs(moveAmount.y) + skinWidth;
+        float directionY;
+
+        if (moveAmount.y >= 0)
+        {
+            directionY = 1f;
+        }
+        else
+        {
+            directionY = -1f;
+        }
+		
+		float rayLenght = Mathf.Abs(directionY) + skinWidth;
 
 		for (int i = 0; i < verticalRayCount; i++)
 		{
@@ -152,23 +320,35 @@ public class AIMovement : RaycastController
 
 				if (hit.collider.tag == "Through")
 				{
-					
+                    if (triggerController.triggerCollision.isUp)
+                    {
+                        continue;
+                    }
 
-					if (directionY == 1 || hit.distance == 0)
+					/*if (directionY > 0  || hit.distance == 0)
+					{
+						continue;
+					}*/
+					/*if (collisions.fallingPlatform)
 					{
 						continue;
 					}
-					if (collisions.fallingPlatform)
-					{
-						continue;
-					}
 
-					if (moveAmount.y < -0.5)
+					/*if (moveAmount.y < -0.5)
 					{
 						collisions.fallingPlatform = true;
 						Invoke("ResetFallingPlatform", 0.1f);
 						continue;
-					}
+					}*/
+
+                    if (triggerController.triggerCollision.isDown)
+                    {
+
+                        collisions.fallingPlatform = true;
+                        collisions.below = false;
+                        Invoke("ResetFallingPlatform", 0.1f);
+                        continue;
+                    }
 				}
 
 				moveAmount.y = (hit.distance - skinWidth) * directionY;
@@ -180,6 +360,7 @@ public class AIMovement : RaycastController
 				}
 
 				collisions.below = directionY == -1;
+                collisions.below = true;
 				collisions.above = directionY == 1;
 
 			}
@@ -258,8 +439,8 @@ public class AIMovement : RaycastController
 
 
 	void ResetFallingPlatform()
-	{
-		collisions.fallingPlatform = false;
+	{   
+        collisions.fallingPlatform = false;
 	}
 
 	public struct CollisionInfo

@@ -21,7 +21,7 @@ using UnityEngine.AI;
         [HideInInspector] public bool canJump;
         [HideInInspector] public float jumpCooldown;
         [HideInInspector] public float forceVertical;
-	[HideInInspector] public AIMovement movement;
+	    [HideInInspector] public AIMovement movement;
         private bool aiActive;
         private StateController controller;
 
@@ -40,11 +40,11 @@ using UnityEngine.AI;
 
             wayPointList = wayPointsFromTankManager;
             aiActive = aiActivationFromAIManager;
-		movement = GetComponent<AIMovement>();
+		    movement = GetComponent<AIMovement>();
         }
 
 
-        void Update()
+        /*void Update()
         {
             if (!aiActive)
                 return;
@@ -54,7 +54,7 @@ using UnityEngine.AI;
             {
                 controller.enabled = false;
             }
-        }
+        }*/
 
         public void TransitionToState(State nextState)
         {

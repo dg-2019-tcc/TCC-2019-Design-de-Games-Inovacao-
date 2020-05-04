@@ -161,6 +161,12 @@ public class NewPlayerMovent : MonoBehaviour
                     stopJump = false;
                 }
 
+                if (/*controller.collisions.below &&*/ triggerController.collisions.caixaDagua)
+                {
+                    velocity.y = maxJumpHeight.Value * 1.8f;
+
+                }
+
             }
             if (pipaActive.Value == true)
             {

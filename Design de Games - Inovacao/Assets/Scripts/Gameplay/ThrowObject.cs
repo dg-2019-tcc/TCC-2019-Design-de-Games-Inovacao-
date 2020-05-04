@@ -63,7 +63,7 @@ public class ThrowObject : MonoBehaviour
 
     void Update()
     {
-        if (photonView.IsMine == true)
+        if (photonView.IsMine == true || !PhotonNetwork.InRoom)
         {
             if (atirou == true && cooldownDelta == 0 && atirando == false && carroActive.Value == false && pipaActive.Value == false)
             {
@@ -83,7 +83,6 @@ public class ThrowObject : MonoBehaviour
 
         if (dogBotao.Value == true)
         {
-
             if (carroActive.Value == true || pipaActive.Value == true)
             {
                 desativaPower.Value = true;

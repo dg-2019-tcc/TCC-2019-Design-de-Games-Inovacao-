@@ -5,6 +5,7 @@ using UnityEngine;
 public class ColetavelGerador : MonoBehaviour
 {
     public GameObject[] coletaveis;
+    public GameObject coletavelCerto;
 	private int index;
 
 	private void Start()
@@ -42,5 +43,6 @@ public class ColetavelGerador : MonoBehaviour
 		}
 		index = Random.Range(0, coletaveis.Length);
 		coletaveis[index].SetActive(true);
+        coletavelCerto = coletaveis[index];
 	}
 }
