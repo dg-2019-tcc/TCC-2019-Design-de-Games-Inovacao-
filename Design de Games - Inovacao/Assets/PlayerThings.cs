@@ -181,10 +181,7 @@ public class PlayerThings : MonoBehaviour
 			{
 				PV.RPC("GambiarraDosIndex", RpcTarget.All, (int)PhotonNetwork.CurrentRoom.CustomProperties["IndexColetavel"]);
 			}
-			if ((int)PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] == 1)
-			{
-				PhotonNetwork.LoadLevel("TelaVitoria");
-			}
+			
 		}
 
 	}
