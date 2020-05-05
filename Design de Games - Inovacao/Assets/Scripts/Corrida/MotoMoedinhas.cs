@@ -10,7 +10,8 @@ public class MotoMoedinhas : MonoBehaviour
 	public void Coleta()
 	{
 		brilhinho.loop = false;
-		brilhinho.startSpeed = 1;
+		brilhinho.startSpeed = 5;
+		brilhinho.emissionRate = 100;
 		
 	}
 }
