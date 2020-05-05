@@ -160,6 +160,11 @@ public class ThrowObject : MonoBehaviour
 
     }
 
+    void ShootOffline()
+    {
+
+    }
+
 	IEnumerator CooldownEffect()
 	{
         dogAtivo.Value = false;

@@ -26,4 +26,13 @@ public class FinalizaTutorial : MonoBehaviour
 
         }
     }
+
+    public void OpenDoor()
+    {
+        if (PhotonNetwork.OfflineMode == true)
+        {
+            SceneManager.LoadScene("HUB");
+        }
+        FindObjectOfType<PauseManager>().VoltaMenu();
+    }
 }

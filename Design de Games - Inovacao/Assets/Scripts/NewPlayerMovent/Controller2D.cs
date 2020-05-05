@@ -138,6 +138,10 @@ public class Controller2D : RaycastController
 
             if (hit)
             {
+                if(hit.collider.tag == "Destroy")
+                {
+                    Destroy(hit.collider);
+                }
 
                 if (hit.collider.tag == "Through")
                 {

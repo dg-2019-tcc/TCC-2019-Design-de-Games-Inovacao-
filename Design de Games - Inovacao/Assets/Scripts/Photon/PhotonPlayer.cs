@@ -20,7 +20,6 @@ namespace Complete
         public NewPlayerMovent playerMove;
 		public NewMotoPlayerMovement motoPlayerMovement;
         public PlayerThings playerThings;
-        public NewMotoPlayerMovement motoMove;
 
         void Start()
         {
