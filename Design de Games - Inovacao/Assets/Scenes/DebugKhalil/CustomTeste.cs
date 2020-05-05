@@ -134,7 +134,7 @@ public class CustomTeste : MonoBehaviour
     /// </summary>
     public void EscolheQtdModelo(int qtdDeModelos)//EscolheQtdBotoesModelos //Decide quantos botões de modelo serão mostrados
     {
-        int q = qtdDeModelos;
+        int q = 5;
         for (int i = 0; i < qtdDeModelos; i++)
         {
             botaoDeModelo[i].gameObject.SetActive(true);
