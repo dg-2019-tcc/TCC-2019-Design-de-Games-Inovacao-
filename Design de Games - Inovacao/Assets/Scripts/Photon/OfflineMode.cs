@@ -9,6 +9,8 @@ using Photon.Pun;
 public class OfflineMode : MonoBehaviour
 {
     public static bool modoDoOffline = false;
+    public Sprite[] conectionSprites;
+    public Image buttonImage;
     public GameObject eu;
 
     private void Awake()
@@ -25,6 +27,7 @@ public class OfflineMode : MonoBehaviour
         {
             PhotonNetwork.OfflineMode = true;
             offlineText.text = "Modo: Offline";
+            buttonImage.sprite = 
             offlineText.color = new Color32(255, 0, 0, 255);
             modoDoOffline = PhotonNetwork.OfflineMode;
         }

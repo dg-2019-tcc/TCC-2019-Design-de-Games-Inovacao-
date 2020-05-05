@@ -7,6 +7,7 @@ public class AIMovement : RaycastController
     public float speed = 3f;
     public float jumpVelocity = 1f;
     public bool isJumping;
+    public bool isDown;
 
     Vector3 velocity;
 
@@ -37,11 +38,13 @@ public class AIMovement : RaycastController
     public bool isFut;
     float newVel = 0.01f;
     private bool found;
-    public float maxSpeed = 1f;
+    public float maxSpeed = 0.5f;
 
     public bool dirDir;
    
     Transform target;
+
+    float jumpIndex;
 
     // Start is called before the first frame update
     public override void Start()
@@ -62,13 +65,7 @@ public class AIMovement : RaycastController
     {
         if (isFut)
         {
-            Vector2 vel = controller.rb.velocity;
-            velocity.x += speed;
-            if (vel.magnitude > maxSpeed)
-            {
-                controller.rb.velocity = vel.normalized * maxSpeed;
-            }
-
+           
             if (collisions.below == true)
             {
                 isJumping = false;
@@ -87,7 +84,7 @@ public class AIMovement : RaycastController
 
             else if (triggerController.triggerCollision.isUp && isJumping == false)
             {
-                GoUp();
+                StartCoroutine("Pulo");
             }
             Move(controller.rb.velocity * Time.deltaTime);
             triggerController.RayTriggerDirection();
@@ -112,16 +109,6 @@ public class AIMovement : RaycastController
                 found = false;
             }
 
-            if (collisions.right == true)
-            {
-                Debug.Log("Right");
-                newVel = -0.01f;
-            }
-            else if (collisions.left == true)
-            {
-                Debug.Log("Left");
-                newVel = 0.01f;
-            }
             //velocity.y += gravity * Time.deltaTime;
             velocity.x += speed;
             triggerController.RayTriggerDirection();
@@ -132,6 +119,11 @@ public class AIMovement : RaycastController
             if (collisions.below == true)
             {
                 isJumping = false;
+            }
+
+            else
+            {
+                GoDown();
             }
 
             if (triggerController.triggerCollision.isRight)
@@ -148,23 +140,24 @@ public class AIMovement : RaycastController
                 //GoHorizontal(-1);
             }
 
-            else if (triggerController.triggerCollision.isUp)
+            else if (triggerController.triggerCollision.isUp && isJumping == false)
             {
                 for(int i =0; i< effectors.Length; i++)
                 {
                     effectors[i].rotationalOffset = 0f;
                 }
-                GoUp();
+                StartCoroutine("Pulo");
+                //GoUp();
             }
 
-            else if (triggerController.triggerCollision.isDown)
+            else if (triggerController.triggerCollision.isDown && isDown ==false)
             {
 
                 for (int i = 0; i < effectors.Length; i++)
                 {
                     effectors[i].rotationalOffset = 180f;
                 }
-                GoDown();
+                StartCoroutine("Desce");
             }
 
 
@@ -202,31 +195,42 @@ public class AIMovement : RaycastController
 
     public void GoRight()
     {
-        controller.rb.velocity = new Vector2(0, 0);
+        jumpIndex = 0;
         dirDir = true;
         Quaternion direction = Quaternion.Euler(0, 0, 0);
         transform.rotation = direction;
-        controller.rb.velocity = new Vector2(velocity.x, 0);
+        controller.rb.velocity = new Vector2(velocity.x, controller.rb.velocity.y);
     }
 
     public void GoLeft()
     {
-        controller.rb.velocity = new Vector2(0, 0);
+        jumpIndex = 0;
         dirDir = false;
         Quaternion direction = Quaternion.Euler(0, 180, 0);
         transform.rotation = direction;
-        controller.rb.velocity = new Vector2(-velocity.x, 0);
+        controller.rb.velocity = new Vector2(-velocity.x, controller.rb.velocity.y);
     }
 
 
-    public void GoUp()
+    IEnumerator Pulo()
     {
-        controller.rb.velocity = new Vector2(0, 0);
         isJumping = true;
-        controller.rb.AddForce(new Vector2(0f, 16f), ForceMode2D.Impulse);
+        controller.rb.velocity = new Vector2(0, 10 + jumpIndex * 2);
+        Debug.Log("Pulo");
+        yield return new WaitForSeconds(1.5f);
+        controller.rb.velocity = new Vector2(0, 0);
+        isJumping = false;
         Move(controller.rb.velocity * Time.deltaTime);
+        jumpIndex++;
     }
-
+    IEnumerator Desce()
+    {
+        jumpIndex = 0;
+        isDown = true;
+        controller.rb.velocity = new Vector2(0, -10);
+        yield return new WaitForSeconds(1.5f);
+        isDown = false;
+    }
     public void GoDown()
     {
         controller.rb.AddForce(new Vector2(0f, -10f), ForceMode2D.Impulse);
