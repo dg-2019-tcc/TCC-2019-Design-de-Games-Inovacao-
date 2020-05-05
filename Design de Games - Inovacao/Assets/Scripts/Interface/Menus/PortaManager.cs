@@ -25,6 +25,7 @@ public class PortaManager : MonoBehaviour
     public Joystick joy;
 
 	private float joyGambiarra;
+    public bool abriPorta;
 
 	private void Start()
 	{
@@ -56,6 +57,10 @@ public class PortaManager : MonoBehaviour
 
 		if (joyGambiarra < joy.Vertical)
 		{
+            if(joy.Vertical >= 0.5f && abriPorta)
+            {
+                OpenDoorTutorial();
+            }
 			if (joy.Vertical >= 0.5f && ButtonJogarCorrida != null && ButtonJogarCorrida.activeSelf == true)
 			{
 				lobbyController.DelayStart("Corrida");
@@ -93,6 +98,14 @@ public class PortaManager : MonoBehaviour
 		joyGambiarra = joy.Vertical;
 
 	}
+
+    public void OpenDoorTutorial()
+    {
+
+            SceneManager.LoadScene("HUB");
+
+        FindObjectOfType<PauseManager>().VoltaMenu();
+    }
 
     public void OpenDoor()
     {

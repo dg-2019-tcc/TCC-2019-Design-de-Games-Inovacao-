@@ -74,8 +74,14 @@ namespace Complete
                 //PlayerInst.SetActive(false);
                 playerMove = PlayerInst.GetComponent<PhotonPlayer>();
 
-
-                gameObject.GetComponent<PhotonView>().RPC("SpawnPlayer", RpcTarget.All, allPlayersInSession);
+                if (!PhotonNetwork.InRoom)
+                {
+                    SpawnPlayer(0);
+                }
+                else
+                {
+                    gameObject.GetComponent<PhotonView>().RPC("SpawnPlayer", RpcTarget.All, allPlayersInSession);
+                }
 
                 //Debug.Log("NãoÉFut");
             }
@@ -85,7 +91,6 @@ namespace Complete
         [PunRPC]
         private void SpawnPlayer(float alterPlayerCount)
         {
-
             if (alterPlayerCount > allPlayersInSession)                                                     //Contador pra sincronizar e adicionar quantos players entraram na cena
                 allPlayersInSession = alterPlayerCount;
 

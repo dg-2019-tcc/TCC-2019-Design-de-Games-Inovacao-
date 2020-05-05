@@ -19,7 +19,6 @@ namespace Complete
 
         public NewPlayerMovent playerMove;
         public PlayerThings playerThings;
-        public NewMotoPlayerMovement motoMove;
 
         void Start()
         {
