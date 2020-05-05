@@ -11,6 +11,7 @@ public class MotoMoedinhas : MonoBehaviour
 	{
 		brilhinho.loop = false;
 		brilhinho.startSpeed = 5;
+		brilhinho.emissionRate = 100;
 		
 	}
 }
