@@ -109,7 +109,7 @@ public class Custom2D : MonoBehaviour
 		{
 			hairInd.prop2DInd = 0;
 		}
-
+        Debug.Log(hairInd.prop2DInd);
 		hairs[hairInd.prop2DInd].ChangeCustom(true);
 		hairs2[hairInd.prop2DInd].ChangeCustom(true);
 

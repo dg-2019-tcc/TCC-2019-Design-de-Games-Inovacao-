@@ -16,10 +16,12 @@ public class DestroyColetavel2D : MonoBehaviourPunCallbacks
 
     public void PegouColetavel(bool isLocal)
     {
+		/*
 		if (isLocal)
 		{
 			index++;
-			if (/*jogador.PV.Owner.GetScore()*/index >= LevelManager.Instance.coletaMax)
+			if (//jogador.PV.Owner.GetScore()
+			index >= LevelManager.Instance.coletaMax)
 			{
 				if (botScore.Value >= 8)
 				{
@@ -33,7 +35,7 @@ public class DestroyColetavel2D : MonoBehaviourPunCallbacks
 
 				LevelManager.Instance.GoPodium();
 			}
-		}
+		}*/
 
 
         Destroy(gameObject);

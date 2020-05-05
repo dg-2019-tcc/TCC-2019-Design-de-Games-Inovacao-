@@ -25,13 +25,14 @@ public class ColetaWin : MonoBehaviour
 
 	void Update()
     {
+		
 		foreach (Photon.Realtime.Player p in PhotonNetwork.PlayerList)
 		{
-			players[p.ActorNumber] = p;
-			score[p.ActorNumber] = p.GetScore();
-			if (compareScore - score[p.ActorNumber] < 0)
+			players[p.ActorNumber - 1] = p;
+			score[p.ActorNumber - 1] = p.GetScore();
+			if (compareScore - score[p.ActorNumber - 1] < 0)
 			{
-				compareScore = score[p.ActorNumber];
+				compareScore = score[p.ActorNumber - 1];
 				winning = p;
 			}
 		}
@@ -40,7 +41,8 @@ public class ColetaWin : MonoBehaviour
 		if (coletavelGerador.coletaveis.Length <= 0)
 		{
 			winning.CustomProperties["Ganhador"] = 1;
-			
+			PhotonNetwork.LoadLevel("TelaVitoria");
+
 		}
 	}
 
