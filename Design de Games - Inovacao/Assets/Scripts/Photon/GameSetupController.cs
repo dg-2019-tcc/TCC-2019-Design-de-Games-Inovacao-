@@ -110,9 +110,16 @@ namespace Complete
 				StartCoroutine("UniteSynchronization", 0);
 			else
 			{
-                //PlayerInst.SetActive(true);
-                playerMove.playerMove.enabled = true;
-                playerMove.playerThings.comecou = true;
+				//PlayerInst.SetActive(true);
+				if (playerMove.playerMove != null)
+				{
+					playerMove.playerMove.enabled = true;
+				}
+				if (playerMove.motoPlayerMovement != null)
+				{
+					playerMove.motoPlayerMovement.enabled = true;
+				}
+				playerMove.playerThings.comecou = true;
 				partidaComecou.Value = true;
 			}
 			
