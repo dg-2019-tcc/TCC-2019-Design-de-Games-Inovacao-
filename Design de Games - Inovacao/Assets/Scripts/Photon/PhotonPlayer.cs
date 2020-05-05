@@ -18,6 +18,7 @@ namespace Complete
         public PlayerType playerTypePrefabs;
 
         public NewPlayerMovent playerMove;
+		public NewMotoPlayerMovement motoPlayerMovement;
         public PlayerThings playerThings;
 
         void Start()
@@ -51,8 +52,16 @@ namespace Complete
             }
 
             playerMove = myAvatar.GetComponentInChildren<NewPlayerMovent>();
+			motoPlayerMovement = myAvatar.GetComponentInChildren<NewMotoPlayerMovement>();			
             playerThings = myAvatar.GetComponentInChildren<PlayerThings>();
-            playerMove.enabled = false;
+			if (playerMove != null)
+			{
+				playerMove.enabled = false;
+			}
+			if (motoPlayerMovement != null)
+			{
+				motoPlayerMovement.enabled = false;
+			}
 
 
 

@@ -17,9 +17,14 @@ public class ColetaWin : MonoBehaviour
 
 	public int totalColetaveis;
 
+
+	private bool ganhouJa;
+
 	private void Start()
 	{
 		coletavelGerador = FindObjectOfType<ColetavelGerador>();
+		winning = PhotonNetwork.PlayerList[0];
+		ganhouJa = false;
 	}
 
 
@@ -42,6 +47,7 @@ public class ColetaWin : MonoBehaviour
 
 		if (coletavelGerador.coletaveis.Length <= 0)
 		{
+			if (ganhouJa) return;
 			if (OfflineMode.modoDoOffline && compareScore < 4)
 			{
 				winning.CustomProperties["Ganhador"] = 0;
@@ -53,6 +59,7 @@ public class ColetaWin : MonoBehaviour
 				winning.CustomProperties["Ganhador"] = 1;
 				PhotonNetwork.LoadLevel("TelaVitoria");
 			}
+			ganhouJa = true;
 
 		}
 	}

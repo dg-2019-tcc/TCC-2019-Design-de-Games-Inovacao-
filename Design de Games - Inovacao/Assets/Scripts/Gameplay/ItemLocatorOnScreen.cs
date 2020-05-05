@@ -62,4 +62,11 @@ public class ItemLocatorOnScreen : MonoBehaviour
 		//instance.transform.LookAt(transform.position);
 
 	}
+
+	private void OnDestroy()
+	{
+		
+			instance.SetActive(false);
+		
+	}
 }
