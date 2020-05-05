@@ -364,7 +364,7 @@ public class TriggerCollisionsController : RaycastController
         }
     }
 
-
+	[PunRPC]
 	public void SendOnlineCollisions()
 	{
 		DestroyColetavel2D coletavel2D = FindObjectOfType<DestroyColetavel2D>();
