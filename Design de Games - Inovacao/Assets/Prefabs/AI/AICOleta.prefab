@@ -113,7 +113,9 @@ MonoBehaviour:
   speed: 0.01
   jumpVelocity: 1
   isJumping: 0
+  isDown: 0
   triggerController: {fileID: 2688057627981404747}
+  rbBola: {fileID: 0}
   ai: {fileID: 2700553094261141899}
   turnCooldown: 0
   isBallGame: 0
@@ -122,7 +124,8 @@ MonoBehaviour:
   effectors: []
   isColteta: 1
   isFut: 0
-  maxSpeed: 3
+  maxSpeed: 0.5
+  dirDir: 0
 --- !u!114 &2688057627981404747
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -144,6 +147,7 @@ MonoBehaviour:
   verticalRaySpacing: 0
   collider: {fileID: 0}
   rayLenghtAI: {fileID: 11400000, guid: 19c485df9ea9bc74791bc19c5d811e16, type: 2}
+  rbBola: {fileID: 0}
 --- !u!50 &10148475910017345
 Rigidbody2D:
   serializedVersion: 4
@@ -157,9 +161,9 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_LinearDrag: 0.5
+  m_AngularDrag: 0.5
+  m_GravityScale: 10
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
