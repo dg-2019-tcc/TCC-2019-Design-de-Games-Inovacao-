@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
-using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 public class ColetavelGerador : MonoBehaviour
 {
