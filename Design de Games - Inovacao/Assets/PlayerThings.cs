@@ -175,9 +175,16 @@ public class PlayerThings : MonoBehaviour
         }
 
 
-		if (PhotonNetwork.InRoom && PV.Owner.IsMasterClient && PhotonNetwork.CurrentRoom.CustomProperties["IndexColetavel"] != null)
+		if (PhotonNetwork.InRoom)
 		{
-			PV.RPC( "GambiarraDosIndex", RpcTarget.All, (int)PhotonNetwork.CurrentRoom.CustomProperties["IndexColetavel"]);
+			if (PV.Owner.IsMasterClient && PhotonNetwork.CurrentRoom.CustomProperties["IndexColetavel"] != null)
+			{
+				PV.RPC("GambiarraDosIndex", RpcTarget.All, (int)PhotonNetwork.CurrentRoom.CustomProperties["IndexColetavel"]);
+			}
+			if ((int)PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] == 1)
+			{
+				PhotonNetwork.LoadLevel("TelaVitoria");
+			}
 		}
 
 	}
