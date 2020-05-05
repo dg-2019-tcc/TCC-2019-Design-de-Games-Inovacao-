@@ -57,38 +57,38 @@ public class PortaManager : MonoBehaviour
 
 		if (joyGambiarra < joy.Vertical)
 		{
-            if(joy.Vertical >= 0.5f && abriPorta)
+            if(joy.Vertical >= 0.8f && abriPorta)
             {
                 OpenDoorTutorial();
             }
-			if (joy.Vertical >= 0.5f && ButtonJogarCorrida != null && ButtonJogarCorrida.activeSelf == true)
+			if (joy.Vertical >= 0.8f && ButtonJogarCorrida != null && ButtonJogarCorrida.activeSelf == true)
 			{
 				lobbyController.DelayStart("Corrida");
 				//ButtonJogarCorrida = false;
 			}
-			if (joy.Vertical >= 0.5f && ButtonJogarColeta != null && ButtonJogarColeta.activeSelf == true)
+			if (joy.Vertical >= 0.8f && ButtonJogarColeta != null && ButtonJogarColeta.activeSelf == true)
 			{
 				lobbyController.DelayStart("Coleta");
 				//ButtonJogarColeta = false;
 			}
-			if (joy.Vertical >= 0.5f && ButtonJogarFutebol != null && ButtonJogarFutebol.activeSelf == true)
+			if (joy.Vertical >= 0.8f && ButtonJogarFutebol != null && ButtonJogarFutebol.activeSelf == true)
 			{
 
 				lobbyController.DelayStart("Futebol");
 				//ButtonJogarCorrida = false;
 			}
-			if (joy.Vertical >= 0.5f && ButtonJogarMoto != null && ButtonJogarMoto.activeSelf == true)
+			if (joy.Vertical >= 0.8f && ButtonJogarMoto != null && ButtonJogarMoto.activeSelf == true)
 			{
 				lobbyController.DelayStart("Moto");
 				//ButtonJogarColeta = false;
 			}
-			if (joy.Vertical >= 0.5f && ButtonJogarVolei != null && ButtonJogarVolei.activeSelf == true)
+			if (joy.Vertical >= 0.8f && ButtonJogarVolei != null && ButtonJogarVolei.activeSelf == true)
 			{
 
 				lobbyController.DelayStart("Volei");
 				//ButtonJogarCorrida = false;
 			}
-			if (joy.Vertical >= 0.5f && ButtonRoupa != null && ButtonRoupa.activeSelf == true)
+			if (joy.Vertical >= 0.8f && ButtonRoupa != null && ButtonRoupa.activeSelf == true)
 			{
                 SceneManager.LoadScene("Customiza");
                 //lobbyController.DelayStart("Customizar");
