@@ -21,15 +21,13 @@ public class ColetavelGerador : MonoBehaviour
 	void Update()
     {
 		Debug.Log((int)PhotonNetwork.CurrentRoom.CustomProperties["IndexColetavel"]);
-		if (PhotonNetwork.CurrentRoom.CustomProperties["IndexColetavel"] == null)
-		{
-			RearrangeColetavel();
-			SelectColetavel();
-			coletaveis[(int)PhotonNetwork.CurrentRoom.CustomProperties["IndexColetavel"]].SetActive(true);
-		}
+
+		RearrangeColetavel();
+		
+
 		if (!IsThereColetavel())
 		{
-			RearrangeColetavel();
+			SelectColetavel();
 			coletaveis[(int)PhotonNetwork.CurrentRoom.CustomProperties["IndexColetavel"]].SetActive(true);
 		}
 	}
