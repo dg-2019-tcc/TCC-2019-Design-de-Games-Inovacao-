@@ -24,7 +24,7 @@ public class FailMessageManager : MonoBehaviour
 
 		if (!startChecking)
 		{
-			if (PhotonNetwork.IsConnected != wasConnected)
+			if (PhotonNetwork.IsConnected != wasConnected && SceneManager.GetActiveScene().name != "MenuPrincipal")
 			{
 				startChecking = true;
 			}
