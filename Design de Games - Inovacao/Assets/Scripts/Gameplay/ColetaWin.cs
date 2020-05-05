@@ -28,11 +28,13 @@ public class ColetaWin : MonoBehaviour
 		
 		foreach (Photon.Realtime.Player p in PhotonNetwork.PlayerList)
 		{
-			players[p.ActorNumber - 1] = p;
-			score[p.ActorNumber - 1] = p.GetScore();
-			if (compareScore - score[p.ActorNumber - 1] < 0)
+			Debug.Log(p.ActorNumber);
+
+			players[p.ActorNumber] = p;
+			score[p.ActorNumber] = p.GetScore();
+			if (compareScore - score[p.ActorNumber] < 0)
 			{
-				compareScore = score[p.ActorNumber - 1];
+				compareScore = score[p.ActorNumber];
 				winning = p;
 			}
 		}

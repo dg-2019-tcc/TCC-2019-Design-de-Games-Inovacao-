@@ -129,7 +129,6 @@ public class CustomDisplay : MonoBehaviour
     [PunRPC]
     private void TrocaCabelo(int onlineIndex)
     {
-        Debug.Log("Printando o online index = " + onlineIndex);
         for (int i = 0; i < hairModels.Length; i++)
         {
             hairModels[i].ChangeCustom(false);
