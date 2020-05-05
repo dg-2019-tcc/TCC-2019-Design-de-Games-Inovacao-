@@ -12,12 +12,18 @@ public class ColetaWin : MonoBehaviour
 	private int[] score;
 	private int compareScore;
 	private Player winning;
-	private int totalScore;
+
+	private ColetavelGerador coletavelGerador;
 
 	public int totalColetaveis;
 
+	private void Start()
+	{
+		coletavelGerador = FindObjectOfType<ColetavelGerador>();
+	}
 
-    void Update()
+
+	void Update()
     {
 		foreach (Photon.Realtime.Player p in PhotonNetwork.PlayerList)
 		{
@@ -28,11 +34,10 @@ public class ColetaWin : MonoBehaviour
 				compareScore = score[p.ActorNumber];
 				winning = p;
 			}
-			totalScore += score[p.ActorNumber];
 		}
 
 
-		if (totalScore >= totalColetaveis)
+		if (coletavelGerador.coletaveis.Length <= 0)
 		{
 			winning.CustomProperties["Ganhador"] = 1;
 			
