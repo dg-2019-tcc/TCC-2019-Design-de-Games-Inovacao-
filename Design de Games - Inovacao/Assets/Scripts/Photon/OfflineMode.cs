@@ -28,7 +28,7 @@ public class OfflineMode : MonoBehaviour
             PhotonNetwork.OfflineMode = true;
             offlineText.text = "Modo: Offline";
             buttonImage.sprite = conectionSprites[1];
-            offlineText.color = new Color32(255, 0, 0, 255);
+            offlineText.color = new Color32(0, 101, 255, 255);
             modoDoOffline = PhotonNetwork.OfflineMode;
         }
         else
