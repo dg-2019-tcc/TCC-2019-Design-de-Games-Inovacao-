@@ -19,7 +19,7 @@ public class ColetavelGerador : MonoBehaviour
 
 	void Update()
     {
-		Debug.Log((int)PhotonNetwork.CurrentRoom.CustomProperties["IndexColetavel"]);
+//		Debug.Log((int)PhotonNetwork.CurrentRoom.CustomProperties["IndexColetavel"]);
 
 		RearrangeColetavel();
 		
