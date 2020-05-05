@@ -8,8 +8,8 @@ public class NewPlayerMovent : MonoBehaviour
 {
     public FloatVariable moveSpeed;
     float velocityXSmoothing;
-    float accelerationTimeAirborne = 0.35f;
-    float accelerationTimeGrounded = 0.175f;
+    float accelerationTimeAirborne = 0.2f;
+    float accelerationTimeGrounded = 0.1f;
 
     float maxJumpVelocity;
     float minJumpVelocity;
@@ -20,13 +20,13 @@ public class NewPlayerMovent : MonoBehaviour
 
     float pipaMoveSpeed = 6;
     float pipaVelocityXSmoothing;
-    float pipaAccelerationTimeAirborne = 0.4f;
+    float pipaAccelerationTimeAirborne = 0.3f;
     public float pipaGravity;
 
     float carroMoveSpeed = 12;
     float carroVelocityXSmoothing;
-    float carroAccelerationTimeAirborne = 0.5f;
-    float carroAccelerationTimeGrounded = 0.3f;
+    float carroAccelerationTimeAirborne = 0.35f;
+    float carroAccelerationTimeGrounded = 0.175f;
 
     float motoMoveSpeed = 6;
     float motoVelocityXSmoothing;

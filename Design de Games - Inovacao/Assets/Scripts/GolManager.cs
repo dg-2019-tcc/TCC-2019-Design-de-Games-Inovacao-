@@ -3,6 +3,8 @@ using Photon.Realtime;
 using Photon.Pun.UtilityScripts;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
+using TMPro;
 using UnityEngine;
 
 public class GolManager : MonoBehaviourPunCallbacks
@@ -18,6 +20,7 @@ public class GolManager : MonoBehaviourPunCallbacks
 
     public Transform bolaSpawnPoint;
     public FloatVariable botScore;
+    public TextMeshProUGUI placarText;
 
     private void Update()
     {
@@ -35,14 +38,14 @@ public class GolManager : MonoBehaviourPunCallbacks
             bola = other.gameObject;
 
             GolSelect playerGol = GetComponentInParent<GolSelect>();
-            index++;
             playerGol.jogador.PV.Owner.AddScore(1);
 
             Debug.Log(index);
 
-            Recomeca();
+            Recomeca(); 
 
-            if(playerGol.jogador.PV.Owner.GetScore() >= 5)
+
+            if (playerGol.jogador.PV.Owner.GetScore() >= 5)
             {
                 PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 1;
                 LevelManager.Instance.GoPodium();
@@ -72,7 +75,7 @@ public class GolManager : MonoBehaviourPunCallbacks
         index++;
 
         yield return new WaitForSeconds(0.8f);
-
+        placarText.text = index.ToString();
         bola.SetActive(true);
 
         bola.GetComponent<Rigidbody2D>().isKinematic = false;

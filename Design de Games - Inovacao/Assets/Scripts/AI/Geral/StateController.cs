@@ -44,7 +44,7 @@ using UnityEngine.AI;
         }
 
 
-        /*void Update()
+        void Update()
         {
             if (!aiActive)
                 return;
@@ -54,7 +54,7 @@ using UnityEngine.AI;
             {
                 controller.enabled = false;
             }
-        }*/
+        }
 
         public void TransitionToState(State nextState)
         {

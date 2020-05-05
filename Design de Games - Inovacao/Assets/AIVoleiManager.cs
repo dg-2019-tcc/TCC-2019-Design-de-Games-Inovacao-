@@ -4,15 +4,42 @@ using UnityEngine;
 
 public class AIVoleiManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public FloatVariable botScore;
+
+    public GameObject bola;
+    public Transform bolaSpawnPoint;
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        
+        if (other.CompareTag("Volei"))
+        {
+            bola = other.gameObject;
+
+            //GolSelect playerGol = GetComponentInParent<GolSelect>();
+
+
+            StartCoroutine("ResetaBolaAI");
+
+        }
+
     }
 
-    // Update is called once per frame
-    void Update()
+    IEnumerator ResetaBolaAI()
     {
-        
+        bola.SetActive(false);
+
+        //bola.GetComponent<BolaFutebol>().bolaTimer += 5f;
+
+        bola.GetComponent<Rigidbody2D>().isKinematic = true;
+
+        bola.transform.position = bolaSpawnPoint.position;
+
+        botScore.Value++;
+
+        yield return new WaitForSeconds(0.8f);
+
+        bola.SetActive(true);
+
+        bola.GetComponent<Rigidbody2D>().isKinematic = false;
+
     }
 }

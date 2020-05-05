@@ -11,7 +11,7 @@ public class HandAI : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.CompareTag("Bola"))
+        if (col.CompareTag("Volei"))
         {
             ballrb = col.GetComponent<Rigidbody2D>();
             ballrb.AddForce(new Vector2(corteForceX, corteForceY), ForceMode2D.Impulse);

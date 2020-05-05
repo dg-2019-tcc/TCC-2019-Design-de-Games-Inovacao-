@@ -8,10 +8,10 @@ public class HeadAI : MonoBehaviour
 
     public float headForceY;
 
-    private Rigidbody2D ballrb;
+    public Rigidbody2D ballrb;
     private AITriggerController triggerController;
     public StateController controller;
-
+    public bool isFut;
     private void Awake()
     {
         triggerController = GetComponent<AITriggerController>();
@@ -19,26 +19,30 @@ public class HeadAI : MonoBehaviour
 
     private void Update()
     {
-        if (triggerController.triggerCollision.touchBall)
+        if (isFut)
         {
-            Chuta();
-        }
+            if (triggerController.triggerCollision.touchBall)
+            {
+                Chuta();
+            }
 
-        if (triggerController.triggerCollision.chutouBall)
-        {
-            ChutaForte();
+            if (triggerController.triggerCollision.chutouBall)
+            {
+                ChutaForte();
+            }
         }
     }
 
     private void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.CompareTag("Bola"))
+        if (col.CompareTag("Volei"))
         {
             ballrb = col.GetComponent<Rigidbody2D>();
 
             ballrb.velocity = new Vector2(0, 0);
 
-            ballrb.AddForce(new Vector2(headForceX, headForceY), ForceMode2D.Impulse);
+            ballrb.AddForce(new Vector2(headForceX*10, headForceY*15), ForceMode2D.Impulse);
+            Debug.Log("Bateu");
         }
     }
 

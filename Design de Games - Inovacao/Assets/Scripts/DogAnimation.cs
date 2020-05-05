@@ -14,6 +14,7 @@ public class DogAnimation : MonoBehaviour
     public BoolVariable pipaActive;
 
     public enum State { Idle, Pipa, Carrinho, Moto, Aviao}
+    public State state = State.Idle;
 
 
     // Update is called once per frame
@@ -24,6 +25,10 @@ public class DogAnimation : MonoBehaviour
 
     public void Idle()
     {
+        if(state != State.Idle)
+        {
+
+        }
 
     }
 

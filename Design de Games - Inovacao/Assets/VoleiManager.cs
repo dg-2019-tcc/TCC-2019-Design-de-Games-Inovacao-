@@ -3,6 +3,8 @@ using Photon.Realtime;
 using Photon.Pun.UtilityScripts;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
+using TMPro;
 using UnityEngine;
 
 
@@ -18,6 +20,8 @@ public class VoleiManager : MonoBehaviour
 
     public Transform bolaSpawnPoint;
     public FloatVariable botScore;
+
+    public TextMeshProUGUI placarText;
 
     private void Update()
     {
@@ -41,6 +45,7 @@ public class VoleiManager : MonoBehaviour
             Debug.Log(index);
 
             RecomecaVolei();
+            placarText.text = playerGol.jogador.PV.Owner.GetScore().ToString();
 
             if (playerGol.jogador.PV.Owner.GetScore() >= 7)
             {
@@ -71,7 +76,6 @@ public class VoleiManager : MonoBehaviour
         index++;
 
         yield return new WaitForSeconds(3f);
-
         bola.SetActive(true);
 
         bola.GetComponent<Rigidbody2D>().isKinematic = false;
