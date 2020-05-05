@@ -43,7 +43,7 @@ public class DelayStartWaitingRoomController : MonoBehaviourPunCallbacks
     [SerializeField]
     private Text playerCountDisplay;
     [SerializeField]
-    private Text timerToStartDisplay;
+    private Image timerToStartDisplay;
 
 
 
@@ -155,7 +155,7 @@ public class DelayStartWaitingRoomController : MonoBehaviourPunCallbacks
         }
 
         string tempTimer = string.Format("{0:00}", timerToStartGame);
-        timerToStartDisplay.text = tempTimer;
+        timerToStartDisplay.fillAmount = 1 - (timerToStartGame/maxWaitTime);
         if (timerToStartGame <= 0f)
         {
             if (startingGame)
