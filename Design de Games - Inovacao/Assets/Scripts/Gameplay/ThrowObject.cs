@@ -83,6 +83,7 @@ public class ThrowObject : MonoBehaviour
 
         if (dogBotao.Value == true)
         {
+            
             if (carroActive.Value == true || pipaActive.Value == true)
             {
                 desativaPower.Value = true;
@@ -155,6 +156,8 @@ public class ThrowObject : MonoBehaviour
         shootAnim = false;
         anim.DogButtonAnim(shootAnim);
         photonView.RPC("Shoot", RpcTarget.All);
+        Debug.Log("Atirou");
+
     }
 
 	IEnumerator CooldownEffect()

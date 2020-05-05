@@ -56,11 +56,19 @@ public class DogController : MonoBehaviour
 
     void Update()
     {
-        if (PV == null || PV.IsMine)
+        if (PV == null || PV.IsMine || !PhotonNetwork.InRoom)
         {
             if (desativaPower.Value == true)
             {
-                gameObject.GetComponent<PhotonView>().RPC("DesativaPowerUps", RpcTarget.All);
+                if (!PhotonNetwork.InRoom)
+                {
+                    Debug.Log("Desativa");
+                    DesativaPowerUps();
+                }
+                else
+                {
+                    gameObject.GetComponent<PhotonView>().RPC("DesativaPowerUps", RpcTarget.All);
+                }
             }
 
             if (hitTotemCarro.Value == true || hitTotemPipa.Value == true)
@@ -74,12 +82,26 @@ public class DogController : MonoBehaviour
 
             if (!dogAtivo.Value)
             {
-                gameObject.GetComponent<PhotonView>().RPC("TransformaPet", RpcTarget.All, false);
+                if (!PhotonNetwork.InRoom)
+                {
+                    TransformaPet(false);
+                }
+                else
+                {
+                    gameObject.GetComponent<PhotonView>().RPC("TransformaPet", RpcTarget.All, false);
+                }
             }
 
             else
             {
-                gameObject.GetComponent<PhotonView>().RPC("TransformaPet", RpcTarget.All, true);
+                if (!PhotonNetwork.InRoom)
+                {
+                    TransformaPet(true);
+                }
+                else
+                {
+                    gameObject.GetComponent<PhotonView>().RPC("TransformaPet", RpcTarget.All, true);
+                }
             }
 
         }
