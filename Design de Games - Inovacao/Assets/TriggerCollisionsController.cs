@@ -102,8 +102,13 @@ public class TriggerCollisionsController : RaycastController
 					Scored();
 
                 }
+				if (hit.collider.tag == "Moedinha")
+				{
+					Debug.Log("colidiu com a moeda");
+					hit.collider.gameObject.SendMessage("Coleta");
+				}
 
-                if (hit.collider.tag == "Carrinho")
+				if (hit.collider.tag == "Carrinho")
                 {
                     dogController.Carro();
                 }
@@ -193,8 +198,13 @@ public class TriggerCollisionsController : RaycastController
 					Scored();
 
                 }
+				if (hit.collider.tag == "Moedinha")
+				{
+					Debug.Log("colidiu com a moeda");
+					hit.collider.gameObject.SendMessage("Coleta");
+				}
 
-                if (hit.collider.tag == "Carrinho")
+				if (hit.collider.tag == "Carrinho")
                 {
                     dogController.Carro();
                 }
@@ -278,8 +288,13 @@ public class TriggerCollisionsController : RaycastController
 					Scored();
 
                 }
+				if (hit.collider.tag == "Moedinha")
+				{
+					Debug.Log("colidiu com a moeda");
+					hit.collider.gameObject.SendMessage("Coleta");
+				}
 
-                if (hit.collider.tag == "Carrinho")
+				if (hit.collider.tag == "Carrinho")
                 {
                     dogController.Carro();
                 }
@@ -333,6 +348,12 @@ public class TriggerCollisionsController : RaycastController
 					Scored();
 
                 }
+
+				if (hit.collider.tag == "Moedinha")
+				{
+					Debug.Log("colidiu com a moeda");
+					hit.collider.gameObject.SendMessage("Coleta");
+				}
 
                 if(hit.collider.tag == "Carrinho")
                 {
