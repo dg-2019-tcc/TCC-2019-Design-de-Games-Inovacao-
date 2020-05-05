@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
-using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 public class ColetavelGerador : MonoBehaviour
 {
@@ -12,8 +11,8 @@ public class ColetavelGerador : MonoBehaviour
 
 	private void Start()
 	{
-		SelectColetavel();
 		RearrangeColetavel();
+		SelectColetavel();
 		coletaveis[(int)PhotonNetwork.CurrentRoom.CustomProperties["IndexColetavel"]].SetActive(true);
 	}
 
@@ -21,10 +20,14 @@ public class ColetavelGerador : MonoBehaviour
 	void Update()
     {
 		Debug.Log((int)PhotonNetwork.CurrentRoom.CustomProperties["IndexColetavel"]);
-		if (coletaveis[(int)PhotonNetwork.CurrentRoom.CustomProperties["IndexColetavel"]] == null)
+
+		RearrangeColetavel();
+		
+
+		if (!IsThereColetavel())
 		{
 			SelectColetavel();
-			RearrangeColetavel();
+			
 		}
 	}
 
@@ -35,10 +38,11 @@ public class ColetavelGerador : MonoBehaviour
 			index = Random.Range(0, coletaveis.Length - 1);
 			PhotonNetwork.CurrentRoom.CustomProperties["IndexColetavel"] = index;
 		}
-		else
+		for (int i = 0; i < coletaveis.Length - 1; i++)
 		{
-			PhotonNetwork.CurrentRoom.CustomProperties["IndexColetavel"] = 1;
+			coletaveis[i].SetActive(false);
 		}
+		coletaveis[(int)PhotonNetwork.CurrentRoom.CustomProperties["IndexColetavel"]].SetActive(true);
 
 	}
 
@@ -51,12 +55,21 @@ public class ColetavelGerador : MonoBehaviour
 				tempColetaveis.Add(item);
 		}
 		coletaveis = tempColetaveis.ToArray();
+				
+	}
+
+
+	private bool IsThereColetavel()
+	{
 		for (int i = 0; i < coletaveis.Length; i++)
 		{
-			coletaveis[i].SetActive(false);
+			if (coletaveis[i].activeSelf)
+			{
+				return true;
+			}
 		}
-		
-		coletaveis[(int)PhotonNetwork.CurrentRoom.CustomProperties["IndexColetavel"]].SetActive(true);
+		return false;
+
 	}
 
 	

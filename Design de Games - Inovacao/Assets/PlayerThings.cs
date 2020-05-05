@@ -173,7 +173,21 @@ public class PlayerThings : MonoBehaviour
                 playerParado.SetActive(true);
             }*/
         }
-    }
+
+
+		if (PhotonNetwork.InRoom)
+		{
+			if (PV.Owner.IsMasterClient && PhotonNetwork.CurrentRoom.CustomProperties["IndexColetavel"] != null)
+			{
+				PV.RPC("GambiarraDosIndex", RpcTarget.All, (int)PhotonNetwork.CurrentRoom.CustomProperties["IndexColetavel"]);
+			}
+			if ((int)PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] == 1)
+			{
+				PhotonNetwork.LoadLevel("TelaVitoria");
+			}
+		}
+
+	}
 
 
 
@@ -215,7 +229,14 @@ public class PlayerThings : MonoBehaviour
 	{
 		if (!PV.IsMine)
 		{
-			transform.position = Vector3.Lerp(transform.position, newPos, 0.5f);
+			transform.position = Vector3.Lerp(transform.position, newPos, 0.2f);
 		}
+	}
+
+
+	[PunRPC]
+	void GambiarraDosIndex(int index)
+	{
+		PhotonNetwork.CurrentRoom.CustomProperties["IndexColetavel"] = index;
 	}
 }

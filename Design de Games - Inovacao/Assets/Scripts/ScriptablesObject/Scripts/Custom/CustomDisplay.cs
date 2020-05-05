@@ -26,6 +26,8 @@ public class CustomDisplay : MonoBehaviour
     {
 		pv = GetComponent<PhotonView>();
 
+        //hair.prop2DInd = 1;//utilizei pra resetar os valores do cabelo
+
         PhotonNetwork.LocalPlayer.CustomProperties["hairIndex"] = hair.prop2DInd;
         PhotonNetwork.LocalPlayer.CustomProperties["shirtIndex"] = shirt.prop2DInd;
         PhotonNetwork.LocalPlayer.CustomProperties["legsIndex"] = legs.prop2DInd;
@@ -127,6 +129,7 @@ public class CustomDisplay : MonoBehaviour
     [PunRPC]
     private void TrocaCabelo(int onlineIndex)
     {
+        Debug.Log("Printando o online index = " + onlineIndex);
         for (int i = 0; i < hairModels.Length; i++)
         {
             hairModels[i].ChangeCustom(false);
