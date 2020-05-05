@@ -14,23 +14,26 @@ public class DestroyColetavel2D : MonoBehaviourPunCallbacks
 
     public FloatVariable botScore;
 
-    public void PegouColetavel()
+    public void PegouColetavel(bool isLocal)
     {
-        index++;
-        if (/*jogador.PV.Owner.GetScore()*/index >= LevelManager.Instance.coletaMax)
-        {
-            if (botScore.Value >= 8)
-            {
-                PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 0;
-            }
+		if (isLocal)
+		{
+			index++;
+			if (/*jogador.PV.Owner.GetScore()*/index >= LevelManager.Instance.coletaMax)
+			{
+				if (botScore.Value >= 8)
+				{
+					PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 0;
+				}
 
-            else
-            {
-                PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 1;
-            }
+				else
+				{
+					PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 1;
+				}
 
-            LevelManager.Instance.GoPodium();
-        }
+				LevelManager.Instance.GoPodium();
+			}
+		}
 
 
         Destroy(gameObject);
@@ -64,6 +67,12 @@ public class DestroyColetavel2D : MonoBehaviourPunCallbacks
 
             Destroy(gameObject);
 
+        }
+
+        if (other.CompareTag("AI"))
+        {
+            botScore.Value++;
+            Destroy(gameObject);
         }
 
 

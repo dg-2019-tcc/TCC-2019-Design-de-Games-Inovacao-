@@ -10,7 +10,7 @@ public class Player2DAnimations : MonoBehaviour
     public GameObject frente;
     public GameObject lado;
 
-    public string idlePose = "SettingPose_SD";
+    public string idlePose = "0_Idle";
     public string walkAnimation = "0_Corrida_V2";
     public string startJumpAnimation = "1_Pulo";
     public string subindoJumpAnimation = "1_NoAr(1_Subindo)";
@@ -20,14 +20,17 @@ public class Player2DAnimations : MonoBehaviour
     public string chuteAnimation = "3_Bicuda(SemPreparacao)";
     public string abaixarAnimation = "5_Abaixar(2_IdlePose)";
     public string arremessoAnimation = "6_Arremessar(3_Arremesso)";
+    public string inativoAnimation = "1_Inatividade(2_IdlePose)";
 
-    public enum State {Idle, Walking, Jumping, Rising, Falling, TransitionAir, Aterrisando, Chutando, Abaixando, Arremessando}
+    public enum State {Idle, Walking, Jumping, Rising, Falling, TransitionAir, Aterrisando, Chutando, Abaixando, Arremessando, Inativo}
 
     public State state = State.Idle;
 
     private Controller2D controller;
     [SerializeField]
     private UnityArmatureComponent player;
+    [SerializeField]
+    private UnityArmatureComponent playerFrente;
 
     public Armature armature;
 
@@ -50,6 +53,7 @@ public class Player2DAnimations : MonoBehaviour
     public BoolVariable carroActive;
 
     public bool isCorrida;
+    public float inativoTime;
 
 
     //private DragonBones.AnimationState aimState = null;
@@ -64,6 +68,45 @@ public class Player2DAnimations : MonoBehaviour
         
     }
 
+    private void Update()
+    {
+        if (!PhotonNetwork.InRoom || photonView.IsMine)
+        {
+            if (state == State.Idle)
+            {
+                inativoTime += Time.deltaTime;
+            }
+
+            if (inativoTime >= 5f)
+            {
+                if (!PhotonNetwork.InRoom)
+                {
+                    Inatividade();
+                }
+                else
+                {
+                    photonView.RPC("Inatividade", RpcTarget.All);
+                }
+            }
+
+            else
+            {
+                playerFrente.animation.Play(idlePose);
+
+                if (state == State.Inativo)
+                {
+                    if (!PhotonNetwork.InRoom)
+                    {
+                        Idle();
+                    }
+                    else
+                    {
+                        photonView.RPC("Idle", RpcTarget.All);
+                    }
+                }
+            }
+        }
+    }
 
     [PunRPC]
     void ChangeArmature()
@@ -76,11 +119,11 @@ public class Player2DAnimations : MonoBehaviour
 
     public void ChangeMoveAnim(Vector2 moveAmount, Vector2 oldPos, Vector2 input, bool Jump, bool stopJump)
     {
-
         if (!PhotonNetwork.InRoom || photonView.IsMine)
         {
             if(carroActive.Value == true || pipaActive.Value == true)
             {
+                inativoTime = 0f;
                 Idle();
             }
 
@@ -243,17 +286,33 @@ public class Player2DAnimations : MonoBehaviour
             coolToIdle = 0;
             frente.SetActive(true);
             lado.SetActive(false);
+            playerFrente.animation.timeScale = 1;
+            playerFrente.animation.Play(idlePose);           
             state = State.Idle;
         }
     }
 
     [PunRPC]
+    public void Inatividade()
+    {
+        if(state != State.Inativo)
+        {
+            playerFrente.animation.timeScale = 1;
+            playerFrente.animation.Play(inativoAnimation);
+            state = State.Inativo;
+        }
+    }
+
+
+    [PunRPC]
     public void Walking(float animTime, Vector2 oldPos, Vector2 moveAmount)
     {
-        if(state == State.Idle)
+        inativoTime = 0f;
+        if (state == State.Idle || state == State.Inativo)
         {
             lado.SetActive(true);
             frente.SetActive(false);
+            playerFrente.animation.Play(idlePose);
         }
 
         if (state != State.Walking )
@@ -269,6 +328,7 @@ public class Player2DAnimations : MonoBehaviour
     {
         if (state != State.Jumping)
         {
+            inativoTime = 0f;
             player.animation.FadeIn(startJumpAnimation,0f,1);
             player.animation.timeScale = 1;
             state = State.Jumping;
@@ -279,8 +339,9 @@ public class Player2DAnimations : MonoBehaviour
     [PunRPC]
     public void NoArUp()
     {
-        if (state == State.Idle)
+        if (state == State.Idle || state == State.Inativo)
         {
+            playerFrente.animation.Play(idlePose);
             lado.SetActive(true);
             frente.SetActive(false);
         }
@@ -288,6 +349,7 @@ public class Player2DAnimations : MonoBehaviour
 
         if (state != State.Rising)
         {
+            inativoTime = 0f;
             player.animation.timeScale = 1;
             player.animation.Play(subindoJumpAnimation);
             state = State.Rising;
@@ -297,16 +359,18 @@ public class Player2DAnimations : MonoBehaviour
     [PunRPC]
     public void Fall()
     {
-        if (state == State.Idle)
+        if (state == State.Idle || state == State.Inativo)
         {
             lado.SetActive(true);
             frente.SetActive(false);
+            playerFrente.animation.Play(idlePose);
         }
 
 
 
         if (state != State.Falling)
         {
+            inativoTime = 0f;
             player.animation.timeScale = 1;
             player.animation.Play(descendoJumpAnimation);
             state = State.Falling;
@@ -316,15 +380,17 @@ public class Player2DAnimations : MonoBehaviour
     [PunRPC]
     public void Aterrisando()
     {
-        if (state == State.Idle)
+        if (state == State.Idle || state == State.Inativo)
         {
             lado.SetActive(true);
             frente.SetActive(false);
+            playerFrente.animation.Play(idlePose);
         }
 
 
         if (state != State.Aterrisando)
         {
+            inativoTime = 0f;
             player.animation.timeScale = 1.5f;
             player.animation.Play(aterrisandoAnimation);
             state = State.Aterrisando;
@@ -335,14 +401,16 @@ public class Player2DAnimations : MonoBehaviour
     [PunRPC]
     public void Chute()
     {
-        if (state == State.Idle)
+        if (state == State.Idle || state == State.Inativo)
         {
             lado.SetActive(true);
             frente.SetActive(false);
+            playerFrente.animation.Play(idlePose);
         }
 
         if (state != State.Chutando)
         {
+            inativoTime = 0f;
             player.animation.timeScale = 0.5f;
             player.animation.Play(chuteAnimation);
             state = State.Chutando;
@@ -353,14 +421,16 @@ public class Player2DAnimations : MonoBehaviour
     public void Arremesso()
     {
 
-        if (state == State.Idle)
+        if (state == State.Idle || state == State.Inativo)
         {
                 lado.SetActive(true);
                 frente.SetActive(false);
+            playerFrente.animation.Play(idlePose);
         }
 
         if (state != State.Arremessando)
             {
+                inativoTime = 0f;
                 player.animation.timeScale = 1;
                 player.animation.Play(arremessoAnimation);
                 state = State.Arremessando;
@@ -370,15 +440,17 @@ public class Player2DAnimations : MonoBehaviour
     [PunRPC]
     public void Abaixar()
     {
-        if (state == State.Idle)
+        if (state == State.Idle || state == State.Inativo)
         {
             lado.SetActive(true);
             frente.SetActive(false);
+            playerFrente.animation.Play(idlePose);
         }
 
 
         if (state != State.Abaixando)
         {
+            inativoTime = 0f;
             player.animation.timeScale = 1;
             player.animation.Play(abaixarAnimation);
             state = State.Abaixando;
@@ -388,15 +460,17 @@ public class Player2DAnimations : MonoBehaviour
     [PunRPC]
     public void TransitionAir()
     {
-        if (state == State.Idle)
+        if (state == State.Idle || state == State.Inativo)
         {
             lado.SetActive(true);
             frente.SetActive(false);
+            playerFrente.animation.Play(idlePose);
         }
 
 
         if (state != State.TransitionAir)
         {
+            inativoTime = 0f;
             player.animation.timeScale = 1.5f;
             player.animation.Play(transitionJumpAnimation);
             state = State.TransitionAir;

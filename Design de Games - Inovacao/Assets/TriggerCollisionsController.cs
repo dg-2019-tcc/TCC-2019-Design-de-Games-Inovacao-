@@ -96,9 +96,10 @@ public class TriggerCollisionsController : RaycastController
                 if(hit.collider.tag == "Coletavel")
                 {
                     DestroyColetavel2D coletavel2D = hit.collider.GetComponent<DestroyColetavel2D>();
-                    coletavel2D.PegouColetavel();
+                    coletavel2D.PegouColetavel(true);
+					playerThings.PV.RPC("SendOnlineCollisions", RpcTarget.Others);
 
-                    Scored();
+					Scored();
 
                 }
 
@@ -186,9 +187,10 @@ public class TriggerCollisionsController : RaycastController
                 if (hit.collider.tag == "Coletavel")
                 {
                     DestroyColetavel2D coletavel2D = hit.collider.GetComponent<DestroyColetavel2D>();
-                    coletavel2D.PegouColetavel();
+                    coletavel2D.PegouColetavel(true);
+					playerThings.PV.RPC("SendOnlineCollisions", RpcTarget.Others);
 
-                    Scored();
+					Scored();
 
                 }
 
@@ -270,9 +272,10 @@ public class TriggerCollisionsController : RaycastController
                 if (hit.collider.tag == "Coletavel")
                 {
                     DestroyColetavel2D coletavel2D = hit.collider.GetComponent<DestroyColetavel2D>();
-                    coletavel2D.PegouColetavel();
+                    coletavel2D.PegouColetavel(true);
+					playerThings.PV.RPC("SendOnlineCollisions", RpcTarget.Others);
 
-                    Scored();
+					Scored();
 
                 }
 
@@ -324,9 +327,10 @@ public class TriggerCollisionsController : RaycastController
                 if (hit.collider.tag == "Coletavel")
                 {
                     DestroyColetavel2D coletavel2D = hit.collider.GetComponent<DestroyColetavel2D>();
-                    coletavel2D.PegouColetavel();
+                    coletavel2D.PegouColetavel(true);
+					playerThings.PV.RPC("SendOnlineCollisions", RpcTarget.Others);
 
-                    Scored();
+					Scored();
 
                 }
 
@@ -359,6 +363,13 @@ public class TriggerCollisionsController : RaycastController
             }
         }
     }
+
+
+	public void SendOnlineCollisions()
+	{
+		DestroyColetavel2D coletavel2D = FindObjectOfType<DestroyColetavel2D>();
+		coletavel2D.PegouColetavel(false);
+	}
 
     public void Scored()
     {

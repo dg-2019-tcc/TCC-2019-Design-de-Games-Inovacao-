@@ -32,7 +32,7 @@ public class OfflineMode : MonoBehaviour
         {
             PhotonNetwork.OfflineMode = false;
             offlineText.text = "Modo: Online";
-            offlineText.color = new Color32(0, 255, 0, 255);
+            offlineText.color = new Color32(254, 155, 0, 255);
             modoDoOffline = PhotonNetwork.OfflineMode;
         }
     }

@@ -105,7 +105,7 @@ public class ItemThrow : MonoBehaviour
 			if (isLocal)
 			{
 				DestroyColetavel2D coletavel = collision.GetComponent<DestroyColetavel2D>();
-				coletavel.PegouColetavel();
+				coletavel.PegouColetavel(true);
 				Owner.AddScore(1);
 			}
 		}
