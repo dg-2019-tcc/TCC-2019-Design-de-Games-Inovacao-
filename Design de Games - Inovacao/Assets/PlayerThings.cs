@@ -177,7 +177,7 @@ public class PlayerThings : MonoBehaviour
 
 		if (PhotonNetwork.InRoom && PV.Owner.IsMasterClient && PhotonNetwork.CurrentRoom.CustomProperties["IndexColetavel"] != null)
 		{
-			GambiarraDosIndex((int)PhotonNetwork.CurrentRoom.CustomProperties["IndexColetavel"]);
+			PV.RPC( "GambiarraDosIndex", RpcTarget.All, (int)PhotonNetwork.CurrentRoom.CustomProperties["IndexColetavel"]);
 		}
 
 	}
