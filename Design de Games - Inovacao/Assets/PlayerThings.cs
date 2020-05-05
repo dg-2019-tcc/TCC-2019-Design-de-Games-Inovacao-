@@ -173,7 +173,14 @@ public class PlayerThings : MonoBehaviour
                 playerParado.SetActive(true);
             }*/
         }
-    }
+
+
+		if (PhotonNetwork.InRoom && PV.Owner.IsMasterClient && PhotonNetwork.CurrentRoom.CustomProperties["IndexColetavel"] != null)
+		{
+			GambiarraDosIndex((int)PhotonNetwork.CurrentRoom.CustomProperties["IndexColetavel"]);
+		}
+
+	}
 
 
 
@@ -217,5 +224,12 @@ public class PlayerThings : MonoBehaviour
 		{
 			transform.position = Vector3.Lerp(transform.position, newPos, 0.2f);
 		}
+	}
+
+
+	[PunRPC]
+	void GambiarraDosIndex(int index)
+	{
+		PhotonNetwork.CurrentRoom.CustomProperties["IndexColetavel"] = index;
 	}
 }
