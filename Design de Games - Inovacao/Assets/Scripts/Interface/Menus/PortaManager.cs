@@ -104,7 +104,7 @@ public class PortaManager : MonoBehaviour
     public void OpenDoorTutorial()
     {
 
-            SceneManager.LoadScene("HUB");
+        SceneManager.LoadScene("HUB");
 
         FindObjectOfType<PauseManager>().VoltaMenu();
     }
