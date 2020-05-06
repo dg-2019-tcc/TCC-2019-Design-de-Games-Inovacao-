@@ -46,6 +46,8 @@ public class AIMovement : RaycastController
 
     public float jumpIndex;
 
+    public bool levouDogada;
+
     // Start is called before the first frame update
     public override void Start()
 	{
@@ -63,6 +65,11 @@ public class AIMovement : RaycastController
 
     public void FixedUpdate()
     {
+        if (levouDogada)
+        {
+            return;
+        }
+
         if (isFut)
         {
            
@@ -206,8 +213,15 @@ public class AIMovement : RaycastController
         controller.rb.velocity = new Vector2(-velocity.x, controller.rb.velocity.y);
     }
 
+    public IEnumerator LevouDogada()
+    {
+        levouDogada = true;
+        yield return new WaitForSeconds(3f);
+        levouDogada = false;
+    }
 
-    IEnumerator Pulo()
+
+        IEnumerator Pulo()
     {
         isJumping = true;
         controller.rb.AddForce(new Vector2 (0, 5f + jumpIndex * 10),ForceMode2D.Impulse);
