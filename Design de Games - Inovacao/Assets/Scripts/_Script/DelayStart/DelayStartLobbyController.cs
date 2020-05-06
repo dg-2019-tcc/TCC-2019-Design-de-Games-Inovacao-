@@ -22,8 +22,8 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
     private GameObject delayStartButton3;
     [SerializeField]
     private GameObject delayCancelButton; //Botão utilizado para parar de procurar uma sala de jogo
-	[SerializeField]
-	private GameObject loadingScene; //Feedback pro jogador de que a cena está carregando, o "esperando"
+	//[SerializeField]
+	//private GameObject loadingScene; //Feedback pro jogador de que a cena está carregando, o "esperando"
     [SerializeField]
     private GameObject tutorialButton;
     public InputField playerNameInput;
@@ -105,7 +105,7 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
         //delayStartButton2.SetActive(false);
         delayCancelButton.SetActive(true);
 		tutorialButton.SetActive(false);
-		loadingScene.SetActive(true);
+		//loadingScene.SetActive(true);
 		PlayerCanvas.SetActive(false);
 
 		StartCoroutine(StartGamemode(gameMode));     
@@ -335,7 +335,7 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
         tutorialButton.SetActive(true);
     //  delayStartButton.SetActive(true);
 	//	tutorialButton.SetActive(true);
-		loadingScene.SetActive(false);
+		//loadingScene.SetActive(false);
 		PlayerCanvas.SetActive(true);
 
 		CorridaFade.SetActive(false);

@@ -10,10 +10,25 @@ public class ProntoButton : MonoBehaviour
 {
     [SerializeField]
     private string nomeDoMenu;
+    [SerializeField]
+    private string tutorial;
+    [SerializeField]
+    private string hub;
+
+    public BoolVariable jaJogou;
 
     public void ComecaJogo()
     {
         FMODUnity.RuntimeManager.PlayOneShot("event:/HUD/Start", GetComponent<Transform>().position);
+        if (jaJogou.Value)
+        {
+            nomeDoMenu = hub;
+        }
+        else
+        {
+            nomeDoMenu = tutorial;
+        }
+        jaJogou.Value = true;
         SceneManager.LoadScene(nomeDoMenu);
     }
 

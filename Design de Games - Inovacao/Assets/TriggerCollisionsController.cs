@@ -97,7 +97,7 @@ public class TriggerCollisionsController : RaycastController
                 {
                     Debug.Log("Colidiu");
                     collisions.isDoor = true;
-                    PortaManager porta = hit.collider.GetComponent<PortaManager>();
+                    PortaTutorial porta = hit.collider.GetComponent<PortaTutorial>();
                     porta.abriPorta = true;
                     return;
                 }
@@ -194,7 +194,7 @@ public class TriggerCollisionsController : RaycastController
                 if (hit.collider.tag == "PortaTutorial")
                 {
                     collisions.isDoor = true;
-                    PortaManager porta = hit.collider.GetComponent<PortaManager>();
+                    PortaTutorial porta = hit.collider.GetComponent<PortaTutorial>();
                     porta.abriPorta = true;
                     return;
                 }
@@ -291,7 +291,7 @@ public class TriggerCollisionsController : RaycastController
                 if (hit.collider.tag == "PortaTutorial")
                 {
                     collisions.isDoor = true;
-                    PortaManager porta = hit.collider.GetComponent<PortaManager>();
+                    PortaTutorial porta = hit.collider.GetComponent<PortaTutorial>();
                     porta.abriPorta = true;
                     return;
                 }

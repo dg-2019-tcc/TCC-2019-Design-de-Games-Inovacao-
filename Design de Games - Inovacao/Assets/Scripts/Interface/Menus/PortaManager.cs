@@ -26,6 +26,10 @@ public class PortaManager : MonoBehaviour
 
 	private float joyGambiarra;
     public bool abriPorta;
+    public bool hairDoor;
+    public bool shirtDoor;
+    public bool shortsDoor;
+    public bool shoesDoor;
 
 	private void Start()
 	{
@@ -57,7 +61,29 @@ public class PortaManager : MonoBehaviour
 
 		if (joyGambiarra < joy.Vertical)
 		{
-            if(joy.Vertical >= 0.8f && abriPorta)
+            if (joy.Vertical >= 0.8f && hairDoor)
+            {
+                //SceneManager.LoadScene("HUB");
+                Debug.Log("Colidiu");
+                SceneManager.LoadScene("Cabelo");
+            }
+
+            if (joy.Vertical >= 0.8f && shirtDoor)
+            {
+                //SceneManager.LoadScene("HUB");
+                Debug.Log("Colidiu");
+                SceneManager.LoadScene("Shirt");
+            }
+
+
+            if (joy.Vertical >= 0.8f && shoesDoor)
+            {
+                //SceneManager.LoadScene("HUB");
+                Debug.Log("Colidiu");
+                SceneManager.LoadScene("Tenis");
+            }
+
+            if (joy.Vertical >= 0.8f && abriPorta)
             {
                 //SceneManager.LoadScene("HUB");
                 Debug.Log("Colidiu");
@@ -143,6 +169,18 @@ public class PortaManager : MonoBehaviour
                 ButtonRoupa.SetActive(true);
                 break;
 
+            case "Cabelo":
+                hairDoor = true;
+                break;
+
+            case "Shirt":
+                shirtDoor = true;
+                break;
+
+            case "Tenis":
+                shortsDoor = true;
+                break;
+
         }
     }
 
@@ -177,6 +215,18 @@ public class PortaManager : MonoBehaviour
             case "Customizar":
                 ButtonRoupa.SetActive(false);
                 customButtons.SetActive(false);
+                break;
+
+            case "Cabelo":
+                hairDoor = false;
+                break;
+
+            case "Shirt":
+                shirtDoor = false;
+                break;
+
+            case "Tenis":
+                shortsDoor = false;
                 break;
         }
 
