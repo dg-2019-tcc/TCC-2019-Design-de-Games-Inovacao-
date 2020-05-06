@@ -61,6 +61,11 @@ public class ItemThrow : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (collision.CompareTag("AI"))
+        {
+            AIMovement aiMove = collision.GetComponent<AIMovement>();
+            aiMove.StartCoroutine("LevouDogada");
+        }
 
         if (collision.CompareTag("Pipa"))
         {
