@@ -5,12 +5,13 @@ using UnityEngine.UI;
 
 public class NewCustomKhalil : MonoBehaviour
 {
-
+    [Header("Sprites da HUD de botões")]
     public Sprite[] spriteCabelo; //Tem todos os sprites de cabelo, os modelos de cabelo vão de 0 - 4 / 5 - 9 / 10 - 14 / 15 / 19
     public Sprite[] spriteShirt; //Tem todos os sprites de cabelo, os modelos de cabelo vão de 0 - 4 / 5 - 9 / 10 - 14 / 15 / 19   
     public Sprite[] spriteShorts; //Tem todos os sprites de cabelo, os modelos de cabelo vão de 0 - 4 / 5 - 9 / 10 - 14 / 15 / 19
     public Sprite[] spriteTenis; //Tem todos os sprites de cabelo, os modelos de cabelo vão de 0 - 4 / 5 - 9 / 10 - 14 / 15 / 19
 
+    [Header("Botões da cena")]
     public Button[] botaoDeModelo; //Qual botão dos modelos estamos mexendo
     public Button[] botaoDeCor; //Qual o botão que a gente está mexendo
 
@@ -24,6 +25,10 @@ public class NewCustomKhalil : MonoBehaviour
     public GameObject Menu1;
     public GameObject Menu2;
 
+    [Header("Círculo de seleção")]
+    public GameObject[] circuloDeSelecaoModelo;
+    public GameObject[] circuloDeSelecaoCor;
+
     public int qualParteVaiSer;
     int qualModeloVaiSer;
 
@@ -35,7 +40,7 @@ public class NewCustomKhalil : MonoBehaviour
 
     public int quantidadeDeModelos;
 
-
+    [Header("Armazena o valor dos botões e efetiva a escolha do modelo")]
     int botaoModelo1;
     int botaoModelo2;
     int botaoModelo3;
@@ -301,7 +306,7 @@ public class NewCustomKhalil : MonoBehaviour
                     botaoDeCor[i].onClick.AddListener(delegate { QualParteVaiMudar(qualParteVaiSer, e); });
                     break;
             }
-
+            /*
             switch (qualParteVaiSer)
             {
                 case 1:
@@ -316,7 +321,7 @@ public class NewCustomKhalil : MonoBehaviour
                 case 4:
                     botaoDeCor[i].image.sprite = spriteShorts[startArrayFromThisPoint]; //Muda a sprite para a imagem de cor certa
                     break;
-            }
+            }*/
             startArrayFromThisPoint++; //Aumenta o valor de "q" para poder mudar quando passar de botão
         }
     }
@@ -448,6 +453,36 @@ public class NewCustomKhalil : MonoBehaviour
                         break;
                 }
                 break;
+        }
+    }
+
+    public void AtivaCirculoModel(int index)
+    {
+        for(int i = 0; i < circuloDeSelecaoModelo.Length; i++)
+        {
+            if(i == index)
+            {
+                circuloDeSelecaoModelo[i].SetActive(true);
+            }
+            else
+            {
+                circuloDeSelecaoModelo[i].SetActive(false);
+            }
+        }
+    }
+
+    public void AtivaCirculoCor(int index)
+    {
+        for (int i = 0; i < circuloDeSelecaoCor.Length; i++)
+        {
+            if (i == index)
+            {
+                circuloDeSelecaoCor[i].SetActive(true);
+            }
+            else
+            {
+                circuloDeSelecaoCor[i].SetActive(false);
+            }
         }
     }
 }
