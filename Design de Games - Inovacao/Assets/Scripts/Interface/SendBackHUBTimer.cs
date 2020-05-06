@@ -31,12 +31,12 @@ public class SendBackHUBTimer : MonoBehaviour
 			case "Coleta":
 				if (PlayerPrefs.GetInt("PrimeiraVezNaColeta") == 1)
 				{
-					PlayerPrefs.SetInt("PrimeiraVezNaColeta", 1);
 					SceneManager.LoadScene("HUB");
 				}
 				else
 				{
 					HistoryChecker.sceneName = null;
+					PlayerPrefs.SetInt("PrimeiraVezNaColeta", 1);
 					SceneManager.LoadScene("HistoriaColeta");
 				}
 				break;
@@ -44,12 +44,12 @@ public class SendBackHUBTimer : MonoBehaviour
 			case "Futebol":
 				if (PlayerPrefs.GetInt("PrimeiraVezNoFutebol") == 1)
 				{
-					PlayerPrefs.SetInt("PrimeiraVezNoFutebol", 1);
 					SceneManager.LoadScene("HUB");
 				}
 				else
 				{
 					HistoryChecker.sceneName = null;
+					PlayerPrefs.SetInt("PrimeiraVezNoFutebol", 1);
 					SceneManager.LoadScene("HistoriaFutebol");
 				}
 				break;
