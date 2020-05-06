@@ -8,7 +8,7 @@ public class PortaManager : MonoBehaviour
     [SerializeField]
 	private string qualPorta;
 
-    public Controller2D controller;
+    public TriggerCollisionsController controller;
 
 	public GameObject ButtonJogarCorrida;
 	public GameObject ButtonJogarColeta;
@@ -29,7 +29,7 @@ public class PortaManager : MonoBehaviour
 
 	private void Start()
 	{
-        controller = FindObjectOfType<Controller2D>();
+        controller = FindObjectOfType<TriggerCollisionsController>();
         joy = FindObjectOfType<Joystick>();
         ButtonRoupa.SetActive(false);
 	}
@@ -59,6 +59,8 @@ public class PortaManager : MonoBehaviour
 		{
             if(joy.Vertical >= 0.8f && abriPorta)
             {
+                //SceneManager.LoadScene("HUB");
+                Debug.Log("Colidiu");
                 OpenDoorTutorial();
             }
 			if (joy.Vertical >= 0.8f && ButtonJogarCorrida != null && ButtonJogarCorrida.activeSelf == true)
