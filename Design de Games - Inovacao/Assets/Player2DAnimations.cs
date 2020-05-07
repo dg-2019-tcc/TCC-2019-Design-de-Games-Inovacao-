@@ -190,6 +190,7 @@ public class Player2DAnimations : MonoBehaviour
             {
                 if (!PhotonNetwork.InRoom)
                 {
+                    Debug.Log("Aterrisandio");
                     Aterrisando();
                 }
                 else

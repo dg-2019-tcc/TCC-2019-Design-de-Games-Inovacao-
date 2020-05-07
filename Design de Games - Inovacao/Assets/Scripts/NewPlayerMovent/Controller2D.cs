@@ -71,15 +71,18 @@ public class Controller2D : RaycastController
                     }
                     if (directionX == 1 || hit.distance == 0)
                     {
+                        Debug.Log("A");
                         continue;
                     }
-                    if (collisions.fallingPlatform)
+                    if (collisions.fallingPlatform && collisions.climbingSlope == false)
                     {
+                        Debug.Log("B");
                         continue;
                     }
 
-                    if (playerInput.x < -0.75 || playerInput.x > 0.75 && collisions.climbingSlope == false && collisions.descendingSlope == false)
+                    if (playerInput.y < -0.75 || playerInput.y > 0.75)
                     {
+                        Debug.Log("C");
                         collisions.fallingPlatform = true;
                         Invoke("ResetFallingPlatform", 0.1f);
                         continue;
@@ -88,22 +91,22 @@ public class Controller2D : RaycastController
 
 
                     if (i == 0 && slopeAngle <= maxClimbAngle)
-                {
-                    if (collisions.descendingSlope)
                     {
-                        collisions.descendingSlope = false;
-                        moveAmount = collisions.velocityOld;
-                    }
+                        if (collisions.descendingSlope)
+                        {
+                            collisions.descendingSlope = false;
+                            moveAmount = collisions.velocityOld;
+                        }
 
-                    float distanceToSlopeStart = 0;
-                    if (slopeAngle != collisions.slopeAngleOld)
-                    {
-                        distanceToSlopeStart = hit.distance - skinWidth;
-                        moveAmount.x -= distanceToSlopeStart * directionX;
+                        float distanceToSlopeStart = 0;
+                        if (slopeAngle != collisions.slopeAngleOld)
+                        {
+                            distanceToSlopeStart = hit.distance - skinWidth;
+                            moveAmount.x -= distanceToSlopeStart * directionX;
+                        }
+                            ClimbSlope(ref moveAmount, slopeAngle);
+                            moveAmount.x += distanceToSlopeStart * directionX;
                     }
-                    ClimbSlope(ref moveAmount, slopeAngle);
-                    moveAmount.x += distanceToSlopeStart * directionX;
-                }
 
                 if (!collisions.climbingSlope || slopeAngle > maxClimbAngle)
                 {
@@ -207,7 +210,7 @@ public class Controller2D : RaycastController
     {
         float moveDistance = Mathf.Abs(moveAmount.x);
         float climbVelocityY = Mathf.Sin(slopeAngle * Mathf.Deg2Rad) * moveDistance;
-
+        collisions.climbingSlope = true;
         if (moveAmount.y <= climbVelocityY)
         {
             moveAmount.y = climbVelocityY;
@@ -215,7 +218,6 @@ public class Controller2D : RaycastController
 
             collisions.below = true;
             collisions.climbingSlope = true;
-
             collisions.slopeAngle = slopeAngle;
         }
     }
