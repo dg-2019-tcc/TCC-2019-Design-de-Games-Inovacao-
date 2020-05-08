@@ -217,8 +217,10 @@ public class PlayerThings : MonoBehaviour
 		}
 		else
 		{
-			yield return new WaitForSeconds(0);
-		}
+            levou.Value = true;
+            yield return new WaitForSeconds(StunTime);
+            levou.Value = false;
+        }
 	}
 
 	[PunRPC]

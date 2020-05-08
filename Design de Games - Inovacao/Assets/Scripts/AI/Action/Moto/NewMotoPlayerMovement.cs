@@ -7,8 +7,9 @@ using Photon.Pun;
 public class NewMotoPlayerMovement : MonoBehaviour
 {
 	public FloatVariable moveSpeed;
+	public FloatVariable motoSpeedChange;
 	float velocityXSmoothing;
-	float accelerationTimeAirborne = 0.1f;
+	float accelerationTimeAirborne = 0.2f;
 	float accelerationTimeGrounded = 0.05f;
 
 	float maxJumpVelocity;
@@ -32,10 +33,12 @@ public class NewMotoPlayerMovement : MonoBehaviour
 
 	bool jump;
 	bool stopJump;
+    bool subindo;
 
 	public Vector2 oldPosition;
 
-	Vector3 velocity;
+    [HideInInspector]
+	public Vector3 velocity;
 	Vector3 motoVelocity;
 
 	public Controller2D controller;
@@ -46,14 +49,19 @@ public class NewMotoPlayerMovement : MonoBehaviour
 	[SerializeField]
 	public Joystick joyStick;
 
-	private PhotonView pv;
-	void Start()
+    public BoolVariable levouDogada;
+
+    private PhotonView pv;
+
+
+    void Start()
 	{
 		controller = GetComponent<Controller2D>();
 		triggerController = GetComponent<TriggerCollisionsController>();
 		animations = GetComponent<Player2DAnimations>();
 
 		gravity = -(2 * maxJumpHeight) / Mathf.Pow(timeToJumpApex, 2);
+        Debug.Log(gravity);
 		maxJumpVelocity = Mathf.Abs(gravity * timeToJumpApex);
 		minJumpVelocity = Mathf.Sqrt(2 * Mathf.Abs(gravity) * minJumpHeight);
 
@@ -61,23 +69,20 @@ public class NewMotoPlayerMovement : MonoBehaviour
 		joyStick = FindObjectOfType<Joystick>();
 	}
 
-	void Update()
+	void FixedUpdate()
 	{
 		if (!pv.IsMine && PhotonNetwork.InRoom) return;
-		Vector2 input = new Vector2(joyStick.Horizontal, joyStick.Vertical);
+        if (levouDogada.Value) return;
 
-			if (jump == true && controller.collisions.below)
-			{
-				velocity.y = maxJumpHeight;
+        Vector2 input = new Vector2(joyStick.Horizontal, joyStick.Vertical);
 
-			}
-
-			float targetVelocityX = (Mathf.Clamp(input.x, -1, 0)+1) * (moveSpeed.Value + motoMoveSpeed);
+			float targetVelocityX = (motoSpeedChange.Value + motoMoveSpeed);
+			//float targetVelocityX = (Mathf.Clamp(input.x, -1, 0)+1) * (moveSpeed.Value + motoMoveSpeed);
 			velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (controller.collisions.below) ? accelerationTimeGrounded : accelerationTimeAirborne);
 			velocity.y += gravity * Time.deltaTime;
 			controller.Move(velocity * Time.deltaTime, input);
 			triggerController.MoveDirection(velocity);
-		animations.ChangeMoveAnim(velocity, oldPosition, input, jump, stopJump);
+		//animations.ChangeMoveAnim(velocity, oldPosition, input, jump, stopJump);
 		if (controller.collisions.above || controller.collisions.below)
 			{
 				velocity.y = 0;
@@ -86,16 +91,23 @@ public class NewMotoPlayerMovement : MonoBehaviour
 	}
 	private void LateUpdate()
 	{
-		oldPosition = velocity;
+		oldPosition = velocity; 
 	}
 
 	public void Jump()
 	{
 		if (controller.collisions.below)
 		{
-			jump = true;
-
-		}
+            if (controller.collisions.climbingSlope)
+            {
+                //Debug.Log("Pulo");
+                velocity.y = maxJumpHeight + 10f;
+            }
+            else
+            {
+                velocity.y = maxJumpHeight;
+            }
+        }
 	}
 
 	public void StopJump()
@@ -103,8 +115,13 @@ public class NewMotoPlayerMovement : MonoBehaviour
 		if (velocity.y > minJumpVelocity)
 		{
 			velocity.y = minJumpVelocity;
-			Debug.Log(velocity.y);
 		}
 		jump = false;
 	}
+
+    IEnumerator CaiuMoto()
+    {
+        yield return new WaitForSeconds(1.5f);
+
+    }
 }

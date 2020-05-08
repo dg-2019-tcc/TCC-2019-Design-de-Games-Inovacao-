@@ -62,6 +62,11 @@ public class Controller2D : RaycastController
             {
                 float slopeAngle = Vector2.Angle(hit.normal, Vector2.up);
 
+                if(hit.collider.tag == "Barreira")
+                {
+                    collisions.bateuObs = true;
+                }
+
                 if (hit.collider.tag == "Through")
                 {
 
@@ -71,18 +76,15 @@ public class Controller2D : RaycastController
                     }
                     if (directionX == 1 || hit.distance == 0)
                     {
-                        Debug.Log("A");
                         continue;
                     }
                     if (collisions.fallingPlatform && collisions.climbingSlope == false)
                     {
-                        Debug.Log("B");
                         continue;
                     }
 
                     if (playerInput.y < -0.75 || playerInput.y > 0.75)
                     {
-                        Debug.Log("C");
                         collisions.fallingPlatform = true;
                         Invoke("ResetFallingPlatform", 0.1f);
                         continue;
@@ -276,6 +278,8 @@ public class Controller2D : RaycastController
 
         public bool isDoor;
 
+        public bool bateuObs;
+
         public void Reset()
         {
             above = below = false;
@@ -283,6 +287,7 @@ public class Controller2D : RaycastController
             climbingSlope = false;
             descendingSlope = false;
             isDoor = false;
+            bateuObs = false;
 
             slopeAngleOld = slopeAngle;
             slopeAngle = 0;

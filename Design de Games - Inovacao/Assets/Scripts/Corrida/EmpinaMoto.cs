@@ -16,6 +16,7 @@ public class EmpinaMoto : MonoBehaviour
 	public FloatVariable jumpForce;
 	private float originalJumpForce;
 	public Controller2D controller;
+    public TriggerCollisionsController triggerController;
 
 	[Header ("Booleans (tá visível pra checar se ta dando certo, mas tem script vendo tbm)")]
 	public bool isEmpinando;
@@ -40,11 +41,17 @@ public class EmpinaMoto : MonoBehaviour
 	public GameObject particula;
 	public ParticleSystem trail;
 
+    [Header("GiraMoto")]
+    public float rotationSpeed = 5f;
+    public GameObject player;
+    public Joystick joy;
+    public PlayerThings playerThings;
 
 
-	private void Start()
+    private void Start()
 	{
-		isEmpinando = false;
+        joy = FindObjectOfType<Joystick>();
+        isEmpinando = false;
 		isManobrandoNoAr = false;
 		originalSpeed = playerSpeed.Value;
 		playerSpeed.Value = baseSpeed;
@@ -58,46 +65,77 @@ public class EmpinaMoto : MonoBehaviour
 
 	private void Update()
 	{
-		if (isEmpinando)
+        if (controller.collisions.climbingSlope)
+        {
+            transform.localRotation = Quaternion.Slerp(transform.localRotation, Quaternion.Euler(transform.localRotation.x, transform.localRotation.y, 90), 1f);
+            player.transform.localRotation = Quaternion.Slerp(player.transform.localRotation, Quaternion.Euler(player.transform.localRotation.x, player.transform.localRotation.y, 90), 1f);
+        }
+
+        else if (controller.collisions.descendingSlope)
+        {
+            transform.localRotation = Quaternion.Slerp(transform.localRotation, Quaternion.Euler(transform.localRotation.x, transform.localRotation.y, -90), 1f);
+            player.transform.localRotation = Quaternion.Slerp(player.transform.localRotation, Quaternion.Euler(player.transform.localRotation.x, player.transform.localRotation.y, -30), 1f);
+        }
+
+        else
+        {
+            transform.localRotation = Quaternion.Slerp(transform.localRotation, Quaternion.Euler(transform.localRotation.x, transform.localRotation.y, 0), 0.5f);
+            player.transform.localRotation = Quaternion.Slerp(player.transform.localRotation, Quaternion.Euler(player.transform.localRotation.x, player.transform.localRotation.y, 0), 0.5f);
+        }
+
+        if (isManobrandoNoAr)
+        {
+            transform.localRotation = Quaternion.Slerp(transform.localRotation, Quaternion.Euler(transform.localRotation.x, transform.localRotation.y, Mathf.Sin(Time.time) * (transform.localRotation.z + 45)), 0.5f);
+            playerSpeed.Value = Mathf.Lerp(playerSpeed.Value, boostSpeed, 0.5f);
+            //particula.SetActive(true);
+            if (!trail.isPlaying)
+            {
+                trail.Play();
+            }
+            if (controller.collisions.below)
+            {
+                //Debug.Log("Caiu");
+                playerThings.StartCoroutine("LevouDogada");
+                //playerSpeed.Value = Mathf.Lerp(playerSpeed.Value, 0, 0.5f);
+                transform.localRotation = Random.rotation;
+                //particula.SetActive(false);
+                if (trail.isPlaying)
+                {
+                    trail.Stop();
+                }
+            }
+        }
+
+        else if (isEmpinando)
 		{
 			transform.localRotation = Quaternion.Slerp(transform.localRotation, Quaternion.Euler(transform.localRotation.x, transform.localRotation.y, 45), 0.5f);
-			playerSpeed.Value = Mathf.Lerp(playerSpeed.Value, boostSpeed, 0.5f);
+            player.transform.localRotation = Quaternion.Slerp(player.transform.localRotation, Quaternion.Euler(player.transform.localRotation.x, player.transform.localRotation.y, 45), 0.5f);
+            playerSpeed.Value = Mathf.Lerp(playerSpeed.Value, boostSpeed, 0.5f);
 			//particula.SetActive(true);
 			if (!trail.isPlaying)
 			{
 				trail.Play();
 			}
+
+            /*if(triggerController.collisions.boostMoto == false)
+            {
+                isEmpinando = false;
+            }*/
 		}
-		else if (isManobrandoNoAr)
-		{
-			transform.localRotation = Quaternion.Slerp(transform.localRotation, Quaternion.Euler(transform.localRotation.x, transform.localRotation.y, Mathf.Sin(Time.time) * (transform.localRotation.z + 45)), 0.5f);
-			playerSpeed.Value = Mathf.Lerp(playerSpeed.Value, boostSpeed, 0.5f);
-			//particula.SetActive(true);
-			if (!trail.isPlaying)
-			{
-				trail.Play();
-			}
-			if (controller.collisions.below)
-			{
-				playerSpeed.Value = Mathf.Lerp(playerSpeed.Value, 0, 0.5f);
-				transform.localRotation = Random.rotation;
-				//particula.SetActive(false);
-				if (trail.isPlaying)
-				{
-					trail.Stop();
-				}
-			}
-		}
-		else
-		{
-			transform.localRotation = Quaternion.Slerp(transform.localRotation, Quaternion.Euler(transform.localRotation.x, transform.localRotation.y, 0), 0.5f);
-			playerSpeed.Value = Mathf.Lerp(playerSpeed.Value, baseSpeed, 0.5f);
-			//particula.SetActive(false);
-			if (trail.isPlaying)
-			{
-				trail.Stop();
-			}
-		}
+
+        else
+        {
+            transform.localRotation = Quaternion.Slerp(transform.localRotation, Quaternion.Euler(transform.localRotation.x, transform.localRotation.y, 0),0.5f);
+            if (trail.isPlaying)
+            {
+                trail.Stop();
+            }
+        }
+
+        if (controller.collisions.below)
+        {
+            isManobrandoNoAr = false;
+        }
 
 
 
@@ -107,7 +145,7 @@ public class EmpinaMoto : MonoBehaviour
 
 			if (carregado || !controller.collisions.below)
 			{
-				Debug.Log("Vai filhão");
+				//Debug.Log("Vai filhão");
 				brilhoDeBoost.gameObject.SetActive(true);
 				motoBrilho.gameObject.SetActive(true);
 				motoBrilho.color = Color.Lerp(motoBrilho.color, Random.ColorHSV(0, 1), 0.1f);
@@ -130,33 +168,56 @@ public class EmpinaMoto : MonoBehaviour
 	{
 		if (isManobrandoNoAr || isEmpinando) return;
 
-		if (carregado)
+		if (triggerController.collisions.boostMoto && controller.collisions.below)
 		{
-				Debug.Log("empinou");
+				//Debug.Log("empinou");
 				isEmpinando = true;
-				motoPV.RPC("daGrau", RpcTarget.All, 1);
+
+            if (!PhotonNetwork.InRoom)
+            {
+                daGrau(1);
+            }
+            else
+            {
+                motoPV.RPC("daGrau", RpcTarget.All, 1);
+            }
 			
 		}
 
-		if (!controller.collisions.below)
+
+        if (!controller.collisions.below)
 		{
 
-				Debug.Log("manobrou no ar");
+				//Debug.Log("manobrou no ar");
 				isManobrandoNoAr = true;
-				motoPV.RPC("daGrau", RpcTarget.All, 2);
+            if (!PhotonNetwork.InRoom)
+            {
+                daGrau(1);
+            }
+            else
+            {
+                motoPV.RPC("daGrau", RpcTarget.All, 2);
+            }
 
-		}
-		
+        }
 
-		
-	}
+
+
+    }
 
 
 	public void stopManobra()
 	{
 
 		isManobrandoNoAr = false;
-		motoPV.RPC("daGrau", RpcTarget.All, 0);
+        if (!PhotonNetwork.InRoom)
+        {
+            daGrau(0);
+        }
+        else
+        {
+            motoPV.RPC("daGrau", RpcTarget.All, 0);
+        };
 
 	}
 
@@ -186,7 +247,7 @@ public class EmpinaMoto : MonoBehaviour
 
 	public IEnumerator Empinando()
 	{
-		Debug.Log("moto");
+		//Debug.Log("moto");
 		
 		yield return new WaitForSeconds(2);
 		isEmpinando = false;

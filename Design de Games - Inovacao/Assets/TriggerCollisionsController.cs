@@ -85,7 +85,12 @@ public class TriggerCollisionsController : RaycastController
 
             if (hit)
             {
-                if(hit.collider.tag == "Porta")
+                if (hit.collider.tag == "Boost")
+                {
+                    collisions.boostMoto = true;
+                }
+
+                if (hit.collider.tag == "Porta")
                 {
                     collisions.isDoor = true;
                     PortaManager porta = hit.collider.GetComponent<PortaManager>();
@@ -113,7 +118,7 @@ public class TriggerCollisionsController : RaycastController
                 }
 				if (hit.collider.tag == "Moedinha")
 				{
-					Debug.Log("colidiu com a moeda");
+					//Debug.Log("colidiu com a moeda");
 					hit.collider.gameObject.SendMessage("Coleta");
 				}
 
@@ -162,6 +167,7 @@ public class TriggerCollisionsController : RaycastController
 
                 if (hit.collider.tag == "CaixaDagua")
                 {
+                    collisions.direction = new Vector2(-1f, 0f);
                     collisions.caixaDagua = true;
                 }
             }
@@ -191,6 +197,11 @@ public class TriggerCollisionsController : RaycastController
 
             if (hit)
             {
+                if (hit.collider.tag == "Boost")
+                {
+                    collisions.boostMoto = true;
+                }
+
                 if (hit.collider.tag == "PortaTutorial")
                 {
                     collisions.isDoor = true;
@@ -267,6 +278,7 @@ public class TriggerCollisionsController : RaycastController
 
                 if (hit.collider.tag == "CaixaDagua")
                 {
+                    collisions.direction = new Vector2(1, 0f);
                     collisions.caixaDagua = true;
                 }
             }
@@ -288,6 +300,11 @@ public class TriggerCollisionsController : RaycastController
 
             if (hit)
             {
+                if (hit.collider.tag == "Boost")
+                {
+                    collisions.boostMoto = true;
+                }
+
                 if (hit.collider.tag == "PortaTutorial")
                 {
                     collisions.isDoor = true;
@@ -337,6 +354,12 @@ public class TriggerCollisionsController : RaycastController
                 {
                     collisions.cabecaBola = true;
                 }
+
+                if (hit.collider.tag == "CaixaDagua")
+                {
+                    collisions.direction = new Vector2(0f, -1);
+                    collisions.caixaDagua = true;
+                }
             }
         }
     }
@@ -356,6 +379,11 @@ public class TriggerCollisionsController : RaycastController
 
             if (hit)
             {
+                if(hit.collider.tag == "Boost")
+                {
+                    collisions.boostMoto = true;
+                }
+
                 if (hit.collider.tag == "PortaTutorial")
                 {
                     collisions.isDoor = true;
@@ -411,6 +439,7 @@ public class TriggerCollisionsController : RaycastController
 
                 if(hit.collider.tag == "CaixaDagua")
                 {
+                    collisions.direction = new Vector2(0f, 1);
                     collisions.caixaDagua = true;
                 }
             }
@@ -432,7 +461,7 @@ public class TriggerCollisionsController : RaycastController
 
     public struct TriggerCollisionInfo
     {
-        public bool isDoor;
+        public bool isDoor, boostMoto;
 
         public bool cortaBola, tocouBola;
 
@@ -440,13 +469,16 @@ public class TriggerCollisionsController : RaycastController
 
         public bool caixaDagua;
 
+        public Vector2 direction;
+
 
         public void Reset()
         {
-            isDoor = false;
+            isDoor = boostMoto = false;
             cortaBola = tocouBola = false;
             cabecaBola = tocouBola = false;
             caixaDagua = false;
+            direction.x = direction.y = 0;
         }
     }
 }

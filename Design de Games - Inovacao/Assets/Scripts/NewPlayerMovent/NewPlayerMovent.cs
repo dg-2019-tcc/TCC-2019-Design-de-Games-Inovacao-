@@ -129,7 +129,17 @@ public class NewPlayerMovent : MonoBehaviour
 
             if (/*controller.collisions.below &&*/ triggerController.collisions.caixaDagua)
             {
-                velocity.y = maxJumpHeight.Value * 1.8f ;
+                if (triggerController.collisions.direction.x != 0)
+                {
+                    Debug.Log(triggerController.collisions.direction.x);
+                    velocity.x= maxJumpHeight.Value * 1.8f * triggerController.collisions.direction.x;
+                }
+
+                else
+                {
+                    Debug.Log(triggerController.collisions.direction.y);
+                    velocity.y = maxJumpHeight.Value * 1.8f * triggerController.collisions.direction.y;
+                }
 
             }
 
@@ -163,7 +173,17 @@ public class NewPlayerMovent : MonoBehaviour
 
                 if (/*controller.collisions.below &&*/ triggerController.collisions.caixaDagua)
                 {
-                    velocity.y = maxJumpHeight.Value * 1.8f;
+                    if (triggerController.collisions.direction.x != 0)
+                    {
+                        Debug.Log(triggerController.collisions.direction.x);
+                        velocity.x = maxJumpHeight.Value * 2f * triggerController.collisions.direction.x;
+                    }
+
+                    else
+                    {
+                        Debug.Log(triggerController.collisions.direction.y);
+                        velocity.y = maxJumpHeight.Value * 1.5f * triggerController.collisions.direction.y;
+                    }
 
                 }
 
@@ -172,14 +192,31 @@ public class NewPlayerMovent : MonoBehaviour
             {
                 float targetVelocityX = input.x * pipaMoveSpeed;
                 pipaVelocity.x = Mathf.SmoothDamp(pipaVelocity.x, targetVelocityX, ref pipaVelocityXSmoothing, pipaAccelerationTimeAirborne);
-
-                if (input.y >= 0)
+                if (/*controller.collisions.below &&*/ triggerController.collisions.caixaDagua)
                 {
-                    pipaVelocity.y += pipaGravity * Time.deltaTime;
+                    if (triggerController.collisions.direction.x != 0)
+                    {
+                        Debug.Log(triggerController.collisions.direction.x);
+                        velocity.x = maxJumpHeight.Value * 2f * triggerController.collisions.direction.x;
+                    }
+
+                    else
+                    {
+                        Debug.Log(triggerController.collisions.direction.y);
+                        velocity.y = maxJumpHeight.Value * 1.5f * triggerController.collisions.direction.y;
+                    }
+
                 }
                 else
                 {
-                    pipaVelocity.y -= pipaGravity * Time.deltaTime;
+                    if (input.y >= 0)
+                    {
+                        pipaVelocity.y += pipaGravity * Time.deltaTime;
+                    }
+                    else
+                    {
+                        pipaVelocity.y -= pipaGravity * Time.deltaTime;
+                    }
                 }
 
                 triggerController.MoveDirection(pipaVelocity);
@@ -196,12 +233,7 @@ public class NewPlayerMovent : MonoBehaviour
     public void Jump()
     {
         jump = true;
-        //animations.ChangeMoveAnim(velocity, oldPosition, input, jump, stopJump);
-        /*if (animations.state != Player2DAnimations.State.Chutando)
-        {
-            animations.StartPulo();
-        }*/
-        //stopJump = false;
+
         if (controller.collisions.below && jump /*&& !stopJump*/)
         {
             velocity.y = maxJumpHeight.Value;
@@ -212,13 +244,10 @@ public class NewPlayerMovent : MonoBehaviour
     public void StopJump()
     {
         stopJump = true;
-        //jump = false;
-        //animations.ChangeMoveAnim(velocity, oldPosition, input, jump, stopJump);
-        //animations.TransitionAir();
+
         if (velocity.y > minJumpVelocity)
         {
             velocity.y = minJumpVelocity;
-            //Debug.Log(velocity.y);
         }
         jump = false;
     }
