@@ -27,7 +27,7 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
     [SerializeField]
     private GameObject tutorialButton;
     public InputField playerNameInput;
-	public GameObject PlayerCanvas;
+	//public GameObject PlayerCanvas;
 
 
 
@@ -106,7 +106,7 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
         delayCancelButton.SetActive(true);
 		tutorialButton.SetActive(false);
 		//loadingScene.SetActive(true);
-		PlayerCanvas.SetActive(false);
+	//	PlayerCanvas.SetActive(false);
 
 		StartCoroutine(StartGamemode(gameMode));     
     }
@@ -336,7 +336,7 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
     //  delayStartButton.SetActive(true);
 	//	tutorialButton.SetActive(true);
 		//loadingScene.SetActive(false);
-		PlayerCanvas.SetActive(true);
+	//	PlayerCanvas.SetActive(true);
 
 		CorridaFade.SetActive(false);
 		FutebolFade.SetActive(false);
