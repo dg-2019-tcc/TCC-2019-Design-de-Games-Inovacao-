@@ -47,6 +47,7 @@ public class MotoChangeSpeed : MonoBehaviour
         else
         {
             speedVal = (motoSpeedChange.Value + 5) * 5;
+            speedVal = Mathf.RoundToInt(speedVal);
             speedText.text = speedVal.ToString();
         }
 
