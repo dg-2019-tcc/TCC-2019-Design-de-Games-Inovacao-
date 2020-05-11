@@ -1,5 +1,29 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &6864852302631839962
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4622475355481343129}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66e49bcfdbc9f39418bcad26cc9d4fc8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controller: {fileID: 0}
+  triggerController: {fileID: 0}
+  cooldownKick: 0
+  normalKickForce: {fileID: 11400000, guid: e0e10d19c4f29da4d8feb843fe275691, type: 2}
+  normalX: 0
+  normalY: 0
+  kickForce: {fileID: 11400000, guid: c0a7b296d419c2c4997caeb459849117, type: 2}
+  kickForceY: 0
+  randomForceY: 10
+  superKickForce: {fileID: 11400000, guid: 0ae28ddef55dfb74783cd18ad39d48cf, type: 2}
+  superKickForceY: 0
+  kickAnim: 0
 --- !u!1001 &1036728851682237770
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1650,9 +1674,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7345734631145716267, guid: 650c79142e52b1a46944cd798e3de766,
         type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7345734631145716267, guid: 650c79142e52b1a46944cd798e3de766,
+        type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 6864852302631839962}
     - target: {fileID: 7345734631145716267, guid: 650c79142e52b1a46944cd798e3de766,
         type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
@@ -4151,3 +4180,9 @@ PrefabInstance:
     - {fileID: 0}
     - {fileID: 5307445753844660956, guid: 650c79142e52b1a46944cd798e3de766, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 650c79142e52b1a46944cd798e3de766, type: 3}
+--- !u!1 &4622475355481343129 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5640028172459022803, guid: 650c79142e52b1a46944cd798e3de766,
+    type: 3}
+  m_PrefabInstance: {fileID: 1036728851682237770}
+  m_PrefabAsset: {fileID: 0}
