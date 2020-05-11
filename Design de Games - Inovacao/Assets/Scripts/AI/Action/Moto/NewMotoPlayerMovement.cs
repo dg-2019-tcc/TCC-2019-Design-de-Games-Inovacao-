@@ -21,7 +21,7 @@ public class NewMotoPlayerMovement : MonoBehaviour
 	
 	float motoMoveSpeed = 6;
 	float motoVelocityXSmoothing;
-	float motoAccelerationTimeAirborne = 0.1f;
+	float motoAccelerationTimeAirborne = 0f;
 	float motoAccelerationTimeGrounded = 0.05f;
 
 	float motoMaxJumpVelocity;

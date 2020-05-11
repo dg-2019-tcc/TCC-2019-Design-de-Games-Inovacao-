@@ -42,13 +42,13 @@ public class MotoChangeSpeed : MonoBehaviour
         {
             motoSpeedChange.Value = 0f;
             float speedZero = 0f;
-            speedText.text = speedZero.ToString();
+            speedText.text = speedZero.ToString() + "Km/h";
         }
         else
         {
             speedVal = (motoSpeedChange.Value + 5) * 5;
             speedVal = Mathf.RoundToInt(speedVal);
-            speedText.text = speedVal.ToString();
+            speedText.text = speedVal.ToString() + "Km/h";
         }
 
         if (controller.collisions.climbingSlope)
@@ -80,7 +80,7 @@ public class MotoChangeSpeed : MonoBehaviour
         {
             motoSpeedChange.Value = 0f;
         }
+    
 
-      
     }
 }

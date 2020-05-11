@@ -32,6 +32,7 @@ namespace Complete
         public PhotonPlayer playerMove;
 
         public bool isFut;
+        public bool isMoto;
 
         public float aiSpawnCooldown;
 
@@ -116,7 +117,7 @@ namespace Complete
 			else
 			{
 				//PlayerInst.SetActive(true);
-				if (playerMove.playerMove != null)
+				if (playerMove.playerMove != null && isMoto == false)
 				{
 					playerMove.playerMove.enabled = true;
 				}

@@ -8,14 +8,19 @@ using Cinemachine.Utility;
 
 public class CorridaAjustaCamera : MonoBehaviour
 {
-	private GameObject cam;
-	private Transform playerTransform;
-	private Vector3 initialPos;
+    //[HideInInspector]
+	public GameObject cam;
+    public Transform playerTransform;
+    public Vector3 initialPos;
+    public FloatVariable motoSpeedChange;
+    public float maxCam;
+    public float minCam;
 
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
 		if (collision.CompareTag("Player") && collision.GetComponent<PhotonView>().IsMine && cam == null)
 		{
+            Debug.Log("Ajuste");
 			cam = collision.transform.GetChild(0).gameObject;
 			initialPos = cam.transform.position;
 			playerTransform = collision.transform;
@@ -26,8 +31,9 @@ public class CorridaAjustaCamera : MonoBehaviour
 	{
 		if (cam != null)
 		{
-				cam.transform.position = Vector3.Lerp(cam.transform.position, new Vector3(cam.transform.position.x, cam.transform.position.y, initialPos.z - Mathf.Clamp(playerTransform.position.y, 0, 50)), .1f);
+				cam.transform.position = Vector3.Lerp(cam.transform.position, new Vector3(cam.transform.position.x, cam.transform.position.y, initialPos.z - Mathf.Clamp(playerTransform.position.y, 0, 50)), .5f);
 		}
+
 	}
 
 }

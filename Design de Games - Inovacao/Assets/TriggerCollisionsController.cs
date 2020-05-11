@@ -17,11 +17,16 @@ public class TriggerCollisionsController : RaycastController
 
     public float hitLenght = 5f;
 
+    //CAMera
+    private GameObject cam;
+    private Transform playerTransform;
+    private Vector3 initialPos;
+
 
     public override void Start()
     {
         base.Start();
-
+        cam = transform.parent.gameObject.transform.GetChild(0).gameObject;
         playerThings = GetComponent<PlayerThings>();
         dogController = GetComponent<DogController>();
     }
@@ -85,6 +90,14 @@ public class TriggerCollisionsController : RaycastController
 
             if (hit)
             {
+                if(hit.collider.tag == "AjusteCam")
+                {
+                    CorridaAjustaCamera ajustaCamera = hit.collider.GetComponent<CorridaAjustaCamera>();
+                    //ajustaCamera.cam = cam;
+                    ajustaCamera.initialPos = this.gameObject.transform.position;
+                    ajustaCamera.playerTransform = this.gameObject.transform;
+                }
+
                 if (hit.collider.tag == "Boost")
                 {
                     collisions.boostMoto = true;
