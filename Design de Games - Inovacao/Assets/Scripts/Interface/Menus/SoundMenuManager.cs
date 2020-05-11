@@ -23,9 +23,9 @@ public class SoundMenuManager : MonoBehaviour
     Bus musics;
     Bus sfx;
 
-    bool isMasterOn = true;
-    bool isMusicsOn = true;
-    bool isSFXOn = true;
+    static bool isMasterOn = true;
+    static bool isMusicsOn = true;
+    static bool isSFXOn = true;
 
     bool isMenuOpen = false;
 
@@ -52,6 +52,12 @@ public class SoundMenuManager : MonoBehaviour
         //ButtonModeText("Master", isMasterOn, masterText);
         //ButtonModeText("Musics", isMusicsOn, musicsText);
         //ButtonModeText("SFX", isSFXOn, sfxText);
+    }
+
+    private void OnEnable()
+    {
+        changeButtonCollor(isMusicsOn, m);
+        changeButtonCollor(isSFXOn, s);
     }
 
     public void SoundMode(Bus myBus, ref bool isSoundOn)
@@ -100,11 +106,11 @@ public class SoundMenuManager : MonoBehaviour
                 //Debug.Log("Mucisa");
                 changeButtonCollor(isMusicsOn, m);
                 SoundMode(musics, ref isMusicsOn);
-                if (isMusicsOn == true && isMasterOn == false)
+                /*if (isMusicsOn == true && isMasterOn == false)
                 {
                     SoundMode(master, ref isMasterOn);
                     //ButtonModeText("Master", isMasterOn, masterText);
-                }
+                }*/
                 //ButtonModeText("Musics", isMusicsOn, musicsText);
                 break;
 
@@ -112,11 +118,11 @@ public class SoundMenuManager : MonoBehaviour
             case "SFX":
                 changeButtonCollor(isSFXOn, s);
                 SoundMode(sfx, ref isSFXOn); 
-                if (isSFXOn == true && isMasterOn == false)
+                /*if (isSFXOn == true && isMasterOn == false)
                 {
                     SoundMode(master, ref isMasterOn);
                     //ButtonModeText("Master", isMasterOn, masterText);
-                }
+                }*/
                 //ButtonModeText("SFX", isSFXOn, sfxText);
                 break;
         }
@@ -150,7 +156,6 @@ public class SoundMenuManager : MonoBehaviour
         else
         {
             b.image.color = Color.green;
-            active = true;
         }
     }
 
