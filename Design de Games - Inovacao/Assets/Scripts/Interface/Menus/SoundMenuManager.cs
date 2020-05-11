@@ -27,11 +27,22 @@ public class SoundMenuManager : MonoBehaviour
     bool isMusicsOn = true;
     bool isSFXOn = true;
 
+    bool isMenuOpen = false;
+
+    public GameObject menu;
+    public GameObject butonOnline;
+
+
+    public Button m;
+    public Button s;
+
+
+    /*
     public TextMeshProUGUI masterText;
     public TextMeshProUGUI musicsText;
     public TextMeshProUGUI sfxText;
+    */
 
-    
 
     void Awake()
     {
@@ -86,6 +97,8 @@ public class SoundMenuManager : MonoBehaviour
 
 
             case "Musics":
+                //Debug.Log("Mucisa");
+                changeButtonCollor(isMusicsOn, m);
                 SoundMode(musics, ref isMusicsOn);
                 if (isMusicsOn == true && isMasterOn == false)
                 {
@@ -97,6 +110,7 @@ public class SoundMenuManager : MonoBehaviour
 
 
             case "SFX":
+                changeButtonCollor(isSFXOn, s);
                 SoundMode(sfx, ref isSFXOn); 
                 if (isSFXOn == true && isMasterOn == false)
                 {
@@ -108,7 +122,43 @@ public class SoundMenuManager : MonoBehaviour
         }
     }
 
+
+
+    public void OpenOrCloseMenu()
+    {
+        if (isMenuOpen == true)
+        {
+            menu.SetActive(false);
+            butonOnline.SetActive(false);
+            isMenuOpen = false;
+        }
+        else
+        {
+            menu.SetActive(true);
+            butonOnline.SetActive(true);
+            isMenuOpen = true;
+        }
+    }
+
+
+    public void changeButtonCollor(bool active, Button b)
+    {
+        if(active == true)
+        {
+            b.image.color = Color.red;
+        }
+        else
+        {
+            b.image.color = Color.green;
+            active = true;
+        }
+    }
+
+
+
     /*
+     * 
+     * 
     public void ButtonModeText(string buttonText, bool isOn, TextMeshProUGUI textSpace)
     {
         if(isOn == true)
