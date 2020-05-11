@@ -91,9 +91,15 @@ public class DelayStartWaitingRoomController : MonoBehaviourPunCallbacks
         roomSize = PhotonNetwork.CurrentRoom.MaxPlayers;
         playerCountDisplay.text = playerCount + " - " + roomSize;
 
+		if (roomSize == 2)
+		{
+			startGameNow.SetActive(false);
+		}
+
         if(playerCount == roomSize)
         {
             readyToStart = true;
+			startGameNow.SetActive(true);
         }
         else if(playerCount >= minPlayerToStart)
         {

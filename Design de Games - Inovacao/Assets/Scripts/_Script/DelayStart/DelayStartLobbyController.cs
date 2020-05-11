@@ -62,6 +62,9 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
     [HideInInspector]
     public string gameModeAtual;
 
+	private int currentRoomSize;
+	private bool isDuel;
+
 
 
     [Header("Som")]
@@ -119,6 +122,7 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
 
     public IEnumerator StartGamemode(string gameMode)
 	{
+		currentRoomSize = RoomSize;
         switch (gameMode)
 		{
 			case "Corrida":
@@ -168,6 +172,7 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
 
 				yield return new WaitForSeconds(tempoPraFade);
 
+				currentRoomSize = 2;
 				DelayStartWaitingRoomController.minPlayerToStart = 2;
 				DelayStartWaitingRoomController.tutorialMode = false;
 				DelayStartWaitingRoomController.gameMode = gameMode;
@@ -186,10 +191,11 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
             case "Volei":
 
                 VoleiFade.SetActive(true);
+				
+				yield return new WaitForSeconds(tempoPraFade);
 
-                yield return new WaitForSeconds(tempoPraFade);
-
-                DelayStartWaitingRoomController.minPlayerToStart = 2;
+				currentRoomSize = 2;
+				DelayStartWaitingRoomController.minPlayerToStart = 2;
                 DelayStartWaitingRoomController.tutorialMode = false;
                 DelayStartWaitingRoomController.gameMode = gameMode;
                 gameModeAtual = gameMode;
@@ -276,7 +282,7 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
         //Debug para saber que está criando uma sala
         //Debug.Log("Creating room now");
         int randomRoomNumber = Random.Range(0, 10000);
-        RoomOptions roomOps = new RoomOptions() { IsVisible = true, IsOpen = true, MaxPlayers = (byte)RoomSize };
+        RoomOptions roomOps = new RoomOptions() { IsVisible = true, IsOpen = true, MaxPlayers = (byte)currentRoomSize };
         PhotonNetwork.CreateRoom("Room" + randomRoomNumber, roomOps);
     }
 
@@ -288,7 +294,7 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
 
         RoomOptions newRoomOptions = new RoomOptions();
         newRoomOptions.CustomRoomProperties = new ExitGames.Client.Photon.Hashtable();
-        newRoomOptions.MaxPlayers = 4;
+        newRoomOptions.MaxPlayers = (byte)currentRoomSize;
         newRoomOptions.CustomRoomProperties.Add(gameMode, 1); //diminuir o tamanho de "Modo" para "MD"
         newRoomOptions.CustomRoomPropertiesForLobby = new string[] { gameMode };
 
