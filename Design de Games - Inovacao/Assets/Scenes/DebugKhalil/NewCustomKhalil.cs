@@ -485,4 +485,16 @@ public class NewCustomKhalil : MonoBehaviour
             }
         }
     }
+
+    public void DesativaCoresButton()
+    {
+        for(int i = 0; i < botaoDeCor.Length; i++)
+        {
+            botaoDeCor[i].gameObject.SetActive(false);
+        }
+        for(int i = 0; i < circuloDeSelecaoCor.Length; i++)
+        {
+            circuloDeSelecaoCor[i].SetActive(false);
+        }
+    }
 }
