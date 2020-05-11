@@ -38,9 +38,9 @@ public class SoundMenuManager : MonoBehaviour
         master = RuntimeManager.GetBus("bus:/Master");
         musics = RuntimeManager.GetBus("bus:/Master/Musics");
         sfx = RuntimeManager.GetBus("bus:/Master/SFX");
-        ButtonModeText("Master", isMasterOn, masterText);
-        ButtonModeText("Musics", isMusicsOn, musicsText);
-        ButtonModeText("SFX", isSFXOn, sfxText);
+        //ButtonModeText("Master", isMasterOn, masterText);
+        //ButtonModeText("Musics", isMusicsOn, musicsText);
+        //ButtonModeText("SFX", isSFXOn, sfxText);
     }
 
     public void SoundMode(Bus myBus, ref bool isSoundOn)
@@ -79,9 +79,9 @@ public class SoundMenuManager : MonoBehaviour
                     SoundMode(sfx, ref isSFXOn);
                     
                 }
-                ButtonModeText("Master", isMasterOn, masterText);
-                ButtonModeText("Musics", isMusicsOn, musicsText);
-                ButtonModeText("SFX", isSFXOn, sfxText);
+                //ButtonModeText("Master", isMasterOn, masterText);
+                //ButtonModeText("Musics", isMusicsOn, musicsText);
+                //ButtonModeText("SFX", isSFXOn, sfxText);
                 break;
 
 
@@ -90,9 +90,9 @@ public class SoundMenuManager : MonoBehaviour
                 if (isMusicsOn == true && isMasterOn == false)
                 {
                     SoundMode(master, ref isMasterOn);
-                    ButtonModeText("Master", isMasterOn, masterText);
+                    //ButtonModeText("Master", isMasterOn, masterText);
                 }
-                ButtonModeText("Musics", isMusicsOn, musicsText);
+                //ButtonModeText("Musics", isMusicsOn, musicsText);
                 break;
 
 
@@ -101,14 +101,14 @@ public class SoundMenuManager : MonoBehaviour
                 if (isSFXOn == true && isMasterOn == false)
                 {
                     SoundMode(master, ref isMasterOn);
-                    ButtonModeText("Master", isMasterOn, masterText);
+                    //ButtonModeText("Master", isMasterOn, masterText);
                 }
-                ButtonModeText("SFX", isSFXOn, sfxText);
+                //ButtonModeText("SFX", isSFXOn, sfxText);
                 break;
         }
     }
 
-
+    /*
     public void ButtonModeText(string buttonText, bool isOn, TextMeshProUGUI textSpace)
     {
         if(isOn == true)
@@ -121,6 +121,6 @@ public class SoundMenuManager : MonoBehaviour
             textSpace.text = buttonText + ": Off";
             textSpace.color = Color.red;
         }
-    }
+    }*/
 }
 
