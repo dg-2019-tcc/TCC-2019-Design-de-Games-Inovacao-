@@ -16,22 +16,27 @@ public class CorridaAjustaCamera : MonoBehaviour
     public float maxCam;
     public float minCam;
 
-	private void OnTriggerEnter2D(Collider2D collision)
-	{
-		if (collision.CompareTag("Player") && collision.GetComponent<PhotonView>().IsMine && cam == null)
-		{
-            Debug.Log("Ajuste");
-			cam = collision.transform.GetChild(0).gameObject;
-			initialPos = cam.transform.position;
-			playerTransform = collision.transform;
-		}
-	}
+	
 
+	
 	private void Update()
 	{
 		if (cam != null)
 		{
-				cam.transform.position = Vector3.Lerp(cam.transform.position, new Vector3(cam.transform.position.x, cam.transform.position.y, initialPos.z - Mathf.Clamp(playerTransform.position.y, 0, 50)), .5f);
+			cam.transform.position = Vector3.Lerp(cam.transform.position, new Vector3(cam.transform.position.x, cam.transform.position.y, initialPos.z - Mathf.Clamp(playerTransform.position.y, 0, 50)), .5f);
+		}
+		else
+		{
+			foreach (PhotonView photonView in FindObjectsOfType<PhotonView>())
+			{
+				if (photonView.CompareTag("Player") && photonView.IsMine)
+				{
+					Debug.Log("Ajuste");
+					cam = photonView.gameObject.transform.GetChild(1).gameObject;
+					initialPos = cam.transform.position;
+					playerTransform = photonView.gameObject.transform;
+				}
+			}
 		}
 
 	}
