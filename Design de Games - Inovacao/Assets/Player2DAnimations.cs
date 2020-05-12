@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DragonBones;
+using UnityEngine.Profiling;
 
 public class Player2DAnimations : MonoBehaviour
 {
@@ -68,7 +69,7 @@ public class Player2DAnimations : MonoBehaviour
         
     }
 
-    private void Update()
+    /*private void Update()
     {
         if (!PhotonNetwork.InRoom || photonView.IsMine)
         {
@@ -106,7 +107,7 @@ public class Player2DAnimations : MonoBehaviour
                 }
             }
         }
-    }
+    }*/
 
     [PunRPC]
     void ChangeArmature()
@@ -119,6 +120,7 @@ public class Player2DAnimations : MonoBehaviour
 
     public void ChangeMoveAnim(Vector2 moveAmount, Vector2 oldPos, Vector2 input, bool Jump, bool stopJump)
     {
+
         if (!PhotonNetwork.InRoom || photonView.IsMine)
         {
             if(carroActive.Value == true || pipaActive.Value == true)
@@ -186,11 +188,13 @@ public class Player2DAnimations : MonoBehaviour
                 }
             }
 
-            else if (moveAmount.y < -1f && input.x == 0 && input.y >=0 && controller.collisions.below == true && dogButtonAnim == false && jaAterrisou == false && pipaActive.Value == false && carroActive.Value == false)
+            else if (moveAmount.y < -5f && input.x == 0 && input.y >=0 && controller.collisions.below == true && dogButtonAnim == false && jaAterrisou == false && pipaActive.Value == false && carroActive.Value == false)
             {
+              
+                Debug.Log(moveAmount.y);
                 if (!PhotonNetwork.InRoom)
                 {
-//                    Debug.Log("Aterrisandio");
+                    //Debug.Log("Aterrisandio");
                     Aterrisando();
                 }
                 else
