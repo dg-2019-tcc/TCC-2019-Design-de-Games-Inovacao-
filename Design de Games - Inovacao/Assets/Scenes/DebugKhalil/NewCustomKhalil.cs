@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 public class NewCustomKhalil : MonoBehaviour
 {
+    public bool mudaSpriteCor;
+
+
     [Header("Sprites da HUD de botões")]
     public Sprite[] spriteCabelo; //Tem todos os sprites de cabelo, os modelos de cabelo vão de 0 - 4 / 5 - 9 / 10 - 14 / 15 / 19
     public Sprite[] spriteShirt; //Tem todos os sprites de cabelo, os modelos de cabelo vão de 0 - 4 / 5 - 9 / 10 - 14 / 15 / 19   
@@ -306,22 +309,25 @@ public class NewCustomKhalil : MonoBehaviour
                     botaoDeCor[i].onClick.AddListener(delegate { QualParteVaiMudar(qualParteVaiSer, e); });
                     break;
             }
-            /*
-            switch (qualParteVaiSer)
+
+            if (mudaSpriteCor)// AQUI QUE FAZ A LATA DE SPRAY OU O SPRITE APARECER
             {
-                case 1:
-                    botaoDeCor[i].image.sprite = spriteCabelo[startArrayFromThisPoint]; //Muda a sprite para a imagem de cor certa
-                    break;
-                case 2:
-                    botaoDeCor[i].image.sprite = spriteShirt[startArrayFromThisPoint]; //Muda a sprite para a imagem de cor certa
-                    break;
-                case 3:
-                    botaoDeCor[i].image.sprite = spriteTenis[startArrayFromThisPoint]; //Muda a sprite para a imagem de cor certa
-                    break;
-                case 4:
-                    botaoDeCor[i].image.sprite = spriteShorts[startArrayFromThisPoint]; //Muda a sprite para a imagem de cor certa
-                    break;
-            }*/
+                switch (qualParteVaiSer)
+                {
+                    case 1:
+                        botaoDeCor[i].image.sprite = spriteCabelo[startArrayFromThisPoint]; //Muda a sprite para a imagem de cor certa
+                        break;
+                    case 2:
+                        botaoDeCor[i].image.sprite = spriteShirt[startArrayFromThisPoint]; //Muda a sprite para a imagem de cor certa
+                        break;
+                    case 3:
+                        botaoDeCor[i].image.sprite = spriteTenis[startArrayFromThisPoint]; //Muda a sprite para a imagem de cor certa
+                        break;
+                    case 4:
+                        botaoDeCor[i].image.sprite = spriteShorts[startArrayFromThisPoint]; //Muda a sprite para a imagem de cor certa
+                        break;
+                }
+            }
             startArrayFromThisPoint++; //Aumenta o valor de "q" para poder mudar quando passar de botão
         }
     }
