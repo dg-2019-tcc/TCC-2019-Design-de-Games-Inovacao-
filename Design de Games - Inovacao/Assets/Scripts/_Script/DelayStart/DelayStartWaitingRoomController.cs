@@ -96,7 +96,12 @@ public class DelayStartWaitingRoomController : MonoBehaviourPunCallbacks
 			startGameNow.SetActive(false);
 		}
 
-        if(playerCount == roomSize)
+#if UNITY_EDITOR
+		startGameNow.SetActive(true);
+
+#endif
+
+		if(playerCount == roomSize)
         {
             readyToStart = true;
 			startGameNow.SetActive(true);
