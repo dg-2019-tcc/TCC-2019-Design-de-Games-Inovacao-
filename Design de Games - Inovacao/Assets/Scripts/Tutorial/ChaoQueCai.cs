@@ -7,6 +7,7 @@ public class ChaoQueCai : MonoBehaviour
 	private bool playerTocando;
 	public GameObject coletavel;
 
+	public bool bulletTime;
 
 	private void Update()
 	{
@@ -23,4 +24,5 @@ public class ChaoQueCai : MonoBehaviour
 		playerTocando = true;
 
 	}
+
 }
