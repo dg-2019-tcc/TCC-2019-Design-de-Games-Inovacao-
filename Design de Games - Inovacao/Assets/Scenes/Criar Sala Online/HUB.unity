@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.93119955, g: 0.7589627, b: 0.7168209, a: 1}
+  m_IndirectSpecularColor: {r: 0.9311918, g: 0.75896674, b: 0.7168119, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3099,7 +3099,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -6.084961, y: -14.81897}
+  m_AnchoredPosition: {x: -6.084961, y: -14.819092}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &194268020
@@ -6480,7 +6480,6 @@ GameObject:
   - component: {fileID: 327824793}
   - component: {fileID: 327824792}
   - component: {fileID: 327824791}
-  - component: {fileID: 327824790}
   m_Layer: 16
   m_Name: Plataforma_1 (3)
   m_TagString: Through
@@ -6502,24 +6501,6 @@ Transform:
   m_Father: {fileID: 7975835538518135046}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &327824790
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 327824788}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5b98b919ab2e5743b66b6b1bad012b0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  joyStick: {fileID: 0}
-  jump: {fileID: 0}
-  turnPlat: {fileID: 0}
-  jumpButtonImage: {fileID: 0}
-  arrowImage: {fileID: 0}
-  turnPlataforma: 0
 --- !u!251 &327824791
 PlatformEffector2D:
   m_ObjectHideFlags: 0
@@ -6626,7 +6607,6 @@ GameObject:
   - component: {fileID: 328690049}
   - component: {fileID: 328690048}
   - component: {fileID: 328690047}
-  - component: {fileID: 328690046}
   m_Layer: 16
   m_Name: Plataforma_1 (2)
   m_TagString: Through
@@ -6648,24 +6628,6 @@ Transform:
   m_Father: {fileID: 7975835538518135046}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &328690046
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 328690044}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5b98b919ab2e5743b66b6b1bad012b0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  joyStick: {fileID: 0}
-  jump: {fileID: 0}
-  turnPlat: {fileID: 0}
-  jumpButtonImage: {fileID: 0}
-  arrowImage: {fileID: 0}
-  turnPlataforma: 0
 --- !u!251 &328690047
 PlatformEffector2D:
   m_ObjectHideFlags: 0
@@ -6900,7 +6862,6 @@ GameObject:
   - component: {fileID: 344245258}
   - component: {fileID: 344245257}
   - component: {fileID: 344245256}
-  - component: {fileID: 344245255}
   m_Layer: 16
   m_Name: Plataforma_1 (6)
   m_TagString: Through
@@ -6922,24 +6883,6 @@ Transform:
   m_Father: {fileID: 7975835538518135046}
   m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &344245255
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 344245253}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5b98b919ab2e5743b66b6b1bad012b0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  joyStick: {fileID: 0}
-  jump: {fileID: 0}
-  turnPlat: {fileID: 0}
-  jumpButtonImage: {fileID: 0}
-  arrowImage: {fileID: 0}
-  turnPlataforma: 0
 --- !u!251 &344245256
 PlatformEffector2D:
   m_ObjectHideFlags: 0
@@ -7231,6 +7174,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 257707130}
     m_Modifications:
+    - target: {fileID: 6772008141570876985, guid: f354fc29f19e8aa4d836b7f3540dcf5d,
+        type: 3}
+      propertyPath: m_Name
+      value: CameraConfiner
+      objectReference: {fileID: 0}
     - target: {fileID: 6772008141570876989, guid: f354fc29f19e8aa4d836b7f3540dcf5d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -7296,11 +7244,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 15
       objectReference: {fileID: 0}
-    - target: {fileID: 6772008141570876985, guid: f354fc29f19e8aa4d836b7f3540dcf5d,
-        type: 3}
-      propertyPath: m_Name
-      value: CameraConfiner
-      objectReference: {fileID: 0}
     - target: {fileID: 6772008141570876990, guid: f354fc29f19e8aa4d836b7f3540dcf5d,
         type: 3}
       propertyPath: m_Points.m_Paths.Array.data[0].Array.data[3].x
@@ -7355,7 +7298,6 @@ GameObject:
   - component: {fileID: 409669155}
   - component: {fileID: 409669154}
   - component: {fileID: 409669153}
-  - component: {fileID: 409669152}
   m_Layer: 16
   m_Name: Plataforma_1 (8)
   m_TagString: Through
@@ -7377,24 +7319,6 @@ Transform:
   m_Father: {fileID: 7975835538518135046}
   m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &409669152
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 409669150}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5b98b919ab2e5743b66b6b1bad012b0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  joyStick: {fileID: 0}
-  jump: {fileID: 0}
-  turnPlat: {fileID: 0}
-  jumpButtonImage: {fileID: 0}
-  arrowImage: {fileID: 0}
-  turnPlataforma: 0
 --- !u!251 &409669153
 PlatformEffector2D:
   m_ObjectHideFlags: 0
@@ -7955,6 +7879,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 257707130}
     m_Modifications:
+    - target: {fileID: 3372553702974495690, guid: bc17408c5de03fe42bf27d7125208e61,
+        type: 3}
+      propertyPath: m_Name
+      value: Camera
+      objectReference: {fileID: 0}
     - target: {fileID: 3372553702974495734, guid: bc17408c5de03fe42bf27d7125208e61,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -8010,11 +7939,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3372553702974495690, guid: bc17408c5de03fe42bf27d7125208e61,
-        type: 3}
-      propertyPath: m_Name
-      value: Camera
-      objectReference: {fileID: 0}
     - target: {fileID: 3372553702974495689, guid: bc17408c5de03fe42bf27d7125208e61,
         type: 3}
       propertyPath: field of view
@@ -8039,7 +7963,6 @@ GameObject:
   - component: {fileID: 556925628}
   - component: {fileID: 556925627}
   - component: {fileID: 556925626}
-  - component: {fileID: 556925625}
   m_Layer: 16
   m_Name: Plataforma_1 (1)
   m_TagString: Through
@@ -8061,24 +7984,6 @@ Transform:
   m_Father: {fileID: 7975835538518135046}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &556925625
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 556925623}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5b98b919ab2e5743b66b6b1bad012b0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  joyStick: {fileID: 0}
-  jump: {fileID: 0}
-  turnPlat: {fileID: 0}
-  jumpButtonImage: {fileID: 0}
-  arrowImage: {fileID: 0}
-  turnPlataforma: 0
 --- !u!251 &556925626
 PlatformEffector2D:
   m_ObjectHideFlags: 0
@@ -8365,6 +8270,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 906233532}
     m_Modifications:
+    - target: {fileID: 308249928840680946, guid: 4a42603c6de1182419979f49e8ba1734,
+        type: 3}
+      propertyPath: m_Name
+      value: MC
+      objectReference: {fileID: 0}
+    - target: {fileID: 308249928840680946, guid: 4a42603c6de1182419979f49e8ba1734,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 308249928840680910, guid: 4a42603c6de1182419979f49e8ba1734,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -8434,16 +8349,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 1.016724
-      objectReference: {fileID: 0}
-    - target: {fileID: 308249928840680946, guid: 4a42603c6de1182419979f49e8ba1734,
-        type: 3}
-      propertyPath: m_Name
-      value: MC
-      objectReference: {fileID: 0}
-    - target: {fileID: 308249928840680946, guid: 4a42603c6de1182419979f49e8ba1734,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 308249928840680944, guid: 4a42603c6de1182419979f49e8ba1734,
         type: 3}
@@ -9201,7 +9106,6 @@ GameObject:
   - component: {fileID: 731048006}
   - component: {fileID: 731048005}
   - component: {fileID: 731048004}
-  - component: {fileID: 731048003}
   m_Layer: 16
   m_Name: Plataforma_8 (2)
   m_TagString: Through
@@ -9223,24 +9127,6 @@ Transform:
   m_Father: {fileID: 7975835538518135046}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &731048003
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 731048001}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5b98b919ab2e5743b66b6b1bad012b0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  joyStick: {fileID: 0}
-  jump: {fileID: 0}
-  turnPlat: {fileID: 0}
-  jumpButtonImage: {fileID: 0}
-  arrowImage: {fileID: 0}
-  turnPlataforma: 0
 --- !u!251 &731048004
 PlatformEffector2D:
   m_ObjectHideFlags: 0
@@ -10685,6 +10571,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1290225062145490491, guid: c77d32a3152bf444c950e75937972df4,
+        type: 3}
+      propertyPath: m_Name
+      value: Carrinho (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1290225062145490491, guid: c77d32a3152bf444c950e75937972df4,
+        type: 3}
+      propertyPath: m_Layer
+      value: 18
+      objectReference: {fileID: 0}
     - target: {fileID: 1290225062145490490, guid: c77d32a3152bf444c950e75937972df4,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -10739,16 +10635,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1290225062145490491, guid: c77d32a3152bf444c950e75937972df4,
-        type: 3}
-      propertyPath: m_Name
-      value: Carrinho (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 1290225062145490491, guid: c77d32a3152bf444c950e75937972df4,
-        type: 3}
-      propertyPath: m_Layer
-      value: 18
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c77d32a3152bf444c950e75937972df4, type: 3}
@@ -11217,7 +11103,6 @@ GameObject:
   - component: {fileID: 1290406549}
   - component: {fileID: 1290406548}
   - component: {fileID: 1290406547}
-  - component: {fileID: 1290406546}
   m_Layer: 16
   m_Name: Plataforma_8 (1)
   m_TagString: Through
@@ -11239,24 +11124,6 @@ Transform:
   m_Father: {fileID: 7975835538518135046}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1290406546
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1290406544}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5b98b919ab2e5743b66b6b1bad012b0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  joyStick: {fileID: 0}
-  jump: {fileID: 0}
-  turnPlat: {fileID: 0}
-  jumpButtonImage: {fileID: 0}
-  arrowImage: {fileID: 0}
-  turnPlataforma: 0
 --- !u!251 &1290406547
 PlatformEffector2D:
   m_ObjectHideFlags: 0
@@ -11566,7 +11433,6 @@ GameObject:
   - component: {fileID: 1336241006}
   - component: {fileID: 1336241005}
   - component: {fileID: 1336241004}
-  - component: {fileID: 1336241003}
   m_Layer: 16
   m_Name: Plataforma_1 (13)
   m_TagString: Through
@@ -11588,24 +11454,6 @@ Transform:
   m_Father: {fileID: 7975835538518135046}
   m_RootOrder: 20
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -28.5}
---- !u!114 &1336241003
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1336241001}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5b98b919ab2e5743b66b6b1bad012b0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  joyStick: {fileID: 0}
-  jump: {fileID: 0}
-  turnPlat: {fileID: 0}
-  jumpButtonImage: {fileID: 0}
-  arrowImage: {fileID: 0}
-  turnPlataforma: 0
 --- !u!251 &1336241004
 PlatformEffector2D:
   m_ObjectHideFlags: 0
@@ -11968,7 +11816,6 @@ GameObject:
   - component: {fileID: 1361387337}
   - component: {fileID: 1361387336}
   - component: {fileID: 1361387335}
-  - component: {fileID: 1361387334}
   m_Layer: 16
   m_Name: Plataforma_1 (10)
   m_TagString: Through
@@ -11990,24 +11837,6 @@ Transform:
   m_Father: {fileID: 7975835538518135046}
   m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1361387334
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1361387332}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5b98b919ab2e5743b66b6b1bad012b0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  joyStick: {fileID: 0}
-  jump: {fileID: 0}
-  turnPlat: {fileID: 0}
-  jumpButtonImage: {fileID: 0}
-  arrowImage: {fileID: 0}
-  turnPlataforma: 0
 --- !u!251 &1361387335
 PlatformEffector2D:
   m_ObjectHideFlags: 0
@@ -12114,7 +11943,6 @@ GameObject:
   - component: {fileID: 1378522062}
   - component: {fileID: 1378522061}
   - component: {fileID: 1378522060}
-  - component: {fileID: 1378522059}
   m_Layer: 16
   m_Name: Plataforma_1 (11)
   m_TagString: Through
@@ -12136,24 +11964,6 @@ Transform:
   m_Father: {fileID: 7975835538518135046}
   m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1378522059
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1378522057}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5b98b919ab2e5743b66b6b1bad012b0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  joyStick: {fileID: 0}
-  jump: {fileID: 0}
-  turnPlat: {fileID: 0}
-  jumpButtonImage: {fileID: 0}
-  arrowImage: {fileID: 0}
-  turnPlataforma: 0
 --- !u!251 &1378522060
 PlatformEffector2D:
   m_ObjectHideFlags: 0
@@ -12255,6 +12065,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1290225062145490491, guid: c77d32a3152bf444c950e75937972df4,
+        type: 3}
+      propertyPath: m_Name
+      value: Carrinho
+      objectReference: {fileID: 0}
+    - target: {fileID: 1290225062145490491, guid: c77d32a3152bf444c950e75937972df4,
+        type: 3}
+      propertyPath: m_Layer
+      value: 18
+      objectReference: {fileID: 0}
     - target: {fileID: 1290225062145490490, guid: c77d32a3152bf444c950e75937972df4,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -12309,16 +12129,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1290225062145490491, guid: c77d32a3152bf444c950e75937972df4,
-        type: 3}
-      propertyPath: m_Name
-      value: Carrinho
-      objectReference: {fileID: 0}
-    - target: {fileID: 1290225062145490491, guid: c77d32a3152bf444c950e75937972df4,
-        type: 3}
-      propertyPath: m_Layer
-      value: 18
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c77d32a3152bf444c950e75937972df4, type: 3}
@@ -12708,7 +12518,6 @@ GameObject:
   - component: {fileID: 1519287798}
   - component: {fileID: 1519287797}
   - component: {fileID: 1519287796}
-  - component: {fileID: 1519287795}
   m_Layer: 16
   m_Name: Plataforma_1 (7)
   m_TagString: Through
@@ -12730,24 +12539,6 @@ Transform:
   m_Father: {fileID: 7975835538518135046}
   m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 17.482}
---- !u!114 &1519287795
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1519287793}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5b98b919ab2e5743b66b6b1bad012b0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  joyStick: {fileID: 0}
-  jump: {fileID: 0}
-  turnPlat: {fileID: 0}
-  jumpButtonImage: {fileID: 0}
-  arrowImage: {fileID: 0}
-  turnPlataforma: 0
 --- !u!251 &1519287796
 PlatformEffector2D:
   m_ObjectHideFlags: 0
@@ -13698,7 +13489,6 @@ GameObject:
   - component: {fileID: 1635288040}
   - component: {fileID: 1635288039}
   - component: {fileID: 1635288038}
-  - component: {fileID: 1635288037}
   m_Layer: 16
   m_Name: Plataforma_1 (5)
   m_TagString: Through
@@ -13720,24 +13510,6 @@ Transform:
   m_Father: {fileID: 7975835538518135046}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1635288037
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1635288035}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5b98b919ab2e5743b66b6b1bad012b0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  joyStick: {fileID: 0}
-  jump: {fileID: 0}
-  turnPlat: {fileID: 0}
-  jumpButtonImage: {fileID: 0}
-  arrowImage: {fileID: 0}
-  turnPlataforma: 0
 --- !u!251 &1635288038
 PlatformEffector2D:
   m_ObjectHideFlags: 0
@@ -13949,6 +13721,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2039419664027468613, guid: cfba2951f952f014b94e25e00f45f1f5,
+        type: 3}
+      propertyPath: m_Name
+      value: Pipa
+      objectReference: {fileID: 0}
+    - target: {fileID: 2039419664027468613, guid: cfba2951f952f014b94e25e00f45f1f5,
+        type: 3}
+      propertyPath: m_Layer
+      value: 18
+      objectReference: {fileID: 0}
     - target: {fileID: 2039419664027468612, guid: cfba2951f952f014b94e25e00f45f1f5,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -14003,16 +13785,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2039419664027468613, guid: cfba2951f952f014b94e25e00f45f1f5,
-        type: 3}
-      propertyPath: m_Name
-      value: Pipa
-      objectReference: {fileID: 0}
-    - target: {fileID: 2039419664027468613, guid: cfba2951f952f014b94e25e00f45f1f5,
-        type: 3}
-      propertyPath: m_Layer
-      value: 18
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cfba2951f952f014b94e25e00f45f1f5, type: 3}
@@ -14182,7 +13954,6 @@ GameObject:
   - component: {fileID: 1714978158}
   - component: {fileID: 1714978157}
   - component: {fileID: 1714978156}
-  - component: {fileID: 1714978155}
   m_Layer: 16
   m_Name: Plataforma_1 (12)
   m_TagString: Through
@@ -14204,24 +13975,6 @@ Transform:
   m_Father: {fileID: 7975835538518135046}
   m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 7.6630006}
---- !u!114 &1714978155
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1714978153}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5b98b919ab2e5743b66b6b1bad012b0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  joyStick: {fileID: 0}
-  jump: {fileID: 0}
-  turnPlat: {fileID: 0}
-  jumpButtonImage: {fileID: 0}
-  arrowImage: {fileID: 0}
-  turnPlataforma: 0
 --- !u!251 &1714978156
 PlatformEffector2D:
   m_ObjectHideFlags: 0
@@ -14843,114 +14596,6 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 1
   m_TargetDisplay: 0
---- !u!114 &1841544038
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7975835540059210791}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5b98b919ab2e5743b66b6b1bad012b0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  joyStick: {fileID: 0}
-  jump: {fileID: 0}
-  turnPlat: {fileID: 0}
-  jumpButtonImage: {fileID: 0}
-  arrowImage: {fileID: 0}
-  turnPlataforma: 0
---- !u!114 &1841544039
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7975835540082284040}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5b98b919ab2e5743b66b6b1bad012b0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  joyStick: {fileID: 0}
-  jump: {fileID: 0}
-  turnPlat: {fileID: 0}
-  jumpButtonImage: {fileID: 0}
-  arrowImage: {fileID: 0}
-  turnPlataforma: 0
---- !u!114 &1841544041
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7975835538465310952}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5b98b919ab2e5743b66b6b1bad012b0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  joyStick: {fileID: 0}
-  jump: {fileID: 0}
-  turnPlat: {fileID: 0}
-  jumpButtonImage: {fileID: 0}
-  arrowImage: {fileID: 0}
-  turnPlataforma: 0
---- !u!114 &1841544044
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7975835539443087543}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5b98b919ab2e5743b66b6b1bad012b0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  joyStick: {fileID: 0}
-  jump: {fileID: 0}
-  turnPlat: {fileID: 0}
-  jumpButtonImage: {fileID: 0}
-  arrowImage: {fileID: 0}
-  turnPlataforma: 0
---- !u!114 &1841544045
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7975835539433623139}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5b98b919ab2e5743b66b6b1bad012b0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  joyStick: {fileID: 0}
-  jump: {fileID: 0}
-  turnPlat: {fileID: 0}
-  jumpButtonImage: {fileID: 0}
-  arrowImage: {fileID: 0}
-  turnPlataforma: 0
---- !u!114 &1841544047
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7975835539486812500}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5b98b919ab2e5743b66b6b1bad012b0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  joyStick: {fileID: 0}
-  jump: {fileID: 0}
-  turnPlat: {fileID: 0}
-  jumpButtonImage: {fileID: 0}
-  arrowImage: {fileID: 0}
-  turnPlataforma: 0
 --- !u!1 &1853988115
 GameObject:
   m_ObjectHideFlags: 0
@@ -15096,7 +14741,6 @@ GameObject:
   - component: {fileID: 1885392603}
   - component: {fileID: 1885392602}
   - component: {fileID: 1885392601}
-  - component: {fileID: 1885392600}
   m_Layer: 16
   m_Name: Plataforma_1 (9)
   m_TagString: Through
@@ -15118,24 +14762,6 @@ Transform:
   m_Father: {fileID: 7975835538518135046}
   m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1885392600
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1885392598}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5b98b919ab2e5743b66b6b1bad012b0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  joyStick: {fileID: 0}
-  jump: {fileID: 0}
-  turnPlat: {fileID: 0}
-  jumpButtonImage: {fileID: 0}
-  arrowImage: {fileID: 0}
-  turnPlataforma: 0
 --- !u!251 &1885392601
 PlatformEffector2D:
   m_ObjectHideFlags: 0
@@ -18374,7 +18000,6 @@ GameObject:
   - component: {fileID: 2118582559}
   - component: {fileID: 2118582558}
   - component: {fileID: 2118582557}
-  - component: {fileID: 2118582556}
   m_Layer: 16
   m_Name: Plataforma_1 (4)
   m_TagString: Through
@@ -18396,24 +18021,6 @@ Transform:
   m_Father: {fileID: 7975835538518135046}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2118582556
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2118582554}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5b98b919ab2e5743b66b6b1bad012b0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  joyStick: {fileID: 0}
-  jump: {fileID: 0}
-  turnPlat: {fileID: 0}
-  jumpButtonImage: {fileID: 0}
-  arrowImage: {fileID: 0}
-  turnPlataforma: 0
 --- !u!251 &2118582557
 PlatformEffector2D:
   m_ObjectHideFlags: 0
@@ -18776,6 +18383,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 938474141}
     m_Modifications:
+    - target: {fileID: 1151032522875826211, guid: 3c87eed6cf8ca9b4c9daaa918c5fd68b,
+        type: 3}
+      propertyPath: m_Name
+      value: SairButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 1151032522875826211, guid: 3c87eed6cf8ca9b4c9daaa918c5fd68b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1151032522875826236, guid: 3c87eed6cf8ca9b4c9daaa918c5fd68b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -18881,16 +18498,6 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 1151032522875826211, guid: 3c87eed6cf8ca9b4c9daaa918c5fd68b,
-        type: 3}
-      propertyPath: m_Name
-      value: SairButton
-      objectReference: {fileID: 0}
-    - target: {fileID: 1151032522875826211, guid: 3c87eed6cf8ca9b4c9daaa918c5fd68b,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1151032522875826237, guid: 3c87eed6cf8ca9b4c9daaa918c5fd68b,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -18948,11 +18555,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerNameInput
       objectReference: {fileID: 0}
-    - target: {fileID: 1714544300455852879, guid: c7144f1542b31164989bc5001f3687aa,
-        type: 3}
-      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1508584124}
     - target: {fileID: 1714544300455852878, guid: c7144f1542b31164989bc5001f3687aa,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -19058,6 +18660,11 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 1714544300455852879, guid: c7144f1542b31164989bc5001f3687aa,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1508584124}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c7144f1542b31164989bc5001f3687aa, type: 3}
 --- !u!1001 &3205023125624005411
@@ -19076,27 +18683,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1372214771, guid: 1f10a6d9a1a99f54a83e4e0188d7b21e, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 702522778, guid: 1f10a6d9a1a99f54a83e4e0188d7b21e, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 702522778, guid: 1f10a6d9a1a99f54a83e4e0188d7b21e, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ChangeShoes
-      objectReference: {fileID: 0}
-    - target: {fileID: 702522778, guid: 1f10a6d9a1a99f54a83e4e0188d7b21e, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3205023126559712818, guid: 1f10a6d9a1a99f54a83e4e0188d7b21e,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 3205023126585320182, guid: 1f10a6d9a1a99f54a83e4e0188d7b21e,
         type: 3}
@@ -19202,6 +18788,27 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1372214771, guid: 1f10a6d9a1a99f54a83e4e0188d7b21e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 702522778, guid: 1f10a6d9a1a99f54a83e4e0188d7b21e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 702522778, guid: 1f10a6d9a1a99f54a83e4e0188d7b21e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ChangeShoes
+      objectReference: {fileID: 0}
+    - target: {fileID: 702522778, guid: 1f10a6d9a1a99f54a83e4e0188d7b21e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3205023126559712818, guid: 1f10a6d9a1a99f54a83e4e0188d7b21e,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 3205023126165186302, guid: 1f10a6d9a1a99f54a83e4e0188d7b21e,
         type: 3}
@@ -19380,11 +18987,6 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4105888936343283463, guid: 7b74695c8a4fe844eb81a80020c1573a,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1508584124}
     - target: {fileID: 4105888936343283456, guid: 7b74695c8a4fe844eb81a80020c1573a,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -19490,6 +19092,11 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 4105888936343283463, guid: 7b74695c8a4fe844eb81a80020c1573a,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1508584124}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7b74695c8a4fe844eb81a80020c1573a, type: 3}
 --- !u!4 &4514839113430278727
@@ -20375,11 +19982,6 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6611169276737464192, guid: 001b51a52aca0bc449562add9e52fb7a,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1508584124}
     - target: {fileID: 6611169276737464193, guid: 001b51a52aca0bc449562add9e52fb7a,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -20500,6 +20102,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6611169276737464192, guid: 001b51a52aca0bc449562add9e52fb7a,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1508584124}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 001b51a52aca0bc449562add9e52fb7a, type: 3}
 --- !u!1 &6781909427149616770
@@ -21334,7 +20941,6 @@ GameObject:
   - component: {fileID: 7975835538465310933}
   - component: {fileID: 7975835538465310934}
   - component: {fileID: 7975835538465310935}
-  - component: {fileID: 1841544041}
   m_Layer: 16
   m_Name: Plataforma_7
   m_TagString: Through
@@ -21499,7 +21105,6 @@ GameObject:
   - component: {fileID: 7975835539433623136}
   - component: {fileID: 7975835539433623137}
   - component: {fileID: 7975835539433623138}
-  - component: {fileID: 1841544045}
   m_Layer: 16
   m_Name: Plataforma_3
   m_TagString: Through
@@ -21641,7 +21246,6 @@ GameObject:
   - component: {fileID: 7975835539443087540}
   - component: {fileID: 7975835539443087541}
   - component: {fileID: 7975835539443087542}
-  - component: {fileID: 1841544044}
   m_Layer: 16
   m_Name: Plataforma_2
   m_TagString: Through
@@ -21769,7 +21373,6 @@ GameObject:
   - component: {fileID: 7975835539486812497}
   - component: {fileID: 7975835539486812498}
   - component: {fileID: 7975835539486812499}
-  - component: {fileID: 1841544047}
   m_Layer: 16
   m_Name: Plataforma_1
   m_TagString: Through
@@ -22070,7 +21673,6 @@ GameObject:
   - component: {fileID: 7975835540059210788}
   - component: {fileID: 7975835540059210789}
   - component: {fileID: 7975835540059210790}
-  - component: {fileID: 1841544038}
   m_Layer: 16
   m_Name: Plataforma_8
   m_TagString: Through
@@ -22090,7 +21692,6 @@ GameObject:
   - component: {fileID: 7975835540082284149}
   - component: {fileID: 7975835540082284150}
   - component: {fileID: 7975835540082284151}
-  - component: {fileID: 1841544039}
   m_Layer: 16
   m_Name: Plataforma_9
   m_TagString: Through
