@@ -38,7 +38,7 @@ public class BulletTimeManager : MonoBehaviour
 		switch(momentOfEngine)
 		{
 			case 1:
-				Time.timeScale = Mathf.Lerp(Time.timeScale, 0, 0.1f);
+				Time.timeScale = Mathf.Lerp(Time.timeScale, 0, 0.02f);
 				if (Time.timeScale <= targetTimeScale)
 				{
 					momentOfEngine++;
@@ -47,7 +47,7 @@ public class BulletTimeManager : MonoBehaviour
 				}
 				break;
 			case 3:
-				Time.timeScale = Mathf.Lerp(Time.timeScale, originalTimeScale, 0.1f);
+				Time.timeScale = Mathf.Lerp(Time.timeScale, originalTimeScale, 0.02f);
 				break;
 
 
