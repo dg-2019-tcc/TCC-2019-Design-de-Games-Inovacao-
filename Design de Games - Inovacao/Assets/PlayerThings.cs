@@ -157,7 +157,17 @@ public class PlayerThings : MonoBehaviour
             }
 
             float moveHorizontal = Mathf.Clamp(joyStick.Horizontal + Input.GetAxisRaw("Horizontal") + autoScroll, -2, 2);
-			PV.RPC("AtualizaPosicao", RpcTarget.All, transform.position);
+
+            if (!PhotonNetwork.InRoom)
+            {
+                AtualizaPosicao(transform.position);
+            }
+            else
+            {
+                PV.RPC("AtualizaPosicao", RpcTarget.All, transform.position);
+            }
+
+            //PV.RPC("AtualizaPosicao", RpcTarget.All, transform.position);
 
             /*if (moveHorizontal > 0.1f || moveHorizontal < -0.1f|| controller.collisions.below == false)
             {

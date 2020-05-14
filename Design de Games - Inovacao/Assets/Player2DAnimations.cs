@@ -57,13 +57,14 @@ public class Player2DAnimations : MonoBehaviour
     public float inativoTime;
 
 
+
     //private DragonBones.AnimationState aimState = null;
 
     private void Start()
     {
         photonView = gameObject.GetComponent<PhotonView>();
         controller = GetComponent<Controller2D>();
-        player.animation.Init(armature);
+        //deplayer.animation.Init(armature);
         state = State.Abaixando;
         frente.SetActive(false);
         
@@ -118,7 +119,7 @@ public class Player2DAnimations : MonoBehaviour
 
 
 
-    public void ChangeMoveAnim(Vector2 moveAmount, Vector2 oldPos, Vector2 input, bool Jump, bool stopJump)
+    public void ChangeMoveAnim(ref Vector3 moveAmount,ref Vector2 oldPos,ref Vector2 input,ref bool Jump,ref bool stopJump)
     {
 
         if (!PhotonNetwork.InRoom || photonView.IsMine)
@@ -190,11 +191,9 @@ public class Player2DAnimations : MonoBehaviour
 
             else if (moveAmount.y < -5f && input.x == 0 && input.y >=0 && controller.collisions.below == true && dogButtonAnim == false && jaAterrisou == false && pipaActive.Value == false && carroActive.Value == false)
             {
-              
-                Debug.Log(moveAmount.y);
+                
                 if (!PhotonNetwork.InRoom)
                 {
-                    //Debug.Log("Aterrisandio");
                     Aterrisando();
                 }
                 else
@@ -219,11 +218,11 @@ public class Player2DAnimations : MonoBehaviour
             {
                 if (!PhotonNetwork.InRoom)
                 {
-                    Walking(inputX, oldPos, moveAmount);
+                    Walking();
                 }
                 else
                 {
-                    photonView.RPC("Walking", RpcTarget.All, moveX, oldPos, moveAmount);
+                    photonView.RPC("Walking", RpcTarget.All);
                 }
 
             }
@@ -260,7 +259,6 @@ public class Player2DAnimations : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log("Anim");
                     photonView.RPC("Arremesso", RpcTarget.All);
                 }
             }
@@ -310,9 +308,8 @@ public class Player2DAnimations : MonoBehaviour
 
 
     [PunRPC]
-    public void Walking(float animTime, Vector2 oldPos, Vector2 moveAmount)
+    public void Walking()
     {
-        inativoTime = 0f;
         if (state == State.Idle || state == State.Inativo)
         {
             lado.SetActive(true);
@@ -322,7 +319,7 @@ public class Player2DAnimations : MonoBehaviour
 
         if (state != State.Walking )
         {
-            player.animation.timeScale = 1.35f;
+            //player.animation.timeScale = 1.35f;
             player.animation.Play(walkAnimation);
             state = State.Walking;
         }
@@ -337,7 +334,6 @@ public class Player2DAnimations : MonoBehaviour
             player.animation.FadeIn(startJumpAnimation,0f,1);
             player.animation.timeScale = 1;
             state = State.Jumping;
-            //Debug.Log(state);
         }
     }
 
@@ -355,7 +351,7 @@ public class Player2DAnimations : MonoBehaviour
         if (state != State.Rising)
         {
             inativoTime = 0f;
-            player.animation.timeScale = 1;
+            //player.animation.timeScale = 1;
             player.animation.Play(subindoJumpAnimation);
             state = State.Rising;
         }
@@ -376,7 +372,7 @@ public class Player2DAnimations : MonoBehaviour
         if (state != State.Falling)
         {
             inativoTime = 0f;
-            player.animation.timeScale = 1;
+            //player.animation.timeScale = 1;
             player.animation.Play(descendoJumpAnimation);
             state = State.Falling;
         }
@@ -396,7 +392,7 @@ public class Player2DAnimations : MonoBehaviour
         if (state != State.Aterrisando)
         {
             inativoTime = 0f;
-            player.animation.timeScale = 1.5f;
+            //player.animation.timeScale = 1.5f;
             player.animation.Play(aterrisandoAnimation);
             state = State.Aterrisando;
             jaAterrisou = true;
@@ -408,6 +404,7 @@ public class Player2DAnimations : MonoBehaviour
     {
         if (state == State.Idle || state == State.Inativo)
         {
+
             lado.SetActive(true);
             frente.SetActive(false);
             playerFrente.animation.Play(idlePose);
@@ -416,7 +413,7 @@ public class Player2DAnimations : MonoBehaviour
         if (state != State.Chutando)
         {
             inativoTime = 0f;
-            player.animation.timeScale = 1f;
+            //player.animation.timeScale = 1f;
             player.animation.Play(chuteAnimation);
             state = State.Chutando;
         }
@@ -428,7 +425,7 @@ public class Player2DAnimations : MonoBehaviour
 
         if (state == State.Idle || state == State.Inativo)
         {
-                lado.SetActive(true);
+            lado.SetActive(true);
                 frente.SetActive(false);
             playerFrente.animation.Play(idlePose);
         }
@@ -436,7 +433,7 @@ public class Player2DAnimations : MonoBehaviour
         if (state != State.Arremessando)
             {
                 inativoTime = 0f;
-                player.animation.timeScale = 1;
+                //player.animation.timeScale = 1;
                 player.animation.Play(arremessoAnimation);
                 state = State.Arremessando;
             }
@@ -456,7 +453,7 @@ public class Player2DAnimations : MonoBehaviour
         if (state != State.Abaixando)
         {
             inativoTime = 0f;
-            player.animation.timeScale = 1;
+            //player.animation.timeScale = 1;
             player.animation.Play(abaixarAnimation);
             state = State.Abaixando;
         }
@@ -476,7 +473,7 @@ public class Player2DAnimations : MonoBehaviour
         if (state != State.TransitionAir)
         {
             inativoTime = 0f;
-            player.animation.timeScale = 1.5f;
+           // player.animation.timeScale = 1.5f;
             player.animation.Play(transitionJumpAnimation);
             state = State.TransitionAir;
         }

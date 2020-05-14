@@ -66,6 +66,7 @@ public class NewPlayerMovent : MonoBehaviour
 
     private PhotonView pv;
 
+
     void Start()
     {
         controller = GetComponent<Controller2D>();
@@ -101,10 +102,10 @@ public class NewPlayerMovent : MonoBehaviour
                 input.x = 0;
             }
 
-            if (jump || stopJump)
+           /* if (jump || stopJump)
             {
-                animations.ChangeMoveAnim(velocity, oldPosition, input, jump, stopJump);
-            }
+                animations.ChangeMoveAnim(ref velocity, ref oldPosition, ref input, ref jump,ref stopJump);
+            }*/
 
             input.y = joyInput.y;
             float targetVelocityX = input.x * moveSpeed.Value;
@@ -115,7 +116,7 @@ public class NewPlayerMovent : MonoBehaviour
 
             controller.Move(velocity * Time.deltaTime, input);
             triggerController.MoveDirection(velocity);
-            animations.ChangeMoveAnim(velocity, oldPosition, input, jump, stopJump);
+            animations.ChangeMoveAnim(ref velocity, ref oldPosition,ref input,ref jump,ref stopJump);
             if (controller.collisions.above || controller.collisions.below)
             {
                 if (stopJump == true)
@@ -163,7 +164,7 @@ public class NewPlayerMovent : MonoBehaviour
                 carroVelocity.y += gravity * Time.deltaTime;
                 controller.Move(carroVelocity * Time.deltaTime, input);
                 triggerController.MoveDirection(carroVelocity);
-                animations.ChangeMoveAnim(velocity, oldPosition, input, jump, stopJump);
+                //animations.ChangeMoveAnim(ref velocity, ref oldPosition, ref input, ref jump, ref stopJump);
 
                 if (controller.collisions.above || controller.collisions.below)
                 {
@@ -221,7 +222,7 @@ public class NewPlayerMovent : MonoBehaviour
 
                 triggerController.MoveDirection(pipaVelocity);
                 controller.Move(pipaVelocity * Time.deltaTime, input);
-                animations.ChangeMoveAnim(velocity, oldPosition, input, jump, stopJump);
+                //animations.ChangeMoveAnim(ref velocity, ref oldPosition, ref input, ref jump, ref stopJump);
             }
         }
     }
