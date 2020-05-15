@@ -121,10 +121,22 @@ public class PlayerThings : MonoBehaviour
 
                     if (!PhotonNetwork.InRoom)
                     {
-                        Quaternion direction = Quaternion.Euler(0, 0, 0);
+                        Quaternion direction = Quaternion.Euler(0, 0, player.transform.localRotation.z);
                         player.transform.rotation = direction;
                         carro.transform.rotation = direction;
                         pipa.transform.rotation = direction;
+
+                        if (controller.collisions.climbingSlope)
+                        {
+                            player.transform.localRotation = Quaternion.Slerp(direction, Quaternion.Euler(player.transform.localRotation.x, direction.y, controller.collisions.slopeAngle), 1f);
+                            carro.transform.localRotation = Quaternion.Slerp(carro.transform.localRotation, Quaternion.Euler(carro.transform.localRotation.x, player.transform.localRotation.y, controller.collisions.slopeAngle), 1f);
+                        }
+
+                        else if (controller.collisions.descendingSlope)
+                        {
+                            player.transform.localRotation = Quaternion.Slerp(direction, Quaternion.Euler(player.transform.localRotation.x, player.transform.localRotation.y, -controller.collisions.slopeAngle), 1f);
+                            carro.transform.localRotation = Quaternion.Slerp(carro.transform.localRotation, Quaternion.Euler(carro.transform.localRotation.x, carro.transform.localRotation.y, -controller.collisions.slopeAngle), 1f);
+                        }
                     }
                     else
                     {
@@ -148,12 +160,36 @@ public class PlayerThings : MonoBehaviour
                         player.transform.rotation = direction;
                         carro.transform.rotation = direction;
                         pipa.transform.rotation = direction;
+
+                        if (controller.collisions.climbingSlope)
+                        {
+                            player.transform.localRotation = Quaternion.Slerp(direction, Quaternion.Euler(player.transform.localRotation.x, 180, controller.collisions.slopeAngle), 1f);
+                            carro.transform.localRotation = Quaternion.Slerp(carro.transform.localRotation, Quaternion.Euler(carro.transform.localRotation.x, 180, controller.collisions.slopeAngle), 1f);
+                        }
+
+                        else if (controller.collisions.descendingSlope)
+                        {
+                            player.transform.localRotation = Quaternion.Slerp(direction, Quaternion.Euler(player.transform.localRotation.x, player.transform.localRotation.y, -controller.collisions.slopeAngle), 1f);
+                            carro.transform.localRotation = Quaternion.Slerp(carro.transform.localRotation, Quaternion.Euler(carro.transform.localRotation.x, carro.transform.localRotation.y, -controller.collisions.slopeAngle), 1f);
+                        }
                     }
                     else
                     {
                         gameObject.GetComponent<PhotonView>().RPC("NewGiraPlayer", RpcTarget.All, rightDir);
                     }
                 }
+
+                /*if (controller.collisions.climbingSlope)
+                {
+                    player.transform.localRotation = Quaternion.Slerp(player.transform.localRotation, Quaternion.Euler(player.transform.localRotation.x, player.transform.localRotation.y, controller.collisions.slopeAngle), 1f);
+                    //carro.transform.localRotation = Quaternion.Slerp(carro.transform.localRotation, Quaternion.Euler(carro.transform.localRotation.x, player.transform.localRotation.y, controller.collisions.slopeAngle), 1f);
+                }
+
+                else if (controller.collisions.descendingSlope)
+                {
+                    player.transform.localRotation = Quaternion.Slerp(player.transform.localRotation, Quaternion.Euler(player.transform.localRotation.x, player.transform.localRotation.y, -controller.collisions.slopeAngle), 1f);
+                    //carro.transform.localRotation = Quaternion.Slerp(carro.transform.localRotation, Quaternion.Euler(carro.transform.localRotation.x, carro.transform.localRotation.y, -controller.collisions.slopeAngle), 1f);
+                }*/
             }
 
             float moveHorizontal = Mathf.Clamp(joyStick.Horizontal + Input.GetAxisRaw("Horizontal") + autoScroll, -2, 2);
