@@ -66,9 +66,8 @@ public class AITriggerController : RaycastController
     void LeftCollisions()
     {
         float directionX = -1;
-        float rayLenght;
 
-        rayLenght = rayLenghtAI.Value + skinWidth;
+        var rayLenght = rayLenghtAI.Value + skinWidth;
         
 
         for (int i = 0; i < horizontalRayCount; i++)
