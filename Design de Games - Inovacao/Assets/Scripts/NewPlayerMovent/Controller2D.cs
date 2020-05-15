@@ -145,7 +145,7 @@ public class Controller2D : RaycastController
             {
                 if(hit.collider.tag == "Destroy")
                 {
-                    Destroy(hit.collider);
+					hit.collider.gameObject.SendMessage("ToAqui");
                 }
 
                 if (hit.collider.tag == "Through")
