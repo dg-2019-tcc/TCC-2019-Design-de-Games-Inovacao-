@@ -308,7 +308,7 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
         ExitGames.Client.Photon.Hashtable expectecProperties = new ExitGames.Client.Photon.Hashtable();
         expectecProperties.Add(gameMode, 1);
 
-        PhotonNetwork.JoinRandomRoom(expectecProperties, 4);
+        PhotonNetwork.JoinRandomRoom(expectecProperties, 0);
     }
 
 
