@@ -11,9 +11,12 @@ public class Coroa : MonoBehaviour
 
 
 	bool botGanhou;
+
+    public FloatVariable flowIndex;
 	
 	private void Start()
 	{
+        flowIndex.Value ++;
 		botGanhou = true;
 
 		for (int i = 0; i < PhotonNetwork.PlayerList.Length; i++)
