@@ -177,12 +177,6 @@ public class TriggerCollisionsController : RaycastController
 				{
 					hit.collider.gameObject.GetComponent<LinhaDeChegada>().Colidiu(gameObject);
 				}
-
-                if (hit.collider.tag == "CaixaDagua")
-                {
-                    collisions.direction = new Vector2(-1f, 0f);
-                    collisions.caixaDagua = true;
-                }
             }
         }
     }
@@ -288,12 +282,6 @@ public class TriggerCollisionsController : RaycastController
 				{
 					hit.collider.gameObject.GetComponent<LinhaDeChegada>().Colidiu(gameObject);
 				}
-
-                if (hit.collider.tag == "CaixaDagua")
-                {
-                    collisions.direction = new Vector2(1, 0f);
-                    collisions.caixaDagua = true;
-                }
             }
         }
     }
@@ -366,12 +354,6 @@ public class TriggerCollisionsController : RaycastController
                 if(hit.collider.tag == "Futebol")
                 {
                     collisions.cabecaBola = true;
-                }
-
-                if (hit.collider.tag == "CaixaDagua")
-                {
-                    collisions.direction = new Vector2(0f, -1);
-                    collisions.caixaDagua = true;
                 }
             }
         }
