@@ -19,7 +19,7 @@ public class SendBackHUBTimer : MonoBehaviour
 	{
 
 		yield return new WaitForSeconds(tempo);
-		PhotonNetwork.Disconnect();
+		
 		ChooseScene();
 		
 	}
@@ -31,7 +31,7 @@ public class SendBackHUBTimer : MonoBehaviour
 			case "Coleta":
 				if (PlayerPrefs.GetInt("PrimeiraVezNaColeta") == 1)
 				{
-					SceneManager.LoadScene("HUB");
+					GoToHUB();
 				}
 				else
 				{
@@ -44,7 +44,7 @@ public class SendBackHUBTimer : MonoBehaviour
 			case "Futebol":
 				if (PlayerPrefs.GetInt("PrimeiraVezNoFutebol") == 1)
 				{
-					SceneManager.LoadScene("HUB");
+					GoToHUB();
 				}
 				else
 				{
@@ -55,10 +55,18 @@ public class SendBackHUBTimer : MonoBehaviour
 				break;
 			
 			default:
-				SceneManager.LoadScene("HUB");
+				GoToHUB();
 				break;
 		}
 		
 	}
 
+	private void GoToHUB()
+	{
+		SceneManager.LoadScene("HUB");
+		PhotonNetwork.Disconnect();
+	}
+
 }
+
+
