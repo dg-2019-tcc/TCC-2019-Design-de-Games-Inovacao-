@@ -13,9 +13,20 @@ public class OfflineMode : MonoBehaviour
     public Image buttonImage;
     public GameObject eu;
 
+    public BoolVariable acabou01;
+
     private void Awake()
     {
         DontDestroyOnLoad(eu);
+
+        if(acabou01.Value == false)
+        {
+            modoDoOffline = true;
+        }
+        else
+        {
+            modoDoOffline = true;
+        }
         PhotonNetwork.OfflineMode = modoDoOffline;
     }
 

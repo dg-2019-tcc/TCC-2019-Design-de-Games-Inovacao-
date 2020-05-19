@@ -141,7 +141,7 @@ public class ThrowObject : MonoBehaviour
         bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);// as GameObject;
         shootAnim = false;
         anim.DogButtonAnim(shootAnim);
-        Debug.Log(shootAnim);
+
         bullet.GetComponent<ItemThrow>().InitializeBullet(photonView.Owner);
 		StartCoroutine("CooldownEffect");
 		photonView.Owner.CustomProperties["atirou"] = true;
@@ -156,8 +156,6 @@ public class ThrowObject : MonoBehaviour
         shootAnim = false;
         anim.DogButtonAnim(shootAnim);
         photonView.RPC("Shoot", RpcTarget.All);
-        Debug.Log("Atirou");
-
     }
 
     void ShootOffline()

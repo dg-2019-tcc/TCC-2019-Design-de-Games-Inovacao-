@@ -31,8 +31,12 @@ public class PortaManager : MonoBehaviour
     public bool shortsDoor;
     public bool shoesDoor;
 
+    public FloatVariable spawnHUBPoints;
+
 	private void Start()
 	{
+        spawnHUBPoints = Resources.Load<FloatVariable>("SpawnHUBPoints");
+
         controller = FindObjectOfType<TriggerCollisionsController>();
         joy = FindObjectOfType<Joystick>();
         ButtonRoupa.SetActive(false);
@@ -63,23 +67,20 @@ public class PortaManager : MonoBehaviour
 		{
             if (joy.Vertical >= 0.8f && hairDoor)
             {
-                //SceneManager.LoadScene("HUB");
-                Debug.Log("Colidiu");
+                spawnHUBPoints.Value = 8;
                 SceneManager.LoadScene("Cabelo");
             }
 
             if (joy.Vertical >= 0.8f && shirtDoor)
             {
-                //SceneManager.LoadScene("HUB");
-                Debug.Log("Colidiu");
+                spawnHUBPoints.Value = 7;
                 SceneManager.LoadScene("Shirt");
             }
 
 
             if (joy.Vertical >= 0.8f && shoesDoor)
             {
-                //SceneManager.LoadScene("HUB");
-                Debug.Log("Colidiu");
+                spawnHUBPoints.Value = 6;
                 SceneManager.LoadScene("Tenis");
             }
 
@@ -91,29 +92,32 @@ public class PortaManager : MonoBehaviour
             }
 			if (joy.Vertical >= 0.8f && ButtonJogarCorrida != null && ButtonJogarCorrida.activeSelf == true)
 			{
-				lobbyController.DelayStart("Corrida");
+                spawnHUBPoints.Value = 5;
+                lobbyController.DelayStart("Corrida");
 				//ButtonJogarCorrida = false;
 			}
 			if (joy.Vertical >= 0.8f && ButtonJogarColeta != null && ButtonJogarColeta.activeSelf == true)
 			{
-				lobbyController.DelayStart("Coleta");
+                spawnHUBPoints.Value = 1;
+                lobbyController.DelayStart("Coleta");
 				//ButtonJogarColeta = false;
 			}
 			if (joy.Vertical >= 0.8f && ButtonJogarFutebol != null && ButtonJogarFutebol.activeSelf == true)
 			{
-
-				lobbyController.DelayStart("Futebol");
+                spawnHUBPoints.Value = 2;
+                lobbyController.DelayStart("Futebol");
 				//ButtonJogarCorrida = false;
 			}
 			if (joy.Vertical >= 0.8f && ButtonJogarMoto != null && ButtonJogarMoto.activeSelf == true)
 			{
-				lobbyController.DelayStart("Moto");
+                spawnHUBPoints.Value = 3;
+                lobbyController.DelayStart("Moto");
 				//ButtonJogarColeta = false;
 			}
 			if (joy.Vertical >= 0.8f && ButtonJogarVolei != null && ButtonJogarVolei.activeSelf == true)
 			{
-
-				lobbyController.DelayStart("Volei");
+                spawnHUBPoints.Value = 4;
+                lobbyController.DelayStart("Volei");
 				//ButtonJogarCorrida = false;
 			}
 			if (joy.Vertical >= 0.8f && ButtonRoupa != null && ButtonRoupa.activeSelf == true)

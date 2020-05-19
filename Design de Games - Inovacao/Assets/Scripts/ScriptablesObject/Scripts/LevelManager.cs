@@ -28,20 +28,11 @@ public class LevelManager : MonoBehaviour
     }
 
 
-    public void GoHub()
+    public void HistFutebol()
     {
-        //CurrentLevelIndex.Value = 0;
+        SceneManager.LoadScene("HistoriaFutebol");
     }
 
-    public void GoColeta()
-    {
-        //CurrentLevelIndex.Value = 1;
-    }
-
-    public void GoCorrida()
-    {
-        //CurrentLevelIndex.Value = 2;
-    }
 
     [PunRPC]
      public void GoVitoria()

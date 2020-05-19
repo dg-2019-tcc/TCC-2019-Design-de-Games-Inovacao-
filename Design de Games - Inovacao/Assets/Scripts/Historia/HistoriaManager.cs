@@ -11,16 +11,36 @@ public class HistoriaManager : MonoBehaviour
 
     public string nomeDoMenu;
 
+    public FloatVariable flowIndex;
+    public BoolVariable acabou01;
+
 
     private void Awake()
     {
+        acabou01 = Resources.Load<BoolVariable>("Acabou01");
+        flowIndex = Resources.Load<FloatVariable>("FlowIndex");
         StartCoroutine("StartHist");
     }
 
     public void SkipHist()
     {
         FMODUnity.RuntimeManager.PlayOneShot("event:/HUD/Click", GetComponent<Transform>().position);
-        SceneManager.LoadScene(nomeDoMenu);
+
+        if (flowIndex.Value == 6)
+        {
+            acabou01.Value = true;
+            flowIndex.Value = 8;
+            SceneManager.LoadScene("MenuPrincipal");
+        }
+        else if (flowIndex.Value >1)
+        {
+            SceneManager.LoadScene("HUB");
+        }
+        else
+        {
+            SceneManager.LoadScene("Customiza");
+
+        }
     }
 
     IEnumerator StartHist()

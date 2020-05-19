@@ -132,13 +132,11 @@ public class NewPlayerMovent : MonoBehaviour
             {
                 if (triggerController.collisions.direction.x != 0)
                 {
-                    Debug.Log(triggerController.collisions.direction.x);
                     velocity.x= maxJumpHeight.Value * 1.8f * triggerController.collisions.direction.x;
                 }
 
                 else
                 {
-                    Debug.Log(triggerController.collisions.direction.y);
                     velocity.y = maxJumpHeight.Value * 1.8f * triggerController.collisions.direction.y;
                 }
 

@@ -18,12 +18,16 @@ public class WinnerManager : MonoBehaviour
 	[SerializeField]
 	private float delayForWinScreen;
 
+    public BoolVariable acabou01;
+    public FloatVariable flowIndex;
+    public bool isMoto;
 
 	private void Start()
 	{
 		pv = GetComponent<PhotonView>();
-
-		if (pv.IsMine)
+        acabou01 = Resources.Load<BoolVariable>("Acabou01");
+        flowIndex = Resources.Load<FloatVariable>("FlowIndex");
+        if (pv.IsMine)
 		{
 			gameObject.GetComponent<PhotonView>().RPC("ZeraPontuacao", RpcTarget.All);
 
@@ -42,20 +46,20 @@ public class WinnerManager : MonoBehaviour
 		}
 		else
 		{
-			/*if (LinhaDeChegada.changeRoom == true)
+            /*if (LinhaDeChegada.changeRoom == true)
 			{
 				StartCoroutine(Venceu());
 			}*/
 
-			if (perdeuCorrida && ganhouCorrida)
-			{
-				PerdeuCorrida();
-			}
-			else if (ganhouCorrida)
-			{
-                Debug.Log(ganhouCorrida);
-				GanhouCorrida();
-			}
+                if (perdeuCorrida && ganhouCorrida)
+                {
+                    PerdeuCorrida();
+                }
+                else if (ganhouCorrida)
+                {
+                    GanhouCorrida();
+                }
+
 			/*
 			if (perdeuCorrida)
 			{
@@ -69,29 +73,57 @@ public class WinnerManager : MonoBehaviour
 	[PunRPC]
 	void GanhouCorrida()
 	{
+        if (acabou01.Value == false)
+        {
 
-        Debug.Log("Ganhou");
-		PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 1;
-		//player.ganhouSom.Play();
-		//player.playerAnimations.playerAC.SetTrigger(player.playerAnimations.animatorWon);
-		
+            if (!isMoto)
+            {
+                //flowIndex.Value = 7;
+                PhotonNetwork.LoadLevel("HistoriaFutebol");
+            }
+            else
+            {
+                flowIndex.Value = 6;
+                PhotonNetwork.LoadLevel("HistoriaFutebol");
+            }
 
-	//	gameObject.GetComponent<PhotonView>().RPC("ZeraPontuacao", RpcTarget.All);
+        }
 
-		gameObject.GetComponent<PhotonView>().RPC("TrocaSala", RpcTarget.All);
-		ganhouCorrida = false;
-		//PlayerMovement.acabou = true;
+        else
+        {
 
-	}
+            PhotonNetwork.LoadLevel("HistoriaFutebol");
+            Debug.Log("Ganhou");
+            PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 1;
+            //player.ganhouSom.Play();
+            //player.playerAnimations.playerAC.SetTrigger(player.playerAnimations.animatorWon);
+
+
+            //	gameObject.GetComponent<PhotonView>().RPC("ZeraPontuacao", RpcTarget.All);
+
+            gameObject.GetComponent<PhotonView>().RPC("TrocaSala", RpcTarget.All);
+            ganhouCorrida = false;
+            //PlayerMovement.acabou = true;
+        }
+
+    }
 
 	[PunRPC]
 	void PerdeuCorrida()
 	{
-		//player.perdeuSom.Play();
-		perdeuCorrida = true;
-		//PlayerThings.acabou = true;
-		PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 0;
-		gameObject.GetComponent<PhotonView>().RPC("TrocaSala", RpcTarget.MasterClient);
+        if (acabou01.Value == true)
+        {
+            //player.perdeuSom.Play();
+            perdeuCorrida = true;
+            //PlayerThings.acabou = true;
+            PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 0;
+            gameObject.GetComponent<PhotonView>().RPC("TrocaSala", RpcTarget.MasterClient);
+        }
+
+        else
+        {
+            PhotonNetwork.LoadLevel("HUB");
+        }
 	}
 
 

@@ -1,61 +1,169 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameFlowManager : MonoBehaviour
 {
+    //MENU PRINCIPAL
+    public GameObject offlineButton;
+    public GameObject jogarButton;
+
+    //HUB
+    public GameObject[] portas;
+
+
     public FloatVariable flowIndex;
     private float oldIndex;
-    public GameObject[] fase;
 
-    void Start()
+    public BoolVariable acabou01;
+
+
+    private void Awake()
     {
-        if(flowIndex.Value != oldIndex)
+        if (!acabou01.Value)
         {
-            if(flowIndex.Value == 1)
+            if(flowIndex.Value <= 6)
             {
-                Fase01();
+                if (SceneManager.GetActiveScene().name == "MenuPrincipal")
+                {
+                    Debug.Log(OfflineMode.modoDoOffline);
+                    offlineButton.SetActive(false);
+                    jogarButton.SetActive(true);
+                }
+
+                OfflineMode.modoDoOffline = true;
             }
 
-            else if (flowIndex.Value == 2)
+            if (SceneManager.GetActiveScene().name == "HUB")
             {
-                Fase01();
-                Fase02();
+                if(flowIndex.Value == 1)
+                {
+                    FaseColeta();
+                }
+
+                if(flowIndex.Value == 2)
+                {
+                    FaseTenis();
+                }
+
+                if(flowIndex.Value == 3)
+                {
+                    FaseFutebol();
+                }
+
+                if(flowIndex.Value == 4)
+                {
+                    FaseMoto();
+                }
+
+                if (flowIndex.Value == 5)
+                {
+                    FaseCabelo();
+                }
+
+                if (flowIndex.Value == 6)
+                {
+                    FaseCorrida();
+                }
+
+                if (flowIndex.Value == 7)
+                {
+                    //VoltaMenu();
+                    //FaseRoupa();
+                }
+
+                if(flowIndex.Value > 7)
+                {
+                    Completo();
+                    Acabou();
+                }
             }
-            else if (flowIndex.Value == 3)
-            {
-                Fase01();
-                Fase02();
-                Fase03();
-            }
-            else if (flowIndex.Value == 4)
-            {
-                Fase01();
-                Fase02();
-                Fase03();
-                Fase04();
-            }
+        }
+
+        else
+        {
+            Completo();
         }
     }
 
-    public void Fase01()
+    public void FaseColeta()
     {
-        fase[1].SetActive(true);
+        portas[0].SetActive(true);
     }
 
-    public void Fase02()
+    public void FaseTenis()
     {
-        fase[2].SetActive(true);
+        portas[0].SetActive(false);
+        portas[1].SetActive(true);
     }
 
-    public void Fase03()
+    public void FaseFutebol()
     {
-        fase[3].SetActive(true);
+        portas[0].SetActive(false);
+        portas[1].SetActive(false);
+        portas[2].SetActive(true);
     }
 
-    public void Fase04()
+    public void FaseMoto()
     {
-        fase[4].SetActive(true);
+        portas[0].SetActive(false);
+        portas[1].SetActive(false);
+        portas[2].SetActive(false);
+        portas[3].SetActive(true);
+    }
+
+    public void FaseCabelo()
+    {
+        portas[0].SetActive(false);
+        portas[1].SetActive(false);
+        portas[2].SetActive(false);
+        portas[3].SetActive(false);
+        portas[4].SetActive(true);
+    }
+
+    public void FaseCorrida()
+    {
+        portas[0].SetActive(false);
+        portas[1].SetActive(false);
+        portas[2].SetActive(false);
+        portas[3].SetActive(false);
+        portas[4].SetActive(false);
+        portas[5].SetActive(true);
+    }
+
+    public void FaseRoupa()
+    {
+        portas[0].SetActive(false);
+        portas[1].SetActive(false);
+        portas[2].SetActive(false);
+        portas[3].SetActive(false);
+        portas[4].SetActive(false);
+        portas[5].SetActive(false);
+        portas[6].SetActive(true);
+    }
+
+    public void Acabou()
+    {
+        acabou01.Value = true;
+        flowIndex.Value++;
+    }
+
+    public void Completo()
+    {
+        portas[0].SetActive(true);
+        portas[1].SetActive(true);
+        portas[2].SetActive(true);
+        portas[3].SetActive(true);
+        portas[4].SetActive(true);
+        portas[5].SetActive(true);
+        portas[6].SetActive(true);
+    }
+
+    public void VoltaMenu()
+    {
+        SceneManager.LoadScene("MenuPrincipal");
     }
 
     private void LateUpdate()

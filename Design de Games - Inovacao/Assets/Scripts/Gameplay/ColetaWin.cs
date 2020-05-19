@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 using Photon.Realtime;
 using Photon.Pun;
 
@@ -20,6 +20,9 @@ public class ColetaWin : MonoBehaviour
 
 	private bool ganhouJa;
 
+    public BoolVariable acabou01;
+    public FloatVariable flowIndex;
+
 	private void Start()
 	{
 		coletavelGerador = FindObjectOfType<ColetavelGerador>();
@@ -30,38 +33,52 @@ public class ColetaWin : MonoBehaviour
 
 	void Update()
     {
-		
-		foreach (Photon.Realtime.Player p in PhotonNetwork.PlayerList)
-		{
-			//Debug.Log(p.ActorNumber);
+        if (acabou01.Value == true)
+        {
+            foreach (Photon.Realtime.Player p in PhotonNetwork.PlayerList)
+            {
+                //Debug.Log(p.ActorNumber);
 
-			//players[p.ActorNumber] = p;
-			//score[p.ActorNumber] = p.GetScore();
-			if (compareScore - p.GetScore() < 0)
-			{
-				compareScore = p.GetScore();
-				winning = p;
-			}
-		}
+                //players[p.ActorNumber] = p;
+                //score[p.ActorNumber] = p.GetScore();
+                if (compareScore - p.GetScore() < 0)
+                {
+                    compareScore = p.GetScore();
+                    winning = p;
+                }
+            }
 
 
-		if (coletavelGerador.coletaveis.Length <= 0)
-		{
-			if (ganhouJa) return;
-			if (OfflineMode.modoDoOffline && compareScore < 4)
-			{
-				winning.CustomProperties["Ganhador"] = 0;
-				PhotonNetwork.LoadLevel("TelaVitoria");
+            if (coletavelGerador.coletaveis.Length <= 0)
+            {
+                if (ganhouJa) return;
+                if (OfflineMode.modoDoOffline && compareScore < 4)
+                {
+                    winning.CustomProperties["Ganhador"] = 0;
+                    PhotonNetwork.LoadLevel("TelaVitoria");
 
-			}
-			else
-			{
-				winning.CustomProperties["Ganhador"] = 1;
-				PhotonNetwork.LoadLevel("TelaVitoria");
-			}
-			ganhouJa = true;
+                }
+                else
+                {
+                    winning.CustomProperties["Ganhador"] = 1;
+                    PhotonNetwork.LoadLevel("TelaVitoria");
+                }
+                ganhouJa = true;
 
-		}
+            }   
+        }
+
+        else
+        {
+            Debug.Log("Aqui");
+            if (coletavelGerador.coletaveis.Length <= 0)
+            {
+                Debug.Log("Acabou");
+                SceneManager.LoadScene("HistoriaColeta");
+                flowIndex.Value = 3;
+            }
+
+        }
 	}
 
 

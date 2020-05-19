@@ -22,6 +22,9 @@ public class GolManager : MonoBehaviourPunCallbacks
     public FloatVariable botScore;
     public TextMeshProUGUI placarText;
 
+    public BoolVariable acabou01;
+    public FloatVariable flowIndex;
+
     private void Update()
     {
         if (botScore.Value >= maxPoints)
@@ -47,8 +50,16 @@ public class GolManager : MonoBehaviourPunCallbacks
 
             if (playerGol.jogador.PV.Owner.GetScore() >= 5)
             {
-                PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 1;
-                LevelManager.Instance.GoPodium();
+                if (acabou01.Value == true)
+                {
+                    PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 1;
+                    LevelManager.Instance.GoPodium();
+                }
+                else
+                {
+                    LevelManager.Instance.HistFutebol();
+                    flowIndex.Value = 4;
+                }
             }
             
         }
