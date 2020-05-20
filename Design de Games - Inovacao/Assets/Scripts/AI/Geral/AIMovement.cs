@@ -2,20 +2,30 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AIMovement : RaycastController
+public class AIMovement : MonoBehaviour
 {
     public float speed = 3f;
     public float jumpVelocity = 1f;
-    public bool isJumping;
     public bool isDown;
 
-    Vector3 velocity;
+    Vector2 input;
 
-    float maxClimbAngle = 80;
-	float maxDescendAngle = 80;
-	private StateController controller;
+    Vector3 velocity;
+    float maxJumpVelocity;
+    float minJumpVelocity;
+    float gravity;
+    public float maxJumpHeight;
+    public float minJumpHeight;
+    public float timeToJumpApex;
+
+    bool isJumping;
+
+    float jumpTimes;
+
+
+    private StateController controller;
 	//public TriggerCollisionInfo collisions;
-	public CollisionInfo collisions;
+	public AIController2D aiController2D;
     public AITriggerController triggerController;
     public Rigidbody2D rbBola;
 	public GameObject ai;
@@ -49,19 +59,16 @@ public class AIMovement : RaycastController
     public bool levouDogada;
 
     // Start is called before the first frame update
-    public override void Start()
+    public void Start()
 	{
-		base.Start();
 		controller = GetComponent<StateController>();
+        aiController2D = GetComponent<AIController2D>();
         target = controller.wayPointList[0];
 
-        effectors = FindObjectsOfType<PlatformEffector2D>();
-
-        /*if (isColteta)
-        {
-            coletavelGerador = FindObjectOfType<ColetavelGerador>();
-        }*/
-	}
+        gravity = -(2 * maxJumpHeight) / Mathf.Pow(timeToJumpApex, 2);
+        maxJumpVelocity = Mathf.Abs(gravity * timeToJumpApex);
+        minJumpVelocity = Mathf.Sqrt(2 * Mathf.Abs(gravity) * minJumpHeight);
+    }
 
     public void FixedUpdate()
     {
@@ -73,7 +80,7 @@ public class AIMovement : RaycastController
         if (isFut)
         {
            
-            if (collisions.below == true)
+            if (aiController2D.collisions.below == true)
             {
                 isJumping = false;
             }
@@ -93,14 +100,13 @@ public class AIMovement : RaycastController
             {
                 StartCoroutine("Pulo");
             }
-            Move(controller.rb.velocity * Time.deltaTime);
+            aiController2D.Move(velocity * Time.deltaTime,input);
             triggerController.RayTriggerDirection();
         }
 
         if (isColteta)
         {
             triggerController.RayTriggerDirection();
-            Move(controller.rb.velocity * Time.deltaTime);
 
             if (triggerController.triggerCollision.isRight || triggerController.triggerCollision.isLeft || triggerController.triggerCollision.isUp || triggerController.triggerCollision.isDown)
             {
@@ -112,58 +118,40 @@ public class AIMovement : RaycastController
                 found = false;
             }
 
-            //velocity.y += gravity * Time.deltaTime;
-            velocity.x = speed;
-            
-            //coletavelPos = coletavelGerador.coletavelCerto.transform.position;
+            velocity.y += gravity * Time.deltaTime;
 
-            //Vector2 aiPos = transform.position;
-            if (collisions.below == true || collisions.climbingSlope|| collisions.descendingSlope)
+            if (found)
             {
-                controller.rb.velocity = new Vector2(controller.rb.velocity.x, 0);
-                isJumping = false;
-            }
-
-            /*else
-            {
-                GoDown();
-            }*/
-
-            if (triggerController.triggerCollision.isRight)
-            {
-                GoRight();
-                Move(controller.rb.velocity * Time.deltaTime);
-                //GoHorizontal(1);
-            }
-
-            else if (triggerController.triggerCollision.isLeft)
-            {
-                GoLeft();
-                //GoHorizontal(-1);
-            }
-
-            else if (triggerController.triggerCollision.isUp && isJumping == false)
-            {
-                Debug.Log("Chama");
-                for (int i =0; i< effectors.Length; i++)
+                if (aiController2D.collisions.below == true || aiController2D.collisions.climbingSlope || aiController2D.collisions.descendingSlope)
                 {
-                    effectors[i].rotationalOffset = 0f;
+                    isJumping = false;
                 }
-                StartCoroutine("Pulo");
-            }
 
-            else if (triggerController.triggerCollision.isDown && isDown ==false)
-            {
-
-                for (int i = 0; i < effectors.Length; i++)
+                if (triggerController.triggerCollision.isRight)
                 {
-                    effectors[i].rotationalOffset = 180f;
+                    GoRight();
                 }
-                StartCoroutine("Desce");
+
+                else if (triggerController.triggerCollision.isLeft)
+                {
+                    GoLeft();
+                }
+
+                else if (triggerController.triggerCollision.isUp && isJumping == false)
+                {
+                    Debug.Log("AtivaPulo");
+                    AIJump();
+                }
+
+                else if (triggerController.triggerCollision.isDown)
+                {
+                    input.y = -1;
+                    input.x = 0;
+                }
+
             }
 
-
-            else if (found == false)
+            else
             {
                 if (transform.position.x - target.transform.position.x > 1)
                 {
@@ -187,30 +175,49 @@ public class AIMovement : RaycastController
                         target = controller.wayPointList[0];
                     }
                 }
-               
+
             }
+
+            velocity.x = speed * input.x;
+            aiController2D.Move(velocity * Time.deltaTime,input);
         }
   
     }
 
     public void GoRight()
     {
-        //controller.rb.velocity = new Vector2(0, 0);
-        jumpIndex = 0;
+        jumpTimes = 0;
+        input.x = 1;
         dirDir = true;
         Quaternion direction = Quaternion.Euler(0, 0, 0);
         transform.rotation = direction;
-        controller.rb.velocity = new Vector2(velocity.x, controller.rb.velocity.y);
     }
 
     public void GoLeft()
     {
-        //controller.rb.velocity = new Vector2(0, 0);
-        jumpIndex = 0;
+        jumpTimes = 0;
+        input.x = 1;
         dirDir = false;
         Quaternion direction = Quaternion.Euler(0, 180, 0);
         transform.rotation = direction;
-        controller.rb.velocity = new Vector2(-velocity.x, controller.rb.velocity.y);
+    }
+
+    public void AIJump()
+    {
+        Debug.Log("Jump");
+        input.x = 0;
+        jumpTimes++;
+        input.y = 1;
+        isJumping = true;
+
+        if (jumpTimes > 3)
+        {
+            velocity.y = maxJumpHeight + (jumpTimes * 2f);
+        }
+        else
+        {
+            velocity.y = maxJumpHeight;
+        }
     }
 
     public IEnumerator LevouDogada()
@@ -219,320 +226,6 @@ public class AIMovement : RaycastController
         yield return new WaitForSeconds(3f);
         levouDogada = false;
     }
-
-
-        IEnumerator Pulo()
-    {
-        isJumping = true;
-        controller.rb.AddForce(new Vector2 (0, 5f + jumpIndex * 10),ForceMode2D.Impulse);
-        Debug.Log("Pulo");
-        yield return new WaitForSeconds(1.5f);
-        isJumping = false;
-        jumpIndex++;
-        if(jumpIndex > 5)
-        {
-            jumpIndex = 0;
-        }
-        //controller.rb.velocity = new Vector2(0, 0);
-    }
-    IEnumerator Desce()
-    {
-        jumpIndex = 0;
-        isDown = true;
-        controller.rb.AddForce(new Vector2(0f, -10f), ForceMode2D.Impulse);
-        yield return new WaitForSeconds(1.5f);
-        controller.rb.velocity = new Vector2(0, 0);
-        isDown = false;
-    }
-    public void GoDown()
-    {
-        controller.rb.AddForce(new Vector2(0f, -10f), ForceMode2D.Impulse);
-    }
-
-
-    public void Move(Vector2 moveAmount)
-	{
-		UpdateRaycastOrigins();
-		collisions.Reset();
-		collisions.velocityOld = moveAmount;
-
-		//botInput = input;
-
-		if (moveAmount.y < 0)
-		{
-			DescendSlope(ref moveAmount);
-		}
-		if (moveAmount.x != 0)
-		{
-			HorizontalCollisions(ref moveAmount);
-            Vector2 all = new Vector2(0, -1);
-            VerticalCollisions(ref all);
-        }
-		if (controller.rb.velocity.y <= 0)
-		{
-            Vector2 all = new Vector2(0,-1);
-			VerticalCollisions(ref moveAmount);
-		}
-
-		//transform.Translate(moveAmount);
-	}
-
-	void HorizontalCollisions(ref Vector2 moveAmount)
-	{
-		float directionX = Mathf.Sign(moveAmount.x);
-		float rayLenght = 1f + skinWidth;
-
-
-		for (int i = 0; i < horizontalRayCount; i++)
-		{
-			Vector2 rayOrigin = (directionX == -1) ? raycastOrigins.bottomLeft : raycastOrigins.bottomRight;
-			rayOrigin += Vector2.up * (horizontalRaySpacing * i);
-			RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.right * directionX, rayLenght, collisionMask);
-
-			//Debug.DrawRay(rayOrigin, Vector2.right * directionX, Color.red);
-
-			if (hit)
-			{
-				float slopeAngle = Vector2.Angle(hit.normal, Vector2.up);
-
-				if (hit.collider.tag == "Through")
-				{
-
-					
-					if (directionX == 1 || hit.distance == 0)
-					{
-						continue;
-					}
-					if (collisions.fallingPlatform)
-					{
-						continue;
-					}
-
-					if (moveAmount.x < -0.5 || moveAmount.x > 0.5 && collisions.climbingSlope == false && collisions.descendingSlope == false)
-					{
-						collisions.fallingPlatform = true;
-						Invoke("ResetFallingPlatform", 0.1f);
-						continue;
-					}
-				}
-
-
-				if (i == 0 && slopeAngle <= maxClimbAngle)
-				{
-					if (collisions.descendingSlope)
-					{
-						collisions.descendingSlope = false;
-						moveAmount = collisions.velocityOld;
-					}
-
-					float distanceToSlopeStart = 0;
-					if (slopeAngle != collisions.slopeAngleOld)
-					{
-						distanceToSlopeStart = hit.distance - skinWidth;
-						moveAmount.x -= distanceToSlopeStart * directionX;
-					}
-					ClimbSlope(ref moveAmount, slopeAngle);
-					moveAmount.x += distanceToSlopeStart * directionX;
-				}
-
-				if (!collisions.climbingSlope || slopeAngle > maxClimbAngle)
-				{
-
-					moveAmount.x = (hit.distance - skinWidth) * directionX;
-					rayLenght = hit.distance;
-
-					if (collisions.climbingSlope)
-					{
-						moveAmount.y = Mathf.Tan(collisions.slopeAngle * Mathf.Deg2Rad) * Mathf.Abs(moveAmount.x);
-					}
-
-					collisions.left = directionX == -1;
-					collisions.right = directionX == 1;
-				}
-			}
-		}
-	}
-
-	void VerticalCollisions(ref Vector2 moveAmount)
-	{
-        float directionY =Mathf.Sign(moveAmount.y);
-        float rayLenght = 1f + skinWidth;
-
-
-        /*if (moveAmount.y >= 0)
-        {
-            directionY = 1f;
-        }
-        else
-        {
-            directionY = -1f;
-        }*/
-		
-		//float rayLenght = directionY + skinWidth;
-
-		for (int i = 0; i < verticalRayCount; i++)
-		{
-			Vector2 rayOrigin = (directionY == -1) ? raycastOrigins.bottomLeft : raycastOrigins.topLeft;
-			rayOrigin += Vector2.right * (verticalRaySpacing * i + moveAmount.x);
-			RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.up * directionY, rayLenght, collisionMask);
-
-			//  Debug.DrawRay(rayOrigin, Vector2.up * directionY, Color.red);
-
-			if (hit)
-			{
-
-				if (hit.collider.tag == "Through")
-				{
-                    if (triggerController.triggerCollision.isUp)
-                    {
-                        continue;
-                    }
-
-					/*if (directionY > 0  || hit.distance == 0)
-					{
-						continue;
-					}*/
-					/*if (collisions.fallingPlatform)
-					{
-						continue;
-					}
-
-					/*if (moveAmount.y < -0.5)
-					{
-						collisions.fallingPlatform = true;
-						Invoke("ResetFallingPlatform", 0.1f);
-						continue;
-					}*/
-
-                    if (triggerController.triggerCollision.isDown)
-                    {
-
-                        collisions.fallingPlatform = true;
-                        collisions.below = false;
-                        Invoke("ResetFallingPlatform", 0.1f);
-                        continue;
-                    }
-				}
-
-				moveAmount.y = (hit.distance - skinWidth) * directionY;
-				rayLenght = hit.distance;
-
-				if (collisions.climbingSlope)
-				{
-					moveAmount.x = moveAmount.y / Mathf.Tan(collisions.slopeAngle * Mathf.Deg2Rad) * Mathf.Sign(moveAmount.x);
-				}
-
-				collisions.below = directionY == -1;
-				collisions.above = directionY == 1;
-
-			}
-
-		}
-
-		if (collisions.climbingSlope)
-		{
-			float directionX = Mathf.Sign(moveAmount.x);
-			rayLenght = Mathf.Abs(moveAmount.x) + skinWidth;
-			Vector2 rayOrigin = ((directionX == -1) ? raycastOrigins.bottomLeft : raycastOrigins.bottomRight) + Vector2.up * moveAmount.y;
-			RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.right * directionX, rayLenght, collisionMask);
-
-			if (hit)
-			{
-				float slopeAngle = Vector2.Angle(hit.normal, Vector2.up);
-				if (slopeAngle != collisions.slopeAngle)
-				{
-					moveAmount.x = (hit.distance - skinWidth) * directionX;
-					collisions.slopeAngle = slopeAngle;
-				}
-			}
-		}
-
-
-	}
-
-	void ClimbSlope(ref Vector2 moveAmount, float slopeAngle)
-	{
-		float moveDistance = Mathf.Abs(moveAmount.x);
-		float climbVelocityY = Mathf.Sin(slopeAngle * Mathf.Deg2Rad) * moveDistance;
-
-		if (moveAmount.y <= climbVelocityY)
-		{
-			moveAmount.y = climbVelocityY;
-			moveAmount.x = Mathf.Cos(slopeAngle * Mathf.Deg2Rad) * moveDistance * Mathf.Sign(moveAmount.x);
-
-			collisions.below = true;
-			collisions.climbingSlope = true;
-
-			collisions.slopeAngle = slopeAngle;
-		}
-	}
-
-	void DescendSlope(ref Vector2 moveAmount)
-	{
-		float directionX = Mathf.Sign(moveAmount.x);
-		Vector2 rayOrigin = (directionX == -1) ? raycastOrigins.bottomRight : raycastOrigins.bottomLeft;
-		RaycastHit2D hit = Physics2D.Raycast(rayOrigin, -Vector2.up, Mathf.Infinity, collisionMask);
-
-		if (hit)
-		{
-			float slopeAngle = Vector2.Angle(hit.normal, Vector2.up);
-
-			if (slopeAngle != 0 && slopeAngle <= maxDescendAngle)
-			{
-				if (Mathf.Sign(hit.normal.x) == directionX)
-				{
-					if (hit.distance - skinWidth <= Mathf.Tan(slopeAngle * Mathf.Deg2Rad) * Mathf.Abs(moveAmount.x))
-					{
-						float moveDistance = Mathf.Abs(moveAmount.x);
-						float descendVelocityY = Mathf.Sin(slopeAngle * Mathf.Deg2Rad) * moveDistance;
-
-						moveAmount.x = Mathf.Cos(slopeAngle * Mathf.Deg2Rad) * moveDistance * Mathf.Sign(moveAmount.x);
-						moveAmount.y -= descendVelocityY;
-
-						collisions.slopeAngle = slopeAngle;
-						collisions.descendingSlope = true;
-						collisions.below = true;
-					}
-				}
-			}
-		}
-	}
-
-
-
-	void ResetFallingPlatform()
-	{   
-        collisions.fallingPlatform = false;
-	}
-
-	public struct CollisionInfo
-	{
-		public bool above, below;
-		public bool left, right;
-
-		public bool climbingSlope;
-		public bool descendingSlope;
-
-		public Vector2 velocityOld;
-
-		public float slopeAngle, slopeAngleOld;
-
-		public bool fallingPlatform;
-
-		public bool isDoor;
-
-		public void Reset()
-		{
-			above = below = false;
-			left = right = false;
-			climbingSlope = false;
-			descendingSlope = false;
-			isDoor = false;
-
-			slopeAngleOld = slopeAngle;
-			slopeAngle = 0;
-		}
-	}
 
 
 }

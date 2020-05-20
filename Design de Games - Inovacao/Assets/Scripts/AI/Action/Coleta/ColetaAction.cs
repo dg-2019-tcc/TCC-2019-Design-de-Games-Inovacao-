@@ -17,12 +17,12 @@ public class ColetaAction : Actions
 		float step = controller.botStats.moveSpeed  * Time.deltaTime;
 		if (controller.transform.position.x - controller.target.position.x > 0)                         //moveesquerda
 		{
-			controller.movement.Move(new Vector2(-controller.botStats.moveSpeed, 0));
+			//controller.movement.Move(new Vector2(-controller.botStats.moveSpeed, 0));
 			//controller.rb.velocity = new Vector2(-controller.botStats.moveSpeed, controller.rb.velocity.y);
 		}
 		else
 		{
-			controller.movement.Move(new Vector2(controller.botStats.moveSpeed, 0));
+			//controller.movement.Move(new Vector2(controller.botStats.moveSpeed, 0));
 			//controller.rb.velocity = new Vector2(controller.botStats.moveSpeed, controller.rb.velocity.y);
 		}
 		

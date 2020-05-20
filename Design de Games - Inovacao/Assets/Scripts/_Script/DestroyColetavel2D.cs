@@ -73,6 +73,7 @@ public class DestroyColetavel2D : MonoBehaviourPunCallbacks
 
         if (other.CompareTag("AI"))
         {
+            Debug.Log("Coletavel");
             botScore.Value++;
             Destroy(gameObject);
         }

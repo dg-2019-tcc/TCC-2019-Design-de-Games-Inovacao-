@@ -70,7 +70,6 @@ public class ColetaWin : MonoBehaviour
 
         else
         {
-            Debug.Log("Aqui");
             if (coletavelGerador.coletaveis.Length <= 0)
             {
                 Debug.Log("Acabou");

@@ -9,6 +9,8 @@ public class AITriggerController : RaycastController
     public Rigidbody2D rbBola;
     private AIMovement aiMove;
 
+    public FloatVariable botScore;
+
     public override void Start()
     {
         base.Start();
@@ -48,6 +50,14 @@ public class AITriggerController : RaycastController
                 if (hit.collider.tag == "Coletavel")
                 {
                     triggerCollision.isRight = true;
+
+                    if (hit.distance == 0)
+                    {
+                        triggerCollision.isRight = true;
+                        DestroyColetavel2D coletavel2D = hit.collider.GetComponent<DestroyColetavel2D>();
+                        coletavel2D.PegouColetavel(true);
+                        botScore.Value++;
+                    }
                 }
 
                 if (hit.collider.tag == "Futebol")
@@ -83,6 +93,13 @@ public class AITriggerController : RaycastController
                 if (hit.collider.tag == "Coletavel")
                 {
                     triggerCollision.isLeft = true;
+                    if (hit.distance == 0)
+                    {
+                        triggerCollision.isLeft = true;
+                        DestroyColetavel2D coletavel2D = hit.collider.GetComponent<DestroyColetavel2D>();
+                        coletavel2D.PegouColetavel(true);
+                        botScore.Value++;
+                    }
                 }
 
                 if (hit.collider.tag == "Futebol")
@@ -124,6 +141,13 @@ public class AITriggerController : RaycastController
                 if (hit.collider.tag == "Coletavel")
                 {
                     triggerCollision.isUp = true;
+                    if (hit.distance == 0)
+                    {
+                        triggerCollision.isUp = true;
+                        DestroyColetavel2D coletavel2D = hit.collider.GetComponent<DestroyColetavel2D>();
+                        coletavel2D.PegouColetavel(true);
+                        botScore.Value++;
+                    }
                 }
 
                 if(hit.collider.tag == "Futebol")
@@ -157,6 +181,13 @@ public class AITriggerController : RaycastController
                 if (hit.collider.tag == "Coletavel")
                 {
                     triggerCollision.isDown = true;
+
+                    if (hit.distance == 0)
+                    {
+                        DestroyColetavel2D coletavel2D = hit.collider.GetComponent<DestroyColetavel2D>();
+                        coletavel2D.PegouColetavel(true);
+                        botScore.Value++;
+                    }
                 }
             }
         }

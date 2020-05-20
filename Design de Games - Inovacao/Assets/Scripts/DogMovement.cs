@@ -111,12 +111,10 @@ public class DogMovement : MonoBehaviour
         {
             DogJump();
             jumpTimes++;
-            Debug.Log(jumpTimes);
         }
 
         if(transform.position.y - player.transform.position.y > 0)
         {
-            Debug.Log("Reseta");
             jumpTimes = 0;
         }
 
@@ -125,13 +123,9 @@ public class DogMovement : MonoBehaviour
             velocity.x = 0;
         }
         dogController.Move(velocity * Time.deltaTime, input);
-        //Invoke("DogMove", delay);
     }
 
-    public void DogMove()
-    {
-        dogController.Move(velocity * Time.deltaTime, input);
-    }
+
 
     public void DogJump()
     {
