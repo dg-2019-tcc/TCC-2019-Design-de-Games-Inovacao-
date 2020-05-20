@@ -33,7 +33,6 @@ public class AIMovement : MonoBehaviour
     public float turnCooldown;
 
 
-	public bool isBallGame;
 	public BoxCollider2D boxCollider;
 
 	public float hitLenght = 5f;
@@ -79,7 +78,8 @@ public class AIMovement : MonoBehaviour
 
         if (isFut)
         {
-           
+            triggerController.RayTriggerDirection();
+
             if (aiController2D.collisions.below == true)
             {
                 isJumping = false;
@@ -87,21 +87,23 @@ public class AIMovement : MonoBehaviour
 
             if (transform.position.x - target.transform.position.x > 1)
             {
-    
+                Debug.Log("esquerda");
                 GoLeft();
             }
 
             else if (transform.position.x - target.transform.position.x < -1)
             {
+                Debug.Log("direita");
                 GoRight();
             }
 
             else if (triggerController.triggerCollision.isUp && isJumping == false)
             {
-                StartCoroutine("Pulo");
+                AIJump();
             }
+            velocity.x = speed * input.x;
+            velocity.y += gravity * Time.deltaTime;
             aiController2D.Move(velocity * Time.deltaTime,input);
-            triggerController.RayTriggerDirection();
         }
 
         if (isColteta)

@@ -31,7 +31,6 @@ public class CorridaAjustaCamera : MonoBehaviour
 			{
 				if (photonView.CompareTag("Player") && photonView.IsMine)
 				{
-					Debug.Log("Ajuste");
 					cam = photonView.gameObject.transform.GetChild(1).gameObject;
 					initialPos = cam.transform.position;
 					playerTransform = photonView.gameObject.transform;

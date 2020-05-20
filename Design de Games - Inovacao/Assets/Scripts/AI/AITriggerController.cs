@@ -114,7 +114,6 @@ public class AITriggerController : RaycastController
                         }
                         else
                         {
-                            Debug.Log("Forte");
                             triggerCollision.chutouBall = true;
                         }
                     }

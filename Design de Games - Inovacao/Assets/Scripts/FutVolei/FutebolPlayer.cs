@@ -115,7 +115,6 @@ public class FutebolPlayer : MonoBehaviour
 
         yield return new WaitForSeconds(cooldownKick);
         kickAnim = false;
-        Debug.Log("TerminouKick");
         anim.DogButtonAnim(kickAnim);
         kicked = false;
     }

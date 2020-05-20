@@ -47,8 +47,6 @@ namespace Complete
                 m_AI[0].m_Instance =
                     Instantiate(aiPrefab[0], m_AI[0].m_SpawnPoint.position, m_AI[0].m_SpawnPoint.rotation) as GameObject;
                 m_AI[0].SetupAI(wayPointsForAI);
-
-            Debug.Log("Spawn");
             
         }
     }
