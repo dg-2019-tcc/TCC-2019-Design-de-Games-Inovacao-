@@ -90,6 +90,12 @@ public class TriggerCollisionsController : RaycastController
 
             if (hit)
             {
+                if(hit.collider.tag == "Dog")
+                {
+                    DogColetaTutorial dogTutorial = hit.collider.GetComponent<DogColetaTutorial>();
+                    dogTutorial.AtivaDog();
+                }
+
                 if(hit.collider.tag == "Pet")
                 {
                     collisions.hitDog = true;
@@ -208,6 +214,11 @@ public class TriggerCollisionsController : RaycastController
 
             if (hit)
             {
+                if (hit.collider.tag == "Dog")
+                {
+                    DogColetaTutorial dogTutorial = hit.collider.GetComponent<DogColetaTutorial>();
+                    dogTutorial.AtivaDog();
+                }
                 if (hit.collider.tag == "Pet")
                 {
                     collisions.hitDog = true;
@@ -309,6 +320,11 @@ public class TriggerCollisionsController : RaycastController
 
             if (hit)
             {
+                if (hit.collider.tag == "Dog")
+                {
+                    DogColetaTutorial dogTutorial = hit.collider.GetComponent<DogColetaTutorial>();
+                    dogTutorial.AtivaDog();
+                }
                 if (hit.collider.tag == "Boost")
                 {
                     collisions.boostMoto = true;
@@ -382,7 +398,12 @@ public class TriggerCollisionsController : RaycastController
 
             if (hit)
             {
-                if(hit.collider.tag == "Boost")
+                if (hit.collider.tag == "Dog")
+                {
+                    DogColetaTutorial dogTutorial = hit.collider.GetComponent<DogColetaTutorial>();
+                    dogTutorial.AtivaDog();
+                }
+                if (hit.collider.tag == "Boost")
                 {
                     collisions.boostMoto = true;
                 }

@@ -52,4 +52,14 @@ public class DogColetaTutorial : MonoBehaviour
 			Destroy(gameObject);
 		}
 	}
+
+    public void AtivaDog()
+    {
+        if (dog)
+        {
+            dogSpawn.Value = true;
+        }
+        coletavel.SetActive(true);
+        Destroy(gameObject);
+    }
 }
