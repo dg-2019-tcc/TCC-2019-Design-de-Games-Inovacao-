@@ -9,11 +9,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5539112196574928468}
-  - component: {fileID: 5539112196574928469}
-  - component: {fileID: 8844346448411434151}
   - component: {fileID: 8388673506340832388}
   - component: {fileID: 1380727988783444812}
   - component: {fileID: 8692339586657349199}
+  - component: {fileID: 7198200246352058534}
+  - component: {fileID: 4986789161760830098}
   m_Layer: 9
   m_Name: Doguinho2D
   m_TagString: Pet
@@ -36,45 +36,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5539112196574928469
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5539112196574928490}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 612fa3b572689cc4a9348503b4e50b35, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 0}
-  targetDistance: 0
-  allowedDistance: 1.5
-  jumpPower: 200
-  wolf: {fileID: 0}
-  grounded: 0
---- !u!50 &8844346448411434151
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5539112196574928490}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 2.3
-  m_Material: {fileID: 6200000, guid: dae785802aa20464d8dfe6dd949d2091, type: 2}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 4
 --- !u!61 &8388673506340832388
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -138,6 +99,49 @@ MonoBehaviour:
   m_SynchronizePosition: 1
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
+--- !u!114 &7198200246352058534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5539112196574928490}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d59c42f2428233344a776c823f40394b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collisionMask:
+    serializedVersion: 2
+    m_Bits: 65536
+  horizontalRayCount: 0
+  verticalRayCount: 0
+  horizontalRaySpacing: 0
+  verticalRaySpacing: 0
+  collider: {fileID: 0}
+  pipaActive: {fileID: 11400000, guid: 2b148dcb36b964e408d5c1ff0758f00a, type: 2}
+--- !u!114 &4986789161760830098
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5539112196574928490}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59777579f6a10914a837d319bfef3bc3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 5.99
+  maxJumpHeight: 15
+  minJumpHeight: 0.8
+  timeToJumpApex: 0.7
+  joyStick: {fileID: 0}
+  playerMove: {fileID: 0}
+  playerTriggerController: {fileID: 0}
+  player: {fileID: 0}
+  dog: {fileID: 0}
+  delay: 0.1
 --- !u!1001 &6300342565087763605
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -145,6 +149,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5539112196574928468}
     m_Modifications:
+    - target: {fileID: 5552880356453274681, guid: dd30610f3eb62e845a027e8da57d9cfc,
+        type: 3}
+      propertyPath: m_Name
+      value: Dog_Provisorio
+      objectReference: {fileID: 0}
     - target: {fileID: 6686889160140255235, guid: dd30610f3eb62e845a027e8da57d9cfc,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -214,11 +223,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 0.116744205
-      objectReference: {fileID: 0}
-    - target: {fileID: 5552880356453274681, guid: dd30610f3eb62e845a027e8da57d9cfc,
-        type: 3}
-      propertyPath: m_Name
-      value: Dog_Provisorio
       objectReference: {fileID: 0}
     - target: {fileID: 1574110411632706302, guid: dd30610f3eb62e845a027e8da57d9cfc,
         type: 3}

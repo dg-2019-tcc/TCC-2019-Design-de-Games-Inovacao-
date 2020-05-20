@@ -90,6 +90,10 @@ public class TriggerCollisionsController : RaycastController
 
             if (hit)
             {
+                if(hit.collider.tag == "Pet")
+                {
+                    collisions.hitDog = true;
+                }
                 if(hit.collider.tag == "AjusteCam")
                 {
                     CorridaAjustaCamera ajustaCamera = hit.collider.GetComponent<CorridaAjustaCamera>();
@@ -204,6 +208,10 @@ public class TriggerCollisionsController : RaycastController
 
             if (hit)
             {
+                if (hit.collider.tag == "Pet")
+                {
+                    collisions.hitDog = true;
+                }
                 if (hit.collider.tag == "Boost")
                 {
                     collisions.boostMoto = true;
@@ -464,6 +472,8 @@ public class TriggerCollisionsController : RaycastController
 
         public bool caixaDagua;
 
+        public bool hitDog;
+
         public Vector2 direction;
 
 
@@ -473,6 +483,7 @@ public class TriggerCollisionsController : RaycastController
             cortaBola = tocouBola = false;
             cabecaBola = tocouBola = false;
             caixaDagua = false;
+            hitDog = false;
             direction.x = direction.y = 0;
         }
     }

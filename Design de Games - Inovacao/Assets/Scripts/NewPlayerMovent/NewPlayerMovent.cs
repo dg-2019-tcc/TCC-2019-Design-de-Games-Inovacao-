@@ -40,14 +40,16 @@ public class NewPlayerMovent : MonoBehaviour
     public float motoMinJumpHeight = 2;
     public float motoTimeToJumpApex = 0.4f;
 
-    bool jump;
+    [HideInInspector]
+    public bool jump;
     bool stopJump;
 
     public BoolVariable carroActive;
     public BoolVariable pipaActive;
     public BoolVariable levouDogada;
 
-    Vector3 velocity;
+    [HideInInspector]
+    public Vector3 velocity;
     Vector3 carroVelocity;
     Vector3 pipaVelocity;
     Vector3 motoVelocity;
@@ -57,6 +59,7 @@ public class NewPlayerMovent : MonoBehaviour
     Vector2 joyInput;
 
     Controller2D controller;
+    public Controller2D dogController;
     TriggerCollisionsController triggerController;
     Player2DAnimations animations;
 
@@ -115,6 +118,7 @@ public class NewPlayerMovent : MonoBehaviour
             velocity.y += gravity * Time.deltaTime;
 
             controller.Move(velocity * Time.deltaTime, input);
+            //dogController.Move(velocity * Time.deltaTime, input);
             triggerController.MoveDirection(velocity);
             animations.ChangeMoveAnim(ref velocity, ref oldPosition,ref input,ref jump,ref stopJump);
             if (controller.collisions.above || controller.collisions.below)
@@ -130,15 +134,9 @@ public class NewPlayerMovent : MonoBehaviour
 
             if (/*controller.collisions.below &&*/ triggerController.collisions.caixaDagua)
             {
-                if (triggerController.collisions.direction.x != 0)
-                {
-                    velocity.x= maxJumpHeight.Value * 1.8f * triggerController.collisions.direction.x;
-                }
 
-                else
-                {
                     velocity.y = maxJumpHeight.Value * 1.8f * triggerController.collisions.direction.y;
-                }
+                
 
             }
 

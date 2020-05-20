@@ -11,16 +11,14 @@ public class SpawnHub : MonoBehaviour
 
     public GameObject player;
 
+    public GameObject dogSpawn;
+    public GameObject dog;
+
 
     void Awake()
     {
         index = Mathf.RoundToInt(spawnHUBPoints.Value);
         player.transform.position = spawnPoints[index].position;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        dog.transform.position = dogSpawn.transform.position;
     }
 }

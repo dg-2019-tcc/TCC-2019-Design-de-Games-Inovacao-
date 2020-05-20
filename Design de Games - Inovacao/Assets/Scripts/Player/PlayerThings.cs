@@ -30,6 +30,7 @@ public class PlayerThings : MonoBehaviour
     public GameObject player;
     public GameObject carro;
     public GameObject pipa;
+    public GameObject dog;
 
 	[Header ("Tiro")]
 	public BoolVariable levou;
@@ -125,6 +126,7 @@ public class PlayerThings : MonoBehaviour
                         player.transform.rotation = direction;
                         carro.transform.rotation = direction;
                         pipa.transform.rotation = direction;
+                        //dog.transform.rotation = direction;
 
                         /*if (controller.collisions.climbingSlope)
                         {
@@ -160,6 +162,7 @@ public class PlayerThings : MonoBehaviour
                         player.transform.rotation = direction;
                         carro.transform.rotation = direction;
                         pipa.transform.rotation = direction;
+                        //dog.transform.rotation = direction;
 
                         /*if (controller.collisions.climbingSlope)
                         {
@@ -243,6 +246,7 @@ public class PlayerThings : MonoBehaviour
             player.transform.rotation = direction;
             carro.transform.rotation = direction;
             pipa.transform.rotation = direction;
+            dog.transform.rotation = direction;
         }
         else
         {
@@ -250,6 +254,7 @@ public class PlayerThings : MonoBehaviour
             player.transform.rotation = direction;
             carro.transform.rotation = direction;
             pipa.transform.rotation = direction;
+            dog.transform.rotation = direction;
         }
     }
 
