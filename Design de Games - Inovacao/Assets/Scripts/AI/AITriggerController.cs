@@ -23,10 +23,19 @@ public class AITriggerController : RaycastController
         UpdateRaycastOrigins();
         triggerCollision.Reset();
 
-        RightCollisions();
-        LeftCollisions();
-        UpCollisions();
-        DownCollisions();
+        if (aiMove.isCorrida)
+        {
+            RightCollisions();
+            DownCollisions();
+        }
+
+        else
+        {
+            RightCollisions();
+            LeftCollisions();
+            UpCollisions();
+            DownCollisions();
+        }
     }
 
     void RightCollisions()
@@ -43,7 +52,7 @@ public class AITriggerController : RaycastController
             rayOrigin += Vector2.up * (horizontalRaySpacing * i);
             RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.right * directionX, rayLenght, collisionMask);
 
-            //Debug.DrawRay(rayOrigin, Vector2.right * directionX, Color.red);
+            Debug.DrawRay(rayOrigin, Vector2.right * directionX, Color.red);
 
             if (hit)
             {
@@ -68,6 +77,17 @@ public class AITriggerController : RaycastController
                     {
                         triggerCollision.touchBall = true;
                     }
+                }
+
+                if (hit.collider.tag == "Plataforma")
+                {
+                    triggerCollision.needJump = true;
+                }
+
+                if (hit.collider.tag == "AITrigger")
+                {
+                    Debug.Log("Direita");
+                    triggerCollision.needJump = true;
                 }
             }
         }
@@ -188,6 +208,13 @@ public class AITriggerController : RaycastController
                         botScore.Value++;
                     }
                 }
+
+
+                if (hit.collider.tag == "AITrigger")
+                {
+                    Debug.Log("Embaixo");
+                    triggerCollision.needJump = true;
+                }
             }
         }
     }
@@ -197,12 +224,14 @@ public class AITriggerController : RaycastController
         public bool isLeft, isRight;
         public bool isUp, isDown;
         public bool touchBall, chutouBall;
+        public bool needJump;
 
         public void Reset()
         {
             isLeft = isRight = false;
             isUp = isDown = false;
             touchBall = chutouBall = false;
+            needJump = false;
         }
     }
 }

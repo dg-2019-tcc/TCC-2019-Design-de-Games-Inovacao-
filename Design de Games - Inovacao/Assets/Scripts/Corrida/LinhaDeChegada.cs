@@ -35,6 +35,11 @@ public class LinhaDeChegada : MonoBehaviour
 		}
     }
 
+    public void AIGanhou()
+    {
+        winnerManager.perdeuCorrida = true;
+    }
+
 	public void Colidiu(GameObject other)
 	{
 		playerView = other.GetComponent<PhotonView>();

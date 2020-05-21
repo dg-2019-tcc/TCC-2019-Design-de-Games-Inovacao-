@@ -45,6 +45,7 @@ public class AIMovement : MonoBehaviour
 
     public bool isColteta;
     public bool isFut;
+    public bool isCorrida;
     float newVel = 0.01f;
     private bool found;
     public float maxSpeed = 0.5f;
@@ -99,11 +100,29 @@ public class AIMovement : MonoBehaviour
 
             else if (triggerController.triggerCollision.isUp && isJumping == false)
             {
+                input.x = 0;
                 AIJump();
             }
             velocity.x = speed * input.x;
             velocity.y += gravity * Time.deltaTime;
             aiController2D.Move(velocity * Time.deltaTime,input);
+        }
+
+        if (isCorrida)
+        {
+            if (aiController2D.collisions.acabouCorrida) return;
+            triggerController.RayTriggerDirection();
+            GoRight();
+
+            if (triggerController.triggerCollision.needJump && aiController2D.collisions.below)
+            {
+                input.x = 1;
+                AIJump();
+            }
+
+            velocity.x = speed;
+            velocity.y += gravity * Time.deltaTime;
+            aiController2D.Move(velocity * Time.deltaTime, input);
         }
 
         if (isColteta)
@@ -141,7 +160,7 @@ public class AIMovement : MonoBehaviour
 
                 else if (triggerController.triggerCollision.isUp && isJumping == false)
                 {
-                    Debug.Log("AtivaPulo");
+                    input.x = 0;
                     AIJump();
                 }
 
@@ -206,8 +225,6 @@ public class AIMovement : MonoBehaviour
 
     public void AIJump()
     {
-        Debug.Log("Jump");
-        input.x = 0;
         jumpTimes++;
         input.y = 1;
         isJumping = true;

@@ -53,8 +53,6 @@ public class AIController2D : RaycastController
             rayOrigin += Vector2.up * (horizontalRaySpacing * i);
             RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.right * directionX, rayLenght, collisionMask);
 
-            Debug.DrawRay(rayOrigin, Vector2.right * directionX, Color.red);
-
             if (hit)
             {
                 float slopeAngle = Vector2.Angle(hit.normal, Vector2.up);
@@ -62,6 +60,12 @@ public class AIController2D : RaycastController
                 if (hit.collider.tag == "Barreira")
                 {
                     collisions.bateuObs = true;
+                }
+
+                if (hit.collider.tag == "LinhaDeChegada")
+                {
+                    LinhaDeChegada linhaDeChegada = hit.collider.GetComponent<LinhaDeChegada>();
+                    linhaDeChegada.AIGanhou();
                 }
 
                 if (hit.collider.tag == "Through")
@@ -132,10 +136,14 @@ public class AIController2D : RaycastController
             rayOrigin += Vector2.right * (verticalRaySpacing * i + moveAmount.x);
             RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.up * directionY, rayLenght, collisionMask);
 
-            Debug.DrawRay(rayOrigin, Vector2.up * directionY, Color.red);
-
             if (hit)
             {
+                if(hit.collider.tag == "LinhaDeChegada")
+                {
+                    LinhaDeChegada linhaDeChegada = hit.collider.GetComponent<LinhaDeChegada>();
+                    linhaDeChegada.AIGanhou();
+                }
+
                 if (hit.collider.tag == "Destroy")
                 {
                     hit.collider.gameObject.SendMessage("ToAqui");
@@ -265,6 +273,7 @@ public class AIController2D : RaycastController
 
         public bool fallingPlatform;
 
+        public bool acabouCorrida;
 
         public bool bateuObs;
 
@@ -275,6 +284,7 @@ public class AIController2D : RaycastController
             climbingSlope = false;
             descendingSlope = false;
             bateuObs = false;
+            acabouCorrida = false;
 
             slopeAngleOld = slopeAngle;
             slopeAngle = 0;

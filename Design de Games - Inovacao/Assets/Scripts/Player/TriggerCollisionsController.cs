@@ -37,7 +37,12 @@ public class TriggerCollisionsController : RaycastController
         UpdateRaycastOrigins();
         collisions.Reset();
 
-        if (isBallGame)
+        RightCollisions();
+        LeftCollisions();
+        UpCollisions();
+        DownCollisions();
+
+        /*if (isBallGame)
         {
             RightCollisions();
             LeftCollisions();
@@ -64,7 +69,7 @@ public class TriggerCollisionsController : RaycastController
             {
                 DownCollisions();
             }
-        }
+        }*/
     }
 
     void RightCollisions()
@@ -463,7 +468,6 @@ public class TriggerCollisionsController : RaycastController
 
                 if(hit.collider.tag == "CaixaDagua")
                 {
-                    collisions.direction = new Vector2(0f, 1);
                     collisions.caixaDagua = true;
                 }
             }

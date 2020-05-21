@@ -119,7 +119,7 @@ public class NewPlayerMovent : MonoBehaviour
 
             controller.Move(velocity * Time.deltaTime, input);
             //dogController.Move(velocity * Time.deltaTime, input);
-            triggerController.MoveDirection(velocity);
+            triggerController.MoveDirection(velocity *Time.deltaTime);
             animations.ChangeMoveAnim(ref velocity, ref oldPosition,ref input,ref jump,ref stopJump);
             if (controller.collisions.above || controller.collisions.below)
             {
@@ -134,10 +134,8 @@ public class NewPlayerMovent : MonoBehaviour
 
             if (/*controller.collisions.below &&*/ triggerController.collisions.caixaDagua)
             {
-
-                    velocity.y = maxJumpHeight.Value * 1.8f * triggerController.collisions.direction.y;
-                
-
+                Debug.Log("CaixaDagua");
+                velocity.y = maxJumpHeight.Value * 1.8f ;
             }
 
 
