@@ -146,7 +146,6 @@ public class TriggerCollisionsController : RaycastController
                 }
 				if (hit.collider.tag == "Moedinha")
 				{
-					//Debug.Log("colidiu com a moeda");
 					hit.collider.gameObject.SendMessage("Coleta");
 				}
 
@@ -258,7 +257,6 @@ public class TriggerCollisionsController : RaycastController
                 }
 				if (hit.collider.tag == "Moedinha")
 				{
-					Debug.Log("colidiu com a moeda");
 					hit.collider.gameObject.SendMessage("Coleta");
 				}
 
@@ -361,7 +359,6 @@ public class TriggerCollisionsController : RaycastController
                 }
 				if (hit.collider.tag == "Moedinha")
 				{
-					Debug.Log("colidiu com a moeda");
 					hit.collider.gameObject.SendMessage("Coleta");
 				}
 
@@ -440,7 +437,6 @@ public class TriggerCollisionsController : RaycastController
 
 				if (hit.collider.tag == "Moedinha")
 				{
-					Debug.Log("colidiu com a moeda");
 					hit.collider.gameObject.SendMessage("Coleta");
 				}
 

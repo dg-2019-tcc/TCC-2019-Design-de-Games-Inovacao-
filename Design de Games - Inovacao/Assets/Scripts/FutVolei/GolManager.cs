@@ -30,7 +30,14 @@ public class GolManager : MonoBehaviourPunCallbacks
         if (botScore.Value >= maxPoints)
         {
             PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 0;
-            LevelManager.Instance.GoPodium();
+            if (acabou01.Value == true)
+            {
+                LevelManager.Instance.GoPodium();
+            }
+            else
+            {
+                LevelManager.Instance.GoHub();
+            }
         }
     }
 

@@ -62,12 +62,6 @@ public class AIController2D : RaycastController
                     collisions.bateuObs = true;
                 }
 
-                if (hit.collider.tag == "LinhaDeChegada")
-                {
-                    LinhaDeChegada linhaDeChegada = hit.collider.GetComponent<LinhaDeChegada>();
-                    linhaDeChegada.AIGanhou();
-                }
-
                 if (hit.collider.tag == "Through")
                 {
 
@@ -80,7 +74,7 @@ public class AIController2D : RaycastController
                         continue;
                     }
 
-                    /*if (playerInput.y < -0.75 || playerInput.y > 0.75)
+                    /*if (aiInput.y < -0.75 || aiInput.y > 0.75)
                     {
                         collisions.fallingPlatform = true;
                         Invoke("ResetFallingPlatform", 0.1f);
@@ -139,7 +133,7 @@ public class AIController2D : RaycastController
             if (hit)
             {
 
-                if(hit.collider.tag == "LinhaDeChegada")
+                if (hit.collider.tag == "LinhaDeChegada")
                 {
                     LinhaDeChegada linhaDeChegada = hit.collider.GetComponent<LinhaDeChegada>();
                     linhaDeChegada.AIGanhou();

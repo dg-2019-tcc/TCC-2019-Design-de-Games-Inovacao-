@@ -33,6 +33,11 @@ public class LevelManager : MonoBehaviour
         SceneManager.LoadScene("HistoriaFutebol");
     }
 
+    public void GoHub()
+    {
+        SceneManager.LoadScene("HUB");
+    }
+
 
     [PunRPC]
      public void GoVitoria()

@@ -56,6 +56,15 @@ public class AITriggerController : RaycastController
 
             if (hit)
             {
+                if (hit.collider.tag == "LinhaDeChegada" && hit.distance == 0)
+                {
+                    Debug.Log("AIGanhou");
+                    triggerCollision.ganhou = true;
+                    LinhaDeChegada linhaDeChegada = hit.collider.GetComponent<LinhaDeChegada>();
+                    linhaDeChegada.AIGanhou();
+                }
+
+
                 if (hit.collider.tag == "Coletavel")
                 {
                     triggerCollision.isRight = true;
@@ -86,7 +95,6 @@ public class AITriggerController : RaycastController
 
                 if (hit.collider.tag == "AITrigger")
                 {
-                    Debug.Log("Direita");
                     triggerCollision.needJump = true;
                 }
 
@@ -246,6 +254,7 @@ public class AITriggerController : RaycastController
         public bool touchBall, chutouBall;
         public bool needJump;
         public bool naArea;
+        public bool ganhou;
 
         public void Reset()
         {
@@ -253,6 +262,7 @@ public class AITriggerController : RaycastController
             isUp = isDown = false;
             touchBall = chutouBall = false;
             needJump = naArea = false;
+            ganhou = false;
         }
     }
 }
