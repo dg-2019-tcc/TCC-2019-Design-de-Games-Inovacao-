@@ -46,6 +46,7 @@ public class AIMovement : MonoBehaviour
     public bool isColteta;
     public bool isFut;
     public bool isCorrida;
+    public bool isMoto;
     float newVel = 0.01f;
     private bool found;
     public float maxSpeed = 0.5f;
@@ -73,6 +74,11 @@ public class AIMovement : MonoBehaviour
     public void FixedUpdate()
     {
         if (levouDogada)
+        {
+            return;
+        }
+
+        if (triggerController.triggerCollision.ganhou)
         {
             return;
         }
@@ -106,7 +112,7 @@ public class AIMovement : MonoBehaviour
             aiController2D.Move(velocity * Time.deltaTime,input);
         }
 
-        if (isCorrida)
+        if (isCorrida || isMoto)
         {
             if (aiController2D.collisions.acabouCorrida) return;
             triggerController.RayTriggerDirection();
@@ -116,6 +122,11 @@ public class AIMovement : MonoBehaviour
             {
                 input.x = 1;
                 AIJump();
+            }
+
+            if (isMoto)
+            {
+                speed += 0.15f * Time.deltaTime;
             }
 
             velocity.x = speed;
@@ -137,8 +148,6 @@ public class AIMovement : MonoBehaviour
                 found = false;
             }
 
-            velocity.y += gravity * Time.deltaTime;
-
             if (found)
             {
                 if (aiController2D.collisions.below == true || aiController2D.collisions.climbingSlope || aiController2D.collisions.descendingSlope)
@@ -156,7 +165,7 @@ public class AIMovement : MonoBehaviour
                     GoLeft();
                 }
 
-                else if (triggerController.triggerCollision.isUp && isJumping == false)
+                else if (triggerController.triggerCollision.isUp && isJumping == false && aiController2D.collisions.below == true)
                 {
                     input.x = 0;
                     AIJump();
@@ -197,6 +206,7 @@ public class AIMovement : MonoBehaviour
 
             }
 
+            velocity.y += gravity * Time.deltaTime;
             velocity.x = speed * input.x;
             aiController2D.Move(velocity * Time.deltaTime,input);
         }

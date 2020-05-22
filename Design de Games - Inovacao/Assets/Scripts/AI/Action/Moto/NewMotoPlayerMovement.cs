@@ -61,7 +61,6 @@ public class NewMotoPlayerMovement : MonoBehaviour
 		animations = GetComponent<Player2DAnimations>();
 
 		gravity = -(2 * maxJumpHeight) / Mathf.Pow(timeToJumpApex, 2);
-        Debug.Log(gravity); 
 		maxJumpVelocity = Mathf.Abs(gravity * timeToJumpApex);
 		minJumpVelocity = Mathf.Sqrt(2 * Mathf.Abs(gravity) * minJumpHeight);
 

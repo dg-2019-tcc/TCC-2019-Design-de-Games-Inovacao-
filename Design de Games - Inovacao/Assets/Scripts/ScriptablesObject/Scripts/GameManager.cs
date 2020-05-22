@@ -17,7 +17,7 @@ namespace Complete
         public GameObject thingsAI;
         public GameObject thingsOnline;
 
-
+        public FloatVariable botScore;
 		private void Start()
         {
 			if (!OfflineMode.modoDoOffline)
@@ -27,6 +27,7 @@ namespace Complete
 			}
             else
             {
+                botScore.Value = 0;
                 thingsOnline.SetActive(false);
                 thingsAI.SetActive(true);
             }

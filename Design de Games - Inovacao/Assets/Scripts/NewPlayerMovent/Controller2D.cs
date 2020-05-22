@@ -83,12 +83,12 @@ public class Controller2D : RaycastController
                         continue;
                     }
 
-                    if (playerInput.y < -0.75 || playerInput.y > 0.75)
+                    /*if (playerInput.y < -0.75 || playerInput.y > 0.75)
                     {
                         collisions.fallingPlatform = true;
                         Invoke("ResetFallingPlatform", 0.1f);
                         continue;
-                    }
+                    }*/
                 }
 
 
