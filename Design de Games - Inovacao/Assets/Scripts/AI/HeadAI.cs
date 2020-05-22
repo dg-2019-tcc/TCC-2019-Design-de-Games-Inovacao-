@@ -21,14 +21,20 @@ public class HeadAI : MonoBehaviour
     {
         if (isFut)
         {
-            if (triggerController.triggerCollision.touchBall)
+            if (triggerController.triggerCollision.touchBall && triggerController.triggerCollision.naArea == false)
             {
                 Chuta();
             }
 
-            if (triggerController.triggerCollision.chutouBall)
+            else if (triggerController.triggerCollision.chutouBall && triggerController.triggerCollision.naArea == false)
             {
                 ChutaForte();
+            }
+
+            else if (triggerController.triggerCollision.naArea && triggerController.triggerCollision.chutouBall || triggerController.triggerCollision.touchBall)
+            {
+                Debug.Log("NaArea");
+                NaArea();
             }
         }
     }
@@ -58,5 +64,11 @@ public class HeadAI : MonoBehaviour
     {
         ballrb = triggerController.rbBola;
         ballrb.AddForce(new Vector2(controller.botStats.kickForceX, controller.botStats.kickForceY), ForceMode2D.Impulse);
+    }
+
+    public void NaArea()
+    {
+        ballrb = triggerController.rbBola;
+        ballrb.AddForce(new Vector2(headForceX, 0), ForceMode2D.Impulse);
     }
 }

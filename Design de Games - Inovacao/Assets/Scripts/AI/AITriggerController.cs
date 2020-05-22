@@ -89,6 +89,11 @@ public class AITriggerController : RaycastController
                     Debug.Log("Direita");
                     triggerCollision.needJump = true;
                 }
+
+                /*if (hit.collider.tag == "Area")
+                {
+                    triggerCollision.naArea = true;
+                }*/
             }
         }
     }
@@ -138,6 +143,11 @@ public class AITriggerController : RaycastController
                         }
                     }
                 }
+
+                if (hit.collider.tag == "Area")
+                {
+                    triggerCollision.naArea = true;
+                }
             }
         }
     }
@@ -178,6 +188,11 @@ public class AITriggerController : RaycastController
                         triggerCollision.touchBall = true;
                     }
                 }
+
+                if(hit.collider.tag == "Area")
+                {
+                    triggerCollision.naArea = true;
+                }
             }
         }
     }
@@ -215,6 +230,11 @@ public class AITriggerController : RaycastController
                     Debug.Log("Embaixo");
                     triggerCollision.needJump = true;
                 }
+
+                if (hit.collider.tag == "Area")
+                {
+                    triggerCollision.naArea = true;
+                }
             }
         }
     }
@@ -225,13 +245,14 @@ public class AITriggerController : RaycastController
         public bool isUp, isDown;
         public bool touchBall, chutouBall;
         public bool needJump;
+        public bool naArea;
 
         public void Reset()
         {
             isLeft = isRight = false;
             isUp = isDown = false;
             touchBall = chutouBall = false;
-            needJump = false;
+            needJump = naArea = false;
         }
     }
 }

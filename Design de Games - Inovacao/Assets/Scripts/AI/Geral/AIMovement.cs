@@ -88,19 +88,17 @@ public class AIMovement : MonoBehaviour
 
             if (transform.position.x - target.transform.position.x > 1)
             {
-                Debug.Log("esquerda");
                 GoLeft();
             }
 
             else if (transform.position.x - target.transform.position.x < -1)
             {
-                Debug.Log("direita");
                 GoRight();
             }
 
             else if (triggerController.triggerCollision.isUp && isJumping == false)
             {
-                input.x = 0;
+                //input.x = 0;
                 AIJump();
             }
             velocity.x = speed * input.x;

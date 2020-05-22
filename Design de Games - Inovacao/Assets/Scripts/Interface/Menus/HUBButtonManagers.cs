@@ -12,10 +12,6 @@ public class HUBButtonManagers : MonoBehaviour
 
     public string nomeDoMenu;
 
-    private void Start()
-    {
-        
-    }
 
 
     /*private void OnEnable()

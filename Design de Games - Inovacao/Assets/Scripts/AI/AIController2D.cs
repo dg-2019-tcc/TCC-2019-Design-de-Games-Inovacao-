@@ -138,6 +138,7 @@ public class AIController2D : RaycastController
 
             if (hit)
             {
+
                 if(hit.collider.tag == "LinhaDeChegada")
                 {
                     LinhaDeChegada linhaDeChegada = hit.collider.GetComponent<LinhaDeChegada>();
