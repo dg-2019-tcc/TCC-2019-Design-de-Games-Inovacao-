@@ -141,5 +141,10 @@ namespace Complete
 				gameManager.SpawnAI();
 			}
         }
-    }
+
+		private void OnDestroy()
+		{
+			StopAllCoroutines();
+		}
+	}
 }
