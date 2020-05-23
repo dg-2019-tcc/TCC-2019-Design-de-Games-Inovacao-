@@ -6,8 +6,11 @@ using Photon.Pun;
 public class ColetavelGerador : MonoBehaviour
 {
     public GameObject[] coletaveis;
-    public GameObject coletavelCerto;
 	private int index;
+
+
+	public GameObject lastColetavel;
+
 
 	private void Start()
 	{
@@ -72,5 +75,11 @@ public class ColetavelGerador : MonoBehaviour
 
 	}
 
-	
+
+
+	public void DrawProtocol()
+	{
+		lastColetavel.SetActive(true);
+	}
+
 }

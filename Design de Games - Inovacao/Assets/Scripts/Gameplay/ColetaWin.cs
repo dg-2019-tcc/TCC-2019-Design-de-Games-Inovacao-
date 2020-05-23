@@ -23,11 +23,17 @@ public class ColetaWin : MonoBehaviour
     public BoolVariable acabou01;
     public FloatVariable flowIndex;
 
+
+
+	private bool isEmpatado;
+	
+
 	private void Start()
 	{
 		coletavelGerador = FindObjectOfType<ColetavelGerador>();
 		winning = PhotonNetwork.PlayerList[0];
 		ganhouJa = false;
+		isEmpatado = true;
 	}
 
 
@@ -37,20 +43,30 @@ public class ColetaWin : MonoBehaviour
         {
             foreach (Photon.Realtime.Player p in PhotonNetwork.PlayerList)
             {
-                //Debug.Log(p.ActorNumber);
+				//Debug.Log(p.ActorNumber);
 
-                //players[p.ActorNumber] = p;
-                //score[p.ActorNumber] = p.GetScore();
-                if (compareScore - p.GetScore() < 0)
-                {
-                    compareScore = p.GetScore();
-                    winning = p;
-                }
+				//players[p.ActorNumber] = p;
+				//score[p.ActorNumber] = p.GetScore();
+				if (compareScore - p.GetScore() < 0)
+				{
+					compareScore = p.GetScore();
+					winning = p;
+					isEmpatado = false;
+				}
+				else if (winning != p && compareScore == p.GetScore())
+				{
+					isEmpatado = true;
+				}
             }
 
 
             if (coletavelGerador.coletaveis.Length <= 0)
             {
+				if (isEmpatado)
+				{
+					coletavelGerador.DrawProtocol();
+					return;
+				}
                 if (ganhouJa) return;
                 if (OfflineMode.modoDoOffline && compareScore < 4)
                 {
@@ -79,6 +95,8 @@ public class ColetaWin : MonoBehaviour
 
         }
 	}
+
+	
 
 
 	
