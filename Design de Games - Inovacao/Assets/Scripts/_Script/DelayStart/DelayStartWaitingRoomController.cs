@@ -115,6 +115,14 @@ public class DelayStartWaitingRoomController : MonoBehaviourPunCallbacks
             readyToCountDown = false;
             readyToStart = false;
         }
+
+		if (OfflineMode.modoDoOffline)
+		{
+			startGameNow.SetActive(true);
+			readyToCountDown = true;
+			readyToStart = true;
+			playerCountDisplay.text = " ";
+		}
     }
     
 
@@ -150,7 +158,7 @@ public class DelayStartWaitingRoomController : MonoBehaviourPunCallbacks
 
     void WaitingForMorePlayers()
     {
-        if (playerCount <= 1 && minPlayerToStart != 1)
+        if (playerCount <= 1 && minPlayerToStart != 1 && !OfflineMode.modoDoOffline)
         {
             ResetTimer();
         }
@@ -166,7 +174,7 @@ public class DelayStartWaitingRoomController : MonoBehaviourPunCallbacks
         }
 
         string tempTimer = string.Format("{0:00}", timerToStartGame);
-        timerToStartDisplay.fillAmount = 1 - (timerToStartGame/maxWaitTime);
+        timerToStartDisplay.fillAmount = 1 - (timerToStartGame/maxWaitTime)*2;
         if (timerToStartGame <= 0f)
         {
             if (startingGame)
