@@ -146,91 +146,94 @@ public class Player2DAnimations : MonoBehaviour
                 }
             }
 
-            if(moveAmount.y < -2 && jaAterrisou && state != State.Aterrisando && pipaActive.Value == false && carroActive.Value == false)
+            if (dogButtonAnim == false)
             {
-                jaAterrisou = false;
-            }
 
-            if (oldPos.y < moveAmount.y && controller.collisions.below == false && dogButtonAnim == false && pipaActive.Value == false && carroActive.Value == false)
-            {
-                jaAterrisou = false;
-                if (!PhotonNetwork.InRoom)
+                if (moveAmount.y < -2 && jaAterrisou && state != State.Aterrisando && pipaActive.Value == false && carroActive.Value == false)
                 {
-                    NoArUp();
+                    jaAterrisou = false;
                 }
+
+                if (oldPos.y < moveAmount.y && controller.collisions.below == false && dogButtonAnim == false && pipaActive.Value == false && carroActive.Value == false)
+                {
+                    jaAterrisou = false;
+                    if (!PhotonNetwork.InRoom)
+                    {
+                        NoArUp();
+                    }
+                    else
+                    {
+                        photonView.RPC("NoArUp", RpcTarget.All);
+                    }
+                }
+
+                else if (moveAmount.y < 9 && moveAmount.y > 0 && controller.collisions.below == false && dogButtonAnim == false && pipaActive.Value == false && carroActive.Value == false)
+                {
+
+                    if (!PhotonNetwork.InRoom)
+                    {
+                        TransitionAir();
+                    }
+                    else
+                    {
+                        photonView.RPC("TransitionAir", RpcTarget.All);
+                    }
+                }
+
+                else if (moveAmount.y <= 0 && controller.collisions.below == false && dogButtonAnim == false && jaAterrisou == false && pipaActive.Value == false && carroActive.Value == false)
+                {
+                    if (!PhotonNetwork.InRoom)
+                    {
+                        Fall();
+                    }
+                    else
+                    {
+                        photonView.RPC("Fall", RpcTarget.All);
+                    }
+                }
+
+                else if (moveAmount.y < -5f && input.x == 0 && input.y >= 0 && controller.collisions.below == true && dogButtonAnim == false && jaAterrisou == false && pipaActive.Value == false && carroActive.Value == false)
+                {
+
+                    if (!PhotonNetwork.InRoom)
+                    {
+                        Aterrisando();
+                    }
+                    else
+                    {
+                        photonView.RPC("Aterrisando", RpcTarget.All);
+                    }
+                }
+
+                else if (controller.collisions.below && input.x == 0 && input.y < 0 && dogButtonAnim == false && pipaActive.Value == false && carroActive.Value == false)
+                {
+                    if (!PhotonNetwork.InRoom)
+                    {
+                        Abaixar();
+                    }
+                    else
+                    {
+                        photonView.RPC("Abaixar", RpcTarget.All);
+                    }
+                }
+
+                else if (input.x != 0 && controller.collisions.below && dogButtonAnim == false && pipaActive.Value == false && carroActive.Value == false)
+                {
+                    if (!PhotonNetwork.InRoom)
+                    {
+                        Walking();
+                    }
+                    else
+                    {
+                        photonView.RPC("Walking", RpcTarget.All);
+                    }
+
+                }
+
                 else
                 {
-                    photonView.RPC("NoArUp", RpcTarget.All);
-                }
-            }
-
-            else if (moveAmount.y < 9 && moveAmount.y > 0 && controller.collisions.below == false && dogButtonAnim == false && pipaActive.Value == false && carroActive.Value == false)
-            {
-
-                if (!PhotonNetwork.InRoom)
-                {
-                    TransitionAir();
-                }
-                else
-                {
-                    photonView.RPC("TransitionAir", RpcTarget.All);
-                }
-            }
-
-            else if (moveAmount.y <= 0 && controller.collisions.below == false && dogButtonAnim == false && jaAterrisou == false && pipaActive.Value == false && carroActive.Value == false)
-            {
-                if (!PhotonNetwork.InRoom)
-                {
-                    Fall();
-                }
-                else
-                {
-                    photonView.RPC("Fall", RpcTarget.All);
-                }
-            }
-
-            else if (moveAmount.y < -5f && input.x == 0 && input.y >=0 && controller.collisions.below == true && dogButtonAnim == false && jaAterrisou == false && pipaActive.Value == false && carroActive.Value == false)
-            {
-                
-                if (!PhotonNetwork.InRoom)
-                {
-                    Aterrisando();
-                }
-                else
-                {
-                    photonView.RPC("Aterrisando", RpcTarget.All);
-                }
-            }
-
-            else if (controller.collisions.below && input.x == 0 && input.y < 0 && dogButtonAnim == false && pipaActive.Value == false && carroActive.Value == false)
-            {
-                if (!PhotonNetwork.InRoom)
-                {
-                    Abaixar();
-                }
-                else
-                {
-                    photonView.RPC("Abaixar", RpcTarget.All);
-                }
-            }
-
-            else if (input.x != 0 && controller.collisions.below && dogButtonAnim == false && pipaActive.Value == false && carroActive.Value == false)
-            {
-                if (!PhotonNetwork.InRoom)
-                {
-                    Walking();
-                }
-                else
-                {
-                    photonView.RPC("Walking", RpcTarget.All);
-                }
-
-            }
-
-            else 
-            {
-                if (Jump == false && dogButtonAnim == false && stopJump == false && jaAterrisou == true && coolToIdle >= 0.33f)
-                {
+                    /*if (Jump == false && dogButtonAnim == false && stopJump == false && jaAterrisou == true && coolToIdle >= 0.33f)
+                    {*/
                     if (!PhotonNetwork.InRoom)
                     {
                         Idle();
@@ -239,6 +242,7 @@ public class Player2DAnimations : MonoBehaviour
                     {
                         photonView.RPC("Idle", RpcTarget.All);
                     }
+                    //}
                 }
             }
         }
@@ -281,6 +285,7 @@ public class Player2DAnimations : MonoBehaviour
             Idle();
         }
     }
+
     [PunRPC]
     public void Idle()
     {
