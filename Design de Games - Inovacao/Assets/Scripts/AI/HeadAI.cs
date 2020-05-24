@@ -12,6 +12,7 @@ public class HeadAI : MonoBehaviour
     private AITriggerController triggerController;
     public StateController controller;
     public bool isFut;
+    public bool isVolei;
     private void Awake()
     {
         triggerController = GetComponent<AITriggerController>();
@@ -37,19 +38,23 @@ public class HeadAI : MonoBehaviour
                 NaArea();
             }
         }
+
+        if (isVolei)
+        {
+            if (triggerController.triggerCollision.touchBall)
+            {
+                Corta();
+            }
+        }
     }
 
-    private void OnTriggerEnter2D(Collider2D col)
+
+    public void Corta()
     {
-        if (col.CompareTag("Volei"))
-        {
-            ballrb = col.GetComponent<Rigidbody2D>();
+        ballrb = triggerController.rbBola;
+        ballrb.velocity = new Vector2(0, 0);
 
-            ballrb.velocity = new Vector2(0, 0);
-
-            ballrb.AddForce(new Vector2(headForceX*10, headForceY*15), ForceMode2D.Impulse);
-            Debug.Log("Bateu");
-        }
+        ballrb.AddForce(new Vector2(headForceX * 10, headForceY * 15), ForceMode2D.Impulse);
     }
 
     public void Chuta()
