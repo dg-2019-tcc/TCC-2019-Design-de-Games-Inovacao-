@@ -134,6 +134,10 @@ public class TriggerCollisionsController : RaycastController
                     porta.abriPorta = true;
                     return;
                 }
+				if (hit.collider.tag == "TextBox")
+				{
+					hit.collider.GetComponent<TextBoxActivate>().PlayerHit();
+				}
 
                 if (hit.collider.tag == "Coletavel")
                 {
@@ -239,7 +243,11 @@ public class TriggerCollisionsController : RaycastController
                     porta.abriPorta = true;
                     return;
                 }
-                if (hit.collider.tag == "Porta")
+				if (hit.collider.tag == "TextBox")
+				{
+					hit.collider.GetComponent<TextBoxActivate>().PlayerHit();
+				}
+				if (hit.collider.tag == "Porta")
                 {
                     collisions.isDoor = true;
                     hit.collider.GetComponent<PortaManager>().OpenDoor();
@@ -340,8 +348,12 @@ public class TriggerCollisionsController : RaycastController
                     porta.abriPorta = true;
                     return;
                 }
+				if (hit.collider.tag == "TextBox")
+				{
+					hit.collider.GetComponent<TextBoxActivate>().PlayerHit();
+				}
 
-                if (hit.collider.tag == "Porta")
+				if (hit.collider.tag == "Porta")
                 {
                     collisions.isDoor = true;
                     hit.collider.GetComponent<PortaManager>().OpenDoor();
@@ -417,8 +429,12 @@ public class TriggerCollisionsController : RaycastController
                     porta.abriPorta = true;
                     return;
                 }
+				if (hit.collider.tag == "TextBox")
+				{
+					hit.collider.GetComponent<TextBoxActivate>().PlayerHit();
+				}
 
-                if (hit.collider.tag == "Porta")
+				if (hit.collider.tag == "Porta")
                 {
                     collisions.isDoor = true;
                     hit.collider.GetComponent<PortaManager>().OpenDoor();
