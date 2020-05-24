@@ -13,8 +13,10 @@ public class Controller2D : RaycastController
 
     public BoolVariable pipaActive;
 
+	private float joyGambiarra;
 
-    public override void Start()
+
+	public override void Start()
     {
         base.Start();
     }
@@ -164,13 +166,18 @@ public class Controller2D : RaycastController
                         continue;
                     }
 
-                    if(playerInput.y < -0.9)
-                    {
-                        collisions.fallingPlatform = true;
-                        Invoke("ResetFallingPlatform", 0.1f);
-                        continue;
-                    }
-                }
+					if (playerInput.y < joyGambiarra)
+					{
+						if (playerInput.y < -0.9)
+						{
+							collisions.fallingPlatform = true;
+							Invoke("ResetFallingPlatform", 0.1f);
+							continue;
+						}
+						
+					}
+					
+				}
 
                 moveAmount.y = (hit.distance - skinWidth) * directionY;
                 rayLenght = hit.distance;
@@ -186,8 +193,9 @@ public class Controller2D : RaycastController
             }
 
         }
+		joyGambiarra = playerInput.y;
 
-        if (collisions.climbingSlope)
+		if (collisions.climbingSlope)
         {
             float directionX = Mathf.Sign(moveAmount.x);
             rayLenght = Mathf.Abs(moveAmount.x) + skinWidth;
