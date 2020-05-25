@@ -10,6 +10,7 @@ public class TextBoxNext : MonoBehaviour
 	public BoolVariable dogBotao;
 	private GameObject joystick;
 	private float timeScaleBase;
+	private ThrowObject throwObject;
 
 	private bool finish;
 
@@ -19,16 +20,17 @@ public class TextBoxNext : MonoBehaviour
 		sprite.sprite = imagens[1];
 		timeScaleBase = Time.timeScale;
 		joystick = FindObjectOfType<Joystick>().gameObject;
+		throwObject = FindObjectOfType<ThrowObject>();
 		finish = false;
 		//gameObject.SetActive(false);
 	}
 
 
-	private void FixedUpdate()
+	private void Update()
 	{
-		if (finish)
+		if (finish || Input.GetKey(KeyCode.Space))
 		{
-			Time.timeScale = 1;
+			Time.timeScale = timeScaleBase;
 			joystick.SetActive(true);
 			Destroy(gameObject);
 
@@ -36,11 +38,12 @@ public class TextBoxNext : MonoBehaviour
 		if (joystick == null)
 		{
 			joystick = FindObjectOfType<Joystick>().gameObject;
+			throwObject = FindObjectOfType<ThrowObject>();
 		}
 
 		joystick.SetActive(false);
 		Time.timeScale = 0;
-		if (dogBotao.Value)
+		if (dogBotao.Value || throwObject.atirou)
 		{
 			
 
@@ -55,7 +58,7 @@ public class TextBoxNext : MonoBehaviour
 
 	private void OnDestroy()
 	{
-		Time.timeScale = 1;
+		Time.timeScale = timeScaleBase;
 		joystick.SetActive(true);
 	}
 
