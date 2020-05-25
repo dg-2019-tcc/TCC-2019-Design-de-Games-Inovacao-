@@ -10,12 +10,15 @@ public class SaveChecker : MonoBehaviour
 
 	public float timeToSpawn;
 
+    public FloatVariable flowIndex;
 
 	private void Start()
 	{
-		//debug
-		//PlayerPrefs.SetInt("hasPlayed", 0);
-		if (PlayerPrefs.GetInt("hasPlayed") != 1)
+
+        flowIndex = Resources.Load<FloatVariable>("FlowIndex");
+        //debug
+        //PlayerPrefs.SetInt("hasPlayed", 0);
+        if (flowIndex.Value == 1)
 		{
 			StartCoroutine("Showoff");
 		}

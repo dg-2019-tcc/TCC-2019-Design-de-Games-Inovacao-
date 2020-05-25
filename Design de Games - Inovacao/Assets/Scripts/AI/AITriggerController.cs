@@ -80,7 +80,10 @@ public class AITriggerController : RaycastController
 
                 if (hit.collider.tag == "Futebol")
                 {
-                    rbBola = hit.collider.GetComponent<Rigidbody2D>();
+                    if (rbBola == null)
+                    {
+                        rbBola = hit.collider.GetComponent<Rigidbody2D>();
+                    }
                     triggerCollision.isRight = true;
                     if (hit.distance <= 0.5f)
                     {
@@ -90,7 +93,10 @@ public class AITriggerController : RaycastController
 
                 if (hit.collider.tag == "Volei")
                 {
-                    rbBola = hit.collider.GetComponent<Rigidbody2D>();
+                    if (rbBola == null)
+                    {
+                        rbBola = hit.collider.GetComponent<Rigidbody2D>();
+                    }
                     triggerCollision.isUp = true;
 
                     if (hit.distance <= 0.5f)
@@ -148,7 +154,10 @@ public class AITriggerController : RaycastController
 
                 if (hit.collider.tag == "Futebol")
                 {
-                    rbBola = hit.collider.GetComponent<Rigidbody2D>();
+                    if (rbBola == null)
+                    {
+                        rbBola = hit.collider.GetComponent<Rigidbody2D>();
+                    }
                     triggerCollision.isLeft = true;
                     if (hit.distance <= 0.5f)
                     {
@@ -165,7 +174,10 @@ public class AITriggerController : RaycastController
 
                 if (hit.collider.tag == "Volei")
                 {
-                    rbBola = hit.collider.GetComponent<Rigidbody2D>();
+                    if (rbBola == null)
+                    {
+                        rbBola = hit.collider.GetComponent<Rigidbody2D>();
+                    }
                     triggerCollision.isUp = true;
 
                     if (hit.distance <= 0.5f)
@@ -211,8 +223,13 @@ public class AITriggerController : RaycastController
 
                 if(hit.collider.tag == "Futebol")
                 {
-                    rbBola = hit.collider.GetComponent<Rigidbody2D>();
+                    if (rbBola == null)
+                    {
+                        rbBola = hit.collider.GetComponent<Rigidbody2D>();
+                    }
+
                     triggerCollision.isUp = true;
+
                     if(hit.distance <= 0.5f)
                     {
                         triggerCollision.touchBall = true;
@@ -221,7 +238,11 @@ public class AITriggerController : RaycastController
 
                 if (hit.collider.tag == "Volei")
                 {
-                    rbBola = hit.collider.GetComponent<Rigidbody2D>();
+                    if (rbBola == null)
+                    {
+                        rbBola = hit.collider.GetComponent<Rigidbody2D>();
+                    }
+
                     triggerCollision.isUp = true;
 
                     if (hit.distance <= 0.5f)

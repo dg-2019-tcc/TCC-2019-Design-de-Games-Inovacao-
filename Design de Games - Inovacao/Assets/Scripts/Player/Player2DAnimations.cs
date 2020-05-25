@@ -4,7 +4,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DragonBones;
-using UnityEngine.Profiling;
 
 public class Player2DAnimations : MonoBehaviour
 {

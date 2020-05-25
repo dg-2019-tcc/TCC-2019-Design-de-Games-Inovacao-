@@ -59,6 +59,7 @@ public class AIMovement : MonoBehaviour
     public bool levouDogada;
 
     public BoolVariable aiGanhou;
+    public BoolVariable playerGanhou;
 
     // Start is called before the first frame update
     public void Start()
@@ -72,12 +73,15 @@ public class AIMovement : MonoBehaviour
         gravity = -(2 * maxJumpHeight) / Mathf.Pow(timeToJumpApex, 2);
         maxJumpVelocity = Mathf.Abs(gravity * timeToJumpApex);
         minJumpVelocity = Mathf.Sqrt(2 * Mathf.Abs(gravity) * minJumpHeight);
+
+        aiGanhou = Resources.Load<BoolVariable>("AIGanhou");
+        playerGanhou = Resources.Load<BoolVariable>("PlayerGanhou");
         aiGanhou.Value = false;
     }
 
     public void FixedUpdate()
     {
-        if (aiGanhou.Value)
+        if (aiGanhou.Value  == true|| playerGanhou.Value == true)
         {
             return;
         }

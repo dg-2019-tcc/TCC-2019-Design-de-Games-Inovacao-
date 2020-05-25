@@ -19,14 +19,20 @@ public class WinnerManager : MonoBehaviour
 	private float delayForWinScreen;
 
     public BoolVariable acabou01;
+    public BoolVariable aiGanhou;
+    public BoolVariable playerGanhou;
     public FloatVariable flowIndex;
     public bool isMoto;
 
 	private void Start()
 	{
 		pv = GetComponent<PhotonView>();
+
         acabou01 = Resources.Load<BoolVariable>("Acabou01");
+        aiGanhou = Resources.Load<BoolVariable>("AIGanhou");
+        playerGanhou = Resources.Load<BoolVariable>("PlayerGanhou");
         flowIndex = Resources.Load<FloatVariable>("FlowIndex");
+
         if (pv.IsMine)
 		{
 			gameObject.GetComponent<PhotonView>().RPC("ZeraPontuacao", RpcTarget.All);
@@ -92,7 +98,7 @@ public class WinnerManager : MonoBehaviour
         else
         {
 
-            PhotonNetwork.LoadLevel("HistoriaFutebol");
+            //PhotonNetwork.LoadLevel("HistoriaFutebol");
             Debug.Log("Ganhou");
             PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 1;
             //player.ganhouSom.Play();

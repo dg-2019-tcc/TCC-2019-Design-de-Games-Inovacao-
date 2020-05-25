@@ -23,12 +23,17 @@ public class TextManager : MonoBehaviour
     public TextAsset textFile;
     public string[] textLines;
 
+    public FloatVariable flowIndex;
+
     private void Start()
-    {        
+    {
+
+        flowIndex = Resources.Load<FloatVariable>("FlowIndex");
+
         textBox.SetActive(false);
         AssimilaTexto();
         endAtLine = textLines.Length;
-        if(goOnStart == true && PlayerPrefs.GetInt("hasPlayed") != 1)
+        if(goOnStart == true && flowIndex.Value == 1)
         {
             StartCoroutine(Teste());
         }

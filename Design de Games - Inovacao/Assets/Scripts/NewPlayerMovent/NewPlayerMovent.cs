@@ -69,6 +69,9 @@ public class NewPlayerMovent : MonoBehaviour
 
     private PhotonView pv;
 
+    public BoolVariable aiGanhou;
+    public BoolVariable playerGanhou;
+
 
     void Start()
     {
@@ -85,10 +88,15 @@ public class NewPlayerMovent : MonoBehaviour
 
         //Utilizado para fazer os sons dos passos tocarem
         InvokeRepeating("CallFootsteps", 0, 0.25f);
+
+        aiGanhou = Resources.Load<BoolVariable>("AIGanhou");
+        playerGanhou = Resources.Load<BoolVariable>("PlayerGanhou");
+        playerGanhou.Value = false;
     }
 
     void Update()
     {
+        if (aiGanhou.Value == true || playerGanhou.Value == true) return;
         if (!pv.IsMine && PhotonNetwork.InRoom) return;
         if (levouDogada.Value) return;
 		if (joyStick == null)
