@@ -4,21 +4,17 @@ using UnityEngine;
 
 public class TextBoxActivate : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+
+	public GameObject TextBox;
+	public GameObject blocker;
+
 
 	public void PlayerHit()
 	{
-
+		if (blocker != null) return;
+		TextBox.SetActive(true);
+		Destroy(gameObject);
 
 	}
 }

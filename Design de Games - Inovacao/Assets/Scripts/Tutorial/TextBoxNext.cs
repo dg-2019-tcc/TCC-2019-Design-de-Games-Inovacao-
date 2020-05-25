@@ -12,16 +12,20 @@ public class TextBoxNext : MonoBehaviour
 	private float timeScaleBase;
 	private ThrowObject throwObject;
 
+	public int boxIndex;
 	private bool finish;
 
 	private void Start()
 	{
+
 		sprite = GetComponent<SpriteRenderer>();
-		sprite.sprite = imagens[1];
+		boxIndex = 0;
+		sprite.sprite = imagens[boxIndex];
 		timeScaleBase = Time.timeScale;
 		joystick = FindObjectOfType<Joystick>().gameObject;
 		throwObject = FindObjectOfType<ThrowObject>();
 		finish = false;
+		
 		//gameObject.SetActive(false);
 	}
 
@@ -43,16 +47,31 @@ public class TextBoxNext : MonoBehaviour
 
 		joystick.SetActive(false);
 		Time.timeScale = 0;
+
 		if (dogBotao.Value || throwObject.atirou)
 		{
-			
+			Debug.Log("apertou o botão");
+			Next(boxIndex);
+		}
 
+		
+	}
+
+	private void Next(int index)
+	{
+		if (index < imagens.Length-1)
+		{
+			boxIndex++;
+			sprite.sprite = imagens[boxIndex];
+			dogBotao.Value = false;
+
+		}
+		else
+		{
 			dogBotao.Value = false;
 			finish = true;
 			Destroy(gameObject);
 		}
-
-		
 	}
 
 
