@@ -58,6 +58,8 @@ public class AIMovement : MonoBehaviour
 
     public bool levouDogada;
 
+    public BoolVariable aiGanhou;
+
     // Start is called before the first frame update
     public void Start()
 	{
@@ -70,10 +72,16 @@ public class AIMovement : MonoBehaviour
         gravity = -(2 * maxJumpHeight) / Mathf.Pow(timeToJumpApex, 2);
         maxJumpVelocity = Mathf.Abs(gravity * timeToJumpApex);
         minJumpVelocity = Mathf.Sqrt(2 * Mathf.Abs(gravity) * minJumpHeight);
+        aiGanhou.Value = false;
     }
 
     public void FixedUpdate()
     {
+        if (aiGanhou.Value)
+        {
+            return;
+        }
+
         if (levouDogada)
         {
             return;
@@ -191,6 +199,7 @@ public class AIMovement : MonoBehaviour
                 if (aiController2D.collisions.below == true || aiController2D.collisions.climbingSlope || aiController2D.collisions.descendingSlope)
                 {
                     isJumping = false;
+                    velocity.y = 0;
                 }
 
                 if (triggerController.triggerCollision.isRight)
@@ -219,6 +228,11 @@ public class AIMovement : MonoBehaviour
 
             else
             {
+                if (aiController2D.collisions.below == true || aiController2D.collisions.climbingSlope || aiController2D.collisions.descendingSlope)
+                {
+                    velocity.y = 0;
+                }
+
                 if (transform.position.x - target.transform.position.x > 1)
                 {
                     GoLeft();
@@ -245,6 +259,7 @@ public class AIMovement : MonoBehaviour
             }
 
             velocity.y += gravity * Time.deltaTime;
+            Debug.Log(velocity.y);
             velocity.x = speed * input.x;
             aiController2D.Move(velocity * Time.deltaTime,input);
         }
@@ -275,9 +290,10 @@ public class AIMovement : MonoBehaviour
         input.y = 1;
         isJumping = true;
 
-        if (jumpTimes > 3)
+        if (jumpTimes > 2)
         {
             velocity.y = maxJumpHeight + (jumpTimes * 2f);
+            jumpTimes = 0;
         }
         else
         {

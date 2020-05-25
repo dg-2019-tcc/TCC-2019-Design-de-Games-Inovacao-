@@ -22,10 +22,15 @@ public class ColetaWin : MonoBehaviour
 
     public BoolVariable acabou01;
     public FloatVariable flowIndex;
+    public FloatVariable botScore;
+
+    private string faseNome;
 
 
 
 	private bool isEmpatado;
+
+    public BoolVariable aiGanhou;
 	
 
 	private void Start()
@@ -88,13 +93,32 @@ public class ColetaWin : MonoBehaviour
         {
             if (coletavelGerador.coletaveis.Length <= 0)
             {
-                Debug.Log("Acabou");
-                SceneManager.LoadScene("HistoriaColeta");
-                flowIndex.Value = 3;
+                if (botScore.Value >= 4)
+                {
+                    aiGanhou.Value = true;
+                    faseNome = "HUB";
+                    StartCoroutine("AcabouFase");
+                }
+
+                else
+                {
+                    aiGanhou.Value = false;
+                    faseNome = "HistoriaColeta";
+                    flowIndex.Value = 3;
+                    StartCoroutine("AcabouFase");
+                }
             }
 
         }
 	}
+
+
+    IEnumerator AcabouFase()
+    {
+
+        yield return new WaitForSeconds(3f);
+        SceneManager.LoadScene(faseNome);
+    }
 
 	
 
