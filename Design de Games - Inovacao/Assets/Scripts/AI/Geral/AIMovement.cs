@@ -40,13 +40,12 @@ public class AIMovement : MonoBehaviour
     private ColetavelGerador coletavelGerador;
     private Vector2 coletavelPos;
 
-	//Vector2 botInput;
-    public PlatformEffector2D[] effectors;
 
     public bool isColteta;
     public bool isFut;
     public bool isCorrida;
     public bool isMoto;
+    public bool isVolei;
     float newVel = 0.01f;
     private bool found;
     public float maxSpeed = 0.5f;
@@ -64,6 +63,8 @@ public class AIMovement : MonoBehaviour
 	{
 		controller = GetComponent<StateController>();
         aiController2D = GetComponent<AIController2D>();
+        triggerController = GetComponent<AITriggerController>();
+
         target = controller.wayPointList[0];
 
         gravity = -(2 * maxJumpHeight) / Mathf.Pow(timeToJumpApex, 2);
@@ -81,6 +82,43 @@ public class AIMovement : MonoBehaviour
         if (triggerController.triggerCollision.ganhou)
         {
             return;
+        }
+
+        if (isVolei)
+        {
+            triggerController.RayTriggerDirection();
+
+            if (aiController2D.collisions.below == true)
+            {
+                isJumping = false;
+            }
+
+            if (transform.position.x - target.transform.position.x > 2)
+            {
+                return;
+            }
+
+            else
+            {
+                if (transform.position.x - target.transform.position.x > 0)
+                {
+                    GoLeft();
+                }
+
+                else if (transform.position.x - target.transform.position.x < 0)
+                {
+                    GoRight();
+                }
+
+                else if (triggerController.triggerCollision.isUp && isJumping == false)
+                {
+                    AIJump();
+                }
+            }
+
+            velocity.x = speed * input.x;
+            velocity.y += gravity * Time.deltaTime;
+            aiController2D.Move(velocity * Time.deltaTime, input);
         }
 
         if (isFut)

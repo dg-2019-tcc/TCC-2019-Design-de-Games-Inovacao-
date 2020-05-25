@@ -88,6 +88,17 @@ public class AITriggerController : RaycastController
                     }
                 }
 
+                if (hit.collider.tag == "Volei")
+                {
+                    rbBola = hit.collider.GetComponent<Rigidbody2D>();
+                    triggerCollision.isUp = true;
+
+                    if (hit.distance <= 0.5f)
+                    {
+                        triggerCollision.touchBall = true;
+                    }
+                }
+
                 if (hit.collider.tag == "Plataforma")
                 {
                     triggerCollision.needJump = true;
@@ -152,6 +163,17 @@ public class AITriggerController : RaycastController
                     }
                 }
 
+                if (hit.collider.tag == "Volei")
+                {
+                    rbBola = hit.collider.GetComponent<Rigidbody2D>();
+                    triggerCollision.isUp = true;
+
+                    if (hit.distance <= 0.5f)
+                    {
+                        triggerCollision.touchBall = true;
+                    }
+                }
+
                 if (hit.collider.tag == "Area")
                 {
                     triggerCollision.naArea = true;
@@ -197,7 +219,18 @@ public class AITriggerController : RaycastController
                     }
                 }
 
-                if(hit.collider.tag == "Area")
+                if (hit.collider.tag == "Volei")
+                {
+                    rbBola = hit.collider.GetComponent<Rigidbody2D>();
+                    triggerCollision.isUp = true;
+
+                    if (hit.distance <= 0.5f)
+                    {
+                        triggerCollision.touchBall = true;
+                    }
+                }
+
+                if (hit.collider.tag == "Area")
                 {
                     triggerCollision.naArea = true;
                 }

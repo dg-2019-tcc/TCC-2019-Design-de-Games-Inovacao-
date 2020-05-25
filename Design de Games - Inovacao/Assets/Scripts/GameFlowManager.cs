@@ -84,6 +84,10 @@ public class GameFlowManager : MonoBehaviour
         else
         {
             Completo();
+            if (SceneManager.GetActiveScene().name == "MenuPrincipal")
+            {
+                offlineButton.SetActive(true);
+            }
         }
     }
 
@@ -158,6 +162,7 @@ public class GameFlowManager : MonoBehaviour
         portas[4].SetActive(true);
         portas[5].SetActive(true);
         portas[6].SetActive(true);
+        portas[7].SetActive(true);
     }
 
     public void VoltaMenu()

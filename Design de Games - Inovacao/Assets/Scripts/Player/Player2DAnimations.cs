@@ -56,6 +56,7 @@ public class Player2DAnimations : MonoBehaviour
     public bool isCorrida;
     public float inativoTime;
 
+    public TriggerCollisionsController triggerCollisions;
 
 
     //private DragonBones.AnimationState aimState = null;
@@ -64,6 +65,7 @@ public class Player2DAnimations : MonoBehaviour
     {
         photonView = gameObject.GetComponent<PhotonView>();
         controller = GetComponent<Controller2D>();
+        triggerCollisions = GetComponent<TriggerCollisionsController>();
         //deplayer.animation.Init(armature);
         state = State.Abaixando;
         frente.SetActive(false);

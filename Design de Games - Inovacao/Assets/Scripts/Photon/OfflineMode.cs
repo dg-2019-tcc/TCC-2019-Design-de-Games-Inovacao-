@@ -23,10 +23,7 @@ public class OfflineMode : MonoBehaviour
         {
             modoDoOffline = true;
         }
-        else
-        {
-            modoDoOffline = true;
-        }
+
         PhotonNetwork.OfflineMode = modoDoOffline;
     }
 
