@@ -83,7 +83,7 @@ public class ThrowObject : MonoBehaviour
 
         if (dogBotao.Value == true)
         {
-            
+			
             if (carroActive.Value == true || pipaActive.Value == true)
             {
                 desativaPower.Value = true;
@@ -92,7 +92,10 @@ public class ThrowObject : MonoBehaviour
             {
                 atirou = true;
             }
-            dogBotao.Value = false;
+			if (Time.timeScale != 0)
+			{
+				dogBotao.Value = false;
+			}
         }
         else
         {
@@ -104,13 +107,11 @@ public class ThrowObject : MonoBehaviour
             atirando = false;
         }
 
-        if (atirando)
-        {
-            dogBotao.Value = false;
-
-            tiroButton.enabled = false;
-
-        }
+        if (atirando && Time.timeScale != 0)
+		{
+			dogBotao.Value = false;
+			tiroButton.enabled = false;
+		}
 
         else
         {
@@ -122,9 +123,10 @@ public class ThrowObject : MonoBehaviour
 
     public void Atirou()
     {
-        if (atirando == false)
+        if (atirando == false || Time.timeScale == 0)
         {
-            dogBotao.Value = true;
+			Debug.Log("throwobject button");
+			dogBotao.Value = true;
         }
     }
 

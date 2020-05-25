@@ -91,6 +91,10 @@ public class NewPlayerMovent : MonoBehaviour
     {
         if (!pv.IsMine && PhotonNetwork.InRoom) return;
         if (levouDogada.Value) return;
+		if (joyStick == null)
+		{
+			joyStick = FindObjectOfType<Joystick>();
+		}
         joyInput = new Vector2(joyStick.Horizontal, joyStick.Vertical);
 
         if (carroActive.Value == false && pipaActive.Value == false)
