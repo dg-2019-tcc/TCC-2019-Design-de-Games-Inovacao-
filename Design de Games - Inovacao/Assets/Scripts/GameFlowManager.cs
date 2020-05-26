@@ -18,6 +18,7 @@ public class GameFlowManager : MonoBehaviour
 
     public BoolVariable acabou01;
 
+	public GameObject CameraShowoff;
 
     private void Awake()
     {
@@ -40,6 +41,7 @@ public class GameFlowManager : MonoBehaviour
                 if(flowIndex.Value == 1)
                 {
                     FaseColeta();
+					CameraShowoff.SetActive(true);
                 }
 
                 if(flowIndex.Value == 2)
