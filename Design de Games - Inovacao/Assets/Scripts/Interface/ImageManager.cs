@@ -43,11 +43,17 @@ public class ImageManager : MonoBehaviour
 
     public float tempoParaProxima;
 
+
+	private GameObject joystick;
+
     private void Start()
     {
         textBox.SetActive(false);
         endAtImage = textSprites.Length;
 		StartCoroutine(Teste());
+
+		joystick = FindObjectOfType<Joystick>().gameObject;
+		joystick.SetActive(false);
 	}
 
 	/*
@@ -75,6 +81,7 @@ public class ImageManager : MonoBehaviour
             currentImage++;
         }
         textBox.SetActive(false);
+		joystick.SetActive(true);
         Destroy(gameObject);
     }
 }
