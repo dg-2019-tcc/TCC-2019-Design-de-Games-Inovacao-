@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Photon.Realtime;
 using Photon.Pun;
-
 using Photon.Pun.UtilityScripts;
 public class ColetaWin : MonoBehaviour
 {
@@ -31,12 +30,17 @@ public class ColetaWin : MonoBehaviour
 	private bool isEmpatado;
 
     public BoolVariable aiGanhou;
+    public BoolVariable playerGanhou;
+
 	
 
 	private void Start()
 	{
 		coletavelGerador = FindObjectOfType<ColetavelGerador>();
-		winning = PhotonNetwork.PlayerList[0];
+        aiGanhou = Resources.Load<BoolVariable>("AIGanhou");
+        playerGanhou = Resources.Load<BoolVariable>("PlayerGanhou");
+
+        winning = PhotonNetwork.PlayerList[0];
 		ganhouJa = false;
 		isEmpatado = true;
 	}
@@ -96,6 +100,7 @@ public class ColetaWin : MonoBehaviour
                 if (botScore.Value >= 4)
                 {
                     aiGanhou.Value = true;
+                    playerGanhou.Value = false;
                     faseNome = "HUB";
                     StartCoroutine("AcabouFase");
                 }
@@ -103,6 +108,7 @@ public class ColetaWin : MonoBehaviour
                 else
                 {
                     aiGanhou.Value = false;
+                    playerGanhou.Value = true;
                     faseNome = "HistoriaColeta";
                     flowIndex.Value = 3;
                     StartCoroutine("AcabouFase");
