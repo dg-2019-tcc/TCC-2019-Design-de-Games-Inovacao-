@@ -22,6 +22,7 @@ public class GameFlowManager : MonoBehaviour
 
     private void Awake()
     {
+		CameraShowoff.SetActive(false);
         if (!acabou01.Value)
         {
             if(flowIndex.Value <= 6)
