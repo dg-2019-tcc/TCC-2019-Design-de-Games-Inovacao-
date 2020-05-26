@@ -51,6 +51,20 @@ public class HistoriaManager : MonoBehaviour
             yield return new WaitForSeconds(5f);
         }
 
-        SceneManager.LoadScene(nomeDoMenu);
+        if (flowIndex.Value == 6)
+        {
+            acabou01.Value = true;
+            flowIndex.Value = 8;
+            SceneManager.LoadScene("MenuPrincipal");
+        }
+        else if (flowIndex.Value > 1)
+        {
+            SceneManager.LoadScene("HUB");
+        }
+        else
+        {
+            SceneManager.LoadScene("Customiza");
+
+        }
     }
 }

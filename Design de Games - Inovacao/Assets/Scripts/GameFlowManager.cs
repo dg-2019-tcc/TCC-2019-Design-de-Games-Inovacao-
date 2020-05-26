@@ -29,7 +29,7 @@ public class GameFlowManager : MonoBehaviour
             {
                 if (SceneManager.GetActiveScene().name == "MenuPrincipal")
                 {
-                    Debug.Log(OfflineMode.modoDoOffline);
+ 
                     offlineButton.SetActive(false);
                     jogarButton.SetActive(true);
                 }

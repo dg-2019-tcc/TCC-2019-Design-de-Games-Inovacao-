@@ -66,6 +66,7 @@ public class PlayerThings : MonoBehaviour
         if(SceneManager.GetActiveScene().name == "Customiza")
         {
             desativaCanvas = true;
+            Debug.Log("DesativaCanvas");
         }
 
 

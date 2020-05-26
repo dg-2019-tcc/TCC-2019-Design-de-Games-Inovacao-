@@ -16,8 +16,7 @@ public class SaveChecker : MonoBehaviour
 	{
 
         flowIndex = Resources.Load<FloatVariable>("FlowIndex");
-        //debug
-        //PlayerPrefs.SetInt("hasPlayed", 0);
+
         if (flowIndex.Value == 1)
 		{
 			StartCoroutine("Showoff");
