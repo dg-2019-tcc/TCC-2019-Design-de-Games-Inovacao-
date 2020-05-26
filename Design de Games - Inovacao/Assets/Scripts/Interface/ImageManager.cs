@@ -29,7 +29,7 @@ public class ImageManager : MonoBehaviour
 
     public GameObject textBox;
 
-    bool ativou = true; //Detecta colisão pela primeira vez
+    bool ativou = false; //Detecta colisão pela primeira vez
     bool textBoxLigada = false; //Checa se a text box está ligada
     
     [HideInInspector]
@@ -47,18 +47,19 @@ public class ImageManager : MonoBehaviour
     {
         textBox.SetActive(false);
         endAtImage = textSprites.Length;
-    }
+		StartCoroutine(Teste());
+	}
 
-
+	/*
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && ativou == true)
+        if (other.CompareTag("Player") && !ativou)
         {
             ativou = false;
             StartCoroutine(Teste());
         }
     }
-
+	*/
 
     IEnumerator Teste()
     {
