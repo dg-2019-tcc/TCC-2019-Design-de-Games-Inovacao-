@@ -193,7 +193,10 @@ public class TriggerCollisionsController : RaycastController
                 }
 				if (hit.collider.tag == "LinhaDeChegada")
 				{
-					hit.collider.gameObject.GetComponent<LinhaDeChegada>().Colidiu(gameObject);
+                    if (hit.distance == 0)
+                    {
+                        hit.collider.gameObject.GetComponent<LinhaDeChegada>().Colidiu(gameObject);
+                    }
 				}
             }
         }

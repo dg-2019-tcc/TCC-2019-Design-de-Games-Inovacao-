@@ -25,19 +25,30 @@ public class GolManager : MonoBehaviourPunCallbacks
     public BoolVariable acabou01;
     public FloatVariable flowIndex;
 
+    public BoolVariable aiGanhou;
+    public BoolVariable playerGanhou;
+
+
+
+    private void Start()
+    {
+        acabou01 = Resources.Load<BoolVariable>("Acabou01");
+        aiGanhou = Resources.Load<BoolVariable>("AIGanhou");
+        playerGanhou = Resources.Load<BoolVariable>("PlayerGanhou");
+        flowIndex = Resources.Load<FloatVariable>("FlowIndex");
+
+        playerGanhou.Value = false;
+        aiGanhou.Value = false;
+    }
+
     private void Update()
     {
         if (botScore.Value >= maxPoints)
         {
+            aiGanhou.Value = true;
+            playerGanhou.Value = false;
             PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 0;
-            if (acabou01.Value == true)
-            {
-                LevelManager.Instance.GoPodium();
-            }
-            else
-            {
-                LevelManager.Instance.GoHub();
-            }
+            StartCoroutine("AcabouFase");
         }
     }
 
@@ -57,20 +68,44 @@ public class GolManager : MonoBehaviourPunCallbacks
 
             if (playerGol.jogador.PV.Owner.GetScore() >= 5)
             {
-                if (acabou01.Value == true)
-                {
-                    PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 1;
-                    LevelManager.Instance.GoPodium();
-                }
-                else
-                {
-                    LevelManager.Instance.HistFutebol();
-                    flowIndex.Value = 4;
-                }
+                aiGanhou.Value = false;
+                playerGanhou.Value = true;
+                StartCoroutine("AcabouFase");
             }
             
         }
 
+    }
+
+    IEnumerator AcabouFase()
+    {
+
+        yield return new WaitForSeconds(3f);
+        if (aiGanhou.Value == true)
+        {
+            if (acabou01.Value == true)
+            {
+                LevelManager.Instance.GoPodium();
+            }
+            else
+            {
+                LevelManager.Instance.GoHub();
+            }
+        }
+
+        else if (playerGanhou.Value == true)
+        {
+            if (acabou01.Value == true)
+            {
+                PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 1;
+                LevelManager.Instance.GoPodium();
+            }
+            else
+            {
+                LevelManager.Instance.HistFutebol();
+                //flowIndex.Value = 4;
+            }
+        }
     }
 
     [PunRPC]

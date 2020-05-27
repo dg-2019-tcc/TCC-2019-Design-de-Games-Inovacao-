@@ -85,12 +85,15 @@ public class Controller2D : RaycastController
                         continue;
                     }
 
-                    /*if (playerInput.y < -0.75 || playerInput.y > 0.75)
+                    if (playerInput.y < joyGambiarra)
                     {
-                        collisions.fallingPlatform = true;
-                        Invoke("ResetFallingPlatform", 0.1f);
-                        continue;
-                    }*/
+                        if (playerInput.y < -0.9)
+                        {
+                            collisions.fallingPlatform = true;
+                            Invoke("ResetFallingPlatform", 0.1f);
+                            continue;
+                        }
+                    }
                 }
 
 
@@ -193,7 +196,7 @@ public class Controller2D : RaycastController
             }
 
         }
-		joyGambiarra = playerInput.y;
+		//joyGambiarra = playerInput.y;
 
 		if (collisions.climbingSlope)
         {
@@ -214,6 +217,11 @@ public class Controller2D : RaycastController
         }
 
 
+    }
+
+    private void LateUpdate()
+    {
+        joyGambiarra = playerInput.y;
     }
 
     void ClimbSlope(ref Vector2 moveAmount, float slopeAngle)

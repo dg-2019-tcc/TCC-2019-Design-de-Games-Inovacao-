@@ -96,14 +96,20 @@ public class AIMovement : MonoBehaviour
             return;
         }
 
+        if (aiController2D.collisions.below == true || aiController2D.collisions.climbingSlope || aiController2D.collisions.descendingSlope)
+        {
+            isJumping = false;
+            velocity.y = 0;
+        }
+
+        if (triggerController.triggerCollision.caixaDagua)
+        {
+            velocity.y = maxJumpHeight * 1.8f;
+        }
+
         if (isVolei)
         {
             triggerController.RayTriggerDirection();
-
-            if (aiController2D.collisions.below == true)
-            {
-                isJumping = false;
-            }
 
             if (transform.position.x - target.transform.position.x > 2)
             {
@@ -136,11 +142,6 @@ public class AIMovement : MonoBehaviour
         if (isFut)
         {
             triggerController.RayTriggerDirection();
-
-            if (aiController2D.collisions.below == true)
-            {
-                isJumping = false;
-            }
 
             if (transform.position.x - target.transform.position.x > 1)
             {
@@ -200,12 +201,6 @@ public class AIMovement : MonoBehaviour
 
             if (found)
             {
-                if (aiController2D.collisions.below == true || aiController2D.collisions.climbingSlope || aiController2D.collisions.descendingSlope)
-                {
-                    isJumping = false;
-                    velocity.y = 0;
-                }
-
                 if (triggerController.triggerCollision.isRight)
                 {
                     GoRight();

@@ -40,6 +40,9 @@ public class ColetaWin : MonoBehaviour
         aiGanhou = Resources.Load<BoolVariable>("AIGanhou");
         playerGanhou = Resources.Load<BoolVariable>("PlayerGanhou");
 
+        aiGanhou.Value = false;
+        playerGanhou.Value = false;
+
         winning = PhotonNetwork.PlayerList[0];
 		ganhouJa = false;
 		isEmpatado = true;
@@ -102,7 +105,6 @@ public class ColetaWin : MonoBehaviour
                     aiGanhou.Value = true;
                     playerGanhou.Value = false;
                     faseNome = "HUB";
-                    StartCoroutine("AcabouFase");
                 }
 
                 else
@@ -111,8 +113,9 @@ public class ColetaWin : MonoBehaviour
                     playerGanhou.Value = true;
                     faseNome = "HistoriaColeta";
                     flowIndex.Value = 3;
-                    StartCoroutine("AcabouFase");
                 }
+
+                StartCoroutine("AcabouFase");
             }
 
         }

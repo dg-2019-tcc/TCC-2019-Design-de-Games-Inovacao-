@@ -27,7 +27,8 @@ public class CorridaAjustaCamera : MonoBehaviour
 		}
 		else
 		{
-			foreach (PhotonView photonView in FindObjectsOfType<PhotonView>())
+            Debug.Log("Ajuste");
+            foreach (PhotonView photonView in FindObjectsOfType<PhotonView>())
 			{
 				if (photonView.CompareTag("Player") && photonView.IsMine)
 				{

@@ -125,7 +125,6 @@ public class ThrowObject : MonoBehaviour
     {
         if (atirando == false || Time.timeScale == 0)
         {
-			Debug.Log("throwobject button");
 			dogBotao.Value = true;
         }
     }

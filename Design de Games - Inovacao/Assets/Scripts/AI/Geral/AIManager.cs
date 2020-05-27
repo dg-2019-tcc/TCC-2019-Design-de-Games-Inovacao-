@@ -14,10 +14,12 @@ namespace Complete
         [HideInInspector] public List<Transform> m_WayPointList;
 
         private StateController m_StateController;				// Reference to the StateController for AI tanks
+        public AIMovement aiMovement;
 
         public void SetupAI(List<Transform> wayPointList)
         {
             m_StateController = m_Instance.GetComponent<StateController>();
+            aiMovement = m_Instance.GetComponent<AIMovement>();
             m_StateController.SetupAI(true, wayPointList);
         }
 

@@ -96,7 +96,7 @@ public class NewPlayerMovent : MonoBehaviour
 
     void Update()
     {
-        if (aiGanhou.Value == true || playerGanhou.Value == true) return;
+        if (playerGanhou.Value == true) return;
         if (!pv.IsMine && PhotonNetwork.InRoom) return;
         if (levouDogada.Value) return;
 		if (joyStick == null)
@@ -146,7 +146,6 @@ public class NewPlayerMovent : MonoBehaviour
 
             if (/*controller.collisions.below &&*/ triggerController.collisions.caixaDagua)
             {
-                Debug.Log("CaixaDagua");
                 velocity.y = maxJumpHeight.Value * 1.8f ;
             }
 

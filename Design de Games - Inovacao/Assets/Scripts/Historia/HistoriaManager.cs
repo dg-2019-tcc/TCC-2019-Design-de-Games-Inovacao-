@@ -9,7 +9,7 @@ public class HistoriaManager : MonoBehaviour
     public Image histImage;
     public Sprite[] histSprites;
 
-    public string nomeDoMenu;
+    private string nomeDoMenu;
 
     public FloatVariable flowIndex;
     public BoolVariable acabou01;
@@ -26,21 +26,42 @@ public class HistoriaManager : MonoBehaviour
     {
         FMODUnity.RuntimeManager.PlayOneShot("event:/HUD/Click", GetComponent<Transform>().position);
 
+        AjustaFlowIndex();
+    }
+
+    public void AjustaFlowIndex()
+    {
         if (flowIndex.Value == 6)
         {
             acabou01.Value = true;
             flowIndex.Value = 8;
-            SceneManager.LoadScene("MenuPrincipal");
+            nomeDoMenu = "MenuPrincipal";
         }
-        else if (flowIndex.Value >1)
+
+        else if (flowIndex.Value == 4)
         {
-            SceneManager.LoadScene("HUB");
+            flowIndex.Value = 6;
+            nomeDoMenu = "HUB"; ;
+        }
+
+        else if (flowIndex.Value == 3)
+        {
+            flowIndex.Value = 4;
+            nomeDoMenu = "HUB";
+        }
+
+        else if (flowIndex.Value == 1)
+        {
+            flowIndex.Value = 3;
+            nomeDoMenu = "HUB";
         }
         else
         {
-            SceneManager.LoadScene("Customiza");
-
+            nomeDoMenu = "Customiza";
         }
+
+        SceneManager.LoadScene(nomeDoMenu);
+        StopCoroutine("StartHist");
     }
 
     IEnumerator StartHist()
@@ -51,20 +72,7 @@ public class HistoriaManager : MonoBehaviour
             yield return new WaitForSeconds(5f);
         }
 
-        if (flowIndex.Value == 6)
-        {
-            acabou01.Value = true;
-            flowIndex.Value = 8;
-            SceneManager.LoadScene("MenuPrincipal");
-        }
-        else if (flowIndex.Value > 1)
-        {
-            SceneManager.LoadScene("HUB");
-        }
-        else
-        {
-            SceneManager.LoadScene("Customiza");
+        AjustaFlowIndex();
 
-        }
     }
 }

@@ -110,6 +110,11 @@ public class AITriggerController : RaycastController
                     triggerCollision.needJump = true;
                 }
 
+                if (hit.collider.tag == "Barreira")
+                {
+                    triggerCollision.needJump = true;
+                }
+
                 if (hit.collider.tag == "AITrigger")
                 {
                     triggerCollision.needJump = true;
@@ -289,13 +294,18 @@ public class AITriggerController : RaycastController
 
                 if (hit.collider.tag == "AITrigger")
                 {
-                    Debug.Log("Embaixo");
                     triggerCollision.needJump = true;
                 }
 
                 if (hit.collider.tag == "Area")
                 {
                     triggerCollision.naArea = true;
+                }
+
+
+                if (hit.collider.tag == "CaixaDagua")
+                {
+                    triggerCollision.caixaDagua = true;
                 }
             }
         }
@@ -309,6 +319,7 @@ public class AITriggerController : RaycastController
         public bool needJump;
         public bool naArea;
         public bool ganhou;
+        public bool caixaDagua;
 
         public void Reset()
         {
@@ -317,6 +328,7 @@ public class AITriggerController : RaycastController
             touchBall = chutouBall = false;
             needJump = naArea = false;
             ganhou = false;
+            caixaDagua = false;
         }
     }
 }

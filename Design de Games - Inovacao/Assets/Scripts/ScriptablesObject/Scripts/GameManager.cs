@@ -18,6 +18,11 @@ namespace Complete
         public GameObject thingsOnline;
 
         public FloatVariable botScore;
+
+        public AIMovement aiMovement;
+
+        public bool comecouPartida;
+
 		private void Start()
         {
 			if (!OfflineMode.modoDoOffline)
@@ -39,16 +44,23 @@ namespace Complete
 			{
 				SpawnAI();
 			}
+
+            if(OfflineMode.modoDoOffline && comecouPartida && aiMovement.enabled == false)
+            {
+                aiMovement.enabled = true;
+            }
 		}
 
 		public void SpawnAI()
-        {
-     
+        { 
             
                 m_AI[0].m_Instance =
                     Instantiate(aiPrefab[0], m_AI[0].m_SpawnPoint.position, m_AI[0].m_SpawnPoint.rotation) as GameObject;
                 m_AI[0].SetupAI(wayPointsForAI);
-            
+
+            aiMovement = m_AI[0].aiMovement;
+            aiMovement.enabled = false;
+
         }
     }
 }

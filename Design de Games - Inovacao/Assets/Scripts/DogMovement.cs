@@ -32,6 +32,8 @@ public class DogMovement : MonoBehaviour
     public GameObject player;
     public GameObject dog;
 
+    public Transform dogPosInicial;
+
     public float delay =0.1f;
 
     bool isMoving;
@@ -56,7 +58,6 @@ public class DogMovement : MonoBehaviour
 
     void Update()
     {
-
         joyInput = new Vector2(joyStick.Horizontal, joyStick.Vertical);
 
         if (joyInput.x > 0.3f || joyInput.x < -0.3f)
@@ -84,7 +85,7 @@ public class DogMovement : MonoBehaviour
         if (dogController.collisions.above || dogController.collisions.below)
         {
             isJumping = false;
-            //velocity.y = 0;
+            velocity.y = 0;
         }
 
         if (transform.position.x > player.transform.position.x)

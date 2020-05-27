@@ -20,9 +20,12 @@ public class GameFlowManager : MonoBehaviour
 
 	public GameObject CameraShowoff;
 
+    public BoolVariable aiGanhou;
+
     private void Awake()
     {
-		CameraShowoff.SetActive(false);
+        aiGanhou = Resources.Load<BoolVariable>("AIGanhou");
+        CameraShowoff.SetActive(false);
         if (!acabou01.Value)
         {
             if(flowIndex.Value <= 6)
@@ -42,7 +45,10 @@ public class GameFlowManager : MonoBehaviour
                 if(flowIndex.Value == 1)
                 {
                     FaseColeta();
-					CameraShowoff.SetActive(true);
+                    if (aiGanhou.Value == false)
+                    {
+                        CameraShowoff.SetActive(true);
+                    }
                 }
 
                 if(flowIndex.Value == 2)

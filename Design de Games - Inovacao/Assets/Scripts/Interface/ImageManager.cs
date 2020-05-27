@@ -46,11 +46,18 @@ public class ImageManager : MonoBehaviour
 
 	private GameObject joystick;
 
+    public BoolVariable aiGanhou;
+
     private void Start()
     {
         textBox.SetActive(false);
         endAtImage = textSprites.Length;
-		StartCoroutine(Teste());
+        aiGanhou = Resources.Load<BoolVariable>("AIGanhou");
+
+        if (aiGanhou.Value == false)
+        {
+            StartCoroutine(Teste());
+        }
 
 		joystick = FindObjectOfType<Joystick>().gameObject;
 		joystick.SetActive(false);

@@ -36,6 +36,8 @@ namespace Complete
 
         public float aiSpawnCooldown;
 
+        public AIMovement aiMovement;
+
 
         private void OnEnable()
         {
@@ -68,7 +70,7 @@ namespace Complete
                     Debug.Log("isClient");
                 }
             }
-            else
+             else
             {
                 PlayerInst = (GameObject)PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PhotonPlayer"),
                                    spawnPoints[0].position, Quaternion.identity);
@@ -92,6 +94,11 @@ namespace Complete
         [PunRPC]
         private void SpawnPlayer(float alterPlayerCount)
         {
+            if (OfflineMode.modoDoOffline)
+            {
+                gameManager.SpawnAI();
+            }
+
             if (alterPlayerCount > allPlayersInSession)                                                     //Contador pra sincronizar e adicionar quantos players entraram na cena
                 allPlayersInSession = alterPlayerCount;
 
@@ -99,7 +106,7 @@ namespace Complete
             if (PhotonNetwork.PlayerList.Length == allPlayersInSession || alterPlayerCount == 0)            //Checando se todos entraram, se sim, todos são criados ao mesmo tempo(se falhar, outro player vai passar pelo mesmo)
             {
                 StartCoroutine("UniteSynchronization", delayToCreate);
-                StartCoroutine("SpawnAI");
+                //StartCoroutine("SpawnAI");
             }
         }
 
@@ -120,12 +127,19 @@ namespace Complete
 				if (playerMove.playerMove != null && isMoto == false)
 				{
 					playerMove.playerMove.enabled = true;
+
 				}
 				if (playerMove.motoPlayerMovement != null)
 				{
 					playerMove.motoPlayerMovement.enabled = true;
 				}
-				playerMove.playerThings.comecou = true;
+                if (OfflineMode.modoDoOffline)
+                {
+                    gameManager.enabled = true;
+                    gameManager.comecouPartida = true;
+                }
+
+                playerMove.playerThings.comecou = true;
 				partidaComecou.Value = true;
 			}
 			
@@ -133,14 +147,14 @@ namespace Complete
 
         }
 
-        public IEnumerator SpawnAI()
+        /*public IEnumerator SpawnAI()
         {
             yield return new WaitForSeconds(aiSpawnCooldown);
 			if (OfflineMode.modoDoOffline)
 			{
 				gameManager.SpawnAI();
 			}
-        }
+        }*/
 
 		private void OnDestroy()
 		{

@@ -50,6 +50,7 @@ public class NewMotoPlayerMovement : MonoBehaviour
 	public Joystick joyStick;
 
     public BoolVariable levouDogada;
+    public BoolVariable playerGanhou;
 
     private PhotonView pv;
 
@@ -60,7 +61,10 @@ public class NewMotoPlayerMovement : MonoBehaviour
 		triggerController = GetComponent<TriggerCollisionsController>();
 		animations = GetComponent<Player2DAnimations>();
 
-		gravity = -(2 * maxJumpHeight) / Mathf.Pow(timeToJumpApex, 2);
+        playerGanhou = Resources.Load<BoolVariable>("PlayerGanhou");
+        playerGanhou.Value = false;
+
+        gravity = -(2 * maxJumpHeight) / Mathf.Pow(timeToJumpApex, 2);
 		maxJumpVelocity = Mathf.Abs(gravity * timeToJumpApex);
 		minJumpVelocity = Mathf.Sqrt(2 * Mathf.Abs(gravity) * minJumpHeight);
 
@@ -72,6 +76,7 @@ public class NewMotoPlayerMovement : MonoBehaviour
 	{
 		if (!pv.IsMine && PhotonNetwork.InRoom) return;
         if (levouDogada.Value) return;
+        if (playerGanhou.Value) return;
 
         Vector2 input = new Vector2(joyStick.Horizontal, joyStick.Vertical);
 

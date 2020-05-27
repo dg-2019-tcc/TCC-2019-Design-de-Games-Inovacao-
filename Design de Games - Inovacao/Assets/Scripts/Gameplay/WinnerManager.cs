@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using Photon.Pun.UtilityScripts;
+using UnityEngine.SceneManagement;
 
 public class WinnerManager : MonoBehaviour
 {
@@ -24,7 +25,9 @@ public class WinnerManager : MonoBehaviour
     public FloatVariable flowIndex;
     public bool isMoto;
 
-	private void Start()
+    private string faseNome;
+
+    private void Start()
 	{
 		pv = GetComponent<PhotonView>();
 
@@ -79,20 +82,25 @@ public class WinnerManager : MonoBehaviour
 	[PunRPC]
 	void GanhouCorrida()
 	{
+        playerGanhou.Value = true;
         if (acabou01.Value == false)
         {
 
             if (!isMoto)
             {
                 //flowIndex.Value = 7;
-                PhotonNetwork.LoadLevel("HistoriaFutebol");
+                faseNome = "HistoriaFutebol";
+                //PhotonNetwork.LoadLevel("HistoriaFutebol");
             }
             else
             {
-                flowIndex.Value = 6;
-                PhotonNetwork.LoadLevel("HistoriaFutebol");
+                //flowIndex.Value = 6;
+                faseNome = "HistoriaFutebol";
+                //PhotonNetwork.LoadLevel("HistoriaFutebol");
             }
-
+            //playerGanhou.Value = true;
+            aiGanhou.Value = false;
+            StartCoroutine("AcabouFase");
         }
 
         else
@@ -128,7 +136,12 @@ public class WinnerManager : MonoBehaviour
 
         else
         {
-            PhotonNetwork.LoadLevel("HUB");
+            perdeuCorrida = true;
+            playerGanhou.Value = false;
+            aiGanhou.Value = true;
+            faseNome = "HUB";
+            StartCoroutine("AcabouFase");
+            //PhotonNetwork.LoadLevel("HUB");
         }
 	}
 
@@ -154,7 +167,13 @@ public class WinnerManager : MonoBehaviour
 		PlayerMovement.acabouPartida = true;
 	}
 
-	IEnumerator Venceu()
+    IEnumerator AcabouFase()
+    {
+        yield return new WaitForSeconds(3f);
+        SceneManager.LoadScene(faseNome);
+    }
+
+    IEnumerator Venceu()
 	{
         Debug.Log("Venceu");
 		player.cameraManager.SendMessage("ActivateCamera", false);
