@@ -25,36 +25,50 @@ public class TextBoxNext : MonoBehaviour
 		joystick = FindObjectOfType<Joystick>().gameObject;
 		throwObject = FindObjectOfType<ThrowObject>();
 		finish = false;
-		
+		StartCoroutine(Fade(1));
+
+		sprite.color = new Color(sprite.color.r, sprite.color.g, sprite.color.b, 0);
+
 		//gameObject.SetActive(false);
 	}
 
 
 	private void Update()
 	{
-		if (finish || Input.GetKey(KeyCode.Space))
+		switch (fadeAnimIndex)
 		{
-			Time.timeScale = timeScaleBase;
-			joystick.SetActive(true);
-			Destroy(gameObject);
+			case 1:
+				sprite.color = Color.Lerp(sprite.color, new Color(sprite.color.r, sprite.color.g, sprite.color.b, 1), Time.deltaTime*3);
+				break;
 
+			case 2:
+				sprite.color = Color.Lerp(sprite.color, new Color(sprite.color.r, sprite.color.g, sprite.color.b, 0), Time.deltaTime*3);
+				break;
+			case 0:
+
+				if (finish || Input.GetKey(KeyCode.Space))
+				{
+					Time.timeScale = timeScaleBase;
+					joystick.SetActive(true);
+					Destroy(gameObject);
+
+				}
+				if (joystick == null)
+				{
+					joystick = FindObjectOfType<Joystick>().gameObject;
+					throwObject = FindObjectOfType<ThrowObject>();
+				}
+
+				joystick.SetActive(false);
+				Time.timeScale = 0;
+
+				if (dogBotao.Value || throwObject.atirou)
+				{
+					Debug.Log("apertou o botão");
+					Next(boxIndex);
+				}
+				break;
 		}
-		if (joystick == null)
-		{
-			joystick = FindObjectOfType<Joystick>().gameObject;
-			throwObject = FindObjectOfType<ThrowObject>();
-		}
-
-		joystick.SetActive(false);
-		Time.timeScale = 0;
-
-		if (dogBotao.Value || throwObject.atirou)
-		{
-			Debug.Log("apertou o botão");
-			Next(boxIndex);
-		}
-
-		
 	}
 
 	private void Next(int index)
@@ -70,17 +84,29 @@ public class TextBoxNext : MonoBehaviour
 		{
 			dogBotao.Value = false;
 			finish = true;
-			Destroy(gameObject);
+			StartCoroutine(Fade(2));
 		}
 	}
 
 
-	private void OnDestroy()
+	
+
+
+
+
+	private int fadeAnimIndex;
+	private IEnumerator Fade(int inOrOut)
 	{
+		fadeAnimIndex = inOrOut;
 		Time.timeScale = timeScaleBase;
 		joystick.SetActive(true);
+		yield return new WaitForSeconds(1);
+		fadeAnimIndex = 0;
+		if (inOrOut == 2)
+		{
+			
+			Destroy(gameObject);
+		}
 	}
-
-
 
 }
