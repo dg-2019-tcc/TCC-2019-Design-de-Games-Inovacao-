@@ -36,7 +36,7 @@ public class CamLookaheadAim : MonoBehaviour
 	private void Update()
 	{
 		if (cameraMidpoint == null) return;
-		if (joyStick.Vertical >= 0.9 || joyStick.Vertical <= -0.9)
+		if (joyStick != null && (joyStick.Vertical >= 0.9 || joyStick.Vertical <= -0.9))
         {
             verticalCamPos = Mathf.Lerp(verticalCamPos, joyStick.Vertical * 20, velocidade*2);
         }
