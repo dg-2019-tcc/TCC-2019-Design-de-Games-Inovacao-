@@ -33,14 +33,11 @@ namespace Complete
             {
                 recordTimeText.enabled = true;
                 float record = Mathf.Round(recordTime.Value * 100f) / 100f;
-                Debug.Log(record);
 
                 if (record >= 60)
                 {
                     recordMinutes = Mathf.RoundToInt(record / 60);
-                    Debug.Log(recordMinutes);
                     recordSeconds = record - (recordMinutes * 60);
-                    Debug.Log(recordSeconds);
                 }
 
                 else
