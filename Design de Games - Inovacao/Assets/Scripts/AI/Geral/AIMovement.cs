@@ -258,7 +258,6 @@ public class AIMovement : MonoBehaviour
             }
 
             velocity.y += gravity * Time.deltaTime;
-            Debug.Log(velocity.y);
             velocity.x = speed * input.x;
             aiController2D.Move(velocity * Time.deltaTime,input);
         }

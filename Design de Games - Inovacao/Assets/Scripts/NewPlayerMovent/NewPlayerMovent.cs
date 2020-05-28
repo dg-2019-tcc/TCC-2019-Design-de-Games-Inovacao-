@@ -14,6 +14,7 @@ public class NewPlayerMovent : MonoBehaviour
     float maxJumpVelocity;
     float minJumpVelocity;
     float gravity;
+    float slowGravity;
     public FloatVariable maxJumpHeight;
     public FloatVariable minJumpHeight;
     public FloatVariable timeToJumpApex;
@@ -56,7 +57,8 @@ public class NewPlayerMovent : MonoBehaviour
 
     public Vector2 oldPosition;
     Vector2 input;
-    Vector2 joyInput;
+    [HideInInspector]
+    public Vector2 joyInput;
 
     Controller2D controller;
     public Controller2D dogController;
@@ -71,6 +73,9 @@ public class NewPlayerMovent : MonoBehaviour
 
     public BoolVariable aiGanhou;
     public BoolVariable playerGanhou;
+    public BoolVariable textoAtivo;
+
+    public bool slowFall;
 
 
     void Start()
@@ -83,6 +88,8 @@ public class NewPlayerMovent : MonoBehaviour
         maxJumpVelocity = Mathf.Abs(gravity * timeToJumpApex.Value);
         minJumpVelocity = Mathf.Sqrt(2 * Mathf.Abs(gravity) * minJumpHeight.Value);
 
+        slowGravity = gravity * 0.5f;
+
         pv = GetComponent<PhotonView>();
         joyStick = FindObjectOfType<Joystick>();
 
@@ -91,6 +98,7 @@ public class NewPlayerMovent : MonoBehaviour
 
         aiGanhou = Resources.Load<BoolVariable>("AIGanhou");
         playerGanhou = Resources.Load<BoolVariable>("PlayerGanhou");
+        textoAtivo = Resources.Load<BoolVariable>("TextoAtivo");
         playerGanhou.Value = false;
     }
 
@@ -99,10 +107,12 @@ public class NewPlayerMovent : MonoBehaviour
         if (playerGanhou.Value == true) return;
         if (!pv.IsMine && PhotonNetwork.InRoom) return;
         if (levouDogada.Value) return;
-		if (joyStick == null)
+        if (textoAtivo.Value == true) return;
+        if (joyStick == null)
 		{
 			joyStick = FindObjectOfType<Joystick>();
 		}
+
         joyInput = new Vector2(joyStick.Horizontal, joyStick.Vertical);
 
         if (carroActive.Value == false && pipaActive.Value == false)
@@ -126,8 +136,18 @@ public class NewPlayerMovent : MonoBehaviour
             float targetVelocityX = input.x * moveSpeed.Value;
             velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (controller.collisions.below) ? accelerationTimeGrounded : accelerationTimeAirborne);
 
+            if (triggerController.collisions.slowTime == false)
+            {
+                slowFall = false;
+                velocity.y += gravity * Time.deltaTime;
+            }
 
-            velocity.y += gravity * Time.deltaTime;
+            else
+            {
+                slowFall = true;
+                velocity.y = -5f;
+                Debug.Log(velocity.y);
+            }
 
             controller.Move(velocity * Time.deltaTime, input);
             //dogController.Move(velocity * Time.deltaTime, input);

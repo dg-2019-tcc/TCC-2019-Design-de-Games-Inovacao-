@@ -61,7 +61,6 @@ public class GolManager : MonoBehaviourPunCallbacks
             GolSelect playerGol = GetComponentInParent<GolSelect>();
             playerGol.jogador.PV.Owner.AddScore(1);
 
-            Debug.Log(index);
 
             Recomeca(); 
 

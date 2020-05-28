@@ -50,8 +50,13 @@ public class ThrowObject : MonoBehaviour
 
     public bool shootAnim;
 
+    public BoolVariable textoAtivo;
+    public bool passouTexto;
+
     private void Awake()
     {
+        textoAtivo = Resources.Load<BoolVariable>("TextoAtivo");
+
         photonView = gameObject.GetComponent<PhotonView>();
         anim = GetComponent<Player2DAnimations>();
 
@@ -123,15 +128,31 @@ public class ThrowObject : MonoBehaviour
 
     public void Atirou()
     {
-        if (atirando == false || Time.timeScale == 0)
+        if (textoAtivo.Value == false)
         {
-			dogBotao.Value = true;
+            if (atirando == false || Time.timeScale == 0)
+            {
+                dogBotao.Value = true;
+            }
+        }
+
+        else
+        {
+            passouTexto = true;
         }
     }
 
     public void StopAtirou()
     {
-        dogBotao.Value = false;
+        if (textoAtivo.Value == false)
+        {
+            dogBotao.Value = false;
+        }
+
+        else
+        {
+            passouTexto = false;
+        }
     }
 
     [PunRPC]

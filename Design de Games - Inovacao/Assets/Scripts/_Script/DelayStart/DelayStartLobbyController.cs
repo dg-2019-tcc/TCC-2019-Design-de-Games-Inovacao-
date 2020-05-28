@@ -24,8 +24,6 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
     private GameObject delayCancelButton; //Botão utilizado para parar de procurar uma sala de jogo
 	//[SerializeField]
 	//private GameObject loadingScene; //Feedback pro jogador de que a cena está carregando, o "esperando"
-    [SerializeField]
-    private GameObject tutorialButton;
     public InputField playerNameInput;
 	//public GameObject PlayerCanvas;
 
@@ -43,8 +41,6 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
     private GameObject VoleiFade;
     [SerializeField]
     private GameObject MotoFade;
-    [SerializeField]
-	private GameObject TutorialFade;
 
 	[SerializeField]
 	private float tempoPraFade;
@@ -71,11 +67,15 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
 
     public AudioSource startSound;
 
+    public FloatVariable spawnHUBPoints;
 
-	private void Start()
+
+
+    private void Start()
 	{
-		if (SceneManager.GetActiveScene().name != "MenuCustomizacao") return;
-		tutorialButton.SetActive(true);
+        spawnHUBPoints = Resources.Load<FloatVariable>("SpawnHUBPoints");
+
+        if (SceneManager.GetActiveScene().name != "MenuCustomizacao") return;
 
 		if (PlayerPrefs.HasKey("NickName"))
 		{
@@ -96,7 +96,6 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
 
 		CorridaFade.SetActive(false);
 		ColetaFade.SetActive(false);
-		TutorialFade.SetActive(false);
 	}
 
 
@@ -107,7 +106,6 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
         //delayStartButton.SetActive(false);
         //delayStartButton2.SetActive(false);
         delayCancelButton.SetActive(true);
-		tutorialButton.SetActive(false);
 		//loadingScene.SetActive(true);
 	//	PlayerCanvas.SetActive(false);
 
@@ -129,7 +127,9 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
 
                 CorridaFade.SetActive(true);
 
-				yield return new WaitForSeconds(tempoPraFade);
+                spawnHUBPoints.Value = 5;
+
+                yield return new WaitForSeconds(tempoPraFade);
 
 				DelayStartWaitingRoomController.minPlayerToStart = 2;
 				DelayStartWaitingRoomController.tutorialMode = false;
@@ -149,7 +149,9 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
 
                 ColetaFade.SetActive(true);
 
-				yield return new WaitForSeconds(tempoPraFade);
+                spawnHUBPoints.Value = 1;
+
+                yield return new WaitForSeconds(tempoPraFade);
 
 				DelayStartWaitingRoomController.minPlayerToStart = 2;
 				DelayStartWaitingRoomController.tutorialMode = false;
@@ -170,7 +172,9 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
 
                 FutebolFade.SetActive(true);
 
-				yield return new WaitForSeconds(tempoPraFade);
+                spawnHUBPoints.Value = 2;
+
+                yield return new WaitForSeconds(tempoPraFade);
 
 				currentRoomSize = 2;
 				DelayStartWaitingRoomController.minPlayerToStart = 2;
@@ -191,8 +195,10 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
             case "Volei":
 
                 VoleiFade.SetActive(true);
-				
-				yield return new WaitForSeconds(tempoPraFade);
+
+                spawnHUBPoints.Value = 4;
+
+                yield return new WaitForSeconds(tempoPraFade);
 
 				currentRoomSize = 2;
 				DelayStartWaitingRoomController.minPlayerToStart = 2;
@@ -214,7 +220,9 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
 
                 MotoFade.SetActive(true);
 
-				yield return new WaitForSeconds(tempoPraFade);
+                spawnHUBPoints.Value = 3;
+
+                yield return new WaitForSeconds(tempoPraFade);
 
 				DelayStartWaitingRoomController.minPlayerToStart = 2;
 				DelayStartWaitingRoomController.tutorialMode = false;
@@ -231,28 +239,31 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
 
 				break;
 
-			case "Tutorial":
+			
+			default:                                                                                                        //Caso padrão vai pro Tutorial
 
-                TutorialFade.SetActive(true);
+                ColetaFade.SetActive(true);
 
-				yield return new WaitForSeconds(tempoPraFade);
+                spawnHUBPoints.Value = 1;
 
-				DelayStartWaitingRoomController.minPlayerToStart = 1;
-				DelayStartWaitingRoomController.tutorialMode = true;
-				CreateTutorialRoom();
-				break;
+                yield return new WaitForSeconds(tempoPraFade);
 
-			default:																										//Caso padrão vai pro Tutorial
-				
-				TutorialFade.SetActive(true);
+                DelayStartWaitingRoomController.minPlayerToStart = 2;
+                DelayStartWaitingRoomController.tutorialMode = false;
+                DelayStartWaitingRoomController.gameMode = gameMode;
+                gameModeAtual = gameMode;
+                if (PhotonNetwork.OfflineMode == false)
+                {
+                    OnJoinRoomButton(gameModeAtual);
+                }
+                else
+                {
+                    CreateRoomWithMode(gameModeAtual);
+                }
 
-				yield return new WaitForSeconds(tempoPraFade);
+                break;
 
-				DelayStartWaitingRoomController.minPlayerToStart = 1;
-				DelayStartWaitingRoomController.tutorialMode = true;
-				CreateTutorialRoom();
-				break;
-		}
+        }
 	}
 
  
@@ -338,9 +349,7 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
     {
         FMODUnity.RuntimeManager.PlayOneShot("event:/HUD/Click", GetComponent<Transform>().position);
         delayCancelButton.SetActive(false);
-        tutorialButton.SetActive(true);
     //  delayStartButton.SetActive(true);
-	//	tutorialButton.SetActive(true);
 		//loadingScene.SetActive(false);
 	//	PlayerCanvas.SetActive(true);
 
@@ -349,7 +358,6 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
 		MotoFade.SetActive(false);
 		VoleiFade.SetActive(false);
 		ColetaFade.SetActive(false);
-		TutorialFade.SetActive(false);
 		StopAllCoroutines();
 
         if(PhotonNetwork.CurrentRoom != null)

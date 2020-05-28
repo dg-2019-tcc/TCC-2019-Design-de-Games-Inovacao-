@@ -19,18 +19,22 @@ public class HistoriaManager : MonoBehaviour
     {
         acabou01 = Resources.Load<BoolVariable>("Acabou01");
         flowIndex = Resources.Load<FloatVariable>("FlowIndex");
-        StartCoroutine("StartHist");
+
+        AjustaFlowIndex();
     }
 
     public void SkipHist()
     {
         FMODUnity.RuntimeManager.PlayOneShot("event:/HUD/Click", GetComponent<Transform>().position);
 
-        AjustaFlowIndex();
+        SceneManager.LoadScene(nomeDoMenu);
+        //AjustaFlowIndex();
     }
 
     public void AjustaFlowIndex()
     {
+        //StopCoroutine("StartHist");
+
         if (flowIndex.Value == 6)
         {
             acabou01.Value = true;
@@ -52,16 +56,19 @@ public class HistoriaManager : MonoBehaviour
 
         else if (flowIndex.Value == 1)
         {
+            Debug.Log("Cosleta");
             flowIndex.Value = 3;
             nomeDoMenu = "HUB";
         }
-        else
+
+        else if (flowIndex.Value == 0)
         {
+            Debug.Log("Customiza");
+            flowIndex.Value = 1;
             nomeDoMenu = "Customiza";
         }
 
-        SceneManager.LoadScene(nomeDoMenu);
-        StopCoroutine("StartHist");
+        StartCoroutine("StartHist");
     }
 
     IEnumerator StartHist()
@@ -72,7 +79,8 @@ public class HistoriaManager : MonoBehaviour
             yield return new WaitForSeconds(5f);
         }
 
-        AjustaFlowIndex();
+        SceneManager.LoadScene(nomeDoMenu);
+        //AjustaFlowIndex();
 
     }
 }

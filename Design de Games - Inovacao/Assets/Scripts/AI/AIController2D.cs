@@ -132,13 +132,6 @@ public class AIController2D : RaycastController
 
             if (hit)
             {
-
-                if (hit.collider.tag == "LinhaDeChegada")
-                {
-                    LinhaDeChegada linhaDeChegada = hit.collider.GetComponent<LinhaDeChegada>();
-                    linhaDeChegada.AIGanhou();
-                }
-
                 if (hit.collider.tag == "Destroy")
                 {
                     hit.collider.gameObject.SendMessage("ToAqui");
@@ -271,6 +264,7 @@ public class AIController2D : RaycastController
         public bool acabouCorrida;
 
         public bool bateuObs;
+        public bool slowTime;
 
         public void Reset()
         {
@@ -280,6 +274,7 @@ public class AIController2D : RaycastController
             descendingSlope = false;
             bateuObs = false;
             acabouCorrida = false;
+            slowTime = true;
 
             slopeAngleOld = slopeAngle;
             slopeAngle = 0;

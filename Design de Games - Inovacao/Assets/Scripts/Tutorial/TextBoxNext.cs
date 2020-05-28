@@ -15,13 +15,16 @@ public class TextBoxNext : MonoBehaviour
 	public int boxIndex;
 	private bool finish;
 
+    public BoolVariable textoAtivo;
+
 	private void Start()
 	{
+        textoAtivo = Resources.Load<BoolVariable>("TextoAtivo");
 
-		sprite = GetComponent<SpriteRenderer>();
+        sprite = GetComponent<SpriteRenderer>();
 		boxIndex = 0;
 		sprite.sprite = imagens[boxIndex];
-		timeScaleBase = Time.timeScale;
+		//timeScaleBase = Time.timeScale;
 		joystick = FindObjectOfType<Joystick>().gameObject;
 		throwObject = FindObjectOfType<ThrowObject>();
 		finish = false;
@@ -34,23 +37,14 @@ public class TextBoxNext : MonoBehaviour
 	{
 		if (finish || Input.GetKey(KeyCode.Space))
 		{
-			Time.timeScale = timeScaleBase;
-			joystick.SetActive(true);
+            textoAtivo.Value = false;
 			Destroy(gameObject);
 
 		}
-		if (joystick == null)
-		{
-			joystick = FindObjectOfType<Joystick>().gameObject;
-			throwObject = FindObjectOfType<ThrowObject>();
-		}
 
-		joystick.SetActive(false);
-		Time.timeScale = 0;
 
-		if (dogBotao.Value || throwObject.atirou)
+		if (throwObject.passouTexto)
 		{
-			Debug.Log("apertou o botão");
 			Next(boxIndex);
 		}
 
@@ -63,13 +57,15 @@ public class TextBoxNext : MonoBehaviour
 		{
 			boxIndex++;
 			sprite.sprite = imagens[boxIndex];
-			dogBotao.Value = false;
+            throwObject.passouTexto = false;
 
-		}
+
+        }
 		else
 		{
-			dogBotao.Value = false;
-			finish = true;
+            throwObject.passouTexto = false;
+            textoAtivo.Value = false;
+            finish = true;
 			Destroy(gameObject);
 		}
 	}
@@ -77,8 +73,9 @@ public class TextBoxNext : MonoBehaviour
 
 	private void OnDestroy()
 	{
-		Time.timeScale = timeScaleBase;
-		joystick.SetActive(true);
+        textoAtivo.Value = false;
+        //Time.timeScale = timeScaleBase;
+        joystick.SetActive(true);
 	}
 
 

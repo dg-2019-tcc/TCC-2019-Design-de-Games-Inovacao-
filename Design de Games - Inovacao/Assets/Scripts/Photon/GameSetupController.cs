@@ -33,6 +33,7 @@ namespace Complete
 
         public bool isFut;
         public bool isMoto;
+        public bool isTutorial;
 
         public float aiSpawnCooldown;
 
@@ -94,7 +95,7 @@ namespace Complete
         [PunRPC]
         private void SpawnPlayer(float alterPlayerCount)
         {
-            if (OfflineMode.modoDoOffline)
+            if (OfflineMode.modoDoOffline && !isTutorial)
             {
                 gameManager.SpawnAI();
             }

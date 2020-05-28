@@ -57,11 +57,15 @@ public class Player2DAnimations : MonoBehaviour
 
     public TriggerCollisionsController triggerCollisions;
 
+    public BoolVariable textoAtivo;
+
 
     //private DragonBones.AnimationState aimState = null;
 
     private void Start()
     {
+        textoAtivo = Resources.Load<BoolVariable>("TextoAtivo");
+
         photonView = gameObject.GetComponent<PhotonView>();
         controller = GetComponent<Controller2D>();
         triggerCollisions = GetComponent<TriggerCollisionsController>();
@@ -125,126 +129,145 @@ public class Player2DAnimations : MonoBehaviour
 
         if (!PhotonNetwork.InRoom || photonView.IsMine)
         {
-            if(carroActive.Value == true || pipaActive.Value == true)
+            if (textoAtivo.Value == false)
             {
-                inativoTime = 0f;
-                Idle();
+
+                if (carroActive.Value == true || pipaActive.Value == true)
+                {
+                    inativoTime = 0f;
+                    Idle();
+                }
+
+                //frente.SetActive(false);
+                //lado.SetActive(true);
+                moveX = Mathf.Abs(moveAmount.x);
+
+                if (state == State.Aterrisando || state == State.Walking || state == State.Abaixando)
+                {
+                    if (state == State.Walking && input.x == 0)
+                    {
+                        coolToIdle = 0.66f;
+                    }
+                    else
+                    {
+                        coolToIdle += Time.deltaTime;
+                    }
+                }
+
+                if (dogButtonAnim == false)
+                {
+
+                    if (moveAmount.y < -2 && jaAterrisou && state != State.Aterrisando && pipaActive.Value == false && carroActive.Value == false)
+                    {
+                        jaAterrisou = false;
+                    }
+
+                    if (oldPos.y < moveAmount.y && controller.collisions.below == false && dogButtonAnim == false && pipaActive.Value == false && carroActive.Value == false)
+                    {
+                        jaAterrisou = false;
+                        if (!PhotonNetwork.InRoom)
+                        {
+                            NoArUp();
+                        }
+                        else
+                        {
+                            photonView.RPC("NoArUp", RpcTarget.All);
+                        }
+                    }
+
+                    else if (moveAmount.y < 9 && moveAmount.y > 0 && controller.collisions.below == false && dogButtonAnim == false && pipaActive.Value == false && carroActive.Value == false)
+                    {
+
+                        if (!PhotonNetwork.InRoom)
+                        {
+                            TransitionAir();
+                        }
+                        else
+                        {
+                            photonView.RPC("TransitionAir", RpcTarget.All);
+                        }
+                    }
+
+                    else if (moveAmount.y <= 0 && controller.collisions.below == false && dogButtonAnim == false && jaAterrisou == false && pipaActive.Value == false && carroActive.Value == false)
+                    {
+                        if (!PhotonNetwork.InRoom)
+                        {
+                            Fall();
+                        }
+                        else
+                        {
+                            photonView.RPC("Fall", RpcTarget.All);
+                        }
+                    }
+
+                    else if (moveAmount.y < -5f && input.x == 0 && input.y >= 0 && controller.collisions.below == true && dogButtonAnim == false && jaAterrisou == false && pipaActive.Value == false && carroActive.Value == false)
+                    {
+
+                        if (!PhotonNetwork.InRoom)
+                        {
+                            Aterrisando();
+                        }
+                        else
+                        {
+                            photonView.RPC("Aterrisando", RpcTarget.All);
+                        }
+                    }
+
+                    else if (controller.collisions.below && input.x == 0 && input.y < 0 && dogButtonAnim == false && pipaActive.Value == false && carroActive.Value == false)
+                    {
+                        if (!PhotonNetwork.InRoom)
+                        {
+                            Abaixar();
+                        }
+                        else
+                        {
+                            photonView.RPC("Abaixar", RpcTarget.All);
+                        }
+                    }
+
+                    else if (input.x != 0 && controller.collisions.below && dogButtonAnim == false && pipaActive.Value == false && carroActive.Value == false)
+                    {
+                        if (!PhotonNetwork.InRoom)
+                        {
+                            Walking();
+                        }
+                        else
+                        {
+                            photonView.RPC("Walking", RpcTarget.All);
+                        }
+
+                    }
+
+                    else
+                    {
+                        /*if (Jump == false && dogButtonAnim == false && stopJump == false && jaAterrisou == true && coolToIdle >= 0.33f)
+                        {*/
+                        if (!PhotonNetwork.InRoom)
+                        {
+                            Idle();
+                        }
+                        else
+                        {
+                            photonView.RPC("Idle", RpcTarget.All);
+                        }
+                        //}
+                    }
+                }
             }
 
-            //frente.SetActive(false);
-            //lado.SetActive(true);
-            moveX = Mathf.Abs(moveAmount.x);
-
-            if (state == State.Aterrisando || state == State.Walking || state == State.Abaixando)
+            else
             {
-                if (state == State.Walking && input.x == 0)
+                /*if (Jump == false && dogButtonAnim == false && stopJump == false && jaAterrisou == true && coolToIdle >= 0.33f)
+                {*/
+                if (!PhotonNetwork.InRoom)
                 {
-                    coolToIdle = 0.66f;
+                    Idle();
                 }
                 else
                 {
-                    coolToIdle += Time.deltaTime;
+                    photonView.RPC("Idle", RpcTarget.All);
                 }
-            }
-
-            if (dogButtonAnim == false)
-            {
-
-                if (moveAmount.y < -2 && jaAterrisou && state != State.Aterrisando && pipaActive.Value == false && carroActive.Value == false)
-                {
-                    jaAterrisou = false;
-                }
-
-                if (oldPos.y < moveAmount.y && controller.collisions.below == false && dogButtonAnim == false && pipaActive.Value == false && carroActive.Value == false)
-                {
-                    jaAterrisou = false;
-                    if (!PhotonNetwork.InRoom)
-                    {
-                        NoArUp();
-                    }
-                    else
-                    {
-                        photonView.RPC("NoArUp", RpcTarget.All);
-                    }
-                }
-
-                else if (moveAmount.y < 9 && moveAmount.y > 0 && controller.collisions.below == false && dogButtonAnim == false && pipaActive.Value == false && carroActive.Value == false)
-                {
-
-                    if (!PhotonNetwork.InRoom)
-                    {
-                        TransitionAir();
-                    }
-                    else
-                    {
-                        photonView.RPC("TransitionAir", RpcTarget.All);
-                    }
-                }
-
-                else if (moveAmount.y <= 0 && controller.collisions.below == false && dogButtonAnim == false && jaAterrisou == false && pipaActive.Value == false && carroActive.Value == false)
-                {
-                    if (!PhotonNetwork.InRoom)
-                    {
-                        Fall();
-                    }
-                    else
-                    {
-                        photonView.RPC("Fall", RpcTarget.All);
-                    }
-                }
-
-                else if (moveAmount.y < -5f && input.x == 0 && input.y >= 0 && controller.collisions.below == true && dogButtonAnim == false && jaAterrisou == false && pipaActive.Value == false && carroActive.Value == false)
-                {
-
-                    if (!PhotonNetwork.InRoom)
-                    {
-                        Aterrisando();
-                    }
-                    else
-                    {
-                        photonView.RPC("Aterrisando", RpcTarget.All);
-                    }
-                }
-
-                else if (controller.collisions.below && input.x == 0 && input.y < 0 && dogButtonAnim == false && pipaActive.Value == false && carroActive.Value == false)
-                {
-                    if (!PhotonNetwork.InRoom)
-                    {
-                        Abaixar();
-                    }
-                    else
-                    {
-                        photonView.RPC("Abaixar", RpcTarget.All);
-                    }
-                }
-
-                else if (input.x != 0 && controller.collisions.below && dogButtonAnim == false && pipaActive.Value == false && carroActive.Value == false)
-                {
-                    if (!PhotonNetwork.InRoom)
-                    {
-                        Walking();
-                    }
-                    else
-                    {
-                        photonView.RPC("Walking", RpcTarget.All);
-                    }
-
-                }
-
-                else
-                {
-                    /*if (Jump == false && dogButtonAnim == false && stopJump == false && jaAterrisou == true && coolToIdle >= 0.33f)
-                    {*/
-                    if (!PhotonNetwork.InRoom)
-                    {
-                        Idle();
-                    }
-                    else
-                    {
-                        photonView.RPC("Idle", RpcTarget.All);
-                    }
-                    //}
-                }
+                //}
             }
         }
     }

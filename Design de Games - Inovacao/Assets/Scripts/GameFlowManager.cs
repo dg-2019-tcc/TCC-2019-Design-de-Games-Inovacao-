@@ -25,23 +25,30 @@ public class GameFlowManager : MonoBehaviour
     private void Awake()
     {
         aiGanhou = Resources.Load<BoolVariable>("AIGanhou");
-        CameraShowoff.SetActive(false);
+        if (CameraShowoff != null)
+        {
+            CameraShowoff.SetActive(false);
+        }
         if (!acabou01.Value)
         {
             if(flowIndex.Value <= 6)
             {
-                if (SceneManager.GetActiveScene().name == "MenuPrincipal")
+                if (SceneManager.GetActiveScene().name == "MenuPrincipal" && offlineButton != null && jogarButton != null)
                 {
  
                     offlineButton.SetActive(false);
                     jogarButton.SetActive(true);
+                    OfflineMode.modoDoOffline = true;
                 }
-
-                OfflineMode.modoDoOffline = true;
             }
 
             if (SceneManager.GetActiveScene().name == "HUB")
             {
+                if(flowIndex.Value == 0)
+                {
+                    Fase0();
+                }
+
                 if(flowIndex.Value == 1)
                 {
                     FaseColeta();
@@ -92,12 +99,23 @@ public class GameFlowManager : MonoBehaviour
 
         else
         {
-            Completo();
             if (SceneManager.GetActiveScene().name == "MenuPrincipal")
             {
                 offlineButton.SetActive(true);
             }
+
+            if (SceneManager.GetActiveScene().name == "HUB")
+            {
+                Completo();
+            }
+
         }
+    }
+
+    void Fase0()
+    {
+        flowIndex.Value = 1;
+        FaseColeta();
     }
 
     public void FaseColeta()

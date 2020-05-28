@@ -34,7 +34,6 @@ public class HeadAI : MonoBehaviour
 
             else if (triggerController.triggerCollision.naArea && triggerController.triggerCollision.chutouBall || triggerController.triggerCollision.touchBall)
             {
-                Debug.Log("NaArea");
                 NaArea();
             }
         }

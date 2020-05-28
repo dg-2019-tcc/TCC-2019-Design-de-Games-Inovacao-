@@ -24,7 +24,7 @@ public class DogMovement : MonoBehaviour
     [SerializeField]
     public Joystick joyStick;
 
-    Controller2D dogController;
+    AIController2D dogController;
 
     public NewPlayerMovent playerMove;
     public TriggerCollisionsController playerTriggerController;
@@ -44,9 +44,9 @@ public class DogMovement : MonoBehaviour
 
     void Start()
     {
-        dogController = GetComponent<Controller2D>();
+        dogController = GetComponent<AIController2D>();
 
-        joyStick = FindObjectOfType<Joystick>();
+        //joyStick = FindObjectOfType<Joystick>();
 
         gravity = -(2 * maxJumpHeight) / Mathf.Pow(timeToJumpApex, 2);
         maxJumpVelocity = Mathf.Abs(gravity * timeToJumpApex);
@@ -58,8 +58,8 @@ public class DogMovement : MonoBehaviour
 
     void Update()
     {
-        joyInput = new Vector2(joyStick.Horizontal, joyStick.Vertical);
-
+        //joyInput = new Vector2(joyStick.Horizontal, joyStick.Vertical);
+        joyInput = playerMove.joyInput;
         if (joyInput.x > 0.3f || joyInput.x < -0.3f)
         {
             input.x = joyInput.x;
@@ -73,7 +73,14 @@ public class DogMovement : MonoBehaviour
         targetVelocityX = input.x * speed;
         velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (dogController.collisions.below) ? accelerationTimeGrounded : accelerationTimeAirborne);
 
-        velocity.y += gravity * Time.deltaTime;
+        if (playerMove.slowFall == false)
+        {
+            velocity.y += gravity * Time.deltaTime;
+        }
+        else
+        {
+            velocity.y = -3.5f;
+        }
 
         if (dogController.collisions.below && playerMove.jump && isJumping == false)
         {

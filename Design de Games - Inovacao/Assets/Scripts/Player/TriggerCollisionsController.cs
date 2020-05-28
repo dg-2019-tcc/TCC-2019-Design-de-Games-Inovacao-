@@ -415,6 +415,11 @@ public class TriggerCollisionsController : RaycastController
 
             if (hit)
             {
+                if(hit.collider.tag == "SlowFall")
+                {
+                    collisions.slowTime = true;
+                }
+
                 if (hit.collider.tag == "Dog")
                 {
                     DogColetaTutorial dogTutorial = hit.collider.GetComponent<DogColetaTutorial>();
@@ -514,6 +519,8 @@ public class TriggerCollisionsController : RaycastController
 
         public bool hitDog;
 
+        public bool slowTime;
+
         public Vector2 direction;
 
 
@@ -524,6 +531,7 @@ public class TriggerCollisionsController : RaycastController
             cabecaBola = tocouBola = false;
             caixaDagua = false;
             hitDog = false;
+            slowTime = false;
             direction.x = direction.y = 0;
         }
     }

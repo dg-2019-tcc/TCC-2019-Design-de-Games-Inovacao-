@@ -112,7 +112,6 @@ public class ColetaWin : MonoBehaviour
                     aiGanhou.Value = false;
                     playerGanhou.Value = true;
                     faseNome = "HistoriaColeta";
-                    flowIndex.Value = 3;
                 }
 
                 StartCoroutine("AcabouFase");

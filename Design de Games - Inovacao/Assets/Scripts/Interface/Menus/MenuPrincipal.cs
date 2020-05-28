@@ -30,7 +30,6 @@ public class MenuPrincipal : MonoBehaviour
         {
             nomeDoMenu = "Historia";
         }
-        Debug.Log(nomeDoMenu);
         FMODUnity.RuntimeManager.PlayOneShot("event:/HUD/Start", GetComponent<Transform>().position);
         SceneManager.LoadScene(nomeDoMenu);
     }
