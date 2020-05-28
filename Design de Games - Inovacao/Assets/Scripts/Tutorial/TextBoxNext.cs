@@ -28,7 +28,7 @@ public class TextBoxNext : MonoBehaviour
 		joystick = FindObjectOfType<Joystick>().gameObject;
 		throwObject = FindObjectOfType<ThrowObject>();
 		finish = false;
-		StartCoroutine(Fade(1));
+		//StartCoroutine(Fade(1));
 
 		sprite.color = new Color(sprite.color.r, sprite.color.g, sprite.color.b, 0);
 
@@ -38,7 +38,7 @@ public class TextBoxNext : MonoBehaviour
 
 	private void Update()
 	{
-		switch (fadeAnimIndex)
+		if(finish)
 		{
             textoAtivo.Value = false;
 			Destroy(gameObject);
@@ -77,8 +77,7 @@ public class TextBoxNext : MonoBehaviour
 
 
 
-	private int fadeAnimIndex;
-	private IEnumerator Fade(int inOrOut)
+	void OnDestroy()
 	{
         textoAtivo.Value = false;
         //Time.timeScale = timeScaleBase;
