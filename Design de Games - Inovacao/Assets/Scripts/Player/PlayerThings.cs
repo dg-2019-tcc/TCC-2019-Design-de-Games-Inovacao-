@@ -93,6 +93,11 @@ public class PlayerThings : MonoBehaviour
 
     void Update()
     {
+        if(desativaCanvas == true && canvasSelf.active == true)
+        {
+            canvasSelf.SetActive(false);
+        }
+
         if (PV.IsMine && comecou)
         {
             cameraManager.SendMessage("ActivateCamera", true);

@@ -89,13 +89,13 @@ public class WinnerManager : MonoBehaviour
             if (!isMoto)
             {
                 //flowIndex.Value = 7;
-                faseNome = "HistoriaFutebol";
+                faseNome = "HistoriaCorrida";
                 //PhotonNetwork.LoadLevel("HistoriaFutebol");
             }
             else
             {
                 //flowIndex.Value = 6;
-                faseNome = "HistoriaFutebol";
+                faseNome = "HistoriaMoto";
                 //PhotonNetwork.LoadLevel("HistoriaFutebol");
             }
             //playerGanhou.Value = true;
