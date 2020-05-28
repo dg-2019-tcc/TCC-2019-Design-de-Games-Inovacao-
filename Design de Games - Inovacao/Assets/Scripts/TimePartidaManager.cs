@@ -26,6 +26,7 @@ namespace Complete
         // Start is called before the first frame update
         void Start()
         {
+            faseComeca.Value = false;
             playerGanhou = Resources.Load<BoolVariable>("PlayerGanhou");
 
             if (recordTime.Value != 0)
