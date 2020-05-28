@@ -17,6 +17,8 @@ public class OfflineMode : MonoBehaviour
 
     private void Awake()
     {
+        acabou01 = Resources.Load<BoolVariable>("Acabou01");
+
         DontDestroyOnLoad(eu);
 
         if(acabou01.Value == false)

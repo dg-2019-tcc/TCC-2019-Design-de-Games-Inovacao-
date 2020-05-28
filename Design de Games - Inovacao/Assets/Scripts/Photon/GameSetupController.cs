@@ -134,7 +134,7 @@ namespace Complete
 				{
 					playerMove.motoPlayerMovement.enabled = true;
 				}
-                if (OfflineMode.modoDoOffline)
+                if (OfflineMode.modoDoOffline && !isTutorial)
                 {
                     gameManager.enabled = true;
                     gameManager.comecouPartida = true;
