@@ -104,10 +104,11 @@ public class NewPlayerMovent : MonoBehaviour
 
     void Update()
     {
-        if (playerGanhou.Value == true) return;
-        if (!pv.IsMine && PhotonNetwork.InRoom) return;
-        if (levouDogada.Value) return;
-        if (textoAtivo.Value == true) return;
+		if (playerGanhou.Value == true || !pv.IsMine && PhotonNetwork.InRoom || levouDogada.Value || textoAtivo.Value == true)
+		{
+			return;
+		}
+
         if (joyStick == null)
 		{
 			joyStick = FindObjectOfType<Joystick>();
