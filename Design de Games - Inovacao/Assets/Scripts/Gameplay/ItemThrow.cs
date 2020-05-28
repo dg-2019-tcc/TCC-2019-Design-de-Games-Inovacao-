@@ -53,8 +53,11 @@ public class ItemThrow : MonoBehaviour
         timeDestroy += Time.deltaTime;
         if (timeDestroy >= 5f)
         {
-			Owner.CustomProperties["dogValue"] = true;
-            Owner.CustomProperties["atirou"] =  false;
+			if (PhotonNetwork.IsConnected)
+			{
+				Owner.CustomProperties["dogValue"] = true;
+				Owner.CustomProperties["atirou"] = false;
+			}
             Destroy(this.gameObject);
         }
     }

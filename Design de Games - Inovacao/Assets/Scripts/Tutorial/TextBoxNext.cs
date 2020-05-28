@@ -28,14 +28,17 @@ public class TextBoxNext : MonoBehaviour
 		joystick = FindObjectOfType<Joystick>().gameObject;
 		throwObject = FindObjectOfType<ThrowObject>();
 		finish = false;
-		
+		StartCoroutine(Fade(1));
+
+		sprite.color = new Color(sprite.color.r, sprite.color.g, sprite.color.b, 0);
+
 		//gameObject.SetActive(false);
 	}
 
 
 	private void Update()
 	{
-		if (finish || Input.GetKey(KeyCode.Space))
+		switch (fadeAnimIndex)
 		{
             textoAtivo.Value = false;
 			Destroy(gameObject);
@@ -47,8 +50,6 @@ public class TextBoxNext : MonoBehaviour
 		{
 			Next(boxIndex);
 		}
-
-		
 	}
 
 	private void Next(int index)
@@ -71,13 +72,17 @@ public class TextBoxNext : MonoBehaviour
 	}
 
 
-	private void OnDestroy()
+	
+
+
+
+
+	private int fadeAnimIndex;
+	private IEnumerator Fade(int inOrOut)
 	{
         textoAtivo.Value = false;
         //Time.timeScale = timeScaleBase;
         joystick.SetActive(true);
 	}
-
-
 
 }

@@ -254,6 +254,7 @@ public class NewPlayerMovent : MonoBehaviour
     private void LateUpdate()
     {
         oldPosition = velocity;
+		joyInput = new Vector2(0, 0);
     }
 
     public void Jump()

@@ -97,10 +97,7 @@ public class ThrowObject : MonoBehaviour
             {
                 atirou = true;
             }
-			if (Time.timeScale != 0)
-			{
-				dogBotao.Value = false;
-			}
+			
         }
         else
         {
@@ -112,16 +109,17 @@ public class ThrowObject : MonoBehaviour
             atirando = false;
         }
 
-        if (atirando && Time.timeScale != 0)
+        if (atirando)
 		{
-			dogBotao.Value = false;
+			
 			tiroButton.enabled = false;
 		}
 
         else
         {
-            cooldownDelta = 0;
-
+			Debug.Log("voltou do tiro");
+			dogBotao.Value = false;
+			cooldownDelta = 0;
             tiroButton.enabled = true;
         }
     }
@@ -158,7 +156,7 @@ public class ThrowObject : MonoBehaviour
     [PunRPC]
     void Shoot()
     {
-		if (!(bool)photonView.Owner.CustomProperties["dogValue"]) return;
+		if (PhotonNetwork.IsConnected && !(bool)photonView.Owner.CustomProperties["dogValue"]) return;
         GameObject bullet;
         bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);// as GameObject;
         shootAnim = false;
@@ -177,7 +175,14 @@ public class ThrowObject : MonoBehaviour
         yield return new WaitForSeconds(1f);
         shootAnim = false;
         anim.DogButtonAnim(shootAnim);
-        photonView.RPC("Shoot", RpcTarget.All);
+		if (PhotonNetwork.IsConnected)
+		{
+			photonView.RPC("Shoot", RpcTarget.All);
+		}
+		else
+		{
+			Shoot();
+		}
     }
 
     void ShootOffline()
