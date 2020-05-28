@@ -39,6 +39,7 @@ public class TextBoxNext : MonoBehaviour
 		{
 			case 1:
 				sprite.color = Color.Lerp(sprite.color, new Color(sprite.color.r, sprite.color.g, sprite.color.b, 1), Time.deltaTime*3);
+				joystick.SetActive(false);
 				break;
 
 			case 2:
@@ -48,7 +49,7 @@ public class TextBoxNext : MonoBehaviour
 
 				if (finish || Input.GetKey(KeyCode.Space))
 				{
-					Time.timeScale = timeScaleBase;
+				//	Time.timeScale = timeScaleBase;
 					joystick.SetActive(true);
 					Destroy(gameObject);
 
@@ -59,8 +60,8 @@ public class TextBoxNext : MonoBehaviour
 					throwObject = FindObjectOfType<ThrowObject>();
 				}
 
-				joystick.SetActive(false);
-				Time.timeScale = 0;
+				
+			//	Time.timeScale = 0;
 
 				if (dogBotao.Value || throwObject.atirou)
 				{
@@ -77,12 +78,12 @@ public class TextBoxNext : MonoBehaviour
 		{
 			boxIndex++;
 			sprite.sprite = imagens[boxIndex];
-			dogBotao.Value = false;
+		//	dogBotao.Value = true;
 
 		}
 		else
 		{
-			dogBotao.Value = false;
+		//	dogBotao.Value = false;
 			finish = true;
 			StartCoroutine(Fade(2));
 		}
