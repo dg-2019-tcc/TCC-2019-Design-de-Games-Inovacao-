@@ -29,29 +29,29 @@ public class SendBackHUBTimer : MonoBehaviour
 		switch (HistoryChecker.sceneName)
 		{
 			case "Coleta":
-				if (PlayerPrefs.GetInt("PrimeiraVezNaColeta") == 1)
-				{
+				//if (PlayerPrefs.GetInt("PrimeiraVezNaColeta") == 1)
+				//{
 					GoToHUB();
-				}
-				else
-				{
-					HistoryChecker.sceneName = null;
-					PlayerPrefs.SetInt("PrimeiraVezNaColeta", 1);
-					SceneManager.LoadScene("HistoriaColeta");
-				}
+				//}
+				//else
+				//{*/
+					//HistoryChecker.sceneName = null;
+					//PlayerPrefs.SetInt("PrimeiraVezNaColeta", 1);
+					//SceneManager.LoadScene("HistoriaColeta");
+				//}
 				break;
 
 			case "Futebol":
-				if (PlayerPrefs.GetInt("PrimeiraVezNoFutebol") == 1)
-				{
+				//if (PlayerPrefs.GetInt("PrimeiraVezNoFutebol") == 1)
+				//{
 					GoToHUB();
-				}
-				else
-				{
-					HistoryChecker.sceneName = null;
-					PlayerPrefs.SetInt("PrimeiraVezNoFutebol", 1);
-					SceneManager.LoadScene("HistoriaFutebol");
-				}
+				//}
+				//else
+				//{*/
+					//HistoryChecker.sceneName = null;
+					//PlayerPrefs.SetInt("PrimeiraVezNoFutebol", 1);
+				//	SceneManager.LoadScene("HistoriaFutebol");
+				//}
 				break;
 			
 			default:

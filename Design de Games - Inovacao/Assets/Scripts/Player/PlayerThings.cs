@@ -52,7 +52,7 @@ public class PlayerThings : MonoBehaviour
     {
         controller = GetComponent<Controller2D>();
         PV = GetComponent<PhotonView>();
-        joyStick = FindObjectOfType<Joystick>();
+        joyStick = FindObjectOfType<FloatingJoystick>();
 		rightDir = true;
 		leftDir = false;
 
@@ -182,6 +182,10 @@ public class PlayerThings : MonoBehaviour
             }*/
         }
 
+        else
+        {
+            joyStick = FindObjectOfType<FloatingJoystick>();
+        }
 
 		if (PhotonNetwork.InRoom)
 		{

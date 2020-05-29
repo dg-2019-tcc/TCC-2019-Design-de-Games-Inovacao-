@@ -48,7 +48,7 @@ using UnityEngine.AI;
         {
             if (!aiActive)
                 return;
-            currentState.UpdateState(this);
+            //currentState.UpdateState(this);
 
             if (botScore.Value >= maxPoints)
             {

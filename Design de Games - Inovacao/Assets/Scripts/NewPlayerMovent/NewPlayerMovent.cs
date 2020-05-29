@@ -66,7 +66,7 @@ public class NewPlayerMovent : MonoBehaviour
     Player2DAnimations animations;
 
     [SerializeField]
-    public Joystick joyStick;
+    public FloatingJoystick joyStick;
 
 
     private PhotonView pv;
@@ -91,7 +91,7 @@ public class NewPlayerMovent : MonoBehaviour
         slowGravity = gravity * 0.5f;
 
         pv = GetComponent<PhotonView>();
-        joyStick = FindObjectOfType<Joystick>();
+        joyStick = FindObjectOfType<FloatingJoystick>();
 
         //Utilizado para fazer os sons dos passos tocarem
         InvokeRepeating("CallFootsteps", 0, 0.25f);
@@ -108,11 +108,11 @@ public class NewPlayerMovent : MonoBehaviour
 		{
 			return;
 		}
-
         if (joyStick == null)
-		{
-			joyStick = FindObjectOfType<Joystick>();
-		}
+        {
+            joyStick = FindObjectOfType<FloatingJoystick>();
+        }
+
 
         joyInput = new Vector2(joyStick.Horizontal, joyStick.Vertical);
 
