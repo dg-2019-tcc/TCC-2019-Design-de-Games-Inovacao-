@@ -122,41 +122,43 @@ public class Player2DAnimations : MonoBehaviour
 
 				if (dogButtonAnim == false)
 				{
-
-					if (moveAmount.y < -2 && jaAterrisou && state != State.Aterrisando && pipaActive.Value == false && carroActive.Value == false)
+					if (pipaActive.Value == false && carroActive.Value == false && dogButtonAnim == false)
 					{
-						jaAterrisou = false;
-					}
+						if (moveAmount.y < -2 && jaAterrisou && state != State.Aterrisando)
+						{
+							jaAterrisou = false;
+						}
 
-					if (oldPos.y < moveAmount.y && controller.collisions.below == false && dogButtonAnim == false && pipaActive.Value == false && carroActive.Value == false)
-					{
-						jaAterrisou = false;
-						PlayAnim("NoArUp");
-					}
+						if (oldPos.y < moveAmount.y && controller.collisions.below == false)
+						{
+							jaAterrisou = false;
+							PlayAnim("NoArUp");
+						}
 
-					else if (moveAmount.y < 9 && moveAmount.y > 0 && controller.collisions.below == false && dogButtonAnim == false && pipaActive.Value == false && carroActive.Value == false)
-					{
-						PlayAnim("TransitionAir");
-					}
+						else if (moveAmount.y < 9 && moveAmount.y > 0 && controller.collisions.below == false)
+						{
+							PlayAnim("TransitionAir");
+						}
 
-					else if (moveAmount.y <= 0 && controller.collisions.below == false && dogButtonAnim == false && jaAterrisou == false && pipaActive.Value == false && carroActive.Value == false)
-					{
-						PlayAnim("Fall");
-					}
+						else if (moveAmount.y <= 0 && controller.collisions.below == false && jaAterrisou == false)
+						{
+							PlayAnim("Fall");
+						}
 
-					else if (moveAmount.y < -5f && input.x == 0 && input.y >= 0 && controller.collisions.below == true && dogButtonAnim == false && jaAterrisou == false && pipaActive.Value == false && carroActive.Value == false)
-					{
-						PlayAnim("Aterrisando");
-					}
+						else if (moveAmount.y < -5f && input.x == 0 && input.y >= 0 && controller.collisions.below == true && jaAterrisou == false)
+						{
+							PlayAnim("Aterrisando");
+						}
 
-					else if (controller.collisions.below && input.x == 0 && input.y < 0 && dogButtonAnim == false && pipaActive.Value == false && carroActive.Value == false)
-					{
-						PlayAnim("Abaixar");
-					}
+						else if (controller.collisions.below && input.x == 0 && input.y < 0)
+						{
+							PlayAnim("Abaixar");
+						}
 
-					else if (input.x != 0 && controller.collisions.below && dogButtonAnim == false && pipaActive.Value == false && carroActive.Value == false)
-					{
-						PlayAnim("Walking");
+						else if (input.x != 0 && controller.collisions.below)
+						{
+							PlayAnim("Walking");
+						}
 					}
 
 					else
