@@ -104,7 +104,7 @@ public class NewPlayerMovent : MonoBehaviour
 
     void Update()
     {
-		if (playerGanhou.Value == true || !pv.IsMine && PhotonNetwork.InRoom || levouDogada.Value || textoAtivo.Value == true)
+		if (playerGanhou.Value || !pv.IsMine && PhotonNetwork.InRoom || levouDogada.Value || textoAtivo.Value)
 		{
 			return;
 		}
@@ -116,7 +116,7 @@ public class NewPlayerMovent : MonoBehaviour
 
         joyInput = new Vector2(joyStick.Horizontal, joyStick.Vertical);
 
-        if (carroActive.Value == false && pipaActive.Value == false)
+        if (!carroActive.Value && !pipaActive.Value)
         {
 			input.x = 0;
 			if (Mathf.Abs(joyInput.x) > 0.3f)
@@ -133,7 +133,7 @@ public class NewPlayerMovent : MonoBehaviour
             float targetVelocityX = input.x * moveSpeed.Value;
             velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (controller.collisions.below) ? accelerationTimeGrounded : accelerationTimeAirborne);
 
-            if (triggerController.collisions.slowTime == false)
+            if (!triggerController.collisions.slowTime)
             {
                 slowFall = false;
                 velocity.y += gravity * Time.deltaTime;
@@ -152,7 +152,7 @@ public class NewPlayerMovent : MonoBehaviour
             animations.ChangeMoveAnim(velocity, oldPosition, input, jump, stopJump);
             if (controller.collisions.above || controller.collisions.below)
             {
-                if (stopJump == true)
+                if (stopJump)
                 {
                     FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Queda", transform.position);
                 }
@@ -174,9 +174,9 @@ public class NewPlayerMovent : MonoBehaviour
 
             input = joyInput;
 
-            if (carroActive.Value == true)
+            if (carroActive.Value)
             {
-                if (jump == true && controller.collisions.below)
+                if (jump && controller.collisions.below)
                 {
                     carroVelocity.y = maxJumpHeight.Value;
                 }
@@ -211,7 +211,7 @@ public class NewPlayerMovent : MonoBehaviour
                 }
 
             }
-            if (pipaActive.Value == true)
+            if (pipaActive.Value)
             {
                 float targetVelocityX = input.x * pipaMoveSpeed;
                 pipaVelocity.x = Mathf.SmoothDamp(pipaVelocity.x, targetVelocityX, ref pipaVelocityXSmoothing, pipaAccelerationTimeAirborne);
@@ -278,7 +278,7 @@ public class NewPlayerMovent : MonoBehaviour
 
     public void CallFootsteps()
     {
-        if (carroActive.Value == false && pipaActive.Value == false)
+        if (!carroActive.Value && !pipaActive.Value)
         {
             if (joyInput.x > 0.3f || joyInput.x < -0.3f)
             {
