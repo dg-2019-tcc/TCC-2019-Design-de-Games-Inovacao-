@@ -118,16 +118,12 @@ public class NewPlayerMovent : MonoBehaviour
 
         if (carroActive.Value == false && pipaActive.Value == false)
         {
-            if (joyInput.x > 0.3f || joyInput.x < -0.3f)
+			input.x = 0;
+			if (Mathf.Abs(joyInput.x) > 0.3f)
             {
                 input.x = joyInput.x;
             }
-
-            else
-            {
-                input.x = 0;
-            }
-
+   
            /* if (jump || stopJump)
             {
                 animations.ChangeMoveAnim(ref velocity, ref oldPosition, ref input, ref jump,ref stopJump);
@@ -158,7 +154,7 @@ public class NewPlayerMovent : MonoBehaviour
             {
                 if (stopJump == true)
                 {
-                    FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Queda", GetComponent<Transform>().position);
+                    FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Queda", transform.position);
                 }
                 velocity.y = 0;
                 jump = false;
@@ -265,7 +261,7 @@ public class NewPlayerMovent : MonoBehaviour
         if (controller.collisions.below && jump /*&& !stopJump*/)
         {
             velocity.y = maxJumpHeight.Value;
-            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Pulo", GetComponent<Transform>().position);
+            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Pulo", transform.position);
         }
     }
 
@@ -288,7 +284,7 @@ public class NewPlayerMovent : MonoBehaviour
             {
                 if (controller.collisions.below && jump == false)
                 {
-                    FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Passos", GetComponent<Transform>().position);
+                    FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Passos", transform.position);
                 }
             }
         }
