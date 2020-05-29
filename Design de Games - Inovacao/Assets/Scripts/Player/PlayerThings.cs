@@ -93,7 +93,7 @@ public class PlayerThings : MonoBehaviour
 
     void Update()
     {
-        if(desativaCanvas == true && canvasSelf.active == true)
+        if(desativaCanvas && canvasSelf.activeSelf)
         {
             canvasSelf.SetActive(false);
         }
@@ -114,7 +114,7 @@ public class PlayerThings : MonoBehaviour
         {
             if (shouldTurn)
             {
-                if (joyStick.Horizontal > 0 || ThrowObject.dirRight == true && rightDir == false)
+                if (joyStick.Horizontal > 0 || ThrowObject.dirRight && rightDir)
                 {
 
 
@@ -125,32 +125,9 @@ public class PlayerThings : MonoBehaviour
 
 
 
-                    if (!PhotonNetwork.InRoom)
-                    {
-                        Quaternion direction = Quaternion.Euler(0, 0, player.transform.localRotation.z);
-                        player.transform.rotation = direction;
-                        carro.transform.rotation = direction;
-                        pipa.transform.rotation = direction;
-                        //dog.transform.rotation = direction;
+					GiraOn(rightDir);
 
-                        /*if (controller.collisions.climbingSlope)
-                        {
-                            player.transform.localRotation = Quaternion.Slerp(direction, Quaternion.Euler(player.transform.localRotation.x, direction.y, controller.collisions.slopeAngle), 1f);
-                            carro.transform.localRotation = Quaternion.Slerp(carro.transform.localRotation, Quaternion.Euler(carro.transform.localRotation.x, player.transform.localRotation.y, controller.collisions.slopeAngle), 1f);
-                        }
-
-                        else if (controller.collisions.descendingSlope)
-                        {
-                            player.transform.localRotation = Quaternion.Slerp(direction, Quaternion.Euler(player.transform.localRotation.x, player.transform.localRotation.y, -controller.collisions.slopeAngle), 1f);
-                            carro.transform.localRotation = Quaternion.Slerp(carro.transform.localRotation, Quaternion.Euler(carro.transform.localRotation.x, carro.transform.localRotation.y, -controller.collisions.slopeAngle), 1f);
-                        }*/
-                    }
-                    else
-                    {
-                        gameObject.GetComponent<PhotonView>().RPC("NewGiraPlayer", RpcTarget.All, rightDir);
-                    }
-
-                }
+				}
                 else if (joyStick.Horizontal < 0 || ThrowObject.dirLeft == true && leftDir == false)
                 {
 
@@ -161,30 +138,7 @@ public class PlayerThings : MonoBehaviour
 
 
 
-                    if (!PhotonNetwork.InRoom)
-                    {
-                        Quaternion direction = Quaternion.Euler(0, 180, 0);
-                        player.transform.rotation = direction;
-                        carro.transform.rotation = direction;
-                        pipa.transform.rotation = direction;
-                        //dog.transform.rotation = direction;
-
-                        /*if (controller.collisions.climbingSlope)
-                        {
-                            player.transform.localRotation = Quaternion.Slerp(direction, Quaternion.Euler(player.transform.localRotation.x, 180, controller.collisions.slopeAngle), 1f);
-                            carro.transform.localRotation = Quaternion.Slerp(carro.transform.localRotation, Quaternion.Euler(carro.transform.localRotation.x, 180, controller.collisions.slopeAngle), 1f);
-                        }
-
-                        else if (controller.collisions.descendingSlope)
-                        {
-                            player.transform.localRotation = Quaternion.Slerp(direction, Quaternion.Euler(player.transform.localRotation.x, player.transform.localRotation.y, -controller.collisions.slopeAngle), 1f);
-                            carro.transform.localRotation = Quaternion.Slerp(carro.transform.localRotation, Quaternion.Euler(carro.transform.localRotation.x, carro.transform.localRotation.y, -controller.collisions.slopeAngle), 1f);
-                        }*/
-                    }
-                    else
-                    {
-                        gameObject.GetComponent<PhotonView>().RPC("NewGiraPlayer", RpcTarget.All, rightDir);
-                    }
+					GiraOn(rightDir);
                 }
 
                 /*if (controller.collisions.climbingSlope)
@@ -235,52 +189,50 @@ public class PlayerThings : MonoBehaviour
 
 		if (PhotonNetwork.InRoom)
 		{
-    
-			{
-				PV.RPC("GambiarraDosIndex", RpcTarget.All, (int)PhotonNetwork.CurrentRoom.CustomProperties["IndexColetavel"]);
-			}
-			
+			PV.RPC("GambiarraDosIndex", RpcTarget.All, (int)PhotonNetwork.CurrentRoom.CustomProperties["IndexColetavel"]);
 		}
 
 	}
 
-
-
-    [PunRPC]
-    void NewGiraPlayer(bool dir)
-    {
-        if (dir)
-        {
-            Quaternion direction = Quaternion.Euler(0, 0, 0);
-            player.transform.rotation = direction;
-            carro.transform.rotation = direction;
-            pipa.transform.rotation = direction;
-            dog.transform.rotation = direction;
-        }
-        else
-        {
-            Quaternion direction = Quaternion.Euler(0, 180, 0);
-            player.transform.rotation = direction;
-            carro.transform.rotation = direction;
-            pipa.transform.rotation = direction;
-            dog.transform.rotation = direction;
-        }
-    }
-
-	public IEnumerator LevouDogada()
+	void GiraOn(bool dir)
 	{
-		if (PV.IsMine)
+		int angle;
+		if (dir)
 		{
-			levou.Value = true;
-			yield return new WaitForSeconds(StunTime);
-			levou.Value = false;
+			angle = 0;
 		}
 		else
 		{
-            levou.Value = true;
-            yield return new WaitForSeconds(StunTime);
-            levou.Value = false;
-        }
+			angle = 180;
+		}
+
+		if (PhotonNetwork.InRoom)
+		{
+			PV.RPC("NewGiraPlayer", RpcTarget.All, angle);
+		}
+		else
+		{
+			NewGiraPlayer(angle);
+		}
+	}
+
+    [PunRPC]
+    void NewGiraPlayer(int dir)
+    {
+		Quaternion direction = Quaternion.Euler(0, dir, 0);
+		player.transform.rotation = direction;
+		carro.transform.rotation = direction;
+		pipa.transform.rotation = direction;
+		dog.transform.rotation = direction;
+	}
+
+	public IEnumerator LevouDogada()
+	{
+
+		levou.Value = true;
+		yield return new WaitForSeconds(StunTime);
+		levou.Value = false;
+
 	}
 
 	[PunRPC]

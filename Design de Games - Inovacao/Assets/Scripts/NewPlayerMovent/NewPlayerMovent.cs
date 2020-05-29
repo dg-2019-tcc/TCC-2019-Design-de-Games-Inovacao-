@@ -104,32 +104,26 @@ public class NewPlayerMovent : MonoBehaviour
 
     void Update()
     {
+		if (playerGanhou.Value || !pv.IsMine && PhotonNetwork.InRoom || levouDogada.Value || textoAtivo.Value)
+		{
+			return;
+		}
         if (joyStick == null)
         {
             joyStick = FindObjectOfType<FloatingJoystick>();
         }
 
 
-        if (playerGanhou.Value == true) return;
-        if (!pv.IsMine && PhotonNetwork.InRoom) return;
-        if (levouDogada.Value) return;
-        if (textoAtivo.Value == true) return;
-
-
         joyInput = new Vector2(joyStick.Horizontal, joyStick.Vertical);
 
-        if (carroActive.Value == false && pipaActive.Value == false)
+        if (!carroActive.Value && !pipaActive.Value)
         {
-            if (joyInput.x > 0.3f || joyInput.x < -0.3f)
+			input.x = 0;
+			if (Mathf.Abs(joyInput.x) > 0.3f)
             {
                 input.x = joyInput.x;
             }
-
-            else
-            {
-                input.x = 0;
-            }
-
+   
            /* if (jump || stopJump)
             {
                 animations.ChangeMoveAnim(ref velocity, ref oldPosition, ref input, ref jump,ref stopJump);
@@ -139,7 +133,7 @@ public class NewPlayerMovent : MonoBehaviour
             float targetVelocityX = input.x * moveSpeed.Value;
             velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (controller.collisions.below) ? accelerationTimeGrounded : accelerationTimeAirborne);
 
-            if (triggerController.collisions.slowTime == false)
+            if (!triggerController.collisions.slowTime)
             {
                 slowFall = false;
                 velocity.y += gravity * Time.deltaTime;
@@ -155,12 +149,12 @@ public class NewPlayerMovent : MonoBehaviour
             controller.Move(velocity * Time.deltaTime, input);
             //dogController.Move(velocity * Time.deltaTime, input);
             triggerController.MoveDirection(velocity *Time.deltaTime);
-            animations.ChangeMoveAnim(ref velocity, ref oldPosition,ref input,ref jump,ref stopJump);
+            animations.ChangeMoveAnim(velocity, oldPosition, input, jump, stopJump);
             if (controller.collisions.above || controller.collisions.below)
             {
-                if (stopJump == true)
+                if (stopJump)
                 {
-                    FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Queda", GetComponent<Transform>().position);
+                    FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Queda", transform.position);
                 }
                 velocity.y = 0;
                 jump = false;
@@ -180,9 +174,9 @@ public class NewPlayerMovent : MonoBehaviour
 
             input = joyInput;
 
-            if (carroActive.Value == true)
+            if (carroActive.Value)
             {
-                if (jump == true && controller.collisions.below)
+                if (jump && controller.collisions.below)
                 {
                     carroVelocity.y = maxJumpHeight.Value;
                 }
@@ -217,7 +211,7 @@ public class NewPlayerMovent : MonoBehaviour
                 }
 
             }
-            if (pipaActive.Value == true)
+            if (pipaActive.Value)
             {
                 float targetVelocityX = input.x * pipaMoveSpeed;
                 pipaVelocity.x = Mathf.SmoothDamp(pipaVelocity.x, targetVelocityX, ref pipaVelocityXSmoothing, pipaAccelerationTimeAirborne);
@@ -267,7 +261,7 @@ public class NewPlayerMovent : MonoBehaviour
         if (controller.collisions.below && jump /*&& !stopJump*/)
         {
             velocity.y = maxJumpHeight.Value;
-            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Pulo", GetComponent<Transform>().position);
+            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Pulo", transform.position);
         }
     }
 
@@ -284,13 +278,13 @@ public class NewPlayerMovent : MonoBehaviour
 
     public void CallFootsteps()
     {
-        if (carroActive.Value == false && pipaActive.Value == false)
+        if (!carroActive.Value && !pipaActive.Value)
         {
             if (joyInput.x > 0.3f || joyInput.x < -0.3f)
             {
                 if (controller.collisions.below && jump == false)
                 {
-                    FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Passos", GetComponent<Transform>().position);
+                    FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Passos", transform.position);
                 }
             }
         }
