@@ -9,10 +9,12 @@ public class HistoriaManager : MonoBehaviour
     public Image histImage;
     public Sprite[] histSprites;
 
-    private string nomeDoMenu;
+    public string nomeDoMenu;
 
     public FloatVariable flowIndex;
     public BoolVariable acabou01;
+
+    public float nextIndex;
 
 
     private void Awake()
@@ -20,7 +22,9 @@ public class HistoriaManager : MonoBehaviour
         acabou01 = Resources.Load<BoolVariable>("Acabou01");
         flowIndex = Resources.Load<FloatVariable>("FlowIndex");
 
-        AjustaFlowIndex();
+        flowIndex.Value = nextIndex;
+
+        StartCoroutine("StartHist");
     }
 
     public void SkipHist()
@@ -31,45 +35,6 @@ public class HistoriaManager : MonoBehaviour
         //AjustaFlowIndex();
     }
 
-    public void AjustaFlowIndex()
-    {
-        //StopCoroutine("StartHist");
-
-        if (flowIndex.Value == 6)
-        {
-            acabou01.Value = true;
-            flowIndex.Value = 8;
-            nomeDoMenu = "MenuPrincipal";
-        }
-
-        else if (flowIndex.Value == 4)
-        {
-            flowIndex.Value = 6;
-            nomeDoMenu = "HUB"; ;
-        }
-
-        else if (flowIndex.Value == 3)
-        {
-            flowIndex.Value = 4;
-            nomeDoMenu = "HUB";
-        }
-
-        else if (flowIndex.Value == 1)
-        {
-            Debug.Log("Cosleta");
-            flowIndex.Value = 3;
-            nomeDoMenu = "HUB";
-        }
-
-        else if (flowIndex.Value == 0)
-        {
-            Debug.Log("Customiza");
-            flowIndex.Value = 1;
-            nomeDoMenu = "Customiza";
-        }
-
-        StartCoroutine("StartHist");
-    }
 
     IEnumerator StartHist()
     {

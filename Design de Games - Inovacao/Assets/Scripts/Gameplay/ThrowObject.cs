@@ -117,7 +117,6 @@ public class ThrowObject : MonoBehaviour
 
         else
         {
-			Debug.Log("voltou do tiro");
 			dogBotao.Value = false;
 			cooldownDelta = 0;
             tiroButton.enabled = true;
