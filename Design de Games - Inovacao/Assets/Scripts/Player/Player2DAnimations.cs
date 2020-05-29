@@ -92,7 +92,7 @@ public class Player2DAnimations : MonoBehaviour
 
 
 
-	public void ChangeMoveAnim(ref Vector3 moveAmount, ref Vector2 oldPos, ref Vector2 input, ref bool Jump, ref bool stopJump)
+	public void ChangeMoveAnim(Vector3 moveAmount, Vector2 oldPos, Vector2 input, bool Jump, bool stopJump)
 	{
 
 		if (!PhotonNetwork.InRoom || photonView.IsMine)

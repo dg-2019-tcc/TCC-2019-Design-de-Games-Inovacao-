@@ -153,7 +153,7 @@ public class NewPlayerMovent : MonoBehaviour
             controller.Move(velocity * Time.deltaTime, input);
             //dogController.Move(velocity * Time.deltaTime, input);
             triggerController.MoveDirection(velocity *Time.deltaTime);
-            animations.ChangeMoveAnim(ref velocity, ref oldPosition,ref input,ref jump,ref stopJump);
+            animations.ChangeMoveAnim(velocity, oldPosition, input, jump, stopJump);
             if (controller.collisions.above || controller.collisions.below)
             {
                 if (stopJump == true)
