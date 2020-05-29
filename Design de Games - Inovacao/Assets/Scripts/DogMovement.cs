@@ -22,7 +22,7 @@ public class DogMovement : MonoBehaviour
     Vector2 joyInput;
 
     [SerializeField]
-    public Joystick joyStick;
+    public FloatingJoystick joyStick;
 
     AIController2D dogController;
 
@@ -46,7 +46,7 @@ public class DogMovement : MonoBehaviour
     {
         dogController = GetComponent<AIController2D>();
 
-        //joyStick = FindObjectOfType<Joystick>();
+        joyStick = FindObjectOfType<FloatingJoystick>();
 
         gravity = -(2 * maxJumpHeight) / Mathf.Pow(timeToJumpApex, 2);
         maxJumpVelocity = Mathf.Abs(gravity * timeToJumpApex);
@@ -58,8 +58,8 @@ public class DogMovement : MonoBehaviour
 
     void LateUpdate()
     {
-        //joyInput = new Vector2(joyStick.Horizontal, joyStick.Vertical);
-        joyInput = playerMove.joyInput;
+        joyInput = new Vector2(joyStick.Horizontal, joyStick.Vertical);
+        //joyInput = playerMove.joyInput;
         if (joyInput.x > 0.3f || joyInput.x < -0.3f)
         {
             input.x = joyInput.x;

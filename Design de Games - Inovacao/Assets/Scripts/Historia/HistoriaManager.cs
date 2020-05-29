@@ -14,15 +14,17 @@ public class HistoriaManager : MonoBehaviour
     public FloatVariable flowIndex;
     public BoolVariable acabou01;
 
-    public float nextIndex;
+    public int nextIndex;
 
 
     private void Awake()
     {
-        acabou01 = Resources.Load<BoolVariable>("Acabou01");
-        flowIndex = Resources.Load<FloatVariable>("FlowIndex");
 
+
+        PlayerPrefs.SetInt("Fase", nextIndex);
         flowIndex.Value = nextIndex;
+        int debug = PlayerPrefs.GetInt("Fase");
+        Debug.Log(debug);
 
         StartCoroutine("StartHist");
     }
@@ -30,7 +32,8 @@ public class HistoriaManager : MonoBehaviour
     public void SkipHist()
     {
         FMODUnity.RuntimeManager.PlayOneShot("event:/HUD/Click", GetComponent<Transform>().position);
-
+        StopCoroutine("StartHist");
+        flowIndex.Value = nextIndex;
         SceneManager.LoadScene(nomeDoMenu);
         //AjustaFlowIndex();
     }
@@ -44,6 +47,7 @@ public class HistoriaManager : MonoBehaviour
             yield return new WaitForSeconds(5f);
         }
 
+        flowIndex.Value = nextIndex;
         SceneManager.LoadScene(nomeDoMenu);
         //AjustaFlowIndex();
 

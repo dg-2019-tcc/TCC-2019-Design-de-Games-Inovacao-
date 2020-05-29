@@ -32,7 +32,7 @@ public class ImageManager : MonoBehaviour
     bool ativou = false; //Detecta colisão pela primeira vez
     bool textBoxLigada = false; //Checa se a text box está ligada
     
-    [HideInInspector]
+    //[HideInInspector]
     public int currentImage = 0;
     [HideInInspector]
     public int endAtImage;
@@ -50,17 +50,18 @@ public class ImageManager : MonoBehaviour
 
     private void Start()
     {
+        //aiGanhou = Resources.Load<BoolVariable>("AIGanhou");
+
         textBox.SetActive(false);
         endAtImage = textSprites.Length;
-        aiGanhou = Resources.Load<BoolVariable>("AIGanhou");
 
         if (aiGanhou.Value == false)
         {
             StartCoroutine(Teste());
         }
 
-		joystick = FindObjectOfType<Joystick>().gameObject;
-		joystick.SetActive(false);
+		/*joystick = FindObjectOfType<Joystick>().gameObject;
+		joystick.SetActive(false);*/
 	}
 
 	/*
@@ -88,7 +89,7 @@ public class ImageManager : MonoBehaviour
             currentImage++;
         }
         textBox.SetActive(false);
-		joystick.SetActive(true);
+		//joystick.SetActive(true);
         Destroy(gameObject);
     }
 }

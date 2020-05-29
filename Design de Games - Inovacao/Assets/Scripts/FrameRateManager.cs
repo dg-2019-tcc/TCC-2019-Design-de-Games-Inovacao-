@@ -12,7 +12,7 @@ public class FrameRateManager : MonoBehaviour
     {
         DontDestroyOnLoad(eu);
         QualitySettings.vSyncCount = 0;
-        Application.targetFrameRate = 30;
+        Application.targetFrameRate = target;
     }
 
     private void Update()
