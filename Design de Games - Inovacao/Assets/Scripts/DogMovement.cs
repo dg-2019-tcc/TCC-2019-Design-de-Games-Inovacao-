@@ -56,7 +56,7 @@ public class DogMovement : MonoBehaviour
 
 
 
-    void Update()
+    void LateUpdate()
     {
         //joyInput = new Vector2(joyStick.Horizontal, joyStick.Vertical);
         joyInput = playerMove.joyInput;

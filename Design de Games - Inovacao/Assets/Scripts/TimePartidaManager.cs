@@ -17,6 +17,8 @@ namespace Complete
         public float seconds;
         public int minutes;
 
+        float deltaTime;
+
         public BoolVariable faseComeca;
 
         int recordMinutes;
@@ -62,14 +64,18 @@ namespace Complete
             if (faseComeca.Value && playerGanhou.Value == false)
             {
                 time += Time.deltaTime;
-                seconds = Mathf.Round(time * 100f) / 100f;
-                if (seconds == 60)
+                minutes = Mathf.RoundToInt(time) / 60;
+                seconds = (Mathf.Round(time * 100f) / 100f) - (minutes *60);
+
+                if(seconds < 10)
                 {
-                    minutes += 1;
-                    seconds = 0;
+                    atualTimeText.text = "Tempo:" + minutes + "." + "0" + seconds;
                 }
 
-                atualTimeText.text = "Tempo:" + minutes + "." + seconds;
+                else
+                {
+                    atualTimeText.text = "Tempo:" + minutes + "." +  seconds;
+                }
             }
 
             if (playerGanhou.Value)

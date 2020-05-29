@@ -157,6 +157,55 @@ MonoBehaviour:
   - {fileID: 0}
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &6731474571003181296
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 279062277676543969}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 638d74d0fa4615449a138ac511962c18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  climbing: 0.15
+  descendingSlope: 0.5
+  descendingAir: 0.75
+  boost01: 1
+  boost02: 2
+  boost03: 2
+  motoSpeedChange: {fileID: 11400000, guid: 3a76fdd6c24777c4c8d829e28ddc7def, type: 2}
+  levouDogada: {fileID: 11400000, guid: 99d1bd11c5b71c140adc47ce4ba5ba41, type: 2}
+  empina: {fileID: 1406578554322208868}
+  speedText: {fileID: 2213639753334672817}
+  speedVal: 0
+--- !u!114 &9111521665537455695
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 279062277676543969}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e125f080a2e329b40824087ed63f81de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: {fileID: 11400000, guid: 48ab2cb7cf0b76541b0f02c5decb29f3, type: 2}
+  motoSpeedChange: {fileID: 11400000, guid: 3a76fdd6c24777c4c8d829e28ddc7def, type: 2}
+  maxJumpHeight: 22
+  minJumpHeight: 0.5
+  timeToJumpApex: 0.85
+  motoMaxJumpHeight: 4
+  motoMinJumpHeight: 2
+  motoTimeToJumpApex: 0.4
+  oldPosition: {x: 0, y: 0}
+  velocity: {x: 0, y: 0, z: 0}
+  controller: {fileID: 279062277676543971}
+  joyStick: {fileID: 0}
+  levouDogada: {fileID: 11400000, guid: 99d1bd11c5b71c140adc47ce4ba5ba41, type: 2}
+  playerGanhou: {fileID: 0}
 --- !u!1 &349984279322731958
 GameObject:
   m_ObjectHideFlags: 0
@@ -232,6 +281,53 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &708119694
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 713808415115712959}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 2
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1406578554322208868}
+          m_MethodName: buttonEmpina
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
+        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  - eventID: 3
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1406578554322208868}
+          m_MethodName: stopManobra
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
+        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 --- !u!1 &796256260130538080
 GameObject:
   m_ObjectHideFlags: 0
@@ -307,102 +403,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &6731474571003181296
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 279062277676543969}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 638d74d0fa4615449a138ac511962c18, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  climbing: 0.15
-  descendingSlope: 0.5
-  descendingAir: 0.75
-  boost01: 1
-  boost02: 2
-  boost03: 2
-  motoSpeedChange: {fileID: 11400000, guid: 3a76fdd6c24777c4c8d829e28ddc7def, type: 2}
-  levouDogada: {fileID: 11400000, guid: 99d1bd11c5b71c140adc47ce4ba5ba41, type: 2}
-  empina: {fileID: 1406578554322208868}
-  speedText: {fileID: 2213639753334672817}
-  speedVal: 0
---- !u!114 &9111521665537455695
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 279062277676543969}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e125f080a2e329b40824087ed63f81de, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: {fileID: 11400000, guid: 48ab2cb7cf0b76541b0f02c5decb29f3, type: 2}
-  motoSpeedChange: {fileID: 11400000, guid: 3a76fdd6c24777c4c8d829e28ddc7def, type: 2}
-  maxJumpHeight: 22
-  minJumpHeight: 0.5
-  timeToJumpApex: 0.85
-  motoMaxJumpHeight: 4
-  motoMinJumpHeight: 2
-  motoTimeToJumpApex: 0.4
-  oldPosition: {x: 0, y: 0}
-  velocity: {x: 0, y: 0, z: 0}
-  controller: {fileID: 279062277676543971}
-  joyStick: {fileID: 0}
-  levouDogada: {fileID: 11400000, guid: 99d1bd11c5b71c140adc47ce4ba5ba41, type: 2}
-  playerGanhou: {fileID: 0}
---- !u!114 &708119694
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 713808415115712959}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Delegates:
-  - eventID: 2
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1406578554322208868}
-          m_MethodName: buttonEmpina
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
-        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  - eventID: 3
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1406578554322208868}
-          m_MethodName: stopManobra
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
-        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 --- !u!23 &5413049728798066005
 MeshRenderer:
   m_ObjectHideFlags: 0
