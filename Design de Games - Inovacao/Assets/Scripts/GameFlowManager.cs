@@ -32,6 +32,7 @@ public class GameFlowManager : MonoBehaviour
         if(resetaFase.Value == true)
         {
             PlayerPrefs.SetInt("Fase", 0);
+            resetaFase.Value = false;
         }
 
         index = PlayerPrefs.GetInt("Fase");
@@ -57,10 +58,10 @@ public class GameFlowManager : MonoBehaviour
             flowIndex = Resources.Load<FloatVariable>("FlowIndex");
         }
 
-        if (CameraShowoff != null)
+        /*if (CameraShowoff != null)
         {
             CameraShowoff.SetActive(false);
-        }
+        }*/
 
         if (!acabou01.Value)
         {
