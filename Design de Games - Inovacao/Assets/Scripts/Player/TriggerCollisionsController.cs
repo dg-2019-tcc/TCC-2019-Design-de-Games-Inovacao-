@@ -41,35 +41,6 @@ public class TriggerCollisionsController : RaycastController
         LeftCollisions();
         UpCollisions();
         DownCollisions();
-
-        /*if (isBallGame)
-        {
-            RightCollisions();
-            LeftCollisions();
-            UpCollisions();
-            DownCollisions();
-        }
-
-        else
-        {
-
-            if (dir.x > 0)
-            {
-                RightCollisions();
-            }
-            else if (dir.x < 0)
-            {
-                LeftCollisions();
-            }
-            else if (dir.y > 0)
-            {
-                UpCollisions();
-            }
-            else if(dir.y <0)
-            {
-                DownCollisions();
-            }
-        }*/
     }
 
     void RightCollisions()
@@ -95,7 +66,13 @@ public class TriggerCollisionsController : RaycastController
 
             if (hit)
             {
-                if(hit.collider.tag == "Dog")
+                if (hit.collider.tag == "TV")
+                {
+                    hit.collider.GetComponent<TextBoxActivate>().PlayerHit();
+                    collisions.hitTV = true;
+                }
+
+                if (hit.collider.tag == "Dog")
                 {
                     DogColetaTutorial dogTutorial = hit.collider.GetComponent<DogColetaTutorial>();
                     dogTutorial.AtivaDog();
@@ -225,6 +202,12 @@ public class TriggerCollisionsController : RaycastController
 
             if (hit)
             {
+                if (hit.collider.tag == "TV")
+                {
+                    hit.collider.GetComponent<TextBoxActivate>().PlayerHit();
+                    collisions.hitTV = true;
+                }
+
                 if (hit.collider.tag == "Dog")
                 {
                     DogColetaTutorial dogTutorial = hit.collider.GetComponent<DogColetaTutorial>();
@@ -334,6 +317,12 @@ public class TriggerCollisionsController : RaycastController
 
             if (hit)
             {
+                if (hit.collider.tag == "TV")
+                {
+                    hit.collider.GetComponent<TextBoxActivate>().PlayerHit();
+                    collisions.hitTV = true;
+                }
+
                 if (hit.collider.tag == "Dog")
                 {
                     DogColetaTutorial dogTutorial = hit.collider.GetComponent<DogColetaTutorial>();
@@ -418,6 +407,12 @@ public class TriggerCollisionsController : RaycastController
                 if(hit.collider.tag == "SlowFall")
                 {
                     collisions.slowTime = true;
+                }
+
+                if (hit.collider.tag == "TV")
+                {
+                    hit.collider.GetComponent<TextBoxActivate>().PlayerHit();
+                    collisions.hitTV = true;
                 }
 
                 if (hit.collider.tag == "Dog")
@@ -519,6 +514,8 @@ public class TriggerCollisionsController : RaycastController
 
         public bool hitDog;
 
+        public bool hitTV;
+
         public bool slowTime;
 
         public Vector2 direction;
@@ -532,6 +529,7 @@ public class TriggerCollisionsController : RaycastController
             caixaDagua = false;
             hitDog = false;
             slowTime = false;
+            hitTV = false;
             direction.x = direction.y = 0;
         }
     }
