@@ -13,7 +13,7 @@ public class ItemLocatorOnScreen : MonoBehaviour
 
 	public Transform canvas;
 
-	private Sprite image;
+	public Sprite image;
 
 	void Start()
 	{
@@ -22,7 +22,10 @@ public class ItemLocatorOnScreen : MonoBehaviour
 		cam = FindObjectOfType<Camera>();
 		instance.SetActive(false);
 
-		image = GetComponent<SpriteRenderer>().sprite;
+		if (image == null)
+		{
+			image = GetComponent<SpriteRenderer>().sprite;
+		}
 			instance.GetComponentInChildren<PointerName>().sprite = image;
 		
 	}

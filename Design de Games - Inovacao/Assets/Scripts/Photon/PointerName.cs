@@ -11,6 +11,9 @@ public class PointerName : MonoBehaviour
 	private TextMeshProUGUI text;
 	private Image image;
 
+	public bool straight = false;
+
+
 	[HideInInspector]
 	public string nickname;
 	[HideInInspector]
@@ -32,7 +35,14 @@ public class PointerName : MonoBehaviour
 		else if (image != null)
 		{
 			image.sprite = sprite;
-			transform.up = Vector3.up - Vector3.right;
+			if (straight)
+			{
+				transform.up = Vector3.up;
+			}
+			else
+			{
+				transform.up = Vector3.up - Vector3.right;
+			}
 		}
 		
     }
