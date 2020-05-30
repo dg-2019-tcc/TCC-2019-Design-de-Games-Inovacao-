@@ -13,6 +13,7 @@ public class FadeInFases : MonoBehaviour
 	{
 		if(shouldFade)
 		cor = GetComponent<Image>();
+		cor.color = new Color(cor.color.r, cor.color.g, cor.color.b, 1);
 	}
 	private void Update()
 	{
