@@ -36,6 +36,8 @@ public class SoundMenuManager : MonoBehaviour
     public Button m;
     public Button s;
 
+	public Sprite[] musicSprite;
+	public Sprite[] soundSprite;
 
     /*
     public TextMeshProUGUI masterText;
@@ -56,11 +58,17 @@ public class SoundMenuManager : MonoBehaviour
 
     private void OnEnable()
     {
-        changeButtonCollor(isMusicsOn, m);
-        changeButtonCollor(isSFXOn, s);
+        changeButtonCollor(isMusicsOn, m, musicSprite);
+        changeButtonCollor(isSFXOn, s, soundSprite);
     }
 
-    public void SoundMode(Bus myBus, ref bool isSoundOn)
+	private void Start()
+	{
+		changeButtonCollor(isMusicsOn, m, musicSprite);
+		changeButtonCollor(isSFXOn, s, soundSprite);
+	}
+
+	public void SoundMode(Bus myBus, ref bool isSoundOn)
     {
         if (isSoundOn)
         {
@@ -104,7 +112,7 @@ public class SoundMenuManager : MonoBehaviour
 
             case "Musics":
                 //Debug.Log("Mucisa");
-                changeButtonCollor(isMusicsOn, m);
+                changeButtonCollor(isMusicsOn, m, musicSprite);
                 SoundMode(musics, ref isMusicsOn);
                 /*if (isMusicsOn == true && isMasterOn == false)
                 {
@@ -116,7 +124,7 @@ public class SoundMenuManager : MonoBehaviour
 
 
             case "SFX":
-                changeButtonCollor(isSFXOn, s);
+                changeButtonCollor(isSFXOn, s, soundSprite);
                 SoundMode(sfx, ref isSFXOn); 
                 /*if (isSFXOn == true && isMasterOn == false)
                 {
@@ -147,16 +155,16 @@ public class SoundMenuManager : MonoBehaviour
     }
 
 
-    public void changeButtonCollor(bool active, Button b)
+    public void changeButtonCollor(bool active, Button b, Sprite[] sprite)
     {
         if(active == true)
         {
-            b.image.color = Color.red;
+            b.image.sprite = sprite[1];
         }
         else
         {
-            b.image.color = Color.green;
-        }
+			b.image.sprite = sprite[0];
+		}
     }
 
 

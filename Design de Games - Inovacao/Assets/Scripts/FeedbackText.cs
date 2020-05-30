@@ -1,34 +1,43 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class FeedbackText : MonoBehaviour
 {
 
-    public TextMeshProUGUI feedbaackText;
+	public Image FeedbackImage;
 
-    public BoolVariable aiGanhou;
+	public Sprite winSprite;
+	public Sprite loseSprite;
+
+	public BoolVariable aiGanhou;
     public BoolVariable playerGanhou;
+
+	
 
     void Start()
     {
+		FeedbackImage = GetComponent<Image>();
         aiGanhou = Resources.Load<BoolVariable>("AIGanhou");
         playerGanhou = Resources.Load<BoolVariable>("PlayerGanhou");
 
-        feedbaackText.text = "";
+		FeedbackImage.gameObject.SetActive(false);
     }
 
     void Update()
     {
         if(aiGanhou.Value == true)
         {
-            feedbaackText.text = "Você perdeu... =( Tente mais uma vez.";
+			FeedbackImage.gameObject.SetActive(true);
+			FeedbackImage.sprite = loseSprite;
         }
 
         else if (playerGanhou.Value == true)
         {
-            feedbaackText.text = "Parabéns, você ganhou!!! =)";
-        }
+			FeedbackImage.gameObject.SetActive(true);
+			FeedbackImage.sprite = winSprite;
+		}
     }
 }
