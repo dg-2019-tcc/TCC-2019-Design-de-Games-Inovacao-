@@ -2,6 +2,7 @@
 
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 using ExitGames.Client.Photon;
 using Photon.Realtime;
@@ -14,6 +15,8 @@ using Photon.Pun.Demo.Asteroids;
 public class ScoreManager : MonoBehaviourPunCallbacks
 {
     public GameObject PlayerOverviewEntryPrefab;
+
+	public Sprite[] scoreBackground;
 
     private Dictionary<int, GameObject> playerListEntries;
 
@@ -28,9 +31,10 @@ public class ScoreManager : MonoBehaviourPunCallbacks
             GameObject entry = Instantiate(PlayerOverviewEntryPrefab);
             entry.transform.SetParent(gameObject.transform);
             entry.transform.localScale = Vector3.one;
-            entry.GetComponent<Text>().color = AsteroidsGame.GetColor(p.GetPlayerNumber());
-            entry.GetComponent<Text>().text = string.Format("{0}\nScore: {1}", p.NickName, p.GetScore());
+            entry.GetComponentInChildren<TMP_Text>().color = AsteroidsGame.GetColor(p.GetPlayerNumber());
+			entry.GetComponentInChildren<TMP_Text>().text = p.GetScore().ToString(); //string.Format("{0}\nScore: {1}", p.NickName, p.GetScore());
             playerListEntries.Add(p.ActorNumber, entry);
+			entry.GetComponentInChildren<Image>().sprite = scoreBackground[p.ActorNumber-1];
         }
     }
 
@@ -54,7 +58,7 @@ public class ScoreManager : MonoBehaviourPunCallbacks
         GameObject entry;
         if (playerListEntries.TryGetValue(targetPlayer.ActorNumber, out entry))
         {
-            entry.GetComponent<Text>().text = string.Format("{0}\nScore: {1}", targetPlayer.NickName, targetPlayer.GetScore());
+            entry.GetComponent<TMP_Text>().text = targetPlayer.GetScore().ToString(); // string.Format("{0}\nScore: {1}", targetPlayer.NickName, targetPlayer.GetScore());
         }
     }
 
