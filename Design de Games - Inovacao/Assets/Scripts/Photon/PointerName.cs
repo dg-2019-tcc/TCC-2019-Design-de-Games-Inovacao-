@@ -27,11 +27,13 @@ public class PointerName : MonoBehaviour
 		if (text != null)
 		{
 			text.text = nickname;
+			transform.up = Vector3.up;
 		}
 		else if (image != null)
 		{
 			image.sprite = sprite;
+			transform.up = Vector3.up - Vector3.right;
 		}
-		transform.up = Vector3.up;
+		
     }
 }
