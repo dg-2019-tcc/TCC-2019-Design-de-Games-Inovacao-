@@ -159,13 +159,14 @@ public class Player2DAnimations : MonoBehaviour
 						{
 							PlayAnim("Walking");
 						}
+						else
+						{
+							PlayAnim("Idle");
+							//}
+						}
 					}
 
-					else
-					{
-						PlayAnim("Idle");
-						//}
-					}
+					
 				}
 			}
 
