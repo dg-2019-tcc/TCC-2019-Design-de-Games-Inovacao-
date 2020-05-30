@@ -58,7 +58,7 @@ public class ItemLocatorOnScreen : MonoBehaviour
 			instance.SetActive(false);
 		}
 
-		instance.transform.up = cam.WorldToScreenPoint(transform.position + positionAdjust) - instance.transform.position;
+		instance.transform.right = -(cam.WorldToScreenPoint(transform.position + positionAdjust) - instance.transform.position);
 		//instance.transform.LookAt(transform.position);
 
 	}

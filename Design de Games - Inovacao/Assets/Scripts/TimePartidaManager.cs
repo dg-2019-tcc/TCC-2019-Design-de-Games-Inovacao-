@@ -69,12 +69,12 @@ namespace Complete
 
                 if(seconds < 10)
                 {
-                    atualTimeText.text = "Tempo:" + minutes + "." + "0" + seconds;
+                    atualTimeText.text = minutes + "'" + "0" + (int)seconds;
                 }
 
                 else
                 {
-                    atualTimeText.text = "Tempo:" + minutes + "." +  seconds;
+                    atualTimeText.text = minutes + "'" +  (int)seconds;
                 }
             }
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+//using TMPro;
 using Photon.Pun;
 
 public class EmpinaMoto : MonoBehaviour
@@ -33,7 +34,7 @@ public class EmpinaMoto : MonoBehaviour
 
 
 	[Header("Feedbacks")]
-	public Image acelerometro;
+	//public TMP_Text acelerometro;
 	public Image brilhoDeBoost;
 	public SpriteRenderer motoBrilho;
 
@@ -141,7 +142,7 @@ public class EmpinaMoto : MonoBehaviour
 
 		if (motoPV.IsMine || !PhotonNetwork.InRoom)
 		{
-			acelerometro.fillAmount = playerSpeed.Value / boostSpeed;
+		//	acelerometro.text =  playerSpeed.Value.ToString();
 
 			if (carregado || !controller.collisions.below)
 			{
