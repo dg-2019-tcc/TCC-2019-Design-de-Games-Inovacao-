@@ -122,16 +122,29 @@ public class GameFlowManager : MonoBehaviour
                 Acabou();
                 break;
 
+            case 7:
+                FaseRoupa();
+                break;
+
             case 6:
                 FaseCorrida();
+                break;
+
+            case 5:
+                FaseCabelo();
                 break;
 
             case 4:
                 FaseMoto();
                 break;
 
+
             case 3:
                 FaseFutebol();
+                break;
+
+            case 2:
+                FaseTenis();
                 break;
 
             case 1:
