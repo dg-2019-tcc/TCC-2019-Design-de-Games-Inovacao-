@@ -16,6 +16,7 @@ public class TextBoxNext : MonoBehaviour
 	private bool finish;
 
     public BoolVariable textoAtivo;
+    public TV tv;
 
 	private void Start()
 	{
@@ -67,7 +68,11 @@ public class TextBoxNext : MonoBehaviour
             throwObject.passouTexto = false;
             textoAtivo.Value = false;
             finish = true;
-			Destroy(gameObject);
+            if (tv != null)
+            {
+                tv.faloComTV = true;
+            }
+            Destroy(gameObject);
 		}
 	}
 

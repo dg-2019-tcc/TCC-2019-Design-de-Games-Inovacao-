@@ -27,6 +27,9 @@ public class GameFlowManager : MonoBehaviour
 
     public GameObject teste;
 
+    public TV tv;
+    public bool ativouFase;
+
     private void Start()
     {
         if(resetaFase.Value == true)
@@ -58,6 +61,7 @@ public class GameFlowManager : MonoBehaviour
             flowIndex = Resources.Load<FloatVariable>("FlowIndex");
         }
 
+        // Desativei pq se nao roda a fala do mc
         /*if (CameraShowoff != null)
         {
             CameraShowoff.SetActive(false);
@@ -75,7 +79,14 @@ public class GameFlowManager : MonoBehaviour
 
             if (SceneManager.GetActiveScene().name == "HUB")
             {
-                AtivaFase(index);
+                if (aiGanhou.Value == false)
+                {
+                    FechaTudo();
+                }
+                else
+                {
+                    AtivaFase(index);
+                }
             }
         }
 
@@ -91,6 +102,14 @@ public class GameFlowManager : MonoBehaviour
                 Completo();
             }
 
+        }
+    }
+
+    private void Update()
+    {
+        if(tv.faloComTV == true && ativouFase == false)
+        {
+            AtivaFase(index);
         }
     }
 
@@ -128,6 +147,8 @@ public class GameFlowManager : MonoBehaviour
                 Fase0();
                 break;
         }
+
+        ativouFase = true;
     }
 
     public void ResetaJogo()
@@ -150,59 +171,7 @@ public class GameFlowManager : MonoBehaviour
         Debug.Log("Liberou");
     }
 
-    /*void FasesSave()
-    {
-        if(fasesSave.fases[0] == true)
-        {
-            Fase0();
-        }
 
-        else if (fasesSave.fases[1] == true)
-        {
-            FaseColeta();
-        }
-
-        else if (fasesSave.fases[2] == true)
-        {
-            FaseTenis();
-        }
-
-        else if (fasesSave.fases[3] == true)
-        {
-            FaseFutebol();
-        }
-
-        else if (fasesSave.fases[4] == true)
-        {
-            FaseMoto();
-        }
-
-        else if (fasesSave.fases[5] == true)
-        {
-            FaseCabelo();
-        }
-
-        else if (fasesSave.fases[6] == true)
-        {
-            FaseCorrida();
-        }
-
-        else if (fasesSave.fases[7] == true)
-        {
-            FaseRoupa();
-        }
-
-        else if(fasesSave.fases[8] == true)
-        {
-            Completo();
-            Acabou();
-        }
-
-        else
-        {
-            Fase0();
-        }
-    }*/
 
     void Fase0()
     {
@@ -215,10 +184,10 @@ public class GameFlowManager : MonoBehaviour
     {
         if (fasesSave.fases[3] == false)
         {
-            if (aiGanhou.Value == false)
+            /*if (aiGanhou.Value == false)
             {
                 CameraShowoff.SetActive(true);
-            }
+            }*/
 
             fasesSave.fases[1] = true;
 
@@ -377,6 +346,29 @@ public class GameFlowManager : MonoBehaviour
         doorBlock[5].SetActive(false);
         doorBlock[6].SetActive(false);
         doorBlock[7].SetActive(false);
+    }
+
+    public void FechaTudo()
+    {
+        ativouFase = false;
+
+        portas[0].SetActive(false);
+        portas[1].SetActive(false);
+        portas[2].SetActive(false);
+        portas[3].SetActive(false);
+        portas[4].SetActive(false);
+        portas[5].SetActive(false);
+        portas[6].SetActive(false);
+        portas[7].SetActive(false);
+
+        doorBlock[0].SetActive(true);
+        doorBlock[1].SetActive(true);
+        doorBlock[2].SetActive(true);
+        doorBlock[3].SetActive(true);
+        doorBlock[4].SetActive(true);
+        doorBlock[5].SetActive(true);
+        doorBlock[6].SetActive(true);
+        doorBlock[7].SetActive(true);
     }
 
     public void VoltaMenu()
