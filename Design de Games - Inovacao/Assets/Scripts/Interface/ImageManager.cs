@@ -56,22 +56,22 @@ public class ImageManager : MonoBehaviour
         endAtImage = textSprites.Length;
         textBoxLigada = false;
 
-        /*if (aiGanhou.Value == false)
+        if (aiGanhou.Value == false)
         {
             StartCoroutine(Teste());
-        }*/
+        }
 
         /*joystick = FindObjectOfType<Joystick>().gameObject;
 		joystick.SetActive(false);*/
     }
 
-    private void Update()
+    /*private void Update()
     {
         if (aiGanhou.Value == false && textBoxLigada == false)
         {
             StartCoroutine(Teste());
         }
-    }
+    }*/
 
     /*
     private void OnTriggerEnter(Collider other)
