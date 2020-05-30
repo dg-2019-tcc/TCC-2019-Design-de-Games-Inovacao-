@@ -30,7 +30,7 @@ public class ImageManager : MonoBehaviour
     public GameObject textBox;
 
     bool ativou = false; //Detecta colisão pela primeira vez
-    bool textBoxLigada = false; //Checa se a text box está ligada
+    public bool textBoxLigada = false; //Checa se a text box está ligada
     
     //[HideInInspector]
     public int currentImage = 0;
@@ -54,17 +54,26 @@ public class ImageManager : MonoBehaviour
 
         textBox.SetActive(false);
         endAtImage = textSprites.Length;
+        textBoxLigada = false;
 
-        if (aiGanhou.Value == false)
+        /*if (aiGanhou.Value == false)
+        {
+            StartCoroutine(Teste());
+        }*/
+
+        /*joystick = FindObjectOfType<Joystick>().gameObject;
+		joystick.SetActive(false);*/
+    }
+
+    private void Update()
+    {
+        if (aiGanhou.Value == false && textBoxLigada == false)
         {
             StartCoroutine(Teste());
         }
+    }
 
-		/*joystick = FindObjectOfType<Joystick>().gameObject;
-		joystick.SetActive(false);*/
-	}
-
-	/*
+    /*
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player") && !ativou)
@@ -77,19 +86,22 @@ public class ImageManager : MonoBehaviour
 
     IEnumerator Teste()
     {
+        textBox.SetActive(true);
+        textBoxLigada = true;
         for (int i = 0; i < endAtImage; i++)
         {
             theImage.sprite = textSprites[currentImage];
-            if (textBoxLigada == false)
+            /*if (textBoxLigada == false)
             {
                 textBox.SetActive(true);
                 textBoxLigada = true;
-            }
+            }*/
             yield return new WaitForSeconds(tempoParaProxima);
             currentImage++;
         }
         textBox.SetActive(false);
-		//joystick.SetActive(true);
+        //joystick.SetActive(true);
+        Debug.Log("Destroy");
         Destroy(gameObject);
     }
 }
