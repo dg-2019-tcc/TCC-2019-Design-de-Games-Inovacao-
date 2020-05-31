@@ -34,8 +34,17 @@ public class GameFlowManager : MonoBehaviour
     public TV tv;
     public bool ativouFase;
 
+    private bool liberou;
+    private bool resetou;
+
+    public OfflineMode offlineMode;
+
+
     private void Start()
     {
+        liberou = false;
+        resetou = false;
+
         if(resetaFase.Value == true && resetaFase != null)
         {
             PlayerPrefs.SetInt("Fase", 0);
@@ -43,6 +52,7 @@ public class GameFlowManager : MonoBehaviour
         }
 
         index = PlayerPrefs.GetInt("Fase");
+        Debug.Log(index);
 
         if (aiGanhou == null)
         {
@@ -70,9 +80,9 @@ public class GameFlowManager : MonoBehaviour
             CameraShowoff.SetActive(false);
         }*/
 
-        if (!acabou01.Value)
+        if (index < 8)
         {
-            if (SceneManager.GetActiveScene().name == "MenuPrincipal" && flowIndex.Value <= 6)
+            if (SceneManager.GetActiveScene().name == "MenuPrincipal")
             {
                 offlineButton.SetActive(false);
                 jogarButton.SetActive(true);
@@ -82,13 +92,13 @@ public class GameFlowManager : MonoBehaviour
 
             if (SceneManager.GetActiveScene().name == "HUB")
             {
-                if (aiGanhou.Value == false)
+                if (aiGanhou.Value == true)
                 {
-                    FechaTudo();
+                    AtivaFase(index);
                 }
                 else
                 {
-                    AtivaFase(index);
+                    FechaTudo();
                 }
             }
         }
@@ -172,32 +182,45 @@ public class GameFlowManager : MonoBehaviour
 
     public void ResetaJogo()
     {
-        PlayerPrefs.SetInt("Fase", 0);
+        if (resetou == false)
+        {
+            PlayerPrefs.SetInt("Fase", 0);
 
-        PhotonNetwork.OfflineMode = true;
-        OfflineMode.modoDoOffline = true;
+            PhotonNetwork.OfflineMode = true;
+            OfflineMode.modoDoOffline = true;
 
-        resetaFase.Value = true;
-        acabou01.Value = false;
-        flowIndex.Value = 0;
+            resetaFase.Value = true;
+            acabou01.Value = false;
+            flowIndex.Value = 0;
 
-        offlineButton.SetActive(false);
-        Debug.Log("Resetou");
+            offlineButton.SetActive(false);
+
+            resetou = true;
+            liberou = false;
+            Debug.Log("Resetou");
+        }
     }
 
     public void LiberaTudo()
     {
-        PlayerPrefs.SetInt("Fase", 8);
+        if (liberou == false)
+        {
+            PlayerPrefs.SetInt("Fase", 8);
 
-        PhotonNetwork.OfflineMode = false;
-        OfflineMode.modoDoOffline = false;
+            offlineMode.AtivaOffline();
+            /*PhotonNetwork.OfflineMode = false;
+            OfflineMode.modoDoOffline = false;*/
 
-        resetaFase.Value = false;
-        acabou01.Value = true;
-        flowIndex.Value = 8;
+            resetaFase.Value = false;
+            acabou01.Value = true;
+            flowIndex.Value = 8;
 
-        offlineButton.SetActive(true);
-        Debug.Log("Liberou");
+            offlineButton.SetActive(true);
+
+            liberou = true;
+            resetou = false;
+            Debug.Log("Liberou");
+        }
     }
 
 
