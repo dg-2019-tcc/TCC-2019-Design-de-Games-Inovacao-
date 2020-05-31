@@ -6,11 +6,11 @@ public class FrameRateManager : MonoBehaviour
 {
     public int target = 30;
 
-    public GameObject eu;
+    //public GameObject eu;
 
     private void Start()
     {
-        DontDestroyOnLoad(eu);
+        DontDestroyOnLoad(gameObject);
         QualitySettings.vSyncCount = 0;
         Application.targetFrameRate = target;
     }

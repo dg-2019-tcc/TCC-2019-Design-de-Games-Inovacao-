@@ -41,7 +41,6 @@ public class GameFlowManager : MonoBehaviour
         }
 
         index = PlayerPrefs.GetInt("Fase");
-        Debug.Log(index);
 
         if (aiGanhou == null)
         {

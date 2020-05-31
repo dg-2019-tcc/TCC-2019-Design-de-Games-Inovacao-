@@ -46,16 +46,16 @@ public class SoundMenuManager : MonoBehaviour
 
 	public void SoundMode(Bus myBus, ref bool isSoundOn)
     {
-        Debug.Log(isSoundOn);
+      //  Debug.Log(isSoundOn);
         if (isSoundOn)
         {
-            Debug.Log("Desliguei");
+           // Debug.Log("Desliguei");
             myBus.setMute(true);
             isSoundOn = false;
         }
         else
         {
-            Debug.Log("Liguei");
+           // Debug.Log("Liguei");
             myBus.setMute(false);
             isSoundOn = true;
         }
@@ -66,7 +66,7 @@ public class SoundMenuManager : MonoBehaviour
         switch (qualBus)
         {
             case "Musics":
-                Debug.Log(isMusicsOn + "ButtonConfig");
+               // Debug.Log(isMusicsOn + "ButtonConfig");
                 SoundMode(musics, ref isMusicsOn);
                 changeButtonCollor(isMusicsOn, m, musicSprite);
                 break;

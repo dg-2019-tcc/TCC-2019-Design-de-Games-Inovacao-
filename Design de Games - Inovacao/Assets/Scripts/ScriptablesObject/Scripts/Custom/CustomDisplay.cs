@@ -64,29 +64,7 @@ public class CustomDisplay : MonoBehaviour
         legsColor[legs.propIndex].material = legs.color[legs.propIndex].corData[legs.colorIndex];*/
 
 
-        if (!pv.IsMine)
-		{
-			PhotonNetwork.LocalPlayer.CustomProperties["hairIndex"] = hair.prop2DInd;
-			PhotonNetwork.LocalPlayer.CustomProperties["shirtIndex"] = shirt.prop2DInd;
-			PhotonNetwork.LocalPlayer.CustomProperties["legsIndex"] = legs.prop2DInd;
-			//PhotonNetwork.LocalPlayer.CustomProperties["hairColorIndex"] = hair.colorIndex;
-			//PhotonNetwork.LocalPlayer.CustomProperties["shirtColorIndex"] = shirt.colorIndex;
-			//PhotonNetwork.LocalPlayer.CustomProperties["legsColorIndex"] = legs.colorIndex;
-			PhotonNetwork.LocalPlayer.CustomProperties["shoeIndex"] = shoe.prop2DInd;
-			//PhotonNetwork.LocalPlayer.CustomProperties["shoeColorIndex"] = shoe.colorIndex;
-		}
-
-
-		if (GetComponent<PhotonView>() != null && GetComponent<PhotonView>().IsMine)
-		{
-			gameObject.GetComponent<PhotonView>().RPC("TrocaCabelo", RpcTarget.All, hair.prop2DInd);
-			//gameObject.GetComponent<PhotonView>().RPC("TrocaMaterialCabelo", RpcTarget.All, hair.colorIndex);
-			gameObject.GetComponent<PhotonView>().RPC("TrocaCamisa", RpcTarget.All, shirt.prop2DInd);
-			//gameObject.GetComponent<PhotonView>().RPC("TrocaMaterialCamisa", RpcTarget.All, shirt.colorIndex);
-			gameObject.GetComponent<PhotonView>().RPC("TrocaCalca", RpcTarget.All, legs.prop2DInd);
-			//gameObject.GetComponent<PhotonView>().RPC("TrocaMaterialCalca", RpcTarget.All, legs.colorIndex);
-			
-		}
+        
 		/*if (PhotonNetwork.InRoom)
 		{
 			TrocaCabelo((int)pv.Owner.CustomProperties["hairIndex"]);
@@ -121,8 +99,32 @@ public class CustomDisplay : MonoBehaviour
             TrocaCalca((int)pv.Owner.CustomProperties["legsIndex"]);
             //TrocaMaterialCalca((int)pv.Owner.CustomProperties["legsColorIndex"]);
             TrocaSapato((int)pv.Owner.CustomProperties["shoeIndex"]);
-            //TrocaMaterialSapato((int)pv.Owner.CustomProperties["shoeColorIndex"]);
-        }
+			//TrocaMaterialSapato((int)pv.Owner.CustomProperties["shoeColorIndex"]);
+
+			/*
+			if (!pv.IsMine)
+			{
+				PhotonNetwork.LocalPlayer.CustomProperties["hairIndex"] = hair.prop2DInd;
+				PhotonNetwork.LocalPlayer.CustomProperties["shirtIndex"] = shirt.prop2DInd;
+				PhotonNetwork.LocalPlayer.CustomProperties["legsIndex"] = legs.prop2DInd;
+				//PhotonNetwork.LocalPlayer.CustomProperties["hairColorIndex"] = hair.colorIndex;
+				//PhotonNetwork.LocalPlayer.CustomProperties["shirtColorIndex"] = shirt.colorIndex;
+				//PhotonNetwork.LocalPlayer.CustomProperties["legsColorIndex"] = legs.colorIndex;
+				PhotonNetwork.LocalPlayer.CustomProperties["shoeIndex"] = shoe.prop2DInd;
+				//PhotonNetwork.LocalPlayer.CustomProperties["shoeColorIndex"] = shoe.colorIndex;
+			}
+			else
+			{
+				gameObject.GetComponent<PhotonView>().RPC("TrocaCabelo", RpcTarget.All, hair.prop2DInd);
+				//gameObject.GetComponent<PhotonView>().RPC("TrocaMaterialCabelo", RpcTarget.All, hair.colorIndex);
+				gameObject.GetComponent<PhotonView>().RPC("TrocaCamisa", RpcTarget.All, shirt.prop2DInd);
+				//gameObject.GetComponent<PhotonView>().RPC("TrocaMaterialCamisa", RpcTarget.All, shirt.colorIndex);
+				gameObject.GetComponent<PhotonView>().RPC("TrocaCalca", RpcTarget.All, legs.prop2DInd);
+				//gameObject.GetComponent<PhotonView>().RPC("TrocaMaterialCalca", RpcTarget.All, legs.colorIndex);
+
+			}
+			*/
+		}
     }
 
 
