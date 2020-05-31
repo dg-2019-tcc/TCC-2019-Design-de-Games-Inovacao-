@@ -15,7 +15,7 @@ public class FeedbackText : MonoBehaviour
 	public BoolVariable aiGanhou;
     public BoolVariable playerGanhou;
 
-	
+    private int ganhouColeta;
 
     void Start()
     {
@@ -36,8 +36,19 @@ public class FeedbackText : MonoBehaviour
 
         else if (playerGanhou.Value == true)
         {
-			FeedbackImage.enabled = true;
-			FeedbackImage.sprite = winSprite;
+            ganhouColeta = PlayerPrefs.GetInt("GanhouColeta");
+
+            if (ganhouColeta == 1)
+            {
+                FeedbackImage.enabled = true;
+                FeedbackImage.sprite = winSprite;
+            }
+
+            else
+            {
+                FeedbackImage.enabled = true;
+                FeedbackImage.sprite = loseSprite;
+            }
 		}
     }
 }
