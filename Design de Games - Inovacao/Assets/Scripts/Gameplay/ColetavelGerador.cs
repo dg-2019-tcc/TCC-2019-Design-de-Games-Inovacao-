@@ -11,6 +11,8 @@ public class ColetavelGerador : MonoBehaviour
 
 	public GameObject lastColetavel;
 
+	bool isCoroutineRunning;
+
 
 	private void Start()
 	{
@@ -27,24 +29,36 @@ public class ColetavelGerador : MonoBehaviour
 		RearrangeColetavel();
 		
 
-		if (!IsThereColetavel() && PhotonNetwork.LocalPlayer.IsMasterClient)
+		if (!IsThereColetavel() && !isCoroutineRunning)
 		{
 			SelectColetavel();
 			
 		}
+	}
 
+	void SelectColetavel()
+	{
+		if (PhotonNetwork.LocalPlayer.IsMasterClient)
+		{
+			index = Random.Range(0, coletaveis.Length - 1);
+			PhotonNetwork.CurrentRoom.CustomProperties["IndexColetavel"] = index;
+			
+		}
+		StartCoroutine(ActivateRightColetavel());
+		
 
+	}
+
+	private IEnumerator ActivateRightColetavel()
+	{
+		isCoroutineRunning = true;
+		yield return new WaitForSeconds(0.5f);
 		for (int i = 0; i < coletaveis.Length - 1; i++)
 		{
 			coletaveis[i].SetActive(false);
 		}
 		coletaveis[(int)PhotonNetwork.CurrentRoom.CustomProperties["IndexColetavel"]].SetActive(true);
-	}
-
-	void SelectColetavel()
-	{
-		index = Random.Range(0, coletaveis.Length - 1);
-		PhotonNetwork.CurrentRoom.CustomProperties["IndexColetavel"] = index;
+		isCoroutineRunning = false;
 	}
 
 	void RearrangeColetavel()
