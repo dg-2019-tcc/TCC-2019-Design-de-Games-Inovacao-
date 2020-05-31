@@ -92,7 +92,7 @@ public class ColetaWin : MonoBehaviour
                 if (ganhouJa) return;
                 if (OfflineMode.modoDoOffline && compareScore < 4)
                 {
-
+                    Debug.Log("Perdeu");
                     winning.CustomProperties["Ganhador"] = 0;
                     feedbackWin.Perdeu();
                     StartCoroutine("AcabouFaseOnline");
@@ -100,6 +100,7 @@ public class ColetaWin : MonoBehaviour
                 }
                 else
                 {
+                    Debug.Log("Ganhou");
                     feedbackWin.Ganhou();
                     winning.CustomProperties["Ganhador"] = 1;
                     StartCoroutine("AcabouFaseOnline");
