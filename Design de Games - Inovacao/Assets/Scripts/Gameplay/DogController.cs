@@ -62,7 +62,6 @@ public class DogController : MonoBehaviour
             {
                 if (!PhotonNetwork.InRoom)
                 {
-                    Debug.Log("Desativa");
                     DesativaPowerUps();
                 }
                 else
