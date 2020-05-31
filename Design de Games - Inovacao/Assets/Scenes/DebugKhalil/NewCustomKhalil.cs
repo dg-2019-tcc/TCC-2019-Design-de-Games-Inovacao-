@@ -27,6 +27,8 @@ public class NewCustomKhalil : MonoBehaviour
     [Header("Telas De Menu")]
     public GameObject Menu1;
     public GameObject Menu2;
+    public GameObject Menu3;
+    public GameObject Menu4;
 
     [Header("Círculo de seleção")]
     public GameObject[] circuloDeSelecaoModelo;
@@ -69,10 +71,38 @@ public class NewCustomKhalil : MonoBehaviour
                 //DesativaAsCores();
                 Menu1.SetActive(true);
                 Menu2.SetActive(false);
+                if(Menu3 != null)
+                {
+                    Menu3.SetActive(false);
+                }
+                if (Menu4 != null)
+                {
+                    Menu4.SetActive(false);
+                }
                 break;
             case 2:
                 Menu1.SetActive(false);
                 Menu2.SetActive(true);
+                if (Menu3 != null)
+                {
+                    Menu3.SetActive(false);
+                }
+                if (Menu4 != null)
+                {
+                    Menu4.SetActive(false);
+                }
+                break;
+            case 3:
+                Menu1.SetActive(false);
+                Menu2.SetActive(false);
+                Menu3.SetActive(true);
+                Menu4.SetActive(false);
+                break;
+            case 4:
+                Menu1.SetActive(false);
+                Menu2.SetActive(false);
+                Menu3.SetActive(false);
+                Menu4.SetActive(true);
                 break;
         }
     }
