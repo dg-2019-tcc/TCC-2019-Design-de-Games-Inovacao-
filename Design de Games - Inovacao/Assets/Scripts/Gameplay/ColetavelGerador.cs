@@ -13,7 +13,7 @@ public class ColetavelGerador : MonoBehaviour
 
 	bool isCoroutineRunning;
 
-
+	//talvez colocar uma "seed" gerada no começo da partida, pra n ter que calcular na hora
 	private void Start()
 	{
 		RearrangeColetavel();

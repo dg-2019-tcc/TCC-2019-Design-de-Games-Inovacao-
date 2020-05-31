@@ -52,7 +52,7 @@ public class GameFlowManager : MonoBehaviour
         }
 
         index = PlayerPrefs.GetInt("Fase");
-        Debug.Log(index);
+       // Debug.Log(index);
 
         if (aiGanhou == null)
         {
@@ -87,8 +87,8 @@ public class GameFlowManager : MonoBehaviour
                 offlineButton.SetActive(false);
                 jogarButton.SetActive(true);
 
-                PhotonNetwork.OfflineMode = false;
-                OfflineMode.modoDoOffline = false;
+                PhotonNetwork.OfflineMode = true;
+                OfflineMode.modoDoOffline = true;
             }
             
 
@@ -182,7 +182,7 @@ public class GameFlowManager : MonoBehaviour
                 break;
         }
         tv.precisaFalar = false;
-        Debug.Log("Flow");
+      //  Debug.Log("Flow");
         ativouFase = true;
     }
 
@@ -203,7 +203,7 @@ public class GameFlowManager : MonoBehaviour
 
             resetou = true;
             liberou = false;
-            Debug.Log("Resetou");
+           // Debug.Log("Resetou");
         }
     }
 
@@ -225,7 +225,7 @@ public class GameFlowManager : MonoBehaviour
 
             liberou = true;
             resetou = false;
-            Debug.Log("Liberou");
+          //  Debug.Log("Liberou");
         }
     }
 
