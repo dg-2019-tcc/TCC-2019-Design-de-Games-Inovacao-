@@ -107,9 +107,12 @@ public class GameFlowManager : MonoBehaviour
 
     private void Update()
     {
-        if(tv.faloComTV == true && ativouFase == false)
+        if (SceneManager.GetActiveScene().name == "HUB")
         {
-            AtivaFase(index);
+            if (tv.faloComTV == true && ativouFase == false)
+            {
+                AtivaFase(index);
+            }
         }
     }
 
