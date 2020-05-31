@@ -22,8 +22,8 @@ public class SoundMenuManager : MonoBehaviour
     Bus musics;
     Bus sfx;
 
-    static bool isMusicsOn;
-    static bool isSFXOn;
+    static bool isMusicsOn = true;
+    static bool isSFXOn = true;
 
     bool isMenuOpen = false;
 
@@ -43,29 +43,19 @@ public class SoundMenuManager : MonoBehaviour
         musics = RuntimeManager.GetBus("bus:/Master/Musics");
         sfx = RuntimeManager.GetBus("bus:/Master/SFX");
     }
-    /*
-    private void OnEnable()
-    {
-        changeButtonCollor(isMusicsOn, m, musicSprite);
-        changeButtonCollor(isSFXOn, s, soundSprite);
-    }
-    */
-    /*
-	private void Start()
-	{
-		changeButtonCollor(isMusicsOn, m, musicSprite);
-		changeButtonCollor(isSFXOn, s, soundSprite);
-	}*/
 
 	public void SoundMode(Bus myBus, ref bool isSoundOn)
     {
+        Debug.Log(isSoundOn);
         if (isSoundOn)
         {
+            Debug.Log("Desliguei");
             myBus.setMute(true);
             isSoundOn = false;
         }
         else
         {
+            Debug.Log("Liguei");
             myBus.setMute(false);
             isSoundOn = true;
         }
@@ -76,6 +66,7 @@ public class SoundMenuManager : MonoBehaviour
         switch (qualBus)
         {
             case "Musics":
+                Debug.Log(isMusicsOn + "ButtonConfig");
                 SoundMode(musics, ref isMusicsOn);
                 changeButtonCollor(isMusicsOn, m, musicSprite);
                 break;
@@ -101,6 +92,8 @@ public class SoundMenuManager : MonoBehaviour
             menu.SetActive(true);
             butonOnline.SetActive(true);
             isMenuOpen = true;
+            changeButtonCollor(isMusicsOn, m, musicSprite);
+            changeButtonCollor(isSFXOn, s, soundSprite);
         }
     }
 
@@ -109,11 +102,11 @@ public class SoundMenuManager : MonoBehaviour
     {
         if(active == true)
         {
-            b.image.sprite = sprite[0];
+            b.image.sprite = sprite[1];
         }
         else
         {
-			b.image.sprite = sprite[1];
+			b.image.sprite = sprite[0];
 		}
     }
 }
