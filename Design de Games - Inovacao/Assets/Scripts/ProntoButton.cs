@@ -20,14 +20,14 @@ public class ProntoButton : MonoBehaviour
     public void ComecaJogo()
     {
         FMODUnity.RuntimeManager.PlayOneShot("event:/HUD/Start", GetComponent<Transform>().position);
-        if (jaJogou.Value)
+        /*if (jaJogou.Value)
         {
             nomeDoMenu = hub;
         }
         else
         {
             nomeDoMenu = tutorial;
-        }
+        }*/
         jaJogou.Value = true;
         SceneManager.LoadScene(nomeDoMenu);
     }

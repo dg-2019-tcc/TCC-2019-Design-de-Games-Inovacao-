@@ -80,6 +80,7 @@ public class PortaManager : MonoBehaviour
 
             if (joy.Vertical >= 0.8f && shoesDoor)
             {
+                Debug.Log(shoesDoor);
                 spawnHUBPoints.Value = 6;
                 SceneManager.LoadScene("Tenis");
             }
@@ -182,7 +183,7 @@ public class PortaManager : MonoBehaviour
                 break;
 
             case "Tenis":
-                shortsDoor = true;
+                shoesDoor = true;
                 break;
 
         }
