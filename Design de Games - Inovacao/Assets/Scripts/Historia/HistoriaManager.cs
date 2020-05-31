@@ -24,7 +24,6 @@ public class HistoriaManager : MonoBehaviour
         PlayerPrefs.SetInt("Fase", nextIndex);
         flowIndex.Value = nextIndex;
         int debug = PlayerPrefs.GetInt("Fase");
-        Debug.Log(debug);
 
         StartCoroutine("StartHist");
     }

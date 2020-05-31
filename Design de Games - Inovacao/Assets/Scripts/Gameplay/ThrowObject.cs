@@ -14,7 +14,7 @@ public class ThrowObject : MonoBehaviour
 
     public static Vector2 direction;
 
-
+    public bool shouldShoot;
 
     public Button tiroButton;
     private Image tiroImage;
@@ -125,7 +125,7 @@ public class ThrowObject : MonoBehaviour
 
     public void Atirou()
     {
-        if (textoAtivo.Value == false)
+        if (textoAtivo.Value == false && shouldShoot == true)
         {
             if (atirando == false || Time.timeScale == 0)
             {
@@ -133,7 +133,7 @@ public class ThrowObject : MonoBehaviour
             }
         }
 
-        else
+        if(textoAtivo.Value == true)
         {
             passouTexto = true;
         }
