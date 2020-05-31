@@ -14,7 +14,7 @@ public class BotScore : MonoBehaviour
 	private void Start()
 	{
 		score = GetComponentInChildren<TMP_Text>();
-		transform.parent = FindObjectOfType<ScoreManager>().transform;
+		transform.SetParent(FindObjectOfType<ScoreManager>().transform);
 	}
 	private void Update()
     {

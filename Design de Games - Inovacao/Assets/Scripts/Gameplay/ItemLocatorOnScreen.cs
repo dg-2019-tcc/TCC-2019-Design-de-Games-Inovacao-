@@ -68,8 +68,10 @@ public class ItemLocatorOnScreen : MonoBehaviour
 
 	private void OnDestroy()
 	{
-		
+		if (instance != null)
+		{
 			instance.SetActive(false);
+		}
 		
 	}
 }
