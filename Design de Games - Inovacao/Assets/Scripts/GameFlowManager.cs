@@ -87,8 +87,8 @@ public class GameFlowManager : MonoBehaviour
                 offlineButton.SetActive(false);
                 jogarButton.SetActive(true);
 
-                PhotonNetwork.OfflineMode = true;
-                OfflineMode.modoDoOffline = true;
+                PhotonNetwork.OfflineMode = false;
+                OfflineMode.modoDoOffline = false;
             }
             
 
