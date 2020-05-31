@@ -43,6 +43,9 @@ public class NewCustomKhalil : MonoBehaviour
 
     public int quantidadeDeModelos;
 
+    [Header("Botao Next")]
+    public GameObject nextButton;
+
     [Header("Armazena o valor dos botões e efetiva a escolha do modelo")]
     int botaoModelo1;
     int botaoModelo2;
@@ -53,6 +56,7 @@ public class NewCustomKhalil : MonoBehaviour
     private void Start()
     {
         EscolheQtdDeBotoesModelo(quantidadeDeModelos);
+        nextButton.SetActive(false);
     }
 
 
@@ -189,6 +193,7 @@ public class NewCustomKhalil : MonoBehaviour
 
     public void SelecionaModelo(int qualModelo)
     {
+        nextButton.SetActive(true);
         qualModeloVaiSer = qualModelo;
 
         switch (qualParteVaiSer)
