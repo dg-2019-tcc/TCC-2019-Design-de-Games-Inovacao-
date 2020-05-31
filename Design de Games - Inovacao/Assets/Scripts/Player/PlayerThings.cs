@@ -186,7 +186,7 @@ public class PlayerThings : MonoBehaviour
             joyStick = FindObjectOfType<FloatingJoystick>();
         }
 
-		if (PhotonNetwork.InRoom)
+		if (PhotonNetwork.InRoom && PV != null)
 		{
 			PV.RPC("GambiarraDosIndex", RpcTarget.All, (int)PhotonNetwork.CurrentRoom.CustomProperties["IndexColetavel"]);
 		}
