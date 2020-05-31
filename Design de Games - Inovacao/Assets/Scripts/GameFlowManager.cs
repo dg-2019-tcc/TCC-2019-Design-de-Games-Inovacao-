@@ -32,7 +32,7 @@ public class GameFlowManager : MonoBehaviour
 
     private void Start()
     {
-        if(resetaFase.Value == true)
+        if(resetaFase.Value == true && resetaFase != null)
         {
             PlayerPrefs.SetInt("Fase", 0);
             resetaFase.Value = false;
