@@ -59,7 +59,7 @@ public class ScoreManager : MonoBehaviourPunCallbacks
         GameObject entry;
         if (playerListEntries.TryGetValue(targetPlayer.ActorNumber, out entry))
         {
-            entry.GetComponent<TMP_Text>().text = targetPlayer.GetScore().ToString(); // string.Format("{0}\nScore: {1}", targetPlayer.NickName, targetPlayer.GetScore());
+            entry.GetComponentInChildren<TMP_Text>().text = targetPlayer.GetScore().ToString(); // string.Format("{0}\nScore: {1}", targetPlayer.NickName, targetPlayer.GetScore());
         }
     }
 
