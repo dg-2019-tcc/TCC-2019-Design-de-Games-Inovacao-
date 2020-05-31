@@ -33,6 +33,8 @@ public class ColetaWin : MonoBehaviour
     public BoolVariable aiGanhou;
     public BoolVariable playerGanhou;
 
+    public FeedbackText feedbackWin;
+
 	
 
 	private void Start()
@@ -90,16 +92,17 @@ public class ColetaWin : MonoBehaviour
                 if (ganhouJa) return;
                 if (OfflineMode.modoDoOffline && compareScore < 4)
                 {
+
                     winning.CustomProperties["Ganhador"] = 0;
-                    PlayerPrefs.SetInt("GanhouColeta", 1);
-                    PhotonNetwork.LoadLevel("TelaVitoria");
+                    feedbackWin.Perdeu();
+                    StartCoroutine("AcabouFaseOnline");
 
                 }
                 else
                 {
+                    feedbackWin.Ganhou();
                     winning.CustomProperties["Ganhador"] = 1;
-                    PlayerPrefs.SetInt("GanhouColeta", 0);
-                    PhotonNetwork.LoadLevel("TelaVitoria");
+                    StartCoroutine("AcabouFaseOnline");
                 }
                 ganhouJa = true;
 
@@ -112,6 +115,7 @@ public class ColetaWin : MonoBehaviour
             {
                 if (botScore.Value >= 4)
                 {
+                    feedbackWin.Perdeu();
                     winning.CustomProperties["Ganhador"] = 0;
                     PlayerPrefs.SetInt("GanhouColeta", 0);
                     aiGanhou.Value = true;
@@ -121,6 +125,7 @@ public class ColetaWin : MonoBehaviour
 
                 else
                 {
+                    feedbackWin.Ganhou();
                     winning.CustomProperties["Ganhador"] = 1;
                     PlayerPrefs.SetInt("GanhouColeta", 1);
                     aiGanhou.Value = false;
@@ -133,6 +138,12 @@ public class ColetaWin : MonoBehaviour
 
         }
 	}
+
+    IEnumerator AcabouFaseOnline()
+    {
+        yield return new WaitForSeconds(3f);
+        PhotonNetwork.LoadLevel("TelaVitoria");
+    }
 
 
     IEnumerator AcabouFase()
