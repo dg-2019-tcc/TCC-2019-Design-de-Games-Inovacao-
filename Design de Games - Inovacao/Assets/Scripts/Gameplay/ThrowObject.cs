@@ -133,7 +133,7 @@ public class ThrowObject : MonoBehaviour
             }
         }
 
-        else
+        if(textoAtivo.Value == true)
         {
             passouTexto = true;
         }

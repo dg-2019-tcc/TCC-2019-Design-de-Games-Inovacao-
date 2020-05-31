@@ -166,21 +166,29 @@ public class GameFlowManager : MonoBehaviour
 
     public void ResetaJogo()
     {
-        OfflineMode.modoDoOffline = true;
-        acabou01.Value = false;
-        offlineButton.SetActive(false);
         PlayerPrefs.SetInt("Fase", 0);
+
+        OfflineMode.modoDoOffline = true;
+
+        resetaFase.Value = true;
+        acabou01.Value = false;
         flowIndex.Value = 0;
+
+        offlineButton.SetActive(false);
         Debug.Log("Resetou");
     }
 
     public void LiberaTudo()
     {
+        PlayerPrefs.SetInt("Fase", 8);
+
         OfflineMode.modoDoOffline = false;
+        
+        resetaFase.Value = false;
         acabou01.Value = true;
         flowIndex.Value = 8;
+
         offlineButton.SetActive(true);
-        PlayerPrefs.SetInt("Fase", 8);
         Debug.Log("Liberou");
     }
 
