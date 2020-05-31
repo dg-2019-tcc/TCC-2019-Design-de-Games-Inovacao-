@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine;
+using Photon.Realtime;
+using Photon.Pun;
 
 public class GameFlowManager : MonoBehaviour
 {
@@ -172,6 +174,7 @@ public class GameFlowManager : MonoBehaviour
     {
         PlayerPrefs.SetInt("Fase", 0);
 
+        PhotonNetwork.OfflineMode = true;
         OfflineMode.modoDoOffline = true;
 
         resetaFase.Value = true;
@@ -186,8 +189,9 @@ public class GameFlowManager : MonoBehaviour
     {
         PlayerPrefs.SetInt("Fase", 8);
 
+        PhotonNetwork.OfflineMode = false;
         OfflineMode.modoDoOffline = false;
-        
+
         resetaFase.Value = false;
         acabou01.Value = true;
         flowIndex.Value = 8;
