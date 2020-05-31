@@ -30,7 +30,10 @@ public class InstrucaoFirstTime : MonoBehaviour
             }
             else
             {
-                textoInstrucao.SetActive(false);
+                if (textoInstrucao != null)
+                {
+                    textoInstrucao.SetActive(false);
+                }
             }
         }
     }
