@@ -18,7 +18,7 @@ public class ScoreManager : MonoBehaviourPunCallbacks
 
 	public Sprite[] scoreBackground;
 
-	[HideInInspector]
+	//[HideInInspector]
     public Dictionary<int, GameObject> playerListEntries;
 
     #region UNITY
