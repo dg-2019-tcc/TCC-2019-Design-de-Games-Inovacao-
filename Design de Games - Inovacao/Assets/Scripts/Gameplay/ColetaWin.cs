@@ -100,9 +100,17 @@ public class ColetaWin : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log("Ganhou");
-                    feedbackWin.Ganhou();
-                    winning.CustomProperties["Ganhador"] = 1;
+					if (PhotonNetwork.LocalPlayer == winning)
+					{
+						Debug.Log("Ganhou");
+						feedbackWin.Ganhou();
+						winning.CustomProperties["Ganhador"] = 1;
+					}
+					else
+					{
+						Debug.Log("Perdeu");
+						feedbackWin.Perdeu();
+					}
                     StartCoroutine("AcabouFaseOnline");
                 }
                 ganhouJa = true;
