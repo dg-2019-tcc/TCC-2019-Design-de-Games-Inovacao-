@@ -19,13 +19,11 @@ public class SoundMenuManager : MonoBehaviour
     /// 
     /// </summary>
 
-    Bus master;
     Bus musics;
     Bus sfx;
 
-    static bool isMasterOn = true;
-    static bool isMusicsOn = true;
-    static bool isSFXOn = true;
+    static bool isMusicsOn;
+    static bool isSFXOn;
 
     bool isMenuOpen = false;
 
@@ -39,34 +37,25 @@ public class SoundMenuManager : MonoBehaviour
 	public Sprite[] musicSprite;
 	public Sprite[] soundSprite;
 
-    /*
-    public TextMeshProUGUI masterText;
-    public TextMeshProUGUI musicsText;
-    public TextMeshProUGUI sfxText;
-    */
-
 
     void Awake()
     {
-        master = RuntimeManager.GetBus("bus:/Master");
         musics = RuntimeManager.GetBus("bus:/Master/Musics");
         sfx = RuntimeManager.GetBus("bus:/Master/SFX");
-        //ButtonModeText("Master", isMasterOn, masterText);
-        //ButtonModeText("Musics", isMusicsOn, musicsText);
-        //ButtonModeText("SFX", isSFXOn, sfxText);
     }
-
+    /*
     private void OnEnable()
     {
         changeButtonCollor(isMusicsOn, m, musicSprite);
         changeButtonCollor(isSFXOn, s, soundSprite);
     }
-
+    */
+    /*
 	private void Start()
 	{
 		changeButtonCollor(isMusicsOn, m, musicSprite);
 		changeButtonCollor(isSFXOn, s, soundSprite);
-	}
+	}*/
 
 	public void SoundMode(Bus myBus, ref bool isSoundOn)
     {
@@ -86,52 +75,13 @@ public class SoundMenuManager : MonoBehaviour
     {
         switch (qualBus)
         {
-            case "Master":
-                SoundMode(master, ref isMasterOn);
-                if(isMasterOn == false)
-                {
-                    isMusicsOn = false;
-                    musics.setMute(true);
-                    isSFXOn = false;
-                    sfx.setMute(true);
-                }
-                else
-                {
-                    
-                    isMusicsOn = false;
-                    isSFXOn = false;
-                    SoundMode(musics, ref isMusicsOn);
-                    SoundMode(sfx, ref isSFXOn);
-                    
-                }
-                //ButtonModeText("Master", isMasterOn, masterText);
-                //ButtonModeText("Musics", isMusicsOn, musicsText);
-                //ButtonModeText("SFX", isSFXOn, sfxText);
-                break;
-
-
             case "Musics":
-                //Debug.Log("Mucisa");
-                changeButtonCollor(isMusicsOn, m, musicSprite);
                 SoundMode(musics, ref isMusicsOn);
-                /*if (isMusicsOn == true && isMasterOn == false)
-                {
-                    SoundMode(master, ref isMasterOn);
-                    //ButtonModeText("Master", isMasterOn, masterText);
-                }*/
-                //ButtonModeText("Musics", isMusicsOn, musicsText);
+                changeButtonCollor(isMusicsOn, m, musicSprite);
                 break;
-
-
             case "SFX":
+                SoundMode(sfx, ref isSFXOn);
                 changeButtonCollor(isSFXOn, s, soundSprite);
-                SoundMode(sfx, ref isSFXOn); 
-                /*if (isSFXOn == true && isMasterOn == false)
-                {
-                    SoundMode(master, ref isMasterOn);
-                    //ButtonModeText("Master", isMasterOn, masterText);
-                }*/
-                //ButtonModeText("SFX", isSFXOn, sfxText);
                 break;
         }
     }
@@ -159,31 +109,12 @@ public class SoundMenuManager : MonoBehaviour
     {
         if(active == true)
         {
-            b.image.sprite = sprite[1];
+            b.image.sprite = sprite[0];
         }
         else
         {
-			b.image.sprite = sprite[0];
+			b.image.sprite = sprite[1];
 		}
     }
-
-
-
-    /*
-     * 
-     * 
-    public void ButtonModeText(string buttonText, bool isOn, TextMeshProUGUI textSpace)
-    {
-        if(isOn == true)
-        {
-            textSpace.text = buttonText + ": On";
-            textSpace.color = Color.green;
-        }
-        else
-        {
-            textSpace.text = buttonText + ": Off";
-            textSpace.color = Color.red;
-        }
-    }*/
 }
 
