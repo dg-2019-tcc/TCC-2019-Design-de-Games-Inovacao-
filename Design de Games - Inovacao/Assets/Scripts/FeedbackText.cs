@@ -26,29 +26,16 @@ public class FeedbackText : MonoBehaviour
 		FeedbackImage.enabled = false;
     }
 
-    void Update()
+
+    public void Ganhou()
     {
-        if(aiGanhou.Value == true)
-        {
-			FeedbackImage.enabled = true;
-			FeedbackImage.sprite = loseSprite;
-        }
+        FeedbackImage.enabled = true;
+        FeedbackImage.sprite = winSprite;
+    }
 
-        else if (playerGanhou.Value == true)
-        {
-            ganhouColeta = PlayerPrefs.GetInt("GanhouColeta");
-
-            if (ganhouColeta == 1)
-            {
-                FeedbackImage.enabled = true;
-                FeedbackImage.sprite = winSprite;
-            }
-
-            else
-            {
-                FeedbackImage.enabled = true;
-                FeedbackImage.sprite = loseSprite;
-            }
-		}
+    public void Perdeu()
+    {
+        FeedbackImage.enabled = true;
+        FeedbackImage.sprite = loseSprite;
     }
 }
