@@ -25,7 +25,8 @@ public class ColetaWin : MonoBehaviour
 
     private string faseNome;
 
-
+    private bool acabouTutorial;
+    private int indexTutorial;
 
 	private bool isEmpatado;
 
@@ -36,6 +37,13 @@ public class ColetaWin : MonoBehaviour
 
 	private void Start()
 	{
+        indexTutorial = PlayerPrefs.GetInt("Fase");
+        PlayerPrefs.SetInt("GanhouColeta", 0);
+        if(indexTutorial == 8)
+        {
+            acabouTutorial = true;
+        }
+
 		coletavelGerador = FindObjectOfType<ColetavelGerador>();
         aiGanhou = Resources.Load<BoolVariable>("AIGanhou");
         playerGanhou = Resources.Load<BoolVariable>("PlayerGanhou");
@@ -51,7 +59,7 @@ public class ColetaWin : MonoBehaviour
 
 	void Update()
     {
-        if (acabou01.Value == true)
+        if (acabouTutorial == true)
         {
             foreach (Photon.Realtime.Player p in PhotonNetwork.PlayerList)
             {
@@ -83,12 +91,14 @@ public class ColetaWin : MonoBehaviour
                 if (OfflineMode.modoDoOffline && compareScore < 4)
                 {
                     winning.CustomProperties["Ganhador"] = 0;
+                    PlayerPrefs.SetInt("GanhouColeta", 1);
                     PhotonNetwork.LoadLevel("TelaVitoria");
 
                 }
                 else
                 {
                     winning.CustomProperties["Ganhador"] = 1;
+                    PlayerPrefs.SetInt("GanhouColeta", 0);
                     PhotonNetwork.LoadLevel("TelaVitoria");
                 }
                 ganhouJa = true;
@@ -102,6 +112,8 @@ public class ColetaWin : MonoBehaviour
             {
                 if (botScore.Value >= 4)
                 {
+                    winning.CustomProperties["Ganhador"] = 0;
+                    PlayerPrefs.SetInt("GanhouColeta", 0);
                     aiGanhou.Value = true;
                     playerGanhou.Value = false;
                     faseNome = "HUB";
@@ -109,6 +121,8 @@ public class ColetaWin : MonoBehaviour
 
                 else
                 {
+                    winning.CustomProperties["Ganhador"] = 1;
+                    PlayerPrefs.SetInt("GanhouColeta", 1);
                     aiGanhou.Value = false;
                     playerGanhou.Value = true;
                     faseNome = "HistoriaColeta";
