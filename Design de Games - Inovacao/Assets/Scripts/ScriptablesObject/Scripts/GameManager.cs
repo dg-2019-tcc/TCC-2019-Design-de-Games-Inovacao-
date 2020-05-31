@@ -27,13 +27,19 @@ namespace Complete
         {
 			if (!OfflineMode.modoDoOffline)
 			{
-                thingsOnline.SetActive(true);
+                if (thingsOnline != null)
+                {
+                    thingsOnline.SetActive(true);
+                }
                 thingsAI.SetActive(false);
 			}
             else
             {
                 botScore.Value = 0;
-                thingsOnline.SetActive(false);
+                if (thingsOnline != null)
+                {
+                    thingsOnline.SetActive(false);
+                }
                 thingsAI.SetActive(true);
             }
         }

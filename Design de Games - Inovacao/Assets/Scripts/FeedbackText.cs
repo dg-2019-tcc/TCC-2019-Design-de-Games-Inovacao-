@@ -23,20 +23,20 @@ public class FeedbackText : MonoBehaviour
         aiGanhou = Resources.Load<BoolVariable>("AIGanhou");
         playerGanhou = Resources.Load<BoolVariable>("PlayerGanhou");
 
-		FeedbackImage.gameObject.SetActive(false);
+		FeedbackImage.enabled = false;
     }
 
     void Update()
     {
         if(aiGanhou.Value == true)
         {
-			FeedbackImage.gameObject.SetActive(true);
+			FeedbackImage.enabled = true;
 			FeedbackImage.sprite = loseSprite;
         }
 
         else if (playerGanhou.Value == true)
         {
-			FeedbackImage.gameObject.SetActive(true);
+			FeedbackImage.enabled = true;
 			FeedbackImage.sprite = winSprite;
 		}
     }
