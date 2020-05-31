@@ -118,6 +118,7 @@ public class ColetaWin : MonoBehaviour
                     feedbackWin.Perdeu();
                     winning.CustomProperties["Ganhador"] = 0;
                     PlayerPrefs.SetInt("GanhouColeta", 0);
+                    PlayerPrefs.SetInt("AIGanhou", 1);
                     aiGanhou.Value = true;
                     playerGanhou.Value = false;
                     faseNome = "HUB";
@@ -128,6 +129,7 @@ public class ColetaWin : MonoBehaviour
                     feedbackWin.Ganhou();
                     winning.CustomProperties["Ganhador"] = 1;
                     PlayerPrefs.SetInt("GanhouColeta", 1);
+                    PlayerPrefs.SetInt("AIGanhou", 0);
                     aiGanhou.Value = false;
                     playerGanhou.Value = true;
                     faseNome = "HistoriaColeta";

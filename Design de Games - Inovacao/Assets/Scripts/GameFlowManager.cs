@@ -86,12 +86,17 @@ public class GameFlowManager : MonoBehaviour
             {
                 offlineButton.SetActive(false);
                 jogarButton.SetActive(true);
+
+                PhotonNetwork.OfflineMode = true;
                 OfflineMode.modoDoOffline = true;
             }
             
 
             if (SceneManager.GetActiveScene().name == "HUB")
             {
+                PhotonNetwork.OfflineMode = true;
+                OfflineMode.modoDoOffline = true;
+
                 if (aiGanhou.Value == true)
                 {
                     AtivaFase(index);
@@ -176,7 +181,8 @@ public class GameFlowManager : MonoBehaviour
                 Fase0();
                 break;
         }
-
+        tv.precisaFalar = false;
+        Debug.Log("Flow");
         ativouFase = true;
     }
 
