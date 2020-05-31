@@ -9,6 +9,13 @@ public class EmotesManager : MonoBehaviour
 	public GameObject pause;
 	public GameObject[] emote;
 
+	private void Start()
+	{
+		if (!PhotonNetwork.InRoom)
+		{
+			gameObject.SetActive(false);
+		}
+	}
 	public void Sticker(int index)
 	{
 		pause.SetActive(false);

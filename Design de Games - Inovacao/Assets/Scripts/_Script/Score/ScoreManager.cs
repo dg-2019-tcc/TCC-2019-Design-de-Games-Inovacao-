@@ -18,7 +18,8 @@ public class ScoreManager : MonoBehaviourPunCallbacks
 
 	public Sprite[] scoreBackground;
 
-    private Dictionary<int, GameObject> playerListEntries;
+	//[HideInInspector]
+    public Dictionary<int, GameObject> playerListEntries;
 
     #region UNITY
 
@@ -31,7 +32,7 @@ public class ScoreManager : MonoBehaviourPunCallbacks
             GameObject entry = Instantiate(PlayerOverviewEntryPrefab);
             entry.transform.SetParent(gameObject.transform);
             entry.transform.localScale = Vector3.one;
-            entry.GetComponentInChildren<TMP_Text>().color = AsteroidsGame.GetColor(p.GetPlayerNumber());
+            //entry.GetComponentInChildren<TMP_Text>().color = AsteroidsGame.GetColor(p.GetPlayerNumber());
 			entry.GetComponentInChildren<TMP_Text>().text = p.GetScore().ToString(); //string.Format("{0}\nScore: {1}", p.NickName, p.GetScore());
             playerListEntries.Add(p.ActorNumber, entry);
 			entry.GetComponentInChildren<Image>().sprite = scoreBackground[p.ActorNumber-1];
