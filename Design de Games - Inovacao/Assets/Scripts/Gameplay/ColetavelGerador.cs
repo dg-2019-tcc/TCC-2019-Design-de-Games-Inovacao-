@@ -27,28 +27,24 @@ public class ColetavelGerador : MonoBehaviour
 		RearrangeColetavel();
 		
 
-		if (!IsThereColetavel())
+		if (!IsThereColetavel() && PhotonNetwork.LocalPlayer.IsMasterClient)
 		{
 			SelectColetavel();
 			
 		}
-	}
 
-	void SelectColetavel()
-	{
-		if (PhotonNetwork.LocalPlayer.IsMasterClient)
-		{
-			index = Random.Range(0, coletaveis.Length - 1);
-			PhotonNetwork.CurrentRoom.CustomProperties["IndexColetavel"] = index;
-			
-		}
+
 		for (int i = 0; i < coletaveis.Length - 1; i++)
 		{
 			coletaveis[i].SetActive(false);
 		}
 		coletaveis[(int)PhotonNetwork.CurrentRoom.CustomProperties["IndexColetavel"]].SetActive(true);
-		Debug.Log(PhotonNetwork.CurrentRoom.CustomProperties["IndexColetavel"]);
+	}
 
+	void SelectColetavel()
+	{
+		index = Random.Range(0, coletaveis.Length - 1);
+		PhotonNetwork.CurrentRoom.CustomProperties["IndexColetavel"] = index;
 	}
 
 	void RearrangeColetavel()
