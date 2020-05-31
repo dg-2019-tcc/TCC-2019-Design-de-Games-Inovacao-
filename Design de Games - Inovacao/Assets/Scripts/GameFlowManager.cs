@@ -27,6 +27,8 @@ public class GameFlowManager : MonoBehaviour
 
     public GameObject teste;
 
+    public GameObject[] npcs;
+
     public TV tv;
     public bool ativouFase;
 
@@ -228,6 +230,8 @@ public class GameFlowManager : MonoBehaviour
 
     public void FaseTenis()
     {
+        Destroy(npcs[0]);
+
         fasesSave.fases[2] = true;
 
         portas[0].SetActive(false);
@@ -239,6 +243,8 @@ public class GameFlowManager : MonoBehaviour
 
     public void FaseFutebol()
     {
+        Destroy(npcs[1]);
+
         if (fasesSave.fases[4] == false)
         {
             fasesSave.fases[3] = true;
@@ -260,7 +266,7 @@ public class GameFlowManager : MonoBehaviour
 
     public void FaseMoto()
     {
-
+        Destroy(npcs[2]);
         if (fasesSave.fases[6] == false)
         {
             fasesSave.fases[4] = true;
@@ -279,6 +285,7 @@ public class GameFlowManager : MonoBehaviour
 
     public void FaseCabelo()
     {
+        Destroy(npcs[3]);
         fasesSave.fases[5] = true;
 
         portas[0].SetActive(false);
@@ -296,6 +303,7 @@ public class GameFlowManager : MonoBehaviour
 
     public void FaseCorrida()
     {
+        Destroy(npcs[4]);
         if (fasesSave.fases[8] == false)
         {
             fasesSave.fases[6] = true;
@@ -324,6 +332,7 @@ public class GameFlowManager : MonoBehaviour
 
     public void FaseRoupa()
     {
+        Destroy(npcs[5]);
         fasesSave.fases[7] = true;
 
         portas[0].SetActive(false);
@@ -345,6 +354,7 @@ public class GameFlowManager : MonoBehaviour
 
     public void Acabou()
     {
+        Destroy(npcs[6]);
         fasesSave.fases[8] = true;
 
         acabou01.Value = true;
@@ -353,6 +363,11 @@ public class GameFlowManager : MonoBehaviour
 
     public void Completo()
     {
+        for(int i = 0; i< npcs.Length; i++)
+        {
+            Destroy(npcs[i]);
+        }
+
         portas[0].SetActive(true);
         portas[1].SetActive(true);
         portas[2].SetActive(true);
