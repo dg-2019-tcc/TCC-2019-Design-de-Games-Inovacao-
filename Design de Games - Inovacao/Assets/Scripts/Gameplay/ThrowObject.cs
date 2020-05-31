@@ -137,6 +137,11 @@ public class ThrowObject : MonoBehaviour
         {
             passouTexto = true;
         }
+
+        if (carroActive.Value == true || pipaActive.Value == true)
+        {
+            desativaPower.Value = true;
+        }
     }
 
     public void StopAtirou()
