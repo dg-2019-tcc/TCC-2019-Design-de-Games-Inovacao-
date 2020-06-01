@@ -28,6 +28,8 @@ public class GolManager : MonoBehaviourPunCallbacks
     public BoolVariable aiGanhou;
     public BoolVariable playerGanhou;
 
+    public FeedbackText feedbackWin;
+
 
 
     private void Start()
@@ -45,6 +47,7 @@ public class GolManager : MonoBehaviourPunCallbacks
     {
         if (botScore.Value >= maxPoints)
         {
+            feedbackWin.Perdeu();
             aiGanhou.Value = true;
             playerGanhou.Value = false;
             PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 0;
@@ -67,6 +70,7 @@ public class GolManager : MonoBehaviourPunCallbacks
 
             if (playerGol.jogador.PV.Owner.GetScore() >= 5)
             {
+                feedbackWin.Ganhou();
                 aiGanhou.Value = false;
                 playerGanhou.Value = true;
                 StartCoroutine("AcabouFase");

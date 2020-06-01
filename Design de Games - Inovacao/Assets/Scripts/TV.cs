@@ -7,9 +7,10 @@ public class TV : MonoBehaviour
     public bool faloComTV;
     public bool precisaFalar;
 
-    private ItemLocatorOnScreen pointer;
+    public ItemLocatorOnScreen pointer;
 
     public BoolVariable acabou01;
+    public BoolVariable aiGanhou;
 
     public GameObject falas;
 
@@ -23,7 +24,12 @@ public class TV : MonoBehaviour
             acabou01 = Resources.Load<BoolVariable>("Acabou01");
         }
 
-        if(acabou01.Value == true)
+        if (aiGanhou == null)
+        {
+            aiGanhou = Resources.Load<BoolVariable>("AIGanhou");
+        }
+
+        if (acabou01.Value == true)
         {
             falas.SetActive(false);
             pointer.enabled = false;
@@ -36,7 +42,29 @@ public class TV : MonoBehaviour
             precisaFalar = true;
         }
 
+        if(aiGanhou.Value == true)
+        {
+            falas.SetActive(false);
+            pointer.enabled = false;
+            precisaFalar = false;
+        }
+
+        else
+        {
+            falas.SetActive(true);
+            pointer.enabled = true;
+            precisaFalar = true;
+        }
+
         faloComTV = false;
+    }
+
+    private void Update()
+    {
+        if(faloComTV == true)
+        {
+            pointer.enabled = false;
+        }
     }
 
     void FalouComTV()
