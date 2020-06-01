@@ -117,15 +117,17 @@ namespace Complete
             if (number.Length > 0)
             {
                 number[number.Length - index].SetActive(true);
+                FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Feedback/Contagem/Contagem");
                 yield return new WaitForSeconds(1);
                 number[number.Length - index].SetActive(false);
             }
 			if (index < number.Length)
 				StartCoroutine("UniteSynchronization", 0);
 			else
-			{
-				//PlayerInst.SetActive(true);
-				if (playerMove.playerMove != null && isMoto == false)
+            {
+                FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Feedback/Contagem/Start");
+                //PlayerInst.SetActive(true);
+                if (playerMove.playerMove != null && isMoto == false)
 				{
 					playerMove.playerMove.enabled = true;
 
