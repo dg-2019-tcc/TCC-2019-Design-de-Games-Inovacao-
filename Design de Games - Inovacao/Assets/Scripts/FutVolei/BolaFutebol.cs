@@ -18,12 +18,16 @@ public class BolaFutebol : MonoBehaviour
 
     public Transform bolaSpawnPoint;
 
+	private PhotonView PV;
+
     // Start is called before the first frame update  
     void Start()
     {
         bolaSprite = GetComponent<SpriteRenderer>();
 
         rb2d = GetComponent <Rigidbody2D>();
+
+		PV = GetComponent<PhotonView>();
     }
 
     // Update is called once per frame  
@@ -39,27 +43,27 @@ public class BolaFutebol : MonoBehaviour
 
         if (normal)
         {
-            gameObject.GetComponent<PhotonView>().RPC("BolaAzul", RpcTarget.MasterClient);
+            PV.RPC("BolaAzul", RpcTarget.MasterClient);
         }
 
         else if (kick)
         {
-            gameObject.GetComponent<PhotonView>().RPC("BolaAmarela", RpcTarget.MasterClient);
+			PV.RPC("BolaAmarela", RpcTarget.MasterClient);
         }
 
         else if (superKick)
         {
-            gameObject.GetComponent<PhotonView>().RPC("BolaVermelha", RpcTarget.MasterClient);
+			PV.RPC("BolaVermelha", RpcTarget.MasterClient);
         }
 
         else
         {
-            gameObject.GetComponent<PhotonView>().RPC("BolaBranca", RpcTarget.MasterClient);
+			PV.RPC("BolaBranca", RpcTarget.MasterClient);
         }
 
         if (bolaTimer >= 3f)
         {
-            gameObject.GetComponent<PhotonView>().RPC("BolaBranca", RpcTarget.MasterClient);
+			PV.RPC("BolaBranca", RpcTarget.MasterClient);
         }
     }
 
@@ -67,12 +71,12 @@ public class BolaFutebol : MonoBehaviour
     {
         if (collision.CompareTag("Plataforma"))
         {
-            gameObject.GetComponent<PhotonView>().RPC("SlowBola", RpcTarget.MasterClient);
+            PV.RPC("SlowBola", RpcTarget.MasterClient);
         }
 
         if (collision.CompareTag("ResetBall"))
         {
-            gameObject.GetComponent<Transform>().position = bolaSpawnPoint.transform.position;
+            transform.position = bolaSpawnPoint.transform.position;
         }
     }
 
