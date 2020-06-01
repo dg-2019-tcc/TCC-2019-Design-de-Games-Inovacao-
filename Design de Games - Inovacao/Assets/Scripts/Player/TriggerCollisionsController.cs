@@ -154,10 +154,12 @@ public class TriggerCollisionsController : RaycastController
                     if (PlayerThings.rightDir)
                     {
                         collisions.cortaBola = true;
+                        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Objetos/Bola");
                     }
                     if (PlayerThings.leftDir)
                     {
                         collisions.tocouBola = true;
+                        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Objetos/Bola");
                     }
                 }
 
@@ -166,10 +168,12 @@ public class TriggerCollisionsController : RaycastController
                     if (PlayerThings.rightDir)
                     {
                         collisions.chutouBola = true;
+                        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Objetos/Bola");
                     }
                     if (PlayerThings.leftDir)
                     {
                         collisions.cabecaBola = true;
+                        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Objetos/Bola");
                     }
                 }
 				if (hit.collider.tag == "LinhaDeChegada")
@@ -281,11 +285,13 @@ public class TriggerCollisionsController : RaycastController
                     if (PlayerThings.rightDir)
                     {
                         collisions.tocouBola = true;
+                        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Objetos/Bola");
                     }
 
                     if (PlayerThings.leftDir)
                     {
                         collisions.cortaBola = true;
+                        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Objetos/Bola");
                     }
                 }
 
@@ -294,11 +300,13 @@ public class TriggerCollisionsController : RaycastController
                     if (PlayerThings.rightDir)
                     {
                         collisions.cabecaBola = true;
+                        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Objetos/Bola");
                     }
 
                     if (PlayerThings.leftDir)
                     {
                         collisions.chutouBola = true;
+                        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Objetos/Bola");
                     }
                 }
 				if (hit.collider.tag == "LinhaDeChegada")
@@ -388,11 +396,13 @@ public class TriggerCollisionsController : RaycastController
                 if (hit.collider.tag == "Volei")
                 {
                     collisions.tocouBola = true;
+                    FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Objetos/Bola");
                 }
 
                 if(hit.collider.tag == "Futebol")
                 {
                     collisions.cabecaBola = true;
+                    FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Objetos/Bola");
                 }
             }
         }
@@ -495,6 +505,7 @@ public class TriggerCollisionsController : RaycastController
                 if(hit.collider.tag == "CaixaDagua")
                 {
                     collisions.caixaDagua = true;
+                    FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Objetos/CaixaDaAgua");
                 }
             }
         }
