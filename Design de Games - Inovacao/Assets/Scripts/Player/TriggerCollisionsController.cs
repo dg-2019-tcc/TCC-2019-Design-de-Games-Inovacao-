@@ -4,6 +4,8 @@ using Photon.Pun.UtilityScripts;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using FMOD.Studio;
+using FMODUnity;
 
 public class TriggerCollisionsController : RaycastController
 {
@@ -132,27 +134,32 @@ public class TriggerCollisionsController : RaycastController
 				if (hit.collider.tag == "Carrinho")
                 {
                     dogController.Carro();
+                    FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Feedback/Coletaveis/TransformaDog");
                 }
 
                 if(hit.collider.tag == "Pipa")
                 {
                     dogController.Pipa();
+                    FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Feedback/Coletaveis/TransformaDog");
                 }
 
 				if (hit.collider.tag == "DogTiro")
 				{
 					playerThings.StartCoroutine("LevouDogada");
-				}
+                    FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Feedback/Player/Impacto");
+                }
 
 				if (hit.collider.tag == "Volei")
                 {
                     if (PlayerThings.rightDir)
                     {
                         collisions.cortaBola = true;
+                        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Objetos/Bola");
                     }
                     if (PlayerThings.leftDir)
                     {
                         collisions.tocouBola = true;
+                        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Objetos/Bola");
                     }
                 }
 
@@ -161,10 +168,12 @@ public class TriggerCollisionsController : RaycastController
                     if (PlayerThings.rightDir)
                     {
                         collisions.chutouBola = true;
+                        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Objetos/Bola");
                     }
                     if (PlayerThings.leftDir)
                     {
                         collisions.cabecaBola = true;
+                        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Objetos/Bola");
                     }
                 }
 				if (hit.collider.tag == "LinhaDeChegada")
@@ -256,28 +265,33 @@ public class TriggerCollisionsController : RaycastController
 				if (hit.collider.tag == "Carrinho")
                 {
                     dogController.Carro();
+                    FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Feedback/Coletaveis/TransformaDog");
                 }
 
 				if (hit.collider.tag == "Pipa")
 				{
 					dogController.Pipa();
-				}
+                    FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Feedback/Coletaveis/TransformaDog");
+                }
 
 				if (hit.collider.tag == "DogTiro")
 				{
 					playerThings.StartCoroutine("LevouDogada");
-				}
+                    FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Feedback/Player/Impacto");
+                }
 
 				if (hit.collider.tag == "Volei")
                 {
                     if (PlayerThings.rightDir)
                     {
                         collisions.tocouBola = true;
+                        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Objetos/Bola");
                     }
 
                     if (PlayerThings.leftDir)
                     {
                         collisions.cortaBola = true;
+                        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Objetos/Bola");
                     }
                 }
 
@@ -286,11 +300,13 @@ public class TriggerCollisionsController : RaycastController
                     if (PlayerThings.rightDir)
                     {
                         collisions.cabecaBola = true;
+                        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Objetos/Bola");
                     }
 
                     if (PlayerThings.leftDir)
                     {
                         collisions.chutouBola = true;
+                        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Objetos/Bola");
                     }
                 }
 				if (hit.collider.tag == "LinhaDeChegada")
@@ -368,21 +384,25 @@ public class TriggerCollisionsController : RaycastController
 				if (hit.collider.tag == "Carrinho")
                 {
                     dogController.Carro();
+                    FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Feedback/Coletaveis/TransformaDog");
                 }
 
                 if (hit.collider.tag == "Pipa")
                 {
                     dogController.Pipa();
+                    FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Feedback/Coletaveis/TransformaDog");
                 }
 
                 if (hit.collider.tag == "Volei")
                 {
                     collisions.tocouBola = true;
+                    FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Objetos/Bola");
                 }
 
                 if(hit.collider.tag == "Futebol")
                 {
                     collisions.cabecaBola = true;
+                    FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Objetos/Bola");
                 }
             }
         }
@@ -461,11 +481,13 @@ public class TriggerCollisionsController : RaycastController
                 if(hit.collider.tag == "Carrinho")
                 {
                     dogController.Carro();
+                    FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Feedback/Coletaveis/TransformaDog");
                 }
 
                 if (hit.collider.tag == "Pipa")
                 {
                     dogController.Pipa();
+                    FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Feedback/Coletaveis/TransformaDog");
                 }
 
                 if (hit.collider.tag == "Futebol")
@@ -483,6 +505,7 @@ public class TriggerCollisionsController : RaycastController
                 if(hit.collider.tag == "CaixaDagua")
                 {
                     collisions.caixaDagua = true;
+                    FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Objetos/CaixaDaAgua");
                 }
             }
         }
