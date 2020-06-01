@@ -10,15 +10,18 @@ public class PortaManager : MonoBehaviour
 
     public TriggerCollisionsController controller;
 
-	public GameObject ButtonJogarCorrida;
-	public GameObject ButtonJogarColeta;
-    public GameObject ButtonJogarFutebol;
-	public GameObject ButtonJogarMoto;
-    public GameObject ButtonJogarVolei;
+	public GameObject placaCorrida;
+	public GameObject placaColeta;
+    public GameObject placaFutebol;
+	public GameObject placaMoto;
+    public GameObject placaVolei;
+    public GameObject placaTenis;
+    public GameObject placaBazar;
+    public GameObject placaCabelo;
 
-    public GameObject ButtonRoupa;
+    /*public GameObject ButtonRoupa;
 
-    public GameObject customButtons;
+    public GameObject customButtons;*/
 
     public DelayStartLobbyController lobbyController;
 
@@ -26,6 +29,11 @@ public class PortaManager : MonoBehaviour
 
 	private float joyGambiarra;
     public bool abriPorta;
+    public bool coletaDoor;
+    public bool futebolDoor;
+    public bool voleiDoor;
+    public bool motoDoor;
+    public bool corridaDoor;
     public bool hairDoor;
     public bool shirtDoor;
     public bool shortsDoor;
@@ -39,7 +47,7 @@ public class PortaManager : MonoBehaviour
 
         controller = FindObjectOfType<TriggerCollisionsController>();
         joy = FindObjectOfType<Joystick>();
-        ButtonRoupa.SetActive(false);
+        //ButtonRoupa.SetActive(false);
 	}
 
     private void Update()
@@ -91,42 +99,42 @@ public class PortaManager : MonoBehaviour
                 Debug.Log("Colidiu");
                 OpenDoorTutorial();
             }
-			if (joy.Vertical >= 0.8f && ButtonJogarCorrida != null && ButtonJogarCorrida.activeSelf == true)
+			if (joy.Vertical >= 0.8f && corridaDoor == true)
 			{
                 spawnHUBPoints.Value = 5;
                 lobbyController.DelayStart("Corrida");
 				//ButtonJogarCorrida = false;
 			}
-			if (joy.Vertical >= 0.8f && ButtonJogarColeta != null && ButtonJogarColeta.activeSelf == true)
+			if (joy.Vertical >= 0.8f && coletaDoor == true)
 			{
                 spawnHUBPoints.Value = 1;
                 lobbyController.DelayStart("Coleta");
 				//ButtonJogarColeta = false;
 			}
-			if (joy.Vertical >= 0.8f && ButtonJogarFutebol != null && ButtonJogarFutebol.activeSelf == true)
+			if (joy.Vertical >= 0.8f && futebolDoor == true)
 			{
                 spawnHUBPoints.Value = 2;
                 lobbyController.DelayStart("Futebol");
 				//ButtonJogarCorrida = false;
 			}
-			if (joy.Vertical >= 0.8f && ButtonJogarMoto != null && ButtonJogarMoto.activeSelf == true)
+			if (joy.Vertical >= 0.8f && motoDoor == true)
 			{
                 spawnHUBPoints.Value = 3;
                 lobbyController.DelayStart("Moto");
 				//ButtonJogarColeta = false;
 			}
-			if (joy.Vertical >= 0.8f && ButtonJogarVolei != null && ButtonJogarVolei.activeSelf == true)
+			if (joy.Vertical >= 0.8f && voleiDoor == true)
 			{
                 spawnHUBPoints.Value = 4;
                 lobbyController.DelayStart("Volei");
 				//ButtonJogarCorrida = false;
 			}
-			if (joy.Vertical >= 0.8f && ButtonRoupa != null && ButtonRoupa.activeSelf == true)
+			/*if (joy.Vertical >= 0.8f && ButtonRoupa != null && ButtonRoupa.activeSelf == true)
 			{
                 SceneManager.LoadScene("Customiza");
                 //lobbyController.DelayStart("Customizar");
                 //ButtonJogarColeta = false;
-            }
+            }*/
 		}
 		joyGambiarra = joy.Vertical;
 
@@ -151,38 +159,46 @@ public class PortaManager : MonoBehaviour
                 break;
 
             case "Corrida":
-                ButtonJogarCorrida.SetActive(true);
+                corridaDoor = true;
+                placaCorrida.SetActive(true);
                 break;
 
             case "Coleta":
-                ButtonJogarColeta.SetActive(true);
+                coletaDoor = true;
+                placaColeta.SetActive(true);
                 break;
 
             case "Futebol":
-                ButtonJogarFutebol.SetActive(true);
+                futebolDoor = true;
+                placaFutebol.SetActive(true);
                 break;
 
             case "Moto":
-                ButtonJogarMoto.SetActive(true);
+                motoDoor = true;
+                placaMoto.SetActive(true);
                 break;
 
             case "Volei":
-                ButtonJogarVolei.SetActive(true);
+                voleiDoor = true;
+                placaVolei.SetActive(true);
                 break;
 
             case "Customizar":
-                ButtonRoupa.SetActive(true);
+                //ButtonRoupa.SetActive(true);
                 break;
 
             case "Cabelo":
+                placaCabelo.SetActive(true);
                 hairDoor = true;
                 break;
 
             case "Shirt":
+                placaBazar.SetActive(true);
                 shirtDoor = true;
                 break;
 
             case "Tenis":
+                placaTenis.SetActive(true);
                 shoesDoor = true;
                 break;
 
@@ -198,40 +214,47 @@ public class PortaManager : MonoBehaviour
                 break;
 
             case "Corrida":
-                ButtonJogarCorrida.SetActive(false);
+                corridaDoor = false;
+                placaCorrida.SetActive(false);
                 break;
 
             case "Coleta":
-                ButtonJogarColeta.SetActive(false);
+                coletaDoor = false;
+                placaColeta.SetActive(false);
                 break;
 
             case "Futebol":
-                ButtonJogarFutebol.SetActive(false);
+                futebolDoor = false;
+                placaFutebol.SetActive(false);
                 break;
 
             case "Moto":
-                ButtonJogarMoto.SetActive(false);
+                motoDoor = false;
+                placaMoto.SetActive(false);
                 break;
 
             case "Volei":
-                ButtonJogarVolei.SetActive(false);
+                voleiDoor = false;
+                placaVolei.SetActive(false);
                 break;
 
             case "Customizar":
-                ButtonRoupa.SetActive(false);
-                customButtons.SetActive(false);
+                //ButtonRoupa.SetActive(true);
                 break;
 
             case "Cabelo":
+                placaCabelo.SetActive(false);
                 hairDoor = false;
                 break;
 
             case "Shirt":
+                placaBazar.SetActive(false);
                 shirtDoor = false;
                 break;
 
             case "Tenis":
-                shortsDoor = false;
+                placaTenis.SetActive(false);
+                shoesDoor = false;
                 break;
         }
 
