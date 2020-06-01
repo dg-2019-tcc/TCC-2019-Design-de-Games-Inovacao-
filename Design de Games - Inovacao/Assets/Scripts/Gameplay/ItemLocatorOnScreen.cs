@@ -15,6 +15,10 @@ public class ItemLocatorOnScreen : MonoBehaviour
 
 	public Sprite image;
 
+    public TV tv;
+
+    public bool desativa;
+
 	void Start()
 	{
 
@@ -33,8 +37,12 @@ public class ItemLocatorOnScreen : MonoBehaviour
 
 	void FixedUpdate()
 	{
+        if(tv != null)
+        {
+            desativa = tv.faloComTV;
+        }
 		instance.transform.position = cam.WorldToScreenPoint(transform.position + positionAdjust);
-		if (instance.transform.position.y <= 0 || instance.transform.position.y >= Screen.height || instance.transform.position.x <= 0 || instance.transform.position.x >= Screen.width)
+		if (instance.transform.position.y <= 0 || instance.transform.position.y >= Screen.height || instance.transform.position.x <= 0 || instance.transform.position.x >= Screen.width && desativa == false)
 		{
 			instance.SetActive(true);
 			//Vertical

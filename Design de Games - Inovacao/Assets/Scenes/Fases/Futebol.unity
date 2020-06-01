@@ -179,7 +179,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1723012703
-  m_SortingLayer: 5
+  m_SortingLayer: 6
   m_SortingOrder: -10
   m_Sprite: {fileID: 21300000, guid: c078ecb56662f9a4ca5d778aef85c8a7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -341,7 +341,7 @@ PrefabInstance:
     - target: {fileID: 5422972358660654972, guid: 55f46624d96faa8458790a713e6a1a23,
         type: 3}
       propertyPath: m_SortingLayer
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 3319077030799268646, guid: 55f46624d96faa8458790a713e6a1a23,
         type: 3}
@@ -351,7 +351,7 @@ PrefabInstance:
     - target: {fileID: 3319077030799268646, guid: 55f46624d96faa8458790a713e6a1a23,
         type: 3}
       propertyPath: m_SortingLayer
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 4910049230456757748, guid: 55f46624d96faa8458790a713e6a1a23,
         type: 3}
@@ -361,7 +361,7 @@ PrefabInstance:
     - target: {fileID: 4910049230456757748, guid: 55f46624d96faa8458790a713e6a1a23,
         type: 3}
       propertyPath: m_SortingLayer
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 2552460722879186773, guid: 55f46624d96faa8458790a713e6a1a23,
         type: 3}
@@ -371,7 +371,7 @@ PrefabInstance:
     - target: {fileID: 2552460722879186773, guid: 55f46624d96faa8458790a713e6a1a23,
         type: 3}
       propertyPath: m_SortingLayer
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 5344223860574703653, guid: 55f46624d96faa8458790a713e6a1a23,
         type: 3}
@@ -381,7 +381,7 @@ PrefabInstance:
     - target: {fileID: 5344223860574703653, guid: 55f46624d96faa8458790a713e6a1a23,
         type: 3}
       propertyPath: m_SortingLayer
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 1002112850739371233, guid: 55f46624d96faa8458790a713e6a1a23,
         type: 3}
@@ -391,7 +391,7 @@ PrefabInstance:
     - target: {fileID: 1002112850739371233, guid: 55f46624d96faa8458790a713e6a1a23,
         type: 3}
       propertyPath: m_SortingLayer
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 895204350631891132, guid: 55f46624d96faa8458790a713e6a1a23,
         type: 3}
@@ -401,7 +401,7 @@ PrefabInstance:
     - target: {fileID: 895204350631891132, guid: 55f46624d96faa8458790a713e6a1a23,
         type: 3}
       propertyPath: m_SortingLayer
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 55f46624d96faa8458790a713e6a1a23, type: 3}
@@ -870,6 +870,7 @@ MonoBehaviour:
   flowIndex: {fileID: 0}
   aiGanhou: {fileID: 0}
   playerGanhou: {fileID: 0}
+  feedbackWin: {fileID: 0}
 --- !u!1 &285380741
 GameObject:
   m_ObjectHideFlags: 0
@@ -1114,6 +1115,7 @@ MonoBehaviour:
   flowIndex: {fileID: 0}
   aiGanhou: {fileID: 0}
   playerGanhou: {fileID: 0}
+  feedbackWin: {fileID: 521147078}
 --- !u!1 &426634527
 GameObject:
   m_ObjectHideFlags: 0
@@ -1347,6 +1349,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 30e863cb40e9a0a4a9eba1c5dc7f2636, type: 3}
+--- !u!114 &521147078 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 716594288897074086, guid: 30e863cb40e9a0a4a9eba1c5dc7f2636,
+    type: 3}
+  m_PrefabInstance: {fileID: 521147077}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d21a53373b9d8f449b4afbd0a90d54cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &569552538
 GameObject:
   m_ObjectHideFlags: 0
@@ -1519,7 +1533,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2060363735}
-  m_RootOrder: 8
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &961627750
 GameObject:
@@ -1908,11 +1922,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2125366746023820555, guid: 5ebbe49b5a29ace41a20862a92a55b0a,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5936819967908679543, guid: 5ebbe49b5a29ace41a20862a92a55b0a,
         type: 3}
       propertyPath: spawnPoints.Array.size
@@ -1962,6 +1971,11 @@ PrefabInstance:
         type: 3}
       propertyPath: viewIdField
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2125366746023820555, guid: 5ebbe49b5a29ace41a20862a92a55b0a,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5ebbe49b5a29ace41a20862a92a55b0a, type: 3}
@@ -2499,7 +2513,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2060363735}
-  m_RootOrder: 7
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1731002979
 GameObject:
@@ -2567,12 +2581,15 @@ MonoBehaviour:
     m_PlayerNumber: 0
     m_Instance: {fileID: 0}
     m_WayPointList: []
+    aiMovement: {fileID: 0}
   wayPointsForAI:
   - {fileID: 21583411}
   - {fileID: 1029989380}
   thingsAI: {fileID: 1251010101}
   thingsOnline: {fileID: 285380741}
   botScore: {fileID: 11400000, guid: 8b566134829c06c4f870959dc3f30b67, type: 2}
+  aiMovement: {fileID: 0}
+  comecouPartida: 0
 --- !u!4 &1917311263
 Transform:
   m_ObjectHideFlags: 0
@@ -2718,6 +2735,7 @@ MonoBehaviour:
   flowIndex: {fileID: 11400000, guid: 1b1f9258df71ea84185baf6ad4cb8a20, type: 2}
   aiGanhou: {fileID: 0}
   playerGanhou: {fileID: 0}
+  feedbackWin: {fileID: 521147078}
 --- !u!1001 &1746269014891251711
 PrefabInstance:
   m_ObjectHideFlags: 0
