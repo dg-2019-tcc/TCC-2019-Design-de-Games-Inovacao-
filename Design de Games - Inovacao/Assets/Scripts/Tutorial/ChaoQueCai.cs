@@ -6,6 +6,7 @@ public class ChaoQueCai : MonoBehaviour
 {
 	private bool playerTocando;
 	public GameObject coletavel;
+    public GameObject sprite;
 
 	public bool bulletTime;
 
@@ -13,6 +14,7 @@ public class ChaoQueCai : MonoBehaviour
 	{
 		if (playerTocando && coletavel == null)
 		{
+            Destroy(sprite);
 			Destroy(gameObject);
 		}
 

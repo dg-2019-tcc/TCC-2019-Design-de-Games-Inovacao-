@@ -143,7 +143,6 @@ public class NewPlayerMovent : MonoBehaviour
             {
                 slowFall = true;
                 velocity.y = -5f;
-                Debug.Log(velocity.y);
             }
 
             controller.Move(velocity * Time.deltaTime, input);
