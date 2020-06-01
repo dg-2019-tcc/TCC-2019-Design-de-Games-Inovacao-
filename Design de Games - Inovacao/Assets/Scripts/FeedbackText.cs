@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using FMODUnity;
 
 public class FeedbackText : MonoBehaviour
 {
@@ -31,11 +32,13 @@ public class FeedbackText : MonoBehaviour
     {
         FeedbackImage.enabled = true;
         FeedbackImage.sprite = winSprite;
+        FMODUnity.RuntimeManager.PlayOneShot("event:/MUSIC/V3/Vitoria");
     }
 
     public void Perdeu()
     {
         FeedbackImage.enabled = true;
         FeedbackImage.sprite = loseSprite;
+        FMODUnity.RuntimeManager.PlayOneShot("event:/MUSIC/V3/Derrota");
     }
 }
