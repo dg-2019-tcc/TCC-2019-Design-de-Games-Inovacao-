@@ -27,6 +27,8 @@ public class WinnerManager : MonoBehaviour
 
     private string faseNome;
 
+    public FeedbackText feedback;
+
     private void Start()
 	{
 		pv = GetComponent<PhotonView>();
@@ -82,6 +84,7 @@ public class WinnerManager : MonoBehaviour
 	[PunRPC]
 	void GanhouCorrida()
 	{
+        feedback.Ganhou();
         playerGanhou.Value = true;
         if (acabou01.Value == false)
         {
@@ -125,6 +128,8 @@ public class WinnerManager : MonoBehaviour
 	[PunRPC]
 	void PerdeuCorrida()
 	{
+        feedback.Perdeu();
+
         if (acabou01.Value == true)
         {
             //player.perdeuSom.Play();
