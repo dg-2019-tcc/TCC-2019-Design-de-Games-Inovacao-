@@ -107,7 +107,12 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
         //delayStartButton2.SetActive(false);
         delayCancelButton.SetActive(true);
 		//loadingScene.SetActive(true);
-	//	PlayerCanvas.SetActive(false);
+		//	PlayerCanvas.SetActive(false);
+
+		if (PhotonNetwork.InRoom)
+		{
+			PhotonNetwork.LeaveRoom();
+		}
 
 		StartCoroutine(StartGamemode(gameMode));     
     }
