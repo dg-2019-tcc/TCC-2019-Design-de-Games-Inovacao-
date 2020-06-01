@@ -72,7 +72,7 @@ public class NewMotoPlayerMovement : MonoBehaviour
 		joyStick = FindObjectOfType<Joystick>();
 	}
 
-	void FixedUpdate()
+	void Update()
 	{
 		if (!pv.IsMine && PhotonNetwork.InRoom) return;
         if (levouDogada.Value) return;

@@ -37,24 +37,21 @@ public class TV : MonoBehaviour
         }
         else
         {
-            falas.SetActive(true);
-            pointer.enabled = true;
-            precisaFalar = true;
+            if (aiGanhou.Value == true)
+            {
+                falas.SetActive(false);
+                pointer.enabled = false;
+                precisaFalar = false;
+            }
+
+            else
+            {
+                falas.SetActive(true);
+                pointer.enabled = true;
+                precisaFalar = true;
+            }
         }
 
-        if(aiGanhou.Value == true)
-        {
-            falas.SetActive(false);
-            pointer.enabled = false;
-            precisaFalar = false;
-        }
-
-        else
-        {
-            falas.SetActive(true);
-            pointer.enabled = true;
-            precisaFalar = true;
-        }
 
         faloComTV = false;
     }
