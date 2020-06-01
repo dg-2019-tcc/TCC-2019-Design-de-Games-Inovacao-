@@ -600,6 +600,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 72358068766952040, guid: 0981ec4581c73fa44bda18da386e9b06,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 72358068787011080, guid: 0981ec4581c73fa44bda18da386e9b06,
+        type: 3}
+      propertyPath: m_SortingLayerID
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 72358068787011080, guid: 0981ec4581c73fa44bda18da386e9b06,
+        type: 3}
+      propertyPath: m_SortingLayer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 72358069703946382, guid: 0981ec4581c73fa44bda18da386e9b06,
         type: 3}
       propertyPath: m_textInfo.characterCount
@@ -639,21 +654,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_fontColor32.rgba
       value: 4288243455
-      objectReference: {fileID: 0}
-    - target: {fileID: 72358068766952040, guid: 0981ec4581c73fa44bda18da386e9b06,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 72358068787011080, guid: 0981ec4581c73fa44bda18da386e9b06,
-        type: 3}
-      propertyPath: m_SortingLayerID
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 72358068787011080, guid: 0981ec4581c73fa44bda18da386e9b06,
-        type: 3}
-      propertyPath: m_SortingLayer
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 72358068766952036, guid: 0981ec4581c73fa44bda18da386e9b06,
         type: 3}
@@ -929,6 +929,7 @@ GameObject:
   - component: {fileID: 758373923}
   - component: {fileID: 758373925}
   - component: {fileID: 758373924}
+  - component: {fileID: 758373926}
   m_Layer: 0
   m_Name: Gol_Esq
   m_TagString: Untagged
@@ -995,6 +996,29 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &758373926
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 758373922}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: Bola
+  Event: event:/SFX/Crowd/CrowdGol
+  PlayEvent: 5
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 0
+  OverrideMaxDistance: 0
 --- !u!1001 &836641999
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2526,6 +2550,7 @@ GameObject:
   - component: {fileID: 2066141314}
   - component: {fileID: 2066141311}
   - component: {fileID: 2066141315}
+  - component: {fileID: 2066141312}
   m_Layer: 0
   m_Name: Gol_Dir
   m_TagString: Untagged
@@ -2559,6 +2584,29 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &2066141312
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2066141310}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: Bola
+  Event: event:/SFX/Crowd/CrowdGol
+  PlayEvent: 5
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 0
+  OverrideMaxDistance: 0
 --- !u!4 &2066141314
 Transform:
   m_ObjectHideFlags: 0
@@ -2760,6 +2808,7 @@ GameObject:
   - component: {fileID: 2131617122}
   - component: {fileID: 2131617124}
   - component: {fileID: 2131617123}
+  - component: {fileID: 2131617125}
   m_Layer: 0
   m_Name: Gol_Esq
   m_TagString: Untagged
@@ -2822,6 +2871,29 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &2131617125
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2131617121}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: Bola
+  Event: event:/SFX/Crowd/CrowdGol
+  PlayEvent: 5
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 0
+  OverrideMaxDistance: 0
 --- !u!1001 &1746269014891251711
 PrefabInstance:
   m_ObjectHideFlags: 0
