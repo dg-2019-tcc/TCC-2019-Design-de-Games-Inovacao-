@@ -23,10 +23,13 @@ public class VoleiManager : MonoBehaviour
 
     public TextMeshProUGUI placarText;
 
+    public FeedbackText feedbackText;
+
     private void Update()
     {
         if (botScore.Value >= maxPoints)
         {
+            feedbackText.Perdeu();
             PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 0;
             LevelManager.Instance.GoPodium();
         }
@@ -49,12 +52,21 @@ public class VoleiManager : MonoBehaviour
 
             if (playerGol.jogador.PV.Owner.GetScore() >= 7)
             {
+                feedbackText.Ganhou();
                 PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 1;
                 LevelManager.Instance.GoPodium();
             }
 
         }
 
+    }
+
+    IEnumerator Acabou()
+    {
+
+
+        yield return new WaitForSeconds(3f);
+        LevelManager.Instance.GoPodium();
     }
 
     [PunRPC]
