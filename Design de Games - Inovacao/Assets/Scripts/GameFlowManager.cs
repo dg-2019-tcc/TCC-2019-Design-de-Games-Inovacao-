@@ -47,6 +47,7 @@ public class GameFlowManager : MonoBehaviour
 
     private void Start()
     {
+        buildProfs = true;
         liberou = false;
         resetou = false;
 

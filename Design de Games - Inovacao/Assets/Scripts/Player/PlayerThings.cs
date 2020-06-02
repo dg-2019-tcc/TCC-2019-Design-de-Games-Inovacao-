@@ -62,7 +62,7 @@ public class PlayerThings : MonoBehaviour
             menuCustom = true;
         }
 
-        if(SceneManager.GetActiveScene().name == "Customiza")
+        if(SceneManager.GetActiveScene().name == "Customiza" || SceneManager.GetActiveScene().name == "Cabelo" || SceneManager.GetActiveScene().name == "Shirt" || SceneManager.GetActiveScene().name == "Tenis")
         {
             desativaCanvas = true;
         }

@@ -29,9 +29,14 @@ public class WinnerManager : MonoBehaviour
 
     public FeedbackText feedback;
 
+    public bool buildProfs;
+
     private void Start()
 	{
+        buildProfs = true;
 		pv = GetComponent<PhotonView>();
+
+        feedback = FindObjectOfType<FeedbackText>();
 
         acabou01 = Resources.Load<BoolVariable>("Acabou01");
         aiGanhou = Resources.Load<BoolVariable>("AIGanhou");
@@ -86,30 +91,48 @@ public class WinnerManager : MonoBehaviour
 	{
         feedback.Ganhou();
         playerGanhou.Value = true;
-        if (acabou01.Value == false)
-        {
 
-            if (!isMoto)
+        if (buildProfs == false) {
+            if (acabou01.Value == false)
             {
-                //flowIndex.Value = 7;
-                faseNome = "HistoriaCorrida";
-                //PhotonNetwork.LoadLevel("HistoriaFutebol");
+
+                if (!isMoto)
+                {
+                    //flowIndex.Value = 7;
+                    faseNome = "HistoriaCorrida";
+                    //PhotonNetwork.LoadLevel("HistoriaFutebol");
+                }
+                else
+                {
+                    //flowIndex.Value = 6;
+                    faseNome = "HistoriaMoto";
+                    //PhotonNetwork.LoadLevel("HistoriaFutebol");
+                }
+                //playerGanhou.Value = true;
+                aiGanhou.Value = false;
+                StartCoroutine("AcabouFase");
             }
+
             else
             {
-                //flowIndex.Value = 6;
-                faseNome = "HistoriaMoto";
+
                 //PhotonNetwork.LoadLevel("HistoriaFutebol");
+                Debug.Log("Ganhou");
+                PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 1;
+                //player.ganhouSom.Play();
+                //player.playerAnimations.playerAC.SetTrigger(player.playerAnimations.animatorWon);
+
+
+                //	gameObject.GetComponent<PhotonView>().RPC("ZeraPontuacao", RpcTarget.All);
+
+                gameObject.GetComponent<PhotonView>().RPC("TrocaSala", RpcTarget.All);
+                ganhouCorrida = false;
+                //PlayerMovement.acabou = true;
             }
-            //playerGanhou.Value = true;
-            aiGanhou.Value = false;
-            StartCoroutine("AcabouFase");
         }
 
         else
         {
-
-            //PhotonNetwork.LoadLevel("HistoriaFutebol");
             Debug.Log("Ganhou");
             PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 1;
             //player.ganhouSom.Play();
@@ -120,7 +143,7 @@ public class WinnerManager : MonoBehaviour
 
             gameObject.GetComponent<PhotonView>().RPC("TrocaSala", RpcTarget.All);
             ganhouCorrida = false;
-            //PlayerMovement.acabou = true;
+
         }
 
     }
@@ -129,14 +152,26 @@ public class WinnerManager : MonoBehaviour
 	void PerdeuCorrida()
 	{
         feedback.Perdeu();
-
-        if (acabou01.Value == true)
+        if (buildProfs == false)
         {
-            //player.perdeuSom.Play();
-            perdeuCorrida = true;
-            //PlayerThings.acabou = true;
-            PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 0;
-            gameObject.GetComponent<PhotonView>().RPC("TrocaSala", RpcTarget.MasterClient);
+            if (acabou01.Value == true || buildProfs == false)
+            {
+                //player.perdeuSom.Play();
+                perdeuCorrida = true;
+                //PlayerThings.acabou = true;
+                PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 0;
+                gameObject.GetComponent<PhotonView>().RPC("TrocaSala", RpcTarget.MasterClient);
+            }
+
+            else
+            {
+                perdeuCorrida = true;
+                playerGanhou.Value = false;
+                aiGanhou.Value = true;
+                faseNome = "HUB";
+                StartCoroutine("AcabouFase");
+                //PhotonNetwork.LoadLevel("HUB");
+            }
         }
 
         else
@@ -146,7 +181,6 @@ public class WinnerManager : MonoBehaviour
             aiGanhou.Value = true;
             faseNome = "HUB";
             StartCoroutine("AcabouFase");
-            //PhotonNetwork.LoadLevel("HUB");
         }
 	}
 
