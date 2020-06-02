@@ -39,13 +39,18 @@ public class GameFlowManager : MonoBehaviour
 
     public OfflineMode offlineMode;
 
+    public bool buildProfs;
+
+    public GameObject resetaButton;
+    public GameObject liberaButton;
+
 
     private void Start()
     {
         liberou = false;
         resetou = false;
 
-        if(resetaFase.Value == true && resetaFase != null)
+        if(resetaFase.Value == true && resetaFase != null && buildProfs == false)
         {
             PlayerPrefs.SetInt("Fase", 0);
             resetaFase.Value = false;
@@ -79,32 +84,48 @@ public class GameFlowManager : MonoBehaviour
         {
             CameraShowoff.SetActive(false);
         }*/
-
-        if (index < 8)
+        if (buildProfs == false)
         {
-            if (SceneManager.GetActiveScene().name == "MenuPrincipal")
+            if (index < 8)
             {
-                offlineButton.SetActive(false);
-                jogarButton.SetActive(true);
+                if (SceneManager.GetActiveScene().name == "MenuPrincipal")
+                {
+                    offlineButton.SetActive(false);
+                    jogarButton.SetActive(true);
 
-                PhotonNetwork.OfflineMode = true;
-                OfflineMode.modoDoOffline = true;
+                    PhotonNetwork.OfflineMode = true;
+                    OfflineMode.modoDoOffline = true;
+                }
+
+
+                if (SceneManager.GetActiveScene().name == "HUB")
+                {
+                    PhotonNetwork.OfflineMode = true;
+                    OfflineMode.modoDoOffline = true;
+
+                    if (aiGanhou.Value == true)
+                    {
+                        AtivaFase(index);
+                    }
+                    else
+                    {
+                        FechaTudo();
+                    }
+                }
             }
-            
 
-            if (SceneManager.GetActiveScene().name == "HUB")
+            else
             {
-                PhotonNetwork.OfflineMode = true;
-                OfflineMode.modoDoOffline = true;
+                if (SceneManager.GetActiveScene().name == "MenuPrincipal")
+                {
+                    offlineButton.SetActive(true);
+                }
 
-                if (aiGanhou.Value == true)
+                if (SceneManager.GetActiveScene().name == "HUB")
                 {
-                    AtivaFase(index);
+                    Completo();
                 }
-                else
-                {
-                    FechaTudo();
-                }
+
             }
         }
 
@@ -112,14 +133,24 @@ public class GameFlowManager : MonoBehaviour
         {
             if (SceneManager.GetActiveScene().name == "MenuPrincipal")
             {
-                offlineButton.SetActive(true);
+                resetaButton.SetActive(false);
+                liberaButton.SetActive(false);
+                LiberaTudo();
+                PlayerPrefs.SetInt("Fase", 8);
+                resetaFase.Value = false;
+
+                offlineButton.SetActive(false);
+                jogarButton.SetActive(true);
+
+                PhotonNetwork.OfflineMode = true;
+                OfflineMode.modoDoOffline = true;
             }
 
             if (SceneManager.GetActiveScene().name == "HUB")
             {
                 Completo();
+                Acabou();
             }
-
         }
     }
 
