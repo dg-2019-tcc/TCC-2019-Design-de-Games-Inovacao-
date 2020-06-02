@@ -10,12 +10,18 @@ public class Custom2D : MonoBehaviour
     public Prop2D shirtInd;
     public Prop2D shortsInd;
     public Prop2D shoesInd;
+    public Prop2D oculosIndex;
+    public Prop2D ciliosIndex;
+    public Prop2D maskIndex;
 
     //ARMATURE DE FRENTE
     public ChangeMultipleCustom[] hairs;
     public ChangeMultipleCustom[] shirt;
     public ChangeMultipleCustom[] shorts;
     public ChangeMultipleCustom[] shoes;
+    public ChangeMultipleCustom[] cilios;
+    public ChangeMultipleCustom[] oculos;
+    public ChangeMultipleCustom[] mask;
 
 
     //ARMATURE DE LADO
@@ -23,78 +29,12 @@ public class Custom2D : MonoBehaviour
     public ChangeMultipleCustom[] shirt2;
     public ChangeMultipleCustom[] shorts2;
     public ChangeMultipleCustom[] shoes2;
-          
+    public ChangeMultipleCustom[] cilios2;
+    public ChangeMultipleCustom[] oculos2;
+    public ChangeMultipleCustom[] mask2;
 
 
 
-    void Start()
-    {
-
-        /*//CABELO E SOMBRANCELHAS
-
-        for (int i = 0; i < hairs.Length; i++)
-        {
-            hairs[i].ChangeCustom(false);
-        }
-
-
-        for (int i = 0; i < hairs2.Length; i++)
-        {
-            hairs2[i].ChangeCustom(false);
-        }
-
-
-        // CAMISAS
-
-        for (int i = 0; i < shirt.Length; i++)
-        {
-            shirt[i].ChangeCustom(false);
-        }
-
-        for (int i = 0; i < shirt2.Length; i++)
-        {
-            shirt2[i].ChangeCustom(false);
-        }
-
-        //SHORTS
-
-        for (int i = 0; i < shorts.Length; i++)
-        {
-            shorts[i].ChangeCustom(false);
-        }
-
-        for (int i = 0; i < shorts2.Length; i++)
-        {
-            shorts2[i].ChangeCustom(false);
-        }
-
-        //SAPATOS
-
-        for (int i = 0; i < shoes.Length; i++)
-        {
-            shoes[i].ChangeCustom(false);
-        }
-
-        for (int i = 0; i < shoes2.Length; i++)
-        {
-            shoes2[i].ChangeCustom(false);
-        }
-
-
-        //ATIVANDO OS CORRETOS
-
-        hairs[hairInd.prop2DInd].ChangeCustom(true);
-        shirt[shirtInd.prop2DInd].ChangeCustom(true);
-        shirt[shirtInd.prop2DInd].ChangeCustom(true);
-        shorts[shortsInd.prop2DInd].ChangeCustom(true);
-        shoes[shoesInd.prop2DInd].ChangeCustom(true);
-
-        hairs2[hairInd.prop2DInd].ChangeCustom(true);
-        shirt2[shirtInd.prop2DInd].ChangeCustom(true);
-        shirt2[shirtInd.prop2DInd].ChangeCustom(true);
-        shorts2[shortsInd.prop2DInd].ChangeCustom(true);
-        shoes2[shoesInd.prop2DInd].ChangeCustom(true);*/
-    }
 
 	[PunRPC]
 	public void ChangeHair(int index)
@@ -178,4 +118,67 @@ public class Custom2D : MonoBehaviour
         PhotonNetwork.LocalPlayer.CustomProperties["shoeIndex"] = shoesInd.prop2DInd;
 
     }
+
+    [PunRPC]
+    public void ChangeOculos(int index)
+    {
+        FMODUnity.RuntimeManager.PlayOneShot("event:/HUD/Click", GetComponent<Transform>().position);
+        oculos[oculosIndex.prop2DInd].ChangeCustom(false);
+        oculos2[oculosIndex.prop2DInd].ChangeCustom(false);
+
+        oculosIndex.prop2DInd = index;
+
+        if(oculosIndex.prop2DInd >= oculos.Length)
+        {
+            oculosIndex.prop2DInd = 0;
+        }
+
+        oculos[oculosIndex.prop2DInd].ChangeCustom(true);
+        oculos2[oculosIndex.prop2DInd].ChangeCustom(true);
+
+        PhotonNetwork.LocalPlayer.CustomProperties["oculosIndex"] = oculosIndex.prop2DInd;
+    }
+
+
+    [PunRPC]
+    public void ChangeCilios(int index)
+    {
+        FMODUnity.RuntimeManager.PlayOneShot("event:/HUD/Click", GetComponent<Transform>().position);
+        cilios[ciliosIndex.prop2DInd].ChangeCustom(false);
+        cilios2[ciliosIndex.prop2DInd].ChangeCustom(false);
+
+        ciliosIndex.prop2DInd = index;
+
+        if (ciliosIndex.prop2DInd >= cilios.Length)
+        {
+            ciliosIndex.prop2DInd = 0;
+        }
+
+        cilios[oculosIndex.prop2DInd].ChangeCustom(true);
+        cilios2[oculosIndex.prop2DInd].ChangeCustom(true);
+
+        PhotonNetwork.LocalPlayer.CustomProperties["ciliosIndex"] = ciliosIndex.prop2DInd;
+    }
+
+
+    [PunRPC]
+    public void ChangeMask(int index)
+    {
+        FMODUnity.RuntimeManager.PlayOneShot("event:/HUD/Click", GetComponent<Transform>().position);
+        mask[maskIndex.prop2DInd].ChangeCustom(false);
+        mask2[maskIndex.prop2DInd].ChangeCustom(false);
+
+        maskIndex.prop2DInd = index;
+
+        if (maskIndex.prop2DInd >= mask.Length)
+        {
+            maskIndex.prop2DInd = 0;
+        }
+
+        mask[oculosIndex.prop2DInd].ChangeCustom(true);
+        mask2[oculosIndex.prop2DInd].ChangeCustom(true);
+
+        PhotonNetwork.LocalPlayer.CustomProperties["maskIndex"] = maskIndex.prop2DInd;
+    }
+
 }
