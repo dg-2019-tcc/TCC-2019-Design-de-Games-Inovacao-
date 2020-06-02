@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-
+using FMOD.Studio;
 public class MotoChangeSpeed : MonoBehaviour
 {
     public float climbing = 0.15f;
@@ -26,16 +26,34 @@ public class MotoChangeSpeed : MonoBehaviour
     public TextMeshProUGUI speedText;
     public float speedVal;
 
-    // Start is called before the first frame update
+
+
+    [Header("Fmod")]
+
+    EventInstance CarEngine;
+    float RPM;
+    float AccelInput;
+
+
     void Start()
     {
+        CarEngine = FMODUnity.RuntimeManager.CreateInstance("event:/SFX/MotoMotor");
+        CarEngine.getParameterByName("RPM", out RPM);
+        CarEngine.getParameterByName("Accel", out AccelInput);
+
+
+        FMODUnity.RuntimeManager.AttachInstanceToGameObject(CarEngine, GetComponent<Transform>(), GetComponent<Rigidbody2D>());
+
         levouDogada.Value = false;
         motoSpeedChange.Value = 0f;
         player = GetComponent<NewMotoPlayerMovement>();
-        controller = GetComponent<Controller2D>();   
+        controller = GetComponent<Controller2D>();
+
+
+        CarEngine.start();
     }
 
-    // Update is called once per frame
+
     void FixedUpdate()
     {
         if (controller.collisions.bateuObs || levouDogada.Value)
@@ -61,7 +79,7 @@ public class MotoChangeSpeed : MonoBehaviour
             motoSpeedChange.Value += descendingSlope * Time.deltaTime;
         }
 
-        if(player.velocity.y < 0 && controller.collisions.below == false)
+        if (player.velocity.y < 0 && controller.collisions.below == false)
         {
             motoSpeedChange.Value += descendingAir * Time.deltaTime;
         }
@@ -80,7 +98,10 @@ public class MotoChangeSpeed : MonoBehaviour
         {
             motoSpeedChange.Value = 0f;
         }
-    
 
+
+        Debug.Log(motoSpeedChange.Value);
+        CarEngine.setParameterByName("RPM", motoSpeedChange.Value / 5);
+        CarEngine.setParameterByName("Accel", motoSpeedChange.Value / 5);
     }
 }
