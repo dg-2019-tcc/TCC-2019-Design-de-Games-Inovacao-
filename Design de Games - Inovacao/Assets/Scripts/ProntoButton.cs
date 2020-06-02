@@ -28,7 +28,7 @@ public class ProntoButton : MonoBehaviour
         {
             nomeDoMenu = tutorial;
         }*/
-        jaJogou.Value = true;
+        //jaJogou.Value = true;
         SceneManager.LoadScene(nomeDoMenu);
     }
 
