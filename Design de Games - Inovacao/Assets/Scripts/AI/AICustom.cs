@@ -10,10 +10,12 @@ public class AICustom : MonoBehaviour
     public int shoesIndex;
 
 
+
     public ChangeMultipleCustom[] hairModels;
     public ChangeMultipleCustom[] shirtModels;
     public ChangeMultipleCustom[] legModels;
     public ChangeMultipleCustom[] shoeModels;
+
     public ChangeMultipleCustom[] hair2Models;
     public ChangeMultipleCustom[] shirt2Models;
     public ChangeMultipleCustom[] leg2Models;
