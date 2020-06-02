@@ -117,7 +117,21 @@ public class NewCustomKhalil : MonoBehaviour
                     Menu5.SetActive(false);
                 }
                 if (Menu6 != null)
-                { 
+                {
+                    Menu6.SetActive(false);
+                }
+                break;
+            case 4:
+                Menu1.SetActive(false);
+                Menu2.SetActive(false);
+                Menu3.SetActive(false);
+                Menu4.SetActive(true);
+                if (Menu5 != null)
+                {
+                    Menu5.SetActive(false);
+                }
+                if (Menu6 != null)
+                {
                     Menu6.SetActive(false);
                 }
                 break;
