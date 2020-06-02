@@ -13,6 +13,9 @@ public class NewCustomKhalil : MonoBehaviour
     public Sprite[] spriteShirt; //Tem todos os sprites de cabelo, os modelos de cabelo vão de 0 - 4 / 5 - 9 / 10 - 14 / 15 / 19   
     public Sprite[] spriteShorts; //Tem todos os sprites de cabelo, os modelos de cabelo vão de 0 - 4 / 5 - 9 / 10 - 14 / 15 / 19
     public Sprite[] spriteTenis; //Tem todos os sprites de cabelo, os modelos de cabelo vão de 0 - 4 / 5 - 9 / 10 - 14 / 15 / 19
+    public Sprite[] spriteOculos; //Tem todos os sprites de cabelo, os modelos de cabelo vão de 0 - 4 / 5 - 9 / 10 - 14 / 15 / 19
+    public Sprite[] spriteDelineado; //Tem todos os sprites de cabelo, os modelos de cabelo vão de 0 - 4 / 5 - 9 / 10 - 14 / 15 / 19
+    public Sprite[] spriteMascara; //Tem todos os sprites de cabelo, os modelos de cabelo vão de 0 - 4 / 5 - 9 / 10 - 14 / 15 / 19
 
     [Header("Botões da cena")]
     public Button[] botaoDeModelo; //Qual botão dos modelos estamos mexendo
@@ -23,12 +26,17 @@ public class NewCustomKhalil : MonoBehaviour
     public int[] coresShirt;
     public int[] coresShort;
     public int[] coresTenis;
-    
+    public int[] coresOculos;
+    public int[] coresDelineado;
+    public int[] coresMascara;
+
     [Header("Telas De Menu")]
     public GameObject Menu1;
     public GameObject Menu2;
     public GameObject Menu3;
     public GameObject Menu4;
+    public GameObject Menu5;
+    public GameObject Menu6;
 
     [Header("Círculo de seleção")]
     public GameObject[] circuloDeSelecaoModelo;
@@ -68,7 +76,6 @@ public class NewCustomKhalil : MonoBehaviour
         switch (qualMenuAtiva)
         {
             case 1:
-                //DesativaAsCores();
                 Menu1.SetActive(true);
                 Menu2.SetActive(false);
                 if(Menu3 != null)
@@ -91,18 +98,44 @@ public class NewCustomKhalil : MonoBehaviour
                 {
                     Menu4.SetActive(false);
                 }
+                if (Menu5 != null)
+                {
+                    Menu5.SetActive(false);
+                }
+                if (Menu6 != null)
+                { 
+                    Menu6.SetActive(false);
+                }
                 break;
             case 3:
                 Menu1.SetActive(false);
                 Menu2.SetActive(false);
                 Menu3.SetActive(true);
                 Menu4.SetActive(false);
+                if (Menu5 != null)
+                {
+                    Menu5.SetActive(false);
+                }
+                if (Menu6 != null)
+                { 
+                    Menu6.SetActive(false);
+                }
                 break;
-            case 4:
+            case 5:
                 Menu1.SetActive(false);
                 Menu2.SetActive(false);
                 Menu3.SetActive(false);
-                Menu4.SetActive(true);
+                Menu4.SetActive(false);
+                Menu5.SetActive(true);
+                Menu6.SetActive(false);
+                break;
+            case 6:
+                Menu1.SetActive(false);
+                Menu2.SetActive(false);
+                Menu3.SetActive(false);
+                Menu4.SetActive(false);
+                Menu5.SetActive(false);
+                Menu6.SetActive(true);
                 break;
         }
     }
@@ -152,6 +185,15 @@ public class NewCustomKhalil : MonoBehaviour
             case 4:
                 qualParteVaiSer = 4;
                 break;
+            case 5:
+                qualParteVaiSer = 5;
+                break;
+            case 6:
+                qualParteVaiSer = 6;
+                break;
+            case 7:
+                qualParteVaiSer = 7;
+                break;
         }
     }
 
@@ -186,6 +228,15 @@ public class NewCustomKhalil : MonoBehaviour
                     break;
                 case 4:
                     botaoDeModelo[i].image.sprite = spriteShorts[q * i];
+                    break;
+                case 5:
+                    botaoDeModelo[i].image.sprite = spriteOculos[q * i];
+                    break;
+                case 6:
+                    botaoDeModelo[i].image.sprite = spriteDelineado[q * i];
+                    break;
+                case 7:
+                    botaoDeModelo[i].image.sprite = spriteMascara[q * i];
                     break;
             }
             switch (i)
@@ -299,6 +350,60 @@ public class NewCustomKhalil : MonoBehaviour
                         break;
                 }
                 break;
+
+            case 5:
+                switch (qualModelo)
+                {
+                    case 0:
+                        quantasCoresTem = coresOculos[0];
+                        break;
+                    case 1:
+                        quantasCoresTem = coresOculos[1];
+                        break;
+                    case 2:
+                        quantasCoresTem = coresOculos[2];
+                        break;
+                    case 3:
+                        quantasCoresTem = coresOculos[3];
+                        break;
+                }
+                break;
+
+            case 6:
+                switch (qualModelo)
+                {
+                    case 0:
+                        quantasCoresTem = coresDelineado[0];
+                        break;
+                    case 1:
+                        quantasCoresTem = coresDelineado[1];
+                        break;
+                    case 2:
+                        quantasCoresTem = coresDelineado[2];
+                        break;
+                    case 3:
+                        quantasCoresTem = coresDelineado[3];
+                        break;
+                }
+                break;
+
+            case 7:
+                switch (qualModelo)
+                {
+                    case 0:
+                        quantasCoresTem = coresMascara[0];
+                        break;
+                    case 1:
+                        quantasCoresTem = coresMascara[1];
+                        break;
+                    case 2:
+                        quantasCoresTem = coresMascara[2];
+                        break;
+                    case 3:
+                        quantasCoresTem = coresMascara[3];
+                        break;
+                }
+                break;
         }
     }
 
@@ -361,6 +466,15 @@ public class NewCustomKhalil : MonoBehaviour
                     case 4:
                         botaoDeCor[i].image.sprite = spriteShorts[startArrayFromThisPoint]; //Muda a sprite para a imagem de cor certa
                         break;
+                    case 5:
+                        botaoDeCor[i].image.sprite = spriteOculos[startArrayFromThisPoint]; //Muda a sprite para a imagem de cor certa
+                        break;
+                    case 6:
+                        botaoDeCor[i].image.sprite = spriteDelineado[startArrayFromThisPoint]; //Muda a sprite para a imagem de cor certa
+                        break;
+                    case 7:
+                        botaoDeCor[i].image.sprite = spriteMascara[startArrayFromThisPoint]; //Muda a sprite para a imagem de cor certa
+                        break;
                 }
             }
             startArrayFromThisPoint++; //Aumenta o valor de "q" para poder mudar quando passar de botão
@@ -405,6 +519,15 @@ public class NewCustomKhalil : MonoBehaviour
                 break;
             case 4:
                 customizaScript.ChangeShort(index);
+                break;
+            case 5:
+                customizaScript.ChangeOculos(index);
+                break;
+            case 6:
+                customizaScript.ChangeCilios(index);
+                break;
+            case 7:
+                customizaScript.ChangeMask(index);
                 break;
         }
     }
@@ -491,6 +614,66 @@ public class NewCustomKhalil : MonoBehaviour
                         break;
                     case 5:
                         customizaScript.ChangeShort(botaoModelo5);
+                        break;
+                }
+                break;
+            case 5:
+                switch (qualBotao)
+                {
+                    case 1:
+                        customizaScript.ChangeOculos(botaoModelo1);
+                        break;
+                    case 2:
+                        customizaScript.ChangeOculos(botaoModelo2);
+                        break;
+                    case 3:
+                        customizaScript.ChangeOculos(botaoModelo3);
+                        break;
+                    case 4:
+                        customizaScript.ChangeOculos(botaoModelo4);
+                        break;
+                    case 5:
+                        customizaScript.ChangeOculos(botaoModelo5);
+                        break;
+                }
+                break;
+            case 6:
+                switch (qualBotao)
+                {
+                    case 1:
+                        customizaScript.ChangeCilios(botaoModelo1);
+                        break;
+                    case 2:
+                        customizaScript.ChangeCilios(botaoModelo2);
+                        break;
+                    case 3:
+                        customizaScript.ChangeCilios(botaoModelo3);
+                        break;
+                    case 4:
+                        customizaScript.ChangeCilios(botaoModelo4);
+                        break;
+                    case 5:
+                        customizaScript.ChangeCilios(botaoModelo5);
+                        break;
+                }
+                break;
+            case 7:
+                switch (qualBotao)
+                {
+                    case 1:
+                        customizaScript.ChangeMask(botaoModelo1);
+                        break;
+                    case 2:
+                        customizaScript.ChangeMask(botaoModelo2);
+                        break;
+                    case 3:
+                        customizaScript.ChangeMask(botaoModelo3);
+                        break;
+                    case 4:
+                        customizaScript.ChangeMask(botaoModelo4);
+                        break;
+                    case 5:
+                        customizaScript.ChangeMask(botaoModelo5);
                         break;
                 }
                 break;
