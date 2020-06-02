@@ -9,18 +9,28 @@ public class CustomDisplay : MonoBehaviour
     public Prop2D shirt;
     public Prop2D hair;
     public Prop2D shoe;
+    public Prop2D oculos;
+    public Prop2D cilios;
+    public Prop2D mask;
 
     public ChangeMultipleCustom[] hairModels;
     public ChangeMultipleCustom[] shirtModels;
     public ChangeMultipleCustom[] legModels;
     public ChangeMultipleCustom[] shoeModels;
+    public ChangeMultipleCustom[] oculosModels;
+    public ChangeMultipleCustom[] ciliosModels;
+    public ChangeMultipleCustom[] maskModels;
+
     public ChangeMultipleCustom[] hair2Models;
     public ChangeMultipleCustom[] shirt2Models;
     public ChangeMultipleCustom[] leg2Models;
     public ChangeMultipleCustom[] shoe2Models;
+    public ChangeMultipleCustom[] oculos2Models;
+    public ChangeMultipleCustom[] cilios2Models;
+    public ChangeMultipleCustom[] mask2Models;
 
 
-	private PhotonView pv;
+    private PhotonView pv;
 
     void Start()
     {
@@ -32,50 +42,11 @@ public class CustomDisplay : MonoBehaviour
         PhotonNetwork.LocalPlayer.CustomProperties["shirtIndex"] = shirt.prop2DInd;
         PhotonNetwork.LocalPlayer.CustomProperties["legsIndex"] = legs.prop2DInd;
         PhotonNetwork.LocalPlayer.CustomProperties["shoeIndex"] = shoe.prop2DInd;
+        PhotonNetwork.LocalPlayer.CustomProperties["oculosIndex"] = oculos.prop2DInd;
+        PhotonNetwork.LocalPlayer.CustomProperties["ciliosIndex"] = cilios.prop2DInd;
+        PhotonNetwork.LocalPlayer.CustomProperties["maskIndex"] = mask.prop2DInd;
 
 
-        /* //hair.propIndex = PlayerPrefs.GetInt("hairIndex");
-		 PhotonNetwork.LocalPlayer.CustomProperties["hairIndex"] = hair.propIndex;
-
-		 //PlayerPrefs.SetInt("shirtIndex", shirt.propIndex);
-		 //shirt.propIndex = PlayerPrefs.GetInt("shirtIndex");
-		 PhotonNetwork.LocalPlayer.CustomProperties["shirtIndex"] = shirt.propIndex;
-
-		 //PlayerPrefs.SetInt("legsIndex", legsIndex);
-		 //legs.propIndex = PlayerPrefs.GetInt("legsIndex");
-		 PhotonNetwork.LocalPlayer.CustomProperties["legsIndex"] = legs.propIndex;
-
-		 //hair.colorIndex = PlayerPrefs.GetInt("hairColorIndex");
-		 PhotonNetwork.LocalPlayer.CustomProperties["hairColorIndex"] = hair.colorIndex;
-
-		 //shirt.colorIndex = PlayerPrefs.GetInt("shirtColorIndex");
-		 PhotonNetwork.LocalPlayer.CustomProperties["shirtColorIndex"] = shirt.colorIndex;
-
-		 //legs.colorIndex = PlayerPrefs.GetInt("legsColorIndex");
-		 PhotonNetwork.LocalPlayer.CustomProperties["legsColorIndex"] = legs.colorIndex;*/
-
-
-        /*hairModels[hair.propIndex].SetActive(true);
-        shirtModels[shirt.propIndex].SetActive(true);
-        legModels[legs.propIndex].SetActive(true);
-
-        hairColor[hair.propIndex].material = hair.color[0].corData[hair.colorIndex];
-        shirtsColor[shirt.propIndex].material = shirt.color[shirt.propIndex].corData[shirt.colorIndex];
-        legsColor[legs.propIndex].material = legs.color[legs.propIndex].corData[legs.colorIndex];*/
-
-
-        
-		/*if (PhotonNetwork.InRoom)
-		{
-			TrocaCabelo((int)pv.Owner.CustomProperties["hairIndex"]);
-			//TrocaMaterialCabelo((int)pv.Owner.CustomProperties["hairColorIndex"]);
-			TrocaCamisa((int)pv.Owner.CustomProperties["shirtIndex"]);
-			//TrocaMaterialCamisa((int)pv.Owner.CustomProperties["shirtColorIndex"]);
-			TrocaCalca((int)pv.Owner.CustomProperties["legsIndex"]);
-			//TrocaMaterialCalca((int)pv.Owner.CustomProperties["legsColorIndex"]);
-			TrocaSapato((int)pv.Owner.CustomProperties["shoeIndex"]);
-			//TrocaMaterialSapato((int)pv.Owner.CustomProperties["shoeColorIndex"]);
-		}*/
 
 		if (!PhotonNetwork.InRoom)
 		{
@@ -86,6 +57,9 @@ public class CustomDisplay : MonoBehaviour
 			TrocaCalca(legs.prop2DInd);
 			//TrocaMaterialCalca(legs.colorIndex);
 			TrocaSapato(shoe.prop2DInd);
+			TrocaOculos(oculos.prop2DInd);
+			TrocaCilios(cilios.prop2DInd);
+			TrocaMask(mask.prop2DInd);
 			//TrocaMaterialSapato(shoe.colorIndex);
 
 		}
@@ -99,31 +73,12 @@ public class CustomDisplay : MonoBehaviour
             TrocaCalca((int)pv.Owner.CustomProperties["legsIndex"]);
             //TrocaMaterialCalca((int)pv.Owner.CustomProperties["legsColorIndex"]);
             TrocaSapato((int)pv.Owner.CustomProperties["shoeIndex"]);
+            TrocaOculos((int)pv.Owner.CustomProperties["oculosIndex"]);
+            TrocaCilios((int)pv.Owner.CustomProperties["ciliosIndex"]);
+            TrocaMask((int)pv.Owner.CustomProperties["maskIndex"]);
 			//TrocaMaterialSapato((int)pv.Owner.CustomProperties["shoeColorIndex"]);
 
-			/*
-			if (!pv.IsMine)
-			{
-				PhotonNetwork.LocalPlayer.CustomProperties["hairIndex"] = hair.prop2DInd;
-				PhotonNetwork.LocalPlayer.CustomProperties["shirtIndex"] = shirt.prop2DInd;
-				PhotonNetwork.LocalPlayer.CustomProperties["legsIndex"] = legs.prop2DInd;
-				//PhotonNetwork.LocalPlayer.CustomProperties["hairColorIndex"] = hair.colorIndex;
-				//PhotonNetwork.LocalPlayer.CustomProperties["shirtColorIndex"] = shirt.colorIndex;
-				//PhotonNetwork.LocalPlayer.CustomProperties["legsColorIndex"] = legs.colorIndex;
-				PhotonNetwork.LocalPlayer.CustomProperties["shoeIndex"] = shoe.prop2DInd;
-				//PhotonNetwork.LocalPlayer.CustomProperties["shoeColorIndex"] = shoe.colorIndex;
-			}
-			else
-			{
-				gameObject.GetComponent<PhotonView>().RPC("TrocaCabelo", RpcTarget.All, hair.prop2DInd);
-				//gameObject.GetComponent<PhotonView>().RPC("TrocaMaterialCabelo", RpcTarget.All, hair.colorIndex);
-				gameObject.GetComponent<PhotonView>().RPC("TrocaCamisa", RpcTarget.All, shirt.prop2DInd);
-				//gameObject.GetComponent<PhotonView>().RPC("TrocaMaterialCamisa", RpcTarget.All, shirt.colorIndex);
-				gameObject.GetComponent<PhotonView>().RPC("TrocaCalca", RpcTarget.All, legs.prop2DInd);
-				//gameObject.GetComponent<PhotonView>().RPC("TrocaMaterialCalca", RpcTarget.All, legs.colorIndex);
 
-			}
-			*/
 		}
     }
 
@@ -140,16 +95,7 @@ public class CustomDisplay : MonoBehaviour
         hair2Models[onlineIndex].ChangeCustom(true);
     }
 
-    /*[PunRPC]
-    private void TrocaMaterialCabelo(int onlineIndex)
-    {
-        for (int i = 0; i < hairColor.Length; i++)
-        {
-            hairColor[i].material = hair.color.corData[onlineIndex];
-        }
 
-        hairColor[hair.propIndex].material = hair.color.corData[onlineIndex];
-    }*/
 
     [PunRPC]
     private void TrocaCamisa(int onlineIndex)
@@ -163,16 +109,7 @@ public class CustomDisplay : MonoBehaviour
         shirt2Models[onlineIndex].ChangeCustom(true);
     }
 
-    /*[PunRPC]
-    private void TrocaMaterialCamisa(int onlineIndex)
-    {
-        for (int i = 0; i < shirtsColor.Length; i++)
-        {
-            shirtsColor[i].material = shirt.color.corData[onlineIndex];
-        }
 
-        shirtsColor[shirt.propIndex].material = shirt.color.corData[onlineIndex];
-    }*/
 
     [PunRPC]
     private void TrocaCalca(int onlineIndex)
@@ -186,15 +123,7 @@ public class CustomDisplay : MonoBehaviour
         leg2Models[onlineIndex].ChangeCustom(true);
     }
 
-    /*[PunRPC]
-    private void TrocaMaterialCalca(int onlineIndex)
-    {
-        for (int i = 0; i < legsColor.Length; i++)
-        {
-            legsColor[i].material = legs.color.corData[onlineIndex];
-        }
-        legsColor[legs.propIndex].material = legs.color.corData[onlineIndex];
-    }*/
+
 
     [PunRPC]
     private void TrocaSapato(int onlineIndex)
@@ -208,13 +137,40 @@ public class CustomDisplay : MonoBehaviour
         shoe2Models[onlineIndex].ChangeCustom(true);
     }
 
-    /*[PunRPC]
-    private void TrocaMaterialSapato(int onlineIndex)
+    [PunRPC]
+    private void TrocaOculos(int onlineIndex)
     {
-        for (int i = 0; i < shoeColor.Length; i++)
+        for (int i = 0; i < oculosModels.Length; i++)
         {
-            shoeColor[i].material = shoe.color.corData[onlineIndex];
+            oculosModels[i].ChangeCustom(false);
+            oculos2Models[i].ChangeCustom(false);
         }
-        shoeColor[shoe.propIndex].material = shoe.color.corData[onlineIndex];
-    }*/
+        oculosModels[onlineIndex].ChangeCustom(true);
+        oculos2Models[onlineIndex].ChangeCustom(true);
+    }
+
+    [PunRPC]
+    private void TrocaCilios(int onlineIndex)
+    {
+        for (int i = 0; i < ciliosModels.Length; i++)
+        {
+            ciliosModels[i].ChangeCustom(false);
+            cilios2Models[i].ChangeCustom(false);
+        }
+        ciliosModels[onlineIndex].ChangeCustom(true);
+        cilios2Models[onlineIndex].ChangeCustom(true);
+    }
+
+    [PunRPC]
+    private void TrocaMask(int onlineIndex)
+    {
+        for (int i = 0; i < maskModels.Length; i++)
+        {
+            maskModels[i].ChangeCustom(false);
+            mask2Models[i].ChangeCustom(false);
+        }
+        maskModels[onlineIndex].ChangeCustom(true);
+        mask2Models[onlineIndex].ChangeCustom(true);
+    }
+
 }
