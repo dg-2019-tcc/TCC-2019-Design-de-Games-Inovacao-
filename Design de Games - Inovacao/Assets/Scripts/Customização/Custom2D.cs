@@ -154,8 +154,8 @@ public class Custom2D : MonoBehaviour
             ciliosIndex.prop2DInd = 0;
         }
 
-        cilios[oculosIndex.prop2DInd].ChangeCustom(true);
-        cilios2[oculosIndex.prop2DInd].ChangeCustom(true);
+        cilios[ciliosIndex.prop2DInd].ChangeCustom(true);
+        cilios2[ciliosIndex.prop2DInd].ChangeCustom(true);
 
         PhotonNetwork.LocalPlayer.CustomProperties["ciliosIndex"] = ciliosIndex.prop2DInd;
     }
@@ -175,8 +175,8 @@ public class Custom2D : MonoBehaviour
             maskIndex.prop2DInd = 0;
         }
 
-        mask[oculosIndex.prop2DInd].ChangeCustom(true);
-        mask2[oculosIndex.prop2DInd].ChangeCustom(true);
+        mask[maskIndex.prop2DInd].ChangeCustom(true);
+        mask2[maskIndex.prop2DInd].ChangeCustom(true);
 
         PhotonNetwork.LocalPlayer.CustomProperties["maskIndex"] = maskIndex.prop2DInd;
     }

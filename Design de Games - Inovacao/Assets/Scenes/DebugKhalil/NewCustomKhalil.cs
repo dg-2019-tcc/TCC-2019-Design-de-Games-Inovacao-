@@ -536,6 +536,7 @@ public class NewCustomKhalil : MonoBehaviour
                 break;
             case 5:
                 customizaScript.ChangeOculos(index);
+                customizaScript.ChangeCilios(3);
                 break;
             case 6:
                 customizaScript.ChangeCilios(index);
