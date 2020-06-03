@@ -13,6 +13,7 @@ public class HeadAI : MonoBehaviour
     public StateController controller;
     public bool isFut;
     public bool isVolei;
+
     private void Awake()
     {
         triggerController = GetComponent<AITriggerController>();
@@ -32,7 +33,7 @@ public class HeadAI : MonoBehaviour
                 ChutaForte();
             }
 
-            else if (triggerController.triggerCollision.naArea && triggerController.triggerCollision.chutouBall || triggerController.triggerCollision.touchBall)
+            else if (triggerController.triggerCollision.naArea && triggerController.triggerCollision.chutouBall)
             {
                 NaArea();
             }

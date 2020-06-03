@@ -173,6 +173,8 @@ public class AITriggerController : RaycastController
                         else
                         {
                             triggerCollision.chutouBall = true;
+                            triggerCollision.ativaAnimChute = true;
+                            Debug.Log("Chuta");
                         }
                     }
                 }
@@ -320,6 +322,7 @@ public class AITriggerController : RaycastController
         public bool naArea;
         public bool ganhou;
         public bool caixaDagua;
+        public bool ativaAnimChute;
 
         public void Reset()
         {
@@ -329,6 +332,7 @@ public class AITriggerController : RaycastController
             needJump = naArea = false;
             ganhou = false;
             caixaDagua = false;
+            ativaAnimChute = false;
         }
     }
 }

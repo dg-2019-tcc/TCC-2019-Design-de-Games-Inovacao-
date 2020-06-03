@@ -27,6 +27,7 @@ public class AIMovement : MonoBehaviour
 	//public TriggerCollisionInfo collisions;
 	public AIController2D aiController2D;
     public AITriggerController triggerController;
+    private AnimationsAI animAI;
     public Rigidbody2D rbBola;
 	public GameObject ai;
 
@@ -61,9 +62,12 @@ public class AIMovement : MonoBehaviour
     public BoolVariable aiGanhou;
     public BoolVariable playerGanhou;
 
+    public Vector2 oldPosition;
+
     // Start is called before the first frame update
     public void Start()
 	{
+        animAI = GetComponent<AnimationsAI>();
 		controller = GetComponent<StateController>();
         aiController2D = GetComponent<AIController2D>();
         triggerController = GetComponent<AITriggerController>();
@@ -137,6 +141,7 @@ public class AIMovement : MonoBehaviour
             velocity.x = speed * input.x;
             velocity.y += gravity * Time.deltaTime;
             aiController2D.Move(velocity * Time.deltaTime, input);
+            animAI.ChangeAnimAI(velocity, oldPosition, input, isJumping);
         }
 
         if (isFut)
@@ -161,6 +166,7 @@ public class AIMovement : MonoBehaviour
             velocity.x = speed * input.x;
             velocity.y += gravity * Time.deltaTime;
             aiController2D.Move(velocity * Time.deltaTime,input);
+            animAI.ChangeAnimAI(velocity, oldPosition, input, isJumping);
         }
 
         if (isCorrida || isMoto)
@@ -183,6 +189,10 @@ public class AIMovement : MonoBehaviour
             velocity.x = speed;
             velocity.y += gravity * Time.deltaTime;
             aiController2D.Move(velocity * Time.deltaTime, input);
+            if (isCorrida)
+            {
+                animAI.ChangeAnimAI(velocity, oldPosition, input, isJumping);
+            }
         }
 
         if (isColteta)
@@ -260,8 +270,14 @@ public class AIMovement : MonoBehaviour
             velocity.y += gravity * Time.deltaTime;
             velocity.x = speed * input.x;
             aiController2D.Move(velocity * Time.deltaTime,input);
+            animAI.ChangeAnimAI(velocity, oldPosition, input, isJumping);
         }
   
+    }
+
+    private void LateUpdate()
+    {
+        oldPosition = velocity;
     }
 
     public void GoRight()
