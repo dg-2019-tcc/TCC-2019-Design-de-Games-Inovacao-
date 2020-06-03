@@ -24,6 +24,12 @@ public class TriggerCollisionsController : RaycastController
     private Transform playerTransform;
     private Vector3 initialPos;
 
+    //Verifica Sons
+    public bool isDoorSound;
+    public bool isCaixaDaguaSound;
+    public bool isDogNormal = true;
+    public bool isBallKicked;
+    public bool isShotRecived;
 
     public override void Start()
     {
@@ -32,6 +38,10 @@ public class TriggerCollisionsController : RaycastController
         playerThings = GetComponent<PlayerThings>();
         dogController = GetComponent<DogController>();
     }
+
+
+
+    
 
 
     public void MoveDirection(Vector2 dir)
@@ -134,13 +144,24 @@ public class TriggerCollisionsController : RaycastController
 				if (hit.collider.tag == "Carrinho")
                 {
                     dogController.Carro();
-                    FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Feedback/Coletaveis/TransformaDog");
+                    Debug.Log("Como ta o dog? " + isDogNormal);
+                    if(isDogNormal == true)
+                    {
+                        Debug.Log("Rodou aqui");
+                        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Feedback/Coletaveis/TransformaDog");
+                        isDogNormal = false;
+                    }
                 }
 
                 if(hit.collider.tag == "Pipa")
                 {
                     dogController.Pipa();
-                    FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Feedback/Coletaveis/TransformaDog");
+                    if (isDogNormal == true)
+                    {
+                        Debug.Log("Rodou aqui");
+                        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Feedback/Coletaveis/TransformaDog");
+                        isDogNormal = false;
+                    }
                 }
 
 				if (hit.collider.tag == "DogTiro")
@@ -265,13 +286,21 @@ public class TriggerCollisionsController : RaycastController
 				if (hit.collider.tag == "Carrinho")
                 {
                     dogController.Carro();
-                    FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Feedback/Coletaveis/TransformaDog");
+                    if (isDogNormal == true)
+                    {
+                        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Feedback/Coletaveis/TransformaDog");
+                        isDogNormal = false;
+                    }
                 }
 
 				if (hit.collider.tag == "Pipa")
 				{
 					dogController.Pipa();
-                    FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Feedback/Coletaveis/TransformaDog");
+                    if (isDogNormal == true)
+                    {
+                        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Feedback/Coletaveis/TransformaDog");
+                        isDogNormal = false;
+                    }
                 }
 
 				if (hit.collider.tag == "DogTiro")
@@ -384,13 +413,21 @@ public class TriggerCollisionsController : RaycastController
 				if (hit.collider.tag == "Carrinho")
                 {
                     dogController.Carro();
-                    FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Feedback/Coletaveis/TransformaDog");
+                    if (isDogNormal == true)
+                    {
+                        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Feedback/Coletaveis/TransformaDog");
+                        isDogNormal = false;
+                    }
                 }
 
                 if (hit.collider.tag == "Pipa")
                 {
                     dogController.Pipa();
-                    FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Feedback/Coletaveis/TransformaDog");
+                    if (isDogNormal == true)
+                    {
+                        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Feedback/Coletaveis/TransformaDog");
+                        isDogNormal = false;
+                    }
                 }
 
                 if (hit.collider.tag == "Volei")
@@ -481,13 +518,21 @@ public class TriggerCollisionsController : RaycastController
                 if(hit.collider.tag == "Carrinho")
                 {
                     dogController.Carro();
-                    FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Feedback/Coletaveis/TransformaDog");
+                    if (isDogNormal == true)
+                    {
+                        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Feedback/Coletaveis/TransformaDog");
+                        isDogNormal = false;
+                    }
                 }
 
                 if (hit.collider.tag == "Pipa")
                 {
                     dogController.Pipa();
-                    FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Feedback/Coletaveis/TransformaDog");
+                    if (isDogNormal == true)
+                    {
+                        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Feedback/Coletaveis/TransformaDog");
+                        isDogNormal = false;
+                    }
                 }
 
                 if (hit.collider.tag == "Futebol")
@@ -541,6 +586,9 @@ public class TriggerCollisionsController : RaycastController
         public bool slowTime;
 
         public Vector2 direction;
+
+
+        //Booleans para fazer verificação de som 
 
 
         public void Reset()
