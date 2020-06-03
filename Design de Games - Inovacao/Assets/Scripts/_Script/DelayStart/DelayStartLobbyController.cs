@@ -69,10 +69,13 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
 
     public FloatVariable spawnHUBPoints;
 
+    bool SomParaFase = true;
 
 
     private void Start()
 	{
+        SomParaFase = true;
+
         spawnHUBPoints = Resources.Load<FloatVariable>("SpawnHUBPoints");
 
         if (SceneManager.GetActiveScene().name != "MenuCustomizacao") return;
@@ -102,7 +105,11 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
 
     public void DelayStart(string gameMode)
     {
-        FMODUnity.RuntimeManager.PlayOneShot("event:/HUD/Start", GetComponent<Transform>().position);
+
+        if (SomParaFase)
+        {
+            StartCoroutine(EntrarNaFaseSom());
+        }
         //delayStartButton.SetActive(false);
         //delayStartButton2.SetActive(false);
         delayCancelButton.SetActive(true);
@@ -124,8 +131,8 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
 
 
     public IEnumerator StartGamemode(string gameMode)
-	{
-		currentRoomSize = RoomSize;
+    {
+        currentRoomSize = RoomSize;
         switch (gameMode)
 		{
 			case "Corrida":
@@ -270,6 +277,15 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
 
         }
 	}
+
+
+    IEnumerator EntrarNaFaseSom()
+    {
+        SomParaFase = false;
+        FMODUnity.RuntimeManager.PlayOneShot("event:/HUD/Start", GetComponent<Transform>().position);
+        yield return new WaitForSeconds(2);
+        SomParaFase = true;
+    }
 
  
     

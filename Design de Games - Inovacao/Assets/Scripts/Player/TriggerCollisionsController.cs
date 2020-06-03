@@ -25,7 +25,6 @@ public class TriggerCollisionsController : RaycastController
     private Vector3 initialPos;
 
     //Verifica Sons
-    public bool isDoorSound;
     public bool isCaixaDaguaSound = true;
     public bool isDogNormal = true;
     public bool isBallKicked;
@@ -39,6 +38,8 @@ public class TriggerCollisionsController : RaycastController
         dogController = GetComponent<DogController>();
 
         isCaixaDaguaSound = true;
+        isBallKicked = true;
+        isShotRecived = true;
         
     }
 
