@@ -5,11 +5,13 @@ using UnityEngine;
 public class LojasManager : MonoBehaviour
 {
     public int nextIndex;
+	public BoolVariableArray acabou01;
 
     // Start is called before the first frame update
     void Start()
     {
         PlayerPrefs.SetInt("Fase", nextIndex);
+		acabou01.Value[3] = true;
     }
 
 }
