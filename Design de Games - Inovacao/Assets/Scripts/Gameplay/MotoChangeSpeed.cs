@@ -30,7 +30,7 @@ public class MotoChangeSpeed : MonoBehaviour
 
     [Header("Fmod")]
 
-    EventInstance CarEngine;
+    public EventInstance CarEngine;
     float RPM;
     float AccelInput;
 
