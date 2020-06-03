@@ -9,10 +9,10 @@ public class TV : MonoBehaviour
 
     public ItemLocatorOnScreen pointer;
 
-    public BoolVariable acabou01;
-    public BoolVariable aiGanhou;
+    public BoolVariableArray acabou01;
+    public BoolVariableArray aiGanhou;
 
-    public GameObject falas;
+    public GameObject[] falas;
 
 
     void Start()
@@ -21,40 +21,47 @@ public class TV : MonoBehaviour
 
         if (acabou01 == null)
         {
-            acabou01 = Resources.Load<BoolVariable>("Acabou01");
+            acabou01 = Resources.Load<BoolVariableArray>("Acabou01");
         }
 
         if (aiGanhou == null)
         {
-            aiGanhou = Resources.Load<BoolVariable>("AIGanhou");
+            aiGanhou = Resources.Load<BoolVariableArray>("AIGanhou");
         }
 
-        if (acabou01.Value == true)
-        {
-            falas.SetActive(false);
-            pointer.enabled = false;
-            precisaFalar = false;
-        }
-        else
-        {
-            if (aiGanhou.Value == true)
-            {
-                falas.SetActive(false);
-                pointer.enabled = false;
-                precisaFalar = false;
-            }
+		for (int i = 0; i < acabou01.Value.Length; i++)
+		{
 
-            else
-            {
-                falas.SetActive(true);
-                pointer.enabled = true;
-                precisaFalar = true;
-            }
-        }
+
+			if (acabou01.Value[i] == true)
+			{
+				CoisasAtivas(i, false);
+			}
+			else
+			{
+				if (aiGanhou.Value[i] == true)
+				{
+					CoisasAtivas(i, false);
+				}
+
+				else
+				{
+					CoisasAtivas(i, true);
+					break;
+				}
+			}
+		}
 
 
         faloComTV = false;
     }
+
+	private void CoisasAtivas(int index, bool ativar)
+	{
+		falas[index].SetActive(ativar);
+		pointer.enabled = ativar;
+		precisaFalar = ativar;
+	}
 
     private void Update()
     {
