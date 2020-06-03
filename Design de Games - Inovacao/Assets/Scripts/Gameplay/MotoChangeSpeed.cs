@@ -101,6 +101,6 @@ public class MotoChangeSpeed : MonoBehaviour
 
         RPM = Mathf.Lerp(RPM, motoSpeedChange.Value / 10, 0.1f);
         CarEngine.setParameterByName("RPM", RPM);
-        CarEngine.setParameterByName("Accel", 1);
+        CarEngine.setParameterByName("Accel", motoSpeedChange.Value);
     }
 }
