@@ -26,7 +26,7 @@ public class TriggerCollisionsController : RaycastController
 
     //Verifica Sons
     public bool isDoorSound;
-    public bool isCaixaDaguaSound;
+    public bool isCaixaDaguaSound = true;
     public bool isDogNormal = true;
     public bool isBallKicked;
     public bool isShotRecived;
@@ -37,6 +37,9 @@ public class TriggerCollisionsController : RaycastController
         cam = transform.parent.gameObject.transform.GetChild(0).gameObject;
         playerThings = GetComponent<PlayerThings>();
         dogController = GetComponent<DogController>();
+
+        isCaixaDaguaSound = true;
+        
     }
 
 
@@ -549,8 +552,12 @@ public class TriggerCollisionsController : RaycastController
 
                 if(hit.collider.tag == "CaixaDagua")
                 {
+                    if (isCaixaDaguaSound == true)
+                    {
+                        Debug.Log("Caixa de água manolo");
+                        StartCoroutine(TocaSomCaixaDeAgua());
+                    }
                     collisions.caixaDagua = true;
-                    FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Objetos/CaixaDaAgua");
                 }
             }
         }
@@ -602,5 +609,14 @@ public class TriggerCollisionsController : RaycastController
             hitTV = false;
             direction.x = direction.y = 0;
         }
+    }
+
+    IEnumerator TocaSomCaixaDeAgua()
+    {
+        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Objetos/CaixaDeAgua");
+        isCaixaDaguaSound = false;
+        yield return new WaitForSeconds(0.5f);
+        isCaixaDaguaSound = true;
+
     }
 }
