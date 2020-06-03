@@ -29,34 +29,29 @@ public class TV : MonoBehaviour
             aiGanhou = Resources.Load<BoolVariableArray>("AIGanhou");
         }
 
+
+
 		for (int i = 0; i < acabou01.Value.Length; i++)
 		{
-
-
-			if (acabou01.Value[i] == true)
+			CoisasAtivas(i, false);
+		}
+		for (int i = 0; i < acabou01.Value.Length; i++)
+		{
+			
+			if (!acabou01.Value[i] && !aiGanhou.Value[i])
 			{
-				CoisasAtivas(i, false);
+				CoisasAtivas(i, true);
+				break;
 			}
-			else
-			{
-				if (aiGanhou.Value[i] == true)
-				{
-					CoisasAtivas(i, false);
-				}
 
-				else
-				{
-					CoisasAtivas(i, true);
-					break;
-				}
-			}
 		}
 
 
-        faloComTV = false;
+		faloComTV = false;
     }
 
-	private void CoisasAtivas(int index, bool ativar)
+	
+	public void CoisasAtivas(int index, bool ativar)
 	{
 		falas[index].SetActive(ativar);
 		pointer.enabled = ativar;

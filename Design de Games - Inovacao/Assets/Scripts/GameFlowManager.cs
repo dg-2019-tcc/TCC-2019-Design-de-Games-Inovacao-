@@ -19,11 +19,11 @@ public class GameFlowManager : MonoBehaviour
     public FloatVariable flowIndex;
     private int index;
 
-    public BoolVariable acabou01;
+    public BoolVariableArray acabou01;
 
 	public GameObject CameraShowoff;
 
-    public BoolVariable aiGanhou;
+    public BoolVariableArray aiGanhou;
     public BoolVariable resetaFase;
     public FasesSave fasesSave;
 
@@ -47,7 +47,7 @@ public class GameFlowManager : MonoBehaviour
 
     private void Start()
     {
-        buildProfs = true;
+       // buildProfs = true;
         liberou = false;
         resetou = false;
 
@@ -62,12 +62,12 @@ public class GameFlowManager : MonoBehaviour
 
         if (aiGanhou == null)
         {
-            aiGanhou = Resources.Load<BoolVariable>("AIGanhou");
+            aiGanhou = Resources.Load<BoolVariableArray>("AIGanhou");
         }
 
         if (acabou01 == null)
         {
-            acabou01 = Resources.Load<BoolVariable>("Acabou01");
+            acabou01 = Resources.Load<BoolVariableArray>("Acabou01");
         }
 
         if (fasesSave == null)
@@ -104,7 +104,7 @@ public class GameFlowManager : MonoBehaviour
                     PhotonNetwork.OfflineMode = true;
                     OfflineMode.modoDoOffline = true;
 
-                    if (aiGanhou.Value == true)
+                    if (aiGanhou.Value[0] == true)
                     {
                         AtivaFase(index);
                     }
@@ -228,7 +228,7 @@ public class GameFlowManager : MonoBehaviour
             OfflineMode.modoDoOffline = true;
 
             resetaFase.Value = true;
-            acabou01.Value = false;
+            acabou01.Value[0] = false;
             flowIndex.Value = 0;
 
             offlineButton.SetActive(false);
@@ -250,7 +250,7 @@ public class GameFlowManager : MonoBehaviour
             OfflineMode.modoDoOffline = false;*/
 
             resetaFase.Value = false;
-            acabou01.Value = true;
+            acabou01.Value[0] = true;
             flowIndex.Value = 8;
 
             offlineButton.SetActive(true);
@@ -421,7 +421,7 @@ public class GameFlowManager : MonoBehaviour
         Destroy(npcs[6]);
         fasesSave.fases[8] = true;
 
-        acabou01.Value = true;
+        acabou01.Value[0] = true;
         flowIndex.Value++;
     }
 

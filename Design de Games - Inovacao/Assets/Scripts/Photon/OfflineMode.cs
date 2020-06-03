@@ -13,15 +13,15 @@ public class OfflineMode : MonoBehaviour
     public Image buttonImage;
     public GameObject eu;
 
-    public BoolVariable acabou01;
+    public BoolVariableArray acabou01;
 
     private void Awake()
     {
-        acabou01 = Resources.Load<BoolVariable>("Acabou01");
+        acabou01 = Resources.Load<BoolVariableArray>("Acabou01");
 
         DontDestroyOnLoad(eu);
 
-        if(acabou01.Value == false)
+        if(acabou01.Value[0] == false)
         {
             modoDoOffline = true;
         }

@@ -11,17 +11,17 @@ public class MenuPrincipal : MonoBehaviour
 	private string nomeDosCreditos;
 
     public FloatVariable flowIndex;
-    public BoolVariable acabou01;
+    public BoolVariableArray acabou01;
 
     private void Start()
     {
-        acabou01 = Resources.Load<BoolVariable>("Acabou01");
+        acabou01 = Resources.Load<BoolVariableArray>("Acabou01");
         flowIndex = Resources.Load<FloatVariable>("FlowIndex");
     }
 
     public void ComecaJogo()
     {
-        if(acabou01.Value == true || flowIndex.Value >= 1)
+        if(acabou01.Value[0] == true || flowIndex.Value >= 1)
         {
             nomeDoMenu = "HUB";
         }

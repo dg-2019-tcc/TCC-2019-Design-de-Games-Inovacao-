@@ -46,8 +46,11 @@ public class TextBoxNext : MonoBehaviour
 
 		}
 
-
-		if (throwObject.passouTexto)
+		if (throwObject == null)
+		{
+			throwObject = FindObjectOfType<ThrowObject>();
+		}
+		else if (throwObject.passouTexto)
 		{
 			Next(boxIndex);
 		}
