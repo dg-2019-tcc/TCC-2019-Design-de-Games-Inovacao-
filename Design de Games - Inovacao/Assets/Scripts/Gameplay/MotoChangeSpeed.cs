@@ -101,7 +101,7 @@ public class MotoChangeSpeed : MonoBehaviour
 
 
         Debug.Log(motoSpeedChange.Value);
-        CarEngine.setParameterByName("RPM", motoSpeedChange.Value / 5);
-        CarEngine.setParameterByName("Accel", motoSpeedChange.Value / 5);
+        CarEngine.setParameterByName("RPM", motoSpeedChange.Value / 10);
+        CarEngine.setParameterByName("Accel", 1);
     }
 }
