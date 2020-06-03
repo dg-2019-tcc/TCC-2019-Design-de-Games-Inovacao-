@@ -136,8 +136,9 @@ public class TriggerCollisionsController : RaycastController
                     DestroyColetavel2D coletavel2D = hit.collider.GetComponent<DestroyColetavel2D>();
                     coletavel2D.PegouColetavel(true);
 					playerThings.PV.RPC("SendOnlineCollisions", RpcTarget.Others);
+                    FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Feedback/Coletaveis/ColetaDoOsso");
 
-					Scored();
+                    Scored();
 
                 }
 				if (hit.collider.tag == "Moedinha")
@@ -290,8 +291,9 @@ public class TriggerCollisionsController : RaycastController
                     DestroyColetavel2D coletavel2D = hit.collider.GetComponent<DestroyColetavel2D>();
                     coletavel2D.PegouColetavel(true);
 					playerThings.PV.RPC("SendOnlineCollisions", RpcTarget.Others);
+                    FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Feedback/Coletaveis/ColetaDoOsso");
 
-					Scored();
+                    Scored();
 
                 }
 				if (hit.collider.tag == "Moedinha")
@@ -432,14 +434,15 @@ public class TriggerCollisionsController : RaycastController
                     DestroyColetavel2D coletavel2D = hit.collider.GetComponent<DestroyColetavel2D>();
                     coletavel2D.PegouColetavel(true);
 					playerThings.PV.RPC("SendOnlineCollisions", RpcTarget.Others);
+                    FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Feedback/Coletaveis/ColetaDoOsso");
 
-					Scored();
+                    Scored();
 
                 }
 				if (hit.collider.tag == "Moedinha")
 				{
 					hit.collider.gameObject.SendMessage("Coleta");
-				}
+                }
 
 				if (hit.collider.tag == "Carrinho")
                 {
@@ -542,8 +545,9 @@ public class TriggerCollisionsController : RaycastController
                     DestroyColetavel2D coletavel2D = hit.collider.GetComponent<DestroyColetavel2D>();
                     coletavel2D.PegouColetavel(true);
 					playerThings.PV.RPC("SendOnlineCollisions", RpcTarget.Others);
+                    FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Feedback/Coletaveis/ColetaDoOsso");
 
-					Scored();
+                    Scored();
 
                 }
 
