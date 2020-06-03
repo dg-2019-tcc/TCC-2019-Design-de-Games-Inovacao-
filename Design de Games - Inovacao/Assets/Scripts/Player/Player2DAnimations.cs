@@ -230,7 +230,6 @@ public class Player2DAnimations : MonoBehaviour
 			case "Idle":
 				if (state != State.Idle)
 				{
-                    Debug.Log("Idle");
 					coolToIdle = 0;
 					frente.SetActive(true);
 					lado.SetActive(false);
@@ -269,7 +268,6 @@ public class Player2DAnimations : MonoBehaviour
 			case "NoArUp":
 				if (state != State.Rising)
 				{
-                    Debug.Log("Up");
                     inativoTime = 0f;
 					//player.animation.timeScale = 1;
 					player.animation.Play(subindoJumpAnimation);
@@ -279,7 +277,6 @@ public class Player2DAnimations : MonoBehaviour
 			case "Fall":
 				if (state != State.Falling)
 				{
-                    Debug.Log("Down");
                     inativoTime = 0f;
 					//player.animation.timeScale = 1;
 					player.animation.Play(descendoJumpAnimation);
@@ -326,7 +323,6 @@ public class Player2DAnimations : MonoBehaviour
 			case "TransitionAir":
 				if (state != State.TransitionAir)
 				{
-                    Debug.Log("Transition");
                     inativoTime = 0f;
 					// player.animation.timeScale = 1.5f;
 					player.animation.Play(transitionJumpAnimation);
