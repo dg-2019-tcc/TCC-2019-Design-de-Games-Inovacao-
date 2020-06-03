@@ -147,10 +147,8 @@ public class TriggerCollisionsController : RaycastController
 				if (hit.collider.tag == "Carrinho")
                 {
                     dogController.Carro();
-                    Debug.Log("Como ta o dog? " + isDogNormal);
                     if(isDogNormal == true)
                     {
-                        Debug.Log("Rodou aqui");
                         FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Feedback/Coletaveis/TransformaDog");
                         isDogNormal = false;
                     }
@@ -161,7 +159,6 @@ public class TriggerCollisionsController : RaycastController
                     dogController.Pipa();
                     if (isDogNormal == true)
                     {
-                        Debug.Log("Rodou aqui");
                         FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Feedback/Coletaveis/TransformaDog");
                         isDogNormal = false;
                     }
@@ -181,12 +178,18 @@ public class TriggerCollisionsController : RaycastController
                     if (PlayerThings.rightDir)
                     {
                         collisions.cortaBola = true;
-                        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Objetos/Bola");
+                        if (isBallKicked)
+                        {
+                            StartCoroutine(TocaSomChutaBola());
+                        }
                     }
                     if (PlayerThings.leftDir)
                     {
                         collisions.tocouBola = true;
-                        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Objetos/Bola");
+                        if (isBallKicked)
+                        {
+                            StartCoroutine(TocaSomChutaBola());
+                        }
                     }
                 }
 
@@ -195,12 +198,18 @@ public class TriggerCollisionsController : RaycastController
                     if (PlayerThings.rightDir)
                     {
                         collisions.chutouBola = true;
-                        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Objetos/Bola");
+                        if (isBallKicked)
+                        {
+                            StartCoroutine(TocaSomChutaBola());
+                        }
                     }
                     if (PlayerThings.leftDir)
                     {
                         collisions.cabecaBola = true;
-                        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Objetos/Bola");
+                        if (isBallKicked)
+                        {
+                            StartCoroutine(TocaSomChutaBola());
+                        }
                     }
                 }
 				if (hit.collider.tag == "LinhaDeChegada")
@@ -323,13 +332,19 @@ public class TriggerCollisionsController : RaycastController
                     if (PlayerThings.rightDir)
                     {
                         collisions.tocouBola = true;
-                        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Objetos/Bola");
+                        if (isBallKicked)
+                        {
+                            StartCoroutine(TocaSomChutaBola());
+                        }
                     }
 
                     if (PlayerThings.leftDir)
                     {
                         collisions.cortaBola = true;
-                        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Objetos/Bola");
+                        if (isBallKicked)
+                        {
+                            StartCoroutine(TocaSomChutaBola());
+                        }
                     }
                 }
 
@@ -338,13 +353,19 @@ public class TriggerCollisionsController : RaycastController
                     if (PlayerThings.rightDir)
                     {
                         collisions.cabecaBola = true;
-                        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Objetos/Bola");
+                        if (isBallKicked)
+                        {
+                            StartCoroutine(TocaSomChutaBola());
+                        }
                     }
 
                     if (PlayerThings.leftDir)
                     {
                         collisions.chutouBola = true;
-                        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Objetos/Bola");
+                        if (isBallKicked)
+                        {
+                            StartCoroutine(TocaSomChutaBola());
+                        }
                     }
                 }
 				if (hit.collider.tag == "LinhaDeChegada")
@@ -442,13 +463,19 @@ public class TriggerCollisionsController : RaycastController
                 if (hit.collider.tag == "Volei")
                 {
                     collisions.tocouBola = true;
-                    FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Objetos/Bola");
+                    if (isBallKicked)
+                    {
+                        StartCoroutine(TocaSomChutaBola());
+                    }
                 }
 
                 if(hit.collider.tag == "Futebol")
                 {
                     collisions.cabecaBola = true;
-                    FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Objetos/Bola");
+                    if (isBallKicked)
+                    {
+                        StartCoroutine(TocaSomChutaBola());
+                    }
                 }
             }
         }
@@ -623,7 +650,6 @@ public class TriggerCollisionsController : RaycastController
         isCaixaDaguaSound = false;
         yield return new WaitForSeconds(0.5f);
         isCaixaDaguaSound = true;
-
     }
 
     IEnumerator TocaSomTiroDoDog()
@@ -632,6 +658,12 @@ public class TriggerCollisionsController : RaycastController
         isShotRecived = false;
         yield return new WaitForSeconds(0.5f);
         isShotRecived = true;
-
+    }
+    IEnumerator TocaSomChutaBola()
+    {
+        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Objetos/Bola");
+        isBallKicked = false;
+        yield return new WaitForSeconds(0.5f);
+        isBallKicked = true;
     }
 }
