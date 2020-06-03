@@ -38,9 +38,12 @@ public class TV : MonoBehaviour
 		for (int i = 0; i < acabou01.Value.Length; i++)
 		{
 			
-			if (!acabou01.Value[i] && !aiGanhou.Value[i])
+			if (!acabou01.Value[i])
 			{
-				CoisasAtivas(i, true);
+				if (!aiGanhou.Value[i])
+				{
+					CoisasAtivas(i, true);
+				}
 				break;
 			}
 
