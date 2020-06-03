@@ -5,6 +5,10 @@ using UnityEngine;
 
 public class DogController : MonoBehaviour
 {
+
+    TriggerCollisionsController triggerCollisionsScript;
+
+
     public GameObject player;
     public GameObject playerModel;
     private Transform target;
@@ -51,6 +55,8 @@ public class DogController : MonoBehaviour
         carroActive.Value = false;
         PV.Controller.CustomProperties["dogValue"] = true;
         dogAtivo.Value = true;
+
+        triggerCollisionsScript = GetComponent<TriggerCollisionsController>();
     }
 
 
@@ -153,6 +159,7 @@ public class DogController : MonoBehaviour
         carrinhoObj.SetActive(false);
         desativaPower.Value = false;
 
+        triggerCollisionsScript.isDogNormal = true;
     }
 
     [PunRPC]
