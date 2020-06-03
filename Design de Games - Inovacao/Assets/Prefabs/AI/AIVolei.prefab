@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 2939772052058974923}
   - component: {fileID: 1260017340242312172}
   - component: {fileID: 2377489464967326776}
+  - component: {fileID: 3525624366938582590}
   m_Layer: 17
   m_Name: AIVolei
   m_TagString: AI
@@ -126,6 +127,7 @@ MonoBehaviour:
   levouDogada: 0
   aiGanhou: {fileID: 0}
   playerGanhou: {fileID: 0}
+  oldPosition: {x: 0, y: 0}
 --- !u!114 &2939772052058974923
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -187,6 +189,36 @@ MonoBehaviour:
   controller: {fileID: 0}
   isFut: 0
   isVolei: 1
+--- !u!114 &3525624366938582590
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1248521959820742140}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f3cb514bdff21041b6b25eb235b00b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  frente: {fileID: 4033267152900256087}
+  lado: {fileID: 8102609266906719915}
+  idlePose: 0_Idle
+  walkAnimation: 0_Corrida_V2
+  startJumpAnimation: 1_Pulo
+  subindoJumpAnimation: 1_NoAr(1_Subindo)
+  transitionJumpAnimation: 1_NoAr(2_Transicao)
+  descendoJumpAnimation: 1_NoAr(3_Descendo)
+  aterrisandoAnimation: 1_Aterrisando
+  chuteAnimation: 3_Bicuda(SemPreparacao)
+  abaixarAnimation: 5_Abaixar(2_IdlePose)
+  arremessoAnimation: 6_Arremessar(3_Arremesso)
+  inativoAnimation: 1_Inatividade(2_IdlePose)
+  state: 0
+  playerSide: {fileID: 0}
+  playerFrente: {fileID: 0}
+  jaAterrisou: 0
+  isFut: 0
 --- !u!1001 &8745819609796945994
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -699,6 +731,18 @@ PrefabInstance:
 --- !u!4 &6966102431875258031 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1870108586932141797, guid: c081b07bf2f54824cb0cd03381c4079e,
+    type: 3}
+  m_PrefabInstance: {fileID: 8745819609796945994}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8102609266906719915 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 661225040982101729, guid: c081b07bf2f54824cb0cd03381c4079e,
+    type: 3}
+  m_PrefabInstance: {fileID: 8745819609796945994}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &4033267152900256087 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5667339786223442205, guid: c081b07bf2f54824cb0cd03381c4079e,
     type: 3}
   m_PrefabInstance: {fileID: 8745819609796945994}
   m_PrefabAsset: {fileID: 0}

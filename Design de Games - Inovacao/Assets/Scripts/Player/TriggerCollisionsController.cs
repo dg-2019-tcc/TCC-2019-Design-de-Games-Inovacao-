@@ -592,7 +592,6 @@ public class TriggerCollisionsController : RaycastController
                 {
                     if (isCaixaDaguaSound == true)
                     {
-                        Debug.Log("Caixa de água manolo");
                         StartCoroutine(TocaSomCaixaDeAgua());
                     }
                     collisions.caixaDagua = true;
