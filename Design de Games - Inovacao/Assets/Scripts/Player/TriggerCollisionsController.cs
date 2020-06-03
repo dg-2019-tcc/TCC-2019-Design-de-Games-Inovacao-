@@ -170,7 +170,10 @@ public class TriggerCollisionsController : RaycastController
 				if (hit.collider.tag == "DogTiro")
 				{
 					playerThings.StartCoroutine("LevouDogada");
-                    FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Feedback/Player/Impacto");
+                    if(isShotRecived)
+                    {
+                        StartCoroutine(TocaSomTiroDoDog());
+                    }
                 }
 
 				if (hit.collider.tag == "Volei")
@@ -309,7 +312,10 @@ public class TriggerCollisionsController : RaycastController
 				if (hit.collider.tag == "DogTiro")
 				{
 					playerThings.StartCoroutine("LevouDogada");
-                    FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Feedback/Player/Impacto");
+                    if (isShotRecived)
+                    {
+                        StartCoroutine(TocaSomTiroDoDog());
+                    }
                 }
 
 				if (hit.collider.tag == "Volei")
@@ -617,6 +623,15 @@ public class TriggerCollisionsController : RaycastController
         isCaixaDaguaSound = false;
         yield return new WaitForSeconds(0.5f);
         isCaixaDaguaSound = true;
+
+    }
+
+    IEnumerator TocaSomTiroDoDog()
+    {
+        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Impacto");
+        isShotRecived = false;
+        yield return new WaitForSeconds(0.5f);
+        isShotRecived = true;
 
     }
 }
