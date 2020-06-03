@@ -94,7 +94,7 @@ public class NewPlayerMovent : MonoBehaviour
         joyStick = FindObjectOfType<FloatingJoystick>();
 
         //Utilizado para fazer os sons dos passos tocarem
-        InvokeRepeating("CallFootsteps", 0, 0.25f);
+        InvokeRepeating("CallFootsteps", 0, 0.3f);
 
         aiGanhou = Resources.Load<BoolVariable>("AIGanhou");
         playerGanhou = Resources.Load<BoolVariable>("PlayerGanhou");
@@ -277,7 +277,7 @@ public class NewPlayerMovent : MonoBehaviour
     {
         if (!carroActive.Value && !pipaActive.Value)
         {
-            if (joyInput.x > 0.3f || joyInput.x < -0.3f)
+            if (velocity.x > 0.3f || velocity.x < -0.3f)
             {
                 if (controller.collisions.below && jump == false)
                 {
