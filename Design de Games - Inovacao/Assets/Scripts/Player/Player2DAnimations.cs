@@ -135,9 +135,9 @@ public class Player2DAnimations : MonoBehaviour
 							PlayAnim("NoArUp");
 						}
 
-						else if (moveAmount.y < 9 && moveAmount.y > 0 && controller.collisions.below == false)
+						else if (moveAmount.y < 15 && moveAmount.y > 0 && controller.collisions.below == false)
 						{
-							PlayAnim("TransitionAir");
+                            PlayAnim("TransitionAir");
 						}
 
 						else if (moveAmount.y <= 0 && controller.collisions.below == false && jaAterrisou == false)
@@ -220,9 +220,9 @@ public class Player2DAnimations : MonoBehaviour
 		{
 			if(anim == "Walking" || anim == "NoArUp" || anim == "Fall" || anim == "Aterrisando" || anim == "Chute" || anim == "Arremesso" || anim == "Abaixar" || anim == "TransitionAir")
 			{
-					lado.SetActive(true);
-					frente.SetActive(false);
-					playerFrente.animation.Play(idlePose);
+                playerFrente.animation.Play(idlePose);
+                lado.SetActive(true);
+				frente.SetActive(false);
 			}
 		}
 		switch (anim)
@@ -230,6 +230,7 @@ public class Player2DAnimations : MonoBehaviour
 			case "Idle":
 				if (state != State.Idle)
 				{
+                    Debug.Log("Idle");
 					coolToIdle = 0;
 					frente.SetActive(true);
 					lado.SetActive(false);
@@ -268,7 +269,8 @@ public class Player2DAnimations : MonoBehaviour
 			case "NoArUp":
 				if (state != State.Rising)
 				{
-					inativoTime = 0f;
+                    Debug.Log("Up");
+                    inativoTime = 0f;
 					//player.animation.timeScale = 1;
 					player.animation.Play(subindoJumpAnimation);
 					state = State.Rising;
@@ -277,7 +279,8 @@ public class Player2DAnimations : MonoBehaviour
 			case "Fall":
 				if (state != State.Falling)
 				{
-					inativoTime = 0f;
+                    Debug.Log("Down");
+                    inativoTime = 0f;
 					//player.animation.timeScale = 1;
 					player.animation.Play(descendoJumpAnimation);
 					state = State.Falling;
@@ -323,7 +326,8 @@ public class Player2DAnimations : MonoBehaviour
 			case "TransitionAir":
 				if (state != State.TransitionAir)
 				{
-					inativoTime = 0f;
+                    Debug.Log("Transition");
+                    inativoTime = 0f;
 					// player.animation.timeScale = 1.5f;
 					player.animation.Play(transitionJumpAnimation);
 					state = State.TransitionAir;
