@@ -59,7 +59,8 @@ public class AIMovement : MonoBehaviour
 
     public bool levouDogada;
 
-    public BoolVariable aiGanhou;
+    public BoolVariableArray aiGanhou;
+	public int indexDaFase;
     public BoolVariable playerGanhou;
 
     public Vector2 oldPosition;
@@ -78,14 +79,17 @@ public class AIMovement : MonoBehaviour
         maxJumpVelocity = Mathf.Abs(gravity * timeToJumpApex);
         minJumpVelocity = Mathf.Sqrt(2 * Mathf.Abs(gravity) * minJumpHeight);
 
-        aiGanhou = Resources.Load<BoolVariable>("AIGanhou");
+        aiGanhou = Resources.Load<BoolVariableArray>("AIGanhou");
         playerGanhou = Resources.Load<BoolVariable>("PlayerGanhou");
-        aiGanhou.Value = false;
+		
+			aiGanhou.Value[indexDaFase] = false;
+		
+        
     }
 
     public void FixedUpdate()
     {
-        if (aiGanhou.Value  == true|| playerGanhou.Value == true)
+        if (aiGanhou.Value[indexDaFase]  == true|| playerGanhou.Value == true)
         {
             return;
         }

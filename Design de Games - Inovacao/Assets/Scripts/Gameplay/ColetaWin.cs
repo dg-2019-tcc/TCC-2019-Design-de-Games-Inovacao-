@@ -19,7 +19,7 @@ public class ColetaWin : MonoBehaviour
 
 	private bool ganhouJa;
 
-    public BoolVariable acabou01;
+    public BoolVariableArray acabou01;
     public FloatVariable flowIndex;
     public FloatVariable botScore;
 
@@ -30,7 +30,7 @@ public class ColetaWin : MonoBehaviour
 
 	private bool isEmpatado;
 
-    public BoolVariable aiGanhou;
+    public BoolVariableArray aiGanhou;
     public BoolVariable playerGanhou;
 
     public FeedbackText feedbackWin;
@@ -47,10 +47,10 @@ public class ColetaWin : MonoBehaviour
         }
 
 		coletavelGerador = FindObjectOfType<ColetavelGerador>();
-        aiGanhou = Resources.Load<BoolVariable>("AIGanhou");
+        aiGanhou = Resources.Load<BoolVariableArray>("AIGanhou");
         playerGanhou = Resources.Load<BoolVariable>("PlayerGanhou");
 
-        aiGanhou.Value = false;
+        aiGanhou.Value[2] = false;
         playerGanhou.Value = false;
 
         winning = PhotonNetwork.PlayerList[0];
@@ -128,7 +128,7 @@ public class ColetaWin : MonoBehaviour
                     winning.CustomProperties["Ganhador"] = 0;
                     PlayerPrefs.SetInt("GanhouColeta", 0);
                     PlayerPrefs.SetInt("AIGanhou", 1);
-                    aiGanhou.Value = true;
+                    aiGanhou.Value[2] = true;
                     playerGanhou.Value = false;
                     faseNome = "HUB";
                 }
@@ -139,7 +139,7 @@ public class ColetaWin : MonoBehaviour
                     winning.CustomProperties["Ganhador"] = 1;
                     PlayerPrefs.SetInt("GanhouColeta", 1);
                     PlayerPrefs.SetInt("AIGanhou", 0);
-                    aiGanhou.Value = false;
+                    aiGanhou.Value[2] = false;
                     playerGanhou.Value = true;
                     faseNome = "HistoriaColeta";
                 }
