@@ -30,6 +30,8 @@ public class TriggerCollisionsController : RaycastController
     public bool isBallKicked;
     public bool isShotRecived;
 
+    MotoChangeSpeed motoSpd;
+
     public override void Start()
     {
         base.Start();
@@ -40,6 +42,8 @@ public class TriggerCollisionsController : RaycastController
         isCaixaDaguaSound = true;
         isBallKicked = true;
         isShotRecived = true;
+
+        motoSpd = GetComponent<MotoChangeSpeed>();
         
     }
 
@@ -219,6 +223,10 @@ public class TriggerCollisionsController : RaycastController
                     if (hit.distance == 0)
                     {
                         hit.collider.gameObject.GetComponent<LinhaDeChegada>().Colidiu(gameObject);
+                        if(motoSpd != null)
+                        {
+                            motoSpd.CarEngine.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+                        }
                     }
 				}
             }
