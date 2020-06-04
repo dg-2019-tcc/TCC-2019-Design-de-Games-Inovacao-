@@ -114,7 +114,7 @@ public class PlayerThings : MonoBehaviour
         {
             if (shouldTurn)
             {
-                if (joyStick.Horizontal > 0 || ThrowObject.dirRight && rightDir)
+                if (joyStick.Horizontal > 0 && !rightDir)
                 {
 
 
@@ -128,7 +128,7 @@ public class PlayerThings : MonoBehaviour
 					GiraOn(rightDir);
 
 				}
-                else if (joyStick.Horizontal < 0 || ThrowObject.dirLeft == true && leftDir == false)
+                else if (joyStick.Horizontal < 0 && !leftDir)
                 {
 
 
