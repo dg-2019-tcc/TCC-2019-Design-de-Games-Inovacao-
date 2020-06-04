@@ -8,6 +8,8 @@ public class AICustom : MonoBehaviour
     public int shirtIndex;
     public int shortsIndex;
     public int shoesIndex;
+    public int oculosIndex;
+    public int maskIndex;
 
 
 
@@ -15,25 +17,33 @@ public class AICustom : MonoBehaviour
     public ChangeMultipleCustom[] shirtModels;
     public ChangeMultipleCustom[] legModels;
     public ChangeMultipleCustom[] shoeModels;
+    public ChangeMultipleCustom[] oculosModels;
+    public ChangeMultipleCustom[] maskModels;
 
     public ChangeMultipleCustom[] hair2Models;
     public ChangeMultipleCustom[] shirt2Models;
     public ChangeMultipleCustom[] leg2Models;
     public ChangeMultipleCustom[] shoe2Models;
+    public ChangeMultipleCustom[] oculos2Models;
+    public ChangeMultipleCustom[] mask2Models;
 
     // Start is called before the first frame update
     void Start()
     {
-        hairIndex = Random.Range(0, 9);
+        hairIndex = Random.Range(0, 14);
         shirtIndex = Random.Range(0, 8);
         shortsIndex = Random.Range(0, 2);
         shoesIndex = Random.Range(0, 2);
+        oculosIndex = Random.Range(0, 2);
+        maskIndex = Random.Range(0, 2);
 
 
         TrocaCabelo(hairIndex);
         TrocaCamisa(shirtIndex);
         TrocaCalca(shortsIndex);
         TrocaSapato(shoesIndex);
+        TrocaOculos(oculosIndex);
+        TrocaMask(maskIndex);
 
     }
 
@@ -79,5 +89,35 @@ public class AICustom : MonoBehaviour
         }
         shoeModels[onlineIndex].ChangeCustom(true);
         shoe2Models[onlineIndex].ChangeCustom(true);
+    }
+
+    private void TrocaOculos(int onlineIndex)
+    {
+        for(int i = 0; i < oculosModels.Length; i++)
+        {
+            oculosModels[i].ChangeCustom(false);
+            oculos2Models[i].ChangeCustom(false);
+        }
+
+        if(oculosIndex != 2)
+        {
+            oculosModels[onlineIndex].ChangeCustom(true);
+            oculos2Models[onlineIndex].ChangeCustom(true);
+        }
+    }
+
+    private void TrocaMask(int onlineIndex)
+    {
+        for (int i = 0; i < maskModels.Length; i++)
+        {
+            maskModels[i].ChangeCustom(false);
+            mask2Models[i].ChangeCustom(false);
+        }
+
+        if (oculosIndex != 2)
+        {
+            maskModels[onlineIndex].ChangeCustom(true);
+            mask2Models[onlineIndex].ChangeCustom(true);
+        }
     }
 }
