@@ -64,12 +64,12 @@ public class Controller2D : RaycastController
             {
                 float slopeAngle = Vector2.Angle(hit.normal, Vector2.up);
 
-                if(hit.collider.tag == "Barreira")
+                if(hit.collider.CompareTag ("Barreira"))
                 {
                     collisions.bateuObs = true;
                 }
 
-                if (hit.collider.tag == "Through")
+                if (hit.collider.CompareTag("Through"))
                 {
 
                     if (pipaActive.Value == true)
@@ -148,12 +148,12 @@ public class Controller2D : RaycastController
 
             if (hit)
             {
-                if(hit.collider.tag == "Destroy")
+                if(hit.collider.CompareTag("Destroy"))
                 {
 					hit.collider.gameObject.SendMessage("ToAqui");
                 }
 
-                if (hit.collider.tag == "Through")
+                if (hit.collider.CompareTag ("Through"))
                 {
                     if(pipaActive.Value == true)
                     {

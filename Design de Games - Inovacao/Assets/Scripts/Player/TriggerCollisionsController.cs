@@ -86,23 +86,23 @@ public class TriggerCollisionsController : RaycastController
 
             if (hit)
             {
-                if (hit.collider.tag == "TV")
+                if (hit.collider.CompareTag("TV"))
                 {
                     hit.collider.GetComponent<TextBoxActivate>().PlayerHit();
                     collisions.hitTV = true;
                 }
 
-                if (hit.collider.tag == "Dog")
+                if (hit.collider.CompareTag("Dog"))
                 {
                     DogColetaTutorial dogTutorial = hit.collider.GetComponent<DogColetaTutorial>();
                     dogTutorial.AtivaDog();
                 }
 
-                if(hit.collider.tag == "Pet")
+                if(hit.collider.CompareTag("Pet"))
                 {
                     collisions.hitDog = true;
                 }
-                if(hit.collider.tag == "AjusteCam")
+                if(hit.collider.CompareTag("AjusteCam"))
                 {
                     CorridaAjustaCamera ajustaCamera = hit.collider.GetComponent<CorridaAjustaCamera>();
                     //ajustaCamera.cam = cam;
@@ -110,12 +110,12 @@ public class TriggerCollisionsController : RaycastController
                     ajustaCamera.playerTransform = this.gameObject.transform;
                 }
 
-                if (hit.collider.tag == "Boost")
+                if (hit.collider.CompareTag("Boost"))
                 {
                     collisions.boostMoto = true;
                 }
 
-                if (hit.collider.tag == "Porta")
+                if (hit.collider.CompareTag("Porta"))
                 {
                     collisions.isDoor = true;
                     PortaManager porta = hit.collider.GetComponent<PortaManager>();
@@ -123,19 +123,19 @@ public class TriggerCollisionsController : RaycastController
                     return;
                 }
 
-                if (hit.collider.tag == "PortaTutorial")
+                if (hit.collider.CompareTag("PortaTutorial"))
                 {
                     collisions.isDoor = true;
                     PortaTutorial porta = hit.collider.GetComponent<PortaTutorial>();
                     porta.abriPorta = true;
                     return;
                 }
-				if (hit.collider.tag == "TextBox")
+				if (hit.collider.CompareTag("TextBox"))
 				{
 					hit.collider.GetComponent<TextBoxActivate>().PlayerHit();
 				}
 
-                if (hit.collider.tag == "Coletavel")
+                if (hit.collider.CompareTag("Coletavel"))
                 {
                     DestroyColetavel2D coletavel2D = hit.collider.GetComponent<DestroyColetavel2D>();
                     coletavel2D.PegouColetavel(true);
@@ -145,12 +145,12 @@ public class TriggerCollisionsController : RaycastController
                     Scored();
 
                 }
-				if (hit.collider.tag == "Moedinha")
+				if (hit.collider.CompareTag("Moedinha"))
 				{
 					hit.collider.gameObject.SendMessage("Coleta");
 				}
 
-				if (hit.collider.tag == "Carrinho")
+				if (hit.collider.CompareTag("Carrinho"))
                 {
                     dogController.Carro();
                     if(isDogNormal == true)
@@ -160,7 +160,7 @@ public class TriggerCollisionsController : RaycastController
                     }
                 }
 
-                if(hit.collider.tag == "Pipa")
+                if(hit.collider.CompareTag("Pipa"))
                 {
                     dogController.Pipa();
                     if (isDogNormal == true)
@@ -170,7 +170,7 @@ public class TriggerCollisionsController : RaycastController
                     }
                 }
 
-				if (hit.collider.tag == "DogTiro")
+				if (hit.collider.CompareTag("DogTiro"))
 				{
 					playerThings.StartCoroutine("LevouDogada");
                     if(isShotRecived)
@@ -179,7 +179,7 @@ public class TriggerCollisionsController : RaycastController
                     }
                 }
 
-				if (hit.collider.tag == "Volei")
+				if (hit.collider.CompareTag("Volei"))
                 {
                     if (PlayerThings.rightDir)
                     {
@@ -199,7 +199,7 @@ public class TriggerCollisionsController : RaycastController
                     }
                 }
 
-                if(hit.collider.tag == "Futebol")
+                if(hit.collider.CompareTag("Futebol"))
                 {
                     if (PlayerThings.rightDir)
                     {
@@ -218,7 +218,7 @@ public class TriggerCollisionsController : RaycastController
                         }
                     }
                 }
-				if (hit.collider.tag == "LinhaDeChegada")
+				if (hit.collider.CompareTag("LinhaDeChegada"))
 				{
                     if (hit.distance == 0)
                     {
@@ -256,45 +256,45 @@ public class TriggerCollisionsController : RaycastController
 
             if (hit)
             {
-                if (hit.collider.tag == "TV")
+                if (hit.collider.CompareTag("TV"))
                 {
                     hit.collider.GetComponent<TextBoxActivate>().PlayerHit();
                     collisions.hitTV = true;
                 }
 
-                if (hit.collider.tag == "Dog")
+                if (hit.collider.CompareTag("Dog"))
                 {
                     DogColetaTutorial dogTutorial = hit.collider.GetComponent<DogColetaTutorial>();
                     dogTutorial.AtivaDog();
                 }
-                if (hit.collider.tag == "Pet")
+                if (hit.collider.CompareTag("Pet"))
                 {
                     collisions.hitDog = true;
                 }
-                if (hit.collider.tag == "Boost")
+                if (hit.collider.CompareTag("Boost"))
                 {
                     collisions.boostMoto = true;
                 }
 
-                if (hit.collider.tag == "PortaTutorial")
+                if (hit.collider.CompareTag("PortaTutorial"))
                 {
                     collisions.isDoor = true;
                     PortaTutorial porta = hit.collider.GetComponent<PortaTutorial>();
                     porta.abriPorta = true;
                     return;
                 }
-				if (hit.collider.tag == "TextBox")
+				if (hit.collider.CompareTag("TextBox"))
 				{
 					hit.collider.GetComponent<TextBoxActivate>().PlayerHit();
 				}
-				if (hit.collider.tag == "Porta")
+				if (hit.collider.CompareTag("Porta"))
                 {
                     collisions.isDoor = true;
                     hit.collider.GetComponent<PortaManager>().OpenDoor();
                     continue;
                 }
 
-                if (hit.collider.tag == "Coletavel")
+                if (hit.collider.CompareTag("Coletavel"))
                 {
                     DestroyColetavel2D coletavel2D = hit.collider.GetComponent<DestroyColetavel2D>();
                     coletavel2D.PegouColetavel(true);
@@ -304,12 +304,12 @@ public class TriggerCollisionsController : RaycastController
                     Scored();
 
                 }
-				if (hit.collider.tag == "Moedinha")
+				if (hit.collider.CompareTag("Moedinha"))
 				{
 					hit.collider.gameObject.SendMessage("Coleta");
 				}
 
-				if (hit.collider.tag == "Carrinho")
+				if (hit.collider.CompareTag("Carrinho"))
                 {
                     dogController.Carro();
                     if (isDogNormal == true)
@@ -319,7 +319,7 @@ public class TriggerCollisionsController : RaycastController
                     }
                 }
 
-				if (hit.collider.tag == "Pipa")
+				if (hit.collider.CompareTag("Pipa"))
 				{
 					dogController.Pipa();
                     if (isDogNormal == true)
@@ -329,7 +329,7 @@ public class TriggerCollisionsController : RaycastController
                     }
                 }
 
-				if (hit.collider.tag == "DogTiro")
+				if (hit.collider.CompareTag("DogTiro"))
 				{
 					playerThings.StartCoroutine("LevouDogada");
                     if (isShotRecived)
@@ -338,7 +338,7 @@ public class TriggerCollisionsController : RaycastController
                     }
                 }
 
-				if (hit.collider.tag == "Volei")
+				if (hit.collider.CompareTag("Volei"))
                 {
                     if (PlayerThings.rightDir)
                     {
@@ -359,7 +359,7 @@ public class TriggerCollisionsController : RaycastController
                     }
                 }
 
-                if (hit.collider.tag == "Futebol")
+                if (hit.collider.CompareTag("Futebol"))
                 {
                     if (PlayerThings.rightDir)
                     {
@@ -379,7 +379,7 @@ public class TriggerCollisionsController : RaycastController
                         }
                     }
                 }
-				if (hit.collider.tag == "LinhaDeChegada")
+				if (hit.collider.CompareTag("LinhaDeChegada"))
 				{
 					hit.collider.gameObject.GetComponent<LinhaDeChegada>().Colidiu(gameObject);
 				}
@@ -402,42 +402,42 @@ public class TriggerCollisionsController : RaycastController
 
             if (hit)
             {
-                if (hit.collider.tag == "TV")
+                if (hit.collider.CompareTag("TV"))
                 {
                     hit.collider.GetComponent<TextBoxActivate>().PlayerHit();
                     collisions.hitTV = true;
                 }
 
-                if (hit.collider.tag == "Dog")
+                if (hit.collider.CompareTag("Dog"))
                 {
                     DogColetaTutorial dogTutorial = hit.collider.GetComponent<DogColetaTutorial>();
                     dogTutorial.AtivaDog();
                 }
-                if (hit.collider.tag == "Boost")
+                if (hit.collider.CompareTag("Boost"))
                 {
                     collisions.boostMoto = true;
                 }
 
-                if (hit.collider.tag == "PortaTutorial")
+                if (hit.collider.CompareTag("PortaTutorial"))
                 {
                     collisions.isDoor = true;
                     PortaTutorial porta = hit.collider.GetComponent<PortaTutorial>();
                     porta.abriPorta = true;
                     return;
                 }
-				if (hit.collider.tag == "TextBox")
+				if (hit.collider.CompareTag("TextBox"))
 				{
 					hit.collider.GetComponent<TextBoxActivate>().PlayerHit();
 				}
 
-				if (hit.collider.tag == "Porta")
+				if (hit.collider.CompareTag("Porta"))
                 {
                     collisions.isDoor = true;
                     hit.collider.GetComponent<PortaManager>().OpenDoor();
                     continue;
                 }
 
-                if (hit.collider.tag == "Coletavel")
+                if (hit.collider.CompareTag("Coletavel"))
                 {
                     DestroyColetavel2D coletavel2D = hit.collider.GetComponent<DestroyColetavel2D>();
                     coletavel2D.PegouColetavel(true);
@@ -447,12 +447,12 @@ public class TriggerCollisionsController : RaycastController
                     Scored();
 
                 }
-				if (hit.collider.tag == "Moedinha")
+				if (hit.collider.CompareTag("Moedinha"))
 				{
 					hit.collider.gameObject.SendMessage("Coleta");
                 }
 
-				if (hit.collider.tag == "Carrinho")
+				if (hit.collider.CompareTag("Carrinho"))
                 {
                     dogController.Carro();
                     if (isDogNormal == true)
@@ -462,7 +462,7 @@ public class TriggerCollisionsController : RaycastController
                     }
                 }
 
-                if (hit.collider.tag == "Pipa")
+                if (hit.collider.CompareTag("Pipa"))
                 {
                     dogController.Pipa();
                     if (isDogNormal == true)
@@ -472,7 +472,7 @@ public class TriggerCollisionsController : RaycastController
                     }
                 }
 
-                if (hit.collider.tag == "Volei")
+                if (hit.collider.CompareTag("Volei"))
                 {
                     collisions.tocouBola = true;
                     if (isBallKicked)
@@ -481,7 +481,7 @@ public class TriggerCollisionsController : RaycastController
                     }
                 }
 
-                if(hit.collider.tag == "Futebol")
+                if(hit.collider.CompareTag("Futebol"))
                 {
                     collisions.cabecaBola = true;
                     if (isBallKicked)
@@ -508,18 +508,18 @@ public class TriggerCollisionsController : RaycastController
 
             if (hit)
             {
-                if(hit.collider.tag == "SlowFall")
+                if(hit.collider.CompareTag("SlowFall"))
                 {
                     collisions.slowTime = true;
                 }
 
-                if (hit.collider.tag == "TV")
+                if (hit.collider.CompareTag("TV"))
                 {
                     hit.collider.GetComponent<TextBoxActivate>().PlayerHit();
                     collisions.hitTV = true;
                 }
 
-                if (hit.collider.tag == "Dog")
+                if (hit.collider.CompareTag("Dog"))
                 {
                     DogColetaTutorial dogTutorial = hit.collider.GetComponent<DogColetaTutorial>();
                     dogTutorial.AtivaDog();
@@ -529,26 +529,26 @@ public class TriggerCollisionsController : RaycastController
                     collisions.boostMoto = true;
                 }
 
-                if (hit.collider.tag == "PortaTutorial")
+                if (hit.collider.CompareTag("PortaTutorial"))
                 {
                     collisions.isDoor = true;
                     PortaManager porta = hit.collider.GetComponent<PortaManager>();
                     porta.abriPorta = true;
                     return;
                 }
-				if (hit.collider.tag == "TextBox")
+				if (hit.collider.CompareTag("TextBox"))
 				{
 					hit.collider.GetComponent<TextBoxActivate>().PlayerHit();
 				}
 
-				if (hit.collider.tag == "Porta")
+				if (hit.collider.CompareTag("Porta"))
                 {
                     collisions.isDoor = true;
                     hit.collider.GetComponent<PortaManager>().OpenDoor();
                     continue;
                 }
 
-                if (hit.collider.tag == "Coletavel")
+                if (hit.collider.CompareTag("Coletavel"))
                 {
                     DestroyColetavel2D coletavel2D = hit.collider.GetComponent<DestroyColetavel2D>();
                     coletavel2D.PegouColetavel(true);
@@ -559,12 +559,12 @@ public class TriggerCollisionsController : RaycastController
 
                 }
 
-				if (hit.collider.tag == "Moedinha")
+				if (hit.collider.CompareTag("Moedinha"))
 				{
 					hit.collider.gameObject.SendMessage("Coleta");
 				}
 
-                if(hit.collider.tag == "Carrinho")
+                if(hit.collider.CompareTag("Carrinho"))
                 {
                     dogController.Carro();
                     if (isDogNormal == true)
@@ -574,7 +574,7 @@ public class TriggerCollisionsController : RaycastController
                     }
                 }
 
-                if (hit.collider.tag == "Pipa")
+                if (hit.collider.CompareTag("Pipa"))
                 {
                     dogController.Pipa();
                     if (isDogNormal == true)
@@ -584,19 +584,19 @@ public class TriggerCollisionsController : RaycastController
                     }
                 }
 
-                if (hit.collider.tag == "Futebol")
+                if (hit.collider.CompareTag("Futebol"))
                 {
                     collisions.cabecaBola = true;
                 }
 
-                if(hit.collider.tag == "GolSelect")
+                if(hit.collider.CompareTag("GolSelect"))
                 {
                     GolSelect select = hit.collider.GetComponent<GolSelect>();
                     select.jogador = playerThings.GetComponent<PlayerThings>();
                     hit.collider.GetComponent<BoxCollider2D>().enabled = false;
                 }
 
-                if(hit.collider.tag == "CaixaDagua")
+                if(hit.collider.CompareTag("CaixaDagua"))
                 {
                     if (isCaixaDaguaSound == true)
                     {
