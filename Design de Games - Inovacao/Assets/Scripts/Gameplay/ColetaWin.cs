@@ -50,7 +50,7 @@ public class ColetaWin : MonoBehaviour
         aiGanhou = Resources.Load<BoolVariableArray>("AIGanhou");
         playerGanhou = Resources.Load<BoolVariable>("PlayerGanhou");
 
-        aiGanhou.Value[2] = false;
+        aiGanhou.Value[1] = false;
         playerGanhou.Value = false;
 
         winning = PhotonNetwork.PlayerList[0];
@@ -128,7 +128,7 @@ public class ColetaWin : MonoBehaviour
                     winning.CustomProperties["Ganhador"] = 0;
                     PlayerPrefs.SetInt("GanhouColeta", 0);
                     PlayerPrefs.SetInt("AIGanhou", 1);
-                    aiGanhou.Value[2] = true;
+                    aiGanhou.Value[1] = true;
                     playerGanhou.Value = false;
                     faseNome = "HUB";
                 }
@@ -139,7 +139,7 @@ public class ColetaWin : MonoBehaviour
                     winning.CustomProperties["Ganhador"] = 1;
                     PlayerPrefs.SetInt("GanhouColeta", 1);
                     PlayerPrefs.SetInt("AIGanhou", 0);
-                    aiGanhou.Value[2] = false;
+                    aiGanhou.Value[1] = false;
                     playerGanhou.Value = true;
                     faseNome = "HistoriaColeta";
                 }
