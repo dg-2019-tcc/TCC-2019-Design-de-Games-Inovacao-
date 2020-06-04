@@ -19,8 +19,8 @@ public class WinnerManager : MonoBehaviour
 	[SerializeField]
 	private float delayForWinScreen;
 
-    public BoolVariable acabou01;
-    public BoolVariable aiGanhou;
+    public BoolVariableArray acabou01;
+    public BoolVariableArray aiGanhou;
     public BoolVariable playerGanhou;
     public FloatVariable flowIndex;
     public bool isMoto;
@@ -38,8 +38,8 @@ public class WinnerManager : MonoBehaviour
 
         feedback = FindObjectOfType<FeedbackText>();
 
-        acabou01 = Resources.Load<BoolVariable>("Acabou01");
-        aiGanhou = Resources.Load<BoolVariable>("AIGanhou");
+        acabou01 = Resources.Load<BoolVariableArray>("Acabou01");
+        aiGanhou = Resources.Load<BoolVariableArray>("AIGanhou");
         playerGanhou = Resources.Load<BoolVariable>("PlayerGanhou");
         flowIndex = Resources.Load<FloatVariable>("FlowIndex");
 
@@ -93,7 +93,7 @@ public class WinnerManager : MonoBehaviour
         playerGanhou.Value = true;
 
         if (buildProfs == false) {
-            if (acabou01.Value == false)
+            if (acabou01.Value[5] == false)
             {
 
                 if (!isMoto)
@@ -109,7 +109,7 @@ public class WinnerManager : MonoBehaviour
                     //PhotonNetwork.LoadLevel("HistoriaFutebol");
                 }
                 //playerGanhou.Value = true;
-                aiGanhou.Value = false;
+                aiGanhou.Value[5] = false;
                 StartCoroutine("AcabouFase");
             }
 
@@ -154,7 +154,7 @@ public class WinnerManager : MonoBehaviour
         feedback.Perdeu();
         if (buildProfs == false)
         {
-            if (acabou01.Value == true || buildProfs == false)
+            if (acabou01.Value[5] == true || buildProfs == false)
             {
                 //player.perdeuSom.Play();
                 perdeuCorrida = true;
@@ -167,7 +167,7 @@ public class WinnerManager : MonoBehaviour
             {
                 perdeuCorrida = true;
                 playerGanhou.Value = false;
-                aiGanhou.Value = true;
+                aiGanhou.Value[4] = true;
                 faseNome = "HUB";
                 StartCoroutine("AcabouFase");
                 //PhotonNetwork.LoadLevel("HUB");
@@ -178,7 +178,7 @@ public class WinnerManager : MonoBehaviour
         {
             perdeuCorrida = true;
             playerGanhou.Value = false;
-            aiGanhou.Value = true;
+            aiGanhou.Value[4] = true;
             faseNome = "HUB";
             StartCoroutine("AcabouFase");
         }

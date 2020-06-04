@@ -22,10 +22,10 @@ public class GolManager : MonoBehaviourPunCallbacks
     public FloatVariable botScore;
     public TextMeshProUGUI placarText;
 
-    public BoolVariable acabou01;
+    public BoolVariableArray acabou01;
     public FloatVariable flowIndex;
 
-    public BoolVariable aiGanhou;
+    public BoolVariableArray aiGanhou;
     public BoolVariable playerGanhou;
 
     public FeedbackText feedbackWin;
@@ -34,13 +34,13 @@ public class GolManager : MonoBehaviourPunCallbacks
 
     private void Start()
     {
-        acabou01 = Resources.Load<BoolVariable>("Acabou01");
-        aiGanhou = Resources.Load<BoolVariable>("AIGanhou");
+        acabou01 = Resources.Load<BoolVariableArray>("Acabou01");
+        aiGanhou = Resources.Load<BoolVariableArray>("AIGanhou");
         playerGanhou = Resources.Load<BoolVariable>("PlayerGanhou");
         flowIndex = Resources.Load<FloatVariable>("FlowIndex");
 
         playerGanhou.Value = false;
-        aiGanhou.Value = false;
+        aiGanhou.Value[3] = false;
     }
 
     private void Update()
@@ -48,7 +48,7 @@ public class GolManager : MonoBehaviourPunCallbacks
         if (botScore.Value >= maxPoints)
         {
             feedbackWin.Perdeu();
-            aiGanhou.Value = true;
+            aiGanhou.Value[3] = true;
             playerGanhou.Value = false;
             PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 0;
             StartCoroutine("AcabouFase");
@@ -71,7 +71,7 @@ public class GolManager : MonoBehaviourPunCallbacks
             if (playerGol.jogador.PV.Owner.GetScore() >= 5)
             {
                 feedbackWin.Ganhou();
-                aiGanhou.Value = false;
+                aiGanhou.Value[3] = false;
                 playerGanhou.Value = true;
                 StartCoroutine("AcabouFase");
             }
@@ -84,9 +84,9 @@ public class GolManager : MonoBehaviourPunCallbacks
     {
 
         yield return new WaitForSeconds(3f);
-        if (aiGanhou.Value == true)
+        if (aiGanhou.Value[3] == true)
         {
-            if (acabou01.Value == true)
+            if (acabou01.Value[4] == true)
             {
                 LevelManager.Instance.GoPodium();
             }
@@ -98,7 +98,7 @@ public class GolManager : MonoBehaviourPunCallbacks
 
         else if (playerGanhou.Value == true)
         {
-            if (acabou01.Value == true)
+            if (acabou01.Value[4] == true)
             {
                 PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 1;
                 LevelManager.Instance.GoPodium();
