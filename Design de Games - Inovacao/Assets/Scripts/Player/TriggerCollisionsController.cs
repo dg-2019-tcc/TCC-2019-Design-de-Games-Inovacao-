@@ -100,7 +100,10 @@ public class TriggerCollisionsController : RaycastController
 
                 if(hit.collider.CompareTag("Pet"))
                 {
-                    collisions.hitDog = true;
+                    if (hit.distance == 0)
+                    {
+                        collisions.hitDog = true;
+                    }
                 }
                 if(hit.collider.CompareTag("AjusteCam"))
                 {
@@ -269,7 +272,10 @@ public class TriggerCollisionsController : RaycastController
                 }
                 if (hit.collider.CompareTag("Pet"))
                 {
-                    collisions.hitDog = true;
+                    if (hit.distance == 0)
+                    {
+                        collisions.hitDog = true;
+                    }
                 }
                 if (hit.collider.CompareTag("Boost"))
                 {

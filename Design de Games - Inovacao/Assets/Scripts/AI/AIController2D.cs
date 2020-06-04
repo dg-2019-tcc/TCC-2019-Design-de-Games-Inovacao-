@@ -57,12 +57,12 @@ public class AIController2D : RaycastController
             {
                 float slopeAngle = Vector2.Angle(hit.normal, Vector2.up);
 
-                if (hit.collider.CompareTag == "Barreira")
+                if (hit.collider.CompareTag ("Barreira"))
                 {
                     collisions.bateuObs = true;
                 }
 
-                if (hit.collider.CompareTag == "Through")
+                if (hit.collider.CompareTag("Through"))
                 {
 
                     if (directionX == 1 || hit.distance == 0)

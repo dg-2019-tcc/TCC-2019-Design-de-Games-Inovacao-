@@ -85,6 +85,7 @@ public class DogMovement : MonoBehaviour
         if (dogController.collisions.below && playerMove.jump && isJumping == false)
         {
             //DogJump();
+            jumpTimes = 0;
             isJumping = true;
             Invoke("DogJump", delay);
         }
@@ -119,6 +120,16 @@ public class DogMovement : MonoBehaviour
         {
             DogJump();
             jumpTimes++;
+
+            if(transform.position.x - player.transform.position.x > 0.5)
+            {
+                velocity.x = -8;
+            }
+
+            if (transform.position.x - player.transform.position.x < -0.5)
+            {
+                velocity.x = 8;
+            }
         }
 
         if(transform.position.y - player.transform.position.y > 0)
@@ -140,7 +151,7 @@ public class DogMovement : MonoBehaviour
         isJumping = true;
         if (jumpTimes > 1)
         {
-            velocity.y = maxJumpHeight + (jumpTimes * 5f);
+            velocity.y = maxJumpHeight + (jumpTimes * 3f);
         }
         else
         {

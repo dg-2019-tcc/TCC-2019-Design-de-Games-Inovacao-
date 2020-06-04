@@ -135,7 +135,7 @@ public class Player2DAnimations : MonoBehaviour
 							PlayAnim("NoArUp");
 						}
 
-						else if (moveAmount.y < 15 && moveAmount.y > 0 && controller.collisions.below == false)
+						else if (/*moveAmount.y < 15 &&*/ moveAmount.y > 0 && controller.collisions.below == false)
 						{
                             PlayAnim("TransitionAir");
 						}
