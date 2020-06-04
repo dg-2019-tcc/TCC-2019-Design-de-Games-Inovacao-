@@ -228,7 +228,10 @@ public class GameFlowManager : MonoBehaviour
             OfflineMode.modoDoOffline = true;
 
             resetaFase.Value = true;
-            acabou01.Value[0] = false;
+			for (int i = 0; i < acabou01.Value.Length; i++)
+			{
+				acabou01.Value[i] = false;
+			}
             flowIndex.Value = 0;
 
             offlineButton.SetActive(false);
@@ -250,8 +253,11 @@ public class GameFlowManager : MonoBehaviour
             OfflineMode.modoDoOffline = false;*/
 
             resetaFase.Value = false;
-            acabou01.Value[0] = true;
-            flowIndex.Value = 8;
+			for (int i = 0; i < acabou01.Value.Length; i++)
+			{
+				acabou01.Value[i] = true;
+			}
+			flowIndex.Value = 8;
 
             offlineButton.SetActive(true);
 

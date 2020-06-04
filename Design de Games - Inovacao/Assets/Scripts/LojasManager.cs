@@ -11,7 +11,7 @@ public class LojasManager : MonoBehaviour
     void Start()
     {
         PlayerPrefs.SetInt("Fase", nextIndex);
-		acabou01.Value[3] = true;
+		acabou01.Value[2] = true;
     }
 
 }

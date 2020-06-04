@@ -24,11 +24,14 @@ public class FirstTextBoxOnHUB : MonoBehaviour
 		}
 
 		tv = FindObjectOfType<TV>();
+
+		
 	}
 
 	private void OnDestroy()
 	{
-		aiGanhou.Value[0] = true;
+		
+		acabou01.Value[0] = true;
 		tv.CoisasAtivas(1, true);
 	}
 }
