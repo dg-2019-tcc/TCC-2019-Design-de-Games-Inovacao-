@@ -46,6 +46,7 @@ public class PlayerThings : MonoBehaviour
     private Controller2D controller;
 
     public float autoScroll;
+    public bool isColeta;
 
     void Start()
     {
@@ -186,7 +187,7 @@ public class PlayerThings : MonoBehaviour
             joyStick = FindObjectOfType<FloatingJoystick>();
         }
 
-		if (PhotonNetwork.InRoom && PV != null)
+		if (PhotonNetwork.InRoom && PV != null && isColeta)
 		{
 			PV.RPC("GambiarraDosIndex", RpcTarget.All, (int)PhotonNetwork.CurrentRoom.CustomProperties["IndexColetavel"]);
 		}

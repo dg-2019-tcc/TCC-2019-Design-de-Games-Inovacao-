@@ -41,6 +41,8 @@ public class DogMovement : MonoBehaviour
 
     float jumpTimes;
 
+    bool isDown;
+
 
     void Start()
     {
@@ -121,18 +123,18 @@ public class DogMovement : MonoBehaviour
             DogJump();
             jumpTimes++;
 
-            if(transform.position.x - player.transform.position.x > 0.5)
+            if(transform.position.x - player.transform.position.x > 0)
             {
-                velocity.x = -8;
+                velocity.x = -1 * Mathf.Abs(transform.position.x - player.transform.position.x) - 1;
             }
 
-            if (transform.position.x - player.transform.position.x < -0.5)
+            if (transform.position.x - player.transform.position.x < 0)
             {
-                velocity.x = 8;
+                velocity.x = 1 * Mathf.Abs(transform.position.x - player.transform.position.x) + 1;
             }
         }
 
-        if(transform.position.y - player.transform.position.y > 0)
+        if(transform.position.y - player.transform.position.y >= 0)
         {
             jumpTimes = 0;
         }
@@ -141,6 +143,12 @@ public class DogMovement : MonoBehaviour
         {
             velocity.x = 0;
         }
+
+        if (/*controller.collisions.below &&*/ playerTriggerController.collisions.caixaDagua)
+        {
+            velocity.y = maxJumpHeight * 1.8f;
+        }
+
         dogController.Move(velocity * Time.deltaTime, input);
     }
 
@@ -149,9 +157,10 @@ public class DogMovement : MonoBehaviour
     public void DogJump()
     {
         isJumping = true;
-        if (jumpTimes > 1)
+
+        if (jumpTimes > 0)
         {
-            velocity.y = maxJumpHeight + (jumpTimes * 3f);
+            velocity.y = maxJumpHeight + (jumpTimes * 5f);
         }
         else
         {
