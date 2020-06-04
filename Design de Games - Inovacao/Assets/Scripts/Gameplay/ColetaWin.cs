@@ -55,7 +55,7 @@ public class ColetaWin : MonoBehaviour
 
         winning = PhotonNetwork.PlayerList[0];
 		ganhouJa = false;
-		isEmpatado = true;
+		isEmpatado = false;
 	}
 
 
@@ -92,12 +92,17 @@ public class ColetaWin : MonoBehaviour
                 if (ganhouJa) return;
                 if (OfflineMode.modoDoOffline && compareScore < 4)
                 {
-                    Debug.Log("Perdeu");
-                    winning.CustomProperties["Ganhador"] = 0;
-                    feedbackWin.Perdeu();
-                    StartCoroutine("AcabouFaseOnline");
+					Debug.Log("perdeu pro bot");
+					feedbackWin.Perdeu();
+					winning.CustomProperties["Ganhador"] = 0;
+					PlayerPrefs.SetInt("GanhouColeta", 0);
+					PlayerPrefs.SetInt("AIGanhou", 1);
+					aiGanhou.Value[1] = true;
+					playerGanhou.Value = false;
+					faseNome = "HUB";
+					StartCoroutine("AcabouFase");
 
-                }
+				}
                 else
                 {
 					if (PhotonNetwork.LocalPlayer == winning)
