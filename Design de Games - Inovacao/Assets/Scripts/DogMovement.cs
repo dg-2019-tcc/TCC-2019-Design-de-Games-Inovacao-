@@ -173,7 +173,7 @@ public class DogMovement : MonoBehaviour
     public void DogJump()
     {
         isJumping = true;
-
+        Debug.Log("Jump");
         if (jumpTimes > 0)
         {
             velocity.y = maxJumpHeight + (jumpTimes * 5f);
@@ -188,8 +188,7 @@ public class DogMovement : MonoBehaviour
     {
         trickIndex = Random.Range(0, 5);
         Debug.Log(trickIndex);
-        //trick = true;
-        DogJump();
+
         DogAnim(trickIndex);
     }
 
@@ -200,46 +199,51 @@ public class DogMovement : MonoBehaviour
             case 0:
                 if(state != State.Idle)
                 {
-                    anim.SetTrigger("DoTrick");
                     dogArmature.animation.Play("Base");
                     state = State.Idle;
                 }
+                DogJump();
+                anim.SetTrigger("DoTrick");
                 break;
 
             case 1:
                 if(state != State.Aviao)
                 {
                     dogArmature.animation.Play("Aviao(Arremessar)");
-                    anim.SetTrigger("AviaoTrigger");
                     state = State.Aviao;
                 }
+                DogJump();
+                anim.SetTrigger("AviaoTrigger");
                 break;
 
             case 2:
                 if (state != State.Carro)
                 {
                     dogArmature.animation.Play("Rolema");
-                    anim.SetTrigger("CarroTrigger");
                     state = State.Carro;
                 }
+                DogJump();
+                anim.SetTrigger("CarroTrigger");
                 break;
 
             case 3:
                 if (state != State.Moto)
                 {
                     dogArmature.animation.Play("Moto");
-                    anim.SetTrigger("MotoTrick");
                     state = State.Moto;
                 }
+                DogJump();
+                anim.SetTrigger("MotoTrick");
                 break;
 
             case 4:
                 if (state != State.Pipa)
                 {
                     dogArmature.animation.Play("Pipa");
-                    anim.SetTrigger("PipaTrigger");
                     state = State.Pipa;
                 }
+                DogJump();
+                anim.SetTrigger("PipaTrigger");
                 break;
         }
     }
