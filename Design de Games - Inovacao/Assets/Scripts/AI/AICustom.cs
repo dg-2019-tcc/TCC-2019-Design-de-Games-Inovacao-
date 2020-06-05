@@ -11,7 +11,9 @@ public class AICustom : MonoBehaviour
     public int oculosIndex;
     public int maskIndex;
 
+    public BotCustom botCustom;
 
+    public bool isVictory;
 
     public ChangeMultipleCustom[] hairModels;
     public ChangeMultipleCustom[] shirtModels;
@@ -30,13 +32,33 @@ public class AICustom : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        hairIndex = Random.Range(0, 14);
-        shirtIndex = Random.Range(0, 8);
-        shortsIndex = Random.Range(0, 2);
-        shoesIndex = Random.Range(0, 2);
-        oculosIndex = Random.Range(0, 2);
-        maskIndex = Random.Range(0, 2);
 
+        if (isVictory == false)
+        {
+            hairIndex = Random.Range(0, 14);
+            shirtIndex = Random.Range(0, 8);
+            shortsIndex = Random.Range(0, 2);
+            shoesIndex = Random.Range(0, 2);
+            oculosIndex = Random.Range(0, 2);
+            maskIndex = Random.Range(0, 2);
+
+            botCustom.hairIndex = hairIndex;
+            botCustom.shirtIndex = shirtIndex;
+            botCustom.shortsIndex = shortsIndex;
+            botCustom.shoesIndex = shoesIndex;
+            botCustom.oculosIndex = oculosIndex;
+            botCustom.maskIndex = maskIndex;
+        }
+
+        else
+        {
+            hairIndex = botCustom.hairIndex;
+            shirtIndex = botCustom.shirtIndex;
+            shortsIndex = botCustom.shortsIndex;
+            shoesIndex = botCustom.shoesIndex;
+            oculosIndex = botCustom.oculosIndex;
+            maskIndex = botCustom.maskIndex;
+        }
 
         TrocaCabelo(hairIndex);
         TrocaCamisa(shirtIndex);
