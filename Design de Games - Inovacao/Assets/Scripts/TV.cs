@@ -14,9 +14,12 @@ public class TV : MonoBehaviour
 
     public GameObject[] falas;
 
+    public GameFlowManager gameFlow;
+
 
     void Start()
     {
+
         pointer = GetComponent<ItemLocatorOnScreen>();
 
         if (acabou01 == null)
@@ -40,9 +43,10 @@ public class TV : MonoBehaviour
 			
 			if (!acabou01.Value[i])
 			{
-				if (!aiGanhou.Value[i-1])
+				if (!aiGanhou.Value[i])
 				{
-					CoisasAtivas(i, true);
+					CoisasAtivas(i , true);
+                    Debug.Log(i);
 				}
 				break;
 			}
@@ -59,12 +63,15 @@ public class TV : MonoBehaviour
 		falas[index].SetActive(ativar);
 		pointer.enabled = ativar;
 		precisaFalar = ativar;
-	}
+        //FalouComTV();
+
+    }
 
     private void Update()
     {
         if(faloComTV == true)
         {
+            FalouComTV();
             pointer.enabled = false;
         }
     }
@@ -74,5 +81,7 @@ public class TV : MonoBehaviour
         pointer.enabled = false;
         precisaFalar = false;
         faloComTV = true;
+        Debug.Log(gameFlow.index);
+        gameFlow.AtivaFase(gameFlow.index);
     }
 }
