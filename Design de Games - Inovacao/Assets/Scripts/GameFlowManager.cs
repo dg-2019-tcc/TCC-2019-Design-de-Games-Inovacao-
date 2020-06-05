@@ -17,7 +17,7 @@ public class GameFlowManager : MonoBehaviour
 
 
     public FloatVariable flowIndex;
-    private int index;
+    public int index;
 
     public BoolVariableArray acabou01;
 
@@ -124,6 +124,7 @@ public class GameFlowManager : MonoBehaviour
 
                 if (SceneManager.GetActiveScene().name == "HUB")
                 {
+                    Acabou();
                     Completo();
                 }
 
@@ -155,18 +156,19 @@ public class GameFlowManager : MonoBehaviour
         }
     }
 
-    private void Update()
+    /*private void Update()
     {
         if (SceneManager.GetActiveScene().name == "HUB")
         {
             if (tv.faloComTV == true && ativouFase == false)
             {
+                Debug.Log(index);
                 AtivaFase(index);
             }
         }
-    }
+    }*/
 
-    void AtivaFase(int faseIndex)
+    public void AtivaFase(int faseIndex)
     {
         switch (faseIndex)
         {
@@ -278,31 +280,23 @@ public class GameFlowManager : MonoBehaviour
 
     public void FaseColeta()
     {
-        if (fasesSave.fases[3] == false)
-        {
+
             /*if (aiGanhou.Value == false)
             {
                 CameraShowoff.SetActive(true);
             }*/
 
-            fasesSave.fases[1] = true;
 
             portas[0].SetActive(true);
 
             doorBlock[0].SetActive(false);
-        }
 
-        else
-        {
-            FaseFutebol();
-        }
     }
 
     public void FaseTenis()
     {
         Destroy(npcs[0]);
 
-        fasesSave.fases[2] = true;
 
         portas[0].SetActive(false);
         portas[1].SetActive(true);
@@ -315,9 +309,6 @@ public class GameFlowManager : MonoBehaviour
     {
         Destroy(npcs[1]);
 
-        if (fasesSave.fases[4] == false)
-        {
-            fasesSave.fases[3] = true;
 
             portas[0].SetActive(false);
             portas[1].SetActive(false);
@@ -326,20 +317,12 @@ public class GameFlowManager : MonoBehaviour
             doorBlock[0].SetActive(true);
             doorBlock[1].SetActive(true);
             doorBlock[2].SetActive(false);
-        }
 
-        else
-        {
-            FaseMoto();
-        }
     }
 
     public void FaseMoto()
     {
-        Destroy(npcs[2]);
-        if (fasesSave.fases[6] == false)
-        {
-            fasesSave.fases[4] = true;
+        //Destroy(npcs[2]);
 
             portas[0].SetActive(false);
             portas[1].SetActive(false);
@@ -350,13 +333,12 @@ public class GameFlowManager : MonoBehaviour
             doorBlock[1].SetActive(true);
             doorBlock[2].SetActive(true);
             doorBlock[3].SetActive(false);
-        }
+        
     }
 
     public void FaseCabelo()
     {
         Destroy(npcs[3]);
-        fasesSave.fases[5] = true;
 
         portas[0].SetActive(false);
         portas[1].SetActive(false);
@@ -374,9 +356,7 @@ public class GameFlowManager : MonoBehaviour
     public void FaseCorrida()
     {
         Destroy(npcs[4]);
-        if (fasesSave.fases[8] == false)
-        {
-            fasesSave.fases[6] = true;
+
 
             portas[0].SetActive(false);
             portas[1].SetActive(false);
@@ -391,19 +371,12 @@ public class GameFlowManager : MonoBehaviour
             doorBlock[3].SetActive(true);
             doorBlock[4].SetActive(true);
             doorBlock[5].SetActive(false);
-        }
 
-        else
-        {
-            Acabou();
-            Completo();
-        }
     }
 
     public void FaseRoupa()
     {
         Destroy(npcs[5]);
-        fasesSave.fases[7] = true;
 
         portas[0].SetActive(false);
         portas[1].SetActive(false);

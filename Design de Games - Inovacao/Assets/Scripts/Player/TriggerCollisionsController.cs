@@ -538,7 +538,7 @@ public class TriggerCollisionsController : RaycastController
                 if (hit.collider.CompareTag("PortaTutorial"))
                 {
                     collisions.isDoor = true;
-                    PortaManager porta = hit.collider.GetComponent<PortaManager>();
+                    PortaTutorial porta = hit.collider.GetComponent<PortaTutorial>();
                     porta.abriPorta = true;
                     return;
                 }

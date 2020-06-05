@@ -18,6 +18,7 @@ public class ItemLocatorOnScreen : MonoBehaviour
     public TV tv;
 
     public bool desativa;
+    public bool porta;
 
 	void Start()
 	{
@@ -39,7 +40,15 @@ public class ItemLocatorOnScreen : MonoBehaviour
 	{
         if(tv != null)
         {
-            desativa = tv.faloComTV;
+            if (porta == false)
+            {
+                desativa = tv.faloComTV;
+            }
+
+            else
+            {
+                desativa = tv.precisaFalar;
+            }
         }
 		instance.transform.position = cam.WorldToScreenPoint(transform.position + positionAdjust);
 		if (instance.transform.position.y <= 0 || instance.transform.position.y >= Screen.height || instance.transform.position.x <= 0 || instance.transform.position.x >= Screen.width && desativa == false)
