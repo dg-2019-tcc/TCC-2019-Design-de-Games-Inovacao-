@@ -40,7 +40,7 @@ public class TV : MonoBehaviour
 			
 			if (!acabou01.Value[i])
 			{
-				if (!aiGanhou.Value[i])
+				if (!aiGanhou.Value[i-1])
 				{
 					CoisasAtivas(i, true);
 				}
