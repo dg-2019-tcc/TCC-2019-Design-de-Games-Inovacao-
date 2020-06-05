@@ -101,8 +101,8 @@ public class GameFlowManager : MonoBehaviour
 
                 if (SceneManager.GetActiveScene().name == "HUB")
                 {
-                    PhotonNetwork.OfflineMode = true;
-                    OfflineMode.modoDoOffline = true;
+                    /*PhotonNetwork.OfflineMode = true;
+                    OfflineMode.modoDoOffline = true;*/
 
                     if (aiGanhou.Value[0] == true)
                     {

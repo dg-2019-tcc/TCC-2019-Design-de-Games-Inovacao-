@@ -99,7 +99,7 @@ public class ColetaWin : MonoBehaviour
 					PlayerPrefs.SetInt("AIGanhou", 1);
 					aiGanhou.Value[1] = true;
 					playerGanhou.Value = false;
-					faseNome = "HUB";
+					faseNome = "TelaVitoria";
 					StartCoroutine("AcabouFase");
 
 				}
