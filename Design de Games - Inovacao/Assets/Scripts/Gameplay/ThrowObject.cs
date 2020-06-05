@@ -53,6 +53,8 @@ public class ThrowObject : MonoBehaviour
     public BoolVariable textoAtivo;
     public bool passouTexto;
 
+    public DogMovement dogMove;
+
     private void Awake()
     {
         textoAtivo = Resources.Load<BoolVariable>("TextoAtivo");
@@ -141,6 +143,11 @@ public class ThrowObject : MonoBehaviour
         if (carroActive.Value == true || pipaActive.Value == true)
         {
             desativaPower.Value = true;
+        }
+
+        if(!shouldShoot && textoAtivo.Value == false && carroActive.Value == false && pipaActive.Value == false)
+        {
+            dogMove.DoTrick();
         }
     }
 
