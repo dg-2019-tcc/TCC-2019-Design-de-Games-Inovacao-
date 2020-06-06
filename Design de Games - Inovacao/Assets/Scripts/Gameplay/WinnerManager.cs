@@ -35,7 +35,7 @@ public class WinnerManager : MonoBehaviour
 
 	private void Start()
 	{
-        buildProfs = true;
+        //buildProfs = true;
 		pv = GetComponent<PhotonView>();
 		isloading = false;
         feedback = FindObjectOfType<FeedbackText>();

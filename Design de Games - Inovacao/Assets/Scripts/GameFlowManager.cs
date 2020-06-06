@@ -87,7 +87,7 @@ public class GameFlowManager : MonoBehaviour
         }*/
         if (buildProfs == false)
         {
-            if (index < 8)
+            if (index <= 7 || acabou01.Value[5] == false)
             {
                 if (SceneManager.GetActiveScene().name == "MenuPrincipal")
                 {
@@ -104,7 +104,7 @@ public class GameFlowManager : MonoBehaviour
                     /*PhotonNetwork.OfflineMode = true;
                     OfflineMode.modoDoOffline = true;*/
 
-                    if (aiGanhou.Value[0] == true)
+                    if (aiGanhou.Value[0] == true || tv.precisaFalar == false)
                     {
                         AtivaFase(index);
                     }
