@@ -65,29 +65,31 @@ public class FutebolPlayer : MonoBehaviour
             superKickForceX = superKickForce.Value * -1;
         }
 
-        if (kicked == true && triggerController.collisions.chutouBola == true && controller.collisions.below == true)
+        if (kicked == false)
         {
-            gameObject.GetComponent<PhotonView>().RPC("KickBola", RpcTarget.MasterClient);
-            triggerController.collisions.chutouBola = false;
+            if (triggerController.collisions.tocouBola == true || triggerController.collisions.cabecaBola == true || triggerController.collisions.chutouBola == true)
+            {
+                gameObject.GetComponent<PhotonView>().RPC("TocouBola", RpcTarget.MasterClient);
+            }
         }
 
-
-        if (kicked == false && triggerController.collisions.chutouBola == true)
+        else
         {
-            gameObject.GetComponent<PhotonView>().RPC("TocouBola", RpcTarget.MasterClient);
-            triggerController.collisions.chutouBola = false;
+            if(triggerController.collisions.chutouBola == true || triggerController.collisions.cabecaBola == true)
+            {
+                if(controller.collisions.below == true)
+                {
+                    gameObject.GetComponent<PhotonView>().RPC("KickBola", RpcTarget.MasterClient);
+                }
+
+                else
+                {
+                    gameObject.GetComponent<PhotonView>().RPC("SuperKickBola", RpcTarget.MasterClient);
+                }
+            }
+
         }
 
-        if (kicked == true && triggerController.collisions.chutouBola == true && controller.collisions.below == false)
-        {
-            gameObject.GetComponent<PhotonView>().RPC("SuperKickBola", RpcTarget.MasterClient);
-            triggerController.collisions.chutouBola = false;
-        }
-
-        if(triggerController.collisions.cabecaBola == true)
-        {
-            gameObject.GetComponent<PhotonView>().RPC("TocouBola", RpcTarget.MasterClient);
-        }
     }
 
     public void Chute()
@@ -122,8 +124,13 @@ public class FutebolPlayer : MonoBehaviour
     public void TocouBola()
     {
         bolaFutebol.normal = true;
+
         ballrb.velocity = new Vector2(0, 0);
         ballrb.AddForce(new Vector2(normalX, normalY), ForceMode2D.Impulse);
+
+        triggerController.collisions.tocouBola = false;
+        triggerController.collisions.cabecaBola = false;
+        triggerController.collisions.chutouBola = false;
     }
 
     [PunRPC]
@@ -132,7 +139,11 @@ public class FutebolPlayer : MonoBehaviour
         bolaFutebol.kick = true;
         bolaFutebol.normal = false;
         bolaFutebol.superKick = false;
+
         ballrb.AddForce(new Vector2(kickForceX, Random.Range(kickForceY - randomForceY, kickForceY + randomForceY)), ForceMode2D.Impulse);
+
+        triggerController.collisions.chutouBola = false;
+        triggerController.collisions.cabecaBola = false;
     }
 
     [PunRPC]
@@ -141,6 +152,10 @@ public class FutebolPlayer : MonoBehaviour
         bolaFutebol.superKick = true;
         bolaFutebol.kick = false;
         bolaFutebol.normal = false;
+
         ballrb.AddForce(new Vector2(superKickForceX, kickForceY), ForceMode2D.Impulse);
+
+        triggerController.collisions.chutouBola = false;
+        triggerController.collisions.cabecaBola = false;
     }
 }

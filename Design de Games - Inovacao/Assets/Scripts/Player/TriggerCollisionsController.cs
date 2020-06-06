@@ -214,10 +214,14 @@ public class TriggerCollisionsController : RaycastController
                     }
                     if (PlayerThings.leftDir)
                     {
-                        collisions.cabecaBola = true;
-                        if (isBallKicked)
+                        if (hit.distance == 0)
                         {
-                            StartCoroutine(TocaSomChutaBola());
+                            collisions.tocouBola = true;
+                            Debug.Log("TocouBola");
+                            if (isBallKicked)
+                            {
+                                StartCoroutine(TocaSomChutaBola());
+                            }
                         }
                     }
                 }
@@ -369,10 +373,14 @@ public class TriggerCollisionsController : RaycastController
                 {
                     if (PlayerThings.rightDir)
                     {
-                        collisions.cabecaBola = true;
-                        if (isBallKicked)
+                        if (hit.distance == 0)
                         {
-                            StartCoroutine(TocaSomChutaBola());
+                            collisions.tocouBola = true;
+                            Debug.Log("TocouBola");
+                            if (isBallKicked)
+                            {
+                                StartCoroutine(TocaSomChutaBola());
+                            }
                         }
                     }
 
