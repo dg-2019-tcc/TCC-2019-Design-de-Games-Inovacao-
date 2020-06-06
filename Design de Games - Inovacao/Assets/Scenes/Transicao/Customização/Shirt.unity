@@ -1628,7 +1628,27 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4786757540372082303, guid: 035994962d7ecd546b6c6b6d597a2c29,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8887229562963365375, guid: 035994962d7ecd546b6c6b6d597a2c29,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8255465069731411780, guid: 035994962d7ecd546b6c6b6d597a2c29,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8209949983424353701, guid: 035994962d7ecd546b6c6b6d597a2c29,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8408857307018583953, guid: 035994962d7ecd546b6c6b6d597a2c29,
         type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -1929,6 +1949,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 3600670390665044348, guid: 035994962d7ecd546b6c6b6d597a2c29,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3522106018169433641, guid: 035994962d7ecd546b6c6b6d597a2c29,
         type: 3}
       propertyPath: m_Mesh
       value: 
@@ -2568,10 +2593,25 @@ PrefabInstance:
       propertyPath: viewIdField
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 6308899630370351403, guid: 035994962d7ecd546b6c6b6d597a2c29,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2259126688963163614, guid: 035994962d7ecd546b6c6b6d597a2c29,
         type: 3}
       propertyPath: viewIdField
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1960578516359583046, guid: 035994962d7ecd546b6c6b6d597a2c29,
+        type: 3}
+      propertyPath: letThemBeOn
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8487773119795606160, guid: 035994962d7ecd546b6c6b6d597a2c29,
+        type: 3}
+      propertyPath: letThemBeOn
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3611684682620546642, guid: 035994962d7ecd546b6c6b6d597a2c29,
         type: 3}
@@ -3937,46 +3977,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.z
       value: -3.01
-      objectReference: {fileID: 0}
-    - target: {fileID: 6308899630370351403, guid: 035994962d7ecd546b6c6b6d597a2c29,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8408857307018583953, guid: 035994962d7ecd546b6c6b6d597a2c29,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4786757540372082303, guid: 035994962d7ecd546b6c6b6d597a2c29,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8887229562963365375, guid: 035994962d7ecd546b6c6b6d597a2c29,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8209949983424353701, guid: 035994962d7ecd546b6c6b6d597a2c29,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3522106018169433641, guid: 035994962d7ecd546b6c6b6d597a2c29,
-        type: 3}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1960578516359583046, guid: 035994962d7ecd546b6c6b6d597a2c29,
-        type: 3}
-      propertyPath: letThemBeOn
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8487773119795606160, guid: 035994962d7ecd546b6c6b6d597a2c29,
-        type: 3}
-      propertyPath: letThemBeOn
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 035994962d7ecd546b6c6b6d597a2c29, type: 3}
@@ -5955,18 +5955,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 1
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1530318018}
-        m_MethodName: DesativaCoresButton
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 2
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -7817,6 +7806,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextIndex: 8
+  acabou01: {fileID: 0}
 --- !u!4 &1819911569
 Transform:
   m_ObjectHideFlags: 0
@@ -10078,6 +10068,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8923237833429209385}
   - component: {fileID: 8923237833429209384}
+  - component: {fileID: 8923237833429209388}
   m_Layer: 0
   m_Name: MenuManagerShort
   m_TagString: Untagged
@@ -10085,6 +10076,25 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
   m_IsActive: 1
+--- !u!114 &8923237833429209388
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8923237833429209387}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da8085bcaa974434292cc99c04572264, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colorButtons:
+  - {fileID: 1611028001}
+  - {fileID: 1211648056}
+  - {fileID: 1834474675}
+  - {fileID: 2053319006}
+  - {fileID: 704535338}
+  quantosBotoesAtiva: 3
 --- !u!114 &8923237833445079250
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10822,6 +10832,17 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 8923237833429209384}
         m_MethodName: DesativaCoresButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 8923237833429209388}
+        m_MethodName: ReativaButtons
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
