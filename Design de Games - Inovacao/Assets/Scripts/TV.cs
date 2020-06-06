@@ -46,7 +46,6 @@ public class TV : MonoBehaviour
 				if (!aiGanhou.Value[i])
 				{
 					CoisasAtivas(i , true);
-                    Debug.Log(i);
 				}
 				break;
 			}

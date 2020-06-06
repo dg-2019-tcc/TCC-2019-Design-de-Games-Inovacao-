@@ -173,7 +173,6 @@ public class DogMovement : MonoBehaviour
     public void DogJump()
     {
         isJumping = true;
-        Debug.Log("Jump");
         if (jumpTimes > 0)
         {
             velocity.y = maxJumpHeight + (jumpTimes * 5f);

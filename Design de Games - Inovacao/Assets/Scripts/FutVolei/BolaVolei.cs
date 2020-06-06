@@ -78,8 +78,9 @@ public class BolaVolei : MonoBehaviour
     }
 
     [PunRPC]
-    void BolaVoleiBranca()
+    public void BolaVoleiBranca()
     {
+        rb2d.gravityScale = 1;
         normal = false;
         corte = false;
         superCorte = false;
@@ -98,6 +99,7 @@ public class BolaVolei : MonoBehaviour
     [PunRPC]
     void BolaVoleiAmarela()
     {
+        rb2d.gravityScale = 1.5f;
         bolaSprite.color = Color.yellow;
 
         normal = false;
@@ -108,6 +110,7 @@ public class BolaVolei : MonoBehaviour
     [PunRPC]
     void BolaVoleiVermelha()
     {
+        rb2d.gravityScale = 2;
         bolaSprite.color = Color.red;
 
         normal = false;

@@ -488,7 +488,7 @@ public class TriggerCollisionsController : RaycastController
 
                 if (hit.collider.CompareTag("Volei"))
                 {
-                    collisions.tocouBola = true;
+                    collisions.cabecaBola = true;
                     if (isBallKicked)
                     {
                         StartCoroutine(TocaSomChutaBola());
