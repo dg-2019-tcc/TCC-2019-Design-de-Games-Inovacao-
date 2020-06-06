@@ -31,11 +31,13 @@ public class WinnerManager : MonoBehaviour
 
     public bool buildProfs;
 
-    private void Start()
+	private bool isloading = false;
+
+	private void Start()
 	{
         buildProfs = true;
 		pv = GetComponent<PhotonView>();
-
+		isloading = false;
         feedback = FindObjectOfType<FeedbackText>();
 
         acabou01 = Resources.Load<BoolVariableArray>("Acabou01");
@@ -45,7 +47,7 @@ public class WinnerManager : MonoBehaviour
 
         if (pv.IsMine)
 		{
-			gameObject.GetComponent<PhotonView>().RPC("ZeraPontuacao", RpcTarget.All);
+			pv.RPC("ZeraPontuacao", RpcTarget.All);
 
 			pv.Controller.SetScore(0);
 		}
@@ -91,8 +93,8 @@ public class WinnerManager : MonoBehaviour
 	{
         feedback.Ganhou();
         playerGanhou.Value = true;
-
-        if (buildProfs == false) {
+		if (isloading) return;
+		if (buildProfs == false) {
             if (acabou01.Value[5] == false)
             {
 
@@ -125,7 +127,7 @@ public class WinnerManager : MonoBehaviour
 
                 //	gameObject.GetComponent<PhotonView>().RPC("ZeraPontuacao", RpcTarget.All);
 
-                gameObject.GetComponent<PhotonView>().RPC("TrocaSala", RpcTarget.All);
+                pv.RPC("TrocaSala", RpcTarget.All);
                 ganhouCorrida = false;
                 //PlayerMovement.acabou = true;
             }
@@ -141,7 +143,7 @@ public class WinnerManager : MonoBehaviour
 
             //	gameObject.GetComponent<PhotonView>().RPC("ZeraPontuacao", RpcTarget.All);
 
-            gameObject.GetComponent<PhotonView>().RPC("TrocaSala", RpcTarget.All);
+            pv.RPC("TrocaSala", RpcTarget.All);
             ganhouCorrida = false;
 
         }
@@ -152,7 +154,8 @@ public class WinnerManager : MonoBehaviour
 	void PerdeuCorrida()
 	{
         feedback.Perdeu();
-        if (buildProfs == false)
+		if (isloading) return;
+		if (buildProfs == false)
         {
             if (acabou01.Value[5] == true || buildProfs == false)
             {
@@ -160,7 +163,7 @@ public class WinnerManager : MonoBehaviour
                 perdeuCorrida = true;
                 //PlayerThings.acabou = true;
                 PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 0;
-                gameObject.GetComponent<PhotonView>().RPC("TrocaSala", RpcTarget.MasterClient);
+                pv.RPC("TrocaSala", RpcTarget.MasterClient);
             }
 
             else
@@ -188,6 +191,7 @@ public class WinnerManager : MonoBehaviour
 	[PunRPC]
 	void TrocaSala()
 	{
+		isloading = true;
         Debug.Log("TrocaSala");
         ganhouCorrida = false;
 		perdeuCorrida = false;
@@ -208,7 +212,8 @@ public class WinnerManager : MonoBehaviour
 
     IEnumerator AcabouFase()
     {
-        yield return new WaitForSeconds(3f);
+		isloading = true;
+		yield return new WaitForSeconds(3f);
         SceneManager.LoadScene(faseNome);
     }
 
@@ -231,7 +236,7 @@ public class WinnerManager : MonoBehaviour
 
 		//gameObject.GetComponent<PhotonView>().RPC("ZeraPontuacao", RpcTarget.All);
 
-		gameObject.GetComponent<PhotonView>().RPC("TrocaSala", RpcTarget.All);
+		pv.RPC("TrocaSala", RpcTarget.All);
 
 	}
 
