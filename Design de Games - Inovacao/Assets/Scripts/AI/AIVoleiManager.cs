@@ -8,12 +8,14 @@ public class AIVoleiManager : MonoBehaviour
 
     public GameObject bola;
     public Transform bolaSpawnPoint;
+
+    private BolaVolei bolaVolei;
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Volei"))
         {
             bola = other.gameObject;
-
+            bolaVolei = bola.GetComponent<BolaVolei>();
             //GolSelect playerGol = GetComponentInParent<GolSelect>();
 
 
@@ -38,6 +40,7 @@ public class AIVoleiManager : MonoBehaviour
         yield return new WaitForSeconds(0.8f);
 
         bola.SetActive(true);
+        bolaVolei.BolaVoleiBranca();
 
         bola.GetComponent<Rigidbody2D>().isKinematic = false;
 

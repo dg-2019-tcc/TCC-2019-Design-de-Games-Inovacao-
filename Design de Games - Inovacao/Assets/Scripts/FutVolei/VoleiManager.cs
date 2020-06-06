@@ -25,6 +25,13 @@ public class VoleiManager : MonoBehaviour
 
     public FeedbackText feedbackText;
 
+    private BolaVolei bolaVolei;
+
+    private void Start()
+    {
+        bolaVolei = bola.GetComponent<BolaVolei>();
+    }
+
     private void Update()
     {
         if (botScore.Value >= maxPoints)
@@ -45,7 +52,6 @@ public class VoleiManager : MonoBehaviour
             index++;
             playerGol.jogador.PV.Owner.AddScore(1);
 
-            Debug.Log(index);
 
             RecomecaVolei();
             placarText.text = playerGol.jogador.PV.Owner.GetScore().ToString();
@@ -89,6 +95,7 @@ public class VoleiManager : MonoBehaviour
 
         yield return new WaitForSeconds(3f);
         bola.SetActive(true);
+        bolaVolei.BolaVoleiBranca();
 
         bola.GetComponent<Rigidbody2D>().isKinematic = false;
 

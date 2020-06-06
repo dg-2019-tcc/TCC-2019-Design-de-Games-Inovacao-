@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fca654c4340afa4eb9055082b46900c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldownKick: 0.5
-  corteForceX: 15
-  corteForceY: 18
-  superForceX: 25
-  superForceY: 15
+  cooldownKick: 1
+  corteForceX: 50
+  corteForceY: 70
+  superForceX: 100
+  superForceY: 80
   joyStick: {fileID: 0}
   triggerController: {fileID: 0}
   controller: {fileID: 0}
@@ -103,6 +103,11 @@ PrefabInstance:
       propertyPath: viewIdField
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5640028172459022801, guid: 650c79142e52b1a46944cd798e3de766,
+        type: 3}
+      propertyPath: collisionMask.m_Bits
+      value: 98304
+      objectReference: {fileID: 0}
     - target: {fileID: 5640028172459022802, guid: 650c79142e52b1a46944cd798e3de766,
         type: 3}
       propertyPath: maxJumpHeight
@@ -121,10 +126,27 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 5f9d9531f94026249904fe676bc05e04,
         type: 2}
+    - target: {fileID: 5640028172459022802, guid: 650c79142e52b1a46944cd798e3de766,
+        type: 3}
+      propertyPath: accelerationAir
+      value: 
+      objectReference: {fileID: 11400000, guid: 0ae9292e5baf44a499f17800187db530,
+        type: 2}
+    - target: {fileID: 5640028172459022802, guid: 650c79142e52b1a46944cd798e3de766,
+        type: 3}
+      propertyPath: accelerationGround
+      value: 
+      objectReference: {fileID: 11400000, guid: 8f2cfba0be37a7942815f43cf752d628,
+        type: 2}
     - target: {fileID: 8508697067573004208, guid: 650c79142e52b1a46944cd798e3de766,
         type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3078843700560388366, guid: 650c79142e52b1a46944cd798e3de766,
+        type: 3}
+      propertyPath: arremessoAnimation
+      value: 6_Arremessar(3_Arremesso)
       objectReference: {fileID: 0}
     - target: {fileID: 4521075223018411552, guid: 650c79142e52b1a46944cd798e3de766,
         type: 3}
@@ -136,10 +158,25 @@ PrefabInstance:
       propertyPath: isBallGame
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1005780885937720603, guid: 650c79142e52b1a46944cd798e3de766,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 3774666481171245066, guid: 650c79142e52b1a46944cd798e3de766,
         type: 3}
       propertyPath: viewIdField
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8508697067510640984, guid: 650c79142e52b1a46944cd798e3de766,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 580600389557522229, guid: 650c79142e52b1a46944cd798e3de766,
+        type: 3}
+      propertyPath: animationName
+      value: 5_Abaixar(2_IdlePose)
       objectReference: {fileID: 0}
     - target: {fileID: 1253768275922279408, guid: 650c79142e52b1a46944cd798e3de766,
         type: 3}
@@ -151,9 +188,29 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: Corte
       objectReference: {fileID: 0}
+    - target: {fileID: 7345734631145716267, guid: 650c79142e52b1a46944cd798e3de766,
+        type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 4201517746149838592}
+    - target: {fileID: 7345734631145716267, guid: 650c79142e52b1a46944cd798e3de766,
+        type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Corte
+      objectReference: {fileID: 0}
+    - target: {fileID: 7345734631145716267, guid: 650c79142e52b1a46944cd798e3de766,
+        type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 348712840111027082, guid: 650c79142e52b1a46944cd798e3de766,
         type: 3}
       propertyPath: viewIdField
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1542971010362074074, guid: 650c79142e52b1a46944cd798e3de766,
+        type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5094888798023898610, guid: 650c79142e52b1a46944cd798e3de766,
@@ -289,6 +346,11 @@ PrefabInstance:
     - target: {fileID: 5788439618532765766, guid: 650c79142e52b1a46944cd798e3de766,
         type: 3}
       propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 217561499896422823, guid: 650c79142e52b1a46944cd798e3de766,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 2339149517996721040, guid: 650c79142e52b1a46944cd798e3de766,
@@ -3623,36 +3685,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5640028172459022801, guid: 650c79142e52b1a46944cd798e3de766,
-        type: 3}
-      propertyPath: collisionMask.m_Bits
-      value: 98304
-      objectReference: {fileID: 0}
-    - target: {fileID: 8508697067510640984, guid: 650c79142e52b1a46944cd798e3de766,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7345734631145716267, guid: 650c79142e52b1a46944cd798e3de766,
-        type: 3}
-      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 7345734631145716267, guid: 650c79142e52b1a46944cd798e3de766,
-        type: 3}
-      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: CortouBall
-      objectReference: {fileID: 0}
-    - target: {fileID: 7345734631145716267, guid: 650c79142e52b1a46944cd798e3de766,
-        type: 3}
-      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 1005780885937720603, guid: 650c79142e52b1a46944cd798e3de766,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1985216322168915603, guid: 650c79142e52b1a46944cd798e3de766,
         type: 3}

@@ -1,4 +1,4 @@
-﻿using Photon.Pun;
+﻿ using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -61,54 +61,44 @@ public class HandVolei : MonoBehaviour
             if (joyStick.Horizontal > 0)
             {
                 rightDir = true;
-                //gameObject.GetComponent<PhotonView>().RPC("GiraHand", RpcTarget.All, rightDir);
             }
 
             else if (joyStick.Horizontal < 0)
             {
                 rightDir = false;
-                //gameObject.GetComponent<PhotonView>().RPC("GiraHand", RpcTarget.All, rightDir);
             }
         }
 
-        if(triggerController.collisions.tocouBola == true)
+        if (triggerController.collisions.cortaBola == true || triggerController.collisions.cabecaBola == true || triggerController.collisions.tocouBola == true)
         {
-            gameObject.GetComponent<PhotonView>().RPC("BateBola", RpcTarget.MasterClient);
-        }
+            if(cortou == true)
+            {
+                if (controller.collisions.below == false)
+                {
+                    gameObject.GetComponent<PhotonView>().RPC("SuperCortaBola", RpcTarget.MasterClient);
+                }
 
-        if(triggerController.collisions.cortaBola == true && cortou == true && controller.collisions.above == false)
-        {
-            Debug.Log("SUPER");
-            gameObject.GetComponent<PhotonView>().RPC("SuperCortaBola", RpcTarget.MasterClient);
-        }
+                else
+                {
+                    gameObject.GetComponent<PhotonView>().RPC("CortaBola", RpcTarget.MasterClient);
+                }
+            }
 
-        if(triggerController.collisions.cortaBola == true)
-        {
-            Debug.Log("nORMAL");
-            gameObject.GetComponent<PhotonView>().RPC("CortaBola", RpcTarget.MasterClient);
+            else
+            {
+                gameObject.GetComponent<PhotonView>().RPC("BateBola", RpcTarget.MasterClient);
+            }
         }
     }
 
     public void Corte()
     {
-        /*if (joyStick.Vertical != 0)
-        {
-            forceVertical = corteForceY * joyStick.Vertical * 2;
-            Debug.Log(forceVertical);
-        }
-
-        else
-        {
-            forceVertical = 5f;
-        }*/
-        //Debug.Log(forceVertical);
-        gameObject.GetComponent<PhotonView>().RPC("CortouBall", RpcTarget.MasterClient, corteForceY);
+        gameObject.GetComponent<PhotonView>().RPC("CortouBall", RpcTarget.MasterClient);
     }
 
     [PunRPC]
-    public void CortouBall(float force)
+    public void CortouBall()
     {
-        forceVertical = force;
         if (cortou == false)
         {
             StartCoroutine("CoolHand");
@@ -128,35 +118,30 @@ public class HandVolei : MonoBehaviour
     [PunRPC]
     public void BateBola()
     {
-        ballrb.AddForce(new Vector2(corteForceX, 15), ForceMode2D.Impulse);
+        ballrb.velocity = new Vector2(0, 0);
+
+        ballrb.AddForce(new Vector2(10, 50), ForceMode2D.Impulse);
     }
 
 
     [PunRPC]
     public void CortaBola()
-    { 
+    {
+        ballrb.velocity = new Vector2(0, 0);
+
         bolaVolei.corte = true;
-        //ballrb.velocity = new Vector2(0, 0);
-        ballrb.AddForce(new Vector2(corteForceX, corteForceY), ForceMode2D.Impulse);
+
+        ballrb.AddForce(new Vector2(Random.Range(corteForceX - 10, 10 + corteForceX), corteForceY), ForceMode2D.Impulse);
     }
 
     [PunRPC]
     public void SuperCortaBola()
     {
+        ballrb.velocity = new Vector2(0, 0);
 
-        Debug.Log("SuperCortaBola");
-        /*if (joyStick.Vertical != 0)
-        {
-            forceVertical = corteForceY * joyStick.Vertical * 2;
-            Debug.Log(forceVertical);
-        }
-
-        else
-        {
-            forceVertical = 50f;
-        }*/
         bolaVolei.superCorte = true;
-        ballrb.AddForce(new Vector2(superForceX, superForceY), ForceMode2D.Impulse);
+
+        ballrb.AddForce(new Vector2(Random.Range(10 -superForceX,10 + superForceX), superForceY), ForceMode2D.Impulse);
     }
 
 }

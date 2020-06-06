@@ -54,7 +54,7 @@ public class HeadAI : MonoBehaviour
         ballrb = triggerController.rbBola;
         ballrb.velocity = new Vector2(0, 0);
 
-        ballrb.AddForce(new Vector2(headForceX * 10, headForceY * 15), ForceMode2D.Impulse);
+        ballrb.AddForce(new Vector2(headForceX * 5, headForceY * 5), ForceMode2D.Impulse);
     }
 
     public void Chuta()

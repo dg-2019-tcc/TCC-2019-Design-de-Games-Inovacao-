@@ -27,7 +27,7 @@ public class AIMovement : MonoBehaviour
 	//public TriggerCollisionInfo collisions;
 	public AIController2D aiController2D;
     public AITriggerController triggerController;
-    private AnimationsAI animAI;
+    public AnimationsAI animAI;
     public Rigidbody2D rbBola;
 	public GameObject ai;
 
@@ -119,7 +119,7 @@ public class AIMovement : MonoBehaviour
         {
             triggerController.RayTriggerDirection();
 
-            if (transform.position.x - target.transform.position.x > 2)
+            if (transform.position.x - target.transform.position.x > 2f)
             {
                 return;
             }
@@ -141,11 +141,15 @@ public class AIMovement : MonoBehaviour
                     AIJump();
                 }
             }
-
+            Debug.Log("A");
             velocity.x = speed * input.x;
+            Debug.Log("B");
             velocity.y += gravity * Time.deltaTime;
+            Debug.Log("C");
             aiController2D.Move(velocity * Time.deltaTime, input);
+            Debug.Log("D");
             animAI.ChangeAnimAI(velocity, oldPosition, input, isJumping);
+            Debug.Log("E");
         }
 
         if (isFut)
