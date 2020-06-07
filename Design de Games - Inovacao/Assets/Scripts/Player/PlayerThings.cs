@@ -227,8 +227,10 @@ public class PlayerThings : MonoBehaviour
 
 	public IEnumerator LevouDogada()
 	{
-
-		levou.Value = true;
+		if (PV.Owner.IsLocal)
+		{
+			levou.Value = true;
+		}
 		yield return new WaitForSeconds(StunTime);
 		levou.Value = false;
 

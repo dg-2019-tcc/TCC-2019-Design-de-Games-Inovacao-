@@ -203,9 +203,15 @@ public class ThrowObject : MonoBehaviour
 
 	IEnumerator CooldownEffect()
 	{
-        dogAtivo.Value = false;
+		if (photonView.Owner.IsLocal)
+		{
+			dogAtivo.Value = false;
+		}
         yield return new WaitForSeconds(cooldown);
-        dogAtivo.Value = true;
+		if (photonView.Owner.IsLocal)
+		{
+			dogAtivo.Value = true;
+		}
         //gameObject.GetComponent<PhotonView>().RPC("TransformaPet", RpcTarget.All, false);
         atirando = false;
     }
