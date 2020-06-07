@@ -156,7 +156,7 @@ public class AIMovement : MonoBehaviour
         {
             triggerController.RayTriggerDirection();
 
-            if(triggerController.triggerCollision.botArea == false)
+            if(triggerController.triggerCollision.botArea == true)
             {
                 transform.position = target.transform.position;
             }

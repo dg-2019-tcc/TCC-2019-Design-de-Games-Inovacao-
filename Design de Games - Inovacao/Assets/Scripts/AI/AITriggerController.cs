@@ -52,7 +52,7 @@ public class AITriggerController : RaycastController
             rayOrigin += Vector2.up * (horizontalRaySpacing * i);
             RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.right * directionX, rayLenght, collisionMask);
 
-            Debug.DrawRay(rayOrigin, Vector2.right * directionX, Color.red);
+            //Debug.DrawRay(rayOrigin, Vector2.right * directionX, Color.red);
 
             if (hit)
             {
@@ -80,6 +80,8 @@ public class AITriggerController : RaycastController
 
                 if (hit.collider.CompareTag("Futebol"))
                 {
+
+                    Debug.Log("Direita");
                     if (rbBola == null)
                     {
                         rbBola = hit.collider.GetComponent<Rigidbody2D>();
@@ -122,7 +124,10 @@ public class AITriggerController : RaycastController
 
                 if (hit.collider.CompareTag("BotArea"))
                 {
-                    triggerCollision.botArea = true;
+                    if (hit.distance == 0)
+                    {
+                        triggerCollision.botArea = true;
+                    }
                 }
 
                 /*if (hit.collider.tag == "Area")
@@ -164,6 +169,7 @@ public class AITriggerController : RaycastController
 
                 if (hit.collider.CompareTag("Futebol"))
                 {
+                    Debug.Log("Esquerda");
                     if (rbBola == null)
                     {
                         rbBola = hit.collider.GetComponent<Rigidbody2D>();
@@ -205,7 +211,10 @@ public class AITriggerController : RaycastController
 
                 if (hit.collider.CompareTag("BotArea"))
                 {
-                    triggerCollision.botArea = true;
+                    if (hit.distance == 0)
+                    {
+                        triggerCollision.botArea = true;
+                    }
                 }
             }
         }
@@ -222,7 +231,7 @@ public class AITriggerController : RaycastController
             rayOrigin += Vector2.right * (verticalRaySpacing * i);
             RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.up * directionY, rayLenght, collisionMask);
 
-            //Debug.DrawRay(rayOrigin, Vector2.up * directionY, Color.red);
+            Debug.DrawRay(rayOrigin, Vector2.up * directionY, Color.red);
 
             if (hit)
             {
@@ -240,6 +249,8 @@ public class AITriggerController : RaycastController
 
                 if(hit.collider.CompareTag("Futebol"))
                 {
+                    Debug.Log("Direita");
+
                     if (rbBola == null)
                     {
                         rbBola = hit.collider.GetComponent<Rigidbody2D>();
@@ -275,7 +286,10 @@ public class AITriggerController : RaycastController
 
                 if (hit.collider.CompareTag("BotArea"))
                 {
-                    triggerCollision.botArea = true;
+                    if (hit.distance == 0)
+                    {
+                        triggerCollision.botArea = true;
+                    }
                 }
             }
         }
@@ -327,7 +341,10 @@ public class AITriggerController : RaycastController
 
                 if (hit.collider.CompareTag("BotArea"))
                 {
-                    triggerCollision.botArea = true;
+                    if (hit.distance == 0)
+                    {
+                        triggerCollision.botArea = true;
+                    }
                 }
             }
         }

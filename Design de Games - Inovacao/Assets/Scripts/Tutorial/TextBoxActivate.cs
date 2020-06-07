@@ -11,8 +11,6 @@ public class TextBoxActivate : MonoBehaviour
 
     public BoolVariable textoAtivo;
 
-    public int nextFaseIndex;
-    public bool shouldChangeIndex;
 
     private void Start()
     {
@@ -25,11 +23,7 @@ public class TextBoxActivate : MonoBehaviour
 		if (blocker != null) return;
 		TextBox.SetActive(true);
         textoAtivo.Value = true;
-        if (shouldChangeIndex)
-        {
-            PlayerPrefs.SetInt("Fase", nextFaseIndex);
-            Debug.Log("Change");
-        }
+
 		Destroy(gameObject);
 
 	}
