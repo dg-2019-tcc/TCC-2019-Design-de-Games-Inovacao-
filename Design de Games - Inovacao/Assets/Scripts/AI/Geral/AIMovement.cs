@@ -156,6 +156,11 @@ public class AIMovement : MonoBehaviour
         {
             triggerController.RayTriggerDirection();
 
+            if(triggerController.triggerCollision.botArea == false)
+            {
+                transform.position = target.transform.position;
+            }
+
             if (transform.position.x - target.transform.position.x > 1)
             {
                 GoLeft();

@@ -56,7 +56,7 @@ public class AITriggerController : RaycastController
 
             if (hit)
             {
-                if (hit.collider.tag == "LinhaDeChegada" && hit.distance == 0)
+                if (hit.collider.CompareTag("LinhaDeChegada") && hit.distance == 0)
                 {
                     Debug.Log("AIGanhou");
                     triggerCollision.ganhou = true;
@@ -65,7 +65,7 @@ public class AITriggerController : RaycastController
                 }
 
 
-                if (hit.collider.tag == "Coletavel")
+                if (hit.collider.CompareTag("Coletavel"))
                 {
                     triggerCollision.isRight = true;
 
@@ -78,7 +78,7 @@ public class AITriggerController : RaycastController
                     }
                 }
 
-                if (hit.collider.tag == "Futebol")
+                if (hit.collider.CompareTag("Futebol"))
                 {
                     if (rbBola == null)
                     {
@@ -91,7 +91,7 @@ public class AITriggerController : RaycastController
                     }
                 }
 
-                if (hit.collider.tag == "Volei")
+                if (hit.collider.CompareTag("Volei"))
                 {
                     if (rbBola == null)
                     {
@@ -105,19 +105,24 @@ public class AITriggerController : RaycastController
                     }
                 }
 
-                if (hit.collider.tag == "Plataforma")
+                if (hit.collider.CompareTag("Plataforma"))
                 {
                     triggerCollision.needJump = true;
                 }
 
-                if (hit.collider.tag == "Barreira")
+                if (hit.collider.CompareTag("Barreira"))
                 {
                     triggerCollision.needJump = true;
                 }
 
-                if (hit.collider.tag == "AITrigger")
+                if (hit.collider.CompareTag("AITrigger"))
                 {
                     triggerCollision.needJump = true;
+                }
+
+                if (hit.collider.CompareTag("BotArea"))
+                {
+                    triggerCollision.botArea = true;
                 }
 
                 /*if (hit.collider.tag == "Area")
@@ -145,7 +150,7 @@ public class AITriggerController : RaycastController
 
             if (hit)
             {
-                if (hit.collider.tag == "Coletavel")
+                if (hit.collider.CompareTag("Coletavel"))
                 {
                     triggerCollision.isLeft = true;
                     if (hit.distance == 0)
@@ -157,7 +162,7 @@ public class AITriggerController : RaycastController
                     }
                 }
 
-                if (hit.collider.tag == "Futebol")
+                if (hit.collider.CompareTag("Futebol"))
                 {
                     if (rbBola == null)
                     {
@@ -179,7 +184,7 @@ public class AITriggerController : RaycastController
                     }
                 }
 
-                if (hit.collider.tag == "Volei")
+                if (hit.collider.CompareTag("Volei"))
                 {
                     if (rbBola == null)
                     {
@@ -193,9 +198,14 @@ public class AITriggerController : RaycastController
                     }
                 }
 
-                if (hit.collider.tag == "Area")
+                if (hit.collider.CompareTag("Area"))
                 {
                     triggerCollision.naArea = true;
+                }
+
+                if (hit.collider.CompareTag("BotArea"))
+                {
+                    triggerCollision.botArea = true;
                 }
             }
         }
@@ -216,7 +226,7 @@ public class AITriggerController : RaycastController
 
             if (hit)
             {
-                if (hit.collider.tag == "Coletavel")
+                if (hit.collider.CompareTag("Coletavel"))
                 {
                     triggerCollision.isUp = true;
                     if (hit.distance == 0)
@@ -228,7 +238,7 @@ public class AITriggerController : RaycastController
                     }
                 }
 
-                if(hit.collider.tag == "Futebol")
+                if(hit.collider.CompareTag("Futebol"))
                 {
                     if (rbBola == null)
                     {
@@ -243,7 +253,7 @@ public class AITriggerController : RaycastController
                     }
                 }
 
-                if (hit.collider.tag == "Volei")
+                if (hit.collider.CompareTag("Volei"))
                 {
                     if (rbBola == null)
                     {
@@ -258,9 +268,14 @@ public class AITriggerController : RaycastController
                     }
                 }
 
-                if (hit.collider.tag == "Area")
+                if (hit.collider.CompareTag("Area"))
                 {
                     triggerCollision.naArea = true;
+                }
+
+                if (hit.collider.CompareTag("BotArea"))
+                {
+                    triggerCollision.botArea = true;
                 }
             }
         }
@@ -281,7 +296,7 @@ public class AITriggerController : RaycastController
 
             if (hit)
             {
-                if (hit.collider.tag == "Coletavel")
+                if (hit.collider.CompareTag("Coletavel"))
                 {
                     triggerCollision.isDown = true;
 
@@ -294,20 +309,25 @@ public class AITriggerController : RaycastController
                 }
 
 
-                if (hit.collider.tag == "AITrigger")
+                if (hit.collider.CompareTag("AITrigger"))
                 {
                     triggerCollision.needJump = true;
                 }
 
-                if (hit.collider.tag == "Area")
+                if (hit.collider.CompareTag("Area"))
                 {
                     triggerCollision.naArea = true;
                 }
 
 
-                if (hit.collider.tag == "CaixaDagua")
+                if (hit.collider.CompareTag("CaixaDagua"))
                 {
                     triggerCollision.caixaDagua = true;
+                }
+
+                if (hit.collider.CompareTag("BotArea"))
+                {
+                    triggerCollision.botArea = true;
                 }
             }
         }
@@ -323,6 +343,7 @@ public class AITriggerController : RaycastController
         public bool ganhou;
         public bool caixaDagua;
         public bool ativaAnimChute;
+        public bool botArea;
 
         public void Reset()
         {
@@ -333,6 +354,7 @@ public class AITriggerController : RaycastController
             ganhou = false;
             caixaDagua = false;
             ativaAnimChute = false;
+            botArea = false;
         }
     }
 }
