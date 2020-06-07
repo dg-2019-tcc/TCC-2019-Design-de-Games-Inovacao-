@@ -91,4 +91,13 @@ public class ItemLocatorOnScreen : MonoBehaviour
 		}
 		
 	}
+
+	public void TurnOffLocator()
+	{
+		if (instance != null)
+		{
+			instance.SetActive(false);
+		}
+		this.enabled = false;
+	}
 }
