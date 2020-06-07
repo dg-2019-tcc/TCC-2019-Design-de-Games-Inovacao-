@@ -34,8 +34,9 @@ public class PauseManager : MonoBehaviourPunCallbacks
     {
         FMODUnity.RuntimeManager.PlayOneShot("event:/HUD/Click", GetComponent<Transform>().position);
 		FailMessageManager.manualShutdown= true;
-        PhotonNetwork.Disconnect();
 		goBack = true;
+		PhotonNetwork.Disconnect();
+		
     }
 
     public void VoltaJogo()
