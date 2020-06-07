@@ -100,7 +100,7 @@ public class GameFlowManager : MonoBehaviour
         }*/
         if (buildProfs == false)
         {
-            if (index <= 7 || acabou01.Value[5] == false)
+            if (acabou01.Value[8] == false)
             {
                 if (SceneManager.GetActiveScene().name == "MenuPrincipal")
                 {
