@@ -31,6 +31,8 @@ public class GolManager : MonoBehaviourPunCallbacks
     public FeedbackText feedbackWin;
 
 
+	private bool isLoading = false;
+
 
     private void Start()
     {
@@ -51,7 +53,9 @@ public class GolManager : MonoBehaviourPunCallbacks
             aiGanhou.Value[3] = true;
             playerGanhou.Value = false;
             PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 0;
-            StartCoroutine("AcabouFase");
+			if (isLoading) return;
+			isLoading = true;
+			StartCoroutine("AcabouFase");
         }
     }
 
@@ -73,7 +77,9 @@ public class GolManager : MonoBehaviourPunCallbacks
                 feedbackWin.Ganhou();
                 aiGanhou.Value[3] = false;
                 playerGanhou.Value = true;
-                StartCoroutine("AcabouFase");
+				if (isLoading) return;
+				isLoading = true;
+				StartCoroutine("AcabouFase");
             }
             
         }
@@ -82,7 +88,7 @@ public class GolManager : MonoBehaviourPunCallbacks
 
     IEnumerator AcabouFase()
     {
-
+		isLoading = true;
         yield return new WaitForSeconds(3f);
         if (aiGanhou.Value[3] == true)
         {
