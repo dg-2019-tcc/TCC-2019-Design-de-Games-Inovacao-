@@ -97,7 +97,7 @@ public class ColetaWin : MonoBehaviour
 					winning.CustomProperties["Ganhador"] = 0;
 					PlayerPrefs.SetInt("GanhouColeta", 0);
 					PlayerPrefs.SetInt("AIGanhou", 1);
-					aiGanhou.Value[1] = true;
+					aiGanhou.Value[2] = true;
 					playerGanhou.Value = false;
 					faseNome = "TelaVitoria";
 					StartCoroutine("AcabouFase");
@@ -133,7 +133,7 @@ public class ColetaWin : MonoBehaviour
                     winning.CustomProperties["Ganhador"] = 0;
                     PlayerPrefs.SetInt("GanhouColeta", 0);
                     PlayerPrefs.SetInt("AIGanhou", 1);
-                    aiGanhou.Value[1] = true;
+                    aiGanhou.Value[2] = true;
                     playerGanhou.Value = false;
                     faseNome = "HUB";
                 }
@@ -144,7 +144,7 @@ public class ColetaWin : MonoBehaviour
                     winning.CustomProperties["Ganhador"] = 1;
                     PlayerPrefs.SetInt("GanhouColeta", 1);
                     PlayerPrefs.SetInt("AIGanhou", 0);
-                    aiGanhou.Value[1] = false;
+                    aiGanhou.Value[2] = false;
                     playerGanhou.Value = true;
                     faseNome = "HistoriaColeta";
                 }

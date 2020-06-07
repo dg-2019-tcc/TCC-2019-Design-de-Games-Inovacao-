@@ -23,14 +23,11 @@ public class FirstTextBoxOnHUB : MonoBehaviour
 			acabou01 = Resources.Load<BoolVariableArray>("Acabou01");
 		}
 
-		tv = FindObjectOfType<TV>();
-
-		
+		tv = FindObjectOfType<TV>();		
 	}
 
 	private void OnDestroy()
 	{
-		
 		acabou01.Value[0] = true;
 		tv.CoisasAtivas(1, true);
 	}

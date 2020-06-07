@@ -16,10 +16,8 @@ public class TV : MonoBehaviour
 
     public GameFlowManager gameFlow;
 
-
     void Start()
     {
-
         pointer = GetComponent<ItemLocatorOnScreen>();
 
         if (acabou01 == null)
@@ -66,21 +64,12 @@ public class TV : MonoBehaviour
 
     }
 
-    private void Update()
-    {
-        if(faloComTV == true)
-        {
-            FalouComTV();
-            pointer.enabled = false;
-        }
-    }
-
-    void FalouComTV()
+    public void FalouComTV()
     {
         pointer.enabled = false;
         precisaFalar = false;
         faloComTV = true;
         Debug.Log(gameFlow.index);
-        gameFlow.AtivaFase(gameFlow.index);
+        gameFlow.AtivaFase();
     }
 }

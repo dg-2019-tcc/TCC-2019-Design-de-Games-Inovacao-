@@ -7,7 +7,7 @@ public class FlowHistoriaMCFases : MonoBehaviour
 	public BoolVariableArray acabou01;
 	public int indexDaFase;
 
-	private void Start()
+	/*private void Start()
 	{
 		if (acabou01 == null)
 		{
@@ -17,5 +17,5 @@ public class FlowHistoriaMCFases : MonoBehaviour
 	private void OnDestroy()
 	{
 		acabou01.Value[indexDaFase] = true;
-	}
+	}*/
 }
