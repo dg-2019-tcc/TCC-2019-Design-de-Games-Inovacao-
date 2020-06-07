@@ -71,7 +71,7 @@ public class WinnerManager : MonoBehaviour
 				StartCoroutine(Venceu());
 			}*/
 
-                if (perdeuCorrida && ganhouCorrida)
+                if (perdeuCorrida && ganhouCorrida && !isloading)
                 {
                     PerdeuCorrida();
                 }

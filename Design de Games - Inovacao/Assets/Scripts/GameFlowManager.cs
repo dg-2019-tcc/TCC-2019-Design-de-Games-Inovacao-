@@ -45,6 +45,8 @@ public class GameFlowManager : MonoBehaviour
     public GameObject liberaButton;
 
 
+	private string sceneName;
+
     private void Start()
     {
        // buildProfs = true;
@@ -93,16 +95,19 @@ public class GameFlowManager : MonoBehaviour
 
         }
 
-        // Desativei pq se nao roda a fala do mc
-        /*if (CameraShowoff != null)
+		// Desativei pq se nao roda a fala do mc
+		/*if (CameraShowoff != null)
         {
             CameraShowoff.SetActive(false);
         }*/
-        if (buildProfs == false)
+
+		sceneName = SceneManager.GetActiveScene().name;
+
+		if (buildProfs == false)
         {
             if (acabou01.Value[8] == false)
             {
-                if (SceneManager.GetActiveScene().name == "MenuPrincipal")
+                if (sceneName == "MenuPrincipal")
                 {
                     offlineButton.SetActive(false);
                     jogarButton.SetActive(true);
@@ -112,7 +117,7 @@ public class GameFlowManager : MonoBehaviour
                 }
 
 
-                if (SceneManager.GetActiveScene().name == "HUB")
+                if (sceneName == "HUB")
                 {
                     /*PhotonNetwork.OfflineMode = true;
                     OfflineMode.modoDoOffline = true;*/
@@ -130,12 +135,12 @@ public class GameFlowManager : MonoBehaviour
 
             else
             {
-                if (SceneManager.GetActiveScene().name == "MenuPrincipal")
+                if (sceneName == "MenuPrincipal")
                 {
                     offlineButton.SetActive(true);
                 }
 
-                if (SceneManager.GetActiveScene().name == "HUB")
+                if (sceneName == "HUB")
                 {
                     Acabou();
                     Completo();
@@ -146,7 +151,7 @@ public class GameFlowManager : MonoBehaviour
 
         else
         {
-            if (SceneManager.GetActiveScene().name == "MenuPrincipal")
+            if (sceneName == "MenuPrincipal")
             {
                 resetaButton.SetActive(false);
                 liberaButton.SetActive(false);
@@ -161,7 +166,7 @@ public class GameFlowManager : MonoBehaviour
                 OfflineMode.modoDoOffline = true;
             }
 
-            if (SceneManager.GetActiveScene().name == "HUB")
+            if (sceneName == "HUB")
             {
                 Completo();
                 Acabou();
@@ -437,23 +442,17 @@ public class GameFlowManager : MonoBehaviour
             Destroy(npcs[i]);
         }
 
-        portas[0].SetActive(true);
-        portas[1].SetActive(true);
-        portas[2].SetActive(true);
-        portas[3].SetActive(true);
-        portas[4].SetActive(true);
-        portas[5].SetActive(true);
-        portas[6].SetActive(true);
-        portas[7].SetActive(true);
+		for (int i = 0; i < portas.Length; i++)
+		{
+			portas[i].SetActive(true);
+			portas[i].SendMessage("TurnOffLocator");
+		}
 
-        doorBlock[0].SetActive(false);
-        doorBlock[1].SetActive(false);
-        doorBlock[2].SetActive(false);
-        doorBlock[3].SetActive(false);
-        doorBlock[4].SetActive(false);
-        doorBlock[5].SetActive(false);
-        doorBlock[6].SetActive(false);
-        doorBlock[7].SetActive(false);
+		for (int i = 0; i < doorBlock.Length; i++)
+		{
+			doorBlock[i].SetActive(false);
+		}
+        
     }
 
     public void FechaTudo()

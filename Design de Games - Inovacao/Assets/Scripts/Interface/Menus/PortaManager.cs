@@ -18,7 +18,7 @@ public class PortaManager : MonoBehaviour
     public GameObject placaTenis;
     public GameObject placaBazar;
     public GameObject placaCabelo;
-
+	
     /*public GameObject ButtonRoupa;
 
     public GameObject customButtons;*/
