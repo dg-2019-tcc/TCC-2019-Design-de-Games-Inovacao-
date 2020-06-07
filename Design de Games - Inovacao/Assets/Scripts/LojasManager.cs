@@ -8,10 +8,10 @@ public class LojasManager : MonoBehaviour
 	public BoolVariableArray acabou01;
 
     // Start is called before the first frame update
-    void Start()
+    /*void Start()
     {
         PlayerPrefs.SetInt("Fase", nextIndex);
-		acabou01.Value[nextIndex] = true;
-    }
+		//acabou01.Value[nextIndex] = true;
+    }*/
 
 }

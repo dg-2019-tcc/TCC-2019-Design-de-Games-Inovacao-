@@ -44,6 +44,8 @@ public class WinnerManager : MonoBehaviour
         aiGanhou = Resources.Load<BoolVariableArray>("AIGanhou");
         playerGanhou = Resources.Load<BoolVariable>("PlayerGanhou");
         flowIndex = Resources.Load<FloatVariable>("FlowIndex");
+        aiGanhou.Value[5] = false;
+        aiGanhou.Value[7] = false;
 
         if (pv.IsMine)
 		{
@@ -170,7 +172,14 @@ public class WinnerManager : MonoBehaviour
             {
                 perdeuCorrida = true;
                 playerGanhou.Value = false;
-                aiGanhou.Value[4] = true;
+                if (isMoto)
+                {
+                    aiGanhou.Value[5] = true;
+                }
+                else
+                {
+                    aiGanhou.Value[7] = true;
+                }
                 faseNome = "HUB";
                 StartCoroutine("AcabouFase");
                 //PhotonNetwork.LoadLevel("HUB");

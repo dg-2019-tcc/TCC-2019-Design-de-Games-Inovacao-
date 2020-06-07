@@ -48,7 +48,7 @@ public class GolManager : MonoBehaviourPunCallbacks
         if (botScore.Value >= maxPoints)
         {
             feedbackWin.Perdeu();
-            aiGanhou.Value[3] = true;
+            aiGanhou.Value[4] = true;
             playerGanhou.Value = false;
             PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 0;
             StartCoroutine("AcabouFase");
@@ -71,7 +71,7 @@ public class GolManager : MonoBehaviourPunCallbacks
             if (playerGol.jogador.PV.Owner.GetScore() >= 5)
             {
                 feedbackWin.Ganhou();
-                aiGanhou.Value[3] = false;
+                aiGanhou.Value[4] = false;
                 playerGanhou.Value = true;
                 StartCoroutine("AcabouFase");
             }

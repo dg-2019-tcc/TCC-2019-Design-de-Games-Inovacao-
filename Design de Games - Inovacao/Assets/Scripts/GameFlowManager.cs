@@ -57,8 +57,9 @@ public class GameFlowManager : MonoBehaviour
             resetaFase.Value = false;
         }
 
-        index = PlayerPrefs.GetInt("Fase");
-       // Debug.Log(index);
+
+        //index = PlayerPrefs.GetInt("Fase");
+        // Debug.Log(index);
 
         if (aiGanhou == null)
         {
@@ -78,6 +79,18 @@ public class GameFlowManager : MonoBehaviour
         if (flowIndex == null)
         {
             flowIndex = Resources.Load<FloatVariable>("FlowIndex");
+        }
+
+        for (int i = 0; i < acabou01.Value.Length; i++)
+        {
+            Debug.Log(index);
+            if (!acabou01.Value[i])
+            {
+                index = i;
+                Debug.Log(index);
+                break;
+            }
+
         }
 
         // Desativei pq se nao roda a fala do mc
@@ -104,9 +117,9 @@ public class GameFlowManager : MonoBehaviour
                     /*PhotonNetwork.OfflineMode = true;
                     OfflineMode.modoDoOffline = true;*/
 
-                    if (aiGanhou.Value[0] == true || tv.precisaFalar == false)
+                    if (aiGanhou.Value[index] == true)
                     {
-                        AtivaFase(index);
+                        AtivaFase();
                     }
                     else
                     {
@@ -168,9 +181,22 @@ public class GameFlowManager : MonoBehaviour
         }
     }*/
 
-    public void AtivaFase(int faseIndex)
+    public void AtivaFase()
     {
-        switch (faseIndex)
+        //index = PlayerPrefs.GetInt("Fase");
+
+        for (int i = 0; i < acabou01.Value.Length; i++)
+        {
+
+            if (!acabou01.Value[i])
+            {
+                index = i;
+                break;
+            }
+
+        }
+
+        switch (index)
         {
             case 8:
                 Completo();
@@ -233,6 +259,7 @@ public class GameFlowManager : MonoBehaviour
 			for (int i = 0; i < acabou01.Value.Length; i++)
 			{
 				acabou01.Value[i] = false;
+                aiGanhou.Value[i] = false;
 			}
             flowIndex.Value = 0;
 
@@ -273,9 +300,8 @@ public class GameFlowManager : MonoBehaviour
 
     void Fase0()
     {
-        fasesSave.fases[0] = true;
-        flowIndex.Value = 1;
-        FaseColeta();
+        /*flowIndex.Value = 1;
+        FaseColeta();*/
     }
 
     public void FaseColeta()

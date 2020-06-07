@@ -16,11 +16,24 @@ public class TextBoxNext : MonoBehaviour
 	private bool finish;
 
     public BoolVariable textoAtivo;
+
+    public BoolVariableArray acabou01;
+
     public TV tv;
+
+    public bool is00;
+
+    public int acabou01Index;
 
 	private void Start()
 	{
         textoAtivo = Resources.Load<BoolVariable>("TextoAtivo");
+
+        if (acabou01 == null)
+        {
+            acabou01 = Resources.Load<BoolVariableArray>("Acabou01");
+        }
+
 
         sprite = GetComponent<SpriteRenderer>();
 		boxIndex = 0;
@@ -71,9 +84,10 @@ public class TextBoxNext : MonoBehaviour
             throwObject.passouTexto = false;
             textoAtivo.Value = false;
             finish = true;
-            if (tv != null)
+            if (tv != null && !is00)
             {
-                tv.faloComTV = true;
+                acabou01.Value[acabou01Index] = true;
+                tv.FalouComTV();
             }
             Destroy(gameObject);
 		}
