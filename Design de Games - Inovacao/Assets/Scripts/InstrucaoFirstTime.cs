@@ -7,16 +7,17 @@ public class InstrucaoFirstTime : MonoBehaviour
     public BoolVariable dogAtivo;
     public GameObject textoInstrucao;
     public FloatVariable flowIndex;
+    public BoolVariableArray acabou01;
 
     private void Start()
     {
-        //acabou01 = Resources.Load<BoolVariable>("Acabou01");
+        acabou01 = Resources.Load<BoolVariableArray>("Acabou01");
         flowIndex = Resources.Load<FloatVariable>("FlowIndex");
     }
 
     void Update()
     {
-        if (flowIndex.Value > 1)
+        if (acabou01.Value[1] == true)
         {
             Destroy(textoInstrucao);
             this.enabled = false;

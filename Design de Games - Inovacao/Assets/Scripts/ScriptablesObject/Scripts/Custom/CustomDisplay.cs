@@ -145,8 +145,11 @@ public class CustomDisplay : MonoBehaviour
             oculosModels[i].ChangeCustom(false);
             oculos2Models[i].ChangeCustom(false);
         }
-        oculosModels[onlineIndex].ChangeCustom(true);
-        oculos2Models[onlineIndex].ChangeCustom(true);
+        if (onlineIndex <= oculos2Models.Length)
+        {
+            oculosModels[onlineIndex].ChangeCustom(true);
+            oculos2Models[onlineIndex].ChangeCustom(true);
+        }
     }
 
     [PunRPC]
@@ -156,9 +159,9 @@ public class CustomDisplay : MonoBehaviour
         {
             ciliosModels[i].ChangeCustom(false);
             cilios2Models[i].ChangeCustom(false);
-        }
+        }/*
         ciliosModels[onlineIndex].ChangeCustom(true);
-        cilios2Models[onlineIndex].ChangeCustom(true);
+        cilios2Models[onlineIndex].ChangeCustom(true);*/
     }
 
     [PunRPC]
@@ -169,8 +172,12 @@ public class CustomDisplay : MonoBehaviour
             maskModels[i].ChangeCustom(false);
             mask2Models[i].ChangeCustom(false);
         }
-        maskModels[onlineIndex].ChangeCustom(true);
-        mask2Models[onlineIndex].ChangeCustom(true);
+
+        if (onlineIndex <= mask2Models.Length)
+        {
+            maskModels[onlineIndex].ChangeCustom(true);
+            mask2Models[onlineIndex].ChangeCustom(true);
+        }
     }
 
 }
