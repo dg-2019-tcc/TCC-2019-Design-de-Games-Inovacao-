@@ -203,37 +203,37 @@ public class GameFlowManager : MonoBehaviour
 
         switch (index)
         {
-            case 8:
+            case 9:
                 Completo();
                 Acabou();
                 break;
 
-            case 7:
+            case 8:
                 FaseRoupa();
                 break;
 
-            case 6:
+            case 7:
                 FaseCorrida();
                 break;
 
-            case 5:
+            case 6:
                 FaseCabelo();
                 break;
 
-            case 4:
+            case 5:
                 FaseMoto();
                 break;
 
 
-            case 3:
+            case 4:
                 FaseFutebol();
                 break;
 
-            case 2:
+            case 3:
                 FaseTenis();
                 break;
 
-            case 1:
+            case 2:
                 FaseColeta();
                 break;
 
