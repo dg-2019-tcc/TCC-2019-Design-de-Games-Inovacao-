@@ -36,6 +36,7 @@ public class ScoreManager : MonoBehaviourPunCallbacks
 			entry.GetComponentInChildren<TMP_Text>().text = p.GetScore().ToString(); //string.Format("{0}\nScore: {1}", p.NickName, p.GetScore());
             playerListEntries.Add(p.ActorNumber, entry);
 			entry.GetComponentInChildren<Image>().sprite = scoreBackground[p.ActorNumber-1];
+			p.SetScore(0);
         }
     }
 

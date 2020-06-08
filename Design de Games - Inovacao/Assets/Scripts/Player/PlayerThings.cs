@@ -38,7 +38,7 @@ public class PlayerThings : MonoBehaviour
 	static public bool acabouPartida;
 
     [SerializeField]
-    public Joystick joyStick;
+    public FloatingJoystick joyStick;
 
     public GameObject playerParado;
     public GameObject playerAndando;
@@ -52,7 +52,13 @@ public class PlayerThings : MonoBehaviour
     {
         controller = GetComponent<Controller2D>();
         PV = GetComponent<PhotonView>();
+		
+
         joyStick = FindObjectOfType<FloatingJoystick>();
+		if (!PV.Owner.IsLocal)
+		{
+			Destroy(joyStick);
+		}
 		rightDir = true;
 		leftDir = false;
 
