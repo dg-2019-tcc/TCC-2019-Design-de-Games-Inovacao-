@@ -70,6 +70,9 @@ public class FutebolPlayer : MonoBehaviour
             if (triggerController.collisions.tocouBola == true || triggerController.collisions.cabecaBola == true || triggerController.collisions.chutouBola == true)
             {
                 gameObject.GetComponent<PhotonView>().RPC("TocouBola", RpcTarget.MasterClient);
+                triggerController.collisions.tocouBola = false;
+                triggerController.collisions.cabecaBola = false;
+                triggerController.collisions.chutouBola = false;
             }
         }
 
@@ -80,11 +83,15 @@ public class FutebolPlayer : MonoBehaviour
                 if(controller.collisions.below == true)
                 {
                     gameObject.GetComponent<PhotonView>().RPC("KickBola", RpcTarget.MasterClient);
+                    triggerController.collisions.chutouBola = false;
+                    triggerController.collisions.cabecaBola = false;
                 }
 
                 else
                 {
                     gameObject.GetComponent<PhotonView>().RPC("SuperKickBola", RpcTarget.MasterClient);
+                    triggerController.collisions.chutouBola = false;
+                    triggerController.collisions.cabecaBola = false;
                 }
             }
 
@@ -127,10 +134,6 @@ public class FutebolPlayer : MonoBehaviour
 
         ballrb.velocity = new Vector2(0, 0);
         ballrb.AddForce(new Vector2(normalX, normalY), ForceMode2D.Impulse);
-
-        triggerController.collisions.tocouBola = false;
-        triggerController.collisions.cabecaBola = false;
-        triggerController.collisions.chutouBola = false;
     }
 
     [PunRPC]
@@ -142,8 +145,6 @@ public class FutebolPlayer : MonoBehaviour
 
         ballrb.AddForce(new Vector2(kickForceX, Random.Range(kickForceY - randomForceY, kickForceY + randomForceY)), ForceMode2D.Impulse);
 
-        triggerController.collisions.chutouBola = false;
-        triggerController.collisions.cabecaBola = false;
     }
 
     [PunRPC]
@@ -154,8 +155,5 @@ public class FutebolPlayer : MonoBehaviour
         bolaFutebol.normal = false;
 
         ballrb.AddForce(new Vector2(superKickForceX, kickForceY), ForceMode2D.Impulse);
-
-        triggerController.collisions.chutouBola = false;
-        triggerController.collisions.cabecaBola = false;
     }
 }

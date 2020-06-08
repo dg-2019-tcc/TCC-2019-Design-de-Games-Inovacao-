@@ -15,6 +15,7 @@ public class BolaVolei : MonoBehaviour
     public float bolaTimer;
 
     public float maxSpeed = 12f;
+    Vector2 vel;
 
     // Start is called before the first frame update  
     void Start()
@@ -27,11 +28,11 @@ public class BolaVolei : MonoBehaviour
     // Update is called once per frame  
     void Update()
     {
-        Vector2 vel = rb2d.velocity;
+        vel = rb2d.velocity;
 
         if (vel.magnitude > maxSpeed)
         {
-            rb2d.velocity = vel.normalized * maxSpeed;
+            gameObject.GetComponent<PhotonView>().RPC("VelBola", RpcTarget.MasterClient);
         }
 
 
@@ -47,8 +48,6 @@ public class BolaVolei : MonoBehaviour
 
         else if (superCorte)
         {
-            normal = false;
-            corte = false;  
             gameObject.GetComponent<PhotonView>().RPC("BolaVoleiVermelha", RpcTarget.MasterClient);
         }
 
@@ -69,6 +68,11 @@ public class BolaVolei : MonoBehaviour
         {
             gameObject.GetComponent<PhotonView>().RPC("SlowBola", RpcTarget.MasterClient);
         }
+    }
+    [PunRPC]
+    void VelBola()
+    {
+        rb2d.velocity = vel.normalized * maxSpeed;
     }
 
     [PunRPC]
@@ -115,6 +119,7 @@ public class BolaVolei : MonoBehaviour
 
         normal = false;
         corte = false;
+
 
         bolaTimer += Time.deltaTime;
     }
