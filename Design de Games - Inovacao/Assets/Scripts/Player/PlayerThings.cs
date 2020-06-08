@@ -55,7 +55,7 @@ public class PlayerThings : MonoBehaviour
 		
 
         joyStick = FindObjectOfType<FloatingJoystick>();
-		if (!PV.Owner.IsLocal)
+		if (PhotonNetwork.InRoom && !PV.Owner.IsLocal)
 		{
 			Destroy(joyStick);
 		}
