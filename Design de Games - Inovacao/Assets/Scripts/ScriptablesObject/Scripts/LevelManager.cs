@@ -8,12 +8,14 @@ public class LevelManager : MonoBehaviour
 {
 
     //public FloatVariable CurrentLevelIndex;
+    private bool stopSarrada;
 
     public int coletaMax = 7;
 
     public static LevelManager Instance;
     protected virtual void Awake()
     {
+        stopSarrada = false;
         #region Singleton
 
         if (Instance)
@@ -61,6 +63,10 @@ public class LevelManager : MonoBehaviour
     [PunRPC]
     public void GoPodium()
     {
-        PhotonNetwork.LoadLevel("TelaVitoria");
+        if (stopSarrada == false)
+        {
+            PhotonNetwork.LoadLevel("TelaVitoria");
+            stopSarrada = true;
+        }
     }
 }

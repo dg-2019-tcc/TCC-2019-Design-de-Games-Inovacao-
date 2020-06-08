@@ -35,9 +35,14 @@ public class FutebolPlayer : MonoBehaviour
 
     private Player2DAnimations anim;
 
+    [HideInInspector]
+    public PhotonView photonView;
+
 
     void Awake()
     {
+        photonView = gameObject.GetComponent<PhotonView>();
+
         controller = GetComponent<Controller2D>();
         triggerController = GetComponent<TriggerCollisionsController>();
         anim = GetComponent<Player2DAnimations>();
@@ -50,53 +55,55 @@ public class FutebolPlayer : MonoBehaviour
 
     void Update()
     {
-
-        if (PlayerThings.rightDir)
+        if (photonView.IsMine == true || !PhotonNetwork.InRoom)
         {
-            normalX = normalKickForce.Value;
-            kickForceX = kickForce.Value;
-            superKickForceX = superKickForce.Value;
-        }
 
-        if (PlayerThings.leftDir)
-        {
-            normalX = normalKickForce.Value * -1;
-            kickForceX = kickForce.Value * -1;
-            superKickForceX = superKickForce.Value * -1;
-        }
-
-        if (kicked == false)
-        {
-            if (triggerController.collisions.tocouBola == true || triggerController.collisions.cabecaBola == true || triggerController.collisions.chutouBola == true)
+            if (PlayerThings.rightDir)
             {
-                gameObject.GetComponent<PhotonView>().RPC("TocouBola", RpcTarget.MasterClient);
-                triggerController.collisions.tocouBola = false;
-                triggerController.collisions.cabecaBola = false;
-                triggerController.collisions.chutouBola = false;
+                normalX = normalKickForce.Value;
+                kickForceX = kickForce.Value;
+                superKickForceX = superKickForce.Value;
             }
-        }
 
-        else
-        {
-            if(triggerController.collisions.chutouBola == true || triggerController.collisions.cabecaBola == true)
+            if (PlayerThings.leftDir)
             {
-                if(controller.collisions.below == true)
-                {
-                    gameObject.GetComponent<PhotonView>().RPC("KickBola", RpcTarget.MasterClient);
-                    triggerController.collisions.chutouBola = false;
-                    triggerController.collisions.cabecaBola = false;
-                }
+                normalX = normalKickForce.Value * -1;
+                kickForceX = kickForce.Value * -1;
+                superKickForceX = superKickForce.Value * -1;
+            }
 
-                else
+            if (kicked == false)
+            {
+                if (triggerController.collisions.tocouBola == true || triggerController.collisions.cabecaBola == true || triggerController.collisions.chutouBola == true)
                 {
-                    gameObject.GetComponent<PhotonView>().RPC("SuperKickBola", RpcTarget.MasterClient);
-                    triggerController.collisions.chutouBola = false;
+                    gameObject.GetComponent<PhotonView>().RPC("TocouBola", RpcTarget.MasterClient);
+                    triggerController.collisions.tocouBola = false;
                     triggerController.collisions.cabecaBola = false;
+                    triggerController.collisions.chutouBola = false;
                 }
             }
 
-        }
+            else
+            {
+                if (triggerController.collisions.chutouBola == true || triggerController.collisions.cabecaBola == true)
+                {
+                    if (controller.collisions.below == true)
+                    {
+                        gameObject.GetComponent<PhotonView>().RPC("KickBola", RpcTarget.MasterClient);
+                        triggerController.collisions.chutouBola = false;
+                        triggerController.collisions.cabecaBola = false;
+                    }
 
+                    else
+                    {
+                        gameObject.GetComponent<PhotonView>().RPC("SuperKickBola", RpcTarget.MasterClient);
+                        triggerController.collisions.chutouBola = false;
+                        triggerController.collisions.cabecaBola = false;
+                    }
+                }
+
+            }
+        }
     }
 
     public void Chute()
