@@ -33,6 +33,8 @@ public class GolManager : MonoBehaviourPunCallbacks
 
 	private bool isLoading = false;
 
+    private bool offline;
+
 
     private void Start()
     {
@@ -43,11 +45,13 @@ public class GolManager : MonoBehaviourPunCallbacks
 
         playerGanhou.Value = false;
         aiGanhou.Value[4] = false;
+
+        offline = OfflineMode.modoDoOffline;
     }
 
     private void Update()
     {
-        if (botScore.Value >= maxPoints)
+        if (botScore.Value >= maxPoints && offline == true)
         {
             feedbackWin.Perdeu();
             aiGanhou.Value[4] = true;
