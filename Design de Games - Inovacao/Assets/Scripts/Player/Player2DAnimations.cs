@@ -109,6 +109,12 @@ public class Player2DAnimations : MonoBehaviour
 					PlayAnim("Idle");
 				}
 
+                else
+                {
+                    carro.SetActive(false);
+                    pipa.SetActive(false);
+                }
+
 				moveX = Mathf.Abs(moveAmount.x);
 
 				if (state == State.Aterrisando || state == State.Walking || state == State.Abaixando)
