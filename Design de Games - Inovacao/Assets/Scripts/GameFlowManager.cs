@@ -18,6 +18,7 @@ public class GameFlowManager : MonoBehaviour
 
     public FloatVariable flowIndex;
     public int index;
+    public int npcIndex;
 
     public BoolVariableArray acabou01;
 
@@ -88,7 +89,7 @@ public class GameFlowManager : MonoBehaviour
             if (!acabou01.Value[i])
             {
                 index = i;
-                Debug.Log(index);
+                
                 break;
             }
 
@@ -121,13 +122,18 @@ public class GameFlowManager : MonoBehaviour
                     /*PhotonNetwork.OfflineMode = true;
                     OfflineMode.modoDoOffline = true;*/
 
+
                     if (aiGanhou.Value[index] == true)
                     {
                         AtivaFase();
+                        DestroyNpcs(index - 2);
                     }
                     else
                     {
-                        FechaTudo();
+                        if (index > 1)
+                        {
+                            DestroyNpcs(index);
+                        }
                     }
                 }
             }
@@ -300,7 +306,13 @@ public class GameFlowManager : MonoBehaviour
         }
     }
 
-
+    public void DestroyNpcs(int n)
+    {
+        for(int i = 0; i < n; i++)
+        {
+            Destroy(npcs[i]);
+        }
+    }
 
     void Fase0()
     {
@@ -310,24 +322,14 @@ public class GameFlowManager : MonoBehaviour
 
     public void FaseColeta()
     {
+        portas[0].SetActive(true);
 
-            /*if (aiGanhou.Value == false)
-            {
-                CameraShowoff.SetActive(true);
-            }*/
-
-
-            portas[0].SetActive(true);
-
-            doorBlock[0].SetActive(false);
+        doorBlock[0].SetActive(false);
 
     }
 
     public void FaseTenis()
     {
-        Destroy(npcs[0]);
-
-
         portas[0].SetActive(false);
         portas[1].SetActive(true);
 
@@ -337,39 +339,34 @@ public class GameFlowManager : MonoBehaviour
 
     public void FaseFutebol()
     {
-        Destroy(npcs[1]);
 
+        portas[0].SetActive(false);
+        portas[1].SetActive(false);
+        portas[2].SetActive(true);
 
-            portas[0].SetActive(false);
-            portas[1].SetActive(false);
-            portas[2].SetActive(true);
-
-            doorBlock[0].SetActive(true);
-            doorBlock[1].SetActive(true);
-            doorBlock[2].SetActive(false);
+        doorBlock[0].SetActive(true);
+        doorBlock[1].SetActive(true);
+        doorBlock[2].SetActive(false);
 
     }
 
     public void FaseMoto()
     {
-        //Destroy(npcs[2]);
 
-            portas[0].SetActive(false);
-            portas[1].SetActive(false);
-            portas[2].SetActive(false);
-            portas[3].SetActive(true);
+        portas[0].SetActive(false);
+        portas[1].SetActive(false);
+        portas[2].SetActive(false);
+        portas[3].SetActive(true);
 
-            doorBlock[0].SetActive(true);
-            doorBlock[1].SetActive(true);
-            doorBlock[2].SetActive(true);
-            doorBlock[3].SetActive(false);
+        doorBlock[0].SetActive(true);
+        doorBlock[1].SetActive(true);
+        doorBlock[2].SetActive(true);
+        doorBlock[3].SetActive(false);
         
     }
 
     public void FaseCabelo()
     {
-        Destroy(npcs[3]);
-
         portas[0].SetActive(false);
         portas[1].SetActive(false);
         portas[2].SetActive(false);
@@ -385,29 +382,24 @@ public class GameFlowManager : MonoBehaviour
 
     public void FaseCorrida()
     {
-        Destroy(npcs[4]);
+        portas[0].SetActive(false);
+        portas[1].SetActive(false);
+        portas[2].SetActive(false);
+        portas[3].SetActive(false);
+        portas[4].SetActive(false);
+        portas[5].SetActive(true);
 
-
-            portas[0].SetActive(false);
-            portas[1].SetActive(false);
-            portas[2].SetActive(false);
-            portas[3].SetActive(false);
-            portas[4].SetActive(false);
-            portas[5].SetActive(true);
-
-            doorBlock[0].SetActive(true);
-            doorBlock[1].SetActive(true);
-            doorBlock[2].SetActive(true);
-            doorBlock[3].SetActive(true);
-            doorBlock[4].SetActive(true);
-            doorBlock[5].SetActive(false);
+        doorBlock[0].SetActive(true);
+        doorBlock[1].SetActive(true);
+        doorBlock[2].SetActive(true);
+        doorBlock[3].SetActive(true);
+        doorBlock[4].SetActive(true);
+        doorBlock[5].SetActive(false);
 
     }
 
     public void FaseRoupa()
     {
-        Destroy(npcs[5]);
-
         portas[0].SetActive(false);
         portas[1].SetActive(false);
         portas[2].SetActive(false);
@@ -427,8 +419,6 @@ public class GameFlowManager : MonoBehaviour
 
     public void Acabou()
     {
-        Destroy(npcs[6]);
-        fasesSave.fases[8] = true;
 
         acabou01.Value[0] = true;
         flowIndex.Value++;
@@ -436,12 +426,10 @@ public class GameFlowManager : MonoBehaviour
 
     public void Completo()
     {
-        for(int i = 0; i< npcs.Length; i++)
-        {
-            Destroy(npcs[i]);
-        }
+        DestroyNpcs(8);
 
-		for (int i = 0; i < portas.Length; i++)
+
+        for (int i = 0; i < portas.Length; i++)
 		{
 			portas[i].SetActive(true);
 			portas[i].SendMessage("TurnOffLocator");
