@@ -139,7 +139,6 @@ public class AIController2D : RaycastController
 
                 if (hit.collider.CompareTag ("Through"))
                 {
-
                     if (directionY == 1 || hit.distance == 0)
                     {
                         continue;
@@ -265,6 +264,7 @@ public class AIController2D : RaycastController
 
         public bool bateuObs;
         public bool slowTime;
+
 
         public void Reset()
         {

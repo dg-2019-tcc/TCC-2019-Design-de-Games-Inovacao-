@@ -85,7 +85,6 @@ public class GameFlowManager : MonoBehaviour
 
         for (int i = 0; i < acabou01.Value.Length; i++)
         {
-            Debug.Log(index);
             if (!acabou01.Value[i])
             {
                 index = i;

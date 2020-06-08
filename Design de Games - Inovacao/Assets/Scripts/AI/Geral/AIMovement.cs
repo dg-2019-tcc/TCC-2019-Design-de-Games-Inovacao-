@@ -88,24 +88,26 @@ public class AIMovement : MonoBehaviour
         playerGanhou = Resources.Load<BoolVariable>("PlayerGanhou");
 		
 		aiGanhou.Value[indexDaFase] = false;
-		
-        
+		    
     }
 
     public void FixedUpdate()
     {
         if (aiGanhou.Value[indexDaFase]  == true|| playerGanhou.Value == true)
         {
+            Stop();
             return;
         }
 
         if (levouDogada)
         {
+            Stop();
             return;
         }
 
         if (triggerController.triggerCollision.ganhou)
         {
+            Stop();
             return;
         }
 
@@ -308,7 +310,6 @@ public class AIMovement : MonoBehaviour
 
     public void Stop()
     {
-        Debug.Log("Stop");
         jumpTimes = 0;
         input.x = 0;
     }

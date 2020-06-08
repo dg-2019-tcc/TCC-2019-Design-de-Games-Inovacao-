@@ -159,7 +159,7 @@ public class WinnerManager : MonoBehaviour
 		if (isloading) return;
 		if (buildProfs == false)
         {
-            if (acabou01.Value[5] == true || buildProfs == false)
+            if (acabou01.Value[5] == true || acabou01.Value[7] == true || buildProfs == false)
             {
                 //player.perdeuSom.Play();
                 perdeuCorrida = true;

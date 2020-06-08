@@ -92,7 +92,6 @@ public class ColetaWin : MonoBehaviour
                 if (ganhouJa) return;
                 if (OfflineMode.modoDoOffline && compareScore < 4)
                 {
-					Debug.Log("perdeu pro bot");
 					feedbackWin.Perdeu();
 					winning.CustomProperties["Ganhador"] = 0;
 					PlayerPrefs.SetInt("GanhouColeta", 0);

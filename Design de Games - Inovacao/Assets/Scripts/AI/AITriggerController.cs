@@ -247,7 +247,8 @@ public class AITriggerController : RaycastController
                     }
                 }
 
-                if(hit.collider.CompareTag("Futebol"))
+
+                if (hit.collider.CompareTag("Futebol"))
                 {
                     Debug.Log("Direita");
 

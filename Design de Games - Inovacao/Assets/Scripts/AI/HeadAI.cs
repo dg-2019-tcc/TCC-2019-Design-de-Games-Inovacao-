@@ -59,7 +59,6 @@ public class HeadAI : MonoBehaviour
 
     public void Chuta()
     {
-        Debug.Log("Chuta");
         ballrb = triggerController.rbBola; 
         ballrb.velocity = new Vector2(0, 0);
 
@@ -68,14 +67,12 @@ public class HeadAI : MonoBehaviour
 
     public void ChutaForte()
     {
-        Debug.Log("Forte");
         ballrb = triggerController.rbBola;
         ballrb.AddForce(new Vector2(controller.botStats.kickForceX, controller.botStats.kickForceY), ForceMode2D.Impulse);
     }
 
     public void NaArea()
     {
-        Debug.Log("NaArea");
         ballrb = triggerController.rbBola;
         ballrb.AddForce(new Vector2(headForceX, 0), ForceMode2D.Impulse);
     }

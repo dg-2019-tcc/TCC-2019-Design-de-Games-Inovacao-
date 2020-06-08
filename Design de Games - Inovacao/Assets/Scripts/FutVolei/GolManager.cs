@@ -42,7 +42,7 @@ public class GolManager : MonoBehaviourPunCallbacks
         flowIndex = Resources.Load<FloatVariable>("FlowIndex");
 
         playerGanhou.Value = false;
-        aiGanhou.Value[3] = false;
+        aiGanhou.Value[4] = false;
     }
 
     private void Update()
@@ -89,11 +89,14 @@ public class GolManager : MonoBehaviourPunCallbacks
     IEnumerator AcabouFase()
     {
 		isLoading = true;
+        Debug.Log("isLoading");
         yield return new WaitForSeconds(3f);
-        if (aiGanhou.Value[3] == true)
+        if (aiGanhou.Value[4] == true)
         {
-            if (acabou01.Value[3] == true)
+            Debug.Log("AIGanhou");
+            if (acabou01.Value[4] == true)
             {
+                Debug.Log("AIGanhou2");
                 LevelManager.Instance.GoPodium();
             }
             else
@@ -104,7 +107,7 @@ public class GolManager : MonoBehaviourPunCallbacks
 
         else if (playerGanhou.Value == true)
         {
-            if (acabou01.Value[3] == true)
+            if (acabou01.Value[4] == true)
             {
                 PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 1;
                 LevelManager.Instance.GoPodium();
