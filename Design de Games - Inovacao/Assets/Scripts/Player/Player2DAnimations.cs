@@ -10,6 +10,9 @@ public class Player2DAnimations : MonoBehaviour
 	public GameObject frente;
 	public GameObject lado;
 
+    public GameObject carro;
+    public GameObject pipa;
+
 	public string idlePose = "0_Idle";
 	public string walkAnimation = "0_Corrida_V2";
 	public string startJumpAnimation = "1_Pulo";
@@ -230,7 +233,23 @@ public class Player2DAnimations : MonoBehaviour
 			case "Idle":
 				if (state != State.Idle)
 				{
-					coolToIdle = 0;
+                    if (carroActive.Value == true)
+                    {
+                        carro.SetActive(true);
+                        pipa.SetActive(false);
+                    }
+
+                    else if( pipaActive.Value == true)
+                    {
+                        carro.SetActive(false);
+                        pipa.SetActive(true);
+                    }
+                    else
+                    {
+                        carro.SetActive(false);
+                        pipa.SetActive(false);
+                    }
+                    coolToIdle = 0;
 					frente.SetActive(true);
 					lado.SetActive(false);
 					playerFrente.animation.timeScale = 1;
