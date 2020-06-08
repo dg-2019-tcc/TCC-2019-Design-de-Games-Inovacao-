@@ -13,6 +13,8 @@ public class NewPlayerMovent : MonoBehaviour
     float accelerationTimeAirborne = 0.2f;
     float accelerationTimeGrounded = 0.1f;
 
+    float targetVelocityX;
+
     float maxJumpVelocity;
     float minJumpVelocity;
     float gravity;
@@ -132,7 +134,7 @@ public class NewPlayerMovent : MonoBehaviour
             }*/
 
             input.y = joyInput.y;
-            float targetVelocityX = input.x * moveSpeed.Value;
+            targetVelocityX = input.x * moveSpeed.Value;
             velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (controller.collisions.below) ? accelerationGround.Value : accelerationAir.Value);
 
             if (!triggerController.collisions.slowTime)

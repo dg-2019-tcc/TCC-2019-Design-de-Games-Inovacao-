@@ -8,6 +8,9 @@ public class AIMovement : MonoBehaviour
     public float jumpVelocity = 1f;
     public bool isDown;
 
+    float targetVelocityX;
+    float velocityXSmoothing;
+
     Vector2 input;
 
     Vector3 velocity;
@@ -65,6 +68,8 @@ public class AIMovement : MonoBehaviour
 
     public Vector2 oldPosition;
 
+    private float targetDist;
+
     // Start is called before the first frame update
     public void Start()
 	{
@@ -82,7 +87,7 @@ public class AIMovement : MonoBehaviour
         aiGanhou = Resources.Load<BoolVariableArray>("AIGanhou");
         playerGanhou = Resources.Load<BoolVariable>("PlayerGanhou");
 		
-			aiGanhou.Value[indexDaFase] = false;
+		aiGanhou.Value[indexDaFase] = false;
 		
         
     }
@@ -104,6 +109,8 @@ public class AIMovement : MonoBehaviour
             return;
         }
 
+        triggerController.RayTriggerDirection();
+
         if (aiController2D.collisions.below == true || aiController2D.collisions.climbingSlope || aiController2D.collisions.descendingSlope)
         {
             isJumping = false;
@@ -117,48 +124,80 @@ public class AIMovement : MonoBehaviour
 
         if (isVolei)
         {
-            triggerController.RayTriggerDirection();
-
-            if (transform.position.x - target.transform.position.x > 2f)
-            {
-                return;
-            }
-
-            else
-            {
-                if (transform.position.x - target.transform.position.x > 0)
-                {
-                    GoLeft();
-                }
-
-                else if (transform.position.x - target.transform.position.x < 0)
-                {
-                    GoRight();
-                }
-
-                else if (triggerController.triggerCollision.isUp && isJumping == false)
-                {
-                    AIJump();
-                }
-            }
-            Debug.Log("A");
-            velocity.x = speed * input.x;
-            Debug.Log("B");
-            velocity.y += gravity * Time.deltaTime;
-            Debug.Log("C");
-            aiController2D.Move(velocity * Time.deltaTime, input);
-            Debug.Log("D");
-            animAI.ChangeAnimAI(velocity, oldPosition, input, isJumping);
-            Debug.Log("E");
+            Volei();
         }
 
         if (isFut)
         {
-            triggerController.RayTriggerDirection();
+            Futebol();
+        }
 
-            if(triggerController.triggerCollision.botArea == true)
+        if (isCorrida || isMoto)
+        {
+            MotoCorrida();
+
+        }
+
+        if (isColteta)
+        {
+            Coleta();
+        }
+
+        targetVelocityX = input.x * speed;
+        velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (aiController2D.collisions.below) ? 0.1f : 0.2f);
+
+        velocity.y += gravity * Time.deltaTime;
+        aiController2D.Move(velocity * Time.deltaTime, input);
+        if (!isMoto)
+        {
+            animAI.ChangeAnimAI(velocity, oldPosition, input, isJumping);
+        }
+
+    }
+
+    private void Coleta()
+    {
+        if (triggerController.triggerCollision.isRight || triggerController.triggerCollision.isLeft || triggerController.triggerCollision.isUp || triggerController.triggerCollision.isDown)
+        {
+            found = true;
+        }
+
+        else
+        {
+            found = false;
+        }
+
+        if (found)
+        {
+            if (triggerController.triggerCollision.isRight)
             {
-                transform.position = target.transform.position;
+                GoRight();
+            }
+
+            else if (triggerController.triggerCollision.isLeft)
+            {
+                GoLeft();
+            }
+
+            else if (triggerController.triggerCollision.isUp && isJumping == false && aiController2D.collisions.below == true)
+            {
+                input.x = 0;
+                AIJump();
+            }
+
+            else if (triggerController.triggerCollision.isDown)
+            {
+                input.y = -1;
+                input.x = 0;
+            }
+
+        }
+
+        else
+        {
+            if (aiController2D.collisions.below == true || aiController2D.collisions.climbingSlope || aiController2D.collisions.descendingSlope)
+            {
+                velocity.y = 0;
             }
 
             if (transform.position.x - target.transform.position.x > 1)
@@ -171,126 +210,107 @@ public class AIMovement : MonoBehaviour
                 GoRight();
             }
 
-            else if (triggerController.triggerCollision.isUp && isJumping == false)
-            {
-                //input.x = 0;
-                AIJump();
-            }
-            velocity.x = speed * input.x;
-            velocity.y += gravity * Time.deltaTime;
-            aiController2D.Move(velocity * Time.deltaTime,input);
-            animAI.ChangeAnimAI(velocity, oldPosition, input, isJumping);
-        }
-
-        if (isCorrida || isMoto)
-        {
-            if (aiController2D.collisions.acabouCorrida) return;
-            triggerController.RayTriggerDirection();
-            GoRight();
-
-            if (triggerController.triggerCollision.needJump && aiController2D.collisions.below)
-            {
-                input.x = 1;
-                AIJump();
-            }
-
-            if (isMoto)
-            {
-                speed += 0.15f * Time.deltaTime;
-            }
-
-            velocity.x = speed;
-            velocity.y += gravity * Time.deltaTime;
-            aiController2D.Move(velocity * Time.deltaTime, input);
-            if (isCorrida)
-            {
-                animAI.ChangeAnimAI(velocity, oldPosition, input, isJumping);
-            }
-        }
-
-        if (isColteta)
-        {
-            triggerController.RayTriggerDirection();
-
-            if (triggerController.triggerCollision.isRight || triggerController.triggerCollision.isLeft || triggerController.triggerCollision.isUp || triggerController.triggerCollision.isDown)
-            {
-                found = true;
-            }
-
             else
             {
-                found = false;
-            }
-
-            if (found)
-            {
-                if (triggerController.triggerCollision.isRight)
+                if (target == controller.wayPointList[0])
                 {
-                    GoRight();
-                }
-
-                else if (triggerController.triggerCollision.isLeft)
-                {
-                    GoLeft();
-                }
-
-                else if (triggerController.triggerCollision.isUp && isJumping == false && aiController2D.collisions.below == true)
-                {
-                    input.x = 0;
-                    AIJump();
-                }
-
-                else if (triggerController.triggerCollision.isDown)
-                {
-                    input.y = -1;
-                    input.x = 0;
-                }
-
-            }
-
-            else
-            {
-                if (aiController2D.collisions.below == true || aiController2D.collisions.climbingSlope || aiController2D.collisions.descendingSlope)
-                {
-                    velocity.y = 0;
-                }
-
-                if (transform.position.x - target.transform.position.x > 1)
-                {
-                    GoLeft();
-                }
-
-                else if (transform.position.x - target.transform.position.x < -1)
-                {
-                    GoRight();
+                    target = controller.wayPointList[1];
                 }
 
                 else
                 {
-                    if (target == controller.wayPointList[0])
-                    {
-                        target = controller.wayPointList[1];
-                    }
-
-                    else
-                    {
-                        target = controller.wayPointList[0];
-                    }
+                    target = controller.wayPointList[0];
                 }
-
             }
 
-            velocity.y += gravity * Time.deltaTime;
-            velocity.x = speed * input.x;
-            aiController2D.Move(velocity * Time.deltaTime,input);
-            animAI.ChangeAnimAI(velocity, oldPosition, input, isJumping);
         }
-  
+    }
+
+    private void Futebol()
+    {
+        if (triggerController.triggerCollision.botArea == true)
+        {
+            transform.position = target.transform.position;
+        }
+
+        if (transform.position.x - target.transform.position.x > 1)
+        {
+            GoLeft();
+        }
+
+        else if (transform.position.x - target.transform.position.x < -1)
+        {
+            GoRight();
+        }
+
+        else if (triggerController.triggerCollision.isUp && isJumping == false)
+        {
+            //input.x = 0;
+            AIJump();
+        }
+    }
+
+    private void Volei()
+    {
+        if (triggerController.triggerCollision.botArea == true)
+        {
+            target = controller.wayPointList[1];
+            transform.position = target.transform.position;
+        }
+
+        targetDist = transform.position.x - target.transform.position.x;
+
+        if (targetDist > 1.5f)
+        {
+            Stop();
+        }
+
+        else
+        {
+            if (targetDist > 0.5f)
+            {
+                GoLeft();
+            }
+
+            else if (targetDist < -0.5f)
+            {
+                GoRight();
+            }
+
+            else if (triggerController.triggerCollision.isUp && isJumping == false)
+            {
+                AIJump();
+            }
+        }
+    }
+
+    private void MotoCorrida()
+    {
+        if (aiController2D.collisions.acabouCorrida) return;
+        GoRight();
+
+        if (triggerController.triggerCollision.needJump && aiController2D.collisions.below)
+        {
+            input.x = 1;
+            AIJump();
+        }
+
+        if (isMoto)
+        {
+            speed += 0.15f * Time.deltaTime;
+        }
     }
 
     private void LateUpdate()
     {
         oldPosition = velocity;
+    }
+
+    public void Stop()
+    {
+        Debug.Log("Stop");
+        jumpTimes = 0;
+        input.x = 0;
     }
 
     public void GoRight()

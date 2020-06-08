@@ -203,7 +203,7 @@ public class GameFlowManager : MonoBehaviour
 
         switch (index)
         {
-            case 9:
+            case 9 :
                 Completo();
                 Acabou();
                 break;
