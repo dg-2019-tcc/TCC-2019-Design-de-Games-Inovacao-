@@ -88,7 +88,17 @@ public class Player2DAnimations : MonoBehaviour
 		photonView = gameObject.GetComponent<PhotonView>();
 		controller = GetComponent<Controller2D>();
 		triggerCollisions = GetComponent<TriggerCollisionsController>();
-		frente.SetActive(false);
+        if (isMoto == false)
+        {
+            frente.SetActive(true);
+            lado.SetActive(false);
+        }
+
+        else
+        {
+            frente.SetActive(false);
+            lado.SetActive(true);
+        }
 
 		if (PhotonNetwork.InRoom)
 		{
