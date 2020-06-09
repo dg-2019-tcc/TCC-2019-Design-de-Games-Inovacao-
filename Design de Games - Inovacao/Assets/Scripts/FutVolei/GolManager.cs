@@ -72,7 +72,7 @@ public class GolManager : MonoBehaviourPunCallbacks
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Futebol") && (PhotonNetwork.IsMasterClient || !PhotonNetwork.InRoom))
+        if (other.CompareTag("Futebol"))
         {
             bola = other.gameObject;
 
