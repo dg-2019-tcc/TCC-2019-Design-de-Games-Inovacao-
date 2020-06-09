@@ -34,7 +34,7 @@ public class OfflineButton : MonoBehaviour
 
 	public void Update()
 	{
-		if (!PhotonNetwork.OfflineMode)
+		if (PhotonNetwork.OfflineMode)
 		{
 			offlineText.text = "Modo: Offline";
 			buttonImage.sprite = conectionSprites[1];
