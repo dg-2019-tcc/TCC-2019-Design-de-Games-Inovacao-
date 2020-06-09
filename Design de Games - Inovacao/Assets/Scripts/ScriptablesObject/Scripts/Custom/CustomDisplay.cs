@@ -35,11 +35,9 @@ public class CustomDisplay : MonoBehaviour
 
     private PhotonView pv;
 
-    public BoolVariable boneOn;
 
     void Start()
     {
-        boneOn = Resources.Load<BoolVariable>("BoneOn");
 
 
         pv = GetComponent<PhotonView>();
@@ -58,18 +56,18 @@ public class CustomDisplay : MonoBehaviour
 
 
         if (!PhotonNetwork.InRoom)
-		{
-            TrocaBone(bone.prop2DInd);
+        {
             TrocaCabelo(hair.prop2DInd);
-			//TrocaMaterialCabelo(hair.colorIndex);
-			TrocaCamisa(shirt.prop2DInd);
-			//TrocaMaterialCamisa(shirt.colorIndex);
-			TrocaCalca(legs.prop2DInd);
-			//TrocaMaterialCalca(legs.colorIndex);
-			TrocaSapato(shoe.prop2DInd);
-			TrocaOculos(oculos.prop2DInd);
-			TrocaCilios(cilios.prop2DInd);
+            //TrocaMaterialCabelo(hair.colorIndex);
+            TrocaCamisa(shirt.prop2DInd);
+            //TrocaMaterialCamisa(shirt.colorIndex);
+            TrocaCalca(legs.prop2DInd);
+            //TrocaMaterialCalca(legs.colorIndex);
+            TrocaSapato(shoe.prop2DInd);
+            TrocaOculos(oculos.prop2DInd);
+            TrocaCilios(cilios.prop2DInd);
             TrocaMask(mask.prop2DInd);
+            TrocaBone(bone.prop2DInd);
             //TrocaMaterialSapato(shoe.colorIndex);
 
         }
@@ -102,11 +100,9 @@ public class CustomDisplay : MonoBehaviour
             hairModels[i].ChangeCustom(false);
             hair2Models[i].ChangeCustom(false);
         }
-        if (boneOn.Value == false)
-        {
-            hairModels[onlineIndex].ChangeCustom(true);
-            hair2Models[onlineIndex].ChangeCustom(true);
-        }
+        hairModels[onlineIndex].ChangeCustom(true);
+        hair2Models[onlineIndex].ChangeCustom(true);
+
     }
 
 
@@ -161,8 +157,8 @@ public class CustomDisplay : MonoBehaviour
         }
         //if (onlineIndex <= oculos2Models.Length)
         //{
-            oculosModels[onlineIndex].ChangeCustom(true);
-            oculos2Models[onlineIndex].ChangeCustom(true);
+        oculosModels[onlineIndex].ChangeCustom(true);
+        oculos2Models[onlineIndex].ChangeCustom(true);
         //}
     }
 
@@ -189,8 +185,8 @@ public class CustomDisplay : MonoBehaviour
 
         //if (onlineIndex <= mask2Models.Length)
         //{
-            maskModels[onlineIndex].ChangeCustom(true);
-            mask2Models[onlineIndex].ChangeCustom(true);
+        maskModels[onlineIndex].ChangeCustom(true);
+        mask2Models[onlineIndex].ChangeCustom(true);
         //}
     }
 
@@ -204,11 +200,8 @@ public class CustomDisplay : MonoBehaviour
             bone2Models[i].ChangeCustom(false);
         }
 
-        if (boneOn.Value == true)
-        {
-            boneModels[onlineIndex].ChangeCustom(true);
-            bone2Models[onlineIndex].ChangeCustom(true);
-        }
+        boneModels[onlineIndex].ChangeCustom(true);
+        bone2Models[onlineIndex].ChangeCustom(true);
     }
 
-    }
+}
