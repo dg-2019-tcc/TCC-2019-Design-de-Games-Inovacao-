@@ -9,12 +9,10 @@ public class LojaCustom : MonoBehaviour
 
     [Header("Botões da cena")]
     public Button[] botaoDeModelo; //Qual botão dos modelos estamos mexendo
-    public Button[] botaoDeCor; //Qual o botão que a gente está mexendo
 
 
     [Header("Círculo de seleção")]
     public GameObject[] circuloDeSelecaoModelo;
-    public GameObject[] circuloDeSelecaoCor;
 
 
     [Header("Sprites da HUD de botões")]
@@ -72,89 +70,171 @@ public class LojaCustom : MonoBehaviour
     //Utilizado para determinar a partir de qual sprite será iniciada associação dos botões
 
 
+    [Header("Em qual dos grupos de menus estamos mexendo")]
+    int qualMenu = 1;
+    public int maximoLoop;
+    public int minimoLoop;
+
+
+    [Header("Boolean para verificar se precisa ou não do parametro no ativa botoes modelo")]
+    bool ativaParametro = false;
+
+
+
+
     private void Start()
     {
         AtivaBotoesModelo(comecaAqui);
     }
 
-    // Serve para trocar entre as telas dos menus da customização
-    public void TrocaDeMenu(int qualMenuAtiva)
+
+    public void IgnoraParametro()
     {
-        for (int i = 0; i < menu.Length; i++)
-        {
-            if (menu[i] != null)
-            {
-                menu[i].SetActive(false);
-            }
-        }
-        menu[qualMenuAtiva].SetActive(true);        
-    }
-    
-    public void AlteraQtdDeBotoesModelo(int qtd)
-    {
-        quantidadeDeModelos = qtd;
-    }
+        ativaParametro = true;
+    }    
 
     public void AtivaBotoesModelo(int iniciaAqui)//EscolheQtdBotoesModelos //Decide quantos botões de modelo serão mostrados
     {
-        int q = 5;
+        if (ativaParametro == true)
+        {
+            iniciaAqui = comecaAqui;
+        }
 
         //Desativa todos os game objects para caso algum deles tenha ficado ativo sem querer
-        for(int k = 0; k < 6; k++)
+        for(int k = 0; k < botaoDeModelo.Length; k++)
         {
+            Debug.Log("rodei");
             botaoDeModelo[k].gameObject.SetActive(false);
         }
 
         for (int i = 0; i < quantidadeDeModelos; i++)
         {
-            botaoDeModelo[i].gameObject.SetActive(true);//Ativa o botão
-
             switch (qualParteVaiSer)//Decide qual sprite vai aparecer nos botões de Modelo
             {
                 case 1:
-                    botaoDeModelo[i].image.sprite = spriteCabelo[q * iniciaAqui];
+                    if(iniciaAqui < spriteCabelo.Length)
+                    {
+                        botaoDeModelo[i].gameObject.SetActive(true);//está sendo ativado aqui porque se não quando passa do limite não funciona
+                        botaoDeModelo[i].image.sprite = spriteCabelo[iniciaAqui];
+                    }
                     break;
                 case 2:
-                    botaoDeModelo[i].image.sprite = spriteShirt[q * iniciaAqui];
+                    if (iniciaAqui < spriteShirt.Length)
+                    {
+                        botaoDeModelo[i].gameObject.SetActive(true);//está sendo ativado aqui porque se não quando passa do limite não funciona
+                        botaoDeModelo[i].image.sprite = spriteShirt[iniciaAqui];
+                    }
                     break;
                 case 3:
-                    botaoDeModelo[i].image.sprite = spriteTenis[q * iniciaAqui];
+                    if (iniciaAqui < spriteTenis.Length)
+                    {
+                        botaoDeModelo[i].gameObject.SetActive(true);//está sendo ativado aqui porque se não quando passa do limite não funciona
+                        botaoDeModelo[i].image.sprite = spriteTenis[iniciaAqui];
+                    }
                     break;
                 case 4:
-                    botaoDeModelo[i].image.sprite = spriteShorts[q * iniciaAqui];
+                    if (iniciaAqui < spriteShorts.Length)
+                    {
+                        botaoDeModelo[i].gameObject.SetActive(true);//está sendo ativado aqui porque se não quando passa do limite não funciona
+                        botaoDeModelo[i].image.sprite = spriteShorts[iniciaAqui];
+                    }
                     break;
                 case 5:
-                    botaoDeModelo[i].image.sprite = spriteOculos[q * iniciaAqui];
+                    if (iniciaAqui < spriteOculos.Length)
+                    {
+                        botaoDeModelo[i].gameObject.SetActive(true);//está sendo ativado aqui porque se não quando passa do limite não funciona
+                        botaoDeModelo[i].image.sprite = spriteOculos[iniciaAqui];
+                    }
                     break;
                 case 6:
-                    botaoDeModelo[i].image.sprite = spriteDelineado[q * iniciaAqui];
+                    if (iniciaAqui < spriteDelineado.Length)
+                    {
+                        botaoDeModelo[i].gameObject.SetActive(true);//está sendo ativado aqui porque se não quando passa do limite não funciona
+                        botaoDeModelo[i].image.sprite = spriteDelineado[iniciaAqui];
+                    }
                     break;
                 case 7:
-                    botaoDeModelo[i].image.sprite = spriteMascara[q * iniciaAqui];
+                    if (iniciaAqui < spriteMascara.Length)
+                    {
+                        botaoDeModelo[i].gameObject.SetActive(true);//está sendo ativado aqui porque se não quando passa do limite não funciona
+                        botaoDeModelo[i].image.sprite = spriteMascara[iniciaAqui];
+                    }
                     break;
             }
             switch (i)
             {
                 case 0:
-                    botaoModelo1 = q * i;
+                    botaoModelo1 = i;
                     break;
                 case 1:
-                    botaoModelo2 = q * i;
+                    botaoModelo2 = i;
                     break;
                 case 2:
-                    botaoModelo3 = q * i;
+                    botaoModelo3 = i;
                     break;
                 case 3:
-                    botaoModelo4 = q * i;
+                    botaoModelo4 = i;
                     break;
                 case 4:
-                    botaoModelo5 = q * i;
+                    botaoModelo5 = i;
                     break;
                 case 5:
-                    botaoModelo6 = q * i;
+                    botaoModelo6 = i;
                     break;
             }
             iniciaAqui++;
+        }
+        ativaParametro = false;
+    }
+
+
+
+    public void SetMinLoop(int min)
+    {
+        maximoLoop = min;
+    }
+    public void SetMaxLoop(int max)
+    {
+        maximoLoop = max;
+    }
+
+
+    public void ChangeMenu(int muda)
+    {
+        qualMenu += muda;
+    }
+
+    public void QuaisModelosEstaMostrando()
+    {
+        //Lembrar de resetar o valor de "qualMenu" quando mudar de menu
+        if(qualMenu > maximoLoop)
+        {
+            qualMenu = 1;
+        }else if(qualMenu < minimoLoop)
+        {
+            qualMenu = maximoLoop;
+        }
+
+        switch (qualMenu)
+        {
+            case 1:
+                comecaAqui = 0;
+                break;
+            case 2:
+                comecaAqui = 6;
+                break;
+            case 3:
+                comecaAqui = 12;
+                break;
+            case 4:
+                comecaAqui = 18;
+                break;
+            case 5:
+                comecaAqui = 24;
+                break;
+            case 6:
+                comecaAqui = 30;
+                break;
         }
     }
 
