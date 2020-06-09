@@ -32,23 +32,26 @@ public class OfflineButton : MonoBehaviour
         OfflineMode.modoDoOffline = PhotonNetwork.OfflineMode;
     }
 
-    public void AtivaOffline()
+	public void Update()
+	{
+		if (!PhotonNetwork.OfflineMode)
+		{
+			offlineText.text = "Modo: Offline";
+			buttonImage.sprite = conectionSprites[1];
+			offlineText.color = new Color32(0, 101, 255, 255);
+			OfflineMode.modoDoOffline = PhotonNetwork.OfflineMode;
+		}
+		else
+		{
+			offlineText.text = "Modo: Online";
+			buttonImage.sprite = conectionSprites[0];
+			offlineText.color = new Color32(254, 155, 0, 255);
+			OfflineMode.modoDoOffline = PhotonNetwork.OfflineMode;
+		}
+	}
+
+	public void AtivaOffline()
     {
-        if (PhotonNetwork.OfflineMode == false)
-        {
-            PhotonNetwork.OfflineMode = true;
-            offlineText.text = "Modo: Offline";
-            buttonImage.sprite = conectionSprites[1];
-            offlineText.color = new Color32(0, 101, 255, 255);
-            OfflineMode.modoDoOffline = PhotonNetwork.OfflineMode;
-        }
-        else
-        {
-            PhotonNetwork.OfflineMode = false;
-            offlineText.text = "Modo: Online";
-            buttonImage.sprite = conectionSprites[0];
-            offlineText.color = new Color32(254, 155, 0, 255);
-            OfflineMode.modoDoOffline = PhotonNetwork.OfflineMode;
-        }
+		PhotonNetwork.OfflineMode = !PhotonNetwork.OfflineMode;
     }
 }
