@@ -1049,6 +1049,12 @@ public class LojaCustom : MonoBehaviour
     }
 
 
+    public void FrocaModeloLimite(int quantos)
+    {
+        quantidadeDeModelos = quantos;
+    }
+
+
     public void ChangeMenu(int muda)
     {
         qualMenu += muda;
