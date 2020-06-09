@@ -71,6 +71,7 @@ public class CustomDisplay : MonoBehaviour
             TrocaOculos(oculos.prop2DInd);
             TrocaCilios(cilios.prop2DInd);
             TrocaMask(mask.prop2DInd);
+            TrocaBone(bone.prop2DInd);
             TrocaSkin(skin.prop2DInd);
             //TrocaMaterialSapato(shoe.colorIndex);
 
