@@ -13,6 +13,7 @@ public class CustomDisplay : MonoBehaviour
     public Prop2D cilios;
     public Prop2D mask;
     public Prop2D bone;
+    public Prop2D skin;
 
     public ChangeMultipleCustom[] hairModels;
     public ChangeMultipleCustom[] shirtModels;
@@ -22,6 +23,7 @@ public class CustomDisplay : MonoBehaviour
     public ChangeMultipleCustom[] ciliosModels;
     public ChangeMultipleCustom[] maskModels;
     public ChangeMultipleCustom[] boneModels;
+    public ChangeMultipleCustom[] skinModels;
 
     public ChangeMultipleCustom[] hair2Models;
     public ChangeMultipleCustom[] shirt2Models;
@@ -31,6 +33,7 @@ public class CustomDisplay : MonoBehaviour
     public ChangeMultipleCustom[] cilios2Models;
     public ChangeMultipleCustom[] mask2Models;
     public ChangeMultipleCustom[] bone2Models;
+    public ChangeMultipleCustom[] skin2Models;
 
 
     private PhotonView pv;
@@ -54,6 +57,7 @@ public class CustomDisplay : MonoBehaviour
         PhotonNetwork.LocalPlayer.CustomProperties["ciliosIndex"] = cilios.prop2DInd;
         PhotonNetwork.LocalPlayer.CustomProperties["maskIndex"] = mask.prop2DInd;
         PhotonNetwork.LocalPlayer.CustomProperties["boneIndex"] = bone.prop2DInd;
+        PhotonNetwork.LocalPlayer.CustomProperties["skinIndex"] = skin.prop2DInd;
 
 
 
@@ -70,6 +74,7 @@ public class CustomDisplay : MonoBehaviour
 			TrocaOculos(oculos.prop2DInd);
 			TrocaCilios(cilios.prop2DInd);
             TrocaMask(mask.prop2DInd);
+            TrocaSkin(skin.prop2DInd);
             //TrocaMaterialSapato(shoe.colorIndex);
 
         }
@@ -87,11 +92,24 @@ public class CustomDisplay : MonoBehaviour
             TrocaCilios((int)pv.Owner.CustomProperties["ciliosIndex"]);
             TrocaMask((int)pv.Owner.CustomProperties["maskIndex"]);
             TrocaBone((int)pv.Owner.CustomProperties["boneIndex"]);
+            TrocaSkin((int)pv.Owner.CustomProperties["skinIndex"]);
             //TrocaMaterialSapato((int)pv.Owner.CustomProperties["shoeColorIndex"]);
 
 
         }
     }
+    [PunRPC]
+    private void TrocaSkin(int onlineIndex)
+    {
+        for (int i = 0; i < skinModels.Length; i++)
+        {
+            skinModels[i].ChangeCustom(false);
+            skin2Models[i].ChangeCustom(false);
+        }
+        skinModels[onlineIndex].ChangeCustom(true);
+        skin2Models[onlineIndex].ChangeCustom(true);
+    }
+
 
 
     [PunRPC]
