@@ -68,26 +68,26 @@ public class EmpinaMoto : MonoBehaviour
 	{
         if (controller.collisions.climbingSlope)
         {
-            transform.localRotation = Quaternion.Slerp(transform.localRotation, Quaternion.Euler(transform.localRotation.x, transform.localRotation.y, controller.collisions.slopeAngle + 30), 1f);
+            //transform.localRotation = Quaternion.Slerp(transform.localRotation, Quaternion.Euler(transform.localRotation.x, transform.localRotation.y, controller.collisions.slopeAngle + 30), 1f);
             player.transform.localRotation = Quaternion.Slerp(player.transform.localRotation, Quaternion.Euler(player.transform.localRotation.x, player.transform.localRotation.y, controller.collisions.slopeAngle), 1f);
         }
 
         else if (controller.collisions.descendingSlope)
         {
-            transform.localRotation = Quaternion.Slerp(transform.localRotation, Quaternion.Euler(transform.localRotation.x, transform.localRotation.y, -controller.collisions.slopeAngle -45), 1f);
+            //transform.localRotation = Quaternion.Slerp(transform.localRotation, Quaternion.Euler(transform.localRotation.x, transform.localRotation.y, -controller.collisions.slopeAngle -45), 1f);
             player.transform.localRotation = Quaternion.Slerp(player.transform.localRotation, Quaternion.Euler(player.transform.localRotation.x, player.transform.localRotation.y, -controller.collisions.slopeAngle +30), 1f);
         }
 
         else
         {
-            transform.localRotation = Quaternion.Slerp(transform.localRotation, Quaternion.Euler(transform.localRotation.x, transform.localRotation.y, 0), 0.5f);
+            //transform.localRotation = Quaternion.Slerp(transform.localRotation, Quaternion.Euler(transform.localRotation.x, transform.localRotation.y, 0), 0.5f);
             player.transform.localRotation = Quaternion.Slerp(player.transform.localRotation, Quaternion.Euler(player.transform.localRotation.x, player.transform.localRotation.y, 0), 0.5f);
         }
 
         if (isManobrandoNoAr)
         {
-            transform.localRotation = Quaternion.Slerp(transform.localRotation, Quaternion.Euler(transform.localRotation.x, transform.localRotation.y, Mathf.Sin(Time.time) * (transform.localRotation.z + 45)), 0.5f);
-            playerSpeed.Value = Mathf.Lerp(playerSpeed.Value, boostSpeed, 0.5f);
+            //transform.localRotation = Quaternion.Slerp(transform.localRotation, Quaternion.Euler(transform.localRotation.x, transform.localRotation.y, Mathf.Sin(Time.time) * (transform.localRotation.z + 45)), 0.5f);
+            //playerSpeed.Value = Mathf.Lerp(playerSpeed.Value, boostSpeed, 0.5f);
             //particula.SetActive(true);
             if (!trail.isPlaying)
             {
@@ -98,7 +98,7 @@ public class EmpinaMoto : MonoBehaviour
                 //Debug.Log("Caiu");
                 playerThings.StartCoroutine("LevouDogada");
                 //playerSpeed.Value = Mathf.Lerp(playerSpeed.Value, 0, 0.5f);
-                transform.localRotation = Random.rotation;
+                //transform.localRotation = Random.rotation;
                 //particula.SetActive(false);
                 if (trail.isPlaying)
                 {
@@ -109,8 +109,8 @@ public class EmpinaMoto : MonoBehaviour
 
         else if (isEmpinando)
 		{
-			transform.localRotation = Quaternion.Slerp(transform.localRotation, Quaternion.Euler(transform.localRotation.x, transform.localRotation.y, 45), 0.5f);
-            player.transform.localRotation = Quaternion.Slerp(player.transform.localRotation, Quaternion.Euler(player.transform.localRotation.x, player.transform.localRotation.y, 45), 0.5f);
+			//transform.localRotation = Quaternion.Slerp(transform.localRotation, Quaternion.Euler(transform.localRotation.x, transform.localRotation.y, 45), 0.5f);
+            //player.transform.localRotation = Quaternion.Slerp(player.transform.localRotation, Quaternion.Euler(player.transform.localRotation.x, player.transform.localRotation.y, 45), 0.5f);
             playerSpeed.Value = Mathf.Lerp(playerSpeed.Value, boostSpeed, 0.5f);
 			//particula.SetActive(true);
 			if (!trail.isPlaying)
@@ -126,7 +126,7 @@ public class EmpinaMoto : MonoBehaviour
 
         else
         {
-            transform.localRotation = Quaternion.Slerp(transform.localRotation, Quaternion.Euler(transform.localRotation.x, transform.localRotation.y, 0),0.5f);
+            //transform.localRotation = Quaternion.Slerp(transform.localRotation, Quaternion.Euler(transform.localRotation.x, transform.localRotation.y, 0),0.5f);
             if (trail.isPlaying)
             {
                 trail.Stop();

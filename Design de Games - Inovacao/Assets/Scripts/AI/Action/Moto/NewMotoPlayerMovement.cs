@@ -75,18 +75,26 @@ public class NewMotoPlayerMovement : MonoBehaviour
 	void Update()
 	{
 		if (!pv.IsMine && PhotonNetwork.InRoom) return;
-        if (levouDogada.Value) return;
+        //if (levouDogada.Value) return;
         if (playerGanhou.Value) return;
 
         Vector2 input = new Vector2(joyStick.Horizontal, joyStick.Vertical);
 
 			float targetVelocityX = (motoSpeedChange.Value + motoMoveSpeed);
-			//float targetVelocityX = (Mathf.Clamp(input.x, -1, 0)+1) * (moveSpeed.Value + motoMoveSpeed);
-			velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (controller.collisions.below) ? accelerationTimeGrounded : accelerationTimeAirborne);
+        //float targetVelocityX = (Mathf.Clamp(input.x, -1, 0)+1) * (moveSpeed.Value + motoMoveSpeed);
+        if (levouDogada.Value == false)
+        {
+            velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (controller.collisions.below) ? accelerationTimeGrounded : accelerationTimeAirborne);
+        }
+
+        else
+        {
+            velocity.x = 0;
+        }
 			velocity.y += gravity * Time.deltaTime;
 			controller.Move(velocity * Time.deltaTime, input);
 			triggerController.MoveDirection(velocity);
-		//animations.ChangeMoveAnim(velocity, oldPosition, input, jump, stopJump);
+		    animations.ChangeMoveAnim(velocity, oldPosition, input, jump, levouDogada.Value);
 		if (controller.collisions.above || controller.collisions.below)
 			{
 				velocity.y = 0;

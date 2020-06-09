@@ -72,6 +72,10 @@ public class Player2DAnimations : MonoBehaviour
 
 	private bool isOnline;
 
+    public bool isMoto;
+    public EmpinaMoto empina;
+    public BoolVariable levouDogada;
+
 
 	private void Start()
 	{
@@ -112,87 +116,125 @@ public class Player2DAnimations : MonoBehaviour
             {
 
                 moveX = Mathf.Abs(moveAmount.x);
-
-                if (carroActive.Value == false && pipaActive.Value == false)
+                if (isMoto == false)
                 {
-                    if (state == State.Aterrisando || state == State.Walking || state == State.Abaixando)
+                    if (carroActive.Value == false && pipaActive.Value == false)
                     {
-                        if (state == State.Walking && input.x == 0)
+                        if (state == State.Aterrisando || state == State.Walking || state == State.Abaixando)
                         {
-                            coolToIdle = 0.66f;
+                            if (state == State.Walking && input.x == 0)
+                            {
+                                coolToIdle = 0.66f;
+                            }
+
+                            else
+                            {
+                                coolToIdle += Time.deltaTime;
+                            }
+                        }
+
+                        if (dogButtonAnim == false)
+                        {
+                            if (pipaActive.Value == false && carroActive.Value == false && dogButtonAnim == false)
+                            {
+                                if (moveAmount.y < -2 && jaAterrisou && state != State.Aterrisando)
+                                {
+                                    jaAterrisou = false;
+                                }
+
+                                if (oldPos.y < moveAmount.y && controller.collisions.below == false)
+                                {
+                                    jaAterrisou = false;
+                                    PlayAnim("NoArUp");
+                                }
+
+                                else if (/*moveAmount.y < 15 &&*/ moveAmount.y > 0 && controller.collisions.below == false)
+                                {
+                                    PlayAnim("TransitionAir");
+                                }
+
+                                else if (moveAmount.y <= 0 && controller.collisions.below == false && jaAterrisou == false)
+                                {
+                                    Debug.Log("Fall");
+                                    PlayAnim("Fall");
+                                }
+
+                                else if (moveAmount.y < -5f && input.x == 0 && input.y >= 0 && controller.collisions.below == true && jaAterrisou == false)
+                                {
+                                    PlayAnim("Aterrisando");
+                                }
+
+                                else if (controller.collisions.below && input.x == 0 && input.y < 0)
+                                {
+                                    PlayAnim("Abaixar");
+                                }
+
+                                else if (input.x != 0 && controller.collisions.below)
+                                {
+                                    PlayAnim("Walking");
+                                }
+                                else
+                                {
+                                    PlayAnim("Idle");
+                                    //}
+                                }
+                            }
                         }
 
                         else
                         {
-                            coolToIdle += Time.deltaTime;
-                        }
-                    }
-
-                    if (dogButtonAnim == false)
-                    {
-                        if (pipaActive.Value == false && carroActive.Value == false && dogButtonAnim == false)
-                        {
-                            if (moveAmount.y < -2 && jaAterrisou && state != State.Aterrisando)
-                            {
-                                jaAterrisou = false;
-                            }
-
-                            if (oldPos.y < moveAmount.y && controller.collisions.below == false)
-                            {
-                                jaAterrisou = false;
-                                PlayAnim("NoArUp");
-                            }
-
-                            else if (/*moveAmount.y < 15 &&*/ moveAmount.y > 0 && controller.collisions.below == false)
-                            {
-                                PlayAnim("TransitionAir");
-                            }
-
-                            else if (moveAmount.y <= 0 && controller.collisions.below == false && jaAterrisou == false)
-                            {
-                                Debug.Log("Fall");
-                                PlayAnim("Fall");
-                            }
-
-                            else if (moveAmount.y < -5f && input.x == 0 && input.y >= 0 && controller.collisions.below == true && jaAterrisou == false)
-                            {
-                                PlayAnim("Aterrisando");
-                            }
-
-                            else if (controller.collisions.below && input.x == 0 && input.y < 0)
-                            {
-                                PlayAnim("Abaixar");
-                            }
-
-                            else if (input.x != 0 && controller.collisions.below)
-                            {
-                                PlayAnim("Walking");
-                            }
-                            else
-                            {
-                                PlayAnim("Idle");
-                                //}
-                            }
+                            PlayAnim("Idle");
                         }
                     }
 
                     else
                     {
-                        PlayAnim("Idle");
+                        if (pipaActive.Value == true)
+                        {
+                            PlayAnim("Pipa");
+                        }
+
+                        else if (carroActive.Value == true)
+                        {
+                            PlayAnim("CarroWalk");
+
+                        }
                     }
                 }
 
                 else
                 {
-                    if(pipaActive.Value == true)
+                    if (stopJump == false)
                     {
-                        PlayAnim("Pipa");
+
+                        if (empina.isEmpinando || empina.isManobrandoNoAr)
+                        {
+                            PlayAnim("MotoGrau");
+                        }
+
+
+                        else if (oldPos.y < moveAmount.y && controller.collisions.below == false)
+                        {
+                            Debug.Log("Up");
+                            PlayAnim("MotoUp");
+                        }
+
+                        else if(moveAmount.y <= 0 && controller.collisions.below == false)
+                        {
+                            Debug.Log("Down");
+                            PlayAnim("MotoDown");
+                        }
+
+                        else
+                        {
+                            PlayAnim("MotoWalk");
+                        }
                     }
 
-                    else if(carroActive.Value == true)
+                    else
                     {
-                        PlayAnim("CarroWalk");
-                        
+                        Debug.Log("Crash");
+                        PlayAnim("MotoCrash");
                     }
                 }
             }
@@ -240,7 +282,7 @@ public class Player2DAnimations : MonoBehaviour
 	{
 		if (state == State.Idle || state == State.Inativo)
 		{
-			if(anim == "Walking" || anim == "NoArUp" || anim == "Fall" || anim == "Aterrisando" || anim == "Chute" || anim == "Arremesso" || anim == "Abaixar" || anim == "TransitionAir" || anim == "Pipa" || anim == "CarroWalk")
+			if(anim == "Walking" || anim == "NoArUp" || anim == "Fall" || anim == "Aterrisando" || anim == "Chute" || anim == "Arremesso" || anim == "Abaixar" || anim == "TransitionAir" || anim == "Pipa" || anim == "CarroWalk" || anim == "MotoWalk"|| anim == "MotoUp" || anim == "MotoDown" || anim == "MotoCrash" || anim == "MotoGrau")
 			{
                 playerFrente.animation.Play(idlePose);
                 lado.SetActive(true);
@@ -249,6 +291,46 @@ public class Player2DAnimations : MonoBehaviour
 		}
 		switch (anim)
 		{
+            case "MotoWalk":
+                if(state != State.MotoWalk)
+                {
+                    player.animation.Play(motoWalkAnim);
+                    state = State.MotoWalk;
+                }
+                break;
+
+            case "MotoCrash":
+                if (state != State.MotoCrash)
+                {
+                    player.animation.Play(motoCrashAnim);
+                    state = State.MotoCrash;
+                }
+                break;
+
+            case "MotoUp":
+                if (state != State.MotoUp)
+                {
+                    player.animation.Play(motoUpAnim);
+                    state = State.MotoUp;
+                }
+                break;
+
+            case "MotoDown":
+                if (state != State.MotoDown)
+                {
+                    player.animation.Play(motoDownAnim);
+                    state = State.MotoDown;
+                }
+                break;
+
+            case "MotoGrau":
+                if (state != State.MotoGrau)
+                {
+                    player.animation.Play(motoGrauAnim);
+                    state = State.MotoGrau;
+                }
+                break;
+
             case "CarroWalk":
                 if(state != State.CarroWalk)
                 {
