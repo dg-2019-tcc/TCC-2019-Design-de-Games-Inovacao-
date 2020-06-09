@@ -150,6 +150,7 @@ public class Player2DAnimations : MonoBehaviour
 
                             else if (moveAmount.y <= 0 && controller.collisions.below == false && jaAterrisou == false)
                             {
+                                Debug.Log("Fall");
                                 PlayAnim("Fall");
                             }
 
@@ -175,10 +176,6 @@ public class Player2DAnimations : MonoBehaviour
                         }
                     }
 
-
-
-
-
                     else
                     {
                         PlayAnim("Idle");
@@ -194,20 +191,8 @@ public class Player2DAnimations : MonoBehaviour
 
                     else if(carroActive.Value == true)
                     {
-                        if (oldPos.y < moveAmount.y && controller.collisions.below == false)
-                        {
-                            PlayAnim("CarroUp");
-                        }
-
-                        else if (moveAmount.y <= 0 && controller.collisions.below == false)
-                        {
-                            PlayAnim("CarroDown");
-                        }
-
-                        else
-                        {
-                            PlayAnim("CarroWalk");
-                        }
+                        PlayAnim("CarroWalk");
+                        
                     }
                 }
             }
@@ -255,7 +240,7 @@ public class Player2DAnimations : MonoBehaviour
 	{
 		if (state == State.Idle || state == State.Inativo)
 		{
-			if(anim == "Walking" || anim == "NoArUp" || anim == "Fall" || anim == "Aterrisando" || anim == "Chute" || anim == "Arremesso" || anim == "Abaixar" || anim == "TransitionAir" || anim == "Pipa")
+			if(anim == "Walking" || anim == "NoArUp" || anim == "Fall" || anim == "Aterrisando" || anim == "Chute" || anim == "Arremesso" || anim == "Abaixar" || anim == "TransitionAir" || anim == "Pipa" || anim == "CarroWalk")
 			{
                 playerFrente.animation.Play(idlePose);
                 lado.SetActive(true);
