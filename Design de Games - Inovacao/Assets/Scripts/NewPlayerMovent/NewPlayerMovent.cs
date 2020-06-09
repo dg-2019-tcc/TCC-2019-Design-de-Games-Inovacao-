@@ -135,6 +135,7 @@ public class NewPlayerMovent : MonoBehaviour
                 velocity.x = 0;
             }
 
+
             if (!triggerController.collisions.slowTime)
             {
                 slowFall = false;
@@ -148,9 +149,9 @@ public class NewPlayerMovent : MonoBehaviour
             }
 
             controller.Move(velocity * Time.deltaTime, input);
-            //dogController.Move(velocity * Time.deltaTime, input);
-            triggerController.MoveDirection(velocity *Time.deltaTime);
-            animations.ChangeMoveAnim(velocity, oldPosition, input, jump, stopJump,levouDogada.Value, ganhou);
+            triggerController.MoveDirection(velocity * Time.deltaTime);
+            animations.ChangeMoveAnim(velocity, oldPosition, input, jump, stopJump, levouDogada.Value, ganhou);
+
             if (controller.collisions.above || controller.collisions.below)
             {
                 if (stopJump)
