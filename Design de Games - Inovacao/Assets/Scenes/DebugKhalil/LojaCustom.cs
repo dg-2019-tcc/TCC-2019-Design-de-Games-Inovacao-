@@ -23,42 +23,16 @@ public class LojaCustom : MonoBehaviour
     public Sprite[] spriteOculos; //Tem todos os sprites de cabelo, os modelos de cabelo vão de 0 - 4 / 5 - 9 / 10 - 14 / 15 / 19
     public Sprite[] spriteDelineado; //Tem todos os sprites de cabelo, os modelos de cabelo vão de 0 - 4 / 5 - 9 / 10 - 14 / 15 / 19
     public Sprite[] spriteMascara; //Tem todos os sprites de cabelo, os modelos de cabelo vão de 0 - 4 / 5 - 9 / 10 - 14 / 15 / 19
-
-
-    [Header("Quantidade de cores que cada modelo tem")]
-    public int[] coresCabelo;
-    public int[] coresShirt;
-    public int[] coresShort;
-    public int[] coresTenis;
-    public int[] coresOculos;
-    public int[] coresDelineado;
-    public int[] coresMascara;
-
-
-    [Header("Telas De Menu")]
-    public GameObject[] menu;
+    
 
 
     [Header("Número de botões que irão spawnar")]
     public int quantidadeDeModelos;
-    public int maiorQuantitadeDeCoresDessaParte;
 
 
     [Header("Custom2D Script")]
     public Custom2D customizaScript;
 
-
-    [Header("Botao Next")]
-    public GameObject nextButton;
-
-
-    [Header("Armazena o valor dos botões e efetiva a escolha do modelo")]
-    int botaoModelo1;
-    int botaoModelo2;
-    int botaoModelo3;
-    int botaoModelo4;
-    int botaoModelo5;
-    int botaoModelo6;
 
 
     [Header("Com qual parte estamos mexendo agora?")]
@@ -443,27 +417,6 @@ public class LojaCustom : MonoBehaviour
                             botaoDeModelo[i].onClick.AddListener(delegate { QualParteVaiMudar(qualParteVaiSer, f); });
                         }
                     }
-                    break;
-            }
-            switch (i)
-            {
-                case 0:
-                    botaoModelo1 = i;
-                    break;
-                case 1:
-                    botaoModelo2 = i;
-                    break;
-                case 2:
-                    botaoModelo3 = i;
-                    break;
-                case 3:
-                    botaoModelo4 = i;
-                    break;
-                case 4:
-                    botaoModelo5 = i;
-                    break;
-                case 5:
-                    botaoModelo6 = i;
                     break;
             }
             iniciaAqui++;

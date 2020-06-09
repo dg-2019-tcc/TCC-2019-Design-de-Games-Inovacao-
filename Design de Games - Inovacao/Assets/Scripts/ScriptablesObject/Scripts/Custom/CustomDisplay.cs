@@ -12,6 +12,7 @@ public class CustomDisplay : MonoBehaviour
     public Prop2D oculos;
     public Prop2D cilios;
     public Prop2D mask;
+    public Prop2D bone;
 
     public ChangeMultipleCustom[] hairModels;
     public ChangeMultipleCustom[] shirtModels;
@@ -20,6 +21,7 @@ public class CustomDisplay : MonoBehaviour
     public ChangeMultipleCustom[] oculosModels;
     public ChangeMultipleCustom[] ciliosModels;
     public ChangeMultipleCustom[] maskModels;
+    public ChangeMultipleCustom[] boneModels;
 
     public ChangeMultipleCustom[] hair2Models;
     public ChangeMultipleCustom[] shirt2Models;
@@ -28,6 +30,7 @@ public class CustomDisplay : MonoBehaviour
     public ChangeMultipleCustom[] oculos2Models;
     public ChangeMultipleCustom[] cilios2Models;
     public ChangeMultipleCustom[] mask2Models;
+    public ChangeMultipleCustom[] bone2Models;
 
 
     private PhotonView pv;
@@ -45,10 +48,11 @@ public class CustomDisplay : MonoBehaviour
         PhotonNetwork.LocalPlayer.CustomProperties["oculosIndex"] = oculos.prop2DInd;
         PhotonNetwork.LocalPlayer.CustomProperties["ciliosIndex"] = cilios.prop2DInd;
         PhotonNetwork.LocalPlayer.CustomProperties["maskIndex"] = mask.prop2DInd;
+        //PhotonNetwork.LocalPlayer.CustomProperties["boneIndex"] = bone.prop2DInd;
 
 
 
-		if (!PhotonNetwork.InRoom)
+        if (!PhotonNetwork.InRoom)
 		{
 			TrocaCabelo(hair.prop2DInd);
 			//TrocaMaterialCabelo(hair.colorIndex);
@@ -59,10 +63,11 @@ public class CustomDisplay : MonoBehaviour
 			TrocaSapato(shoe.prop2DInd);
 			TrocaOculos(oculos.prop2DInd);
 			TrocaCilios(cilios.prop2DInd);
-			TrocaMask(mask.prop2DInd);
-			//TrocaMaterialSapato(shoe.colorIndex);
+            TrocaMask(mask.prop2DInd);
+            //TrocaMask(bone.prop2DInd);
+            //TrocaMaterialSapato(shoe.colorIndex);
 
-		}
+        }
 
         else
         {
@@ -76,10 +81,11 @@ public class CustomDisplay : MonoBehaviour
             TrocaOculos((int)pv.Owner.CustomProperties["oculosIndex"]);
             TrocaCilios((int)pv.Owner.CustomProperties["ciliosIndex"]);
             TrocaMask((int)pv.Owner.CustomProperties["maskIndex"]);
-			//TrocaMaterialSapato((int)pv.Owner.CustomProperties["shoeColorIndex"]);
+            //TrocaMask((int)pv.Owner.CustomProperties["boneIndex"]);
+            //TrocaMaterialSapato((int)pv.Owner.CustomProperties["shoeColorIndex"]);
 
 
-		}
+        }
     }
 
 
@@ -180,4 +186,20 @@ public class CustomDisplay : MonoBehaviour
         }
     }
 
-}
+    [PunRPC]
+    private void TrocaBone(int onlineIndex)
+    {
+        for (int i = 0; i < maskModels.Length; i++)
+        {
+            boneModels[i].ChangeCustom(false);
+            bone2Models[i].ChangeCustom(false);
+        }
+
+        if (onlineIndex <= mask2Models.Length)
+        {
+            boneModels[onlineIndex].ChangeCustom(true);
+            bone2Models[onlineIndex].ChangeCustom(true);
+        }
+    }
+
+    }
