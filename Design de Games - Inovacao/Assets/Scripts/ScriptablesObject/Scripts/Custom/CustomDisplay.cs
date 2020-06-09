@@ -35,9 +35,14 @@ public class CustomDisplay : MonoBehaviour
 
     private PhotonView pv;
 
+    public BoolVariable boneOn;
+
     void Start()
     {
-		pv = GetComponent<PhotonView>();
+        boneOn = Resources.Load<BoolVariable>("BoneOn");
+
+
+        pv = GetComponent<PhotonView>();
 
         //hair.prop2DInd = 1;//utilizei pra resetar os valores do cabelo
 
@@ -54,7 +59,8 @@ public class CustomDisplay : MonoBehaviour
 
         if (!PhotonNetwork.InRoom)
 		{
-			TrocaCabelo(hair.prop2DInd);
+            TrocaBone(bone.prop2DInd);
+            TrocaCabelo(hair.prop2DInd);
 			//TrocaMaterialCabelo(hair.colorIndex);
 			TrocaCamisa(shirt.prop2DInd);
 			//TrocaMaterialCamisa(shirt.colorIndex);
@@ -64,7 +70,6 @@ public class CustomDisplay : MonoBehaviour
 			TrocaOculos(oculos.prop2DInd);
 			TrocaCilios(cilios.prop2DInd);
             TrocaMask(mask.prop2DInd);
-            TrocaMask(bone.prop2DInd);
             //TrocaMaterialSapato(shoe.colorIndex);
 
         }
@@ -81,7 +86,7 @@ public class CustomDisplay : MonoBehaviour
             TrocaOculos((int)pv.Owner.CustomProperties["oculosIndex"]);
             TrocaCilios((int)pv.Owner.CustomProperties["ciliosIndex"]);
             TrocaMask((int)pv.Owner.CustomProperties["maskIndex"]);
-            TrocaMask((int)pv.Owner.CustomProperties["boneIndex"]);
+            TrocaBone((int)pv.Owner.CustomProperties["boneIndex"]);
             //TrocaMaterialSapato((int)pv.Owner.CustomProperties["shoeColorIndex"]);
 
 
@@ -97,8 +102,11 @@ public class CustomDisplay : MonoBehaviour
             hairModels[i].ChangeCustom(false);
             hair2Models[i].ChangeCustom(false);
         }
-        hairModels[onlineIndex].ChangeCustom(true);
-        hair2Models[onlineIndex].ChangeCustom(true);
+        if (boneOn.Value == false)
+        {
+            hairModels[onlineIndex].ChangeCustom(true);
+            hair2Models[onlineIndex].ChangeCustom(true);
+        }
     }
 
 
@@ -151,11 +159,11 @@ public class CustomDisplay : MonoBehaviour
             oculosModels[i].ChangeCustom(false);
             oculos2Models[i].ChangeCustom(false);
         }
-        if (onlineIndex <= oculos2Models.Length)
-        {
+        //if (onlineIndex <= oculos2Models.Length)
+        //{
             oculosModels[onlineIndex].ChangeCustom(true);
             oculos2Models[onlineIndex].ChangeCustom(true);
-        }
+        //}
     }
 
     [PunRPC]
@@ -179,23 +187,24 @@ public class CustomDisplay : MonoBehaviour
             mask2Models[i].ChangeCustom(false);
         }
 
-        if (onlineIndex <= mask2Models.Length)
-        {
+        //if (onlineIndex <= mask2Models.Length)
+        //{
             maskModels[onlineIndex].ChangeCustom(true);
             mask2Models[onlineIndex].ChangeCustom(true);
-        }
+        //}
     }
 
     [PunRPC]
     private void TrocaBone(int onlineIndex)
     {
-        for (int i = 0; i < maskModels.Length; i++)
+        Debug.Log("Bone");
+        for (int i = 0; i < boneModels.Length; i++)
         {
             boneModels[i].ChangeCustom(false);
             bone2Models[i].ChangeCustom(false);
         }
 
-        if (onlineIndex <= mask2Models.Length)
+        if (boneOn.Value == true)
         {
             boneModels[onlineIndex].ChangeCustom(true);
             bone2Models[onlineIndex].ChangeCustom(true);

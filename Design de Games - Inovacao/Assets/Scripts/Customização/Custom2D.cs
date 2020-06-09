@@ -36,6 +36,8 @@ public class Custom2D : MonoBehaviour
     public ChangeMultipleCustom[] mask2;
     public ChangeMultipleCustom[] bone2;
 
+    public BoolVariable boneOn;
+
 
 
 
@@ -43,10 +45,20 @@ public class Custom2D : MonoBehaviour
 	public void ChangeHair(int index)
 	{
 		FMODUnity.RuntimeManager.PlayOneShot("event:/HUD/Click", GetComponent<Transform>().position);
-		hairs[hairInd.prop2DInd].ChangeCustom(false);
-		hairs2[hairInd.prop2DInd].ChangeCustom(false);
+        if (boneOn == false)
+        {
+            hairs[hairInd.prop2DInd].ChangeCustom(false);
+            hairs2[hairInd.prop2DInd].ChangeCustom(false);
+            Debug.Log("Desativa cabelo");
+        }
+        else
+        {
+            bone[boneIndex.prop2DInd].ChangeCustom(false);
+            bone2[boneIndex.prop2DInd].ChangeCustom(false);
+        }
+        boneOn.Value = false;
 
-		hairInd.prop2DInd = index;
+        hairInd.prop2DInd = index;
 
 		if (hairInd.prop2DInd + 1 > hairs.Length)
 		{
@@ -189,9 +201,17 @@ public class Custom2D : MonoBehaviour
     public void ChangeBone(int index)
     {
         FMODUnity.RuntimeManager.PlayOneShot("event:/HUD/Click", GetComponent<Transform>().position);
-        bone[boneIndex.prop2DInd].ChangeCustom(false);
-        bone2[boneIndex.prop2DInd].ChangeCustom(false);
-
+        if (boneOn == false)
+        {
+            hairs[hairInd.prop2DInd].ChangeCustom(false);
+            hairs2[hairInd.prop2DInd].ChangeCustom(false);
+        }
+        else
+        {
+            bone[boneIndex.prop2DInd].ChangeCustom(false);
+            bone2[boneIndex.prop2DInd].ChangeCustom(false);
+        }
+        boneOn.Value = true;
         boneIndex.prop2DInd = index;
 
         if (boneIndex.prop2DInd >= bone.Length)
