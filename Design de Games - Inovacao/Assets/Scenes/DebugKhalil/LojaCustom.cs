@@ -420,7 +420,7 @@ public class LojaCustom : MonoBehaviour
                     }
                     break;
                 case 8:
-                    if (iniciaAqui < spriteMascara.Length)
+                    if (iniciaAqui < spriteBone.Length)
                     {
                         if (iniciaAqui == 0 || iniciaAqui == 6 || iniciaAqui == 12 || iniciaAqui == 18 || iniciaAqui == 24 || iniciaAqui == 30)
                         {
