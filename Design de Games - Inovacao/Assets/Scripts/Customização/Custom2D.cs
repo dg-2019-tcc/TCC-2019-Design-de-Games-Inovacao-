@@ -13,6 +13,7 @@ public class Custom2D : MonoBehaviour
     public Prop2D oculosIndex;
     public Prop2D ciliosIndex;
     public Prop2D maskIndex;
+    public Prop2D boneIndex;
 
     //ARMATURE DE FRENTE
     public ChangeMultipleCustom[] hairs;
@@ -22,6 +23,7 @@ public class Custom2D : MonoBehaviour
     public ChangeMultipleCustom[] cilios;
     public ChangeMultipleCustom[] oculos;
     public ChangeMultipleCustom[] mask;
+    public ChangeMultipleCustom[] bone;
 
 
     //ARMATURE DE LADO
@@ -32,11 +34,12 @@ public class Custom2D : MonoBehaviour
     public ChangeMultipleCustom[] cilios2;
     public ChangeMultipleCustom[] oculos2;
     public ChangeMultipleCustom[] mask2;
+    public ChangeMultipleCustom[] bone2;
 
 
 
 
-	[PunRPC]
+    [PunRPC]
 	public void ChangeHair(int index)
 	{
 		FMODUnity.RuntimeManager.PlayOneShot("event:/HUD/Click", GetComponent<Transform>().position);
@@ -179,6 +182,27 @@ public class Custom2D : MonoBehaviour
         mask2[maskIndex.prop2DInd].ChangeCustom(true);
 
         PhotonNetwork.LocalPlayer.CustomProperties["maskIndex"] = maskIndex.prop2DInd;
+    }
+
+
+    [PunRPC]
+    public void ChangeBone(int index)
+    {
+        FMODUnity.RuntimeManager.PlayOneShot("event:/HUD/Click", GetComponent<Transform>().position);
+        bone[boneIndex.prop2DInd].ChangeCustom(false);
+        bone2[boneIndex.prop2DInd].ChangeCustom(false);
+
+        boneIndex.prop2DInd = index;
+
+        if (boneIndex.prop2DInd >= bone.Length)
+        {
+            boneIndex.prop2DInd = 0;
+        }
+
+        bone[boneIndex.prop2DInd].ChangeCustom(true);
+        bone2[boneIndex.prop2DInd].ChangeCustom(true);
+
+        PhotonNetwork.LocalPlayer.CustomProperties["boneIndex"] = boneIndex.prop2DInd;
     }
 
 }
