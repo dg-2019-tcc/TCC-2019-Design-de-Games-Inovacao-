@@ -42,6 +42,9 @@ public class GolManager : MonoBehaviourPunCallbacks
         aiGanhou = Resources.Load<BoolVariableArray>("AIGanhou");
         playerGanhou = Resources.Load<BoolVariable>("PlayerGanhou");
         flowIndex = Resources.Load<FloatVariable>("FlowIndex");
+        botScore = Resources.Load<FloatVariable>("BotScore");
+
+        botScore.Value = 0;
 
         playerGanhou.Value = false;
         aiGanhou.Value[4] = false;
@@ -49,18 +52,18 @@ public class GolManager : MonoBehaviourPunCallbacks
         offline = OfflineMode.modoDoOffline;
     }
 
-    private void Update()
+
+
+    public void PerdeuProBot()
     {
-        if (botScore.Value >= maxPoints && offline == true)
-        {
-            feedbackWin.Perdeu();
-            aiGanhou.Value[4] = true;
-            playerGanhou.Value = false;
-            PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 0;
-			if (isLoading) return;
-			isLoading = true;
-			StartCoroutine("AcabouFase");
-        }
+        Debug.Log("Perdeu");
+        feedbackWin.Perdeu();
+        aiGanhou.Value[4] = true;
+        playerGanhou.Value = false;
+        PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 0;
+        if (isLoading) return;
+        isLoading = true;
+        StartCoroutine("AcabouFase");
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -93,14 +96,11 @@ public class GolManager : MonoBehaviourPunCallbacks
     IEnumerator AcabouFase()
     {
 		isLoading = true;
-        Debug.Log("isLoading");
         yield return new WaitForSeconds(3f);
         if (aiGanhou.Value[4] == true)
         {
-            Debug.Log("AIGanhou");
             if (acabou01.Value[4] == true)
             {
-                Debug.Log("AIGanhou2");
                 LevelManager.Instance.GoPodium();
             }
             else

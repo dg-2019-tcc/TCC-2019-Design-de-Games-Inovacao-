@@ -11,6 +11,10 @@ public class AIGolManager : MonoBehaviour
 
     public Transform bolaSpawnPoint;
 
+    private int maxPoints = 5;
+
+    public GolManager golPlayer;
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Futebol"))
@@ -42,9 +46,19 @@ public class AIGolManager : MonoBehaviour
             yield return new WaitForSeconds(0.8f);
             goool.SetActive(false);
 
+        if (botScore.Value >= maxPoints)
+        {
+            Debug.Log(botScore.Value);
+            golPlayer.PerdeuProBot();
+        }
+
+        else
+        {
+
             bola.SetActive(true);
 
             bola.GetComponent<Rigidbody2D>().isKinematic = false;
+        }
 
         }
 

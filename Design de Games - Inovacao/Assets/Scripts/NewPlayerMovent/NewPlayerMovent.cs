@@ -33,17 +33,6 @@ public class NewPlayerMovent : MonoBehaviour
     float carroAccelerationTimeAirborne = 0.35f;
     float carroAccelerationTimeGrounded = 0.175f;
 
-    float motoMoveSpeed = 6;
-    float motoVelocityXSmoothing;
-    float motoAccelerationTimeAirborne = 0.1f;
-    float motoAccelerationTimeGrounded = 0.05f;
-
-    float motoMaxJumpVelocity;
-    float motoMinJumpVelocity;
-    float motoGravity;
-    public float motoMaxJumpHeight = 4;
-    public float motoMinJumpHeight = 2;
-    public float motoTimeToJumpApex = 0.4f;
 
     [HideInInspector]
     public bool jump;
