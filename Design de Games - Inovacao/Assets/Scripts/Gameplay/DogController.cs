@@ -23,15 +23,6 @@ public class DogController : MonoBehaviour
     public GameObject dogSpawn;
 
 
-    [Header("Pet pipa")]
-
-    public GameObject pipaObj;
-
-    [Header("Pet carrinho")]
-
-    public GameObject carrinhoObj;
-
-
     [HideInInspector]
     private PhotonView PV;
 
@@ -126,7 +117,6 @@ public class DogController : MonoBehaviour
             carroActive.Value = true;
 
             dogAtivo.Value = false;
-            carrinhoObj.SetActive(true);
         }
 
     }
@@ -142,7 +132,6 @@ public class DogController : MonoBehaviour
             pipaActive.Value = true;
 
             dogAtivo.Value = false;
-            pipaObj.SetActive(true);
         }
     }
 
@@ -152,11 +141,8 @@ public class DogController : MonoBehaviour
         dogAtivo.Value = true;
 
         pipaActive.Value = false;
-        pipaObj.SetActive(false);
-
 
         carroActive.Value = false;
-        carrinhoObj.SetActive(false);
         desativaPower.Value = false;
 
         triggerCollisionsScript.isDogNormal = true;
