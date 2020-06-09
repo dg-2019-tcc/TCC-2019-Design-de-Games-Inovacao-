@@ -13,13 +13,10 @@ public class Player2DAnimations : MonoBehaviour
 
 	public string idlePose = "0_Idle";
 	public string walkAnimation = "0_Corrida_V2";
-	public string startJumpAnimation = "1_Pulo";
 	public string subindoJumpAnimation = "1_NoAr(1_Subindo)";
-	public string transitionJumpAnimation = "1_NoAr(2_Transicao)";
 	public string descendoJumpAnimation = "1_NoAr(3_Descendo)";
 	public string aterrisandoAnimation = "1_Aterrisando";
 	public string chuteAnimation = "3_Bicuda(SemPreparacao)";
-	public string abaixarAnimation = "5_Abaixar(2_IdlePose)";
 	public string arremessoAnimation = "6_Arremessar(3_Arremesso)";
 	public string inativoAnimation = "1_Inatividade(2_IdlePose)";
 	public string pipaAnimation = "7_Pipa";
@@ -156,7 +153,6 @@ public class Player2DAnimations : MonoBehaviour
 
                                     else if (moveAmount.y <= 0 && controller.collisions.below == false && jaAterrisou == false)
                                     {
-                                        Debug.Log("Fall");
                                         PlayAnim("Fall");
                                     }
 
@@ -462,15 +458,6 @@ public class Player2DAnimations : MonoBehaviour
 				}
 				break;
 
-			case "StartPulo":
-				if (state != State.Jumping)
-				{
-					inativoTime = 0f;
-					player.animation.FadeIn(startJumpAnimation, 0f, 1);
-					player.animation.timeScale = 1;
-					state = State.Jumping;
-				}
-				break;
 			case "NoArUp":
 				if (state != State.Rising)
 				{
@@ -515,24 +502,6 @@ public class Player2DAnimations : MonoBehaviour
 					//player.animation.timeScale = 1;
 					player.animation.Play(arremessoAnimation);
 					state = State.Arremessando;
-				}
-				break;
-			case "Abaixar":
-				if (state != State.Abaixando)
-				{
-					inativoTime = 0f;
-					//player.animation.timeScale = 1;
-					player.animation.Play(abaixarAnimation);
-					state = State.Abaixando;
-				}
-				break;
-			case "TransitionAir":
-				if (state != State.TransitionAir)
-				{
-                    inativoTime = 0f;
-					// player.animation.timeScale = 1.5f;
-					player.animation.Play(transitionJumpAnimation);
-					state = State.TransitionAir;
 				}
 				break;
 		}
