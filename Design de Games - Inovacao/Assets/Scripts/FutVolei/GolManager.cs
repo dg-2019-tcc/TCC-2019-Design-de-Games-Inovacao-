@@ -31,6 +31,10 @@ public class GolManager : MonoBehaviourPunCallbacks
     public FeedbackText feedbackWin;
 
 
+
+	GolSelect playerGol;
+
+
 	private bool isLoading = false;
 
     private bool offline;
@@ -72,7 +76,7 @@ public class GolManager : MonoBehaviourPunCallbacks
         {
             bola = other.gameObject;
 
-            GolSelect playerGol = GetComponentInParent<GolSelect>();
+            playerGol = GetComponentInParent<GolSelect>();
             playerGol.jogador.PV.Owner.AddScore(1);
 
 
@@ -144,7 +148,7 @@ public class GolManager : MonoBehaviourPunCallbacks
         index++;
 
         yield return new WaitForSeconds(0.8f);
-        placarText.text = index.ToString();
+		placarText.text = playerGol.jogador.PV.Owner.GetScore().ToString();
         bola.SetActive(true);
 
         bola.GetComponent<Rigidbody2D>().isKinematic = false;
