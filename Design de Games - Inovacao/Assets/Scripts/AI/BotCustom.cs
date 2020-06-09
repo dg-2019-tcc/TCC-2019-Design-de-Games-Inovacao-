@@ -11,4 +11,5 @@ public class BotCustom : ScriptableObject
     public int shoesIndex;
     public int oculosIndex;
     public int maskIndex;
+    public int skinIndex;
 }
