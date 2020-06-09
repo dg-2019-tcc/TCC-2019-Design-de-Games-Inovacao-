@@ -32,8 +32,11 @@ public class Player2DAnimations : MonoBehaviour
 	public string motoGrauAnim = "8_Moto(Empinando)";
 	public string motoCrashAnim = "8_Moto(Batendo)";
 	public string motoLandAnim = "8_Moto(Aterrisando)";
+	public string stunAnim = "3_Atordoado";
+	public string vitoriaAnim = "2_Vencer";
+	public string derrotaAnim = "2_Perder";
 
-	public enum State {Idle, Walking, Jumping, Rising, Falling, TransitionAir, Aterrisando, Chutando, Abaixando, Arremessando, Inativo, Pipa, CarroWalk, CarroUp, CarroDown,MotoWalk, MotoUp, MotoDown,MotoGrau, MotoCrash, MotoLand}
+	public enum State {Idle, Walking, Jumping, Rising, Falling, TransitionAir, Aterrisando, Chutando, Abaixando, Arremessando, Inativo, Pipa, CarroWalk, CarroUp, CarroDown,MotoWalk, MotoUp, MotoDown,MotoGrau, MotoCrash, MotoLand, Stun, Ganhou, Perdeu}
 
 	public State state = State.Idle;
 
@@ -76,6 +79,8 @@ public class Player2DAnimations : MonoBehaviour
     public EmpinaMoto empina;
     public BoolVariable levouDogada;
 
+    public bool isVictory;
+
 
 	private void Start()
 	{
@@ -107,7 +112,7 @@ public class Player2DAnimations : MonoBehaviour
 
 
 
-	public void ChangeMoveAnim(Vector3 moveAmount, Vector2 oldPos, Vector2 input, bool Jump, bool stopJump)
+	public void ChangeMoveAnim(Vector3 moveAmount, Vector2 oldPos, Vector2 input, bool Jump, bool stopJump, bool stun, bool ganhou)
 	{
 
 		if (!PhotonNetwork.InRoom || photonView.IsMine)
@@ -132,58 +137,93 @@ public class Player2DAnimations : MonoBehaviour
                                 coolToIdle += Time.deltaTime;
                             }
                         }
-
-                        if (dogButtonAnim == false)
+                        if (stun == false)
                         {
-                            if (pipaActive.Value == false && carroActive.Value == false && dogButtonAnim == false)
+                            if (dogButtonAnim == false)
                             {
-                                if (moveAmount.y < -2 && jaAterrisou && state != State.Aterrisando)
+                                if (pipaActive.Value == false && carroActive.Value == false && dogButtonAnim == false)
                                 {
-                                    jaAterrisou = false;
-                                }
+                                    if (moveAmount.y < -2 && jaAterrisou && state != State.Aterrisando)
+                                    {
+                                        jaAterrisou = false;
+                                    }
 
-                                if (oldPos.y < moveAmount.y && controller.collisions.below == false)
-                                {
-                                    jaAterrisou = false;
-                                    PlayAnim("NoArUp");
-                                }
+                                    if (oldPos.y < moveAmount.y && controller.collisions.below == false)
+                                    {
+                                        jaAterrisou = false;
+                                        PlayAnim("NoArUp");
+                                    }
 
-                                else if (/*moveAmount.y < 15 &&*/ moveAmount.y > 0 && controller.collisions.below == false)
-                                {
-                                    PlayAnim("TransitionAir");
-                                }
+                                    else if (moveAmount.y <= 0 && controller.collisions.below == false && jaAterrisou == false)
+                                    {
+                                        Debug.Log("Fall");
+                                        PlayAnim("Fall");
+                                    }
 
-                                else if (moveAmount.y <= 0 && controller.collisions.below == false && jaAterrisou == false)
-                                {
-                                    Debug.Log("Fall");
-                                    PlayAnim("Fall");
-                                }
+                                    else if (moveAmount.y < -5f && input.x == 0 && input.y >= 0 && controller.collisions.below == true && jaAterrisou == false)
+                                    {
+                                        PlayAnim("Aterrisando");
+                                    }
 
-                                else if (moveAmount.y < -5f && input.x == 0 && input.y >= 0 && controller.collisions.below == true && jaAterrisou == false)
-                                {
-                                    PlayAnim("Aterrisando");
-                                }
+                                    else if (controller.collisions.below && input.x == 0 && input.y < 0)
+                                    {
+                                        PlayAnim("Abaixar");
+                                    }
 
-                                else if (controller.collisions.below && input.x == 0 && input.y < 0)
-                                {
-                                    PlayAnim("Abaixar");
-                                }
+                                    else if (input.x != 0 && controller.collisions.below)
+                                    {
+                                        PlayAnim("Walking");
+                                    }
+                                    else
+                                    {
+                                        if (isVictory == false)
+                                        {
+                                            PlayAnim("Idle");
+                                        }
 
-                                else if (input.x != 0 && controller.collisions.below)
-                                {
-                                    PlayAnim("Walking");
-                                }
-                                else
-                                {
-                                    PlayAnim("Idle");
-                                    //}
+                                        else
+                                        {
+                                            if (ganhou)
+                                            {
+                                                PlayAnim("Ganhou");
+                                            }
+
+                                            else
+                                            {
+                                                PlayAnim("Perdeu");
+                                            }
+                                        }
+                                    }
                                 }
                             }
+
+                            /*else
+                            {
+                                if (isVictory == false)
+                                {
+                                    Debug.Log("errado");
+                                    PlayAnim("Idle");
+                                }
+
+                                else
+                                {
+                                    Debug.Log("isVictory");
+                                    if (ganhou)
+                                    {
+                                        PlayAnim("Ganhou");
+                                    }
+
+                                    else
+                                    {
+                                        PlayAnim("Perdeu");
+                                    }
+                                }
+                            }*/
                         }
 
                         else
                         {
-                            PlayAnim("Idle");
+                            PlayAnim("Stun");
                         }
                     }
 
@@ -375,7 +415,37 @@ public class Player2DAnimations : MonoBehaviour
 				}
 				break;
 
-			case "Inatividade":
+            case "Stun":
+                if (state != State.Stun)
+                {
+                    frente.SetActive(true);
+                    lado.SetActive(false);
+                    playerFrente.animation.Play(stunAnim);
+                    state = State.Stun;
+                }
+                break;
+
+            case "Ganhou":
+                if (state != State.Ganhou)
+                {
+                    frente.SetActive(true);
+                    lado.SetActive(false);
+                    playerFrente.animation.Play(vitoriaAnim);
+                    state = State.Ganhou;
+                }
+                break;
+
+            case "Perdeu":
+                if (state != State.Perdeu)
+                {
+                    frente.SetActive(true);
+                    lado.SetActive(false);
+                    playerFrente.animation.Play(derrotaAnim);
+                    state = State.Perdeu;
+                }
+                break;
+
+            case "Inatividade":
 				if (state != State.Inativo)
 				{
 					playerFrente.animation.timeScale = 1;

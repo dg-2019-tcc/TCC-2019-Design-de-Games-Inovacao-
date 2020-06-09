@@ -70,6 +70,8 @@ public class NewPlayerMovent : MonoBehaviour
 
     public bool slowFall;
 
+    public bool ganhou;
+
 
     void Start()
     {
@@ -97,7 +99,7 @@ public class NewPlayerMovent : MonoBehaviour
 
     void Update()
     {
-		if (playerGanhou.Value || !pv.IsMine && PhotonNetwork.InRoom || levouDogada.Value || textoAtivo.Value)
+		if (playerGanhou.Value || !pv.IsMine && PhotonNetwork.InRoom || textoAtivo.Value)
 		{
 			return;
 		}
@@ -124,7 +126,14 @@ public class NewPlayerMovent : MonoBehaviour
 
             input.y = joyInput.y;
             targetVelocityX = input.x * moveSpeed.Value;
-            velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (controller.collisions.below) ? accelerationGround.Value : accelerationAir.Value);
+            if (levouDogada.Value == false)
+            {
+                velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (controller.collisions.below) ? accelerationGround.Value : accelerationAir.Value);
+            }
+            else
+            {
+                velocity.x = 0;
+            }
 
             if (!triggerController.collisions.slowTime)
             {
@@ -141,7 +150,7 @@ public class NewPlayerMovent : MonoBehaviour
             controller.Move(velocity * Time.deltaTime, input);
             //dogController.Move(velocity * Time.deltaTime, input);
             triggerController.MoveDirection(velocity *Time.deltaTime);
-            animations.ChangeMoveAnim(velocity, oldPosition, input, jump, stopJump);
+            animations.ChangeMoveAnim(velocity, oldPosition, input, jump, stopJump,levouDogada.Value, ganhou);
             if (controller.collisions.above || controller.collisions.below)
             {
                 if (stopJump)
@@ -248,7 +257,7 @@ public class NewPlayerMovent : MonoBehaviour
     {
         jump = true;
 
-        if (controller.collisions.below && jump /*&& !stopJump*/)
+        if (controller.collisions.below && jump && levouDogada.Value == false)
         {
             velocity.y = maxJumpHeight.Value;
             FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Pulo", transform.position);
