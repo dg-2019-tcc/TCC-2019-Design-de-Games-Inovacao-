@@ -54,6 +54,8 @@ public class GameFlowManager : MonoBehaviour
         liberou = false;
         resetou = false;
 
+        offlineMode = FindObjectOfType<OfflineMode>();
+
         if(resetaFase.Value == true && resetaFase != null && buildProfs == false)
         {
             PlayerPrefs.SetInt("Fase", 0);

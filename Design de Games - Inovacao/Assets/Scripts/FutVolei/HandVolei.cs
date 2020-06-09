@@ -35,6 +35,9 @@ public class HandVolei : MonoBehaviour
 
     public Player2DAnimations anim;
 
+    [HideInInspector]
+    public PhotonView photonView;
+
 
     public void Start()
     {
@@ -42,6 +45,9 @@ public class HandVolei : MonoBehaviour
         {
             joyStick = FindObjectOfType<Joystick>();
         }
+
+
+        photonView = gameObject.GetComponent<PhotonView>();
 
         bola = GameObject.FindWithTag("Volei");
         bolaVolei = bola.GetComponent<BolaVolei>();
@@ -55,38 +61,42 @@ public class HandVolei : MonoBehaviour
 
     public void Update()
     {
-
-        if (joyStick != null)
+        if (photonView.IsMine == true || !PhotonNetwork.InRoom)
         {
-            if (joyStick.Horizontal > 0)
-            {
-                rightDir = true;
-            }
 
-            else if (joyStick.Horizontal < 0)
-            {
-                rightDir = false;
-            }
-        }
 
-        if (triggerController.collisions.cortaBola == true || triggerController.collisions.cabecaBola == true || triggerController.collisions.tocouBola == true)
-        {
-            if(cortou == true)
+            if (joyStick != null)
             {
-                if (controller.collisions.below == false)
+                if (joyStick.Horizontal > 0)
                 {
-                    gameObject.GetComponent<PhotonView>().RPC("SuperCortaBola", RpcTarget.MasterClient);
+                    rightDir = true;
+                }
+
+                else if (joyStick.Horizontal < 0)
+                {
+                    rightDir = false;
+                }
+            }
+
+            if (triggerController.collisions.cortaBola == true || triggerController.collisions.cabecaBola == true || triggerController.collisions.tocouBola == true)
+            {
+                if (cortou == true)
+                {
+                    if (controller.collisions.below == false)
+                    {
+                        gameObject.GetComponent<PhotonView>().RPC("SuperCortaBola", RpcTarget.MasterClient);
+                    }
+
+                    else
+                    {
+                        gameObject.GetComponent<PhotonView>().RPC("CortaBola", RpcTarget.MasterClient);
+                    }
                 }
 
                 else
                 {
-                    gameObject.GetComponent<PhotonView>().RPC("CortaBola", RpcTarget.MasterClient);
+                    gameObject.GetComponent<PhotonView>().RPC("BateBola", RpcTarget.MasterClient);
                 }
-            }
-
-            else
-            {
-                gameObject.GetComponent<PhotonView>().RPC("BateBola", RpcTarget.MasterClient);
             }
         }
     }
