@@ -213,7 +213,7 @@ public class LojaCustom : MonoBehaviour
                         if (iniciaAqui == 0 || iniciaAqui == 6 || iniciaAqui == 12 || iniciaAqui == 18 || iniciaAqui == 24 || iniciaAqui == 30)
                         {
                             a = iniciaAqui;
-                            if (a == hairInd.prop2DInd)
+                            if (a == shirtInd.prop2DInd)
                             {
                                 circuloDeSelecaoModelo[i].SetActive(true);
                             }
@@ -229,7 +229,7 @@ public class LojaCustom : MonoBehaviour
                         else if (iniciaAqui == 1 || iniciaAqui == 7 || iniciaAqui == 13 || iniciaAqui == 19 || iniciaAqui == 25 || iniciaAqui == 31)
                         {
                             b = iniciaAqui;
-                            if (b == hairInd.prop2DInd)
+                            if (b == shirtInd.prop2DInd)
                             {
                                 circuloDeSelecaoModelo[i].SetActive(true);
                             }
@@ -245,7 +245,7 @@ public class LojaCustom : MonoBehaviour
                         else if (iniciaAqui == 2 || iniciaAqui == 8 || iniciaAqui == 14 || iniciaAqui == 20 || iniciaAqui == 26 || iniciaAqui == 32)
                         {
                             c = iniciaAqui;
-                            if (c == hairInd.prop2DInd)
+                            if (c == shirtInd.prop2DInd)
                             {
                                 circuloDeSelecaoModelo[i].SetActive(true);
                             }
@@ -261,7 +261,7 @@ public class LojaCustom : MonoBehaviour
                         else if (iniciaAqui == 3 || iniciaAqui == 9 || iniciaAqui == 15 || iniciaAqui == 21 || iniciaAqui == 27 || iniciaAqui == 33)
                         {
                             d = iniciaAqui;
-                            if (d == hairInd.prop2DInd)
+                            if (d == shirtInd.prop2DInd)
                             {
                                 circuloDeSelecaoModelo[i].SetActive(true);
                             }
@@ -277,7 +277,7 @@ public class LojaCustom : MonoBehaviour
                         else if (iniciaAqui == 4 || iniciaAqui == 10 || iniciaAqui == 16 || iniciaAqui == 22 || iniciaAqui == 28 || iniciaAqui == 34)
                         {
                             e = iniciaAqui;
-                            if (e == hairInd.prop2DInd)
+                            if (e == shirtInd.prop2DInd)
                             {
                                 circuloDeSelecaoModelo[i].SetActive(true);
                             }
@@ -293,7 +293,7 @@ public class LojaCustom : MonoBehaviour
                         else if (iniciaAqui == 5 || iniciaAqui == 11 || iniciaAqui == 17 || iniciaAqui == 23 || iniciaAqui == 29 || iniciaAqui == 35)
                         {
                             f = iniciaAqui;
-                            if (f == hairInd.prop2DInd)
+                            if (f == shirtInd.prop2DInd)
                             {
                                 circuloDeSelecaoModelo[i].SetActive(true);
                             }
@@ -314,7 +314,7 @@ public class LojaCustom : MonoBehaviour
                         if (iniciaAqui == 0 || iniciaAqui == 6 || iniciaAqui == 12 || iniciaAqui == 18 || iniciaAqui == 24 || iniciaAqui == 30)
                         {
                             a = iniciaAqui;
-                            if (a == hairInd.prop2DInd)
+                            if (a == shoesInd.prop2DInd)
                             {
                                 circuloDeSelecaoModelo[i].SetActive(true);
                             }
@@ -330,7 +330,7 @@ public class LojaCustom : MonoBehaviour
                         else if (iniciaAqui == 1 || iniciaAqui == 7 || iniciaAqui == 13 || iniciaAqui == 19 || iniciaAqui == 25 || iniciaAqui == 31)
                         {
                             b = iniciaAqui;
-                            if (b == hairInd.prop2DInd)
+                            if (b == shoesInd.prop2DInd)
                             {
                                 circuloDeSelecaoModelo[i].SetActive(true);
                             }
@@ -346,7 +346,7 @@ public class LojaCustom : MonoBehaviour
                         else if (iniciaAqui == 2 || iniciaAqui == 8 || iniciaAqui == 14 || iniciaAqui == 20 || iniciaAqui == 26 || iniciaAqui == 32)
                         {
                             c = iniciaAqui;
-                            if (c == hairInd.prop2DInd)
+                            if (c == shoesInd.prop2DInd)
                             {
                                 circuloDeSelecaoModelo[i].SetActive(true);
                             }
@@ -362,7 +362,7 @@ public class LojaCustom : MonoBehaviour
                         else if (iniciaAqui == 3 || iniciaAqui == 9 || iniciaAqui == 15 || iniciaAqui == 21 || iniciaAqui == 27 || iniciaAqui == 33)
                         {
                             d = iniciaAqui;
-                            if (d == hairInd.prop2DInd)
+                            if (d == shoesInd.prop2DInd)
                             {
                                 circuloDeSelecaoModelo[i].SetActive(true);
                             }
@@ -378,7 +378,7 @@ public class LojaCustom : MonoBehaviour
                         else if (iniciaAqui == 4 || iniciaAqui == 10 || iniciaAqui == 16 || iniciaAqui == 22 || iniciaAqui == 28 || iniciaAqui == 34)
                         {
                             e = iniciaAqui;
-                            if (e == hairInd.prop2DInd)
+                            if (e == shoesInd.prop2DInd)
                             {
                                 circuloDeSelecaoModelo[i].SetActive(true);
                             }
@@ -394,7 +394,7 @@ public class LojaCustom : MonoBehaviour
                         else if (iniciaAqui == 5 || iniciaAqui == 11 || iniciaAqui == 17 || iniciaAqui == 23 || iniciaAqui == 29 || iniciaAqui == 35)
                         {
                             f = iniciaAqui;
-                            if (f == hairInd.prop2DInd)
+                            if (f == shoesInd.prop2DInd)
                             {
                                 circuloDeSelecaoModelo[i].SetActive(true);
                             }
@@ -415,7 +415,7 @@ public class LojaCustom : MonoBehaviour
                         if (iniciaAqui == 0 || iniciaAqui == 6 || iniciaAqui == 12 || iniciaAqui == 18 || iniciaAqui == 24 || iniciaAqui == 30)
                         {
                             a = iniciaAqui;
-                            if (a == hairInd.prop2DInd)
+                            if (a == shortsInd.prop2DInd)
                             {
                                 circuloDeSelecaoModelo[i].SetActive(true);
                             }
@@ -431,7 +431,7 @@ public class LojaCustom : MonoBehaviour
                         else if (iniciaAqui == 1 || iniciaAqui == 7 || iniciaAqui == 13 || iniciaAqui == 19 || iniciaAqui == 25 || iniciaAqui == 31)
                         {
                             b = iniciaAqui;
-                            if (b == hairInd.prop2DInd)
+                            if (b == shortsInd.prop2DInd)
                             {
                                 circuloDeSelecaoModelo[i].SetActive(true);
                             }
@@ -447,7 +447,7 @@ public class LojaCustom : MonoBehaviour
                         else if (iniciaAqui == 2 || iniciaAqui == 8 || iniciaAqui == 14 || iniciaAqui == 20 || iniciaAqui == 26 || iniciaAqui == 32)
                         {
                             c = iniciaAqui;
-                            if (c == hairInd.prop2DInd)
+                            if (c == shortsInd.prop2DInd)
                             {
                                 circuloDeSelecaoModelo[i].SetActive(true);
                             }
@@ -463,7 +463,7 @@ public class LojaCustom : MonoBehaviour
                         else if (iniciaAqui == 3 || iniciaAqui == 9 || iniciaAqui == 15 || iniciaAqui == 21 || iniciaAqui == 27 || iniciaAqui == 33)
                         {
                             d = iniciaAqui;
-                            if (d == hairInd.prop2DInd)
+                            if (d == shortsInd.prop2DInd)
                             {
                                 circuloDeSelecaoModelo[i].SetActive(true);
                             }
@@ -479,7 +479,7 @@ public class LojaCustom : MonoBehaviour
                         else if (iniciaAqui == 4 || iniciaAqui == 10 || iniciaAqui == 16 || iniciaAqui == 22 || iniciaAqui == 28 || iniciaAqui == 34)
                         {
                             e = iniciaAqui;
-                            if (e == hairInd.prop2DInd)
+                            if (e == shortsInd.prop2DInd)
                             {
                                 circuloDeSelecaoModelo[i].SetActive(true);
                             }
@@ -495,7 +495,7 @@ public class LojaCustom : MonoBehaviour
                         else if (iniciaAqui == 5 || iniciaAqui == 11 || iniciaAqui == 17 || iniciaAqui == 23 || iniciaAqui == 29 || iniciaAqui == 35)
                         {
                             f = iniciaAqui;
-                            if (f == hairInd.prop2DInd)
+                            if (f == shortsInd.prop2DInd)
                             {
                                 circuloDeSelecaoModelo[i].SetActive(true);
                             }
@@ -516,7 +516,7 @@ public class LojaCustom : MonoBehaviour
                         if (iniciaAqui == 0 || iniciaAqui == 6 || iniciaAqui == 12 || iniciaAqui == 18 || iniciaAqui == 24 || iniciaAqui == 30)
                         {
                             a = iniciaAqui;
-                            if (a == hairInd.prop2DInd)
+                            if (a == oculosIndex.prop2DInd)
                             {
                                 circuloDeSelecaoModelo[i].SetActive(true);
                             }
@@ -532,7 +532,7 @@ public class LojaCustom : MonoBehaviour
                         else if (iniciaAqui == 1 || iniciaAqui == 7 || iniciaAqui == 13 || iniciaAqui == 19 || iniciaAqui == 25 || iniciaAqui == 31)
                         {
                             b = iniciaAqui;
-                            if (b == hairInd.prop2DInd)
+                            if (b == oculosIndex.prop2DInd)
                             {
                                 circuloDeSelecaoModelo[i].SetActive(true);
                             }
@@ -548,7 +548,7 @@ public class LojaCustom : MonoBehaviour
                         else if (iniciaAqui == 2 || iniciaAqui == 8 || iniciaAqui == 14 || iniciaAqui == 20 || iniciaAqui == 26 || iniciaAqui == 32)
                         {
                             c = iniciaAqui;
-                            if (c == hairInd.prop2DInd)
+                            if (c == oculosIndex.prop2DInd)
                             {
                                 circuloDeSelecaoModelo[i].SetActive(true);
                             }
@@ -564,7 +564,7 @@ public class LojaCustom : MonoBehaviour
                         else if (iniciaAqui == 3 || iniciaAqui == 9 || iniciaAqui == 15 || iniciaAqui == 21 || iniciaAqui == 27 || iniciaAqui == 33)
                         {
                             d = iniciaAqui;
-                            if (d == hairInd.prop2DInd)
+                            if (d == oculosIndex.prop2DInd)
                             {
                                 circuloDeSelecaoModelo[i].SetActive(true);
                             }
@@ -580,7 +580,7 @@ public class LojaCustom : MonoBehaviour
                         else if (iniciaAqui == 4 || iniciaAqui == 10 || iniciaAqui == 16 || iniciaAqui == 22 || iniciaAqui == 28 || iniciaAqui == 34)
                         {
                             e = iniciaAqui;
-                            if (e == hairInd.prop2DInd)
+                            if (e == oculosIndex.prop2DInd)
                             {
                                 circuloDeSelecaoModelo[i].SetActive(true);
                             }
@@ -596,7 +596,7 @@ public class LojaCustom : MonoBehaviour
                         else if (iniciaAqui == 5 || iniciaAqui == 11 || iniciaAqui == 17 || iniciaAqui == 23 || iniciaAqui == 29 || iniciaAqui == 35)
                         {
                             f = iniciaAqui;
-                            if (f == hairInd.prop2DInd)
+                            if (f == oculosIndex.prop2DInd)
                             {
                                 circuloDeSelecaoModelo[i].SetActive(true);
                             }
@@ -617,7 +617,7 @@ public class LojaCustom : MonoBehaviour
                         if (iniciaAqui == 0 || iniciaAqui == 6 || iniciaAqui == 12 || iniciaAqui == 18 || iniciaAqui == 24 || iniciaAqui == 30)
                         {
                             a = iniciaAqui;
-                            if (a == hairInd.prop2DInd)
+                            if (a == ciliosIndex.prop2DInd)
                             {
                                 circuloDeSelecaoModelo[i].SetActive(true);
                             }
@@ -633,7 +633,7 @@ public class LojaCustom : MonoBehaviour
                         else if (iniciaAqui == 1 || iniciaAqui == 7 || iniciaAqui == 13 || iniciaAqui == 19 || iniciaAqui == 25 || iniciaAqui == 31)
                         {
                             b = iniciaAqui;
-                            if (b == hairInd.prop2DInd)
+                            if (b == ciliosIndex.prop2DInd)
                             {
                                 circuloDeSelecaoModelo[i].SetActive(true);
                             }
@@ -649,7 +649,7 @@ public class LojaCustom : MonoBehaviour
                         else if (iniciaAqui == 2 || iniciaAqui == 8 || iniciaAqui == 14 || iniciaAqui == 20 || iniciaAqui == 26 || iniciaAqui == 32)
                         {
                             c = iniciaAqui;
-                            if (c == hairInd.prop2DInd)
+                            if (c == ciliosIndex.prop2DInd)
                             {
                                 circuloDeSelecaoModelo[i].SetActive(true);
                             }
@@ -665,7 +665,7 @@ public class LojaCustom : MonoBehaviour
                         else if (iniciaAqui == 3 || iniciaAqui == 9 || iniciaAqui == 15 || iniciaAqui == 21 || iniciaAqui == 27 || iniciaAqui == 33)
                         {
                             d = iniciaAqui;
-                            if (d == hairInd.prop2DInd)
+                            if (d == ciliosIndex.prop2DInd)
                             {
                                 circuloDeSelecaoModelo[i].SetActive(true);
                             }
@@ -681,7 +681,7 @@ public class LojaCustom : MonoBehaviour
                         else if (iniciaAqui == 4 || iniciaAqui == 10 || iniciaAqui == 16 || iniciaAqui == 22 || iniciaAqui == 28 || iniciaAqui == 34)
                         {
                             e = iniciaAqui;
-                            if (e == hairInd.prop2DInd)
+                            if (e == ciliosIndex.prop2DInd)
                             {
                                 circuloDeSelecaoModelo[i].SetActive(true);
                             }
@@ -697,7 +697,7 @@ public class LojaCustom : MonoBehaviour
                         else if (iniciaAqui == 5 || iniciaAqui == 11 || iniciaAqui == 17 || iniciaAqui == 23 || iniciaAqui == 29 || iniciaAqui == 35)
                         {
                             f = iniciaAqui;
-                            if (f == hairInd.prop2DInd)
+                            if (f == ciliosIndex.prop2DInd)
                             {
                                 circuloDeSelecaoModelo[i].SetActive(true);
                             }
@@ -718,7 +718,7 @@ public class LojaCustom : MonoBehaviour
                         if (iniciaAqui == 0 || iniciaAqui == 6 || iniciaAqui == 12 || iniciaAqui == 18 || iniciaAqui == 24 || iniciaAqui == 30)
                         {
                             a = iniciaAqui;
-                            if (a == hairInd.prop2DInd)
+                            if (a == maskIndex.prop2DInd)
                             {
                                 circuloDeSelecaoModelo[i].SetActive(true);
                             }
@@ -734,7 +734,7 @@ public class LojaCustom : MonoBehaviour
                         else if (iniciaAqui == 1 || iniciaAqui == 7 || iniciaAqui == 13 || iniciaAqui == 19 || iniciaAqui == 25 || iniciaAqui == 31)
                         {
                             b = iniciaAqui;
-                            if (b == hairInd.prop2DInd)
+                            if (b == maskIndex.prop2DInd)
                             {
                                 circuloDeSelecaoModelo[i].SetActive(true);
                             }
@@ -750,7 +750,7 @@ public class LojaCustom : MonoBehaviour
                         else if (iniciaAqui == 2 || iniciaAqui == 8 || iniciaAqui == 14 || iniciaAqui == 20 || iniciaAqui == 26 || iniciaAqui == 32)
                         {
                             c = iniciaAqui;
-                            if (c == hairInd.prop2DInd)
+                            if (c == maskIndex.prop2DInd)
                             {
                                 circuloDeSelecaoModelo[i].SetActive(true);
                             }
@@ -766,7 +766,7 @@ public class LojaCustom : MonoBehaviour
                         else if (iniciaAqui == 3 || iniciaAqui == 9 || iniciaAqui == 15 || iniciaAqui == 21 || iniciaAqui == 27 || iniciaAqui == 33)
                         {
                             d = iniciaAqui;
-                            if (d == hairInd.prop2DInd)
+                            if (d == maskIndex.prop2DInd)
                             {
                                 circuloDeSelecaoModelo[i].SetActive(true);
                             }
@@ -782,7 +782,7 @@ public class LojaCustom : MonoBehaviour
                         else if (iniciaAqui == 4 || iniciaAqui == 10 || iniciaAqui == 16 || iniciaAqui == 22 || iniciaAqui == 28 || iniciaAqui == 34)
                         {
                             e = iniciaAqui;
-                            if (e == hairInd.prop2DInd)
+                            if (e == maskIndex.prop2DInd)
                             {
                                 circuloDeSelecaoModelo[i].SetActive(true);
                             }
@@ -798,7 +798,7 @@ public class LojaCustom : MonoBehaviour
                         else if (iniciaAqui == 5 || iniciaAqui == 11 || iniciaAqui == 17 || iniciaAqui == 23 || iniciaAqui == 29 || iniciaAqui == 35)
                         {
                             f = iniciaAqui;
-                            if (f == hairInd.prop2DInd)
+                            if (f == maskIndex.prop2DInd)
                             {
                                 circuloDeSelecaoModelo[i].SetActive(true);
                             }
@@ -819,7 +819,7 @@ public class LojaCustom : MonoBehaviour
                         if (iniciaAqui == 0 || iniciaAqui == 6 || iniciaAqui == 12 || iniciaAqui == 18 || iniciaAqui == 24 || iniciaAqui == 30)
                         {
                             a = iniciaAqui;
-                            if (a == hairInd.prop2DInd)
+                            if (a == boneIndex.prop2DInd)
                             {
                                 circuloDeSelecaoModelo[i].SetActive(true);
                             }
@@ -835,7 +835,7 @@ public class LojaCustom : MonoBehaviour
                         else if (iniciaAqui == 1 || iniciaAqui == 7 || iniciaAqui == 13 || iniciaAqui == 19 || iniciaAqui == 25 || iniciaAqui == 31)
                         {
                             b = iniciaAqui;
-                            if (b == hairInd.prop2DInd)
+                            if (b == boneIndex.prop2DInd)
                             {
                                 circuloDeSelecaoModelo[i].SetActive(true);
                             }
@@ -851,7 +851,7 @@ public class LojaCustom : MonoBehaviour
                         else if (iniciaAqui == 2 || iniciaAqui == 8 || iniciaAqui == 14 || iniciaAqui == 20 || iniciaAqui == 26 || iniciaAqui == 32)
                         {
                             c = iniciaAqui;
-                            if (c == hairInd.prop2DInd)
+                            if (c == boneIndex.prop2DInd)
                             {
                                 circuloDeSelecaoModelo[i].SetActive(true);
                             }
@@ -867,7 +867,7 @@ public class LojaCustom : MonoBehaviour
                         else if (iniciaAqui == 3 || iniciaAqui == 9 || iniciaAqui == 15 || iniciaAqui == 21 || iniciaAqui == 27 || iniciaAqui == 33)
                         {
                             d = iniciaAqui;
-                            if (d == hairInd.prop2DInd)
+                            if (d == boneIndex.prop2DInd)
                             {
                                 circuloDeSelecaoModelo[i].SetActive(true);
                             }
@@ -883,7 +883,7 @@ public class LojaCustom : MonoBehaviour
                         else if (iniciaAqui == 4 || iniciaAqui == 10 || iniciaAqui == 16 || iniciaAqui == 22 || iniciaAqui == 28 || iniciaAqui == 34)
                         {
                             e = iniciaAqui;
-                            if (e == hairInd.prop2DInd)
+                            if (e == boneIndex.prop2DInd)
                             {
                                 circuloDeSelecaoModelo[i].SetActive(true);
                             }
@@ -899,7 +899,7 @@ public class LojaCustom : MonoBehaviour
                         else if (iniciaAqui == 5 || iniciaAqui == 11 || iniciaAqui == 17 || iniciaAqui == 23 || iniciaAqui == 29 || iniciaAqui == 35)
                         {
                             f = iniciaAqui;
-                            if (f == hairInd.prop2DInd)
+                            if (f == boneIndex.prop2DInd)
                             {
                                 circuloDeSelecaoModelo[i].SetActive(true);
                             }
@@ -920,7 +920,7 @@ public class LojaCustom : MonoBehaviour
                         if (iniciaAqui == 0 || iniciaAqui == 6 || iniciaAqui == 12 || iniciaAqui == 18 || iniciaAqui == 24 || iniciaAqui == 30)
                         {
                             a = iniciaAqui;
-                            if (a == hairInd.prop2DInd)
+                            if (a == skinInd.prop2DInd)
                             {
                                 circuloDeSelecaoModelo[i].SetActive(true);
                             }
@@ -936,7 +936,7 @@ public class LojaCustom : MonoBehaviour
                         else if (iniciaAqui == 1 || iniciaAqui == 7 || iniciaAqui == 13 || iniciaAqui == 19 || iniciaAqui == 25 || iniciaAqui == 31)
                         {
                             b = iniciaAqui;
-                            if (b == hairInd.prop2DInd)
+                            if (b == skinInd.prop2DInd)
                             {
                                 circuloDeSelecaoModelo[i].SetActive(true);
                             }
@@ -952,7 +952,7 @@ public class LojaCustom : MonoBehaviour
                         else if (iniciaAqui == 2 || iniciaAqui == 8 || iniciaAqui == 14 || iniciaAqui == 20 || iniciaAqui == 26 || iniciaAqui == 32)
                         {
                             c = iniciaAqui;
-                            if (c == hairInd.prop2DInd)
+                            if (c == skinInd.prop2DInd)
                             {
                                 circuloDeSelecaoModelo[i].SetActive(true);
                             }
@@ -968,7 +968,7 @@ public class LojaCustom : MonoBehaviour
                         else if (iniciaAqui == 3 || iniciaAqui == 9 || iniciaAqui == 15 || iniciaAqui == 21 || iniciaAqui == 27 || iniciaAqui == 33)
                         {
                             d = iniciaAqui;
-                            if (d == hairInd.prop2DInd)
+                            if (d == skinInd.prop2DInd)
                             {
                                 circuloDeSelecaoModelo[i].SetActive(true);
                             }
@@ -984,7 +984,7 @@ public class LojaCustom : MonoBehaviour
                         else if (iniciaAqui == 4 || iniciaAqui == 10 || iniciaAqui == 16 || iniciaAqui == 22 || iniciaAqui == 28 || iniciaAqui == 34)
                         {
                             e = iniciaAqui;
-                            if (e == hairInd.prop2DInd)
+                            if (e == skinInd.prop2DInd)
                             {
                                 circuloDeSelecaoModelo[i].SetActive(true);
                             }
@@ -1000,7 +1000,7 @@ public class LojaCustom : MonoBehaviour
                         else if (iniciaAqui == 5 || iniciaAqui == 11 || iniciaAqui == 17 || iniciaAqui == 23 || iniciaAqui == 29 || iniciaAqui == 35)
                         {
                             f = iniciaAqui;
-                            if (f == hairInd.prop2DInd)
+                            if (f == skinInd.prop2DInd)
                             {
                                 circuloDeSelecaoModelo[i].SetActive(true);
                             }
