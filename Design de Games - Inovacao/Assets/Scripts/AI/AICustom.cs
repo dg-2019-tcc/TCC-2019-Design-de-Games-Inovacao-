@@ -10,6 +10,7 @@ public class AICustom : MonoBehaviour
     public int shoesIndex;
     public int oculosIndex;
     public int maskIndex;
+    public int skinIndex;
 
     public BotCustom botCustom;
 
@@ -21,6 +22,7 @@ public class AICustom : MonoBehaviour
     public ChangeMultipleCustom[] shoeModels;
     public ChangeMultipleCustom[] oculosModels;
     public ChangeMultipleCustom[] maskModels;
+    public ChangeMultipleCustom[] skinModels;
 
     public ChangeMultipleCustom[] hair2Models;
     public ChangeMultipleCustom[] shirt2Models;
@@ -28,6 +30,7 @@ public class AICustom : MonoBehaviour
     public ChangeMultipleCustom[] shoe2Models;
     public ChangeMultipleCustom[] oculos2Models;
     public ChangeMultipleCustom[] mask2Models;
+    public ChangeMultipleCustom[] skin2Models;
 
     // Start is called before the first frame update
     void Start()
@@ -35,12 +38,13 @@ public class AICustom : MonoBehaviour
 
         if (isVictory == false)
         {
-            hairIndex = Random.Range(0, 14);
-            shirtIndex = Random.Range(0, 8);
-            shortsIndex = Random.Range(0, 2);
+            hairIndex = Random.Range(0, 31);
+            shirtIndex = Random.Range(0, 11);
+            shortsIndex = Random.Range(0, 5);
             shoesIndex = Random.Range(0, 2);
             oculosIndex = Random.Range(0, 2);
             maskIndex = Random.Range(0, 2);
+            skinIndex = Random.Range(0, 4);
 
             botCustom.hairIndex = hairIndex;
             botCustom.shirtIndex = shirtIndex;
@@ -48,6 +52,7 @@ public class AICustom : MonoBehaviour
             botCustom.shoesIndex = shoesIndex;
             botCustom.oculosIndex = oculosIndex;
             botCustom.maskIndex = maskIndex;
+            botCustom.skinIndex = skinIndex;
         }
 
         else
@@ -58,6 +63,7 @@ public class AICustom : MonoBehaviour
             shoesIndex = botCustom.shoesIndex;
             oculosIndex = botCustom.oculosIndex;
             maskIndex = botCustom.maskIndex;
+            skinIndex = botCustom.skinIndex;
         }
 
         TrocaCabelo(hairIndex);
@@ -66,7 +72,19 @@ public class AICustom : MonoBehaviour
         TrocaSapato(shoesIndex);
         TrocaOculos(oculosIndex);
         TrocaMask(maskIndex);
+        TrocaSkin(skinIndex);
 
+    }
+
+    private void TrocaSkin(int onlineIndex)
+    {
+        for (int i = 0; i < skinModels.Length; i++)
+        {
+            skinModels[i].ChangeCustom(false);
+            skin2Models[i].ChangeCustom(false);
+        }
+        skinModels[onlineIndex].ChangeCustom(true);
+        skin2Models[onlineIndex].ChangeCustom(true);
     }
 
     private void TrocaCabelo(int onlineIndex)
