@@ -1232,12 +1232,10 @@ public class LojaCustom : MonoBehaviour
             sobrancelha1Esq[i].SetActive(false);
             sobrancelha1Dir[i].SetActive(false);
             sobrancelha2Esq[i].SetActive(false);
-            sobrancelha2Dir[i].SetActive(false);
         }
-        sobrancelha1Esq[qualSobrancelhaCabelo[qual]].SetActive(false);
-        sobrancelha1Dir[qualSobrancelhaCabelo[qual]].SetActive(false);
-        sobrancelha2Esq[qualSobrancelhaCabelo[qual]].SetActive(false);
-        sobrancelha2Dir[qualSobrancelhaCabelo[qual]].SetActive(false);
+        sobrancelha1Esq[qualSobrancelhaCabelo[qual]].SetActive(true);
+        sobrancelha1Dir[qualSobrancelhaCabelo[qual]].SetActive(true);
+        sobrancelha2Esq[qualSobrancelhaCabelo[qual]].SetActive(true);
     }
 
     public void LigaSobrancelhaBone(int qual)
@@ -1247,12 +1245,11 @@ public class LojaCustom : MonoBehaviour
             sobrancelha1Esq[i].SetActive(false);
             sobrancelha1Dir[i].SetActive(false);
             sobrancelha2Esq[i].SetActive(false);
-            sobrancelha2Dir[i].SetActive(false);
         }
-        sobrancelha1Esq[qualSobrancelhaBone[qual]].SetActive(false);
-        sobrancelha1Dir[qualSobrancelhaBone[qual]].SetActive(false);
-        sobrancelha2Esq[qualSobrancelhaBone[qual]].SetActive(false);
-        sobrancelha2Dir[qualSobrancelhaBone[qual]].SetActive(false);
+        Debug.Log(qualSobrancelhaBone[qual]);
+        sobrancelha1Esq[qualSobrancelhaBone[qual]].SetActive(true);
+        sobrancelha1Dir[qualSobrancelhaBone[qual]].SetActive(true);
+        sobrancelha2Esq[qualSobrancelhaBone[qual]].SetActive(true);
     }
 
 
