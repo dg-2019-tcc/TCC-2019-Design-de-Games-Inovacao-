@@ -29,7 +29,7 @@ public class FutebolPlayer : MonoBehaviour
 
     private float forceVertical;
 
-    public static bool kicked;
+    public bool kicked;
     public bool kickAnim;
 
 

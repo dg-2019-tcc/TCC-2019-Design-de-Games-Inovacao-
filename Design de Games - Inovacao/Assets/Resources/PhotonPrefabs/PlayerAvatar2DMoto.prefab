@@ -806,15 +806,20 @@ PrefabInstance:
       propertyPath: viewIdField
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5807794948287532310, guid: 650c79142e52b1a46944cd798e3de766,
-        type: 3}
-      propertyPath: m_FollowOffset.z
-      value: -14
-      objectReference: {fileID: 0}
     - target: {fileID: 943350821528938545, guid: 650c79142e52b1a46944cd798e3de766,
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 199706634110220907, guid: 650c79142e52b1a46944cd798e3de766,
+        type: 3}
+      propertyPath: animationName
+      value: 8_Moto(Andando)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5807794948287532310, guid: 650c79142e52b1a46944cd798e3de766,
+        type: 3}
+      propertyPath: m_FollowOffset.z
+      value: -14
       objectReference: {fileID: 0}
     - target: {fileID: 5042768572350841546, guid: 650c79142e52b1a46944cd798e3de766,
         type: 3}
@@ -915,11 +920,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 199706634110220907, guid: 650c79142e52b1a46944cd798e3de766,
-        type: 3}
-      propertyPath: animationName
-      value: 8_Moto(Andando)
       objectReference: {fileID: 0}
     - target: {fileID: 8209911861689573764, guid: 650c79142e52b1a46944cd798e3de766,
         type: 3}
@@ -4731,6 +4731,16 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2282384912643643248, guid: 650c79142e52b1a46944cd798e3de766,
+        type: 3}
+      propertyPath: animationName
+      value: 5_Abaixar(2_IdlePose)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1754527173271335877, guid: 650c79142e52b1a46944cd798e3de766,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 580600389557522229, guid: 650c79142e52b1a46944cd798e3de766,
         type: 3}
       propertyPath: animationName
@@ -4776,20 +4786,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: c06e86748fb145e4d9e31e9e34973ab9, type: 2}
-    - target: {fileID: 2282384912643643248, guid: 650c79142e52b1a46944cd798e3de766,
-        type: 3}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 1708417769565926782, guid: 650c79142e52b1a46944cd798e3de766,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1754527173271335877, guid: 650c79142e52b1a46944cd798e3de766,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6489253377537539808, guid: 650c79142e52b1a46944cd798e3de766,
         type: 3}
@@ -4901,6 +4901,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 279062277676543973}
     m_Modifications:
+    - target: {fileID: 1394978030909710334, guid: f1b41f92f071e9649b6ab918fbfc26c2,
+        type: 3}
+      propertyPath: m_Name
+      value: Moto
+      objectReference: {fileID: 0}
     - target: {fileID: 1394978030909710335, guid: f1b41f92f071e9649b6ab918fbfc26c2,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5090,6 +5095,52 @@ PrefabInstance:
       propertyPath: m_LocalPosition.x
       value: 0.378
       objectReference: {fileID: 0}
+    - target: {fileID: 9111709582139068261, guid: f1b41f92f071e9649b6ab918fbfc26c2,
+        type: 3}
+      propertyPath: playerPV
+      value: 
+      objectReference: {fileID: 4291645614524625283}
+    - target: {fileID: 9111709582139068261, guid: f1b41f92f071e9649b6ab918fbfc26c2,
+        type: 3}
+      propertyPath: jumpForce
+      value: 
+      objectReference: {fileID: 11400000, guid: a48f8551aa9251e40bfdc9d77510e761,
+        type: 2}
+    - target: {fileID: 9111709582139068261, guid: f1b41f92f071e9649b6ab918fbfc26c2,
+        type: 3}
+      propertyPath: controller
+      value: 
+      objectReference: {fileID: 279062277676543971}
+    - target: {fileID: 9111709582139068261, guid: f1b41f92f071e9649b6ab918fbfc26c2,
+        type: 3}
+      propertyPath: triggerController
+      value: 
+      objectReference: {fileID: 8296791469236658194}
+    - target: {fileID: 9111709582139068261, guid: f1b41f92f071e9649b6ab918fbfc26c2,
+        type: 3}
+      propertyPath: acelerometro
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 9111709582139068261, guid: f1b41f92f071e9649b6ab918fbfc26c2,
+        type: 3}
+      propertyPath: brilhoDeBoost
+      value: 
+      objectReference: {fileID: 6220570715863625841}
+    - target: {fileID: 9111709582139068261, guid: f1b41f92f071e9649b6ab918fbfc26c2,
+        type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 6279848767440107850}
+    - target: {fileID: 9111709582139068261, guid: f1b41f92f071e9649b6ab918fbfc26c2,
+        type: 3}
+      propertyPath: playerThings
+      value: 
+      objectReference: {fileID: 4291645614524625288}
+    - target: {fileID: 9111709582139068261, guid: f1b41f92f071e9649b6ab918fbfc26c2,
+        type: 3}
+      propertyPath: motoPV
+      value: 
+      objectReference: {fileID: 7923626321500976059}
     - target: {fileID: 8763691613083875465, guid: f1b41f92f071e9649b6ab918fbfc26c2,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5101,6 +5152,25 @@ PrefabInstance:
       value: 0.135
       objectReference: {fileID: 0}
     - target: {fileID: 3819009067637833654, guid: f1b41f92f071e9649b6ab918fbfc26c2,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1860367546, guid: f1b41f92f071e9649b6ab918fbfc26c2, type: 3}
+      propertyPath: viewIdField
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1577654471262521158, guid: f1b41f92f071e9649b6ab918fbfc26c2,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.55
+      objectReference: {fileID: 0}
+    - target: {fileID: 1577654471262521158, guid: f1b41f92f071e9649b6ab918fbfc26c2,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6077624258860006449, guid: f1b41f92f071e9649b6ab918fbfc26c2,
         type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -5174,6 +5244,10 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SortingLayer
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1401951525, guid: f1b41f92f071e9649b6ab918fbfc26c2, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1832330698587828721, guid: f1b41f92f071e9649b6ab918fbfc26c2, type: 3}

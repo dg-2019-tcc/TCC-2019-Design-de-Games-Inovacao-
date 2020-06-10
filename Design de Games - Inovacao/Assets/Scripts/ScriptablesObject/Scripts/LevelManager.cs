@@ -63,8 +63,10 @@ public class LevelManager : MonoBehaviour
     [PunRPC]
     public void GoPodium()
     {
+        Debug.Log("Podium");
         if (stopSarrada == false)
         {
+            Debug.Log("Podium2");
             PhotonNetwork.LoadLevel("TelaVitoria");
             stopSarrada = true;
         }

@@ -47,12 +47,9 @@ public class DogMovement : MonoBehaviour
     public bool trick;
 
     private Animator anim;
+    
+    DogAnim dogAnim;
 
-    public UnityArmatureComponent dogArmature;
-
-    public enum State { Idle, Aviao, Carro, Pipa, Moto }
-
-    public State state = State.Idle;
 
     public int trickIndex;
 
@@ -61,6 +58,7 @@ public class DogMovement : MonoBehaviour
     {
         anim = GetComponent<Animator>();
 
+        dogAnim = GetComponent<DogAnim>();
         dogController = GetComponent<AIController2D>();
 
         joyStick = FindObjectOfType<FloatingJoystick>();
@@ -73,7 +71,7 @@ public class DogMovement : MonoBehaviour
 
 
 
-    void LateUpdate()
+    void Update()
     {
         if (trick) return;
         joyInput = new Vector2(joyStick.Horizontal, joyStick.Vertical);
@@ -90,6 +88,8 @@ public class DogMovement : MonoBehaviour
 
         targetVelocityX = input.x * speed;
         velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (dogController.collisions.below) ? accelerationTimeGrounded : accelerationTimeAirborne);
+
+        dogController.Move(velocity * Time.deltaTime, input);
 
         if (playerMove.slowFall == false)
         {
@@ -165,7 +165,8 @@ public class DogMovement : MonoBehaviour
             velocity.y = maxJumpHeight * 1.8f;
         }
 
-        dogController.Move(velocity * Time.deltaTime, input);
+        dogAnim.ChangeDogAnim(velocity, input);
+
     }
 
 
@@ -183,72 +184,4 @@ public class DogMovement : MonoBehaviour
         }
     }
 
-    public void DoTrick()
-    {
-        trickIndex = Random.Range(0, 5);
-
-        DogAnim(trickIndex);
-    }
-
-    void DogAnim(int dogAnim)
-    {
-        switch (dogAnim)
-        {
-            case 0:
-                if(state != State.Idle)
-                {
-                    dogArmature.animation.Play("Base");
-                    state = State.Idle;
-                }
-                DogJump();
-                anim.SetTrigger("DoTrick");
-                break;
-
-            case 1:
-                if(state != State.Aviao)
-                {
-                    dogArmature.animation.Play("Aviao(Arremessar)");
-                    state = State.Aviao;
-                }
-                DogJump();
-                anim.SetTrigger("AviaoTrigger");
-                break;
-
-            case 2:
-                if (state != State.Carro)
-                {
-                    dogArmature.animation.Play("Rolema");
-                    state = State.Carro;
-                }
-                DogJump();
-                anim.SetTrigger("CarroTrigger");
-                break;
-
-            case 3:
-                if (state != State.Moto)
-                {
-                    dogArmature.animation.Play("Moto");
-                    state = State.Moto;
-                }
-                DogJump();
-                anim.SetTrigger("MotoTrick");
-                break;
-
-            case 4:
-                if (state != State.Pipa)
-                {
-                    dogArmature.animation.Play("Pipa");
-                    state = State.Pipa;
-                }
-                DogJump();
-                anim.SetTrigger("PipaTrigger");
-                break;
-        }
-    }
-
-    public void EndTrick()
-    {
-        dogArmature.animation.Play("Base");
-        state = State.Idle;
-    }
 }
