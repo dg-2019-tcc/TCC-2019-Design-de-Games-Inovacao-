@@ -66,19 +66,21 @@ public class WinnerManager : MonoBehaviour
 		}
 		else
 		{
-            /*if (LinhaDeChegada.changeRoom == true)
+			/*if (LinhaDeChegada.changeRoom == true)
 			{
 				StartCoroutine(Venceu());
 			}*/
-
-                if (perdeuCorrida && ganhouCorrida && !isloading)
-                {
-                    PerdeuCorrida();
-                }
-                else if (ganhouCorrida)
-                {
-                    GanhouCorrida();
-                }
+			if (!isloading)
+			{
+				if (perdeuCorrida)
+				{
+					PerdeuCorrida();
+				}
+				else if (ganhouCorrida)
+				{
+					GanhouCorrida();
+				}
+			}
 
 			/*
 			if (perdeuCorrida)
