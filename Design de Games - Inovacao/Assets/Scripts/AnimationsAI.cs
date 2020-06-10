@@ -8,6 +8,8 @@ public class AnimationsAI : MonoBehaviour
     public GameObject frente;
     public GameObject lado;
 
+    public bool isKlay;
+
     public string idlePose = "0_Idle";
     public string walkAnimation = "0_Corrida_V2";
     public string startJumpAnimation = "1_Pulo";
@@ -42,11 +44,20 @@ public class AnimationsAI : MonoBehaviour
         controller = GetComponent<AIController2D>();
         triggerController = GetComponent<AITriggerController>();
 
-        playerSide = lado.GetComponent<UnityArmatureComponent>();
-        playerFrente = frente.GetComponent<UnityArmatureComponent>();
 
-        frente.SetActive(true);
-        lado.SetActive(false);
+        if (isKlay == false)
+        {
+            playerSide = lado.GetComponent<UnityArmatureComponent>();
+            playerFrente = frente.GetComponent<UnityArmatureComponent>();
+
+            frente.SetActive(true);
+            lado.SetActive(false);
+        }
+
+        else
+        {
+            playerSide = lado.GetComponent<UnityArmatureComponent>();
+        }
     }
 
     public void ChangeAnimAI(Vector3 moveAmount, Vector2 oldPos, Vector2 input, bool Jump)
@@ -103,13 +114,17 @@ public class AnimationsAI : MonoBehaviour
 
     public void AnimState(string anim)
     {
-        if (state == State.Idle || state == State.Inativo)
+
+        if (isKlay == false)
         {
-            if (anim == "Walking" || anim == "NoArUp" || anim == "Fall" || anim == "Aterrisando" || anim == "Chute" || anim == "Arremesso" || anim == "Abaixar" || anim == "TransitionAir")
+            if (state == State.Idle || state == State.Inativo)
             {
-                playerFrente.animation.Play(idlePose);
-                lado.SetActive(true);
-                frente.SetActive(false);
+                if (anim == "Walking" || anim == "NoArUp" || anim == "Fall" || anim == "Aterrisando" || anim == "Chute" || anim == "Arremesso" || anim == "Abaixar" || anim == "TransitionAir")
+                {
+                    playerFrente.animation.Play(idlePose);
+                    lado.SetActive(true);
+                    frente.SetActive(false);
+                }
             }
         }
         switch (anim)
@@ -117,22 +132,23 @@ public class AnimationsAI : MonoBehaviour
             case "Idle":
                 if (state != State.Idle)
                 {
-                    frente.SetActive(true);
-                    lado.SetActive(false);
-                    playerFrente.animation.timeScale = 1;
-                    playerFrente.animation.Play(idlePose);
+                    if (!isKlay)
+                    {
+                        frente.SetActive(true);
+                        lado.SetActive(false);
+                        playerFrente.animation.timeScale = 1;
+                        playerFrente.animation.Play(idlePose);
+                    }
+
+                    else
+                    {
+                        playerSide.animation.Play(idlePose);
+                    }
+
                     state = State.Idle;
                 }
                 break;
 
-            case "Inatividade":
-                if (state != State.Inativo)
-                {
-                    playerFrente.animation.timeScale = 1;
-                    playerFrente.animation.Play(inativoAnimation);
-                    state = State.Inativo;
-                }
-                break;
 
             case "Walking":
                 if (state != State.Walking)
