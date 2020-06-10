@@ -257,10 +257,9 @@ public class AITriggerController : RaycastController
                         rbBola = hit.collider.GetComponent<Rigidbody2D>();
                     }
 
-                    triggerCollision.isUp = true;
-
                     if(hit.distance <= 0.5f)
                     {
+                        triggerCollision.isUp = true;
                         triggerCollision.touchBall = true;
                     }
                 }

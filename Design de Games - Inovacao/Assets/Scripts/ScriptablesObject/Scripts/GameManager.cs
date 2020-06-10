@@ -23,6 +23,8 @@ namespace Complete
 
         public bool comecouPartida;
 
+        public BoolVariableArray acabou01;
+
 		private void Start()
         {
 			if (!OfflineMode.modoDoOffline)
@@ -58,13 +60,24 @@ namespace Complete
 		}
 
 		public void SpawnAI()
-        { 
-            
+        {
+            if (acabou01.Value[7] == true)
+            {
                 m_AI[0].m_Instance =
                     Instantiate(aiPrefab[0], m_AI[0].m_SpawnPoint.position, m_AI[0].m_SpawnPoint.rotation) as GameObject;
                 m_AI[0].SetupAI(wayPointsForAI);
 
-            aiMovement = m_AI[0].aiMovement;
+                aiMovement = m_AI[0].aiMovement;
+            }
+
+            else
+            {
+                m_AI[0].m_Instance =
+                    Instantiate(aiPrefab[1], m_AI[0].m_SpawnPoint.position, m_AI[0].m_SpawnPoint.rotation) as GameObject;
+                m_AI[0].SetupAI(wayPointsForAI);
+
+                aiMovement = m_AI[0].aiMovement;
+            }
             aiMovement.enabled = false;
 
         }
