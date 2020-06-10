@@ -15,6 +15,7 @@ public class CustomDisplay : MonoBehaviour
     public Prop2D bone;
     public Prop2D skin;
     public Prop2D pupila;
+    public Prop2D sobrancelha;
 
     public ChangeMultipleCustom[] hairModels;
     public ChangeMultipleCustom[] shirtModels;
@@ -26,6 +27,7 @@ public class CustomDisplay : MonoBehaviour
     public ChangeMultipleCustom[] boneModels;
     public ChangeMultipleCustom[] skinModels;
     public ChangeMultipleCustom[] pupilaModels;
+    public ChangeMultipleCustom[] sobrancelhaModels;
 
     public ChangeMultipleCustom[] hair2Models;
     public ChangeMultipleCustom[] shirt2Models;
@@ -37,6 +39,8 @@ public class CustomDisplay : MonoBehaviour
     public ChangeMultipleCustom[] bone2Models;
     public ChangeMultipleCustom[] skin2Models;
     public ChangeMultipleCustom[] pupila2Models;
+    public ChangeMultipleCustom[] sobrancelha2EsqModels;
+    public ChangeMultipleCustom[] sobrancelha2DirModels;
 
 
     private PhotonView pv;
@@ -60,6 +64,7 @@ public class CustomDisplay : MonoBehaviour
         PhotonNetwork.LocalPlayer.CustomProperties["boneIndex"] = bone.prop2DInd;
         PhotonNetwork.LocalPlayer.CustomProperties["skinIndex"] = skin.prop2DInd;
         PhotonNetwork.LocalPlayer.CustomProperties["pupilaIndex"] = pupila.prop2DInd;
+        PhotonNetwork.LocalPlayer.CustomProperties["sobrancelhaIndex"] = sobrancelha.prop2DInd;
 
 
 
@@ -78,6 +83,7 @@ public class CustomDisplay : MonoBehaviour
             TrocaBone(bone.prop2DInd);
             TrocaSkin(skin.prop2DInd);
             TrocaPupila(pupila.prop2DInd);
+            TrocaSobrancelha(sobrancelha.prop2DInd);
             //TrocaMaterialSapato(shoe.colorIndex);
 
         }
@@ -97,6 +103,7 @@ public class CustomDisplay : MonoBehaviour
             TrocaBone((int)pv.Owner.CustomProperties["boneIndex"]);
             TrocaSkin((int)pv.Owner.CustomProperties["skinIndex"]);
             TrocaPupila((int)pv.Owner.CustomProperties["pupilaIndex"]);
+            TrocaSobrancelha((int)pv.Owner.CustomProperties["sobrancelhaIndex"]);
             //TrocaMaterialSapato((int)pv.Owner.CustomProperties["shoeColorIndex"]);
 
 
@@ -239,5 +246,21 @@ public class CustomDisplay : MonoBehaviour
         }
         pupilaModels[onlineIndex].ChangeCustom(true);
         pupila2Models[onlineIndex].ChangeCustom(true);
+    }
+
+
+    [PunRPC]
+    private void TrocaSobrancelha(int onlineIndex)
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            sobrancelhaModels[i].ChangeCustom(false);
+            sobrancelha2EsqModels[i].ChangeCustom(false);
+            sobrancelha2DirModels[i].ChangeCustom(false);
+        }
+
+        sobrancelhaModels[onlineIndex].ChangeCustom(true);
+        sobrancelha2EsqModels[onlineIndex].ChangeCustom(true);
+        sobrancelha2DirModels[onlineIndex].ChangeCustom(true);
     }
 }
