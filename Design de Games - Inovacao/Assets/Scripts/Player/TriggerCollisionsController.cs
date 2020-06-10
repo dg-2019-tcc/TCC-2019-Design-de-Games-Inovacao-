@@ -82,9 +82,17 @@ public class TriggerCollisionsController : RaycastController
     {
         float directionX = 1;
         float rayLenght;
-        if (isBallGame && PlayerThings.rightDir && futebolPlayer.kicked == true || handVolei.cortou)
+        if (isBallGame && PlayerThings.rightDir)
         {
-            rayLenght = hitLenght + skinWidth;
+            if (futebolPlayer.kicked == true || handVolei.cortou)
+            {
+                rayLenght = hitLenght + skinWidth;
+            }
+
+            else
+            {
+                rayLenght = 0.1f + skinWidth;
+            }
         }
         else
         {
@@ -259,9 +267,17 @@ public class TriggerCollisionsController : RaycastController
     {
         float directionX = -1;
         float rayLenght;
-        if (isBallGame && PlayerThings.leftDir && futebolPlayer.kicked == true || handVolei.cortou)
+        if (isBallGame && PlayerThings.leftDir)
         {
-            rayLenght = hitLenght + skinWidth;
+            if (futebolPlayer.kicked == true || handVolei.cortou)
+            {
+                rayLenght = hitLenght + skinWidth;
+            }
+            else
+            {
+                rayLenght = 0.1f + skinWidth;
+            }
+
         }
         else
         {

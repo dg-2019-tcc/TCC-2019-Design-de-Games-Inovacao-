@@ -224,7 +224,6 @@ public class CustomDisplay : MonoBehaviour
     [PunRPC]
     private void TrocaBone(int onlineIndex)
     {
-        Debug.Log("Bone");
         for (int i = 0; i < boneModels.Length; i++)
         {
             boneModels[i].ChangeCustom(false);
