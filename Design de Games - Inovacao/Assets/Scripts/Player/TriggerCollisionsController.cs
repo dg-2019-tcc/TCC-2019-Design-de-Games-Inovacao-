@@ -14,8 +14,13 @@ public class TriggerCollisionsController : RaycastController
     public PlayerThings playerThings;
     private DogController dogController;
     private HandVolei handVolei;
+    private FutebolPlayer futebolPlayer;
+
 
     public bool isBallGame;
+    public bool isVolei;
+    public bool isFut;
+
 
     public float hitLenght = 5f;
 
@@ -44,6 +49,16 @@ public class TriggerCollisionsController : RaycastController
         isShotRecived = true;
 
         motoSpd = GetComponent<MotoChangeSpeed>();
+
+        if (isVolei)
+        {
+            handVolei = GetComponent<HandVolei>();
+        }
+
+        if (isFut)
+        {
+            futebolPlayer = GetComponent<FutebolPlayer>();
+        }
         
     }
 
@@ -67,7 +82,7 @@ public class TriggerCollisionsController : RaycastController
     {
         float directionX = 1;
         float rayLenght;
-        if (isBallGame && PlayerThings.rightDir && FutebolPlayer.kicked == true && HandVolei.cortou)
+        if (isBallGame && PlayerThings.rightDir && futebolPlayer.kicked == true || handVolei.cortou)
         {
             rayLenght = hitLenght + skinWidth;
         }
@@ -244,7 +259,7 @@ public class TriggerCollisionsController : RaycastController
     {
         float directionX = -1;
         float rayLenght;
-        if (isBallGame && PlayerThings.leftDir && FutebolPlayer.kicked == true || HandVolei.cortou)
+        if (isBallGame && PlayerThings.leftDir && futebolPlayer.kicked == true || handVolei.cortou)
         {
             rayLenght = hitLenght + skinWidth;
         }
