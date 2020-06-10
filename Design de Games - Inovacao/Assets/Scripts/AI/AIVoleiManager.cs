@@ -40,7 +40,7 @@ public class AIVoleiManager : MonoBehaviour
         yield return new WaitForSeconds(0.8f);
 
         bola.SetActive(true);
-        bolaVolei.BolaVoleiBranca();
+        //bolaVolei.BolaVoleiBranca();
 
         bola.GetComponent<Rigidbody2D>().isKinematic = false;
 

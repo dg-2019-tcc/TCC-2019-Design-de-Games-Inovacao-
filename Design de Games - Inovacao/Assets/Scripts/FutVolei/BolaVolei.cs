@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class BolaVolei : MonoBehaviour
 {
+    private PhotonView PV;
+
     private SpriteRenderer bolaSprite;
     private Rigidbody2D rb2d;
 
@@ -13,6 +15,9 @@ public class BolaVolei : MonoBehaviour
     public bool superCorte;
 
     public float bolaTimer;
+
+    public Vector3 bolaSpawnPoint;
+    private float resetSpeed = 0;
 
     public float maxSpeed = 12f;
     Vector2 vel;
@@ -33,6 +38,8 @@ public class BolaVolei : MonoBehaviour
         bolaSprite = GetComponent<SpriteRenderer>();
 
         rb2d = GetComponent<Rigidbody2D>();
+
+        PV = GetComponent<PhotonView>();
     }
 
     // Update is called once per frame  
@@ -42,34 +49,61 @@ public class BolaVolei : MonoBehaviour
 
         if (vel.magnitude > maxSpeed)
         {
-            gameObject.GetComponent<PhotonView>().RPC("VelBola", RpcTarget.MasterClient);
+            PV.RPC("VelBola", RpcTarget.MasterClient);
         }
 
 
         if (normal)
         {
-            gameObject.GetComponent<PhotonView>().RPC("BolaVoleiAzul", RpcTarget.MasterClient, blue);
+            PV.RPC("BolaVoleiAzul", RpcTarget.MasterClient, blue);
         }
 
         else if (corte && superCorte == false)
         {
-            gameObject.GetComponent<PhotonView>().RPC("BolaVoleiAmarela", RpcTarget.MasterClient, yellow);
+            PV.RPC("BolaVoleiAmarela", RpcTarget.MasterClient, yellow);
         }
 
         else if (superCorte)
         {
-            gameObject.GetComponent<PhotonView>().RPC("BolaVoleiVermelha", RpcTarget.MasterClient, red);
+            PV.RPC("BolaVoleiVermelha", RpcTarget.MasterClient, red);
         }
 
         else
         {
-            gameObject.GetComponent<PhotonView>().RPC("BolaVoleiBranca", RpcTarget.MasterClient, white);
+            PV.RPC("BolaVoleiBranca", RpcTarget.MasterClient, white);
         }
 
         if (bolaTimer >= 3f)
         {
-            gameObject.GetComponent<PhotonView>().RPC("BolaVoleiBranca", RpcTarget.MasterClient, white);
+            PV.RPC("BolaVoleiBranca", RpcTarget.MasterClient, white);
         }
+    }
+
+    [PunRPC]
+    void ResetaBolaVolei(Vector3 bolaSpawn, float speed, bool isKin)
+    {
+        rb2d.velocity *= 0;
+        rb2d.isKinematic = isKin;
+        this.gameObject.transform.position = bolaSpawn;
+
+    }
+
+    public void FoiPonto(Vector3 bolaSpawn)
+    {
+        bolaSpawnPoint = bolaSpawn;
+        StartCoroutine("BolaPos");
+    }
+
+    IEnumerator BolaPos()
+    {
+        Debug.Log("Reseta");
+        PV.RPC("ResetaBolaVolei", RpcTarget.All,bolaSpawnPoint, resetSpeed, true);
+        yield return new WaitForSeconds(0.8f);
+        PV.RPC("ResetaBolaVolei", RpcTarget.All, this.gameObject.transform.position, resetSpeed, false);
+        //PV.RPC("BolaVoleiBranca", RpcTarget.MasterClient, white);
+
+        Debug.Log("Stop");
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

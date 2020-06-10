@@ -18,7 +18,7 @@ public class VoleiManager : MonoBehaviour
 
     public GameObject bola;
 
-    public Transform bolaSpawnPoint;
+    public Vector3 bolaSpawnPoint;
     public FloatVariable botScore;
 
     public TextMeshProUGUI placarText;
@@ -26,9 +26,11 @@ public class VoleiManager : MonoBehaviour
     public FeedbackText feedbackText;
 
     private BolaVolei bolaVolei;
+    GolSelect playerGol;
 
     private void Start()
     {
+        playerGol = GetComponentInParent<GolSelect>();
         bolaVolei = bola.GetComponent<BolaVolei>();
     }
 
@@ -48,12 +50,11 @@ public class VoleiManager : MonoBehaviour
         {
             bola = other.gameObject;
 
-            GolSelect playerGol = GetComponentInParent<GolSelect>();
             index++;
             playerGol.jogador.PV.Owner.AddScore(1);
 
-
-            RecomecaVolei();
+            bolaVolei.FoiPonto(bolaSpawnPoint);
+            //RecomecaVolei();
             placarText.text = playerGol.jogador.PV.Owner.GetScore().ToString();
 
             if (playerGol.jogador.PV.Owner.GetScore() >= 7)
@@ -89,13 +90,12 @@ public class VoleiManager : MonoBehaviour
 
         bola.GetComponent<Rigidbody2D>().isKinematic = true;
 
-        bola.transform.position = bolaSpawnPoint.position;
+        bola.transform.position = bolaSpawnPoint;
 
         index++;
 
         yield return new WaitForSeconds(3f);
         bola.SetActive(true);
-        bolaVolei.BolaVoleiBranca();
 
         bola.GetComponent<Rigidbody2D>().isKinematic = false;
 
