@@ -20,6 +20,8 @@ public class BolaFutebol : MonoBehaviour
 
 	private PhotonView PV;
 
+    public GameObject goool;
+
     // Start is called before the first frame update  
     void Start()
     {
@@ -79,6 +81,7 @@ public class BolaFutebol : MonoBehaviour
             transform.position = bolaSpawnPoint.transform.position;
         }
     }
+
 
     [PunRPC]
     void SlowBola()

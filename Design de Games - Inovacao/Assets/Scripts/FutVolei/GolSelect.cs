@@ -24,12 +24,10 @@ public class GolSelect : MonoBehaviour
             jogador = other.GetComponent<PlayerThings>();
             if (!PhotonNetwork.InRoom)
             {
-                Debug.Log("DesabilitaCollider00");
                 DesabilitaColider();
             }
             else
             {
-                Debug.Log("DesabilitaCollider01");
                 photonView.RPC("DesabilitaColider", RpcTarget.All);
             }
             DesabilitaColider();
@@ -39,7 +37,6 @@ public class GolSelect : MonoBehaviour
     [PunRPC]
     public void DesabilitaColider()
     {
-        Debug.Log("DesabilitaCollider02");
         this.gameObject.GetComponent<BoxCollider2D>().enabled = false;
     }
 }

@@ -30,7 +30,9 @@ public class GolManager : MonoBehaviourPunCallbacks
 
     public FeedbackText feedbackWin;
 
+    public PhotonView bolaPV;
 
+    public BolaFutebol bolaFutebol;
 
 	GolSelect playerGol;
 
@@ -54,6 +56,8 @@ public class GolManager : MonoBehaviourPunCallbacks
         aiGanhou.Value[4] = false;
 
         offline = OfflineMode.modoDoOffline;
+
+        playerGol = GetComponentInParent<GolSelect>();
     }
 
 
@@ -74,13 +78,17 @@ public class GolManager : MonoBehaviourPunCallbacks
     {
         if (other.CompareTag("Futebol"))
         {
-            bola = other.gameObject;
-
-            playerGol = GetComponentInParent<GolSelect>();
+            /*if (bola == null)
+            {
+                bola = other.gameObject;
+                bolaFutebol = bola.GetComponent<BolaFutebol>();
+            }*/
             playerGol.jogador.PV.Owner.AddScore(1);
 
 
-            playerGol.photonView.RPC("Recomeca", RpcTarget.All);
+
+            Recomeca();
+
 
 
             if (playerGol.jogador.PV.Owner.GetScore() >= 5)
@@ -90,22 +98,31 @@ public class GolManager : MonoBehaviourPunCallbacks
                 playerGanhou.Value = true;
 				if (isLoading) return;
 				isLoading = true;
-				StartCoroutine("AcabouFase");
+                //StartCoroutine("AcabouFase");
+                Acaba();
             }
             
         }
 
     }
 
+    [PunRPC]
+    void Acaba()
+    {
+        StartCoroutine("AcabouFase");
+    }
+
     IEnumerator AcabouFase()
     {
-		isLoading = true;
+        isLoading = true;
         yield return new WaitForSeconds(3f);
         if (aiGanhou.Value[4] == true)
         {
             if (acabou01.Value[4] == true)
             {
                 LevelManager.Instance.GoPodium();
+                //PhotonNetwork.LoadLevel("TelaVitoria");
+
             }
             else
             {
@@ -119,6 +136,7 @@ public class GolManager : MonoBehaviourPunCallbacks
             {
                 PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 1;
                 LevelManager.Instance.GoPodium();
+                //PhotonNetwork.LoadLevel("TelaVitoria");
             }
             else
             {
@@ -126,6 +144,7 @@ public class GolManager : MonoBehaviourPunCallbacks
                 //flowIndex.Value = 4;
             }
         }
+        Debug.Log("Queue");
     }
 
     [PunRPC]
@@ -134,8 +153,11 @@ public class GolManager : MonoBehaviourPunCallbacks
         StartCoroutine("ResetaBola");
     }
 
+
+
     IEnumerator ResetaBola()
     {
+        Debug.Log("Reseta");
         goool.SetActive(true);
         bola.SetActive(false);
 
@@ -148,7 +170,8 @@ public class GolManager : MonoBehaviourPunCallbacks
         index++;
 
         yield return new WaitForSeconds(0.8f);
-		placarText.text = playerGol.jogador.PV.Owner.GetScore().ToString();
+        //placarText.text = playerGol.jogador.PV.Owner.GetScore().ToString();
+
         bola.SetActive(true);
 
         bola.GetComponent<Rigidbody2D>().isKinematic = false;
