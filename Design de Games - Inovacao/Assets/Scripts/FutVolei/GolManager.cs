@@ -41,6 +41,9 @@ public class GolManager : MonoBehaviourPunCallbacks
 
     private bool offline;
 
+    public static bool desativaBola;
+    public static bool ativaBola;
+
 
     private void Start()
     {
@@ -58,7 +61,9 @@ public class GolManager : MonoBehaviourPunCallbacks
         offline = OfflineMode.modoDoOffline;
 
         playerGol = GetComponentInParent<GolSelect>();
+        bolaPV = bola.GetPhotonView();
     }
+
 
 
 
@@ -87,7 +92,7 @@ public class GolManager : MonoBehaviourPunCallbacks
 
 
 
-            Recomeca();
+            bolaFutebol.FoiGol();
 
 
 
@@ -153,30 +158,56 @@ public class GolManager : MonoBehaviourPunCallbacks
         StartCoroutine("ResetaBola");
     }
 
-
-
-    IEnumerator ResetaBola()
+    [PunRPC]
+    public void DesativaBola()
     {
-        Debug.Log("Reseta");
-        goool.SetActive(true);
-        bola.SetActive(false);
+        Debug.Log("Desativa");
+        desativaBola = true;
+        ativaBola = false;
+    }
 
-        //bola.GetComponent<BolaFutebol>().bolaTimer += 5f;
+    [PunRPC]
+    public void AtivaBola()
+    {
+        Debug.Log("Ativa");
+        desativaBola = false;
+        ativaBola = true;
+    }
 
-        bola.GetComponent<Rigidbody2D>().isKinematic = true;
 
-        bola.transform.position = bolaSpawnPoint.position;
+    /*IEnumerator ResetaBola()
+    {
+
+           /* Debug.Log("Reseta");
+            goool.SetActive(true);
+            bola.SetActive(false);
+
+            //bola.GetComponent<BolaFutebol>().bolaTimer += 5f;
+
+            bola.GetComponent<Rigidbody2D>().isKinematic = true;
+
+            bola.transform.position = bolaSpawnPoint.position;
+    
+
+        if (ativaBola)
+        {
+
+            bola.SetActive(true);
+
+            bola.GetComponent<Rigidbody2D>().isKinematic = false;
+            goool.SetActive(false);
+        }
+    
+
+
+    bolaPV.RPC("DesativaBola", RpcTarget.All);
 
         index++;
 
         yield return new WaitForSeconds(0.8f);
         //placarText.text = playerGol.jogador.PV.Owner.GetScore().ToString();
 
-        bola.SetActive(true);
+        bolaPV.RPC("AtivaBola", RpcTarget.All);*/
 
-        bola.GetComponent<Rigidbody2D>().isKinematic = false;
-        goool.SetActive(false);
-
-
-    }
+    //}
 }
