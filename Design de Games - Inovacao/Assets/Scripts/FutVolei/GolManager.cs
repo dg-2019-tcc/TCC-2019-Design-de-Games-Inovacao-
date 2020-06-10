@@ -80,7 +80,7 @@ public class GolManager : MonoBehaviourPunCallbacks
             playerGol.jogador.PV.Owner.AddScore(1);
 
 
-            Recomeca(); 
+            playerGol.photonView.RPC("Recomeca", RpcTarget.All);
 
 
             if (playerGol.jogador.PV.Owner.GetScore() >= 5)

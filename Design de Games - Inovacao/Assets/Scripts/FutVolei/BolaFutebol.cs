@@ -43,27 +43,27 @@ public class BolaFutebol : MonoBehaviour
 
         if (normal)
         {
-            PV.RPC("BolaAzul", RpcTarget.MasterClient);
+            PV.RPC("BolaAzul", RpcTarget.All);
         }
 
         else if (kick)
         {
-			PV.RPC("BolaAmarela", RpcTarget.MasterClient);
+			PV.RPC("BolaAmarela", RpcTarget.All);
         }
 
         else if (superKick)
         {
-			PV.RPC("BolaVermelha", RpcTarget.MasterClient);
+			PV.RPC("BolaVermelha", RpcTarget.All);
         }
 
         else
         {
-			PV.RPC("BolaBranca", RpcTarget.MasterClient);
+			PV.RPC("BolaBranca", RpcTarget.All);
         }
 
         if (bolaTimer >= 3f)
         {
-			PV.RPC("BolaBranca", RpcTarget.MasterClient);
+			PV.RPC("BolaBranca", RpcTarget.All);
         }
     }
 
@@ -71,7 +71,7 @@ public class BolaFutebol : MonoBehaviour
     {
         if (collision.CompareTag("Plataforma"))
         {
-            PV.RPC("SlowBola", RpcTarget.MasterClient);
+            PV.RPC("SlowBola", RpcTarget.All);
         }
 
         if (collision.CompareTag("ResetBall"))

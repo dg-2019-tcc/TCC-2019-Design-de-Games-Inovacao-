@@ -76,7 +76,7 @@ public class FutebolPlayer : MonoBehaviour
             {
                 if (triggerController.collisions.tocouBola == true || triggerController.collisions.cabecaBola == true || triggerController.collisions.chutouBola == true)
                 {
-                    gameObject.GetComponent<PhotonView>().RPC("TocouBola", RpcTarget.All);
+                    gameObject.GetComponent<PhotonView>().RPC("TocouBola", RpcTarget.MasterClient);
                     triggerController.collisions.tocouBola = false;
                     triggerController.collisions.cabecaBola = false;
                     triggerController.collisions.chutouBola = false;
@@ -109,25 +109,20 @@ public class FutebolPlayer : MonoBehaviour
     public void Chute()
     {
         //Debug.Log(forceVertical);
-        Debug.Log("Chute");
-        gameObject.GetComponent<PhotonView>().RPC("KickedBall", RpcTarget.All, forceVertical);
+        gameObject.GetComponent<PhotonView>().RPC("KickedBall", RpcTarget.All);
     }
 
     [PunRPC]
-    public void KickedBall(float force)
+    public void KickedBall()
     {
-        Debug.Log("Chute2");
-        forceVertical = force;
         if (kicked == false)
         {
-            Debug.Log("Chute3");
             StartCoroutine("CoolKick");
         }
     }
 
     IEnumerator CoolKick()
     {
-        Debug.Log("Chute4   ");
         //anim.Chute();
         kicked = true;
         kickAnim = true;

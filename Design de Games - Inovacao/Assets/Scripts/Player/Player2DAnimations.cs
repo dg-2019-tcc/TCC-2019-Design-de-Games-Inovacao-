@@ -300,7 +300,6 @@ public class Player2DAnimations : MonoBehaviour
 		{
 			if(anim == "Walking" || anim == "NoArUp" || anim == "Fall" || anim == "Aterrisando" || anim == "Chute" || anim == "Arremesso" || anim == "Abaixar" || anim == "TransitionAir" || anim == "Pipa" || anim == "CarroWalk" || anim == "MotoWalk"|| anim == "MotoUp" || anim == "MotoDown" || anim == "MotoCrash" || anim == "MotoGrau")
 			{
-                Debug.Log(state);
                 lado.SetActive(true);
                 playerFrente.animation.Play(idlePose);
 				frente.SetActive(false);

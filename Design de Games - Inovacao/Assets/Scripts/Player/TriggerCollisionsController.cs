@@ -607,7 +607,8 @@ public class TriggerCollisionsController : RaycastController
                 {
                     GolSelect select = hit.collider.GetComponent<GolSelect>();
                     select.jogador = playerThings.GetComponent<PlayerThings>();
-                    hit.collider.GetComponent<BoxCollider2D>().enabled = false;
+                    //hit.collider.GetComponent<BoxCollider2D>().enabled = false;
+                    select.photonView.RPC("DesabilitaColider", RpcTarget.All);
                 }
 
                 if(hit.collider.CompareTag("CaixaDagua"))

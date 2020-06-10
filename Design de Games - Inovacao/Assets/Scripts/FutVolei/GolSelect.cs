@@ -10,6 +10,7 @@ public class GolSelect : MonoBehaviour
     public PlayerThings jogador;
     [HideInInspector]
     public PhotonView photonView;
+    public BoolVariable partidaComecou;
 
     private void Start()
     {
@@ -18,15 +19,17 @@ public class GolSelect : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && partidaComecou.Value == true)
         {
             jogador = other.GetComponent<PlayerThings>();
             if (!PhotonNetwork.InRoom)
             {
+                Debug.Log("DesabilitaCollider00");
                 DesabilitaColider();
             }
             else
             {
+                Debug.Log("DesabilitaCollider01");
                 photonView.RPC("DesabilitaColider", RpcTarget.All);
             }
             DesabilitaColider();
@@ -36,6 +39,7 @@ public class GolSelect : MonoBehaviour
     [PunRPC]
     public void DesabilitaColider()
     {
-         this.gameObject.GetComponent<BoxCollider2D>().enabled = false;
+        Debug.Log("DesabilitaCollider02");
+        this.gameObject.GetComponent<BoxCollider2D>().enabled = false;
     }
 }
