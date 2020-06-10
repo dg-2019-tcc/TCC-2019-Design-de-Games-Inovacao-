@@ -18,6 +18,7 @@ public class LojaCustom : MonoBehaviour
     public Prop2D maskIndex;
     public Prop2D boneIndex;
     public Prop2D skinInd;
+    public Prop2D pupilaInd;
 
 
     [Header("Botões da cena")]
@@ -38,6 +39,7 @@ public class LojaCustom : MonoBehaviour
     public Sprite[] spriteMascara; //Tem todos os sprites de cabelo, os modelos de cabelo vão de 0 - 4 / 5 - 9 / 10 - 14 / 15 / 19
     public Sprite[] spriteBone; //Tem todos os sprites de cabelo, os modelos de cabelo vão de 0 - 4 / 5 - 9 / 10 - 14 / 15 / 19
     public Sprite[] spriteSkin; //Tem todos os sprites de cabelo, os modelos de cabelo vão de 0 - 4 / 5 - 9 / 10 - 14 / 15 / 19
+    public Sprite[] spritePupila; //Tem todos os sprites de cabelo, os modelos de cabelo vão de 0 - 4 / 5 - 9 / 10 - 14 / 15 / 19
 
 
 
@@ -1015,6 +1017,107 @@ public class LojaCustom : MonoBehaviour
                         }
                     }
                     break;
+                case 10:
+                    if (iniciaAqui < spritePupila.Length)
+                    {
+                        if (iniciaAqui == 0 || iniciaAqui == 6 || iniciaAqui == 12 || iniciaAqui == 18 || iniciaAqui == 24 || iniciaAqui == 30)
+                        {
+                            a = iniciaAqui;
+                            if (a == pupilaInd.prop2DInd)
+                            {
+                                circuloDeSelecaoModelo[i].SetActive(true);
+                            }
+                            else
+                            {
+                                circuloDeSelecaoModelo[i].SetActive(false);
+                            }
+                            botaoDeModelo[i].gameObject.SetActive(true);//está sendo ativado aqui porque se não quando passa do limite não funciona
+                            botaoDeModelo[i].image.sprite = spritePupila[iniciaAqui];
+                            botaoDeModelo[i].onClick.AddListener(delegate { QualParteVaiMudar(qualParteVaiSer, a); });
+                            botaoDeModelo[i].onClick.AddListener(delegate { AtivaCirculoVerde(a, 0, pupilaInd); });
+                        }
+                        else if (iniciaAqui == 1 || iniciaAqui == 7 || iniciaAqui == 13 || iniciaAqui == 19 || iniciaAqui == 25 || iniciaAqui == 31)
+                        {
+                            b = iniciaAqui;
+                            if (b == pupilaInd.prop2DInd)
+                            {
+                                circuloDeSelecaoModelo[i].SetActive(true);
+                            }
+                            else
+                            {
+                                circuloDeSelecaoModelo[i].SetActive(false);
+                            }
+                            botaoDeModelo[i].gameObject.SetActive(true);//está sendo ativado aqui porque se não quando passa do limite não funciona
+                            botaoDeModelo[i].image.sprite = spritePupila[iniciaAqui];
+                            botaoDeModelo[i].onClick.AddListener(delegate { QualParteVaiMudar(qualParteVaiSer, b); });
+                            botaoDeModelo[i].onClick.AddListener(delegate { AtivaCirculoVerde(b, 1, pupilaInd); });
+                        }
+                        else if (iniciaAqui == 2 || iniciaAqui == 8 || iniciaAqui == 14 || iniciaAqui == 20 || iniciaAqui == 26 || iniciaAqui == 32)
+                        {
+                            c = iniciaAqui;
+                            if (c == pupilaInd.prop2DInd)
+                            {
+                                circuloDeSelecaoModelo[i].SetActive(true);
+                            }
+                            else
+                            {
+                                circuloDeSelecaoModelo[i].SetActive(false);
+                            }
+                            botaoDeModelo[i].gameObject.SetActive(true);//está sendo ativado aqui porque se não quando passa do limite não funciona
+                            botaoDeModelo[i].image.sprite = spritePupila[iniciaAqui];
+                            botaoDeModelo[i].onClick.AddListener(delegate { QualParteVaiMudar(qualParteVaiSer, c); });
+                            botaoDeModelo[i].onClick.AddListener(delegate { AtivaCirculoVerde(c, 2, pupilaInd); });
+                        }
+                        else if (iniciaAqui == 3 || iniciaAqui == 9 || iniciaAqui == 15 || iniciaAqui == 21 || iniciaAqui == 27 || iniciaAqui == 33)
+                        {
+                            d = iniciaAqui;
+                            if (d == pupilaInd.prop2DInd)
+                            {
+                                circuloDeSelecaoModelo[i].SetActive(true);
+                            }
+                            else
+                            {
+                                circuloDeSelecaoModelo[i].SetActive(false);
+                            }
+                            botaoDeModelo[i].gameObject.SetActive(true);//está sendo ativado aqui porque se não quando passa do limite não funciona
+                            botaoDeModelo[i].image.sprite = spritePupila[iniciaAqui];
+                            botaoDeModelo[i].onClick.AddListener(delegate { QualParteVaiMudar(qualParteVaiSer, d); });
+                            botaoDeModelo[i].onClick.AddListener(delegate { AtivaCirculoVerde(d, 3, pupilaInd); });
+                        }
+                        else if (iniciaAqui == 4 || iniciaAqui == 10 || iniciaAqui == 16 || iniciaAqui == 22 || iniciaAqui == 28 || iniciaAqui == 34)
+                        {
+                            e = iniciaAqui;
+                            if (e == pupilaInd.prop2DInd)
+                            {
+                                circuloDeSelecaoModelo[i].SetActive(true);
+                            }
+                            else
+                            {
+                                circuloDeSelecaoModelo[i].SetActive(false);
+                            }
+                            botaoDeModelo[i].gameObject.SetActive(true);//está sendo ativado aqui porque se não quando passa do limite não funciona
+                            botaoDeModelo[i].image.sprite = spritePupila[iniciaAqui];
+                            botaoDeModelo[i].onClick.AddListener(delegate { QualParteVaiMudar(qualParteVaiSer, e); });
+                            botaoDeModelo[i].onClick.AddListener(delegate { AtivaCirculoVerde(e, 4, pupilaInd); });
+                        }
+                        else if (iniciaAqui == 5 || iniciaAqui == 11 || iniciaAqui == 17 || iniciaAqui == 23 || iniciaAqui == 29 || iniciaAqui == 35)
+                        {
+                            f = iniciaAqui;
+                            if (f == pupilaInd.prop2DInd)
+                            {
+                                circuloDeSelecaoModelo[i].SetActive(true);
+                            }
+                            else
+                            {
+                                circuloDeSelecaoModelo[i].SetActive(false);
+                            }
+                            botaoDeModelo[i].gameObject.SetActive(true);//está sendo ativado aqui porque se não quando passa do limite não funciona
+                            botaoDeModelo[i].image.sprite = spritePupila[iniciaAqui];
+                            botaoDeModelo[i].onClick.AddListener(delegate { QualParteVaiMudar(qualParteVaiSer, f); });
+                            botaoDeModelo[i].onClick.AddListener(delegate { AtivaCirculoVerde(f, 5, pupilaInd); });
+                        }
+                    }
+                    break;
             }
             iniciaAqui++;
         }
@@ -1139,6 +1242,9 @@ public class LojaCustom : MonoBehaviour
                 break;
             case 9:
                 customizaScript.ChangeSkin(index);
+                break;
+            case 10:
+                customizaScript.ChangePupila(index);
                 break;
         }
     }

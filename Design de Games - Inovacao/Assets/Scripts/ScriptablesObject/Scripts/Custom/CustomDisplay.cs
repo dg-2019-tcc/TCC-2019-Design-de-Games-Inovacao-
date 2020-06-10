@@ -14,6 +14,7 @@ public class CustomDisplay : MonoBehaviour
     public Prop2D mask;
     public Prop2D bone;
     public Prop2D skin;
+    public Prop2D pupila;
 
     public ChangeMultipleCustom[] hairModels;
     public ChangeMultipleCustom[] shirtModels;
@@ -24,6 +25,7 @@ public class CustomDisplay : MonoBehaviour
     public ChangeMultipleCustom[] maskModels;
     public ChangeMultipleCustom[] boneModels;
     public ChangeMultipleCustom[] skinModels;
+    public ChangeMultipleCustom[] pupilaModels;
 
     public ChangeMultipleCustom[] hair2Models;
     public ChangeMultipleCustom[] shirt2Models;
@@ -34,6 +36,7 @@ public class CustomDisplay : MonoBehaviour
     public ChangeMultipleCustom[] mask2Models;
     public ChangeMultipleCustom[] bone2Models;
     public ChangeMultipleCustom[] skin2Models;
+    public ChangeMultipleCustom[] pupila2Models;
 
 
     private PhotonView pv;
@@ -56,6 +59,7 @@ public class CustomDisplay : MonoBehaviour
         PhotonNetwork.LocalPlayer.CustomProperties["maskIndex"] = mask.prop2DInd;
         PhotonNetwork.LocalPlayer.CustomProperties["boneIndex"] = bone.prop2DInd;
         PhotonNetwork.LocalPlayer.CustomProperties["skinIndex"] = skin.prop2DInd;
+        PhotonNetwork.LocalPlayer.CustomProperties["pupilaIndex"] = pupila.prop2DInd;
 
 
 
@@ -73,6 +77,7 @@ public class CustomDisplay : MonoBehaviour
             TrocaMask(mask.prop2DInd);
             TrocaBone(bone.prop2DInd);
             TrocaSkin(skin.prop2DInd);
+            TrocaPupila(pupila.prop2DInd);
             //TrocaMaterialSapato(shoe.colorIndex);
 
         }
@@ -91,6 +96,7 @@ public class CustomDisplay : MonoBehaviour
             TrocaMask((int)pv.Owner.CustomProperties["maskIndex"]);
             TrocaBone((int)pv.Owner.CustomProperties["boneIndex"]);
             TrocaSkin((int)pv.Owner.CustomProperties["skinIndex"]);
+            TrocaPupila((int)pv.Owner.CustomProperties["pupilaIndex"]);
             //TrocaMaterialSapato((int)pv.Owner.CustomProperties["shoeColorIndex"]);
 
 
@@ -222,4 +228,16 @@ public class CustomDisplay : MonoBehaviour
         bone2Models[onlineIndex].ChangeCustom(true);
     }
 
+
+    [PunRPC]
+    private void TrocaPupila(int onlineIndex)
+    {
+        for (int i = 0; i < pupilaModels.Length; i++)
+        {
+            pupilaModels[i].ChangeCustom(false);
+            pupila2Models[i].ChangeCustom(false);
+        }
+        pupilaModels[onlineIndex].ChangeCustom(true);
+        pupila2Models[onlineIndex].ChangeCustom(true);
+    }
 }

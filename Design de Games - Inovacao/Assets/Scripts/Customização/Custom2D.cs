@@ -15,6 +15,7 @@ public class Custom2D : MonoBehaviour
     public Prop2D maskIndex;
     public Prop2D boneIndex;
     public Prop2D skinInd;
+    public Prop2D pupilaInd;
 
     //ARMATURE DE FRENTE
     public ChangeMultipleCustom[] hairs;
@@ -26,6 +27,7 @@ public class Custom2D : MonoBehaviour
     public ChangeMultipleCustom[] mask;
     public ChangeMultipleCustom[] bone;
     public ChangeMultipleCustom[] skin;
+    public ChangeMultipleCustom[] pupila;
 
 
     //ARMATURE DE LADO
@@ -38,6 +40,7 @@ public class Custom2D : MonoBehaviour
     public ChangeMultipleCustom[] mask2;
     public ChangeMultipleCustom[] bone2;
     public ChangeMultipleCustom[] skin2;
+    public ChangeMultipleCustom[] pupila2;
 
     public BoolVariable boneOn;
 
@@ -229,4 +232,26 @@ public class Custom2D : MonoBehaviour
         PhotonNetwork.LocalPlayer.CustomProperties["boneIndex"] = boneIndex.prop2DInd;
     }
 
+
+
+    [PunRPC]
+    public void ChangePupila(int index)
+    {
+        FMODUnity.RuntimeManager.PlayOneShot("event:/HUD/Click", GetComponent<Transform>().position);
+
+        pupila[pupilaInd.prop2DInd].ChangeCustom(false);
+        pupila2[pupilaInd.prop2DInd].ChangeCustom(false);
+
+        pupilaInd.prop2DInd = index;
+
+        if (pupilaInd.prop2DInd >= pupila.Length)
+        {
+            pupilaInd.prop2DInd = 0;
+        }
+
+        pupila[pupilaInd.prop2DInd].ChangeCustom(true);
+        pupila2[pupilaInd.prop2DInd].ChangeCustom(true);
+
+        PhotonNetwork.LocalPlayer.CustomProperties["pupilaIndex"] = pupilaInd.prop2DInd;
+    }
 }
