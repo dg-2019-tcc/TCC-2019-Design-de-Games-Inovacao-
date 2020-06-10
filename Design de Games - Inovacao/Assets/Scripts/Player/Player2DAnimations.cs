@@ -169,7 +169,7 @@ public class Player2DAnimations : MonoBehaviour
                                             PlayAnim("Fall");
                                         }
 
-                                        else if (moveAmount.y < -5f && input.x == 0 && input.y >= 0 && controller.collisions.below == true && jaAterrisou == false)
+                                        else if (moveAmount.y < -5f && input.x == 0 && controller.collisions.below == true && jaAterrisou == false)
                                         {
                                             PlayAnim("Aterrisando");
                                         }

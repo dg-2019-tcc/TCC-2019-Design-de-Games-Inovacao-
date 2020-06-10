@@ -32,23 +32,30 @@ public class DogAnim : MonoBehaviour
 
     public void ChangeDogAnim(Vector3 moveAmount, Vector2 input)
     {
-        if (input.x != 0)
+        if (dogController.collisions.below == true)
         {
-            PlayAnim("Walk");
+            if (input.x != 0)
+            {
+                PlayAnim("Walk");
+            }
+
+            else
+            {
+                PlayAnim("Idle");
+            }
         }
 
-        else if (moveAmount.y > 0 /*&& dogController.collisions.below == false*/)
-        {
-            PlayAnim("Up");
-        }
-
-        else if (moveAmount.y <= -3 && dogController.collisions.below == false)
-        {
-            PlayAnim("Down");
-        }
         else
-        {
-            PlayAnim("Idle");
+        { 
+             if (moveAmount.y > 0)
+            {
+                PlayAnim("Up");
+            }
+
+            else if (moveAmount.y <= -3)
+            {
+                PlayAnim("Down");
+            }
         }
     }
 
