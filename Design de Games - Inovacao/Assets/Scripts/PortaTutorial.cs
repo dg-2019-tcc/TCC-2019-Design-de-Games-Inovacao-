@@ -43,7 +43,7 @@ public class PortaTutorial : MonoBehaviour
 
         SceneManager.LoadScene("HUB");
 
-        FindObjectOfType<PauseManager>().VoltaMenu();
+       // FindObjectOfType<PauseManager>().VoltaMenu();
     }
 }
 
