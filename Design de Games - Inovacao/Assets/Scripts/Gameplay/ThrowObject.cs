@@ -145,10 +145,10 @@ public class ThrowObject : MonoBehaviour
             desativaPower.Value = true;
         }
 
-        if(!shouldShoot && textoAtivo.Value == false && carroActive.Value == false && pipaActive.Value == false)
+        /*if(!shouldShoot && textoAtivo.Value == false && carroActive.Value == false && pipaActive.Value == false)
         {
             dogMove.DoTrick();
-        }
+        }*/
     }
 
     public void StopAtirou()

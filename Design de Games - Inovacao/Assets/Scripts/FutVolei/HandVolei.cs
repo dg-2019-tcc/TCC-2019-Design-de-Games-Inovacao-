@@ -23,7 +23,7 @@ public class HandVolei : MonoBehaviour
 
     private float forceVertical;
 
-    public static bool cortou;
+    public bool cortou;
 
     private bool rightDir;
 
@@ -67,9 +67,6 @@ public class HandVolei : MonoBehaviour
 
     public void Update()
     {
-        if (photonView.IsMine == true || !PhotonNetwork.InRoom)
-        {
-
 
             if (PlayerThings.rightDir)
             {
@@ -105,7 +102,7 @@ public class HandVolei : MonoBehaviour
                     gameObject.GetComponent<PhotonView>().RPC("BateBola", RpcTarget.All, normal, normalY);
                 }
             }
-        }
+        
     }
 
     public void Corte()
@@ -116,9 +113,13 @@ public class HandVolei : MonoBehaviour
     [PunRPC]
     public void CortouBall()
     {
-        if (cortou == false)
+        if (photonView.IsMine == true || !PhotonNetwork.InRoom)
         {
-            StartCoroutine("CoolHand");
+
+            if (cortou == false)
+            {
+                StartCoroutine("CoolHand");
+            }
         }
     }
 
