@@ -60,6 +60,17 @@ public class FutebolPlayer : MonoBehaviour
                 normalX = normalKickForce.Value;
                 kickForceX = kickForce.Value;
                 superKickForceX = superKickForce.Value;
+
+                if (kicked)
+                {
+                    triggerController.rightRay = true;
+                }
+
+                else
+                {
+                    triggerController.leftRay = false;
+                    triggerController.rightRay = false;
+                }
             }
 
             if (PlayerThings.leftDir)
@@ -67,6 +78,17 @@ public class FutebolPlayer : MonoBehaviour
                 normalX = normalKickForce.Value * -1;
                 kickForceX = kickForce.Value * -1;
                 superKickForceX = superKickForce.Value * -1;
+
+                if (kicked)
+                {
+                    triggerController.leftRay = true;
+                    triggerController.rightRay = false;
+                }
+                else
+                {
+                    triggerController.leftRay = false;
+                    triggerController.rightRay = false;
+                }
             }
 
             if (kicked == false)

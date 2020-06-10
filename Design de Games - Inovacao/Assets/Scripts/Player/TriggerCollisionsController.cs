@@ -22,7 +22,7 @@ public class TriggerCollisionsController : RaycastController
     public bool isFut;
 
 
-    public float hitLenght = 5f;
+    public float hitLenght = 3f;
 
     //CAMera
     private GameObject cam;
@@ -36,6 +36,9 @@ public class TriggerCollisionsController : RaycastController
     public bool isShotRecived;
 
     MotoChangeSpeed motoSpd;
+
+    public bool rightRay;
+    public bool leftRay;
 
     public override void Start()
     {
@@ -78,21 +81,20 @@ public class TriggerCollisionsController : RaycastController
         DownCollisions();
     }
 
+
     void RightCollisions()
     {
         float directionX = 1;
         float rayLenght;
-        if (isBallGame && PlayerThings.rightDir)
-        {
-            if (futebolPlayer.kicked == true || handVolei.cortou)
-            {
-                rayLenght = hitLenght + skinWidth;
-            }
 
-            else
-            {
-                rayLenght = 0.1f + skinWidth;
-            }
+
+        //if (isBallGame && PlayerThings.rightDir &&futebolPlayer.kicked == true || handVolei.cortou)
+        if(rightRay)
+        {
+            
+            rayLenght = hitLenght + skinWidth;
+            
+
         }
         else
         {
@@ -267,16 +269,11 @@ public class TriggerCollisionsController : RaycastController
     {
         float directionX = -1;
         float rayLenght;
-        if (isBallGame && PlayerThings.leftDir)
+        //if (isBallGame && PlayerThings.leftDir&& futebolPlayer.kicked == true || handVolei.cortou)
+        if(leftRay)
         {
-            if (futebolPlayer.kicked == true || handVolei.cortou)
-            {
-                rayLenght = hitLenght + skinWidth;
-            }
-            else
-            {
-                rayLenght = 0.1f + skinWidth;
-            }
+            
+            rayLenght = hitLenght + skinWidth;
 
         }
         else
