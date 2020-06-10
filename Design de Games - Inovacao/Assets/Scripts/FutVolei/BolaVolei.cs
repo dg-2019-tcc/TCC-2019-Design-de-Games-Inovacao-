@@ -17,9 +17,19 @@ public class BolaVolei : MonoBehaviour
     public float maxSpeed = 12f;
     Vector2 vel;
 
+    Vector3 white;
+    Vector3 red;
+    Vector3 blue;
+    Vector3 yellow;
+
     // Start is called before the first frame update  
     void Start()
     {
+        white = new Vector3(1, 1, 1);
+        red = new Vector3(1, 0, 0);
+        blue = new Vector3(0, 0, 1);
+        yellow = new Vector3(1, 0.92f, 0.016f);
+
         bolaSprite = GetComponent<SpriteRenderer>();
 
         rb2d = GetComponent<Rigidbody2D>();
@@ -38,27 +48,27 @@ public class BolaVolei : MonoBehaviour
 
         if (normal)
         {
-            gameObject.GetComponent<PhotonView>().RPC("BolaVoleiAzul", RpcTarget.MasterClient);
+            gameObject.GetComponent<PhotonView>().RPC("BolaVoleiAzul", RpcTarget.MasterClient, blue);
         }
 
         else if (corte && superCorte == false)
         {
-            gameObject.GetComponent<PhotonView>().RPC("BolaVoleiAmarela", RpcTarget.MasterClient);
+            gameObject.GetComponent<PhotonView>().RPC("BolaVoleiAmarela", RpcTarget.MasterClient, yellow);
         }
 
         else if (superCorte)
         {
-            gameObject.GetComponent<PhotonView>().RPC("BolaVoleiVermelha", RpcTarget.MasterClient);
+            gameObject.GetComponent<PhotonView>().RPC("BolaVoleiVermelha", RpcTarget.MasterClient, red);
         }
 
         else
         {
-            gameObject.GetComponent<PhotonView>().RPC("BolaVoleiBranca", RpcTarget.MasterClient);
+            gameObject.GetComponent<PhotonView>().RPC("BolaVoleiBranca", RpcTarget.MasterClient, white);
         }
 
         if (bolaTimer >= 3f)
         {
-            gameObject.GetComponent<PhotonView>().RPC("BolaVoleiBranca", RpcTarget.MasterClient);
+            gameObject.GetComponent<PhotonView>().RPC("BolaVoleiBranca", RpcTarget.MasterClient, white);
         }
     }
 
@@ -82,29 +92,29 @@ public class BolaVolei : MonoBehaviour
     }
 
     [PunRPC]
-    public void BolaVoleiBranca()
+    public void BolaVoleiBranca(Vector3 cor)
     {
         rb2d.gravityScale = 1;
         normal = false;
         corte = false;
         superCorte = false;
         bolaTimer = 0f;
-        bolaSprite.color = Color.white;
+        bolaSprite.color = new Color(cor.x, cor.y, cor.z);
     }
 
     [PunRPC]
-    void BolaVoleiAzul()
+    void BolaVoleiAzul(Vector3 cor)
     {
-        bolaSprite.color = Color.blue;
+        bolaSprite.color = new Color(cor.x, cor.y, cor.z);
 
         bolaTimer += Time.deltaTime;
     }
 
     [PunRPC]
-    void BolaVoleiAmarela()
+    void BolaVoleiAmarela(Vector3 cor)
     {
         rb2d.gravityScale = 1.5f;
-        bolaSprite.color = Color.yellow;
+        bolaSprite.color = new Color(cor.x, cor.y, cor.z);
 
         normal = false;
 
@@ -112,10 +122,10 @@ public class BolaVolei : MonoBehaviour
     }
 
     [PunRPC]
-    void BolaVoleiVermelha()
+    void BolaVoleiVermelha(Vector3 cor)
     {
         rb2d.gravityScale = 2;
-        bolaSprite.color = Color.red;
+        bolaSprite.color = new Color(cor.x, cor.y, cor.z);
 
         normal = false;
         corte = false;
