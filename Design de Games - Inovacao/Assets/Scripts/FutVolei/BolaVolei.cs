@@ -49,33 +49,33 @@ public class BolaVolei : MonoBehaviour
 
         if (vel.magnitude > maxSpeed)
         {
-            PV.RPC("VelBola", RpcTarget.MasterClient);
+            PV.RPC("VelBola", RpcTarget.All);
         }
 
 
         if (normal)
         {
-            PV.RPC("BolaVoleiAzul", RpcTarget.MasterClient, blue);
+            PV.RPC("BolaVoleiAzul", RpcTarget.All, blue);
         }
 
         else if (corte && superCorte == false)
         {
-            PV.RPC("BolaVoleiAmarela", RpcTarget.MasterClient, yellow);
+            PV.RPC("BolaVoleiAmarela", RpcTarget.All, yellow);
         }
 
         else if (superCorte)
         {
-            PV.RPC("BolaVoleiVermelha", RpcTarget.MasterClient, red);
+            PV.RPC("BolaVoleiVermelha", RpcTarget.All, red);
         }
 
         else
         {
-            PV.RPC("BolaVoleiBranca", RpcTarget.MasterClient, white);
+            PV.RPC("BolaVoleiBranca", RpcTarget.All, white);
         }
 
         if (bolaTimer >= 3f)
         {
-            PV.RPC("BolaVoleiBranca", RpcTarget.MasterClient, white);
+            PV.RPC("BolaVoleiBranca", RpcTarget.All, white);
         }
     }
 
@@ -100,7 +100,7 @@ public class BolaVolei : MonoBehaviour
         PV.RPC("ResetaBolaVolei", RpcTarget.All,bolaSpawnPoint, resetSpeed, true);
         yield return new WaitForSeconds(0.8f);
         PV.RPC("ResetaBolaVolei", RpcTarget.All, this.gameObject.transform.position, resetSpeed, false);
-        //PV.RPC("BolaVoleiBranca", RpcTarget.MasterClient, white);
+        PV.RPC("BolaVoleiBranca", RpcTarget.MasterClient, white);
 
         Debug.Log("Stop");
 
@@ -158,7 +158,7 @@ public class BolaVolei : MonoBehaviour
     [PunRPC]
     void BolaVoleiVermelha(Vector3 cor)
     {
-        rb2d.gravityScale = 2;
+        rb2d.gravityScale = 3;
         bolaSprite.color = new Color(cor.x, cor.y, cor.z);
 
         normal = false;

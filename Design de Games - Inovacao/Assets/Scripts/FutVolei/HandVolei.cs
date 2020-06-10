@@ -15,6 +15,12 @@ public class HandVolei : MonoBehaviour
     public float superForceX;
     public float superForceY;
 
+    private float normal;
+    private float normalY = 50;
+    private float corteForce;
+    private float superCorteForce;
+
+
     private float forceVertical;
 
     public static bool cortou;
@@ -65,17 +71,18 @@ public class HandVolei : MonoBehaviour
         {
 
 
-            if (joyStick != null)
+            if (PlayerThings.rightDir)
             {
-                if (joyStick.Horizontal > 0)
-                {
-                    rightDir = true;
-                }
+                normal = 10;
+                corteForce = corteForceX;
+                superCorteForce = superForceX;
+            }
 
-                else if (joyStick.Horizontal < 0)
-                {
-                    rightDir = false;
-                }
+            if (PlayerThings.leftDir)
+            {
+                normal = -10;
+                corteForce = corteForceX  * -1;
+                superCorteForce = superForceX * -1;
             }
 
             if (triggerController.collisions.cortaBola == true || triggerController.collisions.cabecaBola == true || triggerController.collisions.tocouBola == true)
@@ -84,18 +91,18 @@ public class HandVolei : MonoBehaviour
                 {
                     if (controller.collisions.below == false)
                     {
-                        gameObject.GetComponent<PhotonView>().RPC("SuperCortaBola", RpcTarget.MasterClient);
+                        gameObject.GetComponent<PhotonView>().RPC("SuperCortaBola", RpcTarget.All, superCorteForce, superForceY);
                     }
 
                     else
                     {
-                        gameObject.GetComponent<PhotonView>().RPC("CortaBola", RpcTarget.MasterClient);
+                        gameObject.GetComponent<PhotonView>().RPC("CortaBola", RpcTarget.All, corteForce, corteForceY);
                     }
                 }
 
                 else
                 {
-                    gameObject.GetComponent<PhotonView>().RPC("BateBola", RpcTarget.MasterClient);
+                    gameObject.GetComponent<PhotonView>().RPC("BateBola", RpcTarget.All, normal, normalY);
                 }
             }
         }
@@ -103,7 +110,7 @@ public class HandVolei : MonoBehaviour
 
     public void Corte()
     {
-        gameObject.GetComponent<PhotonView>().RPC("CortouBall", RpcTarget.MasterClient);
+        gameObject.GetComponent<PhotonView>().RPC("CortouBall", RpcTarget.All);
     }
 
     [PunRPC]
@@ -126,32 +133,32 @@ public class HandVolei : MonoBehaviour
     }
 
     [PunRPC]
-    public void BateBola()
+    public void BateBola(float forceX, float forceY)
     {
         ballrb.velocity = new Vector2(0, 0);
 
-        ballrb.AddForce(new Vector2(10, 50), ForceMode2D.Impulse);
+        ballrb.AddForce(new Vector2(forceX, forceY), ForceMode2D.Impulse);
     }
 
 
     [PunRPC]
-    public void CortaBola()
+    public void CortaBola(float forceX, float forceY)
     {
         ballrb.velocity = new Vector2(0, 0);
 
         bolaVolei.corte = true;
 
-        ballrb.AddForce(new Vector2(Random.Range(corteForceX - 10, 10 + corteForceX), corteForceY), ForceMode2D.Impulse);
+        ballrb.AddForce(new Vector2(forceX, forceY), ForceMode2D.Impulse);
     }
 
     [PunRPC]
-    public void SuperCortaBola()
+    public void SuperCortaBola(float forceX, float forceY)
     {
         ballrb.velocity = new Vector2(0, 0);
 
         bolaVolei.superCorte = true;
 
-        ballrb.AddForce(new Vector2(Random.Range(10 -superForceX,10 + superForceX), superForceY), ForceMode2D.Impulse);
+        ballrb.AddForce(new Vector2(forceX, forceY), ForceMode2D.Impulse);
     }
 
 }
