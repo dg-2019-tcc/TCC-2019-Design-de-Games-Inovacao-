@@ -76,7 +76,7 @@ public class FutebolPlayer : MonoBehaviour
             {
                 if (triggerController.collisions.tocouBola == true || triggerController.collisions.cabecaBola == true || triggerController.collisions.chutouBola == true)
                 {
-                    gameObject.GetComponent<PhotonView>().RPC("TocouBola", RpcTarget.MasterClient);
+                    gameObject.GetComponent<PhotonView>().RPC("TocouBola", RpcTarget.All);
                     triggerController.collisions.tocouBola = false;
                     triggerController.collisions.cabecaBola = false;
                     triggerController.collisions.chutouBola = false;
@@ -89,14 +89,14 @@ public class FutebolPlayer : MonoBehaviour
                 {
                     if (controller.collisions.below == true)
                     {
-                        gameObject.GetComponent<PhotonView>().RPC("KickBola", RpcTarget.MasterClient);
+                        gameObject.GetComponent<PhotonView>().RPC("KickBola", RpcTarget.All);
                         triggerController.collisions.chutouBola = false;
                         triggerController.collisions.cabecaBola = false;
                     }
 
                     else
                     {
-                        gameObject.GetComponent<PhotonView>().RPC("SuperKickBola", RpcTarget.MasterClient);
+                        gameObject.GetComponent<PhotonView>().RPC("SuperKickBola", RpcTarget.All);
                         triggerController.collisions.chutouBola = false;
                         triggerController.collisions.cabecaBola = false;
                     }
@@ -109,21 +109,25 @@ public class FutebolPlayer : MonoBehaviour
     public void Chute()
     {
         //Debug.Log(forceVertical);
-        gameObject.GetComponent<PhotonView>().RPC("KickedBall", RpcTarget.MasterClient, forceVertical);
+        Debug.Log("Chute");
+        gameObject.GetComponent<PhotonView>().RPC("KickedBall", RpcTarget.All, forceVertical);
     }
 
     [PunRPC]
     public void KickedBall(float force)
     {
+        Debug.Log("Chute2");
         forceVertical = force;
         if (kicked == false)
         {
+            Debug.Log("Chute3");
             StartCoroutine("CoolKick");
         }
     }
 
     IEnumerator CoolKick()
     {
+        Debug.Log("Chute4   ");
         //anim.Chute();
         kicked = true;
         kickAnim = true;
