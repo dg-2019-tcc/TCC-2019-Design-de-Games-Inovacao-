@@ -16,6 +16,7 @@ public class Custom2D : MonoBehaviour
     public Prop2D boneIndex;
     public Prop2D skinInd;
     public Prop2D pupilaInd;
+    public Prop2D sobrancelhaInd;
 
     //ARMATURE DE FRENTE
     public ChangeMultipleCustom[] hairs;
@@ -28,6 +29,7 @@ public class Custom2D : MonoBehaviour
     public ChangeMultipleCustom[] bone;
     public ChangeMultipleCustom[] skin;
     public ChangeMultipleCustom[] pupila;
+    public ChangeMultipleCustom[] sobrancelha;
 
 
     //ARMATURE DE LADO
@@ -41,6 +43,8 @@ public class Custom2D : MonoBehaviour
     public ChangeMultipleCustom[] bone2;
     public ChangeMultipleCustom[] skin2;
     public ChangeMultipleCustom[] pupila2;
+    public ChangeMultipleCustom[] sobrancelha2Esq;
+    public ChangeMultipleCustom[] sobrancelha2Dir;
 
     public BoolVariable boneOn;
 
@@ -253,5 +257,31 @@ public class Custom2D : MonoBehaviour
         pupila2[pupilaInd.prop2DInd].ChangeCustom(true);
 
         PhotonNetwork.LocalPlayer.CustomProperties["pupilaIndex"] = pupilaInd.prop2DInd;
+    }
+
+
+
+
+    [PunRPC]
+    public void ChangeSobrancelha(int index)
+    {
+        FMODUnity.RuntimeManager.PlayOneShot("event:/HUD/Click", GetComponent<Transform>().position);
+
+        sobrancelha[sobrancelhaInd.prop2DInd].ChangeCustom(false);
+        sobrancelha2Esq[sobrancelhaInd.prop2DInd].ChangeCustom(false);
+        sobrancelha2Dir[sobrancelhaInd.prop2DInd].ChangeCustom(false);
+
+        sobrancelhaInd.prop2DInd = index;
+
+        if (sobrancelhaInd.prop2DInd >= sobrancelha.Length)
+        {
+            sobrancelhaInd.prop2DInd = 0;
+        }
+
+        sobrancelha[sobrancelhaInd.prop2DInd].ChangeCustom(true);
+        sobrancelha2Esq[sobrancelhaInd.prop2DInd].ChangeCustom(true);
+        sobrancelha2Dir[sobrancelhaInd.prop2DInd].ChangeCustom(true);
+
+        PhotonNetwork.LocalPlayer.CustomProperties["sobrancelhaIndex"] = sobrancelhaInd.prop2DInd;
     }
 }
