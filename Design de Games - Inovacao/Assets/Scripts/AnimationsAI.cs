@@ -29,9 +29,7 @@ public class AnimationsAI : MonoBehaviour
 
 
 
-    [SerializeField]
     private UnityArmatureComponent playerSide;
-    [SerializeField]
     private UnityArmatureComponent playerFrente;
 
     [SerializeField]
@@ -47,7 +45,8 @@ public class AnimationsAI : MonoBehaviour
         playerSide = lado.GetComponent<UnityArmatureComponent>();
         playerFrente = frente.GetComponent<UnityArmatureComponent>();
 
-        frente.SetActive(false);
+        frente.SetActive(true);
+        lado.SetActive(false);
     }
 
     public void ChangeAnimAI(Vector3 moveAmount, Vector2 oldPos, Vector2 input, bool Jump)
