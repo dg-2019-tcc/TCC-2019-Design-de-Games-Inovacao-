@@ -48,8 +48,9 @@ public class NewPlayerMovent : MonoBehaviour
     Vector3 pipaVelocity;
     Vector3 motoVelocity;
 
-    public Vector2 oldPosition;
+    public Vector3 oldPosition;
     Vector2 input;
+    Vector2 oldInput;
     [HideInInspector]
     public Vector2 joyInput;
 
@@ -71,6 +72,7 @@ public class NewPlayerMovent : MonoBehaviour
     public bool slowFall;
 
     public bool ganhou;
+    private bool oldStun;
 
 
     void Start()
@@ -150,7 +152,10 @@ public class NewPlayerMovent : MonoBehaviour
 
             controller.Move(velocity * Time.deltaTime, input);
             triggerController.MoveDirection(velocity * Time.deltaTime);
-            animations.ChangeMoveAnim(velocity, oldPosition, input, jump, stopJump, levouDogada.Value, ganhou);
+            if (velocity != oldPosition || input != oldInput || levouDogada.Value != oldStun)
+            {
+                animations.ChangeMoveAnim(velocity, oldPosition, input, levouDogada.Value, ganhou);
+            }
 
             if (controller.collisions.above || controller.collisions.below)
             {
@@ -251,6 +256,8 @@ public class NewPlayerMovent : MonoBehaviour
     private void LateUpdate()
     {
         oldPosition = velocity;
+        oldInput = input;
+        oldStun = levouDogada.Value;
 		joyInput = new Vector2(0, 0);
     }
 

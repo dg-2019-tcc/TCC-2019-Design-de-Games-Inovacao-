@@ -94,7 +94,7 @@ public class NewMotoPlayerMovement : MonoBehaviour
 			velocity.y += gravity * Time.deltaTime;
 			controller.Move(velocity * Time.deltaTime, input);
 			triggerController.MoveDirection(velocity);
-		    animations.ChangeMoveAnim(velocity, oldPosition, input, jump, stopJump, levouDogada.Value, playerGanhou.Value);
+		    animations.ChangeMoveAnim(velocity, oldPosition, input, levouDogada.Value, playerGanhou.Value);
 		if (controller.collisions.above || controller.collisions.below)
 			{
 				velocity.y = 0;
