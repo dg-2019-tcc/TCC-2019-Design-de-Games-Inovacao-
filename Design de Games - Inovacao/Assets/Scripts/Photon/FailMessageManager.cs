@@ -16,6 +16,8 @@ public class FailMessageManager : MonoBehaviour
 
 
 	private string cena;
+
+	private HistoriaManager taNaCenaDeHist;
     // Start is called before the first frame update
     void Start()
     {
@@ -34,17 +36,25 @@ public class FailMessageManager : MonoBehaviour
 
 		if (!startChecking)
 		{
-			if (PhotonNetwork.IsConnected != wasConnected && SceneManager.GetActiveScene().name != "MenuPrincipal")
+			if (PhotonNetwork.IsConnected != wasConnected && cena != "MenuPrincipal")
 			{
 				startChecking = true;
 			}
 		}
 		else
 		{
-			if (!PhotonNetwork.IsConnected && !manualShutdown && !message.activeSelf && SceneManager.GetActiveScene().name != "HUB")
+			if (!PhotonNetwork.IsConnected && !manualShutdown && !message.activeSelf && cena != "HUB")
 			{
-				startChecking = false;
-				StartCoroutine(WeHaveToGoBack());
+				taNaCenaDeHist = FindObjectOfType<HistoriaManager>();
+				if (taNaCenaDeHist == null)
+				{
+
+
+					manualShutdown = true;
+					startChecking = false;
+					StartCoroutine(WeHaveToGoBack());
+				}
+				taNaCenaDeHist = null;
 			}
 			else if (manualShutdown)
 			{
