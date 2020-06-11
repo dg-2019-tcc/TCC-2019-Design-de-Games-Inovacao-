@@ -183,7 +183,7 @@ public class ThrowObject : MonoBehaviour
         shootAnim = true;
         anim.DogButtonAnim(shootAnim);
         atirou = false;
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.5f);
         shootAnim = false;
         anim.DogButtonAnim(shootAnim);
 		if (PhotonNetwork.IsConnected)

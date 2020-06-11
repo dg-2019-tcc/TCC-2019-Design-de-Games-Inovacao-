@@ -147,10 +147,9 @@ public class NewPlayerMovent : MonoBehaviour
 
             controller.Move(velocity * Time.deltaTime, input);
             triggerController.MoveDirection(velocity * Time.deltaTime);
-            //if (velocity != oldPosition || input != oldInput || levouDogada.Value != oldStun)
-            //{
-                animations.ChangeMoveAnim(velocity, oldPosition, input, levouDogada.Value, ganhou);
-            //}
+
+            animations.ChangeMoveAnim(velocity, oldPosition, input, levouDogada.Value, ganhou);
+
 
             if (controller.collisions.above || controller.collisions.below)
             {
