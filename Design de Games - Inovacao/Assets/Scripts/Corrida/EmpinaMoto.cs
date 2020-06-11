@@ -144,7 +144,7 @@ public class EmpinaMoto : MonoBehaviour
 		{
 		//	acelerometro.text =  playerSpeed.Value.ToString();
 
-			if (carregado || !controller.collisions.below)
+			if ((triggerController.collisions.boostMoto && controller.collisions.below) || carregado || !controller.collisions.below)
 			{
 				//Debug.Log("Vai filhão");
 				brilhoDeBoost.gameObject.SetActive(true);
