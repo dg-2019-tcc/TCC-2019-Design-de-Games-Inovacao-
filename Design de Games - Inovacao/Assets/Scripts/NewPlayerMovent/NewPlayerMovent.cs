@@ -278,15 +278,9 @@ public class NewPlayerMovent : MonoBehaviour
 
     public void CallFootsteps()
     {
-        if (!carroActive.Value && !pipaActive.Value)
+        if ((!carroActive.Value && !pipaActive.Value) && (velocity.x > 0.3f || velocity.x < -0.3f) && (controller.collisions.below && jump == false) && (textoAtivo.Value == false))
         {
-            if (velocity.x > 0.3f || velocity.x < -0.3f)
-            {
-                if (controller.collisions.below && jump == false)
-                {
-                    FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Passos", transform.position);
-                }
-            }
+            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Passos", transform.position);
         }
     }
 }
