@@ -126,7 +126,7 @@ public class GameFlowManager : MonoBehaviour
                     OfflineMode.modoDoOffline = true;*/
 
 
-                    if (aiGanhou.Value[index -1] == true)
+                    if (aiGanhou.Value[index] == true)
                     {
                         AtivaFase();
                         DestroyNpcs(index - 2);
