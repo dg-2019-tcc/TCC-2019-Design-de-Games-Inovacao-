@@ -208,7 +208,6 @@ public class GameFlowManager : MonoBehaviour
             }
 
         }
-        Debug.Log(index);
 
         switch (index)
         {

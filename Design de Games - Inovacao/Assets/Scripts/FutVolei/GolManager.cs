@@ -155,7 +155,9 @@ public class GolManager : MonoBehaviourPunCallbacks
 				}
 				else
 				{
-					LevelManager.Instance.GoHub();
+                    FailMessageManager.manualShutdown = true;
+                    PhotonNetwork.Disconnect();
+                    LevelManager.Instance.GoHub();
 				}
 			}
 
@@ -174,7 +176,6 @@ public class GolManager : MonoBehaviourPunCallbacks
 				}
 			}
 		}
-        Debug.Log("Queue");
     }
 
     [PunRPC]

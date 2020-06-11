@@ -99,7 +99,7 @@ public class WinnerManager : MonoBehaviour
         playerGanhou.Value = true;
 		if (isloading) return;
 		if (buildProfs == false) {
-            if (acabou01.Value[5] == false)
+            if (acabou01.Value[7] == false)
             {
 
                 if (!isMoto)
@@ -183,6 +183,8 @@ public class WinnerManager : MonoBehaviour
                     aiGanhou.Value[7] = true;
                 }
                 faseNome = "HUB";
+                FailMessageManager.manualShutdown = true;
+                PhotonNetwork.Disconnect();
                 StartCoroutine("AcabouFase");
                 //PhotonNetwork.LoadLevel("HUB");
             }

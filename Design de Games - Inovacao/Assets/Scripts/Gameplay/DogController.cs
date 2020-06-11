@@ -66,11 +66,13 @@ public class DogController : MonoBehaviour
 
         if (acabou01.Value[4] == true && aiGanhou.Value[4] == false)
         {
+            Debug.Log("Desativa");
             sequestrado = true;
             TransformaPet(false);
         }
         if((acabou01.Value[6] == true && aiGanhou.Value[7] == false) && isCorrida == false)
         {
+            Debug.Log("Ativa");
             sequestrado = false;
         }
 
