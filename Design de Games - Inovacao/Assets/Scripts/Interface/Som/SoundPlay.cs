@@ -8,9 +8,31 @@ public class SoundPlay : MonoBehaviour
 
     public string qualSom;
 
+    public bool espera = false;
 
+    bool possoTocar = true;
     public void TocaEsseSom()
     {
-        FMODUnity.RuntimeManager.PlayOneShot(qualSom);
+        if(espera == true)
+        {
+            if (possoTocar == true)
+            {
+                StartCoroutine(EsperaPraTocar());
+                FMODUnity.RuntimeManager.PlayOneShot(qualSom);
+            }
+        }
+        else
+        {
+            StartCoroutine(EsperaPraTocar());
+        }
     }
+
+
+    IEnumerator EsperaPraTocar()
+    {
+        possoTocar = false;
+        yield return new WaitForSeconds(3);
+        possoTocar = true;
+    }
+
 }
