@@ -545,6 +545,7 @@ MonoBehaviour:
     m_PlayerNumber: 0
     m_Instance: {fileID: 0}
     m_WayPointList: []
+    aiMovement: {fileID: 0}
   wayPointsForAI:
   - {fileID: 705019006}
   - {fileID: 1903711698}
@@ -570,6 +571,9 @@ MonoBehaviour:
   thingsAI: {fileID: 0}
   thingsOnline: {fileID: 0}
   botScore: {fileID: 0}
+  aiMovement: {fileID: 0}
+  comecouPartida: 0
+  acabou01: {fileID: 0}
 --- !u!4 &647681708
 Transform:
   m_ObjectHideFlags: 0
@@ -1223,6 +1227,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8092747589676784622, guid: 64e7c428062ac6a458bb88c7a8d5606d,
         type: 3}
+      propertyPath: spawnPoints.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8092747589676784622, guid: 64e7c428062ac6a458bb88c7a8d5606d,
+        type: 3}
       propertyPath: spawnPoints.Array.data[0]
       value: 
       objectReference: {fileID: 2056511873}
@@ -1241,6 +1250,11 @@ PrefabInstance:
       propertyPath: aiSpawnCooldown
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8092747589676784622, guid: 64e7c428062ac6a458bb88c7a8d5606d,
+        type: 3}
+      propertyPath: spawnPoints.Array.data[1]
+      value: 
+      objectReference: {fileID: 2056511873}
     - target: {fileID: 2781017792546801198, guid: 64e7c428062ac6a458bb88c7a8d5606d,
         type: 3}
       propertyPath: viewIdField
