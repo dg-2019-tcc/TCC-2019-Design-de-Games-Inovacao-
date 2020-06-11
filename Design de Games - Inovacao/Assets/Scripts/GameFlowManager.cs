@@ -96,6 +96,7 @@ public class GameFlowManager : MonoBehaviour
             }
 
         }
+        Debug.Log(index);
 
 		// Desativei pq se nao roda a fala do mc
 		/*if (CameraShowoff != null)
@@ -207,6 +208,7 @@ public class GameFlowManager : MonoBehaviour
             }
 
         }
+        Debug.Log(index);
 
         switch (index)
         {
@@ -216,7 +218,9 @@ public class GameFlowManager : MonoBehaviour
                 break;
 
             case 8:
-                FaseRoupa();
+                //FaseRoupa();
+                Completo();
+                Acabou();
                 break;
 
             case 7:
@@ -224,6 +228,7 @@ public class GameFlowManager : MonoBehaviour
                 break;
 
             case 6:
+                FaseRoupa();
                 FaseCabelo();
                 break;
 

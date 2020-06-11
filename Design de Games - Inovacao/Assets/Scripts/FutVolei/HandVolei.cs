@@ -73,6 +73,18 @@ public class HandVolei : MonoBehaviour
                 normal = 10;
                 corteForce = corteForceX;
                 superCorteForce = superForceX;
+
+                if (cortou)
+                {
+                    triggerController.rightRay = true;
+                    triggerController.leftRay = false;
+                }
+
+                else
+                {
+                    triggerController.rightRay = false;
+                    triggerController.leftRay = false;
+                }
             }
 
             if (PlayerThings.leftDir)
@@ -80,6 +92,18 @@ public class HandVolei : MonoBehaviour
                 normal = -10;
                 corteForce = corteForceX  * -1;
                 superCorteForce = superForceX * -1;
+
+                if (cortou)
+                {
+                    triggerController.rightRay = true;
+                    triggerController.leftRay = false;
+                }
+
+                else
+                {
+                    triggerController.rightRay = false;
+                    triggerController.leftRay = false;
+                }
             }
 
             if (triggerController.collisions.cortaBola == true || triggerController.collisions.cabecaBola == true || triggerController.collisions.tocouBola == true)

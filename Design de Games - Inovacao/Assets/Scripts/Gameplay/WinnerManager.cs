@@ -66,19 +66,21 @@ public class WinnerManager : MonoBehaviour
 		}
 		else
 		{
-            /*if (LinhaDeChegada.changeRoom == true)
+			/*if (LinhaDeChegada.changeRoom == true)
 			{
 				StartCoroutine(Venceu());
 			}*/
-
-                if (perdeuCorrida && ganhouCorrida && !isloading)
-                {
-                    PerdeuCorrida();
-                }
-                else if (ganhouCorrida)
-                {
-                    GanhouCorrida();
-                }
+			if (!isloading)
+			{
+				if (perdeuCorrida)
+				{
+					PerdeuCorrida();
+				}
+				else if (ganhouCorrida)
+				{
+					GanhouCorrida();
+				}
+			}
 
 			/*
 			if (perdeuCorrida)
@@ -159,7 +161,7 @@ public class WinnerManager : MonoBehaviour
 		if (isloading) return;
 		if (buildProfs == false)
         {
-            if (acabou01.Value[5] == true || acabou01.Value[7] == true || buildProfs == false)
+            if (acabou01.Value[7] == true/* || buildProfs == false*/)
             {
                 //player.perdeuSom.Play();
                 perdeuCorrida = true;

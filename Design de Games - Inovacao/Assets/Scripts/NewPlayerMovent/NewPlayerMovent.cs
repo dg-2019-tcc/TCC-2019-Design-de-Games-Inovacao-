@@ -48,8 +48,9 @@ public class NewPlayerMovent : MonoBehaviour
     Vector3 pipaVelocity;
     Vector3 motoVelocity;
 
-    public Vector2 oldPosition;
+    public Vector3 oldPosition;
     Vector2 input;
+    Vector2 oldInput;
     [HideInInspector]
     public Vector2 joyInput;
 
@@ -71,6 +72,7 @@ public class NewPlayerMovent : MonoBehaviour
     public bool slowFall;
 
     public bool ganhou;
+    private bool oldStun;
 
 
     void Start()
@@ -118,11 +120,6 @@ public class NewPlayerMovent : MonoBehaviour
             {
                 input.x = joyInput.x;
             }
-   
-           /* if (jump || stopJump)
-            {
-                animations.ChangeMoveAnim(ref velocity, ref oldPosition, ref input, ref jump,ref stopJump);
-            }*/
 
             input.y = joyInput.y;
             targetVelocityX = input.x * moveSpeed.Value;
@@ -150,7 +147,10 @@ public class NewPlayerMovent : MonoBehaviour
 
             controller.Move(velocity * Time.deltaTime, input);
             triggerController.MoveDirection(velocity * Time.deltaTime);
-            animations.ChangeMoveAnim(velocity, oldPosition, input, jump, stopJump, levouDogada.Value, ganhou);
+            //if (velocity != oldPosition || input != oldInput || levouDogada.Value != oldStun)
+            //{
+                animations.ChangeMoveAnim(velocity, oldPosition, input, levouDogada.Value, ganhou);
+            //}
 
             if (controller.collisions.above || controller.collisions.below)
             {
@@ -188,7 +188,6 @@ public class NewPlayerMovent : MonoBehaviour
                 carroVelocity.y += gravity * Time.deltaTime;
                 controller.Move(carroVelocity * Time.deltaTime, input);
                 triggerController.MoveDirection(carroVelocity);
-                //animations.ChangeMoveAnim(ref velocity, ref oldPosition, ref input, ref jump, ref stopJump);
 
                 if (controller.collisions.above || controller.collisions.below)
                 {
@@ -244,7 +243,6 @@ public class NewPlayerMovent : MonoBehaviour
 
                 triggerController.MoveDirection(pipaVelocity);
                 controller.Move(pipaVelocity * Time.deltaTime, input);
-                //animations.ChangeMoveAnim(ref velocity, ref oldPosition, ref input, ref jump, ref stopJump);
             }
         }
     }
@@ -278,15 +276,9 @@ public class NewPlayerMovent : MonoBehaviour
 
     public void CallFootsteps()
     {
-        if (!carroActive.Value && !pipaActive.Value)
+        if ((!carroActive.Value && !pipaActive.Value) && (velocity.x > 0.3f || velocity.x < -0.3f) && (controller.collisions.below && jump == false) && (textoAtivo.Value == false))
         {
-            if (velocity.x > 0.3f || velocity.x < -0.3f)
-            {
-                if (controller.collisions.below && jump == false)
-                {
-                    FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Passos", transform.position);
-                }
-            }
+            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Passos", transform.position);
         }
     }
 }
