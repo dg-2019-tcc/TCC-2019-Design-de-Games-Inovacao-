@@ -7,6 +7,7 @@ public class HistDisconnect : MonoBehaviour
 {
 	private void OnDestroy()
 	{
+		FailMessageManager.manualShutdown = true;
 		PhotonNetwork.Disconnect();
 	}
 }
