@@ -163,7 +163,8 @@ public class ColetaWin : MonoBehaviour
 
     IEnumerator AcabouFase()
     {
-
+        FailMessageManager.manualShutdown = true;
+        PhotonNetwork.Disconnect();
         yield return new WaitForSeconds(3f);
         SceneManager.LoadScene(faseNome);
     }

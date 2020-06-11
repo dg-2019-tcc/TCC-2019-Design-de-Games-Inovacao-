@@ -35,7 +35,6 @@ public class DogAnim : MonoBehaviour
 
     public void ChangeDogAnim(Vector3 moveAmount, Vector2 input)
     {
-        Debug.Log(moveAmount.y);
 
                 if (input.x != 0)
                 {
