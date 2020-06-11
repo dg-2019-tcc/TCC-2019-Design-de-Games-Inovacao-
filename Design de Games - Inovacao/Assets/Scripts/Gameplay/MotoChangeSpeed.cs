@@ -103,4 +103,10 @@ public class MotoChangeSpeed : MonoBehaviour
         CarEngine.setParameterByName("RPM", RPM);
         CarEngine.setParameterByName("Accel", motoSpeedChange.Value);
     }
+
+
+    private void OnDestroy()
+    {
+        CarEngine.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+    }
 }
