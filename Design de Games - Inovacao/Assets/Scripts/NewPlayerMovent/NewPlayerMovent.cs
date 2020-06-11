@@ -120,11 +120,6 @@ public class NewPlayerMovent : MonoBehaviour
             {
                 input.x = joyInput.x;
             }
-   
-           /* if (jump || stopJump)
-            {
-                animations.ChangeMoveAnim(ref velocity, ref oldPosition, ref input, ref jump,ref stopJump);
-            }*/
 
             input.y = joyInput.y;
             targetVelocityX = input.x * moveSpeed.Value;
@@ -152,10 +147,10 @@ public class NewPlayerMovent : MonoBehaviour
 
             controller.Move(velocity * Time.deltaTime, input);
             triggerController.MoveDirection(velocity * Time.deltaTime);
-            if (velocity != oldPosition || input != oldInput || levouDogada.Value != oldStun)
-            {
+            //if (velocity != oldPosition || input != oldInput || levouDogada.Value != oldStun)
+            //{
                 animations.ChangeMoveAnim(velocity, oldPosition, input, levouDogada.Value, ganhou);
-            }
+            //}
 
             if (controller.collisions.above || controller.collisions.below)
             {
@@ -193,7 +188,6 @@ public class NewPlayerMovent : MonoBehaviour
                 carroVelocity.y += gravity * Time.deltaTime;
                 controller.Move(carroVelocity * Time.deltaTime, input);
                 triggerController.MoveDirection(carroVelocity);
-                //animations.ChangeMoveAnim(ref velocity, ref oldPosition, ref input, ref jump, ref stopJump);
 
                 if (controller.collisions.above || controller.collisions.below)
                 {
@@ -249,15 +243,12 @@ public class NewPlayerMovent : MonoBehaviour
 
                 triggerController.MoveDirection(pipaVelocity);
                 controller.Move(pipaVelocity * Time.deltaTime, input);
-                //animations.ChangeMoveAnim(ref velocity, ref oldPosition, ref input, ref jump, ref stopJump);
             }
         }
     }
     private void LateUpdate()
     {
         oldPosition = velocity;
-        oldInput = input;
-        oldStun = levouDogada.Value;
 		joyInput = new Vector2(0, 0);
     }
 

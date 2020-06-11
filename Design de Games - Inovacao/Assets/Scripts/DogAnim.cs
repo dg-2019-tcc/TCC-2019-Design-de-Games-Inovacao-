@@ -35,37 +35,26 @@ public class DogAnim : MonoBehaviour
 
     public void ChangeDogAnim(Vector3 moveAmount, Vector2 input)
     {
-        if (ativaDog == false)
-        {
-            if (dogController.collisions.below == true)
-            {
+        Debug.Log(moveAmount.y);
+
                 if (input.x != 0)
                 {
                     PlayAnim("Walk");
+                }
+
+                else if(moveAmount.y > 0)
+                {
+                    PlayAnim("Up");
                 }
 
                 else
                 {
                     PlayAnim("Idle");
                 }
-            }
-
-            else
-            {
-                if (moveAmount.y > 0)
-                {
-                    PlayAnim("Up");
-                }
-
-                else if (moveAmount.y <= -3)
-                {
-                    PlayAnim("Down");
-                }
-            }
-        }
+           
     }
 
-    public void PetChange(bool ativa)
+    /*public void PetChange(bool ativa)
     {
         ativaDog = true;
 
@@ -78,7 +67,7 @@ public class DogAnim : MonoBehaviour
         {
             PlayAnim("Desativa");
         }
-    }
+    }*/
 
 
     private void PlayAnim(string anim)
@@ -102,6 +91,7 @@ public class DogAnim : MonoBehaviour
             case "Idle":
                 if (state != State.Idle)
                 {
+                    dogArmature.animation.timeScale = 1;
                     dogArmature.animation.Play("4_Idle");
                     state = State.Idle;
                 }
@@ -110,6 +100,7 @@ public class DogAnim : MonoBehaviour
             case "Walk":
                 if (state != State.Walk)
                 {
+                    dogArmature.animation.timeScale = 1;
                     dogArmature.animation.Play("0_Run");
                     state = State.Walk;
                 }
@@ -118,6 +109,7 @@ public class DogAnim : MonoBehaviour
             case "Up":
                 if (state != State.Up)
                 {
+                    dogArmature.animation.timeScale = 1;
                     dogArmature.animation.Play("1_Subindo(NoAr)");
                     state = State.Up;
                 }

@@ -80,7 +80,7 @@ public class DogController : MonoBehaviour
 
             PV.Controller.CustomProperties["dogValue"] = dogAtivo.Value;
 
-            if (!dogAtivo.Value && desativouDog == false)
+            if (!dogAtivo.Value/* && desativouDog == false*/)
             {
                 if (!PhotonNetwork.InRoom)
                 {
@@ -92,7 +92,8 @@ public class DogController : MonoBehaviour
                 }
             }
 
-            if(dogAtivo.Value && ativouDog == false)
+            //if(dogAtivo.Value && ativouDog == false)
+            else
             {
                 //if (ativouDog == false)
                 //{
@@ -158,7 +159,13 @@ public class DogController : MonoBehaviour
     [PunRPC]
     private void TransformaPet(bool isDog)
     {
-        timePet += Time.deltaTime;
+        Pet.SetActive(isDog);
+
+        if (!isDog)
+        {
+            Pet.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, Pet.transform.position.z);
+        }
+        /*timePet += Time.deltaTime;
         if (!isDog)
         {
             dogAnim.PetChange(isDog);
@@ -188,7 +195,7 @@ public class DogController : MonoBehaviour
                 timePet = 0;
                 dogAnim.ativaDog = false;
             }
-        }
+        }*/
 
     }
 
