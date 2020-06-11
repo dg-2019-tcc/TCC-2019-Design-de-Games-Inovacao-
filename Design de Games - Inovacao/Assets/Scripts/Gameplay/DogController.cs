@@ -48,6 +48,8 @@ public class DogController : MonoBehaviour
 
     bool sequestrado;
 
+    public bool isCorrida;
+
 
     void Start()
     {
@@ -67,7 +69,7 @@ public class DogController : MonoBehaviour
             sequestrado = true;
             TransformaPet(false);
         }
-        if((acabou01.Value[6] == true && aiGanhou.Value[7] == false))
+        if((acabou01.Value[6] == true && aiGanhou.Value[7] == false) && isCorrida == false)
         {
             sequestrado = false;
         }

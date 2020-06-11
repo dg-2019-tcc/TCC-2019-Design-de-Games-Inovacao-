@@ -13,6 +13,9 @@ public class FailMessageManager : MonoBehaviour
 	public bool startChecking = false;
 	public bool wasConnected;
 	public static bool manualShutdown = false;
+
+
+	private string cena;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,6 +24,13 @@ public class FailMessageManager : MonoBehaviour
 
 	void Update()
 	{
+		cena = SceneManager.GetActiveScene().name;
+
+		if (cena == "MenuPrincipal" || cena == "HUB")
+		{
+			return;
+		}
+
 
 		if (!startChecking)
 		{
