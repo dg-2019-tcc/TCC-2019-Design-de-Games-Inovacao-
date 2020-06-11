@@ -101,6 +101,7 @@ public class GolManager : MonoBehaviourPunCallbacks
                 feedbackWin.Ganhou();
                 aiGanhou.Value[4] = false;
                 playerGanhou.Value = true;
+				PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 1;
 				if (isLoading) return;
 				isLoading = true;
                 //StartCoroutine("AcabouFase");
@@ -113,18 +114,16 @@ public class GolManager : MonoBehaviourPunCallbacks
 
 	private void Update()
 	{
-		if (playerGol.jogador.PV.Owner.GetScore() >= 5)
+		foreach (Photon.Realtime.Player p in PhotonNetwork.PlayerList)
 		{
-			//feedbackWin.Ganhou();
-			aiGanhou.Value[4] = false;
-			playerGanhou.Value = true;
-			if (isLoading) return;
-			isLoading = true;
-			//StartCoroutine("AcabouFase");
-			Acaba();
+			if (p.GetScore() >= 5)
+			{
+				if (isLoading) return;
+				isLoading = true;
+				//StartCoroutine("AcabouFase");
+				Acaba();
+			}
 		}
-
-
 	}
 
 	[PunRPC]
@@ -137,34 +136,44 @@ public class GolManager : MonoBehaviourPunCallbacks
     {
         isLoading = true;
         yield return new WaitForSeconds(3f);
-        if (aiGanhou.Value[4] == true)
-        {
-            if (acabou01.Value[4] == true)
-            {
-                LevelManager.Instance.GoPodium();
-                //PhotonNetwork.LoadLevel("TelaVitoria");
 
-            }
-            else
-            {
-                LevelManager.Instance.GoHub();
-            }
-        }
+		if (!PhotonNetwork.OfflineMode)
+		{
+			PhotonNetwork.LoadLevel("TelaVitoria");
 
-        else if (playerGanhou.Value == true)
-        {
-            if (acabou01.Value[4] == true)
-            {
-                PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 1;
-                LevelManager.Instance.GoPodium();
-                //PhotonNetwork.LoadLevel("TelaVitoria");
-            }
-            else
-            {
-                LevelManager.Instance.HistFutebol();
-                //flowIndex.Value = 4;
-            }
-        }
+
+		}
+		else
+		{
+			if (aiGanhou.Value[4] == true)
+			{
+				if (acabou01.Value[4] == true)
+				{
+					LevelManager.Instance.GoPodium();
+					//PhotonNetwork.LoadLevel("TelaVitoria");
+
+				}
+				else
+				{
+					LevelManager.Instance.GoHub();
+				}
+			}
+
+			else if (playerGanhou.Value == true)
+			{
+				if (acabou01.Value[4] == true)
+				{
+					PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 1;
+					LevelManager.Instance.GoPodium();
+					//PhotonNetwork.LoadLevel("TelaVitoria");
+				}
+				else
+				{
+					LevelManager.Instance.HistFutebol();
+					//flowIndex.Value = 4;
+				}
+			}
+		}
         Debug.Log("Queue");
     }
 
