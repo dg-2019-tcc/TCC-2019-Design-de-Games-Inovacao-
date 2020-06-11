@@ -111,7 +111,23 @@ public class GolManager : MonoBehaviourPunCallbacks
 
     }
 
-    [PunRPC]
+	private void Update()
+	{
+		if (playerGol.jogador.PV.Owner.GetScore() >= 5)
+		{
+			//feedbackWin.Ganhou();
+			aiGanhou.Value[4] = false;
+			playerGanhou.Value = true;
+			if (isLoading) return;
+			isLoading = true;
+			//StartCoroutine("AcabouFase");
+			Acaba();
+		}
+
+
+	}
+
+	[PunRPC]
     void Acaba()
     {
         StartCoroutine("AcabouFase");
