@@ -7,7 +7,7 @@ public class DogController : MonoBehaviour
 {
 
     TriggerCollisionsController triggerCollisionsScript;
-
+    public DogAnim dogAnim;
 
     public GameObject player;
     public GameObject playerModel;
@@ -15,6 +15,8 @@ public class DogController : MonoBehaviour
     public float speedToTotem = 10f;
 
     private bool dogTransformed;
+    private bool ativouDog;
+    private bool desativouDog;
 
     [Header("Pet")]
 
@@ -37,6 +39,8 @@ public class DogController : MonoBehaviour
     public BoolVariable dogBotao;
     public BoolVariable desativaPower;
 
+    public float timePet;
+    public bool dogState;
 
 
     void Start()
@@ -76,7 +80,7 @@ public class DogController : MonoBehaviour
 
             PV.Controller.CustomProperties["dogValue"] = dogAtivo.Value;
 
-            if (!dogAtivo.Value)
+            if (!dogAtivo.Value && desativouDog == false)
             {
                 if (!PhotonNetwork.InRoom)
                 {
@@ -88,16 +92,19 @@ public class DogController : MonoBehaviour
                 }
             }
 
-            else
+            if(dogAtivo.Value && ativouDog == false)
             {
-                if (!PhotonNetwork.InRoom)
-                {
-                    TransformaPet(true);
-                }
-                else
-                {
-                    gameObject.GetComponent<PhotonView>().RPC("TransformaPet", RpcTarget.All, true);
-                }
+                //if (ativouDog == false)
+                //{
+                    if (!PhotonNetwork.InRoom)
+                    {
+                        TransformaPet(true);
+                    }
+                    else
+                    {
+                        gameObject.GetComponent<PhotonView>().RPC("TransformaPet", RpcTarget.All, true);
+                    }
+               // }
             }
 
         }
@@ -151,15 +158,38 @@ public class DogController : MonoBehaviour
     [PunRPC]
     private void TransformaPet(bool isDog)
     {
-        Pet.SetActive(isDog);
+        timePet += Time.deltaTime;
         if (!isDog)
         {
-            Pet.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, Pet.transform.position.z);
+            dogAnim.PetChange(isDog);
             //buttonPressed.Value = false;
-
+            if (timePet >= .5f)
+            {
+                Pet.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, Pet.transform.position.z);
+                desativouDog = true;
+                ativouDog = false;
+                Pet.SetActive(isDog);
+                timePet = 0;
+                dogAnim.ativaDog = false;
+            }
         }
+
+        else
+        {
+            Pet.SetActive(isDog);
+            Pet.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, Pet.transform.position.z);
+            dogAnim.PetChange(isDog);
+            if (timePet >= .5f)
+            {
+                //Pet.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, Pet.transform.position.z);
+                desativouDog = false;
+                ativouDog = true;
+                //dogAnim.PetChange(isDog);
+                timePet = 0;
+                dogAnim.ativaDog = false;
+            }
+        }
+
     }
-
-
 
 }

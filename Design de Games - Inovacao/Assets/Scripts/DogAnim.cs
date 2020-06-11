@@ -12,8 +12,11 @@ public class DogAnim : MonoBehaviour
     AIController2D dogController;
     public UnityArmatureComponent dogArmature;
 
-    public enum State { Idle, Walk, Up, Down }
+    public enum State { Idle, Walk, Up, Down, Ativa, Desativa}
     public State state = State.Idle;
+
+    public bool ativaDog;
+    public bool dogState;
 
     void Start()
     {
@@ -32,32 +35,51 @@ public class DogAnim : MonoBehaviour
 
     public void ChangeDogAnim(Vector3 moveAmount, Vector2 input)
     {
-        if (dogController.collisions.below == true)
+        if (ativaDog == false)
         {
-            if (input.x != 0)
+            if (dogController.collisions.below == true)
             {
-                PlayAnim("Walk");
+                if (input.x != 0)
+                {
+                    PlayAnim("Walk");
+                }
+
+                else
+                {
+                    PlayAnim("Idle");
+                }
             }
 
             else
             {
-                PlayAnim("Idle");
-            }
-        }
+                if (moveAmount.y > 0)
+                {
+                    PlayAnim("Up");
+                }
 
-        else
-        { 
-             if (moveAmount.y > 0)
-            {
-                PlayAnim("Up");
-            }
-
-            else if (moveAmount.y <= -3)
-            {
-                PlayAnim("Down");
+                else if (moveAmount.y <= -3)
+                {
+                    PlayAnim("Down");
+                }
             }
         }
     }
+
+    public void PetChange(bool ativa)
+    {
+        ativaDog = true;
+
+        if(ativa == true)
+        {
+            PlayAnim("Ativa");
+        }
+
+        else
+        {
+            PlayAnim("Desativa");
+        }
+    }
+
 
     private void PlayAnim(string anim)
     {
@@ -108,6 +130,25 @@ public class DogAnim : MonoBehaviour
                     state = State.Down;
                 }
                 break;
+
+            case "Ativa":
+                if (state != State.Ativa)
+                {
+                    dogArmature.animation.Play("4_Transform(Voltando)");
+                    state = State.Ativa;
+                }
+                break;
+
+
+            case "Desativa":
+                if (state != State.Desativa)
+                {
+                    dogArmature.animation.Play("4_Transform(PraTudo)");
+                    state = State.Desativa;
+                }
+                break;
+
+
 
         }
     }
