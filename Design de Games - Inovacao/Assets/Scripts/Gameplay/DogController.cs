@@ -64,7 +64,7 @@ public class DogController : MonoBehaviour
             aiGanhou = Resources.Load<BoolVariableArray>("AIGanhou");
         }
 
-        if (acabou01.Value[4] == true && aiGanhou.Value[4] == false)
+        if (acabou01.Value[4] == true && aiGanhou.Value[5] == false)
         {
             Debug.Log("Desativa");
             sequestrado = true;
