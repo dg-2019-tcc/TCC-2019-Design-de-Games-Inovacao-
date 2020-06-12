@@ -21,7 +21,7 @@ public class MenuPrincipal : MonoBehaviour
 
     public void ComecaJogo()
     {
-        if(acabou01.Value[0] == true || flowIndex.Value >= 1)
+        if(acabou01.Value[0] == true)
         {
             nomeDoMenu = "HUB";
         }
