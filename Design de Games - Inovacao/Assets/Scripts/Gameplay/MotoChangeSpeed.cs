@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using FMOD.Studio;
+using FMODUnity;
 public class MotoChangeSpeed : MonoBehaviour
 {
     public float climbing = 0.15f;
@@ -34,9 +35,16 @@ public class MotoChangeSpeed : MonoBehaviour
     float RPM;
     float AccelInput;
 
+    Bus somMoto;
+
 
     void Start()
     {
+
+        somMoto = RuntimeManager.GetBus("bus:/Master/SFX/Moto");
+
+        somMoto.setMute(false);
+
         CarEngine = FMODUnity.RuntimeManager.CreateInstance("event:/SFX/MotoMotor");
         CarEngine.getParameterByName("RPM", out RPM);
         CarEngine.getParameterByName("Accel", out AccelInput);
@@ -108,5 +116,6 @@ public class MotoChangeSpeed : MonoBehaviour
     private void OnDestroy()
     {
         CarEngine.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+        somMoto.setMute(true);
     }
 }
