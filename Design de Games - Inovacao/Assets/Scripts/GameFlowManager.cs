@@ -112,8 +112,8 @@ public class GameFlowManager : MonoBehaviour
             {
                 if (sceneName == "MenuPrincipal")
                 {
-                    resetaButton.SetActive(false);
-                    liberaButton.SetActive(false);
+                    resetaButton.SetActive(true);
+                    liberaButton.SetActive(true);
                     offlineButton.SetActive(false);
                     jogarButton.SetActive(true);
 
@@ -148,8 +148,8 @@ public class GameFlowManager : MonoBehaviour
                 if (sceneName == "MenuPrincipal")
                 {
                     offlineButton.SetActive(true);
-                    resetaButton.SetActive(false);
-                    liberaButton.SetActive(false);
+                    resetaButton.SetActive(true);
+                    liberaButton.SetActive(true);
                 }
 
                 if (sceneName == "HUB")
