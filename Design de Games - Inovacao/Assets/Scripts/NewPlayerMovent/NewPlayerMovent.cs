@@ -97,11 +97,21 @@ public class NewPlayerMovent : MonoBehaviour
         playerGanhou = Resources.Load<BoolVariable>("PlayerGanhou");
         textoAtivo = Resources.Load<BoolVariable>("TextoAtivo");
         playerGanhou.Value = false;
+
+        if(moveSpeed.Value != 6)
+        {
+            moveSpeed.Value = 6;
+        }
     }
 
     void Update()
     {
-		if (playerGanhou.Value || !pv.IsMine && PhotonNetwork.InRoom || textoAtivo.Value)
+        if (moveSpeed.Value != 6)
+        {
+            moveSpeed.Value = 6;
+        }
+
+        if (playerGanhou.Value || !pv.IsMine && PhotonNetwork.InRoom || textoAtivo.Value)
 		{
 			return;
 		}
