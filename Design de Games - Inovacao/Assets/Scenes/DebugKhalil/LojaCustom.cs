@@ -1236,7 +1236,7 @@ public class LojaCustom : MonoBehaviour
                 break;
             case 5:
                 customizaScript.ChangeOculos(index);
-                customizaScript.ChangeCilios(0);
+                //customizaScript.ChangeCilios(0);
                 break;
             case 6:
                 customizaScript.ChangeOculos(0);
