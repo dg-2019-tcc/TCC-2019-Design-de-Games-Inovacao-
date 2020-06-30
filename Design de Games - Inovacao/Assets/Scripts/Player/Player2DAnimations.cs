@@ -23,17 +23,11 @@ public class Player2DAnimations : MonoBehaviour
 	public string carroWalkAnim = "6_Rolima(Andando)";
 	public string carroUpAnim = "6_Rolima(SubindoNoAr)";
 	public string carroDownAnim = "6_Rolima(DescendoNoAr)";
-	public string motoWalkAnim = "8_Moto(Andando)";
-	public string motoDownAnim = "8_Moto(DescendoNoAr)";
-	public string motoUpAnim = "8_Moto(SubindoNoAr)";
-	public string motoGrauAnim = "8_Moto(Empinando)";
-	public string motoCrashAnim = "8_Moto(Batendo)";
-	public string motoLandAnim = "8_Moto(Aterrisando)";
 	public string stunAnim = "3_Atordoado";
 	public string vitoriaAnim = "2_Vencer";
 	public string derrotaAnim = "2_Perder";
 
-	public enum State {Idle, Walking, Rising, Falling, Aterrisando, Chutando, Arremessando, Inativo, Pipa, CarroWalk, CarroUp, CarroDown,MotoWalk, MotoUp, MotoDown,MotoGrau, MotoCrash, MotoLand, Stun, Ganhou, Perdeu}
+	public enum State {Idle, Walking, Rising, Falling, Aterrisando, Chutando, Arremessando, Inativo, Pipa, CarroWalk, CarroUp, CarroDown, Stun, Ganhou, Perdeu}
 
 	public State state = State.Idle;
 
@@ -72,8 +66,6 @@ public class Player2DAnimations : MonoBehaviour
 
 	private bool isOnline;
 
-    public bool isMoto;
-    public EmpinaMoto empina;
     public BoolVariable levouDogada;
 
     public bool isVictory;
@@ -88,18 +80,7 @@ public class Player2DAnimations : MonoBehaviour
 		photonView = gameObject.GetComponent<PhotonView>();
 		controller = GetComponent<Controller2D>();
 		triggerCollisions = GetComponent<TriggerCollisionsController>();
-        if (isMoto == false)
-        {
-            frente.SetActive(true);
-            lado.SetActive(false);
-        }
-
-        else
-        {
-            frente.SetActive(false);
-            lado.SetActive(true);
-        }
-
+       
 		if (PhotonNetwork.InRoom)
 		{
 			isOnline = true;
@@ -131,7 +112,7 @@ public class Player2DAnimations : MonoBehaviour
                 moveX = Mathf.Abs(moveAmount.x);
                 if (!isVictory)
                 {
-                    if (!isMoto && carroActive.Value == false && pipaActive.Value == false && dogButtonAnim == false && !stun)
+                    if (carroActive.Value == false && pipaActive.Value == false && dogButtonAnim == false && !stun)
                     {
                         if (/*oldPos.y < moveAmount.y*/ moveAmount.y > 0 /*&& controller.collisions.below == false*/)
                         {
@@ -155,7 +136,7 @@ public class Player2DAnimations : MonoBehaviour
                         }
                     }
 
-                    else if (!isMoto && carroActive.Value == false && pipaActive.Value == false && dogButtonAnim == false && stun)
+                    else if (carroActive.Value == false && pipaActive.Value == false && dogButtonAnim == false && stun)
                     {
                         PlayAnim("Stun");
                     }
@@ -170,41 +151,6 @@ public class Player2DAnimations : MonoBehaviour
                         PlayAnim("CarroWalk");
 
                     }
-
-                    else if (isMoto)
-                    {
-                        if (stun == false)
-                        {
-
-                            if (empina.isEmpinando || empina.isManobrandoNoAr)
-                            {
-                                PlayAnim("MotoGrau");
-                            }
-
-
-                            else if (oldPos.y < moveAmount.y && controller.collisions.below == false)
-                            {
-                                PlayAnim("MotoUp");
-                            }
-
-                            else if (moveAmount.y <= 0 && controller.collisions.below == false)
-                            {
-                                PlayAnim("MotoDown");
-                            }
-
-                            else
-                            {
-                                PlayAnim("MotoWalk");
-                            }
-                        }
-
-                        else
-                        {
-                            PlayAnim("MotoCrash");
-                        }
-                    }
-
-
                 }
 
 
@@ -270,7 +216,7 @@ public class Player2DAnimations : MonoBehaviour
 	{
 		if (state == State.Idle || state == State.Inativo)
 		{
-			if(anim == "Walking" || anim == "NoArUp" || anim == "Fall" || anim == "Aterrisando" || anim == "Chute" || anim == "Arremesso" || anim == "Abaixar" || anim == "TransitionAir" || anim == "Pipa" || anim == "CarroWalk" || anim == "MotoWalk"|| anim == "MotoUp" || anim == "MotoDown" || anim == "MotoCrash" || anim == "MotoGrau")
+			if(anim == "Walking" || anim == "NoArUp" || anim == "Fall" || anim == "Aterrisando" || anim == "Chute" || anim == "Arremesso" || anim == "Abaixar" || anim == "TransitionAir" || anim == "Pipa" || anim == "CarroWalk")
 			{
                 lado.SetActive(true);
                 playerFrente.animation.Play(idlePose);
@@ -279,46 +225,6 @@ public class Player2DAnimations : MonoBehaviour
 		}
 		switch (anim)
 		{
-            case "MotoWalk":
-                if(state != State.MotoWalk)
-                {
-                    player.animation.Play(motoWalkAnim);
-                    state = State.MotoWalk;
-                }
-                break;
-
-            case "MotoCrash":
-                if (state != State.MotoCrash)
-                {
-                    player.animation.Play(motoCrashAnim);
-                    state = State.MotoCrash;
-                }
-                break;
-
-            case "MotoUp":
-                if (state != State.MotoUp)
-                {
-                    player.animation.Play(motoUpAnim);
-                    state = State.MotoUp;
-                }
-                break;
-
-            case "MotoDown":
-                if (state != State.MotoDown)
-                {
-                    player.animation.Play(motoDownAnim);
-                    state = State.MotoDown;
-                }
-                break;
-
-            case "MotoGrau":
-                if (state != State.MotoGrau)
-                {
-                    player.animation.Play(motoGrauAnim);
-                    state = State.MotoGrau;
-                }
-                break;
-
             case "CarroWalk":
                 if(state != State.CarroWalk)
                 {

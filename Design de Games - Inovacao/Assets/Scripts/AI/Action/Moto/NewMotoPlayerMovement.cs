@@ -44,7 +44,7 @@ public class NewMotoPlayerMovement : MonoBehaviour
 	public Controller2D controller;
 
 	TriggerCollisionsController triggerController;
-	Player2DAnimations animations;
+	PlayerMotoAnimation animations;
 
 	[SerializeField]
 	public Joystick joyStick;
@@ -59,7 +59,7 @@ public class NewMotoPlayerMovement : MonoBehaviour
 	{
 		controller = GetComponent<Controller2D>();
 		triggerController = GetComponent<TriggerCollisionsController>();
-		animations = GetComponent<Player2DAnimations>();
+		animations = GetComponent<PlayerMotoAnimation>();
 
         playerGanhou = Resources.Load<BoolVariable>("PlayerGanhou");
         playerGanhou.Value = false;
@@ -94,7 +94,7 @@ public class NewMotoPlayerMovement : MonoBehaviour
 			velocity.y += gravity * Time.deltaTime;
 			controller.Move(velocity * Time.deltaTime, input);
 			triggerController.MoveDirection(velocity);
-		    animations.ChangeMoveAnim(velocity, oldPosition, input, levouDogada.Value, playerGanhou.Value);
+		    animations.ChangeMotoAnim(velocity, oldPosition, levouDogada.Value);
 		if (controller.collisions.above || controller.collisions.below)
 			{
 				velocity.y = 0;
