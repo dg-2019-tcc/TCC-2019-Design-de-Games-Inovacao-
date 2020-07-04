@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu (menuName = "Gerador/AI/Decision/Look")]
+[CreateAssetMenu (menuName = "ScriptableObjects/AI/Decision/Look")]
 public class LookDecision : Decision
 {
    public override bool Decide(StateController controller)

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu (menuName = "Gerador/Decisions/ActiveState")]
+[CreateAssetMenu (menuName = "ScriptableObjects/Decisions/ActiveState")]
 public class ActiveStateDecision : Decision
 {
     public override bool Decide(StateController controller)

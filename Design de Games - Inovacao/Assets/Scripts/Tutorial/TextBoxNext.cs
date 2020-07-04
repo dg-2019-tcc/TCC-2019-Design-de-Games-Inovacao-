@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class TextBoxNext : MonoBehaviour
 {
 	public Sprite[] imagens;
+	public ScriptableFalas falas;
 	private SpriteRenderer sprite;
 	public BoolVariable dogBotao;
 	private GameObject joystick;

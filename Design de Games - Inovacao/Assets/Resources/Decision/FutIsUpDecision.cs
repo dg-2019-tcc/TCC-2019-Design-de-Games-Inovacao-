@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Gerador/AI/Decision/FutIsUp")]
+[CreateAssetMenu(menuName = "ScriptableObjects/AI/Decision/FutIsUp")]
 public class FutIsUpDecision : Decision
 {
     public override bool Decide(StateController controller)

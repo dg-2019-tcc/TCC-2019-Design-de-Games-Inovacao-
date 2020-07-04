@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Gerador/Variables/Transform")]
+[CreateAssetMenu(menuName = "ScriptableObjects/Variables/Transform")]
 public class TransformVariable : ScriptableObject
 {
     public Transform target;

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Gerador/AI/Decision/GoRight")]
+[CreateAssetMenu(menuName = "ScriptableObjects/AI/Decision/GoRight")]
 public class ColetaGoRigthDecision : Decision
 {
     public override bool Decide(StateController controller)

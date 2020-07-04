@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Gerador/Variables/Bool")]
+[CreateAssetMenu(menuName = "ScriptableObjects/Variables/Bool")]
 public class BoolVariable : ScriptableObject
 {
     public bool Value;

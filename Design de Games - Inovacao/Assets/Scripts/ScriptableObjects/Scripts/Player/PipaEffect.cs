@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
-[CreateAssetMenu (menuName = "Gerador/Tokens/PipaEffect")]
+[CreateAssetMenu (menuName = "ScriptableObjects/Tokens/PipaEffect")]
 public class PipaEffect : TokenEffect
 {
     public PlayerStat stat;

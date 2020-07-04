@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu (menuName = "Gerador/AudioEvent/Simple")]
+[CreateAssetMenu (menuName = "ScriptableObjects/AudioEvent/Simple")]
 public class SimpleAudioEvent : AudioEvent
 {
     public AudioClip clips;

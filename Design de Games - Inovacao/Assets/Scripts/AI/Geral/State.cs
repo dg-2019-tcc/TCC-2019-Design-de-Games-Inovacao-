@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu (menuName = "Gerador/AI/State")]
+[CreateAssetMenu (menuName = "ScriptableObjects/AI/State")]
 public class State : ScriptableObject
 {
     public Actions[] actions;

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-[CreateAssetMenu(menuName = "Gerador/Tokens/CarroEffect")]
+[CreateAssetMenu(menuName = "ScriptableObjects/Tokens/CarroEffect")]
 public class CarroEffect : TokenEffect
 {
     public PlayerStat stat;

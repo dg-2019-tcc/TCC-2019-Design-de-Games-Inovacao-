@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Gerador/AI/Decision/StopJump")]
+[CreateAssetMenu(menuName = "ScriptableObjects/AI/Decision/StopJump")]
 public class StopJumpDecision : Decision
 {
     public override bool Decide(StateController controller)

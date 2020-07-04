@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Gerador/Variables/BotCustom")]
+[CreateAssetMenu(menuName = "ScriptableObjects/AI/Variables/BotCustom")]
 public class BotCustom : ScriptableObject
 {
     public int hairIndex;

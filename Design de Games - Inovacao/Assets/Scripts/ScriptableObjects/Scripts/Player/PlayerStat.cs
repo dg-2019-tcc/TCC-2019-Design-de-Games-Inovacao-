@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu (menuName ="Gerador/Player")]
+[CreateAssetMenu (menuName = "ScriptableObjects/Player")]
 public class PlayerStat : ScriptableObject
 {
     public FloatVariable speed;

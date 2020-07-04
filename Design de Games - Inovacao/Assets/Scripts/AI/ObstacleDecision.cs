@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Gerador/AI/Decision/Obstacle")]
+[CreateAssetMenu(menuName = "ScriptableObjects/AI/Decision/Obstacle")]
 public class ObstacleDecision : Decision
 {
 	public override bool Decide(StateController controller)

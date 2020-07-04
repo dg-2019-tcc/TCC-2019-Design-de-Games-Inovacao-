@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Gerador/PlayerType")]
+[CreateAssetMenu(menuName = "ScriptableObjects/PlayerType")]
 public class PlayerType : ScriptableObject
 {
     public GameObject[] playerPrefab;
