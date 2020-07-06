@@ -38,7 +38,7 @@ public class TextBoxNext : MonoBehaviour
 
         sprite = GetComponent<SpriteRenderer>();
 		boxIndex = 0;
-		sprite.sprite = imagens[boxIndex];
+		sprite.sprite = falas.imagens[boxIndex];
 		//timeScaleBase = Time.timeScale;
 		joystick = FindObjectOfType<Joystick>().gameObject;
 		throwObject = FindObjectOfType<ThrowObject>();
@@ -72,10 +72,10 @@ public class TextBoxNext : MonoBehaviour
 
 	private void Next(int index)
 	{
-		if (index < imagens.Length-1)
+		if (index < falas.imagens.Length-1)
 		{
 			boxIndex++;
-			sprite.sprite = imagens[boxIndex];
+			sprite.sprite = falas.imagens[boxIndex];
             throwObject.passouTexto = false;
 
 
