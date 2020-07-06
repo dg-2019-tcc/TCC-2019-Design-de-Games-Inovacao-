@@ -60,7 +60,7 @@ public class LinhaDeChegada : MonoBehaviour
 		{
 			if (playerView.IsMine == true && euAcabei == false)
 			{
-				PlayerMovement jogador = other.GetComponent<PlayerMovement>();
+				//PlayerMovement jogador = other.GetComponent<PlayerMovement>();
 				totalPlayers++;
 				euAcabei = true;
 

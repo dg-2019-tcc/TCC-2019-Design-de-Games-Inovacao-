@@ -47,8 +47,8 @@ public class DestroyColetavel2D : MonoBehaviourPunCallbacks
     {
         if (other.CompareTag("Player"))
         {
-            PlayerMovement jogador = other.GetComponent<PlayerMovement>();
-            jogador.PV.Owner.AddScore(1);
+            /*PlayerMovement jogador = other.GetComponent<PlayerMovement>();
+            jogador.PV.Owner.AddScore(1);*/
             index++;
 
             if (/*jogador.PV.Owner.GetScore()*/index >= LevelManager.Instance.coletaMax)

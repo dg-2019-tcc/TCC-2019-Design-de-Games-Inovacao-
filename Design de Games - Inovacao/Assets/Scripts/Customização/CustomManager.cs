@@ -58,7 +58,6 @@ public class CustomManager : MonoBehaviour
 
     [Header("Scripts Externos")]
 
-    public PlayerMovement playerScript;
 
 
 
@@ -168,8 +167,5 @@ public class CustomManager : MonoBehaviour
     #endregion
    
 
-    public void Jogar()
-    {
-        playerScript.enabled = true;
-    }
+
 }

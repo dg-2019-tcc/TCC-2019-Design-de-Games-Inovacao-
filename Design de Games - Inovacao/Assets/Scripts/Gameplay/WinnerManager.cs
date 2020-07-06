@@ -220,7 +220,7 @@ public class WinnerManager : MonoBehaviour
 	[PunRPC]
 	public void Terminou()
 	{
-		PlayerMovement.acabouPartida = true;
+		//PlayerMovement.acabouPartida = true;
 	}
 
     IEnumerator AcabouFase()

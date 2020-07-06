@@ -7,8 +7,6 @@ using UnityEngine.AI;
     {
         public AIStats botStats;
         public Transform pos;
-        public State remainState;
-        public State currentState;
         public int maxPoints;
         public FloatVariable botScore;
 
@@ -53,15 +51,6 @@ using UnityEngine.AI;
             if (botScore.Value >= maxPoints)
             {
                 controller.enabled = false;
-            }
-        }
-
-        public void TransitionToState(State nextState)
-        {
-            if (nextState != remainState)
-            {
-                currentState = nextState;
-                //OnExitState();
             }
         }
 
