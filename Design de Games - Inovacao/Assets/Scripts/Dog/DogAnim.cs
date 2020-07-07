@@ -140,7 +140,6 @@ public class DogAnim : MonoBehaviour
                 break;
 
 
-
         }
     }
 }

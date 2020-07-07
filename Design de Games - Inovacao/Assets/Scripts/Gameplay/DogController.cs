@@ -46,9 +46,15 @@ public class DogController : MonoBehaviour
     public BoolVariableArray acabou01;
     public BoolVariableArray aiGanhou;
 
+    public enum State{Idle,Desativado, Carro, Pipa, Aviao}
+
+    public State state = State.Idle;
+
     bool sequestrado;
 
     public bool isCorrida;
+
+    bool isOnline;
 
 
     void Start()
@@ -76,6 +82,15 @@ public class DogController : MonoBehaviour
             sequestrado = false;
         }
 
+        if (PhotonNetwork.InRoom)
+        {
+            isOnline = true;
+        }
+        else
+        {
+            isOnline = false;
+        }
+
         PV = gameObject.GetComponent<PhotonView>();
         pipaActive.Value = false;
         carroActive.Value = false;
@@ -92,14 +107,8 @@ public class DogController : MonoBehaviour
         {
             if (desativaPower.Value == true)
             {
-                if (!PhotonNetwork.InRoom)
-                {
-                    DesativaPowerUps();
-                }
-                else
-                {
-                    gameObject.GetComponent<PhotonView>().RPC("DesativaPowerUps", RpcTarget.All);
-                }
+                Debug.Log("dESATIVA");
+                ChangeState("IdleState");
             }
 
             if (hitTotemCarro.Value == true || hitTotemPipa.Value == true)
@@ -110,29 +119,30 @@ public class DogController : MonoBehaviour
             }
 
             PV.Controller.CustomProperties["dogValue"] = dogAtivo.Value;
+        
 
-            if (sequestrado)
+            /*if (sequestrado)
             {
                 TransformaPet(false);
             }
             else
             {
-                if (!dogAtivo.Value/* && desativouDog == false*/)
-                {
-                    if (!PhotonNetwork.InRoom)
+                if (!dogAtivo.Value/* && desativouDog == false)
+               /* {
+                    /*if (!PhotonNetwork.InRoom)
                     {
                         TransformaPet(false);
                     }
                     else
                     {
                         gameObject.GetComponent<PhotonView>().RPC("TransformaPet", RpcTarget.All, false);
-                    }
-                }
+                    }*/
+               // }
 
                 //if(dogAtivo.Value && ativouDog == false)
-                else
-                {
-                    //if (ativouDog == false)
+             //   else
+               // {
+                    /*//if (ativouDog == false)
                     //{
                     if (!PhotonNetwork.InRoom)
                     {
@@ -142,9 +152,9 @@ public class DogController : MonoBehaviour
                     {
                         gameObject.GetComponent<PhotonView>().RPC("TransformaPet", RpcTarget.All, true);
                     }
-                    // }
-                }
-            }
+                    // }*/
+            //    }
+          //  }
 
         }
 
@@ -152,18 +162,74 @@ public class DogController : MonoBehaviour
 
     }
 
+    [PunRPC]
+    public void ChangeState(string changeState)
+    {
+        if (isOnline)
+        {
+            PV.RPC("DogState", RpcTarget.All, changeState);
+        }
+        else
+        {
+            DogState(changeState);
+        }
+    }
+
+    [PunRPC]
+    public void DogState(string dogState)
+    {
+        switch (dogState)
+        {
+            case "CarroState":
+                if (state == State.Idle)
+                {
+                    Carro();
+                    TransformaPet(false);
+                }
+                break;
+
+            case "PipaState":
+                if (state == State.Idle)
+                {
+                    Pipa();
+                    TransformaPet(false);
+                }
+                break;
+
+            case "TiroState":
+                if (state == State.Idle)
+                {
+
+                }
+                break;
+
+            /*case "DesativadoState":
+                if (state == State.Idle)
+                {
+
+                }
+                break;*/
+
+            case "IdleState":
+                if (state != State.Idle)
+                {
+                    DesativaPowerUps();
+                    TransformaPet(true);
+                }
+                break;
+        }
+    }
+
 
     [PunRPC]
     public void Carro()
     {
-        if (carroActive.Value == false && pipaActive.Value == false && sequestrado == false)
-        {
+        hitTotemCarro.Value = false;
+        carroActive.Value = true;
 
-            hitTotemCarro.Value = false;
-            carroActive.Value = true;
+        dogAtivo.Value = false;
 
-            dogAtivo.Value = false;
-        }
+        state = State.Carro;
 
     }
 
@@ -172,13 +238,13 @@ public class DogController : MonoBehaviour
     [PunRPC]
     public void Pipa()
     {
-        if (carroActive.Value == false && pipaActive.Value == false && sequestrado == false)
-        {
-            hitTotemPipa.Value = false;
-            pipaActive.Value = true;
+        
+        hitTotemPipa.Value = false;
+        pipaActive.Value = true;
 
-            dogAtivo.Value = false;
-        }
+        dogAtivo.Value = false;
+        state = State.Carro;
+        
     }
 
     [PunRPC]
@@ -192,6 +258,8 @@ public class DogController : MonoBehaviour
         desativaPower.Value = false;
 
         triggerCollisionsScript.isDogNormal = true;
+
+        state = State.Idle;
     }
 
     [PunRPC]
