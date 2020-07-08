@@ -47,7 +47,7 @@ public class DogController : MonoBehaviour
     public BoolVariableArray acabou01;
     public BoolVariableArray aiGanhou;
 
-    public enum State{Idle,Desativando, Ativando, Carro, Pipa, Aviao}
+    public enum State{Idle,Desativado, Carro, Pipa, Aviao}
     public State state = State.Idle;
 
     bool sequestrado;
@@ -194,6 +194,19 @@ public class DogController : MonoBehaviour
                     StartCoroutine("DesativandoDog");
 
                     state = State.Aviao;
+                }
+                break;
+
+            case "DesativadoState":
+                if (state == State.Idle)
+                {
+                    Pet.SetActive(false);
+
+                    dogAtivo.Value = false;
+                    pipaActive.Value = false;
+                    carroActive.Value = false;
+
+                    state = State.Desativado;
                 }
                 break;
 
