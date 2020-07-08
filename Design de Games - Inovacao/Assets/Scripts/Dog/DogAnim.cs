@@ -73,7 +73,7 @@ public class DogAnim : MonoBehaviour
     {
         if (isOnline)
         {
-            pv.RPC("AnimState", RpcTarget.All, anim);
+            pv.RPC("DogAnimState", RpcTarget.All, anim);
         }
         else
         {

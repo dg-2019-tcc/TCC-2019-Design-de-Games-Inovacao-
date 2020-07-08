@@ -26,7 +26,6 @@ public class ThrowObject : MonoBehaviour
 
 	public GameObject EfeitoDeCooldown;
 
-	public BoolVariable dogBotao;
     public BoolVariable desativaPower;
     public BoolVariable carroActive;
     public BoolVariable pipaActive;
@@ -54,6 +53,7 @@ public class ThrowObject : MonoBehaviour
     public bool passouTexto;
 
     public DogMovement dogMove;
+    private DogController dogController;
 
     private void Awake()
     {
@@ -61,10 +61,9 @@ public class ThrowObject : MonoBehaviour
 
         photonView = gameObject.GetComponent<PhotonView>();
         anim = GetComponent<Player2DAnimations>();
+        dogController = GetComponent<DogController>();
 
         tiroImage = tiroButton.GetComponent<Image>();
-        dogBotao.Value = false;
-
     }
 
 
@@ -72,10 +71,9 @@ public class ThrowObject : MonoBehaviour
     {
         if (photonView.IsMine == true || !PhotonNetwork.InRoom)
         {
-            if (atirou == true && cooldownDelta == 0 && atirando == false && carroActive.Value == false && pipaActive.Value == false)
+            if (atirou == true)
             {
                 atirando = true;
-                cooldownDelta += 1;
                 StartCoroutine("StartTiro");
                 atirou = false;
 
@@ -88,81 +86,23 @@ public class ThrowObject : MonoBehaviour
 
         }
 
-        if (dogBotao.Value == true)
-        {
-			
-            if (carroActive.Value == true || pipaActive.Value == true)
-            {
-                desativaPower.Value = true;
-            }
-            else
-            {
-                atirou = true;
-            }
-			
-        }
-        else
-        {
-            atirou = false;
-        }
-
-        if (carroActive.Value == true || pipaActive.Value == true)
-        {
-            atirando = false;
-        }
 
         if (atirando)
-		{
-			
+		{			
 			tiroButton.enabled = false;
 		}
 
         else
         {
-			dogBotao.Value = false;
-			cooldownDelta = 0;
             tiroButton.enabled = true;
         }
     }
 
     public void Atirou()
     {
-        if (textoAtivo.Value == false && shouldShoot == true)
-        {
-            if (atirando == false || Time.timeScale == 0)
-            {
-                dogBotao.Value = true;
-            }
-        }
-
-        if(textoAtivo.Value == true)
-        {
-            passouTexto = true;
-        }
-
-        if (carroActive.Value == true || pipaActive.Value == true)
-        {
-            desativaPower.Value = true;
-        }
-
-        /*if(!shouldShoot && textoAtivo.Value == false && carroActive.Value == false && pipaActive.Value == false)
-        {
-            dogMove.DoTrick();
-        }*/
+        atirou = true;
     }
 
-    public void StopAtirou()
-    {
-        if (textoAtivo.Value == false)
-        {
-            dogBotao.Value = false;
-        }
-
-        else
-        {
-            passouTexto = false;
-        }
-    }
 
     [PunRPC]
     void Shoot()
@@ -196,22 +136,21 @@ public class ThrowObject : MonoBehaviour
 		}
     }
 
-    void ShootOffline()
-    {
 
-    }
 
 	IEnumerator CooldownEffect()
 	{
 		if (photonView.Owner.IsLocal)
 		{
-			dogAtivo.Value = false;
+            //dogAtivo.Value = false;
+            dogController.ChangeState("TiroState");
 		}
         yield return new WaitForSeconds(cooldown);
 		if (photonView.Owner.IsLocal)
 		{
-			dogAtivo.Value = true;
-		}
+            //dogAtivo.Value = true;
+            dogController.ChangeState("IdleState");
+        }
         //gameObject.GetComponent<PhotonView>().RPC("TransformaPet", RpcTarget.All, false);
         atirando = false;
     }

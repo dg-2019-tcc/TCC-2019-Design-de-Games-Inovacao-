@@ -8,10 +8,9 @@ public class TextBoxNext : MonoBehaviour
 	public Sprite[] imagens;
 	public ScriptableFalas falas;
 	private SpriteRenderer sprite;
-	public BoolVariable dogBotao;
 	private GameObject joystick;
 	private float timeScaleBase;
-	private ThrowObject throwObject;
+	private ButtonA buttonA;
 
 	public int boxIndex;
 	private bool finish;
@@ -41,7 +40,7 @@ public class TextBoxNext : MonoBehaviour
 		sprite.sprite = falas.imagens[boxIndex];
 		//timeScaleBase = Time.timeScale;
 		joystick = FindObjectOfType<Joystick>().gameObject;
-		throwObject = FindObjectOfType<ThrowObject>();
+		buttonA = FindObjectOfType<ButtonA>();
 		finish = false;
 		//StartCoroutine(Fade(1));
 
@@ -60,11 +59,11 @@ public class TextBoxNext : MonoBehaviour
 
 		}
 
-		if (throwObject == null)
+		if (buttonA == null)
 		{
-			throwObject = FindObjectOfType<ThrowObject>();
+			buttonA = FindObjectOfType<ButtonA>();
 		}
-		else if (throwObject.passouTexto)
+		else if (buttonA.passouTexto)
 		{
 			Next(boxIndex);
 		}
@@ -76,13 +75,13 @@ public class TextBoxNext : MonoBehaviour
 		{
 			boxIndex++;
 			sprite.sprite = falas.imagens[boxIndex];
-            throwObject.passouTexto = false;
+            buttonA.passouTexto = false;
 
 
         }
 		else
 		{
-            throwObject.passouTexto = false;
+            buttonA.passouTexto = false;
             textoAtivo.Value = false;
             finish = true;
             if (tv != null && !is00)

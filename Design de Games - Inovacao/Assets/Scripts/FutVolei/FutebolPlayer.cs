@@ -127,7 +127,7 @@ public class FutebolPlayer : MonoBehaviour
 
     public void Chute()
     {
-        //Debug.Log(forceVertical);
+        Debug.Log("FutebolScript");
         gameObject.GetComponent<PhotonView>().RPC("KickedBall", RpcTarget.All);
     }
 
