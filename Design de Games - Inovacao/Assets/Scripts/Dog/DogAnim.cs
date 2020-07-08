@@ -9,7 +9,8 @@ public class DogAnim : MonoBehaviour
 {
     PhotonView pv;
     private bool isOnline;
-    AIController2D dogController;
+    AIController2D controller;
+    public DogController dogController;
     public UnityArmatureComponent dogArmature;
 
     public enum State { Idle, Walk, Up, Down, Ativa, Desativa}
@@ -21,7 +22,7 @@ public class DogAnim : MonoBehaviour
     void Start()
     {
         pv = GetComponent<PhotonView>();
-        dogController = GetComponent<AIController2D>();
+        controller = GetComponent<AIController2D>();
 
         if (PhotonNetwork.InRoom)
         {
@@ -35,38 +36,37 @@ public class DogAnim : MonoBehaviour
 
     public void ChangeDogAnim(Vector3 moveAmount, Vector2 input)
     {
-
-                if (input.x != 0)
-                {
-                    PlayAnim("Walk");
-                }
-
-                else if(moveAmount.y > 0)
-                {
-                    PlayAnim("Up");
-                }
-
-                else
-                {
-                    PlayAnim("Idle");
-                }
-           
-    }
-
-    /*public void PetChange(bool ativa)
-    {
-        ativaDog = true;
-
-        if(ativa == true)
+        if (dogController.desativouDog == false && dogController.ativouDog == false)
         {
-            PlayAnim("Ativa");
+            if (input.x != 0)
+            {
+                PlayAnim("Walk");
+            }
+
+            else if (moveAmount.y > 0)
+            {
+                PlayAnim("Up");
+            }
+
+            else
+            {
+                PlayAnim("Idle");
+            }
         }
 
         else
         {
-            PlayAnim("Desativa");
+            if (dogController.desativouDog == true)
+            {
+                PlayAnim("Desativa");
+            }
+            else
+            {
+                PlayAnim("Ativa");
+            }
         }
-    }*/
+    }
+
 
 
     private void PlayAnim(string anim)
@@ -126,6 +126,7 @@ public class DogAnim : MonoBehaviour
                 if (state != State.Ativa)
                 {
                     dogArmature.animation.Play("4_Transform(Voltando)");
+                    dogController.ativouDog = false;
                     state = State.Ativa;
                 }
                 break;

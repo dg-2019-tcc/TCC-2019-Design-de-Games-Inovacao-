@@ -14,9 +14,10 @@ public class DogController : MonoBehaviour
     private Transform target;
     public float speedToTotem = 10f;
 
-    private bool dogTransformed;
-    private bool ativouDog;
-    private bool desativouDog;
+    [HideInInspector]
+    public bool ativouDog;
+    [HideInInspector]
+    public bool desativouDog;
 
     [Header("Pet")]
 
@@ -46,8 +47,7 @@ public class DogController : MonoBehaviour
     public BoolVariableArray acabou01;
     public BoolVariableArray aiGanhou;
 
-    public enum State{Idle,Desativado, Carro, Pipa, Aviao}
-
+    public enum State{Idle,Desativando, Ativando, Carro, Pipa, Aviao}
     public State state = State.Idle;
 
     bool sequestrado;
@@ -147,6 +147,14 @@ public class DogController : MonoBehaviour
         }
     }
 
+    IEnumerator DesativandoDog()
+    {
+        desativouDog = true;
+        yield return new WaitForSeconds(0.5f);
+        Pet.SetActive(false);
+        desativouDog = false;
+    }
+
     [PunRPC]
     public void DogState(string dogState)
     {
@@ -155,7 +163,7 @@ public class DogController : MonoBehaviour
             case "CarroState":
                 if (state == State.Idle)
                 {
-                    Pet.SetActive(false);
+                    StartCoroutine("DesativandoDog");
 
                     buttonA.state = ButtonA.State.PowerUp;
 
@@ -169,7 +177,7 @@ public class DogController : MonoBehaviour
             case "PipaState":
                 if (state == State.Idle)
                 {
-                    Pet.SetActive(false);
+                    StartCoroutine("DesativandoDog");
 
                     buttonA.state = ButtonA.State.PowerUp;
 
@@ -183,26 +191,18 @@ public class DogController : MonoBehaviour
             case "TiroState":
                 if (state == State.Idle)
                 {
-                    Pet.SetActive(false);
+                    StartCoroutine("DesativandoDog");
+
                     state = State.Aviao;
                 }
                 break;
 
-            case "DesativadoState":
-                if (state == State.Idle)
-                {
-                    Pet.SetActive(false);
-
-                    dogAtivo.Value = false;
-                    pipaActive.Value = false;
-                    carroActive.Value = false;
-                }
-                break;
 
             case "IdleState":
                 if (state != State.Idle)
                 {
                     Pet.SetActive(true);
+                    ativouDog = true;
                     Pet.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, Pet.transform.position.z);
 
                     dogAtivo.Value = true;
