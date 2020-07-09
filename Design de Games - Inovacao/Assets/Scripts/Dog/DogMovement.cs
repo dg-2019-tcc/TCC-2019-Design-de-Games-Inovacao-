@@ -69,36 +69,19 @@ public class DogMovement : MonoBehaviour
         minJumpVelocity = Mathf.Sqrt(2 * Mathf.Abs(gravity) * minJumpHeight);
     }
 
-
+	
 
 
     void Update()
     {
         if (trick) return;
-        if (buildPC.Value == false)
-        {
-            joyInput = new Vector2(joyStick.Horizontal, joyStick.Vertical);
-        }
-        else
-        {
-            joyInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-        }
-        //joyInput = playerMove.joyInput;
-        if (joyInput.x > 0.3f || joyInput.x < -0.3f)
-        {
-            input.x = joyInput.x;
-        }
-
-        else
-        {
-            input.x = 0;
-        }
+		GetInput();
 
         targetVelocityX = input.x * speed;
         velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (dogController.collisions.below) ? accelerationTimeGrounded : accelerationTimeAirborne);
 
         dogController.Move(velocity * Time.deltaTime, input);
-
+		
         if (playerMove.slowFall == false)
         {
             velocity.y += gravity * Time.deltaTime;
@@ -116,12 +99,17 @@ public class DogMovement : MonoBehaviour
             Invoke("DogJump", delay);
         }
 
-        if (dogController.collisions.above || dogController.collisions.below)
-        {
-            isJumping = false;
-            velocity.y = 0;
-        }
-
+		if (dogController.collisions.above || dogController.collisions.below)
+		{
+			isJumping = false;
+			velocity.y = 0;
+		}
+		else
+		{
+			Debug.Log("failed dog check");																		//toda vez que esse falha, a animação muda da idle e isso pesa bastante no fps tbm
+		}
+				
+		
         if (transform.position.x > player.transform.position.x)
         {
             dog.transform.rotation = Quaternion.Slerp(dog.transform.rotation, Quaternion.Euler(0, 180, 0), 0.5f);
@@ -131,7 +119,7 @@ public class DogMovement : MonoBehaviour
         {
             dog.transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, 0, 0), 0.5f);
         }
-
+		
         if(transform.position.y - player.transform.position.y > 1)
         {
             input.y = -1;
@@ -141,7 +129,7 @@ public class DogMovement : MonoBehaviour
         {
             input.y = joyInput.y;
         }
-
+		
         if(transform.position.y - player.transform.position.y < -2 && isJumping == false)
         {
             DogJump();
@@ -162,7 +150,7 @@ public class DogMovement : MonoBehaviour
         {
             jumpTimes = 0;
         }
-
+		
         if (transform.position.x < player.transform.position.x && joyInput.x < 0f ||transform.position.x > player.transform.position.x && joyInput.x > 0f || playerTriggerController.collisions.hitDog)
         {
             velocity.x = 0;
@@ -172,14 +160,35 @@ public class DogMovement : MonoBehaviour
         {
             velocity.y = maxJumpHeight * 1.8f;
         }
-
+		
         dogAnim.ChangeDogAnim(velocity, input);
 
     }
 
 
+	void GetInput()																														//Pra organizar melhor, ter ctz que é setup
+	{
+		if (buildPC.Value == false)
+		{
+			joyInput = new Vector2(joyStick.Horizontal, joyStick.Vertical);
+		}
+		else
+		{
+			joyInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+		}
+		//joyInput = playerMove.joyInput;
+		if (joyInput.x > 0.3f || joyInput.x < -0.3f)
+		{
+			input.x = joyInput.x;
+		}
 
-    public void DogJump()
+		else
+		{
+			input.x = 0;
+		}
+	}
+
+	public void DogJump()
     {
         isJumping = true;
         if (jumpTimes > 0)
