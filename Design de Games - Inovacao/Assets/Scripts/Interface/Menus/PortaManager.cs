@@ -191,7 +191,11 @@ public class PortaManager : MonoBehaviour
                 //ButtonJogarCorrida = false;
             }
         }
-		joyGambiarra = joy.Vertical;
+
+        if (buildPC.Value == false)
+        {
+            joyGambiarra = joy.Vertical;
+        }
 
 	}
 
