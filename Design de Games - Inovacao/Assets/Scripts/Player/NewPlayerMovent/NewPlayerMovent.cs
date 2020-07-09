@@ -134,6 +134,7 @@ public class NewPlayerMovent : MonoBehaviour
             if(Input.GetKeyDown(KeyCode.X) && controller.collisions.below)
             {
                 velocity.y = maxJumpHeight.Value;
+                Debug.Log("Pulo");
             }
         }
 
@@ -222,7 +223,7 @@ public class NewPlayerMovent : MonoBehaviour
 
     public void CarroMovement()
     {
-        if (jump && controller.collisions.below)
+        if ((jump || Input.GetKeyDown(KeyCode.X)) && controller.collisions.below)
         {
             carroVelocity.y = maxJumpHeight.Value;
         }

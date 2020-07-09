@@ -16,6 +16,8 @@ public class ButtonA : MonoBehaviour
     public BoolVariable textoAtivo;
     public BoolVariable desativaPower;
     public BoolVariable buildPC;
+    public BoolVariable carroActive;
+    public BoolVariable pipaActive;
 
     public bool passouTexto;
 
@@ -24,6 +26,8 @@ public class ButtonA : MonoBehaviour
         textoAtivo = Resources.Load<BoolVariable>("TextoAtivo");
         desativaPower = Resources.Load<BoolVariable>("DesativaPower");
         buildPC = Resources.Load<BoolVariable>("BuildPC");
+        pipaActive = Resources.Load<BoolVariable>("PipaActive");
+        carroActive = Resources.Load<BoolVariable>("CarroActive");
         dogScript = GetComponent<DogController>();
     }
 
@@ -32,6 +36,11 @@ public class ButtonA : MonoBehaviour
         if(textoAtivo.Value == true)
         {
             state = State.Fala;
+        }
+
+        else if(textoAtivo.Value == false &&(pipaActive.Value == true ||carroActive.Value == true))
+        {
+            state = State.PowerUp;
         }
 
         if (buildPC.Value)
