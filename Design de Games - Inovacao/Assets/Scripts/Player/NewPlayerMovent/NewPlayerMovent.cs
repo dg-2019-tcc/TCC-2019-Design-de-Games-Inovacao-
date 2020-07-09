@@ -68,6 +68,7 @@ public class NewPlayerMovent : MonoBehaviour
     public BoolVariable aiGanhou;
     public BoolVariable playerGanhou;
     public BoolVariable textoAtivo;
+    public BoolVariable buildPC;
 
     public bool slowFall;
 
@@ -96,6 +97,7 @@ public class NewPlayerMovent : MonoBehaviour
         aiGanhou = Resources.Load<BoolVariable>("AIGanhou");
         playerGanhou = Resources.Load<BoolVariable>("PlayerGanhou");
         textoAtivo = Resources.Load<BoolVariable>("TextoAtivo");
+        buildPC = Resources.Load<BoolVariable>("BuildPC");
         playerGanhou.Value = false;
 
         if(moveSpeed.Value != 6)
@@ -115,68 +117,29 @@ public class NewPlayerMovent : MonoBehaviour
 		{
 			return;
 		}
-        if (joyStick == null)
+        if (joyStick == null && buildPC.Value == false)
         {
             joyStick = FindObjectOfType<FloatingJoystick>();
         }
 
+        if (buildPC.Value == false)
+        {
+            joyInput = new Vector2(joyStick.Horizontal, joyStick.Vertical);
+        }
 
-        joyInput = new Vector2(joyStick.Horizontal, joyStick.Vertical);
+        else
+        {
+            joyInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+
+            if(Input.GetKeyDown(KeyCode.X) && controller.collisions.below)
+            {
+                velocity.y = maxJumpHeight.Value;
+            }
+        }
 
         if (!carroActive.Value && !pipaActive.Value)
         {
-			input.x = 0;
-			if (Mathf.Abs(joyInput.x) > 0.3f)
-            {
-                input.x = joyInput.x;
-            }
-
-            input.y = joyInput.y;
-            targetVelocityX = input.x * moveSpeed.Value;
-            if (levouDogada.Value == false)
-            {
-                velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (controller.collisions.below) ? accelerationGround.Value : accelerationAir.Value);
-            }
-            else
-            {
-                velocity.x = 0;
-            }
-
-
-            if (!triggerController.collisions.slowTime)
-            {
-                slowFall = false;
-                velocity.y += gravity * Time.deltaTime;
-            }
-
-            else
-            {
-                slowFall = true;
-                velocity.y = -5f;
-            }
-
-            controller.Move(velocity * Time.deltaTime, input);
-            triggerController.MoveDirection(velocity * Time.deltaTime);
-
-            animations.ChangeMoveAnim(velocity, oldPosition, input, levouDogada.Value, ganhou);
-
-
-            if (controller.collisions.above || controller.collisions.below)
-            {
-                if (stopJump)
-                {
-                    FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Queda", transform.position);
-                }
-                velocity.y = 0;
-                jump = false;
-                stopJump = false;
-            }
-
-            if (/*controller.collisions.below &&*/ triggerController.collisions.caixaDagua)
-            {
-                velocity.y = maxJumpHeight.Value * 1.8f ;
-            }
-
+            NormalMovement();
 
         }
 
@@ -187,71 +150,11 @@ public class NewPlayerMovent : MonoBehaviour
 
             if (carroActive.Value)
             {
-                if (jump && controller.collisions.below)
-                {
-                    carroVelocity.y = maxJumpHeight.Value;
-                }
-
-                float targetVelocityX = input.x * carroMoveSpeed;
-                carroVelocity.x = Mathf.SmoothDamp(carroVelocity.x, targetVelocityX, ref carroVelocityXSmoothing, (controller.collisions.below) ? carroAccelerationTimeGrounded : carroAccelerationTimeAirborne);
-                carroVelocity.y += gravity * Time.deltaTime;
-                controller.Move(carroVelocity * Time.deltaTime, input);
-                triggerController.MoveDirection(carroVelocity);
-
-                if (controller.collisions.above || controller.collisions.below)
-                {
-                    carroVelocity.y = 0;
-                    stopJump = false;
-                }
-
-                if (/*controller.collisions.below &&*/ triggerController.collisions.caixaDagua)
-                {
-                    if (triggerController.collisions.direction.x != 0)
-                    {
-                        velocity.x = maxJumpHeight.Value * 2f * triggerController.collisions.direction.x;
-                    }
-
-                    else
-                    {
-                        velocity.y = maxJumpHeight.Value * 1.5f * triggerController.collisions.direction.y;
-                    }
-
-                }
-
+                CarroMovement();
             }
             if (pipaActive.Value)
             {
-                float targetVelocityX = input.x * pipaMoveSpeed;
-                pipaVelocity.x = Mathf.SmoothDamp(pipaVelocity.x, targetVelocityX, ref pipaVelocityXSmoothing, pipaAccelerationTimeAirborne);
-                if (/*controller.collisions.below &&*/ triggerController.collisions.caixaDagua)
-                {
-                    if (triggerController.collisions.direction.x != 0)
-                    {
-                        Debug.Log(triggerController.collisions.direction.x);
-                        velocity.x = maxJumpHeight.Value * 2f * triggerController.collisions.direction.x;
-                    }
-
-                    else
-                    {
-                        Debug.Log(triggerController.collisions.direction.y);
-                        velocity.y = maxJumpHeight.Value * 1.5f * triggerController.collisions.direction.y;
-                    }
-
-                }
-                else
-                {
-                    if (input.y >= 0)
-                    {
-                        pipaVelocity.y += pipaGravity * Time.deltaTime;
-                    }
-                    else
-                    {
-                        pipaVelocity.y -= pipaGravity * Time.deltaTime;
-                    }
-                }
-
-                triggerController.MoveDirection(pipaVelocity);
-                controller.Move(pipaVelocity * Time.deltaTime, input);
+                PipaMovement();
             }
         }
     }
@@ -259,6 +162,131 @@ public class NewPlayerMovent : MonoBehaviour
     {
         oldPosition = velocity;
 		joyInput = new Vector2(0, 0);
+    }
+
+    public void NormalMovement()
+    {
+        input.x = 0;
+        if (Mathf.Abs(joyInput.x) > 0.3f)
+        {
+            input.x = joyInput.x;
+        }
+
+        input.y = joyInput.y;
+        targetVelocityX = input.x * moveSpeed.Value;
+        if (levouDogada.Value == false)
+        {
+            velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (controller.collisions.below) ? accelerationGround.Value : accelerationAir.Value);
+        }
+        else
+        {
+            velocity.x = 0;
+        }
+
+
+        if (!triggerController.collisions.slowTime)
+        {
+            slowFall = false;
+            velocity.y += gravity * Time.deltaTime;
+        }
+
+        else
+        {
+            slowFall = true;
+            velocity.y = -5f;
+        }
+
+        controller.Move(velocity * Time.deltaTime, input);
+        triggerController.MoveDirection(velocity * Time.deltaTime);
+
+        animations.ChangeMoveAnim(velocity, oldPosition, input, levouDogada.Value, ganhou);
+
+
+        if (controller.collisions.above || controller.collisions.below)
+        {
+            if (stopJump)
+            {
+                FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Queda", transform.position);
+            }
+            velocity.y = 0;
+            jump = false;
+            stopJump = false;
+        }
+
+        if (/*controller.collisions.below &&*/ triggerController.collisions.caixaDagua)
+        {
+            velocity.y = maxJumpHeight.Value * 1.8f;
+        }
+
+    }
+
+    public void CarroMovement()
+    {
+        if (jump && controller.collisions.below)
+        {
+            carroVelocity.y = maxJumpHeight.Value;
+        }
+
+        targetVelocityX = input.x * carroMoveSpeed;
+        carroVelocity.x = Mathf.SmoothDamp(carroVelocity.x, targetVelocityX, ref carroVelocityXSmoothing, (controller.collisions.below) ? carroAccelerationTimeGrounded : carroAccelerationTimeAirborne);
+        carroVelocity.y += gravity * Time.deltaTime;
+        controller.Move(carroVelocity * Time.deltaTime, input);
+        triggerController.MoveDirection(carroVelocity);
+
+        if (controller.collisions.above || controller.collisions.below)
+        {
+            carroVelocity.y = 0;
+            stopJump = false;
+        }
+
+        if (/*controller.collisions.below &&*/ triggerController.collisions.caixaDagua)
+        {
+            if (triggerController.collisions.direction.x != 0)
+            {
+                velocity.x = maxJumpHeight.Value * 2f * triggerController.collisions.direction.x;
+            }
+
+            else
+            {
+                velocity.y = maxJumpHeight.Value * 1.5f * triggerController.collisions.direction.y;
+            }
+
+        }
+    }
+
+    public void PipaMovement()
+    {
+        targetVelocityX = input.x * pipaMoveSpeed;
+        pipaVelocity.x = Mathf.SmoothDamp(pipaVelocity.x, targetVelocityX, ref pipaVelocityXSmoothing, pipaAccelerationTimeAirborne);
+        if (/*controller.collisions.below &&*/ triggerController.collisions.caixaDagua)
+        {
+            if (triggerController.collisions.direction.x != 0)
+            {
+                Debug.Log(triggerController.collisions.direction.x);
+                velocity.x = maxJumpHeight.Value * 2f * triggerController.collisions.direction.x;
+            }
+
+            else
+            {
+                Debug.Log(triggerController.collisions.direction.y);
+                velocity.y = maxJumpHeight.Value * 1.5f * triggerController.collisions.direction.y;
+            }
+
+        }
+        else
+        {
+            if (input.y >= 0)
+            {
+                pipaVelocity.y += pipaGravity * Time.deltaTime;
+            }
+            else
+            {
+                pipaVelocity.y -= pipaGravity * Time.deltaTime;
+            }
+        }
+
+        triggerController.MoveDirection(pipaVelocity);
+        controller.Move(pipaVelocity * Time.deltaTime, input);
     }
 
     public void Jump()

@@ -41,9 +41,13 @@ public class PortaManager : MonoBehaviour
 
     public FloatVariable spawnHUBPoints;
 
+    public BoolVariable buildPC;
+    private Vector2 keyInput;
+
 	private void Start()
 	{
         spawnHUBPoints = Resources.Load<FloatVariable>("SpawnHUBPoints");
+        buildPC = Resources.Load<BoolVariable>("BuildPC");
 
         controller = FindObjectOfType<TriggerCollisionsController>();
         joy = FindObjectOfType<Joystick>();
@@ -52,90 +56,141 @@ public class PortaManager : MonoBehaviour
 
     private void Update()
     {
-		if (joy == null)
+		if (joy == null && buildPC.Value == false)
 		{
 			joy = FindObjectOfType<Joystick>();
 		}
-		
+
         if (controller.collisions.isDoor != true)
         {
 			CloseDoor();
-			/*
-			Debug.Log("Abri");
-            OpenDoor();
-            Debug.Log(controller.collisions.isDoor);
-			*/
-        }
-        else
-        {
-            
+
         }
 
-		if (joyGambiarra < joy.Vertical)
-		{
-            if (joy.Vertical >= 0.8f && hairDoor)
+        if (buildPC.Value == false)
+        {
+            if (joyGambiarra < joy.Vertical)
+            {
+                if (joy.Vertical >= 0.8f && hairDoor)
+                {
+                    spawnHUBPoints.Value = 8;
+                    SceneManager.LoadScene("Cabelo");
+                }
+
+                if (joy.Vertical >= 0.8f && shirtDoor)
+                {
+                    spawnHUBPoints.Value = 7;
+                    SceneManager.LoadScene("Shirt");
+                }
+
+
+                if (joy.Vertical >= 0.8f && shoesDoor)
+                {
+                    Debug.Log(shoesDoor);
+                    spawnHUBPoints.Value = 6;
+                    SceneManager.LoadScene("Tenis");
+                }
+
+                if (joy.Vertical >= 0.8f && abriPorta)
+                {
+                    //SceneManager.LoadScene("HUB");
+                    Debug.Log("Colidiu");
+                    OpenDoorTutorial();
+                }
+                if (joy.Vertical >= 0.8f && corridaDoor == true)
+                {
+                    spawnHUBPoints.Value = 5;
+                    lobbyController.DelayStart("Corrida");
+                    //ButtonJogarCorrida = false;
+                }
+                if (joy.Vertical >= 0.8f && coletaDoor == true)
+                {
+                    spawnHUBPoints.Value = 1;
+                    lobbyController.DelayStart("Coleta");
+                    //ButtonJogarColeta = false;
+                }
+                if (joy.Vertical >= 0.8f && futebolDoor == true)
+                {
+                    spawnHUBPoints.Value = 2;
+                    lobbyController.DelayStart("Futebol");
+                    //ButtonJogarCorrida = false;
+                }
+                if (joy.Vertical >= 0.8f && motoDoor == true)
+                {
+                    spawnHUBPoints.Value = 3;
+                    lobbyController.DelayStart("Moto");
+                    //ButtonJogarColeta = false;
+                }
+                if (joy.Vertical >= 0.8f && voleiDoor == true)
+                {
+                    spawnHUBPoints.Value = 4;
+                    lobbyController.DelayStart("Volei");
+                    //ButtonJogarCorrida = false;
+                }
+            }
+        }
+
+        else
+        {
+            keyInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+
+            if (keyInput.y > 0 && hairDoor)
             {
                 spawnHUBPoints.Value = 8;
                 SceneManager.LoadScene("Cabelo");
             }
 
-            if (joy.Vertical >= 0.8f && shirtDoor)
+            if (keyInput.y > 0 && shirtDoor)
             {
                 spawnHUBPoints.Value = 7;
                 SceneManager.LoadScene("Shirt");
             }
 
 
-            if (joy.Vertical >= 0.8f && shoesDoor)
+            if (keyInput.y > 0 && shoesDoor)
             {
                 Debug.Log(shoesDoor);
                 spawnHUBPoints.Value = 6;
                 SceneManager.LoadScene("Tenis");
             }
 
-            if (joy.Vertical >= 0.8f && abriPorta)
+            if (keyInput.y > 0 && abriPorta)
             {
                 //SceneManager.LoadScene("HUB");
                 Debug.Log("Colidiu");
                 OpenDoorTutorial();
             }
-			if (joy.Vertical >= 0.8f && corridaDoor == true)
-			{
+            if (keyInput.y > 0 && corridaDoor == true)
+            {
                 spawnHUBPoints.Value = 5;
                 lobbyController.DelayStart("Corrida");
-				//ButtonJogarCorrida = false;
-			}
-			if (joy.Vertical >= 0.8f && coletaDoor == true)
-			{
+                //ButtonJogarCorrida = false;
+            }
+            if (keyInput.y > 0 & coletaDoor == true)
+            {
                 spawnHUBPoints.Value = 1;
                 lobbyController.DelayStart("Coleta");
-				//ButtonJogarColeta = false;
-			}
-			if (joy.Vertical >= 0.8f && futebolDoor == true)
-			{
+                //ButtonJogarColeta = false;
+            }
+            if (keyInput.y > 0 && futebolDoor == true)
+            {
                 spawnHUBPoints.Value = 2;
                 lobbyController.DelayStart("Futebol");
-				//ButtonJogarCorrida = false;
-			}
-			if (joy.Vertical >= 0.8f && motoDoor == true)
-			{
+                //ButtonJogarCorrida = false;
+            }
+            if (keyInput.y > 0 && motoDoor == true)
+            {
                 spawnHUBPoints.Value = 3;
                 lobbyController.DelayStart("Moto");
-				//ButtonJogarColeta = false;
-			}
-			if (joy.Vertical >= 0.8f && voleiDoor == true)
-			{
+                //ButtonJogarColeta = false;
+            }
+            if (keyInput.y > 0 && voleiDoor == true)
+            {
                 spawnHUBPoints.Value = 4;
                 lobbyController.DelayStart("Volei");
-				//ButtonJogarCorrida = false;
-			}
-			/*if (joy.Vertical >= 0.8f && ButtonRoupa != null && ButtonRoupa.activeSelf == true)
-			{
-                SceneManager.LoadScene("Customiza");
-                //lobbyController.DelayStart("Customizar");
-                //ButtonJogarColeta = false;
-            }*/
-		}
+                //ButtonJogarCorrida = false;
+            }
+        }
 		joyGambiarra = joy.Vertical;
 
 	}

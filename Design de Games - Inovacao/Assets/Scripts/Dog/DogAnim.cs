@@ -50,7 +50,6 @@ public class DogAnim : MonoBehaviour
             else if (moveAmount.y < -2)
             {
                 PlayAnim("Down");
-                Debug.Log(moveAmount.y);
             }
 
             else

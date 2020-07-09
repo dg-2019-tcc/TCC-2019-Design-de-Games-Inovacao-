@@ -50,12 +50,13 @@ public class DogMovement : MonoBehaviour
     
     DogAnim dogAnim;
 
-
+    public BoolVariable buildPC;
     public int trickIndex;
 
 
     void Start()
     {
+        buildPC = Resources.Load<BoolVariable>("BuildPC");
         anim = GetComponent<Animator>();
 
         dogAnim = GetComponent<DogAnim>();
@@ -74,7 +75,14 @@ public class DogMovement : MonoBehaviour
     void Update()
     {
         if (trick) return;
-        joyInput = new Vector2(joyStick.Horizontal, joyStick.Vertical);
+        if (buildPC.Value == false)
+        {
+            joyInput = new Vector2(joyStick.Horizontal, joyStick.Vertical);
+        }
+        else
+        {
+            joyInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        }
         //joyInput = playerMove.joyInput;
         if (joyInput.x > 0.3f || joyInput.x < -0.3f)
         {

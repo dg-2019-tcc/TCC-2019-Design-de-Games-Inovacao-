@@ -40,6 +40,8 @@ public class PlayerThings : MonoBehaviour
     [SerializeField]
     public FloatingJoystick joyStick;
 
+    public NewPlayerMovent playerMove;
+
     public GameObject playerParado;
     public GameObject playerAndando;
 
@@ -47,12 +49,17 @@ public class PlayerThings : MonoBehaviour
 
     public float autoScroll;
     public bool isColeta;
+    Vector2 input;
+
+    public BoolVariable buildPC;
 
     void Start()
     {
         controller = GetComponent<Controller2D>();
         PV = GetComponent<PhotonView>();
-		
+        playerMove = GetComponent<NewPlayerMovent>();
+        buildPC = Resources.Load<BoolVariable>("BuildPC");
+
 
         joyStick = FindObjectOfType<FloatingJoystick>();
 		if (PhotonNetwork.InRoom && !PV.Owner.IsLocal)
@@ -75,7 +82,7 @@ public class PlayerThings : MonoBehaviour
         }
 
 
-        if (desativaCanvas == true)
+        if (desativaCanvas == true || buildPC.Value == true)
         {
             canvasSelf.SetActive(false);
         }
@@ -99,7 +106,7 @@ public class PlayerThings : MonoBehaviour
 
     void Update()
     {
-        if(desativaCanvas && canvasSelf.activeSelf)
+        if((desativaCanvas && canvasSelf.activeSelf) || buildPC.Value == true)
         {
             canvasSelf.SetActive(false);
         }
@@ -120,24 +127,25 @@ public class PlayerThings : MonoBehaviour
         {
             if (shouldTurn)
             {
-                if (joyStick.Horizontal > 0 && !rightDir)
+                if (buildPC.Value)
                 {
+                    input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+                }
 
-
-
+                if (joyStick.Horizontal > 0 || input.x > 0 && !rightDir)
+                {
                     rightDir = true;
                     leftDir = false;
                     ThrowObject.dirRight = false;
 
-
-
 					GiraOn(rightDir);
+                    Debug.Log("Direita");
 
 				}
-                else if (joyStick.Horizontal < 0 && !leftDir)
+                else if (joyStick.Horizontal < 0 || input.x < 0 && !leftDir)
                 {
 
-
+                    Debug.Log("Esquerda");
                     leftDir = true;
                     rightDir = false;
                     ThrowObject.dirLeft = false;
