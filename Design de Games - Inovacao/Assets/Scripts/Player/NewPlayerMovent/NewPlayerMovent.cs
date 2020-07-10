@@ -136,6 +136,11 @@ public class NewPlayerMovent : MonoBehaviour
                 velocity.y = maxJumpHeight.Value;
                 Debug.Log("Pulo");
             }
+
+            if (Input.GetKeyUp(KeyCode.X))
+            {
+                velocity.y = minJumpHeight.Value;
+            }
         }
 
         if (!carroActive.Value && !pipaActive.Value)
@@ -228,6 +233,10 @@ public class NewPlayerMovent : MonoBehaviour
             carroVelocity.y = maxJumpHeight.Value;
         }
 
+        if (Input.GetKeyUp(KeyCode.X))
+        {
+            carroVelocity.y = minJumpHeight.Value;
+        }
         targetVelocityX = input.x * carroMoveSpeed;
         carroVelocity.x = Mathf.SmoothDamp(carroVelocity.x, targetVelocityX, ref carroVelocityXSmoothing, (controller.collisions.below) ? carroAccelerationTimeGrounded : carroAccelerationTimeAirborne);
         carroVelocity.y += gravity * Time.deltaTime;

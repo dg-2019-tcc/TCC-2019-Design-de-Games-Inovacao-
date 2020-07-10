@@ -190,9 +190,12 @@ public class PortaManager : MonoBehaviour
                 lobbyController.DelayStart("Volei");
                 //ButtonJogarCorrida = false;
             }
-			joyGambiarra = joy.Vertical;
-		}
-		
+        }
+
+        if (buildPC.Value == false)
+        {
+            joyGambiarra = joy.Vertical;
+        }
 
 	}
 

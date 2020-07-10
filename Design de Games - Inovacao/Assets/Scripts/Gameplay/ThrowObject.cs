@@ -54,6 +54,7 @@ public class ThrowObject : MonoBehaviour
 
     public DogMovement dogMove;
     private DogController dogController;
+    private bool isOnline;
 
     private void Awake()
     {
@@ -64,6 +65,15 @@ public class ThrowObject : MonoBehaviour
         dogController = GetComponent<DogController>();
 
         tiroImage = tiroButton.GetComponent<Image>();
+
+        if (PhotonNetwork.InRoom)
+        {
+            isOnline = true;
+        }
+        else
+        {
+            isOnline = false;
+        }
     }
 
 
@@ -78,12 +88,6 @@ public class ThrowObject : MonoBehaviour
                 atirou = false;
 
             }
-            if (Input.GetKeyDown(KeyCode.Z))
-            {
-                direction = new Vector2(0.5f, 0);
-                photonView.RPC("Shoot", RpcTarget.All);
-            }
-
         }
 
 
@@ -107,7 +111,8 @@ public class ThrowObject : MonoBehaviour
     [PunRPC]
     void Shoot()
     {
-		if (PhotonNetwork.IsConnected && !(bool)photonView.Owner.CustomProperties["dogValue"]) return;
+        Debug.Log("Atirou");
+		if (isOnline && !(bool)photonView.Owner.CustomProperties["dogValue"]) return;
         GameObject bullet;
         bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);// as GameObject;
         shootAnim = false;
@@ -126,14 +131,16 @@ public class ThrowObject : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         shootAnim = false;
         anim.DogButtonAnim(shootAnim);
-		if (PhotonNetwork.IsConnected)
+		if (isOnline)
 		{
-			photonView.RPC("Shoot", RpcTarget.All);
+            Debug.Log("Atirou");
+            photonView.RPC("Shoot", RpcTarget.All);
 		}
 		else
 		{
-			Shoot();
-		}
+            Debug.Log("Atirou");
+            Shoot();
+        }
     }
 
 
