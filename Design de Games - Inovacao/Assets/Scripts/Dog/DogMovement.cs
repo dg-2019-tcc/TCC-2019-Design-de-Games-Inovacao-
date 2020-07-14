@@ -36,14 +36,11 @@ public class DogMovement : MonoBehaviour
     public UnityEngine.Transform dogPosInicial;
 
     public float delay =0.1f;
-
     bool isMoving;
     bool isJumping;
-
     float jumpTimes;
-
     bool isDown;
-
+    bool isFar;
     public bool trick;
 
     private Animator anim;
@@ -80,8 +77,6 @@ public class DogMovement : MonoBehaviour
         targetVelocityX = input.x * speed;
         velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (dogController.collisions.below) ? accelerationTimeGrounded : accelerationTimeAirborne);
 
-        //dogController.Move(velocity * Time.deltaTime, input);
-        //Debug.Log(velocity.y);
 
         if (playerMove.slowFall == false)
         {
@@ -101,7 +96,6 @@ public class DogMovement : MonoBehaviour
                 //velocity.y = -0.000001f;
             }
         }
-
         else
         {
             if (isJumping == false)
@@ -112,8 +106,16 @@ public class DogMovement : MonoBehaviour
             }
         }
 
+        if (transform.position.y - player.transform.position.y > 1 || transform.position.y - player.transform.position.y < -2 && isJumping == false)
+        {
+            IsFar();
+        }
 
-        //dogController.Move(velocity * Time.deltaTime, input);
+        else
+        {
+            input.y = joyInput.y;
+        }
+
 
         if (transform.position.x > player.transform.position.x)
         {
@@ -125,32 +127,6 @@ public class DogMovement : MonoBehaviour
             dog.transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, 0, 0), 0.5f);
         }
 		
-        if(transform.position.y - player.transform.position.y > 1)
-        {
-            input.y = -1;
-        }
-
-        else
-        {
-            input.y = joyInput.y;
-        }
-		
-        if(transform.position.y - player.transform.position.y < -2 && isJumping == false)
-        {
-            DogJump();
-            jumpTimes++;
-
-            if(transform.position.x - player.transform.position.x > 0)
-            {
-                velocity.x = -1 * Mathf.Abs(transform.position.x - player.transform.position.x) - 1;
-            }
-
-            if (transform.position.x - player.transform.position.x < 0)
-            {
-                velocity.x = 1 * Mathf.Abs(transform.position.x - player.transform.position.x) + 1;
-            }
-        }
-
         if(transform.position.y - player.transform.position.y >= 0)
         {
             jumpTimes = 0;
@@ -161,7 +137,7 @@ public class DogMovement : MonoBehaviour
             velocity.x = 0;
         }
 
-        if (/*controller.collisions.below &&*/ playerTriggerController.collisions.caixaDagua)
+        if (playerTriggerController.collisions.caixaDagua)
         {
             velocity.y = maxJumpHeight * 1.8f;
         }
@@ -169,6 +145,30 @@ public class DogMovement : MonoBehaviour
         dogController.Move(velocity * Time.deltaTime, input);
         dogAnim.ChangeDogAnim(velocity, input);
 
+    }
+
+    void IsFar()
+    {
+        if (transform.position.y - player.transform.position.y > 1)
+        {
+            input.y = -1;
+        }
+
+        if (transform.position.y - player.transform.position.y < -2 && isJumping == false)
+        {
+            DogJump();
+            jumpTimes++;
+
+            if (transform.position.x - player.transform.position.x > 0)
+            {
+                velocity.x = -1 * Mathf.Abs(transform.position.x - player.transform.position.x) - 1;
+            }
+
+            if (transform.position.x - player.transform.position.x < 0)
+            {
+                velocity.x = 1 * Mathf.Abs(transform.position.x - player.transform.position.x) + 1;
+            }
+        }
     }
 
 
