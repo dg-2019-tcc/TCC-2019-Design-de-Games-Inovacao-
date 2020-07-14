@@ -119,6 +119,7 @@ public class AIMovement : MonoBehaviour
             velocity.y = 0;
         }
 
+
         if (triggerController.triggerCollision.caixaDagua)
         {
             velocity.y = maxJumpHeight * 1.8f;

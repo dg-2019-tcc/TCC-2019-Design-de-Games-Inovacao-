@@ -139,13 +139,11 @@ public class PlayerThings : MonoBehaviour
                     ThrowObject.dirRight = false;
 
 					GiraOn(rightDir);
-                    Debug.Log("Direita");
 
 				}
                 else if (joyStick.Horizontal < 0 || input.x < 0 && !leftDir)
                 {
 
-                    Debug.Log("Esquerda");
                     leftDir = true;
                     rightDir = false;
                     ThrowObject.dirLeft = false;

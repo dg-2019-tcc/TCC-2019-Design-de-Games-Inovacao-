@@ -80,8 +80,9 @@ public class DogMovement : MonoBehaviour
         targetVelocityX = input.x * speed;
         velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (dogController.collisions.below) ? accelerationTimeGrounded : accelerationTimeAirborne);
 
-        dogController.Move(velocity * Time.deltaTime, input);
-		
+        //dogController.Move(velocity * Time.deltaTime, input);
+        //Debug.Log(velocity.y);
+
         if (playerMove.slowFall == false)
         {
             velocity.y += gravity * Time.deltaTime;
@@ -91,25 +92,9 @@ public class DogMovement : MonoBehaviour
             velocity.y = -3.5f;
         }
 
-        if (dogController.collisions.below && playerMove.jump && isJumping == false)
-        {
-            //DogJump();
-            jumpTimes = 0;
-            isJumping = true;
-            Invoke("DogJump", delay);
-        }
 
-		if (dogController.collisions.above || dogController.collisions.below)
-		{
-			isJumping = false;
-			velocity.y = 0;
-		}
-		else
-		{
-			Debug.Log("failed dog check");																		//toda vez que esse falha, a animação muda da idle e isso pesa bastante no fps tbm
-		}
-				
-		
+        //dogController.Move(velocity * Time.deltaTime, input);
+
         if (transform.position.x > player.transform.position.x)
         {
             dog.transform.rotation = Quaternion.Slerp(dog.transform.rotation, Quaternion.Euler(0, 180, 0), 0.5f);
@@ -160,7 +145,32 @@ public class DogMovement : MonoBehaviour
         {
             velocity.y = maxJumpHeight * 1.8f;
         }
-		
+
+        if (dogController.collisions.below)
+        {
+            isJumping = false;
+            velocity.y = -0.1f;
+
+            Debug.Log(dogController.collisions.below);
+            Debug.Log(velocity.y);
+            Debug.Log("dog check");
+
+            if (playerMove.jump && isJumping == false)
+            {
+                jumpTimes = 0;
+                isJumping = true;
+                Invoke("DogJump", delay);
+                Debug.Log("dog jump check");
+            }
+        }
+        else
+        {
+            Debug.Log(dogController.collisions.below);
+            Debug.Log(velocity.y);
+            Debug.Log("failed dog check");                                                                      //toda vez que esse falha, a animação muda da idle e isso pesa bastante no fps tbm
+        }
+
+        dogController.Move(velocity * Time.deltaTime, input);
         dogAnim.ChangeDogAnim(velocity, input);
 
     }

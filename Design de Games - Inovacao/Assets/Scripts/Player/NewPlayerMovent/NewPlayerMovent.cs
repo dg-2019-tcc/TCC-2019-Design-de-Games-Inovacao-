@@ -134,7 +134,6 @@ public class NewPlayerMovent : MonoBehaviour
             if(Input.GetKeyDown(KeyCode.X) && controller.collisions.below)
             {
                 velocity.y = maxJumpHeight.Value;
-                Debug.Log("Pulo");
             }
 
             if (Input.GetKeyUp(KeyCode.X))

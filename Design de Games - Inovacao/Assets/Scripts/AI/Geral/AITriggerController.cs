@@ -169,7 +169,6 @@ public class AITriggerController : RaycastController
 
                 if (hit.collider.CompareTag("Futebol"))
                 {
-                    Debug.Log("Esquerda");
                     if (rbBola == null)
                     {
                         rbBola = hit.collider.GetComponent<Rigidbody2D>();
@@ -185,7 +184,6 @@ public class AITriggerController : RaycastController
                         {
                             triggerCollision.chutouBall = true;
                             triggerCollision.ativaAnimChute = true;
-                            Debug.Log("Chuta");
                         }
                     }
                 }

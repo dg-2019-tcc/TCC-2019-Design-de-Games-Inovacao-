@@ -70,7 +70,6 @@ public class CustomDisplay : MonoBehaviour
 
         if (!PhotonNetwork.InRoom)
         {
-            Debug.Log("NotRoom");
             TrocaCabelo(hair.prop2DInd);
             //TrocaMaterialCabelo(hair.colorIndex);
             TrocaCamisa(shirt.prop2DInd);
@@ -91,7 +90,6 @@ public class CustomDisplay : MonoBehaviour
 
         else
         {
-            Debug.Log("Room");
             TrocaCabelo((int)pv.Owner.CustomProperties["hairIndex"]);
             //TrocaMaterialCabelo((int)pv.Owner.CustomProperties["hairColorIndex"]);
             TrocaCamisa((int)pv.Owner.CustomProperties["shirtIndex"]);
