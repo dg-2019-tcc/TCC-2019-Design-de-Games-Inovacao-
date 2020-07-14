@@ -92,6 +92,26 @@ public class DogMovement : MonoBehaviour
             velocity.y = -3.5f;
         }
 
+        if (playerMove.jump == false)
+        {
+            if (dogController.collisions.below)
+            {
+                isJumping = false;
+                velocity.y = -0.000001f;
+                //velocity.y = -0.000001f;
+            }
+        }
+
+        else
+        {
+            if (isJumping == false)
+            {
+                jumpTimes = 0;
+                isJumping = true;
+                Invoke("DogJump", delay);
+            }
+        }
+
 
         //dogController.Move(velocity * Time.deltaTime, input);
 
@@ -144,30 +164,6 @@ public class DogMovement : MonoBehaviour
         if (/*controller.collisions.below &&*/ playerTriggerController.collisions.caixaDagua)
         {
             velocity.y = maxJumpHeight * 1.8f;
-        }
-
-        if (dogController.collisions.below)
-        {
-            isJumping = false;
-            velocity.y = -0.1f;
-
-            Debug.Log(dogController.collisions.below);
-            Debug.Log(velocity.y);
-            Debug.Log("dog check");
-
-            if (playerMove.jump && isJumping == false)
-            {
-                jumpTimes = 0;
-                isJumping = true;
-                Invoke("DogJump", delay);
-                Debug.Log("dog jump check");
-            }
-        }
-        else
-        {
-            Debug.Log(dogController.collisions.below);
-            Debug.Log(velocity.y);
-            Debug.Log("failed dog check");                                                                      //toda vez que esse falha, a animação muda da idle e isso pesa bastante no fps tbm
         }
 
         dogController.Move(velocity * Time.deltaTime, input);

@@ -113,7 +113,6 @@ public class DogController : MonoBehaviour
         {
             if (desativaPower.Value == true)
             {
-                Debug.Log("dESATIVA");
                 ChangeState("IdleState");
             }
 

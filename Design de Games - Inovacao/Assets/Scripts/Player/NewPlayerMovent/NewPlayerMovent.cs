@@ -133,11 +133,13 @@ public class NewPlayerMovent : MonoBehaviour
 
             if(Input.GetKeyDown(KeyCode.X) && controller.collisions.below)
             {
+                jump = true;
                 velocity.y = maxJumpHeight.Value;
             }
 
             if (Input.GetKeyUp(KeyCode.X))
             {
+                jump = true;
                 velocity.y = minJumpHeight.Value;
             }
         }
