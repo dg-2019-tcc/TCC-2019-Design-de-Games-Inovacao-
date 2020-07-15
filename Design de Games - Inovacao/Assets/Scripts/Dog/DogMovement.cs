@@ -92,7 +92,7 @@ public class DogMovement : MonoBehaviour
             if (dogController.collisions.below)
             {
                 isJumping = false;
-                velocity.y = -0.000001f;
+                velocity.y = -0.00001f;
                 //velocity.y = -0.000001f;
             }
         }
