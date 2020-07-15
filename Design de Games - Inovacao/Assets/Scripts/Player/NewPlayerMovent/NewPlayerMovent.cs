@@ -137,11 +137,11 @@ public class NewPlayerMovent : MonoBehaviour
                 velocity.y = maxJumpHeight.Value;
             }
 
-            if (Input.GetKeyUp(KeyCode.X))
+            /*if (Input.GetKeyUp(KeyCode.X))
             {
                 jump = true;
                 velocity.y = minJumpHeight.Value;
-            }
+            }*/
         }
 
         if (!carroActive.Value && !pipaActive.Value)
