@@ -30,18 +30,12 @@ public class GameFlowManager : MonoBehaviour
     private bool liberou;
     private bool resetou;
 
-    public OfflineMode offlineMode;
 
 	private string sceneName;
 
     private void Start()
     {
-       // buildProfs = true;
-        liberou = false;
-        resetou = false;
-
-        offlineMode = FindObjectOfType<OfflineMode>();
-
+        sceneName = SceneManager.GetActiveScene().name;
 
         if (aiGanhou == null)
         {

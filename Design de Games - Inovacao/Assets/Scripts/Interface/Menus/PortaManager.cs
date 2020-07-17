@@ -61,6 +61,11 @@ public class PortaManager : MonoBehaviour
 			joy = FindObjectOfType<Joystick>();
 		}
 
+        if(controller == null)
+        {
+            controller = FindObjectOfType<TriggerCollisionsController>();
+        }
+
         if (controller.collisions.isDoor != true)
         {
 			CloseDoor();
