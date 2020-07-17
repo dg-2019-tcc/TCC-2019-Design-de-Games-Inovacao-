@@ -80,7 +80,7 @@ public class GameFlowManager : MonoBehaviour
 
     public void AtivaFase(int level)
     {
-        switch (index)
+        switch (level)
         {
             case 9 :
                 Completo();

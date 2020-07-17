@@ -65,6 +65,7 @@ public class GameFlowController : MonoBehaviour
 
     public void FlowHUB()
     {
+        FindLevelIndex();
         flowManager.AtivaFase(levelIndex);
     }
     
