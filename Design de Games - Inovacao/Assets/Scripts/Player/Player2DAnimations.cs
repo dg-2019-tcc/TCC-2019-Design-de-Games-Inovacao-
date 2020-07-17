@@ -30,6 +30,8 @@ public class Player2DAnimations : MonoBehaviour
 	public enum State {Idle, Walking, Rising, Falling, Aterrisando, Chutando, Arremessando, Inativo, Pipa, CarroWalk, CarroUp, CarroDown, Stun, Ganhou, Perdeu}
 
 	public State state = State.Idle;
+    public State oldState;
+    public State nextState;
 
 	private Controller2D controller;
 	[SerializeField]
@@ -52,7 +54,7 @@ public class Player2DAnimations : MonoBehaviour
 	[SerializeField]
 	private bool jaAterrisou;
 	[SerializeField]
-	private float coolToIdle;
+	private float coolToNext;
 
 	public BoolVariable pipaActive;
 	public BoolVariable carroActive;
@@ -92,20 +94,15 @@ public class Player2DAnimations : MonoBehaviour
 
 	}
 
-	[PunRPC]
-	void ChangeArmature()
-	{
-		lado.SetActive(true);
-		frente.SetActive(false);
-	}
-
-
-
-	public void ChangeMoveAnim(Vector3 moveAmount, Vector2 oldPos, Vector2 input, bool stun, bool ganhou)
+    public void ChangeMoveAnim(Vector3 moveAmount, Vector2 oldPos, Vector2 input, bool stun, bool ganhou)
 	{
 
 		if (!PhotonNetwork.InRoom || photonView.IsMine)
 		{
+            if(lado.activeInHierarchy == true && frente.activeInHierarchy == true)
+            {
+                lado.SetActive(false);
+            }
             if (textoAtivo.Value == false)
             {
 
@@ -117,39 +114,38 @@ public class Player2DAnimations : MonoBehaviour
                         if (/*oldPos.y < moveAmount.y*/ moveAmount.y > 0 /*&& controller.collisions.below == false*/)
                         {
                             jaAterrisou = false;
-                            PlayAnim("NoArUp");
+                            nextState = State.Rising;
                         }
 
                         else if (moveAmount.y < 0 && controller.collisions.below == false /*&& jaAterrisou == false*/)
                         {
-                            PlayAnim("Fall");
+                            nextState = State.Falling;
                         }
 
                         else if (input.x != 0 && controller.collisions.below)
                         {
-                            PlayAnim("Walking");
+                            nextState = State.Walking;
                         }
 
                         else
                         {
-                            PlayAnim("Idle");
+                            nextState = State.Idle;
                         }
                     }
 
                     else if (carroActive.Value == false && pipaActive.Value == false && dogButtonAnim == false && stun)
                     {
-                        PlayAnim("Stun");
+                        nextState = State.Stun;
                     }
 
                     else if (pipaActive.Value == true)
                     {
-                        PlayAnim("Pipa");
+                        nextState = State.Pipa;
                     }
 
                     else if (carroActive.Value == true)
                     {
-                        PlayAnim("CarroWalk");
-
+                        nextState = State.CarroWalk;
                     }
                 }
 
@@ -158,19 +154,24 @@ public class Player2DAnimations : MonoBehaviour
                 {
                     if (ganhou)
                     {
-                        PlayAnim("Ganhou");
+                        nextState = State.Ganhou;
                     }
 
                     else
                     {
-                        PlayAnim("Perdeu");
+                        nextState = State.Perdeu;
                     }
                 }
             }
 
             else
             {
-                PlayAnim("Idle");
+                nextState = State.Idle;
+            }
+
+            if(nextState != state)
+            {
+                PlayAnim(nextState);
             }
         }
 	}
@@ -183,22 +184,24 @@ public class Player2DAnimations : MonoBehaviour
 		{
 			if (fase == 0)
 			{
-				PlayAnim("Arremesso");
+                nextState = State.Arremessando;
 			}
 
 			else if (fase == 1)
 			{
-				PlayAnim("Chute");
+                nextState = State.Chutando;
 			}
 		}
 
 		else
 		{
-			PlayAnim("Idle");
+            nextState = State.Idle;
 		}
+        Debug.Log(nextState);
+        PlayAnim(nextState);
 	}
 
-	private void PlayAnim(string anim)
+	private void PlayAnim(State anim)
 	{
 		if (isOnline)
 		{
@@ -211,65 +214,63 @@ public class Player2DAnimations : MonoBehaviour
 
 	}
 
-	[PunRPC]
-	public void AnimState(string anim)
-	{
-		if (state == State.Idle || state == State.Inativo)
-		{
-			if(anim == "Walking" || anim == "NoArUp" || anim == "Fall" || anim == "Aterrisando" || anim == "Chute" || anim == "Arremesso" || anim == "Abaixar" || anim == "TransitionAir" || anim == "Pipa" || anim == "CarroWalk")
-			{
+    void Cooldown()
+    {
+        coolToNext += Time.deltaTime;
+        Debug.Log(coolToNext);
+    }
+
+    [PunRPC]
+    public void AnimState(State anim)
+    {
+        if (state == State.Idle || state == State.Inativo)
+        {
+            if (anim == State.Walking || anim == State.Rising || anim == State.Falling|| anim == State.Pipa || anim == State.CarroWalk)
+            {
                 lado.SetActive(true);
                 playerFrente.animation.Play(idlePose);
-				frente.SetActive(false);
-			}
-		}
-		switch (anim)
-		{
-            case "CarroWalk":
-                if(state != State.CarroWalk)
+                frente.SetActive(false);
+            }
+        }
+        if (state == State.Walking || state == State.Rising || state == State.Falling || state == State.Pipa || state == State.CarroWalk)
+        {
+            if(anim == State.Idle || anim == State.Stun || anim == State.Ganhou|| anim == State.Perdeu)
+            {
+                frente.SetActive(true);
+                lado.SetActive(false);
+            }
+        }
+
+        switch (anim)
+        {
+            case State.CarroWalk:
+                if (state != State.CarroWalk)
                 {
                     player.animation.Play(carroWalkAnim);
                     state = State.CarroWalk;
                 }
                 break;
 
-            case "CarroUp":
-                if (state != State.CarroUp)
-                {
-                    player.animation.Play(carroUpAnim);
-                    state = State.CarroUp;
-                }
-                break;
-
-            case "CarroDown":
-                if (state != State.CarroDown)
-                {
-                    player.animation.Play(carroDownAnim);
-                    state = State.CarroDown;
-                }
-                break;
-
-            case "Pipa":
-                if(state != State.Pipa)
+            case State.Pipa:
+                if (state != State.Pipa)
                 {
                     player.animation.Play(pipaAnimation);
                     state = State.Pipa;
                 }
                 break;
 
-			case "Idle":
-				if (state != State.Idle)
-				{
-                    coolToIdle = 0;
-					frente.SetActive(true);
-					lado.SetActive(false);
-					playerFrente.animation.timeScale = 1;
-					playerFrente.animation.Play(idlePose);
-					state = State.Idle;
-				}
-				break;
+            case State.Idle:
+                if (state != State.Idle)
+                {
+                    frente.SetActive(true);
+                    lado.SetActive(false);
+                    playerFrente.animation.timeScale = 1;
+                    playerFrente.animation.Play(idlePose);
+                    state = State.Idle;
+                }
+                break;
 
-            case "Stun":
+            case State.Stun:
                 if (state != State.Stun)
                 {
                     frente.SetActive(true);
@@ -279,7 +280,7 @@ public class Player2DAnimations : MonoBehaviour
                 }
                 break;
 
-            case "Ganhou":
+            case State.Ganhou:
                 if (state != State.Ganhou)
                 {
                     frente.SetActive(true);
@@ -289,7 +290,7 @@ public class Player2DAnimations : MonoBehaviour
                 }
                 break;
 
-            case "Perdeu":
+            case State.Perdeu:
                 if (state != State.Perdeu)
                 {
                     frente.SetActive(true);
@@ -298,70 +299,46 @@ public class Player2DAnimations : MonoBehaviour
                     state = State.Perdeu;
                 }
                 break;
+            case State.Walking:
+                if (state != State.Walking)
+                {
+                    player.animation.Play(walkAnimation);
+                    state = State.Walking;
+                }
+                break;
 
-            case "Inatividade":
-				if (state != State.Inativo)
-				{
-					playerFrente.animation.timeScale = 1;
-					playerFrente.animation.Play(inativoAnimation);
-					state = State.Inativo;
-				}
-				break;
-
-			case "Walking":
-				if (state != State.Walking)
-				{
-					player.animation.Play(walkAnimation);
-					state = State.Walking;
-				}
-				break;
-
-			case "NoArUp":
-				if (state != State.Rising)
-				{
+            case State.Rising:
+                if (state != State.Rising)
+                {
                     inativoTime = 0f;
-					//player.animation.timeScale = 1;
-					player.animation.Play(subindoJumpAnimation);
-					state = State.Rising;
-				}
-				break;
-			case "Fall":
-				if (state != State.Falling)
-				{
+                    player.animation.Play(subindoJumpAnimation);
+                    state = State.Rising;
+                }
+                break;
+            case State.Falling:
+                if (state != State.Falling)
+                {
                     inativoTime = 0f;
-					//player.animation.timeScale = 1;
-					player.animation.Play(descendoJumpAnimation);
-					state = State.Falling;
-				}
-				break;
-			case "Aterrisando":
-				if (state != State.Aterrisando)
-				{
-					inativoTime = 0f;
-					//player.animation.timeScale = 1.5f;
-					player.animation.Play(aterrisandoAnimation);
-					state = State.Aterrisando;
-					jaAterrisou = true;
-				}
-				break;
-			case "Chute":
-				if (state != State.Chutando)
-				{
-					inativoTime = 0f;
-					//player.animation.timeScale = 1f;
-					player.animation.Play(chuteAnimation);
-					state = State.Chutando;
-				}
-				break;
-			case "Arremesso":
-				if (state != State.Arremessando)
-				{
-					inativoTime = 0f;
-					//player.animation.timeScale = 1;
-					player.animation.Play(arremessoAnimation);
-					state = State.Arremessando;
-				}
-				break;
-		}
-	}
+                    player.animation.Play(descendoJumpAnimation);
+                    state = State.Falling;
+                }
+                break;
+            case State.Chutando:
+                if (state != State.Chutando)
+                {
+                    inativoTime = 0f;
+                    player.animation.Play(chuteAnimation);
+                    state = State.Chutando;
+                }
+                break;
+            case State.Arremessando:
+                if (state != State.Arremessando)
+                {
+                    inativoTime = 0f;
+                    player.animation.Play(arremessoAnimation);
+                    state = State.Arremessando;
+                }
+                break;
+        }
+    }
 }
