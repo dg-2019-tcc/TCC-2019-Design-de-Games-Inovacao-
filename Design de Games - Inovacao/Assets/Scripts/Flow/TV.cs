@@ -14,7 +14,7 @@ public class TV : MonoBehaviour
 
     public GameObject[] falas;
 
-    public GameFlowManager gameFlow;
+    public GameFlowController flowController;
 
     void Start()
     {
@@ -69,7 +69,6 @@ public class TV : MonoBehaviour
         pointer.enabled = false;
         precisaFalar = false;
         faloComTV = true;
-        Debug.Log(gameFlow.index);
-        gameFlow.AtivaFase();
+        flowController.FlowHUB();
     }
 }

@@ -15,18 +15,10 @@ public class GameFlowManager : MonoBehaviour
     public GameObject[] portas;
     public GameObject[] doorBlock;
 
-
-    public FloatVariable flowIndex;
     public int index;
     public int npcIndex;
 
-    public BoolVariableArray acabou01;
-
-	public GameObject CameraShowoff;
-
     public BoolVariableArray aiGanhou;
-    public BoolVariable resetaFase;
-    public FasesSave fasesSave;
 
     public GameObject teste;
 
@@ -40,12 +32,6 @@ public class GameFlowManager : MonoBehaviour
 
     public OfflineMode offlineMode;
 
-    public bool buildProfs;
-
-    public GameObject resetaButton;
-    public GameObject liberaButton;
-
-
 	private string sceneName;
 
     private void Start()
@@ -56,174 +42,53 @@ public class GameFlowManager : MonoBehaviour
 
         offlineMode = FindObjectOfType<OfflineMode>();
 
-        if(resetaFase.Value == true && resetaFase != null && buildProfs == false)
-        {
-            PlayerPrefs.SetInt("Fase", 0);
-            resetaFase.Value = false;
-        }
-
-
-        //index = PlayerPrefs.GetInt("Fase");
-        // Debug.Log(index);
 
         if (aiGanhou == null)
         {
             aiGanhou = Resources.Load<BoolVariableArray>("AIGanhou");
         }
 
-        if (acabou01 == null)
+        if (sceneName == "HUB")
         {
-            acabou01 = Resources.Load<BoolVariableArray>("Acabou01");
-        }
-
-        if (fasesSave == null)
-        {
-            fasesSave = Resources.Load<FasesSave>("FasesSave");
-        }
-
-        if (flowIndex == null)
-        {
-            flowIndex = Resources.Load<FloatVariable>("FlowIndex");
-        }
-
-        for (int i = 0; i < acabou01.Value.Length; i++)
-        {
-            if (!acabou01.Value[i])
+            if (aiGanhou.Value[index] == true)
             {
-                index = i;
-                
-                break;
+                DestroyNpcs(index - 2);
             }
-
-        }
-        Debug.Log(index);
-
-		// Desativei pq se nao roda a fala do mc
-		/*if (CameraShowoff != null)
-        {
-            CameraShowoff.SetActive(false);
-        }*/
-
-		sceneName = SceneManager.GetActiveScene().name;
-
-		if (buildProfs == false)
-        {
-            if (acabou01.Value[8] == false)
-            {
-                if (sceneName == "MenuPrincipal")
-                {
-                    resetaButton.SetActive(true);
-                    liberaButton.SetActive(true);
-                    offlineButton.SetActive(false);
-                    jogarButton.SetActive(true);
-
-                    PhotonNetwork.OfflineMode = true;
-                    OfflineMode.modoDoOffline = true;
-                }
-
-
-                if (sceneName == "HUB")
-                {
-                    /*PhotonNetwork.OfflineMode = true;
-                    OfflineMode.modoDoOffline = true;*/
-
-
-                    if (aiGanhou.Value[index] == true)
-                    {
-                        AtivaFase();
-                        DestroyNpcs(index - 2);
-                    }
-                    else
-                    {
-                        if (index > 1)
-                        {
-                            DestroyNpcs(index);
-                        }
-                    }
-                }
-            }
-
             else
             {
-                if (sceneName == "MenuPrincipal")
+                if (index > 1)
                 {
-                    offlineButton.SetActive(true);
-                    resetaButton.SetActive(true);
-                    liberaButton.SetActive(true);
+                    DestroyNpcs(index);
                 }
-
-                if (sceneName == "HUB")
-                {
-                    Acabou();
-                    Completo();
-                }
-
             }
         }
 
-        else
-        {
-            if (sceneName == "MenuPrincipal")
-            {
-                resetaButton.SetActive(false);
-                liberaButton.SetActive(false);
-                LiberaTudo();
-                PlayerPrefs.SetInt("Fase", 8);
-                resetaFase.Value = false;
-
-                offlineButton.SetActive(false);
-                jogarButton.SetActive(true);
-
-                PhotonNetwork.OfflineMode = true;
-                OfflineMode.modoDoOffline = true;
-            }
-
-            if (sceneName == "HUB")
-            {
-                Completo();
-                Acabou();
-            }
-        }
     }
 
-    /*private void Update()
+
+
+    public void OfflineButtonOn(bool isOn)
     {
-        if (SceneManager.GetActiveScene().name == "HUB")
-        {
-            if (tv.faloComTV == true && ativouFase == false)
-            {
-                Debug.Log(index);
-                AtivaFase(index);
-            }
-        }
-    }*/
+        offlineButton.SetActive(isOn);
+    }
 
-    public void AtivaFase()
+    public void OnlineMode(bool isOn)
     {
-        //index = PlayerPrefs.GetInt("Fase");
+        PhotonNetwork.OfflineMode = isOn;
+        OfflineMode.modoDoOffline = isOn;
+    }
 
-        for (int i = 0; i < acabou01.Value.Length; i++)
-        {
-
-            if (!acabou01.Value[i])
-            {
-                index = i;
-                break;
-            }
-
-        }
-
+    public void AtivaFase(int level)
+    {
         switch (index)
         {
             case 9 :
                 Completo();
-                Acabou();
                 break;
 
             case 8:
                 //FaseRoupa();
                 Completo();
-                Acabou();
                 break;
 
             case 7:
@@ -252,68 +117,10 @@ public class GameFlowManager : MonoBehaviour
                 FaseColeta();
                 break;
 
-            case 0:
-                Fase0();
-                break;
-
-            default:
-                //FasesSave();
-                Fase0();
-                break;
         }
         tv.precisaFalar = false;
       //  Debug.Log("Flow");
         ativouFase = true;
-    }
-
-    public void ResetaJogo()
-    {
-        if (resetou == false)
-        {
-            PlayerPrefs.SetInt("Fase", 0);
-
-            PhotonNetwork.OfflineMode = true;
-            OfflineMode.modoDoOffline = true;
-
-            resetaFase.Value = true;
-			for (int i = 0; i < acabou01.Value.Length; i++)
-			{
-				acabou01.Value[i] = false;
-                aiGanhou.Value[i] = false;
-			}
-            flowIndex.Value = 0;
-
-            offlineButton.SetActive(false);
-
-            resetou = true;
-            liberou = false;
-           // Debug.Log("Resetou");
-        }
-    }
-
-    public void LiberaTudo()
-    {
-        if (liberou == false)
-        {
-            PlayerPrefs.SetInt("Fase", 8);
-
-            offlineMode.AtivaOffline();
-            /*PhotonNetwork.OfflineMode = false;
-            OfflineMode.modoDoOffline = false;*/
-
-            resetaFase.Value = false;
-			for (int i = 0; i < acabou01.Value.Length; i++)
-			{
-				acabou01.Value[i] = true;
-			}
-			flowIndex.Value = 8;
-
-            offlineButton.SetActive(true);
-
-            liberou = true;
-            resetou = false;
-          //  Debug.Log("Liberou");
-        }
     }
 
     public void DestroyNpcs(int n)
@@ -324,16 +131,9 @@ public class GameFlowManager : MonoBehaviour
         }
     }
 
-    void Fase0()
-    {
-        /*flowIndex.Value = 1;
-        FaseColeta();*/
-    }
-
     public void FaseColeta()
     {
         portas[0].SetActive(true);
-
         doorBlock[0].SetActive(false);
 
     }
@@ -427,17 +227,9 @@ public class GameFlowManager : MonoBehaviour
         doorBlock[6].SetActive(false);
     }
 
-    public void Acabou()
-    {
-
-        acabou01.Value[0] = true;
-        flowIndex.Value++;
-    }
-
     public void Completo()
     {
         DestroyNpcs(8);
-
 
         for (int i = 0; i < portas.Length; i++)
 		{

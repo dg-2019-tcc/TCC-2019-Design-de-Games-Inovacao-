@@ -9,14 +9,16 @@ public class OfflineMode : MonoBehaviour
     public static bool modoDoOffline = false;
     public GameObject eu;
     public BoolVariableArray acabou01;
+    public BoolVariable demo;
 
     private void Awake()
     {
         acabou01 = Resources.Load<BoolVariableArray>("Acabou01");
+        demo = Resources.Load<BoolVariable>("Demo");
 
         DontDestroyOnLoad(eu);
 
-        if (acabou01.Value[8] == false)
+        if (acabou01.Value[8] == false || demo.Value == true)
         {
             modoDoOffline = true;
         }
