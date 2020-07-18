@@ -6,10 +6,18 @@ public class GameSetup : MonoBehaviour
 {
 	public BoolVariable buildPC;
 
+	public FloatVariable moedas;
+
     void Start()
     {
+		LoadCoins();
 		SetVariables();
 		CheckWhichBuild();
+	}
+
+	void LoadCoins()
+	{
+		moedas.Value = PlayerPrefs.GetFloat("Moedas");
 	}
 
 	private void SetVariables()
