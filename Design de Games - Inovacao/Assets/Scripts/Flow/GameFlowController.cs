@@ -32,7 +32,6 @@ public class GameFlowController : MonoBehaviour
             demo = Resources.Load<BoolVariable>("Demo");
         }
 
-        FindLevelIndex();
 
         if(sceneName == "MenuPrincipal")
         {
@@ -50,7 +49,7 @@ public class GameFlowController : MonoBehaviour
         if(levelIndex < 8 || demo.Value == true)
         {
             OfflineButtonMenu(false);
-            flowManager.OnlineMode(false);
+            flowManager.IsOffline(true);
         }
         else
         {

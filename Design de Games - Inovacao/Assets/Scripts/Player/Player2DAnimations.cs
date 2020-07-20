@@ -255,7 +255,7 @@ public class Player2DAnimations : MonoBehaviour
                     player.animation.Play(aterrisandoAnimation);
                     state = State.Aterrisando;
                 }
-                break;
+                return;
 
             case State.CarroWalk:
                 if (state != State.CarroWalk)
@@ -263,7 +263,7 @@ public class Player2DAnimations : MonoBehaviour
                     player.animation.Play(carroWalkAnim);
                     state = State.CarroWalk;
                 }
-                break;
+                return;
 
             case State.Pipa:
                 if (state != State.Pipa)
@@ -271,7 +271,7 @@ public class Player2DAnimations : MonoBehaviour
                     player.animation.Play(pipaAnimation);
                     state = State.Pipa;
                 }
-                break;
+                return;
 
             case State.Idle:
                 if (state != State.Idle)
@@ -282,7 +282,7 @@ public class Player2DAnimations : MonoBehaviour
                     playerFrente.animation.Play(idlePose);
                     state = State.Idle;
                 }
-                break;
+                return;
 
             case State.Stun:
                 if (state != State.Stun)
@@ -292,7 +292,7 @@ public class Player2DAnimations : MonoBehaviour
                     playerFrente.animation.Play(stunAnim);
                     state = State.Stun;
                 }
-                break;
+                return;
 
             case State.Ganhou:
                 if (state != State.Ganhou)
@@ -302,7 +302,7 @@ public class Player2DAnimations : MonoBehaviour
                     playerFrente.animation.Play(vitoriaAnim);
                     state = State.Ganhou;
                 }
-                break;
+                return;
 
             case State.Perdeu:
                 if (state != State.Perdeu)
@@ -312,14 +312,14 @@ public class Player2DAnimations : MonoBehaviour
                     playerFrente.animation.Play(derrotaAnim);
                     state = State.Perdeu;
                 }
-                break;
+                return;
             case State.Walking:
                 if (state != State.Walking)
                 {
                     player.animation.Play(walkAnimation);
                     state = State.Walking;
                 }
-                break;
+                return;
 
             case State.Rising:
                 if (state != State.Rising)
@@ -328,7 +328,7 @@ public class Player2DAnimations : MonoBehaviour
                     player.animation.Play(subindoJumpAnimation);
                     state = State.Rising;
                 }
-                break;
+                return;
             case State.Falling:
                 if (state != State.Falling)
                 {
@@ -336,7 +336,7 @@ public class Player2DAnimations : MonoBehaviour
                     player.animation.Play(descendoJumpAnimation);
                     state = State.Falling;
                 }
-                break;
+                return;
             case State.Chutando:
                 if (state != State.Chutando)
                 {
@@ -344,7 +344,7 @@ public class Player2DAnimations : MonoBehaviour
                     player.animation.Play(chuteAnimation);
                     state = State.Chutando;
                 }
-                break;
+                return;
             case State.Arremessando:
                 if (state != State.Arremessando)
                 {
@@ -352,7 +352,7 @@ public class Player2DAnimations : MonoBehaviour
                     player.animation.Play(arremessoAnimation);
                     state = State.Arremessando;
                 }
-                break;
+                return;
         }
     }
 }

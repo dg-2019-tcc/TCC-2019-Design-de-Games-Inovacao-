@@ -66,10 +66,10 @@ public class GameFlowManager : MonoBehaviour
         offlineButton.SetActive(isOn);
     }
 
-    public void OnlineMode(bool isOn)
+    public void IsOffline(bool isOff)
     {
-        PhotonNetwork.OfflineMode = isOn;
-        OfflineMode.modoDoOffline = isOn;
+        PhotonNetwork.OfflineMode = isOff;
+        OfflineMode.modoDoOffline = isOff;
     }
 
     public void AtivaFase(int level)
