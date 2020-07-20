@@ -72,14 +72,21 @@ public class GameFlowController : MonoBehaviour
     
     void FindLevelIndex()
     {
+        Debug.Log(levelIndex);
         for (int i = 0; i < acabou01.Value.Length; i++)
         {
             if (!acabou01.Value[i])
             {
                 levelIndex = i;
-
+                Debug.Log(i);
                 break;
             }
+
+            else
+            {
+                levelIndex = 9;
+            }
+
         }
     }
 }

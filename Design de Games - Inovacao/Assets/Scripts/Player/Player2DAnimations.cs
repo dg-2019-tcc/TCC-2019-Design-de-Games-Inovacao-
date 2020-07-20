@@ -175,7 +175,7 @@ public class Player2DAnimations : MonoBehaviour
                 nextState = State.Idle;
             }
 
-            if(nextState != state && coolToNext>=0.1f)
+            if(nextState != state && coolToNext>=0.2f)
             {
                 PlayAnim(nextState);
             }
@@ -203,7 +203,6 @@ public class Player2DAnimations : MonoBehaviour
 		{
             nextState = State.Idle;
 		}
-        Debug.Log(nextState);
         PlayAnim(nextState);
 	}
 
@@ -225,7 +224,6 @@ public class Player2DAnimations : MonoBehaviour
     void Cooldown()
     {
         coolToNext += Time.deltaTime;
-        Debug.Log(coolToNext);
     }
 
     [PunRPC]

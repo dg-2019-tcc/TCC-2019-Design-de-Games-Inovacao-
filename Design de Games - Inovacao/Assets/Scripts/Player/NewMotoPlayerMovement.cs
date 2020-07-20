@@ -42,8 +42,11 @@ public class NewMotoPlayerMovement : MonoBehaviour
 	Vector3 motoVelocity;
 
 	public Controller2D controller;
+    private InputController inputController;
+    Vector2 input;
 
-	TriggerCollisionsController triggerController;
+
+    TriggerCollisionsController triggerController;
 	PlayerMotoAnimation animations;
 
 	[SerializeField]
@@ -58,6 +61,7 @@ public class NewMotoPlayerMovement : MonoBehaviour
     void Start()
 	{
 		controller = GetComponent<Controller2D>();
+        inputController = GetComponent<InputController>();
 		triggerController = GetComponent<TriggerCollisionsController>();
 		animations = GetComponent<PlayerMotoAnimation>();
 
@@ -78,9 +82,9 @@ public class NewMotoPlayerMovement : MonoBehaviour
         //if (levouDogada.Value) return;
         if (playerGanhou.Value) return;
 
-        Vector2 input = new Vector2(joyStick.Horizontal, joyStick.Vertical);
+        input = inputController.joyInput;
 
-			float targetVelocityX = (motoSpeedChange.Value + motoMoveSpeed);
+	    float targetVelocityX = (motoSpeedChange.Value + motoMoveSpeed);
         //float targetVelocityX = (Mathf.Clamp(input.x, -1, 0)+1) * (moveSpeed.Value + motoMoveSpeed);
         if (levouDogada.Value == false)
         {
@@ -91,16 +95,32 @@ public class NewMotoPlayerMovement : MonoBehaviour
         {
             velocity.x = 0;
         }
-			velocity.y += gravity * Time.deltaTime;
-			controller.Move(velocity * Time.deltaTime, input);
-			triggerController.MoveDirection(velocity);
-		    animations.ChangeMotoAnim(velocity, oldPosition, levouDogada.Value);
+
+		velocity.y += gravity * Time.deltaTime;
+		controller.Move(velocity * Time.deltaTime, input);
+		triggerController.MoveDirection(velocity);
+		animations.ChangeMotoAnim(velocity, oldPosition, levouDogada.Value);
+
 		if (controller.collisions.above || controller.collisions.below)
-			{
-				velocity.y = 0;
-			}
-		
-	}
+		{
+			velocity.y = 0;
+		}
+
+        if (inputController.pressX == true && controller.collisions.below)
+        {
+            if (controller.collisions.climbingSlope)
+            {
+                //Debug.Log("Pulo");
+                velocity.y = maxJumpHeight + 10f;
+            }
+            else
+            {
+                velocity.y = maxJumpHeight;
+            }
+        }
+
+
+    }
 	private void LateUpdate()
 	{
 		oldPosition = velocity; 

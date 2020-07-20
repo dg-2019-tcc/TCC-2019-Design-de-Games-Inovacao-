@@ -59,8 +59,8 @@ public class NewPlayerMovent : MonoBehaviour
     TriggerCollisionsController triggerController;
     Player2DAnimations animations;
 
-    [SerializeField]
-    public FloatingJoystick joyStick;
+
+    public InputController inputController;
 
 
     private PhotonView pv;
@@ -78,6 +78,7 @@ public class NewPlayerMovent : MonoBehaviour
 
     void Start()
     {
+        inputController = GetComponent<InputController>();
         controller = GetComponent<Controller2D>();
         triggerController = GetComponent<TriggerCollisionsController>();
         animations = GetComponent<Player2DAnimations>();
@@ -89,7 +90,6 @@ public class NewPlayerMovent : MonoBehaviour
         slowGravity = gravity * 0.5f;
 
         pv = GetComponent<PhotonView>();
-        joyStick = FindObjectOfType<FloatingJoystick>();
 
         //Utilizado para fazer os sons dos passos tocarem
         InvokeRepeating("CallFootsteps", 0, 0.3f);
@@ -97,7 +97,6 @@ public class NewPlayerMovent : MonoBehaviour
         aiGanhou = Resources.Load<BoolVariable>("AIGanhou");
         playerGanhou = Resources.Load<BoolVariable>("PlayerGanhou");
         textoAtivo = Resources.Load<BoolVariable>("TextoAtivo");
-        buildPC = Resources.Load<BoolVariable>("BuildPC");
         playerGanhou.Value = false;
 
         if(moveSpeed.Value != 6)
@@ -117,32 +116,15 @@ public class NewPlayerMovent : MonoBehaviour
 		{
 			return;
 		}
-        if (joyStick == null && buildPC.Value == false)
+
+        joyInput = inputController.joyInput;
+
+        if(inputController.pressX == true && controller.collisions.below)
         {
-            joyStick = FindObjectOfType<FloatingJoystick>();
+            jump = true;
+            velocity.y = maxJumpHeight.Value;
         }
 
-        if (buildPC.Value == false)
-        {
-            joyInput = new Vector2(joyStick.Horizontal, joyStick.Vertical);
-        }
-
-        else
-        {
-            joyInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-
-            if(Input.GetKeyDown(KeyCode.X) && controller.collisions.below)
-            {
-                jump = true;
-                velocity.y = maxJumpHeight.Value;
-            }
-
-            /*if (Input.GetKeyUp(KeyCode.X))
-            {
-                jump = true;
-                velocity.y = minJumpHeight.Value;
-            }*/
-        }
 
         if (!carroActive.Value && !pipaActive.Value)
         {
@@ -229,15 +211,11 @@ public class NewPlayerMovent : MonoBehaviour
 
     public void CarroMovement()
     {
-        if ((jump || Input.GetKeyDown(KeyCode.X)) && controller.collisions.below)
+        if (jump && controller.collisions.below)
         {
             carroVelocity.y = maxJumpHeight.Value;
         }
 
-        if (Input.GetKeyUp(KeyCode.X))
-        {
-            carroVelocity.y = minJumpHeight.Value;
-        }
         targetVelocityX = input.x * carroMoveSpeed;
         carroVelocity.x = Mathf.SmoothDamp(carroVelocity.x, targetVelocityX, ref carroVelocityXSmoothing, (controller.collisions.below) ? carroAccelerationTimeGrounded : carroAccelerationTimeAirborne);
         carroVelocity.y += gravity * Time.deltaTime;
