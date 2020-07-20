@@ -96,6 +96,7 @@ public class Player2DAnimations : MonoBehaviour
 
     public void ChangeMoveAnim(Vector3 moveAmount, Vector2 oldPos, Vector2 input, bool stun, bool ganhou)
 	{
+        Cooldown();
 
 		if (!PhotonNetwork.InRoom || photonView.IsMine)
 		{
@@ -120,6 +121,11 @@ public class Player2DAnimations : MonoBehaviour
                         else if (moveAmount.y < 0 && controller.collisions.below == false /*&& jaAterrisou == false*/)
                         {
                             nextState = State.Falling;
+                        }
+
+                        else if(moveAmount.y < -2 && controller.collisions.below == true)
+                        {
+                            nextState = State.Aterrisando;
                         }
 
                         else if (input.x != 0 && controller.collisions.below)
@@ -169,7 +175,7 @@ public class Player2DAnimations : MonoBehaviour
                 nextState = State.Idle;
             }
 
-            if(nextState != state)
+            if(nextState != state && coolToNext>=0.1f)
             {
                 PlayAnim(nextState);
             }
@@ -203,7 +209,9 @@ public class Player2DAnimations : MonoBehaviour
 
 	private void PlayAnim(State anim)
 	{
-		if (isOnline)
+        coolToNext = 0;
+
+        if (isOnline)
 		{
 			photonView.RPC("AnimState", RpcTarget.All, anim);
 		}
@@ -243,6 +251,14 @@ public class Player2DAnimations : MonoBehaviour
 
         switch (anim)
         {
+            case State.Aterrisando:
+                if (state != State.Aterrisando)
+                {
+                    player.animation.Play(aterrisandoAnimation);
+                    state = State.Aterrisando;
+                }
+                break;
+
             case State.CarroWalk:
                 if (state != State.CarroWalk)
                 {
