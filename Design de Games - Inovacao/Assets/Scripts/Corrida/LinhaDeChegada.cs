@@ -19,6 +19,10 @@ public class LinhaDeChegada : MonoBehaviour
 
 	private WinnerManager winnerManager;
 
+	[Header ("Variáveis das Moedas")]
+	public Points moedas;
+	public float moedasGanhasNessaFase;
+
     public void Start()
     {
         euAcabei = false;
@@ -67,6 +71,7 @@ public class LinhaDeChegada : MonoBehaviour
 
 			}
 		}
+		moedas.Add(moedasGanhasNessaFase);
 	}
 
     [PunRPC]

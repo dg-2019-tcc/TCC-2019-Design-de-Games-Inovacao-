@@ -35,7 +35,11 @@ public class ColetaWin : MonoBehaviour
 
     public FeedbackText feedbackWin;
 
-	
+
+	[Header("Variáveis das Moedas")]
+	public Points moedas;
+	public float moedasGanhasNessaFase;
+
 
 	private void Start()
 	{
@@ -156,7 +160,8 @@ public class ColetaWin : MonoBehaviour
 
     IEnumerator AcabouFaseOnline()
     {
-        yield return new WaitForSeconds(3f);
+		moedas.Add(moedasGanhasNessaFase);
+		yield return new WaitForSeconds(3f);
         PhotonNetwork.LoadLevel("TelaVitoria");
     }
 
@@ -165,7 +170,8 @@ public class ColetaWin : MonoBehaviour
     {
         FailMessageManager.manualShutdown = true;
         PhotonNetwork.Disconnect();
-        yield return new WaitForSeconds(3f);
+		moedas.Add(moedasGanhasNessaFase);
+		yield return new WaitForSeconds(3f);
         SceneManager.LoadScene(faseNome);
     }
 

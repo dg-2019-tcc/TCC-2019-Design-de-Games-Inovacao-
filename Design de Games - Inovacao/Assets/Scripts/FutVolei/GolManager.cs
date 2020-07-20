@@ -44,8 +44,12 @@ public class GolManager : MonoBehaviourPunCallbacks
     public static bool desativaBola;
     public static bool ativaBola;
 
+	[Header("Variáveis das Moedas")]
+	public Points moedas;
+	public float moedasGanhasNessaFase;
 
-    private void Start()
+
+	private void Start()
     {
         acabou01 = Resources.Load<BoolVariableArray>("Acabou01");
         aiGanhou = Resources.Load<BoolVariableArray>("AIGanhou");
@@ -174,6 +178,8 @@ public class GolManager : MonoBehaviourPunCallbacks
 					LevelManager.Instance.HistFutebol();
 					//flowIndex.Value = 4;
 				}
+
+				moedas.Add(moedasGanhasNessaFase);
 			}
 		}
     }

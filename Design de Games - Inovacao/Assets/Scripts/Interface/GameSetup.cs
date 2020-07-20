@@ -6,7 +6,7 @@ public class GameSetup : MonoBehaviour
 {
 	public BoolVariable buildPC;
 
-	public FloatVariable moedas;
+	public Points moedas;
 
     void Start()
     {
