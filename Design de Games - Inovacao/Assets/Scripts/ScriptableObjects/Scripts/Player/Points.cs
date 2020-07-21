@@ -13,11 +13,13 @@ public class Points : ScriptableObject
 
 	[Header ("Debug only")]
 	public float lastTimeThisRan = 0;
+
 	public void Add(float points)
 	{
 		if (stopAdding()) return;
 		Value += points;
-		PlayerPrefs.SetFloat("Moedas", Value);
+		PlayerPrefs.SetFloat(this.name, Value);
+		Debug.Log("Setting " + this.name + " as " + Value + " on PlayerPrefs");
 		Instantiate(feedbackCanvas);
 		lastTimeThisRan = Time.time;
 	}
