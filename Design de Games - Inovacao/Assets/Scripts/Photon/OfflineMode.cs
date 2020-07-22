@@ -7,11 +7,44 @@ using Photon.Pun;
 public class OfflineMode : MonoBehaviour
 {
     public static bool modoDoOffline = false;
-    public GameObject eu;
-    public BoolVariableArray acabou01;
-    public BoolVariable demo;
+
+    #region Singleton
+    private static OfflineMode _instance;
+
+    public static OfflineMode Instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                _instance = FindObjectOfType<OfflineMode>();
+                if (_instance == null)
+                {
+                    GameObject go = new GameObject();
+                    go.name = typeof(OfflineMode).Name;
+                    _instance = go.AddComponent<OfflineMode>();
+                    DontDestroyOnLoad(go);
+                }
+            }
+            return _instance;
+        }
+    }
 
     private void Awake()
+    {
+        if (_instance == null)
+        {
+            _instance = this;
+            DontDestroyOnLoad(this.gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+    #endregion
+
+   /* private void Awake()
     {
         acabou01 = Resources.Load<BoolVariableArray>("Acabou01");
         demo = Resources.Load<BoolVariable>("Demo");
@@ -30,18 +63,19 @@ public class OfflineMode : MonoBehaviour
 
         PhotonNetwork.OfflineMode = modoDoOffline;
 
-		LoadGame();
-		StartCoroutine(SaveGame());
-    }
+		//LoadGame();
+		//StartCoroutine(SaveGame());
+    }*/
 
-    public void AtivaOffline()
+    public void AtivaOffline(bool offMode)
     {
-        PhotonNetwork.OfflineMode = true;
+        PhotonNetwork.OfflineMode = offMode;
         modoDoOffline = PhotonNetwork.OfflineMode;
+        Debug.Log("O modo Offline está ativo é" + PhotonNetwork.OfflineMode);
     }
 
 
-	private IEnumerator SaveGame()
+	/*private IEnumerator SaveGame()
 	{
 		yield return new WaitForSeconds(30);
 		for (int i = 0; i < acabou01.Value.Length; i++)
@@ -77,5 +111,5 @@ public class OfflineMode : MonoBehaviour
 			return true;
 		else
 			return false;
-	}
+	}*/
 }

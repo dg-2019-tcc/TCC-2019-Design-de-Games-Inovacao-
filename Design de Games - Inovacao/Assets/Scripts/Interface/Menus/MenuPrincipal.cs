@@ -10,18 +10,15 @@ public class MenuPrincipal : MonoBehaviour
 	[SerializeField]
 	private string nomeDosCreditos;
 
-    public FloatVariable flowIndex;
-    public BoolVariableArray acabou01;
 
     private void Start()
     {
-        acabou01 = Resources.Load<BoolVariableArray>("Acabou01");
-        flowIndex = Resources.Load<FloatVariable>("FlowIndex");
+        GameManager.Instance.LoadGame();
     }
 
     public void ComecaJogo()
     {
-        if(acabou01.Value[0] == true)
+        if(GameManager.levelIndex > 0)
         {
             nomeDoMenu = "HUB";
         }

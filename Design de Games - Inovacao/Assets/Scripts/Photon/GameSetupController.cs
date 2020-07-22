@@ -8,7 +8,7 @@ namespace Complete
 {
     public class GameSetupController : MonoBehaviour
     {
-        public GameManager gameManager;
+        public AISpawner aiSpawner;
 
         public static GameSetupController GS;
 
@@ -97,7 +97,8 @@ namespace Complete
         {
             if (OfflineMode.modoDoOffline && !isTutorial)
             {
-                gameManager.SpawnAI();
+                aiSpawner = FindObjectOfType<AISpawner>();
+                aiSpawner.SpawnAI();
             }
 
             if (alterPlayerCount > allPlayersInSession)                                                     //Contador pra sincronizar e adicionar quantos players entraram na cena
@@ -138,8 +139,8 @@ namespace Complete
 				}
                 if (OfflineMode.modoDoOffline && !isTutorial)
                 {
-                    gameManager.enabled = true;
-                    gameManager.comecouPartida = true;
+                    aiSpawner.enabled = true;
+                    aiSpawner.comecouPartida = true;
                 }
 
                 playerMove.playerThings.comecou = true;

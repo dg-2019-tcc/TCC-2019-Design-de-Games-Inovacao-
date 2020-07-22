@@ -100,12 +100,9 @@ public class BolaFutebol : MonoBehaviour
 
     IEnumerator BolaPos()
     {
-        Debug.Log("Reseta");
         PV.RPC("ResetaBola", RpcTarget.All, true,true, bolaSpawnPoint, resetSpeed);
         yield return new WaitForSeconds(0.8f);
         PV.RPC("ResetaBola", RpcTarget.All, false,false, bolaSpawnPoint, resetSpeed);
-        Debug.Log("Stop");
-
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

@@ -23500,8 +23500,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1068060891}
   - component: {fileID: 1068060890}
+  - component: {fileID: 1068060892}
   m_Layer: 0
-  m_Name: GameManager
+  m_Name: BotSpawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -23570,6 +23571,34 @@ Transform:
   m_Father: {fileID: 1746269014891251714}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1068060892
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1068060889}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8217cd6e040f9249918404f07ada33c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  aiPrefab:
+  - {fileID: 2700553094261141899, guid: b5c6c87f222731c4396114e75ca011b4, type: 3}
+  - {fileID: 2700553094261141899, guid: f8958b33300f01549ad6a4249aaa05f1, type: 3}
+  m_AI:
+  - m_SpawnPoint: {fileID: 1068060891}
+    m_PlayerNumber: 0
+    m_Instance: {fileID: 0}
+    m_WayPointList: []
+    aiMovement: {fileID: 0}
+  wayPointsForAI: []
+  thingsAI: {fileID: 44980810}
+  thingsOnline: {fileID: 0}
+  botScore: {fileID: 11400000, guid: 8b566134829c06c4f870959dc3f30b67, type: 2}
+  aiMovement: {fileID: 0}
+  comecouPartida: 0
+  acabou01: {fileID: 11400000, guid: 5c68756dff61d5944a688b613f239362, type: 2}
 --- !u!1 &1068978474
 GameObject:
   m_ObjectHideFlags: 0

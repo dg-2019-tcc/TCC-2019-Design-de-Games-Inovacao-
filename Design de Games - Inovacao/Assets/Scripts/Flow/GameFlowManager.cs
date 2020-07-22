@@ -74,6 +74,8 @@ public class GameFlowManager : MonoBehaviour
 
     public void AtivaFase(int level)
     {
+        PlayerPrefs.SetInt("GanhouDoKlay", 0);
+        FechaTudo();
         switch (level)
         {
             case 9 :
@@ -127,6 +129,8 @@ public class GameFlowManager : MonoBehaviour
 
     public void FaseColeta()
     {
+        GameManager.Instance.fase = GameManager.Fase.Coleta;
+
         portas[0].SetActive(true);
         doorBlock[0].SetActive(false);
 
@@ -134,6 +138,8 @@ public class GameFlowManager : MonoBehaviour
 
     public void FaseTenis()
     {
+        GameManager.Instance.fase = GameManager.Fase.Tenis;
+
         portas[0].SetActive(false);
         portas[1].SetActive(true);
 
@@ -143,6 +149,7 @@ public class GameFlowManager : MonoBehaviour
 
     public void FaseFutebol()
     {
+        GameManager.Instance.fase = GameManager.Fase.Futebol;
 
         portas[0].SetActive(false);
         portas[1].SetActive(false);
@@ -156,6 +163,7 @@ public class GameFlowManager : MonoBehaviour
 
     public void FaseMoto()
     {
+        GameManager.Instance.fase = GameManager.Fase.Moto;
 
         portas[0].SetActive(false);
         portas[1].SetActive(false);
@@ -171,6 +179,8 @@ public class GameFlowManager : MonoBehaviour
 
     public void FaseCabelo()
     {
+        GameManager.Instance.fase = GameManager.Fase.Cabelo;
+
         portas[0].SetActive(false);
         portas[1].SetActive(false);
         portas[2].SetActive(false);
@@ -186,6 +196,8 @@ public class GameFlowManager : MonoBehaviour
 
     public void FaseCorrida()
     {
+        GameManager.Instance.fase = GameManager.Fase.Corrida;
+
         portas[0].SetActive(false);
         portas[1].SetActive(false);
         portas[2].SetActive(false);
@@ -204,6 +216,8 @@ public class GameFlowManager : MonoBehaviour
 
     public void FaseRoupa()
     {
+        GameManager.Instance.fase = GameManager.Fase.Bazar;
+
         portas[0].SetActive(false);
         portas[1].SetActive(false);
         portas[2].SetActive(false);
@@ -242,23 +256,11 @@ public class GameFlowManager : MonoBehaviour
     {
         ativouFase = false;
 
-        portas[0].SetActive(false);
-        portas[1].SetActive(false);
-        portas[2].SetActive(false);
-        portas[3].SetActive(false);
-        portas[4].SetActive(false);
-        portas[5].SetActive(false);
-        portas[6].SetActive(false);
-        portas[7].SetActive(false);
-
-        doorBlock[0].SetActive(true);
-        doorBlock[1].SetActive(true);
-        doorBlock[2].SetActive(true);
-        doorBlock[3].SetActive(true);
-        doorBlock[4].SetActive(true);
-        doorBlock[5].SetActive(true);
-        doorBlock[6].SetActive(true);
-        doorBlock[7].SetActive(true);
+        for(int i = 0; i < portas.Length; i++)
+        {
+            portas[i].SetActive(false);
+            doorBlock[i].SetActive(true);
+        }
     }
 
     public void VoltaMenu()

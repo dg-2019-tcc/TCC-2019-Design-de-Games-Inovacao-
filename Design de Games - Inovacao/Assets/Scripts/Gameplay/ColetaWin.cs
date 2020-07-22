@@ -43,12 +43,12 @@ public class ColetaWin : MonoBehaviour
 
 	private void Start()
 	{
-        indexTutorial = PlayerPrefs.GetInt("Fase");
+        /*indexTutorial = PlayerPrefs.GetInt("Fase");
         PlayerPrefs.SetInt("GanhouColeta", 0);
         if(indexTutorial == 8)
         {
             acabouTutorial = true;
-        }
+        }*/
 
 		coletavelGerador = FindObjectOfType<ColetavelGerador>();
         aiGanhou = Resources.Load<BoolVariableArray>("AIGanhou");
@@ -65,8 +65,7 @@ public class ColetaWin : MonoBehaviour
 
 	void Update()
     {
-        if (acabouTutorial == true)
-        {
+
             foreach (Photon.Realtime.Player p in PhotonNetwork.PlayerList)
             {
 				//Debug.Log(p.ActorNumber);
@@ -97,42 +96,47 @@ public class ColetaWin : MonoBehaviour
                 if (OfflineMode.modoDoOffline && compareScore < 4)
                 {
 					feedbackWin.Perdeu();
-					winning.CustomProperties["Ganhador"] = 0;
+
+                    LevelManager.Instance.Perdeu();
+					/*winning.CustomProperties["Ganhador"] = 0;
 					PlayerPrefs.SetInt("GanhouColeta", 0);
 					PlayerPrefs.SetInt("AIGanhou", 1);
 					aiGanhou.Value[2] = true;
 					playerGanhou.Value = false;
 					faseNome = "TelaVitoria";
-					StartCoroutine("AcabouFase");
+					StartCoroutine("AcabouFase");*/
 
 				}
                 else
                 {
 					if (PhotonNetwork.LocalPlayer == winning)
 					{
+                        LevelManager.Instance.Ganhou();
 						Debug.Log("Ganhou");
 						feedbackWin.Ganhou();
 						winning.CustomProperties["Ganhador"] = 1;
 					}
 					else
 					{
+                        LevelManager.Instance.Perdeu();
 						Debug.Log("Perdeu");
 						feedbackWin.Perdeu();
 					}
-                    StartCoroutine("AcabouFaseOnline");
+                    //StartCoroutine("AcabouFaseOnline");
                 }
                 ganhouJa = true;
 
             }   
-        }
+        
 
-        else
+        /*else
         {
             if (coletavelGerador.coletaveis.Length <= 0)
             {
                 if (botScore.Value >= 4)
                 {
                     feedbackWin.Perdeu();
+
                     winning.CustomProperties["Ganhador"] = 0;
                     PlayerPrefs.SetInt("GanhouColeta", 0);
                     PlayerPrefs.SetInt("AIGanhou", 1);
@@ -155,7 +159,7 @@ public class ColetaWin : MonoBehaviour
                 StartCoroutine("AcabouFase");
             }
 
-        }
+        }*/
 	}
 
     IEnumerator AcabouFaseOnline()
