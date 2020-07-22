@@ -7,6 +7,7 @@ using Photon.Pun;
 public class OfflineMode : MonoBehaviour
 {
     public static bool modoDoOffline = false;
+    public BoolVariable demo;
 
     #region Singleton
     private static OfflineMode _instance;
@@ -44,32 +45,33 @@ public class OfflineMode : MonoBehaviour
     }
     #endregion
 
-   /* private void Awake()
-    {
-        acabou01 = Resources.Load<BoolVariableArray>("Acabou01");
-        demo = Resources.Load<BoolVariable>("Demo");
+    /* private void Awake()
+     {
+         acabou01 = Resources.Load<BoolVariableArray>("Acabou01");
+         demo = Resources.Load<BoolVariable>("Demo");
 
-        DontDestroyOnLoad(eu);
+         DontDestroyOnLoad(eu);
 
-        if (acabou01.Value[8] == false || demo.Value == true)
-        {
-            modoDoOffline = true;
-        }
+         if (acabou01.Value[8] == false || demo.Value == true)
+         {
+             modoDoOffline = true;
+         }
 
-        else
-        {
-            modoDoOffline = false;
-        }
+         else
+         {
+             modoDoOffline = false;
+         }
 
-        PhotonNetwork.OfflineMode = modoDoOffline;
+         PhotonNetwork.OfflineMode = modoDoOffline;
 
-		//LoadGame();
-		//StartCoroutine(SaveGame());
-    }*/
+         //LoadGame();
+         //StartCoroutine(SaveGame());
+     }*/
 
     public void AtivaOffline(bool offMode)
     {
         PhotonNetwork.OfflineMode = offMode;
+        Debug.Log(offMode);
         modoDoOffline = PhotonNetwork.OfflineMode;
         Debug.Log("O modo Offline está ativo é" + PhotonNetwork.OfflineMode);
     }

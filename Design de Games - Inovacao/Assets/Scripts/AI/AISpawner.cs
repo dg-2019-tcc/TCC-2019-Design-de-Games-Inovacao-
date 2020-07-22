@@ -60,7 +60,7 @@ public class AISpawner : MonoBehaviour
 
     public void SpawnAI()
     {
-        if (acabou01.Value[7] == true)
+        if (GameManager.historiaMode == false)
         {
             m_AI[0].m_Instance =
                 Instantiate(aiPrefab[0], m_AI[0].m_SpawnPoint.position, m_AI[0].m_SpawnPoint.rotation) as GameObject;

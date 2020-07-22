@@ -52,8 +52,12 @@ public class LevelManager : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log("Start");
-        pv = gameObject.AddComponent<PhotonView>();
+        if (pv == null)
+        {
+            pv = gameObject.AddComponent<PhotonView>();
+            pv.ObservedComponents = new List<Component>();
+            pv.ObservedComponents.Add(this);
+        }
     }
 
     public void Ganhou()
@@ -76,6 +80,10 @@ public class LevelManager : MonoBehaviour
         if (GameManager.historiaMode == false)
         {
             PerdeuDoKlay();
+        }
+        else
+        {
+            GoDerrota();
         }
     }
 

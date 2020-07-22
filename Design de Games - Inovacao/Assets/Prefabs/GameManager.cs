@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     public FloatVariable faseEscolhida;
     private int faseEsc;
 
+    public static bool pausaJogo;
     public static bool historiaMode;
     public static int levelIndex;
     public static int ganhouDoKley;
@@ -61,6 +62,15 @@ public class GameManager : MonoBehaviour
         }
     }
     #endregion
+
+    public void Start()
+    {
+        demo = Resources.Load<BoolVariable>("Demo");
+        if(demo.Value == true)
+        {
+            OfflineMode.Instance.AtivaOffline(true);
+        }
+    }
 
 
     public void SaveGame(int index)

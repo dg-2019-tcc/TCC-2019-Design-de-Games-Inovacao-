@@ -80,7 +80,8 @@ public class GolManager : MonoBehaviourPunCallbacks
         PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 0;
         if (isLoading) return;
         isLoading = true;
-        StartCoroutine("AcabouFase");
+        LevelManager.Instance.Perdeu();
+        //StartCoroutine("AcabouFase");
     }
 
     private void OnTriggerEnter2D(Collider2D other)
