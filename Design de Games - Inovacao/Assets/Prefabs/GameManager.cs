@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
     public static int levelIndex;
     public static int ganhouDoKley;
 
-    public enum Fase {Coleta, Futebol, Moto, Corrida, Start, Tenis, Bazar, Cabelo}
+    public enum Fase {Coleta, Futebol, Moto, Corrida, Start, Tenis, Bazar, Cabelo, Tutorial, Hub}
     public Fase fase = Fase.Start;
 
     #region Singleton
@@ -96,5 +96,6 @@ public class GameManager : MonoBehaviour
         faseEsc = Mathf.RoundToInt(faseEscolhida.Value);
         SaveGame(faseEsc);
         escolheFase.Value = false;
+        faseEscolhida.Value = 0;
     }
 }

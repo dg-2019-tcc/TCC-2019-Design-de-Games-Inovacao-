@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class ButtonA : MonoBehaviour
 {
-    public enum State {Atirar, Fala, PowerUp, Chutar, Cortar, Manobra}
-    public State state = State.Fala;
+    public enum State {Atirar, Fala, PowerUp, Chutar, Cortar, Manobra, Null}
+    public State state = State.Null;
 
     private DogController dogScript;
     private ThrowObject tiroScript;
@@ -41,6 +41,11 @@ public class ButtonA : MonoBehaviour
         else if(textoAtivo.Value == false &&(pipaActive.Value == true ||carroActive.Value == true))
         {
             state = State.PowerUp;
+        }
+
+        else
+        {
+            state = State.Null;
         }
 
         if (buildPC.Value)
@@ -79,6 +84,10 @@ public class ButtonA : MonoBehaviour
             case State.Manobra:
                 EmpinarMoto();
                 break;
+
+            default:
+                state = State.Null;
+                break;
         }
     }
 
@@ -99,8 +108,12 @@ public class ButtonA : MonoBehaviour
         {
             tiroScript = GetComponent<ThrowObject>();
         }
-
-        tiroScript.Atirou();
+        if (dogScript.state.Equals(DogController.State.Idle))
+        {
+            dogScript.ChangeState("TiroState");
+            tiroScript.Atirou();
+        }
+        else { return; }
     }
 
     public void Kick()

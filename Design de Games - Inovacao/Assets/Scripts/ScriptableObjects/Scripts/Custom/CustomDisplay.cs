@@ -46,7 +46,7 @@ public class CustomDisplay : MonoBehaviour
     private PhotonView pv;
 
 
-    void Start()
+    public void AtivaRoupas()
     {
 
 
@@ -90,6 +90,8 @@ public class CustomDisplay : MonoBehaviour
 
         else
         {
+            Debug.Log("Troca");
+            Debug.Log((int)pv.Owner.CustomProperties["hairIndex"]);
             TrocaCabelo((int)pv.Owner.CustomProperties["hairIndex"]);
             //TrocaMaterialCabelo((int)pv.Owner.CustomProperties["hairColorIndex"]);
             TrocaCamisa((int)pv.Owner.CustomProperties["shirtIndex"]);

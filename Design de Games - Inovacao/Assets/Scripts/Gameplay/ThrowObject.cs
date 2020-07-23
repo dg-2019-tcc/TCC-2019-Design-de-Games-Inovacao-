@@ -102,6 +102,7 @@ public class ThrowObject : MonoBehaviour
         }
     }
 
+    //Sendo chamado pelo script ButtonA
     public void Atirou()
     {
         atirou = true;

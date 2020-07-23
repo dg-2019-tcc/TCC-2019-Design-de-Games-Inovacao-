@@ -119,6 +119,9 @@ public class TriggerCollisionsController : RaycastController
 
                 if (hit.collider.CompareTag("Dog"))
                 {
+                    dogController.sequestrado = false;
+                    dogController.ChangeState("IdleState");
+                    //hit.collider.gameObject.SetActive(false);
                     DogColetaTutorial dogTutorial = hit.collider.GetComponent<DogColetaTutorial>();
                     dogTutorial.AtivaDog();
                 }

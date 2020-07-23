@@ -35,6 +35,7 @@ public class LinhaDeChegada : MonoBehaviour
         if (other.CompareTag("AI"))
 		{
 			winnerManager.perdeuCorrida = true;
+            LevelManager.Instance.Perdeu();
 			other.GetComponent<StateController>().enabled = false;
 		}
     }
@@ -54,6 +55,7 @@ public class LinhaDeChegada : MonoBehaviour
                 Debug.Log("colidiu com linha");
                 // PlayerMovement jogador = other.GetComponent<PlayerMovement>();
                 //playerView.RPC("Acabou", RpcTarget.All);
+                LevelManager.Instance.Ganhou();
                 winnerManager.ganhouCorrida = true;
 				totalPlayers++;
 				euAcabei = true;

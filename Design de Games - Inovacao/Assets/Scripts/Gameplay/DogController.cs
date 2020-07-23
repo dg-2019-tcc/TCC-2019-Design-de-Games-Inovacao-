@@ -50,29 +50,19 @@ public class DogController : MonoBehaviour
     public enum State{Idle,Desativado, Carro, Pipa, Aviao}
     public State state = State.Idle;
 
-    bool sequestrado;
+    public bool sequestrado;
 
     public bool isCorrida;
 
     bool isOnline;
 
     private ButtonA buttonA;
-
+    public bool isTutorial;
 
     void Start()
     {
 
-        if (acabou01 == null)
-        {
-            acabou01 = Resources.Load<BoolVariableArray>("Acabou01");
-        }
-
-        if (aiGanhou == null)
-        {
-            aiGanhou = Resources.Load<BoolVariableArray>("AIGanhou");
-        }
-
-        if (acabou01.Value[4] == true && aiGanhou.Value[5] == false && acabou01.Value[8] == false)
+        /*if (GameManager.Instance.fase.Equals(GameManager.Fase.Corrida) || isTutorial)
         {
             Debug.Log("Desativa");
             sequestrado = true;
@@ -80,12 +70,12 @@ public class DogController : MonoBehaviour
 
             //TransformaPet(false);
         }
-        else if(((acabou01.Value[6] == true && aiGanhou.Value[7] == false) && isCorrida == false) || acabou01.Value[8] == true)
+        else
         {
             Debug.Log("Ativa");
             sequestrado = false;
             ChangeState("IdleState");
-        }
+        }*/
 
         if (PhotonNetwork.InRoom)
         {
@@ -100,10 +90,15 @@ public class DogController : MonoBehaviour
         buttonA = GetComponent<ButtonA>();
         pipaActive.Value = false;
         carroActive.Value = false;
-        PV.Controller.CustomProperties["dogValue"] = true;
-        dogAtivo.Value = true;
+        //PV.Controller.CustomProperties["dogValue"] = true;
+        //dogAtivo.Value = true;
 
         triggerCollisionsScript = GetComponent<TriggerCollisionsController>();
+        if (isTutorial)
+        {
+            ChangeState("DesativadoState");
+            sequestrado = true;
+        }
     }
 
 
@@ -199,6 +194,7 @@ public class DogController : MonoBehaviour
             case "DesativadoState":
                 if (state == State.Idle)
                 {
+                    Debug.Log(state);
                     Pet.SetActive(false);
 
                     dogAtivo.Value = false;
