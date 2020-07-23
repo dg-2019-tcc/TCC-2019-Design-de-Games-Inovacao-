@@ -138,8 +138,6 @@ public class GameFlowManager : MonoBehaviour
 
     public void FaseTenis()
     {
-        GameManager.Instance.fase = GameManager.Fase.Tenis;
-
         portas[0].SetActive(false);
         portas[1].SetActive(true);
 
@@ -163,8 +161,6 @@ public class GameFlowManager : MonoBehaviour
 
     public void FaseMoto()
     {
-        GameManager.Instance.fase = GameManager.Fase.Moto;
-
         portas[0].SetActive(false);
         portas[1].SetActive(false);
         portas[2].SetActive(false);
@@ -179,8 +175,6 @@ public class GameFlowManager : MonoBehaviour
 
     public void FaseCabelo()
     {
-        GameManager.Instance.fase = GameManager.Fase.Cabelo;
-
         portas[0].SetActive(false);
         portas[1].SetActive(false);
         portas[2].SetActive(false);
@@ -196,8 +190,6 @@ public class GameFlowManager : MonoBehaviour
 
     public void FaseCorrida()
     {
-        GameManager.Instance.fase = GameManager.Fase.Corrida;
-
         portas[0].SetActive(false);
         portas[1].SetActive(false);
         portas[2].SetActive(false);
@@ -216,8 +208,6 @@ public class GameFlowManager : MonoBehaviour
 
     public void FaseRoupa()
     {
-        GameManager.Instance.fase = GameManager.Fase.Bazar;
-
         portas[0].SetActive(false);
         portas[1].SetActive(false);
         portas[2].SetActive(false);

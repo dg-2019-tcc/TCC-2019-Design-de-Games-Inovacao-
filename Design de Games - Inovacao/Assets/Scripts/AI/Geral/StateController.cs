@@ -12,14 +12,14 @@ using UnityEngine.AI;
 
         public Rigidbody2D rb;
 
-        [HideInInspector] public List<Transform> wayPointList;
+        [HideInInspector] public List<GameObject> wayPointList;
         public int nextWayPoint;
         [HideInInspector] public float stateTimeElapsed;
         [HideInInspector] public Transform target;
         [HideInInspector] public bool canJump;
         [HideInInspector] public float jumpCooldown;
         [HideInInspector] public float forceVertical;
-	    [HideInInspector] public AIMovement movement;
+	    //[HideInInspector] public AIMovement movement;
         private bool aiActive;
         private StateController controller;
 
@@ -36,9 +36,9 @@ using UnityEngine.AI;
         public void SetupAI(bool aiActivationFromAIManager, List<Transform> wayPointsFromTankManager)
         {
 
-            wayPointList = wayPointsFromTankManager;
+            //wayPointList = wayPointsFromTankManager;
             aiActive = aiActivationFromAIManager;
-		    movement = GetComponent<AIMovement>();
+		    //movement = GetComponent<AIMovement>();
         }
 
 

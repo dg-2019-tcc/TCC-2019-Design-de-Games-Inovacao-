@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 //using TMPro;
 using Photon.Pun;
+using Complete;
 
 public class EmpinaMoto : MonoBehaviour
 {

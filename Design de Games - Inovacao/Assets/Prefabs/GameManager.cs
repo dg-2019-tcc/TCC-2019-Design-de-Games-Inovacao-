@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 
 
@@ -13,10 +14,12 @@ public class GameManager : MonoBehaviour
 
     public static bool pausaJogo;
     public static bool historiaMode;
+    public static bool sequestrado;
     public static int levelIndex;
     public static int ganhouDoKley;
+    private string sceneName;
 
-    public enum Fase {Coleta, Futebol, Moto, Corrida, Start, Tenis, Bazar, Cabelo, Tutorial, Hub}
+    public enum Fase {Coleta, Futebol, Moto, Corrida, Start, Loja, Tutorial, Hub, Volei, Podium}
     public Fase fase = Fase.Start;
 
     #region Singleton
@@ -60,13 +63,17 @@ public class GameManager : MonoBehaviour
         {
             EscolheFase();
         }
+
+        sceneName = SceneManager.GetActiveScene().name;
+        ChecaFase();
     }
     #endregion
 
     public void Start()
     {
         demo = Resources.Load<BoolVariable>("Demo");
-        if(demo.Value == true)
+
+        if (demo.Value == true)
         {
             OfflineMode.Instance.AtivaOffline(true);
         }
@@ -97,5 +104,59 @@ public class GameManager : MonoBehaviour
         SaveGame(faseEsc);
         escolheFase.Value = false;
         faseEscolhida.Value = 0;
+    }
+
+    public void ChecaFase()
+    {
+        switch (sceneName)
+        {
+            case "HUB":
+                fase = Fase.Hub;
+                break;
+
+            case "Tutorial2":
+                fase = Fase.Tutorial;
+                break;
+
+            case "Coleta":
+                fase = Fase.Coleta;
+                break;
+
+            case "Corrida":
+                fase = Fase.Corrida;
+                break;
+
+            case "Moto":
+                fase = Fase.Moto;
+                break;
+
+            case "Volei":
+                fase = Fase.Volei;
+                break;
+
+            case "MenuPrincipal":
+                fase = Fase.Start;
+                break;
+
+            case "Cabelo":
+                fase = Fase.Loja;
+                break;
+
+            case "Customiza":
+                fase = Fase.Loja;
+                break;
+
+            case "Shirt":
+                fase = Fase.Loja;
+                break;
+
+            case "Tenis":
+                fase = Fase.Loja;
+                break;
+
+            case "TelaVitoria":
+                fase = Fase.Podium;
+                break;
+        }
     }
 }

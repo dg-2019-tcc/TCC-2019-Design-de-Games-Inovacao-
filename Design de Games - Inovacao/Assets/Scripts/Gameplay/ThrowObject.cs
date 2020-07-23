@@ -5,162 +5,162 @@ using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine.UI;
 
-
-public class ThrowObject : MonoBehaviour
-{
-	[Header("Alvo e Prefab")]
-	public Transform firePoint;
-    public GameObject bulletPrefab;
-
-    public static Vector2 direction;
-
-    public bool shouldShoot;
-
-    public Button tiroButton;
-    private Image tiroImage;
-    public Image dogImage;
-
-	[Header("Cooldown em segundos")]
-	public float cooldown;
-	private float cooldownDelta;
-
-	public GameObject EfeitoDeCooldown;
-
-    public BoolVariable desativaPower;
-    public BoolVariable carroActive;
-    public BoolVariable pipaActive;
-    public BoolVariable dogAtivo;
-    
-
-	[HideInInspector]
-    public PhotonView photonView;
-
-    public Player2DAnimations anim;
-
-    public AudioSource tiroSom;
-
-    public static bool dirRight;
-
-    public static bool dirLeft;
-
-    public bool atirou;
-
-    public bool atirando;
-
-    public bool shootAnim;
-
-    public BoolVariable textoAtivo;
-    public bool passouTexto;
-
-    public DogMovement dogMove;
-    private DogController dogController;
-    private bool isOnline;
-
-    private void Awake()
+namespace Complete {
+    public class ThrowObject : MonoBehaviour
     {
-        textoAtivo = Resources.Load<BoolVariable>("TextoAtivo");
+        [Header("Alvo e Prefab")]
+        public Transform firePoint;
+        public GameObject bulletPrefab;
 
-        photonView = gameObject.GetComponent<PhotonView>();
-        anim = GetComponent<Player2DAnimations>();
-        dogController = GetComponent<DogController>();
+        public static Vector2 direction;
 
-        tiroImage = tiroButton.GetComponent<Image>();
+        public bool shouldShoot;
 
-        if (PhotonNetwork.InRoom)
+        public Button tiroButton;
+        private Image tiroImage;
+        public Image dogImage;
+
+        [Header("Cooldown em segundos")]
+        public float cooldown;
+        private float cooldownDelta;
+
+        public GameObject EfeitoDeCooldown;
+
+        public BoolVariable desativaPower;
+        public BoolVariable carroActive;
+        public BoolVariable pipaActive;
+        public BoolVariable dogAtivo;
+
+
+        [HideInInspector]
+        public PhotonView photonView;
+
+        public Player2DAnimations anim;
+
+        public AudioSource tiroSom;
+
+        public static bool dirRight;
+
+        public static bool dirLeft;
+
+        public bool atirou;
+
+        public bool atirando;
+
+        public bool shootAnim;
+
+        public BoolVariable textoAtivo;
+        public bool passouTexto;
+
+        public DogMovement dogMove;
+        private DogController dogController;
+        private bool isOnline;
+
+        private void Awake()
         {
-            isOnline = true;
-        }
-        else
-        {
-            isOnline = false;
-        }
-    }
+            textoAtivo = Resources.Load<BoolVariable>("TextoAtivo");
 
+            photonView = gameObject.GetComponent<PhotonView>();
+            anim = GetComponent<Player2DAnimations>();
+            dogController = GetComponent<DogController>();
 
-    void Update()
-    {
-        if (photonView.IsMine == true || !PhotonNetwork.InRoom)
-        {
-            if (atirou == true)
+            tiroImage = tiroButton.GetComponent<Image>();
+
+            if (PhotonNetwork.InRoom)
             {
-                atirando = true;
-                StartCoroutine("StartTiro");
-                atirou = false;
-
+                isOnline = true;
+            }
+            else
+            {
+                isOnline = false;
             }
         }
 
 
-        if (atirando)
-		{			
-			tiroButton.enabled = false;
-		}
-
-        else
+        void Update()
         {
-            tiroButton.enabled = true;
+            if (photonView.IsMine == true || !PhotonNetwork.InRoom)
+            {
+                if (atirou == true)
+                {
+                    atirando = true;
+                    StartCoroutine("StartTiro");
+                    atirou = false;
+
+                }
+            }
+
+
+            if (atirando)
+            {
+                tiroButton.enabled = false;
+            }
+
+            else
+            {
+                tiroButton.enabled = true;
+            }
         }
-    }
 
-    //Sendo chamado pelo script ButtonA
-    public void Atirou()
-    {
-        atirou = true;
-    }
+        //Sendo chamado pelo script ButtonA
+        public void Atirou()
+        {
+            atirou = true;
+        }
 
 
-    [PunRPC]
-    void Shoot()
-    {
-        Debug.Log("Atirou");
-		if (isOnline && !(bool)photonView.Owner.CustomProperties["dogValue"]) return;
-        GameObject bullet;
-        bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);// as GameObject;
-        shootAnim = false;
-        anim.DogButtonAnim(shootAnim);
-
-        bullet.GetComponent<ItemThrow>().InitializeBullet(photonView.Owner);
-		StartCoroutine("CooldownEffect");
-		photonView.Owner.CustomProperties["atirou"] = true;
-    }
-
-    IEnumerator StartTiro()
-    {
-        shootAnim = true;
-        anim.DogButtonAnim(shootAnim);
-        atirou = false;
-        yield return new WaitForSeconds(0.5f);
-        shootAnim = false;
-        anim.DogButtonAnim(shootAnim);
-		if (isOnline)
-		{
+        [PunRPC]
+        void Shoot()
+        {
             Debug.Log("Atirou");
-            photonView.RPC("Shoot", RpcTarget.All);
-		}
-		else
-		{
-            Debug.Log("Atirou");
-            Shoot();
+            if (isOnline && !(bool)photonView.Owner.CustomProperties["dogValue"]) return;
+            GameObject bullet;
+            bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);// as GameObject;
+            shootAnim = false;
+            anim.DogButtonAnim(shootAnim);
+
+            bullet.GetComponent<ItemThrow>().InitializeBullet(photonView.Owner);
+            StartCoroutine("CooldownEffect");
+            photonView.Owner.CustomProperties["atirou"] = true;
+        }
+
+        IEnumerator StartTiro()
+        {
+            shootAnim = true;
+            anim.DogButtonAnim(shootAnim);
+            atirou = false;
+            yield return new WaitForSeconds(0.5f);
+            shootAnim = false;
+            anim.DogButtonAnim(shootAnim);
+            if (isOnline)
+            {
+                Debug.Log("Atirou");
+                photonView.RPC("Shoot", RpcTarget.All);
+            }
+            else
+            {
+                Debug.Log("Atirou");
+                Shoot();
+            }
+        }
+
+
+
+        IEnumerator CooldownEffect()
+        {
+            if (photonView.Owner.IsLocal)
+            {
+                //dogAtivo.Value = false;
+                dogController.ChangeState("TiroState");
+            }
+            yield return new WaitForSeconds(cooldown);
+            if (photonView.Owner.IsLocal)
+            {
+                //dogAtivo.Value = true;
+                dogController.ChangeState("IdleState");
+            }
+            //gameObject.GetComponent<PhotonView>().RPC("TransformaPet", RpcTarget.All, false);
+            atirando = false;
         }
     }
-
-
-
-	IEnumerator CooldownEffect()
-	{
-		if (photonView.Owner.IsLocal)
-		{
-            //dogAtivo.Value = false;
-            dogController.ChangeState("TiroState");
-		}
-        yield return new WaitForSeconds(cooldown);
-		if (photonView.Owner.IsLocal)
-		{
-            //dogAtivo.Value = true;
-            dogController.ChangeState("IdleState");
-        }
-        //gameObject.GetComponent<PhotonView>().RPC("TransformaPet", RpcTarget.All, false);
-        atirando = false;
-    }
-
 }

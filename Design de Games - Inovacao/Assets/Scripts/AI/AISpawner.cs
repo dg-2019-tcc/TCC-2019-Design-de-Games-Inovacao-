@@ -11,7 +11,7 @@ public class AISpawner : MonoBehaviour
 
     public GameObject[] aiPrefab;
     public AIManager[] m_AI;
-    public List<Transform> wayPointsForAI;
+    public List<GameObject> wayPointsForAI;
 
     public GameObject thingsAI;
     public GameObject thingsOnline;
@@ -49,13 +49,15 @@ public class AISpawner : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            SpawnAI();
-        }
+                //SpawnAI();
+                m_AI[0].m_Instance =
+                   Instantiate(aiPrefab[1], m_AI[0].m_SpawnPoint.position, m_AI[0].m_SpawnPoint.rotation) as GameObject;
+            }
 
-        if (OfflineMode.modoDoOffline && comecouPartida && aiMovement.enabled == false)
+        /*if (OfflineMode.modoDoOffline && comecouPartida && aiMovement.enabled == false)
         {
             aiMovement.enabled = true;
-        }
+        }*/
     }
 
     public void SpawnAI()
@@ -64,7 +66,7 @@ public class AISpawner : MonoBehaviour
         {
             m_AI[0].m_Instance =
                 Instantiate(aiPrefab[0], m_AI[0].m_SpawnPoint.position, m_AI[0].m_SpawnPoint.rotation) as GameObject;
-            m_AI[0].SetupAI(wayPointsForAI);
+            //m_AI[0].SetupAI(wayPointsForAI);
 
             aiMovement = m_AI[0].aiMovement;
         }
@@ -73,11 +75,11 @@ public class AISpawner : MonoBehaviour
         {
             m_AI[0].m_Instance =
                 Instantiate(aiPrefab[1], m_AI[0].m_SpawnPoint.position, m_AI[0].m_SpawnPoint.rotation) as GameObject;
-            m_AI[0].SetupAI(wayPointsForAI);
+            //m_AI[0].SetupAI(wayPointsForAI);
 
             aiMovement = m_AI[0].aiMovement;
         }
-        aiMovement.enabled = false;
+        //aiMovement.enabled = false;
 
     }
 }

@@ -90,6 +90,18 @@ public class LevelManager : MonoBehaviour
 
     public void GanhouDoKlay()
     {
+        if (GameManager.Instance.fase.Equals(GameManager.Fase.Moto))
+        {
+            GameManager.sequestrado = true;
+            PlayerPrefs.SetInt("Sequestrado", 1);
+        }
+
+        if (GameManager.Instance.fase.Equals(GameManager.Fase.Corrida))
+        {
+            GameManager.sequestrado = false;
+            PlayerPrefs.SetInt("Sequestrado", 0);
+        }
+
         PlayerPrefs.SetInt("GanhouDoKlay", 1);
         SceneManager.LoadScene("Historia");
 

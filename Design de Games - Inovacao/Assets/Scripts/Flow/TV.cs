@@ -37,7 +37,7 @@ public class TV : MonoBehaviour
 
         if (GameManager.historiaMode)
         {
-            if (GameManager.Instance.fase.Equals(GameManager.Fase.Bazar) || GameManager.Instance.fase.Equals(GameManager.Fase.Start) || GameManager.Instance.fase.Equals(GameManager.Fase.Cabelo) || GameManager.Instance.fase.Equals(GameManager.Fase.Tenis))
+            /*if (GameManager.Instance.fase.Equals(GameManager.Fase.Bazar) || GameManager.Instance.fase.Equals(GameManager.Fase.Start) || GameManager.Instance.fase.Equals(GameManager.Fase.Cabelo) || GameManager.Instance.fase.Equals(GameManager.Fase.Tenis))
             {
                 CoisasAtivas(GameManager.levelIndex, true);
             }
@@ -47,7 +47,9 @@ public class TV : MonoBehaviour
                 {
                     CoisasAtivas(GameManager.levelIndex, true);
                 }
-            }
+            }*/
+
+            CoisasAtivas(GameManager.levelIndex, true);
         }
 
 

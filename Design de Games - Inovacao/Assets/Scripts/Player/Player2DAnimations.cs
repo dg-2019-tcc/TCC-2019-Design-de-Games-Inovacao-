@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DragonBones;
+using Complete;
 
 public class Player2DAnimations : MonoBehaviour
 {
@@ -304,7 +305,6 @@ public class Player2DAnimations : MonoBehaviour
     [PunRPC]
     public void AnimState(State anim)
     {
-        Debug.Log(nextState);
         switch (anim)
         {
             case State.Ganhou:
