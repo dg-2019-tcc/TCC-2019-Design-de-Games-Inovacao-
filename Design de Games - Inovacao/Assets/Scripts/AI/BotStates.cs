@@ -28,32 +28,15 @@ namespace Complete {
 
             coletaveis = aiSpawner.wayPointsForAI;
             //FindAllTargets();
-            InvokeRepeating("CheckTarget", 5f, 5f);
+            //InvokeRepeating("CheckTarget", 5f, 5f);
         }
 
 
         public void BotWork()
         {
             if(target == null) { CheckTarget();}
-            if (move01State == State.Left || move02State == State.Left || move03State == State.Left)
-{
-                aiMovement.GoLeft();
-            }
-
-            else if (move01State == State.Right || move02State == State.Right || move03State == State.Right)
-            {
-                aiMovement.GoRight();
-            }
-
-            else if (move01State == State.Down || move02State == State.Down || move03State == State.Down)
-            {
-                aiMovement.GoDown();
-            }
-
-            else if (move01State == State.Up || move02State == State.Up || move03State == State.Up)
-            {
-                aiMovement.AIJump();
-            }
+            SetDirection();
+            aiMovement.Move(move01State, move02State, move03State);
         }
 
 
@@ -61,7 +44,6 @@ namespace Complete {
         {
             if (GameManager.Instance.fase.Equals(GameManager.Fase.Coleta))
             {
-                Debug.Log("Check");
                 if (target == null)
                 {
                     for (int i = 0; i < coletaveis.Count; i++)
@@ -81,7 +63,6 @@ namespace Complete {
                         break;
                     }
                 }
-                SetDirection();
             }
         }
 

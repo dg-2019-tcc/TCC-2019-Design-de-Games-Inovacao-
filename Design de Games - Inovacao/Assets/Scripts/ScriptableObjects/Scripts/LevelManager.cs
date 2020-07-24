@@ -79,11 +79,11 @@ public class LevelManager : MonoBehaviour
         PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 0;
         if (GameManager.historiaMode == false)
         {
-            PerdeuDoKlay();
+            GoDerrota();
         }
         else
         {
-            GoDerrota();
+            PerdeuDoKlay();
         }
     }
 

@@ -189,214 +189,12 @@ namespace Complete {
                     case BotStates.State.Down:
                         GoDown();
                         break;
+
                 }
             }
         }
 
-        /*public void FixedUpdate()
-        {
 
-            triggerController.RayTriggerDirection();
-
-            if (aiController2D.collisions.below == true || aiController2D.collisions.climbingSlope || aiController2D.collisions.descendingSlope)
-            {
-                isJumping = false;
-                velocity.y = 0;
-            }
-
-
-            if (triggerController.triggerCollision.caixaDagua)
-            {
-                velocity.y = maxJumpHeight * 1.8f;
-            }
-
-            switch(state)
-            {
-                case State.Volei:
-                    Volei();
-                    break;
-
-                case State.Futebol:
-                    Futebol();
-                    break;
-
-                case State.Coleta:
-                    Coleta();
-                    break;
-
-                case State.Moto:
-                    MotoCorrida();
-                    break;
-
-                case State.Corrida:
-                    MotoCorrida();
-                    break;
-
-                case State.Stop:
-                    Stop();
-                    break;
-            }
-
-            if (levouDogada == false)
-            {
-                targetVelocityX = input.x * speed;
-            }
-            velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (aiController2D.collisions.below) ? 0.1f : 0.2f);
-
-            velocity.y += gravity * Time.deltaTime;
-            aiController2D.Move(velocity * Time.deltaTime, input);
-            if (!isMoto)
-            {
-                animAI.ChangeAnimAI(velocity, oldPosition, input, isJumping);
-            }
-
-        }*/
-
-        /* private void Coleta()
-         {
-             if (triggerController.triggerCollision.isRight || triggerController.triggerCollision.isLeft || triggerController.triggerCollision.isUp || triggerController.triggerCollision.isDown)
-             {
-                 found = true;
-             }
-
-             else
-             {
-                 found = false;
-             }
-
-             if (found)
-             {
-                 if (triggerController.triggerCollision.isRight)
-                 {
-                     GoRight();
-                 }
-
-                 else if (triggerController.triggerCollision.isLeft)
-                 {
-                     GoLeft();
-                 }
-
-                 else if (triggerController.triggerCollision.isUp && isJumping == false && aiController2D.collisions.below == true)
-                 {
-                     input.x = 0;
-                     AIJump();
-                 }
-
-                 else if (triggerController.triggerCollision.isDown)
-                 {
-                     input.y = -1;
-                     input.x = 0;
-                 }
-
-             }
-
-             else
-             {
-                 if (aiController2D.collisions.below == true || aiController2D.collisions.climbingSlope || aiController2D.collisions.descendingSlope)
-                 {
-                     velocity.y = 0;
-                 }
-
-                 if (transform.position.x - target.transform.position.x > 1)
-                 {
-                     GoLeft();
-                 }
-
-                 else if (transform.position.x - target.transform.position.x < -1)
-                 {
-                     GoRight();
-                 }
-
-                 else
-                 {
-                     if (target == controller.wayPointList[0])
-                     {
-                         target = controller.wayPointList[1];
-                     }
-
-                     else
-                     {
-                         target = controller.wayPointList[0];
-                     }
-                 }
-
-             }
-         }*/
-
-        private void Futebol()
-        {
-            if (triggerController.triggerCollision.botArea == true)
-            {
-                transform.position = target.transform.position;
-            }
-
-            if (transform.position.x - target.transform.position.x > 1)
-            {
-                GoLeft();
-            }
-
-            else if (transform.position.x - target.transform.position.x < -1)
-            {
-                GoRight();
-            }
-
-            else if (triggerController.triggerCollision.isUp && isJumping == false)
-            {
-                //input.x = 0;
-                AIJump();
-            }
-        }
-
-        private void Volei()
-        {
-            if (triggerController.triggerCollision.botArea == true)
-            {
-                //   target = controller.wayPointList[1];
-                transform.position = target.transform.position;
-            }
-
-            targetDist = transform.position.x - target.transform.position.x;
-
-            if (targetDist > 1.5f)
-            {
-                Stop();
-            }
-
-            else
-            {
-                if (targetDist > 0.5f)
-                {
-                    GoLeft();
-                }
-
-                else if (targetDist < -0.5f)
-                {
-                    GoRight();
-                }
-
-                else if (triggerController.triggerCollision.isUp && isJumping == false)
-                {
-                    AIJump();
-                }
-            }
-        }
-
-        private void MotoCorrida()
-        {
-            if (aiController2D.collisions.acabouCorrida) return;
-            GoRight();
-
-            if (triggerController.triggerCollision.needJump && aiController2D.collisions.below)
-            {
-                input.x = 1;
-                AIJump();
-            }
-
-            if (isMoto)
-            {
-                speed += 0.15f * Time.deltaTime;
-            }
-        }
 
         private void LateUpdate()
         {
@@ -411,7 +209,7 @@ namespace Complete {
 
         public void GoRight()
         {
-            jumpTimes = 0;
+           // jumpTimes = 0;
             input.x = 1;
             dirDir = true;
             Quaternion direction = Quaternion.Euler(0, 0, 0);
@@ -420,7 +218,7 @@ namespace Complete {
 
         public void GoLeft()
         {
-            jumpTimes = 0;
+            //jumpTimes = 0;
             input.x = 1;
             dirDir = false;
             Quaternion direction = Quaternion.Euler(0, 180, 0);
@@ -429,7 +227,6 @@ namespace Complete {
 
         public void AIJump()
         {
-            Debug.Log("AIJump");
             if (isJumping == false)
             {
                 jumpTimes++;
@@ -438,7 +235,7 @@ namespace Complete {
 
                 if (jumpTimes > 2)
                 {
-                    velocity.y = maxJumpHeight + (jumpTimes * 2f);
+                    velocity.y = maxJumpHeight + (jumpTimes * 1.5f);
                     jumpTimes = 0;
                 }
                 else
