@@ -30,24 +30,37 @@ public class ButtonA : MonoBehaviour
         pipaActive = Resources.Load<BoolVariable>("PipaActive");
         carroActive = Resources.Load<BoolVariable>("CarroActive");
         dogScript = GetComponent<DogController>();
+
+        if (GameManager.Instance.fase.Equals(GameManager.Fase.Futebol))
+        {
+            state = State.Chutar;
+        }
+        else if(GameManager.Instance.fase.Equals(GameManager.Fase.Coleta) || GameManager.Instance.fase.Equals(GameManager.Fase.Corrida))
+        {
+            state = State.Atirar;
+        }
+
+        else if (GameManager.Instance.fase.Equals(GameManager.Fase.Volei))
+        {
+            state = State.Cortar;
+        }
     }
 
     void Update()
     {
-        if(textoAtivo.Value == true)
-        {
-            state = State.Fala;
+        if (GameManager.Instance.fase.Equals(GameManager.Fase.Hub) || GameManager.Instance.fase.Equals(GameManager.Fase.Tutorial))
+         {
+            if (textoAtivo.Value == true)
+            {
+                state = State.Fala;
+            }
         }
 
-        else if(textoAtivo.Value == false &&(pipaActive.Value == true ||carroActive.Value == true))
+        if (textoAtivo.Value == false && (pipaActive.Value == true || carroActive.Value == true))
         {
             state = State.PowerUp;
         }
 
-        else
-        {
-            state = State.Null;
-        }
 
         if (buildPC.Value)
         {

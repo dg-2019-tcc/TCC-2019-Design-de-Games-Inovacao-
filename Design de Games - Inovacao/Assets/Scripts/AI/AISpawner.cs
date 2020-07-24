@@ -12,6 +12,7 @@ public class AISpawner : MonoBehaviour
     public GameObject[] aiPrefab;
     public AIManager[] m_AI;
     public List<GameObject> wayPointsForAI;
+    public GameObject bola;
 
     public GameObject thingsAI;
     public GameObject thingsOnline;

@@ -94,7 +94,7 @@ public class GameManager : MonoBehaviour
         {
             historiaMode = true;
         }
-        Debug.Log("O level carregado foi:" + levelIndex + "O modo história é: " + historiaMode);
+        Debug.Log("O level carregado foi: " + levelIndex + " O modo história é: " + historiaMode);
     }
 
     //Função para escolher a fase ou resetar o jogo
