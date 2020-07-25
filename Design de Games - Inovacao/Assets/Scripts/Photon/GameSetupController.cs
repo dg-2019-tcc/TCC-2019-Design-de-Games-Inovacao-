@@ -47,6 +47,9 @@ namespace Complete
                 GameSetupController.GS = this;
             }
 
+            GameManager.pausaJogo = true;
+            Debug.Log("Pausa jogo é" + GameManager.pausaJogo);
+
             if (isFut)
             {
                 if (PhotonNetwork.IsMasterClient.Equals(true))
@@ -145,7 +148,9 @@ namespace Complete
 
                 playerMove.playerThings.comecou = true;
 				partidaComecou.Value = true;
-			}
+                GameManager.pausaJogo = false;
+                Debug.Log("Pausa jogo é" + GameManager.pausaJogo);
+            }
 			
             index++;
 

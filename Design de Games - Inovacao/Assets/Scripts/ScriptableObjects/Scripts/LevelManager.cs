@@ -109,6 +109,8 @@ public class LevelManager : MonoBehaviour
 
     public void PerdeuDoKlay()
     {
+        FailMessageManager.manualShutdown = true;
+        PhotonNetwork.Disconnect();
         PlayerPrefs.SetInt("GanhouDoKlay", 0);
         SceneManager.LoadScene("HUB");
     }

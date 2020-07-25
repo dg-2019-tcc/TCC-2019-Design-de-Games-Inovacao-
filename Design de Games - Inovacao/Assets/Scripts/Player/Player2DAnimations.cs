@@ -82,7 +82,10 @@ public class Player2DAnimations : MonoBehaviour
 
 	private void Start()
 	{
-		textoAtivo = Resources.Load<BoolVariable>("TextoAtivo");
+        lado.SetActive(true);
+        frente.SetActive(true);
+
+        textoAtivo = Resources.Load<BoolVariable>("TextoAtivo");
 
 		photonView = gameObject.GetComponent<PhotonView>();
 		controller = GetComponent<Controller2D>();
@@ -101,28 +104,22 @@ public class Player2DAnimations : MonoBehaviour
 			isOnline = false;
 		}
 
+        GameManager.Instance.ChecaFase();
         customDisplay.AtivaRoupas();
         //Tirando a customização não utilizada
-        if (isLoja == false)
+        if (!GameManager.Instance.fase.Equals(GameManager.Fase.Loja))
         {
             takeOffFrente.CheckAndExecute();
             takeOffLado.CheckAndExecute();
             takeOffFrente.letThemBeOn = true;
             takeOffLado.letThemBeOn = true;
-
-            if (lado.activeInHierarchy == true && frente.activeInHierarchy == true)
-            {
-                lado.SetActive(false);
-            }
+            frente.SetActive(false);
         }
         else
         {
             takeOffFrente.letThemBeOn = true;
             takeOffLado.letThemBeOn = true;
-            if (lado.activeInHierarchy == true && frente.activeInHierarchy == true)
-            {
-                frente.SetActive(false);
-            }
+            lado.SetActive(false);
         }
 
 	}

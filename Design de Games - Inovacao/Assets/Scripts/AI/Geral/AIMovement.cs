@@ -124,7 +124,7 @@ namespace Complete {
             aiController2D.Move(velocity * Time.deltaTime, input);
         }
 
-        public void Move(BotStates.State action01, BotStates.State action02, BotStates.State action03)
+        public void Move(BotStates.State action01, BotStates.State action02)
         {
             if (!action01.Equals(BotStates.State.Null))
             {
@@ -167,29 +167,6 @@ namespace Complete {
                     case BotStates.State.Down:
                         GoDown();
                         break;
-                }
-            }
-
-            if (!action03.Equals(BotStates.State.Null))
-            {
-                switch (action03)
-                {
-                    case BotStates.State.Right:
-                        GoRight();
-                        break;
-
-                    case BotStates.State.Left:
-                        GoLeft();
-                        break;
-
-                    case BotStates.State.Up:
-                        AIJump();
-                        break;
-
-                    case BotStates.State.Down:
-                        GoDown();
-                        break;
-
                 }
             }
         }

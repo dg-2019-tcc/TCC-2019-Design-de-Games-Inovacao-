@@ -35,26 +35,15 @@ public class GameFlowManager : MonoBehaviour
 
     private void Start()
     {
-        sceneName = SceneManager.GetActiveScene().name;
 
         if (aiGanhou == null)
         {
             aiGanhou = Resources.Load<BoolVariableArray>("AIGanhou");
         }
 
-        if (sceneName == "HUB")
+        if (GameManager.Instance.fase.Equals(GameManager.Fase.Hub))
         {
-            if (aiGanhou.Value[index] == true)
-            {
-                DestroyNpcs(index - 2);
-            }
-            else
-            {
-                if (index > 1)
-                {
-                    DestroyNpcs(index);
-                }
-            }
+            DestroyNpcs(GameManager.levelIndex);
         }
 
     }
@@ -84,7 +73,8 @@ public class GameFlowManager : MonoBehaviour
 
             case 8:
                 //FaseRoupa();
-                Completo();
+                //Completo();
+                FechaTudo();
                 break;
 
             case 7:

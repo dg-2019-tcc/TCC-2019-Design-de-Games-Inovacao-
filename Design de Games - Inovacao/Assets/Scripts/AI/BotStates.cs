@@ -8,11 +8,12 @@ namespace Complete {
         public BotInfo botInfo;
         private AIMovement aiMovement;
         public AISpawner aiSpawner;
+        public AITriggerController triggerController;
 
-        public enum State { Search, Right, Left, Up, Down, Idle, Manobra, Null }
-        public State move01State = State.Idle;
-        public State move02State = State.Null;
-        public State move03State = State.Null;
+        public enum State { Search, Right, Left, Up, Down, Idle, Manobra, Null, On, Off}
+        public State active = State.On;
+        public State horizontalState = State.Null;
+        public State verticalState = State.Null;
         public State actionState = State.Null;
 
         private float searchTime;
@@ -25,18 +26,26 @@ namespace Complete {
         {
             aiMovement = GetComponent<AIMovement>();
             aiSpawner = FindObjectOfType<AISpawner>();
+            triggerController = GetComponent<AITriggerController>();
+
+            //GameManager.Instance.ChecaFase();
 
             coletaveis = aiSpawner.wayPointsForAI;
-            //FindAllTargets();
-            //InvokeRepeating("CheckTarget", 5f, 5f);
         }
 
 
         public void BotWork()
         {
-            if(target == null) { CheckTarget();}
+            if(GameManager.pausaJogo == true || active == State.Off) { return; }
+            if (GameManager.Instance.fase.Equals(GameManager.Fase.Coleta) || GameManager.Instance.fase.Equals(GameManager.Fase.Futebol) || GameManager.Instance.fase.Equals(GameManager.Fase.Volei))
+            {
+                if (target == null)
+                {
+                    CheckTarget();
+                }
+            }
             SetDirection();
-            aiMovement.Move(move01State, move02State, move03State);
+            aiMovement.Move(horizontalState, verticalState);
         }
 
 
@@ -115,7 +124,7 @@ namespace Complete {
                 }
             }
 
-            if (GameManager.Instance.fase.Equals(GameManager.Fase.Futebol))
+            else if (GameManager.Instance.fase.Equals(GameManager.Fase.Futebol))
             {
                 if (transform.position.x - target.transform.position.x > 0.5)
                 {
@@ -147,35 +156,49 @@ namespace Complete {
                     SetState(State.Idle, false);
                 }
             }
+
+            else if (GameManager.Instance.fase.Equals(GameManager.Fase.Moto))
+            {
+                SetState(State.Right, false);
+
+                if (triggerController.triggerCollision.needJump)
+                {
+                    SetState(State.Up, false);
+                }
+
+                aiMovement.speed += 0.2f * Time.deltaTime;
+            }
+
+            else if (GameManager.Instance.fase.Equals(GameManager.Fase.Corrida))
+            {
+                SetState(State.Right, false);
+
+                if (triggerController.triggerCollision.needJump)
+                {
+                    SetState(State.Up, false);
+                }
+            }
         }
 
         public void SetState(State nextState, bool reset)
         {
             if (!reset)
             {
-                if (nextState == move01State || nextState == move02State || nextState == move03State) { return; }
-                if (move01State == State.Idle || move01State == State.Null)
+                if (nextState == horizontalState && nextState == verticalState) { return; }
+                if (horizontalState == State.Idle || horizontalState == State.Null)
                 {
-                    move01State = nextState;
+                    horizontalState = nextState;
                 }
 
                 else
                 {
-                    if (move02State == State.Idle || move02State == State.Null)
-                    {
-                        move02State = nextState;
-                    }
-                    else
-                    {
-                        move03State = nextState;
-                    }
+                    verticalState = nextState;
                 }
             }
             else
             {
-                move01State = State.Null;
-                move02State = State.Null;
-                move03State = State.Null;
+                horizontalState = State.Null;
+                verticalState = State.Null;
             }
         }
 

@@ -73,6 +73,7 @@ public class ButtonA : MonoBehaviour
 
     public void PressedButtonA()
     {
+        if (GameManager.pausaJogo == true) { return; }
         switch (state)
         {
             case State.Fala:

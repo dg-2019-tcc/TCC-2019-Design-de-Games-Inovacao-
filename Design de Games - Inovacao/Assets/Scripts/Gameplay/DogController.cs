@@ -63,26 +63,12 @@ namespace Complete
 
         void Start()
         {
-            if (GameManager.sequestrado == true && GameManager.historiaMode == true)
+            if ((GameManager.sequestrado == true && GameManager.historiaMode == true) || (GameManager.Instance.fase.Equals(GameManager.Fase.Tutorial)))
             {
                 sequestrado = true;
                 ChangeState("DesativadoState");
+                Debug.Log("DogController");
             }
-
-            /*if (GameManager.Instance.fase.Equals(GameManager.Fase.Corrida) || isTutorial)
-            {
-                Debug.Log("Desativa");
-                sequestrado = true;
-                ChangeState("DesativadoState");
-
-                //TransformaPet(false);
-            }
-            else
-            {
-                Debug.Log("Ativa");
-                sequestrado = false;
-                ChangeState("IdleState");
-            }*/
 
             if (PhotonNetwork.InRoom)
             {
@@ -101,11 +87,6 @@ namespace Complete
             //dogAtivo.Value = true;
 
             triggerCollisionsScript = GetComponent<TriggerCollisionsController>();
-            if (GameManager.Instance.fase.Equals(GameManager.Fase.Tutorial))
-            {
-                ChangeState("DesativadoState");
-                sequestrado = true;
-            }
         }
 
 

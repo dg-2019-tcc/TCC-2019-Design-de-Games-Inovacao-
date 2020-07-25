@@ -68,47 +68,47 @@ public class CustomDisplay : MonoBehaviour
 
 
 
-        if (!PhotonNetwork.InRoom)
+        if (GameManager.inRoom)
         {
-            TrocaCabelo(hair.prop2DInd);
-            //TrocaMaterialCabelo(hair.colorIndex);
-            TrocaCamisa(shirt.prop2DInd);
-            //TrocaMaterialCamisa(shirt.colorIndex);
-            TrocaCalca(legs.prop2DInd);
-            //TrocaMaterialCalca(legs.colorIndex);
-            TrocaSapato(shoe.prop2DInd);
-            TrocaOculos(oculos.prop2DInd);
-            TrocaCilios(cilios.prop2DInd);
-            TrocaMask(mask.prop2DInd);
-            TrocaBone(bone.prop2DInd);
-            TrocaSkin(skin.prop2DInd);
-            TrocaPupila(pupila.prop2DInd);
-            TrocaSobrancelha(sobrancelha.prop2DInd);
-            //TrocaMaterialSapato(shoe.colorIndex);
-
+            TrocaOnline();
         }
 
         else
         {
-            TrocaCabelo((int)pv.Owner.CustomProperties["hairIndex"]);
-            //TrocaMaterialCabelo((int)pv.Owner.CustomProperties["hairColorIndex"]);
-            TrocaCamisa((int)pv.Owner.CustomProperties["shirtIndex"]);
-            //TrocaMaterialCamisa((int)pv.Owner.CustomProperties["shirtColorIndex"]);
-            TrocaCalca((int)pv.Owner.CustomProperties["legsIndex"]);
-            //TrocaMaterialCalca((int)pv.Owner.CustomProperties["legsColorIndex"]);
-            TrocaSapato((int)pv.Owner.CustomProperties["shoeIndex"]);
-            TrocaOculos((int)pv.Owner.CustomProperties["oculosIndex"]);
-            TrocaCilios((int)pv.Owner.CustomProperties["ciliosIndex"]);
-            TrocaMask((int)pv.Owner.CustomProperties["maskIndex"]);
-            TrocaBone((int)pv.Owner.CustomProperties["boneIndex"]);
-            TrocaSkin((int)pv.Owner.CustomProperties["skinIndex"]);
-            TrocaPupila((int)pv.Owner.CustomProperties["pupilaIndex"]);
-            TrocaSobrancelha((int)pv.Owner.CustomProperties["sobrancelhaIndex"]);
-            //TrocaMaterialSapato((int)pv.Owner.CustomProperties["shoeColorIndex"]);
-
-
+            TrocaOffline();
         }
     }
+
+    void TrocaOffline()
+    {
+        TrocaCabelo(hair.prop2DInd);
+        TrocaCamisa(shirt.prop2DInd);
+        TrocaCalca(legs.prop2DInd);
+        TrocaSapato(shoe.prop2DInd);
+        TrocaOculos(oculos.prop2DInd);
+        TrocaCilios(cilios.prop2DInd);
+        TrocaMask(mask.prop2DInd);
+        TrocaBone(bone.prop2DInd);
+        TrocaSkin(skin.prop2DInd);
+        TrocaPupila(pupila.prop2DInd);
+        TrocaSobrancelha(sobrancelha.prop2DInd);
+    }
+    void TrocaOnline()
+    {
+        TrocaCabelo((int)pv.Owner.CustomProperties["hairIndex"]);
+        TrocaCamisa((int)pv.Owner.CustomProperties["shirtIndex"]);
+        TrocaCalca((int)pv.Owner.CustomProperties["legsIndex"]);
+        TrocaSapato((int)pv.Owner.CustomProperties["shoeIndex"]);
+        TrocaOculos((int)pv.Owner.CustomProperties["oculosIndex"]);
+        TrocaCilios((int)pv.Owner.CustomProperties["ciliosIndex"]);
+        TrocaMask((int)pv.Owner.CustomProperties["maskIndex"]);
+        TrocaBone((int)pv.Owner.CustomProperties["boneIndex"]);
+        TrocaSkin((int)pv.Owner.CustomProperties["skinIndex"]);
+        TrocaPupila((int)pv.Owner.CustomProperties["pupilaIndex"]);
+        TrocaSobrancelha((int)pv.Owner.CustomProperties["sobrancelhaIndex"]);
+    }
+
+
     [PunRPC]
     private void TrocaSkin(int onlineIndex)
     {
