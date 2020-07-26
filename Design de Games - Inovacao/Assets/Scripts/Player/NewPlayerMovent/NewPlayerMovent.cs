@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using Complete;
 
 [RequireComponent(typeof(Controller2D))]
 public class NewPlayerMovent : MonoBehaviour

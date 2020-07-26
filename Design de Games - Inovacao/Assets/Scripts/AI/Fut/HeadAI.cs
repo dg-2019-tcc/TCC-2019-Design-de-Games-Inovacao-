@@ -2,78 +2,81 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HeadAI : MonoBehaviour
+namespace Complete
 {
-    public float headForceX;
-
-    public float headForceY;
-
-    public Rigidbody2D ballrb;
-    private AITriggerController triggerController;
-    public StateController controller;
-    public bool isFut;
-    public bool isVolei;
-
-    private void Awake()
+    public class HeadAI : MonoBehaviour
     {
-        triggerController = GetComponent<AITriggerController>();
-    }
+        public float headForceX;
 
-    private void Update()
-    {
-        if (isFut)
+        public float headForceY;
+
+        public Rigidbody2D ballrb;
+        private AITriggerController triggerController;
+        public StateController controller;
+        public bool isFut;
+        public bool isVolei;
+
+        private void Awake()
         {
-            if (triggerController.triggerCollision.touchBall && triggerController.triggerCollision.naArea == false)
+            triggerController = GetComponent<AITriggerController>();
+        }
+
+        private void Update()
+        {
+            if (isFut)
             {
-                Chuta();
+                if (triggerController.triggerCollision.touchBall && triggerController.triggerCollision.naArea == false)
+                {
+                    Chuta();
+                }
+
+                else if (triggerController.triggerCollision.chutouBall && triggerController.triggerCollision.naArea == false)
+                {
+                    ChutaForte();
+                }
+
+                else if (triggerController.triggerCollision.naArea && triggerController.triggerCollision.chutouBall)
+                {
+                    NaArea();
+                }
             }
 
-            else if (triggerController.triggerCollision.chutouBall && triggerController.triggerCollision.naArea == false)
+            if (isVolei)
             {
-                ChutaForte();
-            }
-
-            else if (triggerController.triggerCollision.naArea && triggerController.triggerCollision.chutouBall)
-            {
-                NaArea();
+                if (triggerController.triggerCollision.touchBall)
+                {
+                    Corta();
+                }
             }
         }
 
-        if (isVolei)
+
+        public void Corta()
         {
-            if (triggerController.triggerCollision.touchBall)
-            {
-                Corta();
-            }
+            ballrb = triggerController.rbBola;
+            ballrb.velocity = new Vector2(0, 0);
+
+            ballrb.AddForce(new Vector2(headForceX * 5, headForceY * 5), ForceMode2D.Impulse);
         }
-    }
 
+        public void Chuta()
+        {
+            ballrb = triggerController.rbBola;
+            ballrb.velocity = new Vector2(0, 0);
 
-    public void Corta()
-    {
-        ballrb = triggerController.rbBola;
-        ballrb.velocity = new Vector2(0, 0);
+            ballrb.AddForce(new Vector2(headForceX, headForceY), ForceMode2D.Impulse);
+        }
 
-        ballrb.AddForce(new Vector2(headForceX * 5, headForceY * 5), ForceMode2D.Impulse);
-    }
+        public void ChutaForte()
+        {
+            ballrb = triggerController.rbBola;
+            ballrb.AddForce(new Vector2(controller.botStats.kickForceX, controller.botStats.kickForceY), ForceMode2D.Impulse);
+        }
 
-    public void Chuta()
-    {
-        ballrb = triggerController.rbBola; 
-        ballrb.velocity = new Vector2(0, 0);
-
-        ballrb.AddForce(new Vector2(headForceX, headForceY), ForceMode2D.Impulse);
-    }
-
-    public void ChutaForte()
-    {
-        ballrb = triggerController.rbBola;
-        ballrb.AddForce(new Vector2(controller.botStats.kickForceX, controller.botStats.kickForceY), ForceMode2D.Impulse);
-    }
-
-    public void NaArea()
-    {
-        ballrb = triggerController.rbBola;
-        ballrb.AddForce(new Vector2(headForceX, 0), ForceMode2D.Impulse);
+        public void NaArea()
+        {
+            ballrb = triggerController.rbBola;
+            ballrb.AddForce(new Vector2(headForceX, 0), ForceMode2D.Impulse);
+        }
     }
 }

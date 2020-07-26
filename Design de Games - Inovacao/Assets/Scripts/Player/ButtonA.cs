@@ -1,11 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Complete;
 
 public class ButtonA : MonoBehaviour
 {
-    public enum State {Atirar, Fala, PowerUp, Chutar, Cortar, Manobra}
-    public State state = State.Fala;
+    public enum State {Atirar, Fala, PowerUp, Chutar, Cortar, Manobra, Null}
+    public State state = State.Null;
 
     private DogController dogScript;
     private ThrowObject tiroScript;
@@ -29,19 +30,37 @@ public class ButtonA : MonoBehaviour
         pipaActive = Resources.Load<BoolVariable>("PipaActive");
         carroActive = Resources.Load<BoolVariable>("CarroActive");
         dogScript = GetComponent<DogController>();
+
+        if (GameManager.Instance.fase.Equals(GameManager.Fase.Futebol))
+        {
+            state = State.Chutar;
+        }
+        else if(GameManager.Instance.fase.Equals(GameManager.Fase.Coleta) || GameManager.Instance.fase.Equals(GameManager.Fase.Corrida))
+        {
+            state = State.Atirar;
+        }
+
+        else if (GameManager.Instance.fase.Equals(GameManager.Fase.Volei))
+        {
+            state = State.Cortar;
+        }
     }
 
     void Update()
     {
-        if(textoAtivo.Value == true)
-        {
-            state = State.Fala;
+        if (GameManager.Instance.fase.Equals(GameManager.Fase.Hub) || GameManager.Instance.fase.Equals(GameManager.Fase.Tutorial))
+         {
+            if (textoAtivo.Value == true)
+            {
+                state = State.Fala;
+            }
         }
 
-        else if(textoAtivo.Value == false &&(pipaActive.Value == true ||carroActive.Value == true))
+        if (textoAtivo.Value == false && (pipaActive.Value == true || carroActive.Value == true))
         {
             state = State.PowerUp;
         }
+
 
         if (buildPC.Value)
         {
@@ -54,6 +73,7 @@ public class ButtonA : MonoBehaviour
 
     public void PressedButtonA()
     {
+        if (GameManager.pausaJogo == true) { return; }
         switch (state)
         {
             case State.Fala:
@@ -79,6 +99,10 @@ public class ButtonA : MonoBehaviour
             case State.Manobra:
                 EmpinarMoto();
                 break;
+
+            default:
+                state = State.Null;
+                break;
         }
     }
 
@@ -99,8 +123,12 @@ public class ButtonA : MonoBehaviour
         {
             tiroScript = GetComponent<ThrowObject>();
         }
-
-        tiroScript.Atirou();
+        if (dogScript.state.Equals(DogController.State.Idle))
+        {
+            dogScript.ChangeState("TiroState");
+            tiroScript.Atirou();
+        }
+        else { return; }
     }
 
     public void Kick()

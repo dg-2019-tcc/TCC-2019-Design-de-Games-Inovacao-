@@ -37,16 +37,17 @@ public class TV : MonoBehaviour
 
         if (GameManager.historiaMode)
         {
-            if (GameManager.Instance.fase.Equals(GameManager.Fase.Bazar) || GameManager.Instance.fase.Equals(GameManager.Fase.Start) || GameManager.Instance.fase.Equals(GameManager.Fase.Cabelo) || GameManager.Instance.fase.Equals(GameManager.Fase.Tenis))
-            {
-                CoisasAtivas(GameManager.levelIndex, true);
-            }
-            else
+            if (GameManager.levelIndex == 2 || GameManager.levelIndex == 4 || GameManager.levelIndex == 5 || GameManager.levelIndex == 7)
             {
                 if (GameManager.ganhouDoKley == 1)
                 {
                     CoisasAtivas(GameManager.levelIndex, true);
                 }
+            }
+            //Falas depois dos jogos, precisa ter ganhado para aparecer
+            else
+            {
+                CoisasAtivas(GameManager.levelIndex, true);
             }
         }
 

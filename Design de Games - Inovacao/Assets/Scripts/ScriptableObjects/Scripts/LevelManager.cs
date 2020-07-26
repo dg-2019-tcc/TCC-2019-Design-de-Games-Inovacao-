@@ -79,17 +79,29 @@ public class LevelManager : MonoBehaviour
         PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 0;
         if (GameManager.historiaMode == false)
         {
-            PerdeuDoKlay();
+            GoDerrota();
         }
         else
         {
-            GoDerrota();
+            PerdeuDoKlay();
         }
     }
 
 
     public void GanhouDoKlay()
     {
+        if (GameManager.Instance.fase.Equals(GameManager.Fase.Moto))
+        {
+            GameManager.sequestrado = true;
+            PlayerPrefs.SetInt("Sequestrado", 1);
+        }
+
+        if (GameManager.Instance.fase.Equals(GameManager.Fase.Corrida))
+        {
+            GameManager.sequestrado = false;
+            PlayerPrefs.SetInt("Sequestrado", 0);
+        }
+
         PlayerPrefs.SetInt("GanhouDoKlay", 1);
         SceneManager.LoadScene("Historia");
 
@@ -97,6 +109,8 @@ public class LevelManager : MonoBehaviour
 
     public void PerdeuDoKlay()
     {
+        FailMessageManager.manualShutdown = true;
+        PhotonNetwork.Disconnect();
         PlayerPrefs.SetInt("GanhouDoKlay", 0);
         SceneManager.LoadScene("HUB");
     }

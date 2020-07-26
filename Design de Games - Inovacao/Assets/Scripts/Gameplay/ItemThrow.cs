@@ -5,117 +5,120 @@ using Photon.Pun;
 using Photon.Realtime;
 using Photon.Pun.UtilityScripts;
 
-public class ItemThrow : MonoBehaviour
+namespace Complete
 {
-
-    public Photon.Realtime.Player Owner { get; private set; }
-
-    public FloatVariable bulletSpeed;
-    public Rigidbody2D rb;
-
-    private Vector2 shootDirection;
-
-    public float timeDestroy;
-
-    public float speedPlayer = 1.0f;
-
-    public static Transform totemTarget;
-
-    public bool hit;
-
-    public BoolVariable hitTotemCarro;
-    public BoolVariable hitTotemPipa;
-    public BoolVariable dog;
-
-
-	private bool isLocal;
-
-
-    public void InitializeBullet(Photon.Realtime.Player owner)
+    public class ItemThrow : MonoBehaviour
     {
-        Owner = owner;
-		isLocal = owner.IsLocal;
-        //shootDirection = ThrowObject.direction;
+
+        public Photon.Realtime.Player Owner { get; private set; }
+
+        public FloatVariable bulletSpeed;
+        public Rigidbody2D rb;
+
+        private Vector2 shootDirection;
+
+        public float timeDestroy;
+
+        public float speedPlayer = 1.0f;
+
+        public static Transform totemTarget;
+
+        public bool hit;
+
+        public BoolVariable hitTotemCarro;
+        public BoolVariable hitTotemPipa;
+        public BoolVariable dog;
 
 
-        //rb.velocity = Vector3.forward * bulletSpeed.Value;
-        rb.position += rb.velocity;
+        private bool isLocal;
 
-		Owner.CustomProperties["atirou"] = true;
-		Owner.CustomProperties["dogValue"] = false;
-	}
 
-    private void Update()
-    {
-        rb.velocity = transform.right * bulletSpeed.Value * Time.deltaTime;
-        rb.position += rb.velocity;
-
-        timeDestroy += Time.deltaTime;
-        if (timeDestroy >= 5f)
+        public void InitializeBullet(Photon.Realtime.Player owner)
         {
-			if (PhotonNetwork.IsConnected)
-			{
-				Owner.CustomProperties["dogValue"] = true;
-				Owner.CustomProperties["atirou"] = false;
-			}
-            Destroy(this.gameObject);
-        }
-    }
+            Owner = owner;
+            isLocal = owner.IsLocal;
+            //shootDirection = ThrowObject.direction;
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("AI"))
-        {
-            AIMovement aiMove = collision.GetComponent<AIMovement>();
-            aiMove.StartCoroutine("LevouDogada");
-        }
 
-        if (collision.CompareTag("Pipa"))
-        {
-			if (isLocal)
-			{
-				totemTarget = collision.transform;
-				hitTotemPipa.Value = true;
-				Owner.CustomProperties["dogPipa"] = true;
-				//tokenSom.Play();
+            //rb.velocity = Vector3.forward * bulletSpeed.Value;
+            rb.position += rb.velocity;
 
-				Owner.CustomProperties["acertouTotem"] = true;
-			}
-            timeDestroy = 4.9f;
+            Owner.CustomProperties["atirou"] = true;
+            Owner.CustomProperties["dogValue"] = false;
         }
 
-        if (collision.CompareTag("Carrinho"))
+        private void Update()
         {
-			if (isLocal)
-			{
-				totemTarget = collision.transform;
-				hitTotemCarro.Value = true;
-				Owner.CustomProperties["dogCarro"] = true;
-				//tokenSom.Play();
+            rb.velocity = transform.right * bulletSpeed.Value * Time.deltaTime;
+            rb.position += rb.velocity;
 
-				Owner.CustomProperties["acertouTotem"] = true;
-			}
-            timeDestroy = 4.9f;
-
+            timeDestroy += Time.deltaTime;
+            if (timeDestroy >= 5f)
+            {
+                if (PhotonNetwork.IsConnected)
+                {
+                    Owner.CustomProperties["dogValue"] = true;
+                    Owner.CustomProperties["atirou"] = false;
+                }
+                Destroy(this.gameObject);
+            }
         }
 
-        if (collision.CompareTag("Player") && collision.GetComponent<PhotonView>().Owner != Owner) 
+        private void OnTriggerEnter2D(Collider2D collision)
         {
-            PlayerThings jogador = collision.GetComponent<PlayerThings>(); 
-			jogador.StartCoroutine("LevouDogada"); 
-			//collision.GetComponent<PhotonView>().RPC("LevouDogada", RpcTarget.All); 
-			 
-			timeDestroy = 4.9f; 
-        }
+            if (collision.CompareTag("AI"))
+            {
+                AIMovement aiMove = collision.GetComponent<AIMovement>();
+                aiMove.StartCoroutine("LevouDogada");
+            }
 
-		if (collision.CompareTag("Coletavel"))
-		{
-			if (isLocal)
-			{
-				DestroyColetavel2D coletavel = collision.GetComponent<DestroyColetavel2D>();
-				coletavel.PegouColetavel(true);
-				Owner.AddScore(1);
-			}
-		}
+            if (collision.CompareTag("Pipa"))
+            {
+                if (isLocal)
+                {
+                    totemTarget = collision.transform;
+                    hitTotemPipa.Value = true;
+                    Owner.CustomProperties["dogPipa"] = true;
+                    //tokenSom.Play();
+
+                    Owner.CustomProperties["acertouTotem"] = true;
+                }
+                timeDestroy = 4.9f;
+            }
+
+            if (collision.CompareTag("Carrinho"))
+            {
+                if (isLocal)
+                {
+                    totemTarget = collision.transform;
+                    hitTotemCarro.Value = true;
+                    Owner.CustomProperties["dogCarro"] = true;
+                    //tokenSom.Play();
+
+                    Owner.CustomProperties["acertouTotem"] = true;
+                }
+                timeDestroy = 4.9f;
+
+            }
+
+            if (collision.CompareTag("Player") && collision.GetComponent<PhotonView>().Owner != Owner)
+            {
+                PlayerThings jogador = collision.GetComponent<PlayerThings>();
+                jogador.StartCoroutine("LevouDogada");
+                //collision.GetComponent<PhotonView>().RPC("LevouDogada", RpcTarget.All); 
+
+                timeDestroy = 4.9f;
+            }
+
+            if (collision.CompareTag("Coletavel"))
+            {
+                if (isLocal)
+                {
+                    DestroyColetavel2D coletavel = collision.GetComponent<DestroyColetavel2D>();
+                    coletavel.PegouColetavel(true);
+                    Owner.AddScore(1);
+                }
+            }
+        }
     }
 }

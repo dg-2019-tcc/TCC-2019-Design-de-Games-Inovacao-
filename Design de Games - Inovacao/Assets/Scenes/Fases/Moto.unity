@@ -23499,7 +23499,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1068060891}
-  - component: {fileID: 1068060890}
   - component: {fileID: 1068060892}
   m_Layer: 0
   m_Name: BotSpawner
@@ -23508,55 +23507,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1068060890
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1068060889}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aedd62c5e6a8b614f85a02d044006eeb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  aiPrefab:
-  - {fileID: 2700553094261141899, guid: b5c6c87f222731c4396114e75ca011b4, type: 3}
-  - {fileID: 2700553094261141899, guid: f8958b33300f01549ad6a4249aaa05f1, type: 3}
-  m_AI:
-  - m_SpawnPoint: {fileID: 1068060891}
-    m_PlayerNumber: 0
-    m_Instance: {fileID: 0}
-    m_WayPointList: []
-    aiMovement: {fileID: 0}
-  wayPointsForAI:
-  - {fileID: 574603235}
-  - {fileID: 1364172359}
-  - {fileID: 1220948943}
-  - {fileID: 605144349}
-  - {fileID: 1739574636}
-  - {fileID: 1113676928}
-  - {fileID: 830304298}
-  - {fileID: 219366362}
-  - {fileID: 2068632258}
-  - {fileID: 1587685191}
-  - {fileID: 988785389}
-  - {fileID: 86733853}
-  - {fileID: 467353794}
-  - {fileID: 1026312330}
-  - {fileID: 191704212}
-  - {fileID: 2116516671}
-  - {fileID: 1405566611}
-  - {fileID: 1051581484}
-  - {fileID: 1524869193}
-  - {fileID: 1241100575}
-  - {fileID: 1197663907}
-  thingsAI: {fileID: 44980810}
-  thingsOnline: {fileID: 0}
-  botScore: {fileID: 11400000, guid: 8b566134829c06c4f870959dc3f30b67, type: 2}
-  aiMovement: {fileID: 0}
-  comecouPartida: 0
-  acabou01: {fileID: 11400000, guid: 5c68756dff61d5944a688b613f239362, type: 2}
 --- !u!4 &1068060891
 Transform:
   m_ObjectHideFlags: 0
@@ -23593,6 +23543,7 @@ MonoBehaviour:
     m_WayPointList: []
     aiMovement: {fileID: 0}
   wayPointsForAI: []
+  bola: {fileID: 0}
   thingsAI: {fileID: 44980810}
   thingsOnline: {fileID: 0}
   botScore: {fileID: 11400000, guid: 8b566134829c06c4f870959dc3f30b67, type: 2}
@@ -30826,7 +30777,7 @@ PrefabInstance:
         type: 3}
       propertyPath: gameManager
       value: 
-      objectReference: {fileID: 1068060890}
+      objectReference: {fileID: 0}
     - target: {fileID: 5936819967908679543, guid: 5ebbe49b5a29ace41a20862a92a55b0a,
         type: 3}
       propertyPath: aiSpawnCooldown

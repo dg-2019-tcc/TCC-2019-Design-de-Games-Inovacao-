@@ -6,18 +6,9 @@ public class TakeOffUnused : MonoBehaviour
 {
 	public bool letThemBeOn = false;
 
-	private void Start()
-	{
-		CheckAndExecute();
-	}
 
-	private void Update()
-	{
-		CheckAndExecute();
-		letThemBeOn = true;
-	}
-
-	private void CheckAndExecute()
+    //Está sendo chamado pelo script Player2DAnimations
+	public void CheckAndExecute()
 	{
 		if (letThemBeOn)
 		{
@@ -30,11 +21,13 @@ public class TakeOffUnused : MonoBehaviour
 			ChangeMultipleCustom changeMultipleCustom = part.GetComponent<ChangeMultipleCustom>();
 			if (!part.gameObject.activeSelf && changeMultipleCustom != null)
 			{
-				foreach  (GameObject subPart in changeMultipleCustom.multipleCustom)
-				{
-					Destroy(subPart);
-				}
-			}
-		}
+
+                foreach (GameObject subPart in changeMultipleCustom.multipleCustom)
+                {
+                    Destroy(subPart);
+                }
+            }
+
+        }
 	}
 }

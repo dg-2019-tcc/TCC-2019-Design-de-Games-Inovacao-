@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Photon.Pun.UtilityScripts;
 using UnityEngine.UI;
+using Complete;
 
 public class PlayerThings : MonoBehaviour
 {
@@ -106,7 +107,8 @@ public class PlayerThings : MonoBehaviour
 
     void Update()
     {
-        if((desativaCanvas && canvasSelf.activeSelf) || buildPC.Value == true)
+        if (GameManager.pausaJogo == true) { return; }
+        if ((desativaCanvas && canvasSelf.activeSelf) || buildPC.Value == true)
         {
             canvasSelf.SetActive(false);
         }

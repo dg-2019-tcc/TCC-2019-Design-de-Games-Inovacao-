@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using Complete;
 
 public class DogColetaTutorial : MonoBehaviour
 {
@@ -10,12 +11,14 @@ public class DogColetaTutorial : MonoBehaviour
 
 	private PhotonView pv;
 	public GameObject coletavel;
+    public DogController dogController;
 
 	public bool dog;
 	private bool araki = true;
     // Start is called before the first frame update
     void Start()
     {
+        //dogController.sequestrado = true;
 		// dogSpawn = gsp.PlayerInst.GetComponent<PhotonPlayer>().myAvatar.GetComponent<DogController>().Pet;
 		//		dogSpawn.Value = false;
 		if (dog)
@@ -28,7 +31,7 @@ public class DogColetaTutorial : MonoBehaviour
     }
 
 	// Update is called once per frame
-	 void Update()
+	 /*void Update()
 	 {
 		if (dog && araki && dogSpawn.Value)
 		{
@@ -36,14 +39,15 @@ public class DogColetaTutorial : MonoBehaviour
 			//dog = false;
 			araki = false;
 		}
-	 }
+	 }*/
 
 
-	private void OnTriggerEnter2D(Collider2D collision)
+	/*private void OnTriggerEnter2D(Collider2D collision)
 	{
 		//		dogSpawn.Value = true;
 		if (collision.CompareTag("Player"))
 		{
+            Debug.Log("Trigger");
 			if (dog)
 			{
 				dogSpawn.Value = true;
@@ -51,14 +55,10 @@ public class DogColetaTutorial : MonoBehaviour
 			coletavel.SetActive(true);
 			Destroy(gameObject);
 		}
-	}
+	}*/
 
     public void AtivaDog()
     {
-        if (dog)
-        {
-            dogSpawn.Value = true;
-        }
         coletavel.SetActive(true);
         Destroy(gameObject);
     }

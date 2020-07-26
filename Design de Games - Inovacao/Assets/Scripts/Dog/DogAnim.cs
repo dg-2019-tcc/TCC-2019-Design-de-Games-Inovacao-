@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DragonBones;
+using Complete;
 
 public class DogAnim : MonoBehaviour
 {

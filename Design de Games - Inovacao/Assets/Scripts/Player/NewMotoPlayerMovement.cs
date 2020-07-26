@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using Complete;
 
 [RequireComponent(typeof(Controller2D))]
 public class NewMotoPlayerMovement : MonoBehaviour
@@ -78,7 +79,8 @@ public class NewMotoPlayerMovement : MonoBehaviour
 
 	void Update()
 	{
-		if (!pv.IsMine && PhotonNetwork.InRoom) return;
+        if (GameManager.pausaJogo == true) { return; }
+        if (!pv.IsMine && PhotonNetwork.InRoom) return;
         //if (levouDogada.Value) return;
         if (playerGanhou.Value) return;
 

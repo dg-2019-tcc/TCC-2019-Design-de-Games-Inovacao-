@@ -4,12 +4,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DragonBones;
+using Complete;
 
 public class Player2DAnimations : MonoBehaviour
 {
 	public GameObject frente;
 	public GameObject lado;
-
+    public TakeOffUnused takeOffFrente;
+    public TakeOffUnused takeOffLado;
 
 	public string idlePose = "0_Idle";
 	public string walkAnimation = "0_Corrida_V2";
@@ -32,6 +34,7 @@ public class Player2DAnimations : MonoBehaviour
 	public State state = State.Idle;
     public State oldState;
     public State nextState;
+    private bool shouldChangeArmature;
 
 	private Controller2D controller;
 	[SerializeField]
@@ -71,17 +74,26 @@ public class Player2DAnimations : MonoBehaviour
     public BoolVariable levouDogada;
 
     public bool isVictory;
+    public bool isLoja;
 
     private bool desativaIdle;
-
+    private CustomDisplay customDisplay;
+    private DogController dogController;
 
 	private void Start()
 	{
-		textoAtivo = Resources.Load<BoolVariable>("TextoAtivo");
+        lado.SetActive(true);
+        frente.SetActive(true);
+
+        textoAtivo = Resources.Load<BoolVariable>("TextoAtivo");
 
 		photonView = gameObject.GetComponent<PhotonView>();
 		controller = GetComponent<Controller2D>();
 		triggerCollisions = GetComponent<TriggerCollisionsController>();
+        customDisplay = GetComponent<CustomDisplay>();
+        takeOffFrente = frente.GetComponent<TakeOffUnused>();
+        takeOffLado = lado.GetComponent<TakeOffUnused>();
+        dogController = GetComponent<DogController>();
        
 		if (PhotonNetwork.InRoom)
 		{
@@ -92,12 +104,30 @@ public class Player2DAnimations : MonoBehaviour
 			isOnline = false;
 		}
 
+        GameManager.Instance.ChecaFase();
+        customDisplay.AtivaRoupas();
+        //Tirando a customização não utilizada
+        if (!GameManager.Instance.fase.Equals(GameManager.Fase.Loja))
+        {
+            takeOffFrente.CheckAndExecute();
+            takeOffLado.CheckAndExecute();
+            takeOffFrente.letThemBeOn = true;
+            takeOffLado.letThemBeOn = true;
+            frente.SetActive(false);
+        }
+        else
+        {
+            takeOffFrente.letThemBeOn = true;
+            takeOffLado.letThemBeOn = true;
+            lado.SetActive(false);
+        }
+
 	}
 
     public void ChangeMoveAnim(Vector3 moveAmount, Vector2 oldPos, Vector2 input, bool stun, bool ganhou)
 	{
+        if (isLoja) return;
         Cooldown();
-
 		if (!PhotonNetwork.InRoom || photonView.IsMine)
 		{
             if(lado.activeInHierarchy == true && frente.activeInHierarchy == true)
@@ -110,7 +140,7 @@ public class Player2DAnimations : MonoBehaviour
                 moveX = Mathf.Abs(moveAmount.x);
                 if (!isVictory)
                 {
-                    if (carroActive.Value == false && pipaActive.Value == false && dogButtonAnim == false && !stun)
+                    if (!dogController.state.Equals(DogController.State.Carro) && !dogController.state.Equals(DogController.State.Carro) && dogButtonAnim == false && !stun)
                     {
                         if (/*oldPos.y < moveAmount.y*/ moveAmount.y > 0 /*&& controller.collisions.below == false*/)
                         {
@@ -138,20 +168,26 @@ public class Player2DAnimations : MonoBehaviour
                             nextState = State.Idle;
                         }
                     }
-
-                    else if (carroActive.Value == false && pipaActive.Value == false && dogButtonAnim == false && stun)
+                    else
                     {
-                        nextState = State.Stun;
-                    }
+                        if (stun)
+                        {
+                            nextState = State.Stun;
+                        }
 
-                    else if (pipaActive.Value == true)
-                    {
-                        nextState = State.Pipa;
-                    }
+                        else
+                        {
+                            if (dogController.state.Equals(DogController.State.Carro))
+                            {
+                                nextState = State.CarroWalk;
+                                Debug.Log(dogController.state.Equals(DogController.State.Carro));
+                            }
 
-                    else if (carroActive.Value == true)
-                    {
-                        nextState = State.CarroWalk;
+                            if (pipaActive.Value == true)
+                            {
+                                nextState = State.Pipa;
+                            }
+                        }
                     }
                 }
 
@@ -191,6 +227,7 @@ public class Player2DAnimations : MonoBehaviour
 			if (fase == 0)
 			{
                 nextState = State.Arremessando;
+                Debug.Log("DogButton");
 			}
 
 			else if (fase == 1)
@@ -209,6 +246,7 @@ public class Player2DAnimations : MonoBehaviour
 	private void PlayAnim(State anim)
 	{
         coolToNext = 0;
+        CheckArmature();
 
         if (isOnline)
 		{
@@ -218,7 +256,6 @@ public class Player2DAnimations : MonoBehaviour
 		{
 			AnimState(anim);
 		}
-
 	}
 
     void Cooldown()
@@ -226,36 +263,85 @@ public class Player2DAnimations : MonoBehaviour
         coolToNext += Time.deltaTime;
     }
 
-    [PunRPC]
-    public void AnimState(State anim)
+    void CheckArmature()
     {
-        if (state == State.Idle || state == State.Inativo)
+        if(frente.activeInHierarchy == true)
         {
-            if (anim == State.Walking || anim == State.Rising || anim == State.Falling|| anim == State.Pipa || anim == State.CarroWalk)
+            if (nextState == State.Idle || nextState == State.Ganhou || nextState == State.Inativo || nextState == State.Perdeu || nextState == State.Stun)
             {
-                lado.SetActive(true);
-                playerFrente.animation.Play(idlePose);
-                frente.SetActive(false);
+                shouldChangeArmature = false;
             }
-        }
-        if (state == State.Walking || state == State.Rising || state == State.Falling || state == State.Pipa || state == State.CarroWalk)
-        {
-            if(anim == State.Idle || anim == State.Stun || anim == State.Ganhou|| anim == State.Perdeu)
+            else
             {
-                frente.SetActive(true);
-                lado.SetActive(false);
+                shouldChangeArmature = true;
+                ChageArmature(false);
             }
         }
 
+        if(lado.activeInHierarchy == true)
+        {
+            if (nextState == State.Idle || nextState == State.Ganhou || nextState == State.Inativo || nextState == State.Perdeu || nextState == State.Stun)
+            {
+                shouldChangeArmature = true;
+                ChageArmature(true);
+            }
+            else
+            {
+                shouldChangeArmature = false;
+            }
+        }
+
+    }
+
+    void ChageArmature(bool shouldFrenteBeOn)
+    {
+        frente.SetActive(shouldFrenteBeOn);
+        lado.SetActive(!shouldFrenteBeOn);
+    }
+
+    [PunRPC]
+    public void AnimState(State anim)
+    {
         switch (anim)
         {
-            case State.Aterrisando:
-                if (state != State.Aterrisando)
+            case State.Ganhou:
+                if (state != State.Ganhou)
                 {
-                    player.animation.Play(aterrisandoAnimation);
-                    state = State.Aterrisando;
+                    frente.SetActive(true);
+                    lado.SetActive(false);
+                    playerFrente.animation.Play(vitoriaAnim);
+                    state = State.Ganhou;
                 }
-                return;
+                break;
+
+            case State.Perdeu:
+                if (state != State.Perdeu)
+                {
+                    frente.SetActive(true);
+                    lado.SetActive(false);
+                    playerFrente.animation.Play(derrotaAnim);
+                    state = State.Perdeu;
+                }
+                break;
+
+            case State.Chutando:
+                if (state != State.Chutando)
+                {
+                    inativoTime = 0f;
+                    player.animation.Play(chuteAnimation);
+                    state = State.Chutando;
+                }
+                break;
+
+            case State.Arremessando:
+                if (state != State.Arremessando)
+                {
+                    inativoTime = 0f;
+                    player.animation.Play(arremessoAnimation);
+                    state = State.Arremessando;
+                    Debug.Log(state);
+                }
+                break;
 
             case State.CarroWalk:
                 if (state != State.CarroWalk)
@@ -263,7 +349,7 @@ public class Player2DAnimations : MonoBehaviour
                     player.animation.Play(carroWalkAnim);
                     state = State.CarroWalk;
                 }
-                return;
+                break;
 
             case State.Pipa:
                 if (state != State.Pipa)
@@ -271,7 +357,15 @@ public class Player2DAnimations : MonoBehaviour
                     player.animation.Play(pipaAnimation);
                     state = State.Pipa;
                 }
-                return;
+                break;
+
+            case State.Aterrisando:
+                if (state != State.Aterrisando)
+                {
+                    player.animation.Play(aterrisandoAnimation);
+                    state = State.Aterrisando;
+                }
+                break;
 
             case State.Idle:
                 if (state != State.Idle)
@@ -282,7 +376,7 @@ public class Player2DAnimations : MonoBehaviour
                     playerFrente.animation.Play(idlePose);
                     state = State.Idle;
                 }
-                return;
+                break;
 
             case State.Stun:
                 if (state != State.Stun)
@@ -292,34 +386,15 @@ public class Player2DAnimations : MonoBehaviour
                     playerFrente.animation.Play(stunAnim);
                     state = State.Stun;
                 }
-                return;
+                break;
 
-            case State.Ganhou:
-                if (state != State.Ganhou)
-                {
-                    frente.SetActive(true);
-                    lado.SetActive(false);
-                    playerFrente.animation.Play(vitoriaAnim);
-                    state = State.Ganhou;
-                }
-                return;
-
-            case State.Perdeu:
-                if (state != State.Perdeu)
-                {
-                    frente.SetActive(true);
-                    lado.SetActive(false);
-                    playerFrente.animation.Play(derrotaAnim);
-                    state = State.Perdeu;
-                }
-                return;
             case State.Walking:
                 if (state != State.Walking)
                 {
                     player.animation.Play(walkAnimation);
                     state = State.Walking;
                 }
-                return;
+                break;
 
             case State.Rising:
                 if (state != State.Rising)
@@ -328,7 +403,8 @@ public class Player2DAnimations : MonoBehaviour
                     player.animation.Play(subindoJumpAnimation);
                     state = State.Rising;
                 }
-                return;
+                break;
+
             case State.Falling:
                 if (state != State.Falling)
                 {
@@ -336,23 +412,7 @@ public class Player2DAnimations : MonoBehaviour
                     player.animation.Play(descendoJumpAnimation);
                     state = State.Falling;
                 }
-                return;
-            case State.Chutando:
-                if (state != State.Chutando)
-                {
-                    inativoTime = 0f;
-                    player.animation.Play(chuteAnimation);
-                    state = State.Chutando;
-                }
-                return;
-            case State.Arremessando:
-                if (state != State.Arremessando)
-                {
-                    inativoTime = 0f;
-                    player.animation.Play(arremessoAnimation);
-                    state = State.Arremessando;
-                }
-                return;
+                break;
         }
     }
 }

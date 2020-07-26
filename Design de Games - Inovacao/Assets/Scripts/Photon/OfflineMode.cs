@@ -45,33 +45,10 @@ public class OfflineMode : MonoBehaviour
     }
     #endregion
 
-    /* private void Awake()
-     {
-         acabou01 = Resources.Load<BoolVariableArray>("Acabou01");
-         demo = Resources.Load<BoolVariable>("Demo");
-
-         DontDestroyOnLoad(eu);
-
-         if (acabou01.Value[8] == false || demo.Value == true)
-         {
-             modoDoOffline = true;
-         }
-
-         else
-         {
-             modoDoOffline = false;
-         }
-
-         PhotonNetwork.OfflineMode = modoDoOffline;
-
-         //LoadGame();
-         //StartCoroutine(SaveGame());
-     }*/
 
     public void AtivaOffline(bool offMode)
     {
         PhotonNetwork.OfflineMode = offMode;
-        Debug.Log(offMode);
         modoDoOffline = PhotonNetwork.OfflineMode;
         Debug.Log("O modo Offline está ativo é" + PhotonNetwork.OfflineMode);
     }

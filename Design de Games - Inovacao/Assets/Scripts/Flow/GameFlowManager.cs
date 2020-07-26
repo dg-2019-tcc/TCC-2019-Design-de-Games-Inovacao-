@@ -35,26 +35,15 @@ public class GameFlowManager : MonoBehaviour
 
     private void Start()
     {
-        sceneName = SceneManager.GetActiveScene().name;
 
         if (aiGanhou == null)
         {
             aiGanhou = Resources.Load<BoolVariableArray>("AIGanhou");
         }
 
-        if (sceneName == "HUB")
+        if (GameManager.Instance.fase.Equals(GameManager.Fase.Hub))
         {
-            if (aiGanhou.Value[index] == true)
-            {
-                DestroyNpcs(index - 2);
-            }
-            else
-            {
-                if (index > 1)
-                {
-                    DestroyNpcs(index);
-                }
-            }
+            DestroyNpcs(GameManager.levelIndex);
         }
 
     }
@@ -84,7 +73,8 @@ public class GameFlowManager : MonoBehaviour
 
             case 8:
                 //FaseRoupa();
-                Completo();
+                //Completo();
+                FechaTudo();
                 break;
 
             case 7:
@@ -138,8 +128,6 @@ public class GameFlowManager : MonoBehaviour
 
     public void FaseTenis()
     {
-        GameManager.Instance.fase = GameManager.Fase.Tenis;
-
         portas[0].SetActive(false);
         portas[1].SetActive(true);
 
@@ -163,8 +151,6 @@ public class GameFlowManager : MonoBehaviour
 
     public void FaseMoto()
     {
-        GameManager.Instance.fase = GameManager.Fase.Moto;
-
         portas[0].SetActive(false);
         portas[1].SetActive(false);
         portas[2].SetActive(false);
@@ -179,8 +165,6 @@ public class GameFlowManager : MonoBehaviour
 
     public void FaseCabelo()
     {
-        GameManager.Instance.fase = GameManager.Fase.Cabelo;
-
         portas[0].SetActive(false);
         portas[1].SetActive(false);
         portas[2].SetActive(false);
@@ -196,8 +180,6 @@ public class GameFlowManager : MonoBehaviour
 
     public void FaseCorrida()
     {
-        GameManager.Instance.fase = GameManager.Fase.Corrida;
-
         portas[0].SetActive(false);
         portas[1].SetActive(false);
         portas[2].SetActive(false);
@@ -216,8 +198,6 @@ public class GameFlowManager : MonoBehaviour
 
     public void FaseRoupa()
     {
-        GameManager.Instance.fase = GameManager.Fase.Bazar;
-
         portas[0].SetActive(false);
         portas[1].SetActive(false);
         portas[2].SetActive(false);
