@@ -80,36 +80,29 @@ public class GolManager : MonoBehaviourPunCallbacks
         PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 0;
         if (isLoading) return;
         isLoading = true;
-        StartCoroutine("AcabouFase");
+        LevelManager.Instance.Perdeu();
+        //StartCoroutine("AcabouFase");
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Futebol"))
         {
-            /*if (bola == null)
-            {
-                bola = other.gameObject;
-                bolaFutebol = bola.GetComponent<BolaFutebol>();
-            }*/
             playerGol.jogador.PV.Owner.AddScore(1);
 
-
-
             bolaFutebol.FoiGol();
-
-
 
             if (playerGol.jogador.PV.Owner.GetScore() >= 5)
             {
                 feedbackWin.Ganhou();
-                aiGanhou.Value[4] = false;
+                //aiGanhou.Value[4] = false;
                 playerGanhou.Value = true;
-				PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 1;
-				if (isLoading) return;
-				isLoading = true;
+                LevelManager.Instance.Ganhou();
+				//PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 1;
+				//if (isLoading) return;
+				//isLoading = true;
                 //StartCoroutine("AcabouFase");
-                Acaba();
+                //Acaba();
             }
             
         }
@@ -125,12 +118,12 @@ public class GolManager : MonoBehaviourPunCallbacks
 				if (isLoading) return;
 				isLoading = true;
 				//StartCoroutine("AcabouFase");
-				Acaba();
+				//Acaba();
 			}
 		}
 	}
 
-	[PunRPC]
+	/*[PunRPC]
     void Acaba()
     {
         StartCoroutine("AcabouFase");
@@ -161,7 +154,7 @@ public class GolManager : MonoBehaviourPunCallbacks
 				{
                     FailMessageManager.manualShutdown = true;
                     PhotonNetwork.Disconnect();
-                    LevelManager.Instance.GoHub();
+                    //LevelManager.Instance.GoHub();
 				}
 			}
 
@@ -175,71 +168,13 @@ public class GolManager : MonoBehaviourPunCallbacks
 				}
 				else
 				{
-					LevelManager.Instance.HistFutebol();
+					//LevelManager.Instance.HistFutebol();
 					//flowIndex.Value = 4;
 				}
 
 				moedas.Add(moedasGanhasNessaFase);
 			}
 		}
-    }
+    }*/
 
-    [PunRPC]
-    public void Recomeca()
-    {
-        StartCoroutine("ResetaBola");
-    }
-
-    [PunRPC]
-    public void DesativaBola()
-    {
-        Debug.Log("Desativa");
-        desativaBola = true;
-        ativaBola = false;
-    }
-
-    [PunRPC]
-    public void AtivaBola()
-    {
-        Debug.Log("Ativa");
-        desativaBola = false;
-        ativaBola = true;
-    }
-
-
-    /*IEnumerator ResetaBola()
-    {
-
-           /* Debug.Log("Reseta");
-            goool.SetActive(true);
-            bola.SetActive(false);
-
-            //bola.GetComponent<BolaFutebol>().bolaTimer += 5f;
-
-            bola.GetComponent<Rigidbody2D>().isKinematic = true;
-
-            bola.transform.position = bolaSpawnPoint.position;
-    
-
-        if (ativaBola)
-        {
-
-            bola.SetActive(true);
-
-            bola.GetComponent<Rigidbody2D>().isKinematic = false;
-            goool.SetActive(false);
-        }
-    
-
-
-    bolaPV.RPC("DesativaBola", RpcTarget.All);
-
-        index++;
-
-        yield return new WaitForSeconds(0.8f);
-        //placarText.text = playerGol.jogador.PV.Owner.GetScore().ToString();
-
-        bolaPV.RPC("AtivaBola", RpcTarget.All);*/
-
-    //}
 }

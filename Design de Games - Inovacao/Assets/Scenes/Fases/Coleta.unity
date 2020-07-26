@@ -4721,7 +4721,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 16.25, y: 4.951172}
+    oldSize: {x: 16.265467, y: 4.94}
     newSize: {x: 16.25, y: 4.94}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -4747,7 +4747,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 13.2699995, y: 6.557246}
+    oldSize: {x: 13.281585, y: 6.5499997}
     newSize: {x: 13.27, y: 6.55}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -4773,7 +4773,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 9.95, y: 14.390961}
+    oldSize: {x: 9.956465, y: 14.38}
     newSize: {x: 9.95, y: 14.38}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -4897,7 +4897,7 @@ GameObject:
   - component: {fileID: 1750275369}
   - component: {fileID: 1750275368}
   m_Layer: 0
-  m_Name: GameManager
+  m_Name: BotSpawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4912,7 +4912,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1750275367}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aedd62c5e6a8b614f85a02d044006eeb, type: 3}
+  m_Script: {fileID: 11500000, guid: f8217cd6e040f9249918404f07ada33c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   aiPrefab:
@@ -4924,9 +4924,7 @@ MonoBehaviour:
     m_Instance: {fileID: 0}
     m_WayPointList: []
     aiMovement: {fileID: 0}
-  wayPointsForAI:
-  - {fileID: 659778575}
-  - {fileID: 522934971}
+  wayPointsForAI: []
   thingsAI: {fileID: 1644357975}
   thingsOnline: {fileID: 522934970}
   botScore: {fileID: 11400000, guid: 8b566134829c06c4f870959dc3f30b67, type: 2}
@@ -6899,7 +6897,7 @@ PrefabInstance:
         type: 3}
       propertyPath: gameManager
       value: 
-      objectReference: {fileID: 1750275368}
+      objectReference: {fileID: 0}
     - target: {fileID: 5936819967908679543, guid: 5ebbe49b5a29ace41a20862a92a55b0a,
         type: 3}
       propertyPath: aiSpawnCooldown

@@ -7,41 +7,77 @@ using Photon.Pun;
 public class OfflineMode : MonoBehaviour
 {
     public static bool modoDoOffline = false;
-    public GameObject eu;
-    public BoolVariableArray acabou01;
     public BoolVariable demo;
+
+    #region Singleton
+    private static OfflineMode _instance;
+
+    public static OfflineMode Instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                _instance = FindObjectOfType<OfflineMode>();
+                if (_instance == null)
+                {
+                    GameObject go = new GameObject();
+                    go.name = typeof(OfflineMode).Name;
+                    _instance = go.AddComponent<OfflineMode>();
+                    DontDestroyOnLoad(go);
+                }
+            }
+            return _instance;
+        }
+    }
 
     private void Awake()
     {
-        acabou01 = Resources.Load<BoolVariableArray>("Acabou01");
-        demo = Resources.Load<BoolVariable>("Demo");
-
-        DontDestroyOnLoad(eu);
-
-        if (acabou01.Value[8] == false || demo.Value == true)
+        if (_instance == null)
         {
-            modoDoOffline = true;
+            _instance = this;
+            DontDestroyOnLoad(this.gameObject);
         }
-
         else
         {
-            modoDoOffline = false;
+            Destroy(gameObject);
         }
-
-        PhotonNetwork.OfflineMode = modoDoOffline;
-
-		LoadGame();
-		StartCoroutine(SaveGame());
     }
+    #endregion
 
-    public void AtivaOffline()
+    /* private void Awake()
+     {
+         acabou01 = Resources.Load<BoolVariableArray>("Acabou01");
+         demo = Resources.Load<BoolVariable>("Demo");
+
+         DontDestroyOnLoad(eu);
+
+         if (acabou01.Value[8] == false || demo.Value == true)
+         {
+             modoDoOffline = true;
+         }
+
+         else
+         {
+             modoDoOffline = false;
+         }
+
+         PhotonNetwork.OfflineMode = modoDoOffline;
+
+         //LoadGame();
+         //StartCoroutine(SaveGame());
+     }*/
+
+    public void AtivaOffline(bool offMode)
     {
-        PhotonNetwork.OfflineMode = true;
+        PhotonNetwork.OfflineMode = offMode;
+        Debug.Log(offMode);
         modoDoOffline = PhotonNetwork.OfflineMode;
+        Debug.Log("O modo Offline está ativo é" + PhotonNetwork.OfflineMode);
     }
 
 
-	private IEnumerator SaveGame()
+	/*private IEnumerator SaveGame()
 	{
 		yield return new WaitForSeconds(30);
 		for (int i = 0; i < acabou01.Value.Length; i++)
@@ -77,5 +113,5 @@ public class OfflineMode : MonoBehaviour
 			return true;
 		else
 			return false;
-	}
+	}*/
 }

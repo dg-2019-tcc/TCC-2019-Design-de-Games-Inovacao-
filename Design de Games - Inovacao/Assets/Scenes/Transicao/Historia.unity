@@ -96,6 +96,7 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaAO: 1
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
+    m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
   m_UseShadowmask: 1
 --- !u!196 &4
@@ -204,6 +205,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   histImage: {fileID: 1889835108}
+  histImageColeta: {fileID: 21300000, guid: bb7baee285cc53041bcfd36c71cf0454, type: 3}
+  histImageFutebol: {fileID: 21300000, guid: 1c65f806f7005c44dbbf327b03398d3f, type: 3}
+  histImageMoto: {fileID: 21300000, guid: 74fe1a126fc18144c8a26d19d380f75f, type: 3}
+  histImageCorrida:
+  - {fileID: 21300000, guid: dbcc0a94b01d30544bdaa84f82ec262b, type: 3}
+  - {fileID: 21300000, guid: de6c2cc9ac65a2e45a7ab579816b7086, type: 3}
   histSprites:
   - {fileID: 21300000, guid: 6e0a66df60322d24eb5c5948946d80a3, type: 3}
   - {fileID: 21300000, guid: 03f73c24113c0b948bc422e73f183838, type: 3}
@@ -506,8 +513,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
-      Culture=neutral, PublicKeyToken=null
 --- !u!114 &1490643727
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -523,11 +528,10 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_Sprite: {fileID: 21300000, guid: 2ae382f54ebc73b448f064808ff3d1c5, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
@@ -579,11 +583,10 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 0
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_Sprite: {fileID: 21300000, guid: 6e0a66df60322d24eb5c5948946d80a3, type: 3}
   m_Type: 0
   m_PreserveAspect: 0

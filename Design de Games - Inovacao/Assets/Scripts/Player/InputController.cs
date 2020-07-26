@@ -26,6 +26,7 @@ public class InputController : MonoBehaviour
 
     private void Update()
     {
+        if (GameManager.pausaJogo) return;
         if (buildPC.Value == false)
         {
             if (joyStick == null)

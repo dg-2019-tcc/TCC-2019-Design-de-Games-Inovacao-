@@ -111,7 +111,7 @@ public class PlayerThings : MonoBehaviour
             canvasSelf.SetActive(false);
         }
 
-        if (PV.IsMine && comecou)
+        if (PV.IsMine && comecou &&(GameManager.Instance.fase.Equals(GameManager.Fase.Coleta) || GameManager.Instance.fase.Equals(GameManager.Fase.Corrida)))
         {
             cameraManager.SendMessage("ActivateCamera", true);
         }

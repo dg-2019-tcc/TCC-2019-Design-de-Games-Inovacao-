@@ -30,25 +30,25 @@ public class TV : MonoBehaviour
             aiGanhou = Resources.Load<BoolVariableArray>("AIGanhou");
         }
 
-
-
 		for (int i = 0; i < acabou01.Value.Length; i++)
 		{
 			CoisasAtivas(i, false);
 		}
-		for (int i = 0; i < acabou01.Value.Length; i++)
-		{
-			
-			if (!acabou01.Value[i])
-			{
-				if (!aiGanhou.Value[i])
-				{
-					CoisasAtivas(i , true);
-				}
-				break;
-			}
 
-		}
+        if (GameManager.historiaMode)
+        {
+            if (GameManager.Instance.fase.Equals(GameManager.Fase.Bazar) || GameManager.Instance.fase.Equals(GameManager.Fase.Start) || GameManager.Instance.fase.Equals(GameManager.Fase.Cabelo) || GameManager.Instance.fase.Equals(GameManager.Fase.Tenis))
+            {
+                CoisasAtivas(GameManager.levelIndex, true);
+            }
+            else
+            {
+                if (GameManager.ganhouDoKley == 1)
+                {
+                    CoisasAtivas(GameManager.levelIndex, true);
+                }
+            }
+        }
 
 
 		faloComTV = false;
@@ -57,7 +57,15 @@ public class TV : MonoBehaviour
 	
 	public void CoisasAtivas(int index, bool ativar)
 	{
-		falas[index].SetActive(ativar);
+        if (!ativar)
+        {
+            falas[index].SetActive(ativar);
+        }
+        else
+        {
+            GameManager.Instance.LoadGame();
+            falas[GameManager.levelIndex].SetActive(true);
+        }
 		pointer.enabled = ativar;
 		precisaFalar = ativar;
         //FalouComTV();

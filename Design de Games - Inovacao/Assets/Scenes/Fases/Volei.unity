@@ -1295,12 +1295,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bola: {fileID: 699895062}
---- !u!4 &699895065 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1275601673399788880, guid: a94b6bc7dc8ffb9458349b1be4672a1d,
-    type: 3}
-  m_PrefabInstance: {fileID: 699895061}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &699895066
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2429,7 +2423,7 @@ PrefabInstance:
         type: 3}
       propertyPath: gameManager
       value: 
-      objectReference: {fileID: 1643171863}
+      objectReference: {fileID: 0}
     - target: {fileID: 5936819967908679543, guid: 5ebbe49b5a29ace41a20862a92a55b0a,
         type: 3}
       propertyPath: aiSpawnCooldown
@@ -2755,7 +2749,7 @@ GameObject:
   - component: {fileID: 1643171864}
   - component: {fileID: 1643171863}
   m_Layer: 0
-  m_Name: GameManager
+  m_Name: BotSpawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2770,7 +2764,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1643171862}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aedd62c5e6a8b614f85a02d044006eeb, type: 3}
+  m_Script: {fileID: 11500000, guid: f8217cd6e040f9249918404f07ada33c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   aiPrefab:
@@ -2782,9 +2776,7 @@ MonoBehaviour:
     m_Instance: {fileID: 0}
     m_WayPointList: []
     aiMovement: {fileID: 0}
-  wayPointsForAI:
-  - {fileID: 699895065}
-  - {fileID: 1667122781}
+  wayPointsForAI: []
   thingsAI: {fileID: 1643171862}
   thingsOnline: {fileID: 285380741}
   botScore: {fileID: 11400000, guid: 8b566134829c06c4f870959dc3f30b67, type: 2}

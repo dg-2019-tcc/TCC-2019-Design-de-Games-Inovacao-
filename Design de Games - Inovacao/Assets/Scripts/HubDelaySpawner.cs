@@ -17,6 +17,7 @@ public class HubDelaySpawner : MonoBehaviour
 
     void Start()
     {
+        GameManager.pausaJogo = true;
         index = 0;
         //StartCoroutine(Spawn());
         InvokeRepeating("Spawn", delay, delay);
@@ -44,8 +45,8 @@ public class HubDelaySpawner : MonoBehaviour
 
     private IEnumerator StartHub()
     {
-        player.SetActive(true);
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0.5f);
         fadeIn.SetActive(false);
+        GameManager.pausaJogo = false;
     }
 }
