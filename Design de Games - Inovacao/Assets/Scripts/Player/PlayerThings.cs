@@ -83,19 +83,18 @@ public class PlayerThings : MonoBehaviour
         }
 
 
-        if (desativaCanvas == true || buildPC.Value == true)
-        {
-            canvasSelf.SetActive(false);
-        }
+		if (desativaCanvas == true || buildPC.Value == true)
+		{
+			canvasSelf.SetActive(false);
+		}
+		else
+		{
+			canvasSelf.SetActive(true);
+		}
 
         if (menuCustom)
         {
             cameraManager.SendMessage("ActivateCamera", true);
-        }
-
-        else
-        {
-            canvasSelf.SetActive(false);
         }
     }
 
