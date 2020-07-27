@@ -1,10 +1,14 @@
-﻿using System.Collections;
+﻿using Photon.Pun;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Complete;
 
 public class ButtonA : MonoBehaviour
 {
+    [HideInInspector]
+    public PhotonView PV;
+
     public enum State {Atirar, Fala, PowerUp, Chutar, Cortar, Manobra, Null}
     public State state = State.Null;
 
@@ -24,6 +28,7 @@ public class ButtonA : MonoBehaviour
 
     void Start()
     {
+        PV = GetComponent<PhotonView>();
         textoAtivo = Resources.Load<BoolVariable>("TextoAtivo");
         desativaPower = Resources.Load<BoolVariable>("DesativaPower");
         buildPC = Resources.Load<BoolVariable>("BuildPC");
@@ -48,6 +53,7 @@ public class ButtonA : MonoBehaviour
 
     void Update()
     {
+        if (!PV.IsMine && GameManager.inRoom) return;
         if (GameManager.Instance.fase.Equals(GameManager.Fase.Hub) || GameManager.Instance.fase.Equals(GameManager.Fase.Tutorial))
          {
             if (textoAtivo.Value == true)

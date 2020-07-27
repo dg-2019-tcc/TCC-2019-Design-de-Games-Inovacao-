@@ -79,6 +79,7 @@ public class Player2DAnimations : MonoBehaviour
     private bool desativaIdle;
     private CustomDisplay customDisplay;
     private DogController dogController;
+    private ButtonA buttonA;
 
 	private void Start()
 	{
@@ -94,6 +95,7 @@ public class Player2DAnimations : MonoBehaviour
         takeOffFrente = frente.GetComponent<TakeOffUnused>();
         takeOffLado = lado.GetComponent<TakeOffUnused>();
         dogController = GetComponent<DogController>();
+        buttonA = GetComponent<ButtonA>();
        
 		if (PhotonNetwork.InRoom)
 		{
@@ -113,7 +115,7 @@ public class Player2DAnimations : MonoBehaviour
             takeOffLado.CheckAndExecute();
             takeOffFrente.letThemBeOn = true;
             takeOffLado.letThemBeOn = true;
-            frente.SetActive(false);
+            lado.SetActive(false);
         }
         else
         {
@@ -130,10 +132,10 @@ public class Player2DAnimations : MonoBehaviour
         Cooldown();
 		if (!PhotonNetwork.InRoom || photonView.IsMine)
 		{
-            if(lado.activeInHierarchy == true && frente.activeInHierarchy == true)
+            /*if(lado.activeInHierarchy == true && frente.activeInHierarchy == true)
             {
                 lado.SetActive(false);
-            }
+            }*/
             if (textoAtivo.Value == false)
             {
 
@@ -224,14 +226,14 @@ public class Player2DAnimations : MonoBehaviour
 
 		if (dogButtonOn == true)
 		{
-			if (fase == 0)
+			if (buttonA.state.Equals(ButtonA.State.Atirar))
 			{
                 nextState = State.Arremessando;
                 Debug.Log("DogButton");
 			}
 
-			else if (fase == 1)
-			{
+			else if (buttonA.state.Equals(ButtonA.State.Chutar))
+            {
                 nextState = State.Chutando;
 			}
 		}
@@ -246,7 +248,6 @@ public class Player2DAnimations : MonoBehaviour
 	private void PlayAnim(State anim)
 	{
         coolToNext = 0;
-        CheckArmature();
 
         if (isOnline)
 		{
@@ -302,25 +303,24 @@ public class Player2DAnimations : MonoBehaviour
     [PunRPC]
     public void AnimState(State anim)
     {
+        if (!photonView.IsMine)
+        {
+            nextState = anim;
+        }
+        CheckArmature();
         switch (anim)
         {
             case State.Ganhou:
                 if (state != State.Ganhou)
                 {
-                    frente.SetActive(true);
-                    lado.SetActive(false);
                     playerFrente.animation.Play(vitoriaAnim);
-                    state = State.Ganhou;
                 }
                 break;
 
             case State.Perdeu:
                 if (state != State.Perdeu)
                 {
-                    frente.SetActive(true);
-                    lado.SetActive(false);
                     playerFrente.animation.Play(derrotaAnim);
-                    state = State.Perdeu;
                 }
                 break;
 
@@ -329,7 +329,6 @@ public class Player2DAnimations : MonoBehaviour
                 {
                     inativoTime = 0f;
                     player.animation.Play(chuteAnimation);
-                    state = State.Chutando;
                 }
                 break;
 
@@ -338,8 +337,6 @@ public class Player2DAnimations : MonoBehaviour
                 {
                     inativoTime = 0f;
                     player.animation.Play(arremessoAnimation);
-                    state = State.Arremessando;
-                    Debug.Log(state);
                 }
                 break;
 
@@ -347,7 +344,6 @@ public class Player2DAnimations : MonoBehaviour
                 if (state != State.CarroWalk)
                 {
                     player.animation.Play(carroWalkAnim);
-                    state = State.CarroWalk;
                 }
                 break;
 
@@ -355,7 +351,6 @@ public class Player2DAnimations : MonoBehaviour
                 if (state != State.Pipa)
                 {
                     player.animation.Play(pipaAnimation);
-                    state = State.Pipa;
                 }
                 break;
 
@@ -363,28 +358,21 @@ public class Player2DAnimations : MonoBehaviour
                 if (state != State.Aterrisando)
                 {
                     player.animation.Play(aterrisandoAnimation);
-                    state = State.Aterrisando;
                 }
                 break;
 
             case State.Idle:
                 if (state != State.Idle)
                 {
-                    frente.SetActive(true);
-                    lado.SetActive(false);
                     playerFrente.animation.timeScale = 1;
                     playerFrente.animation.Play(idlePose);
-                    state = State.Idle;
                 }
                 break;
 
             case State.Stun:
                 if (state != State.Stun)
                 {
-                    frente.SetActive(true);
-                    lado.SetActive(false);
                     playerFrente.animation.Play(stunAnim);
-                    state = State.Stun;
                 }
                 break;
 
@@ -392,7 +380,6 @@ public class Player2DAnimations : MonoBehaviour
                 if (state != State.Walking)
                 {
                     player.animation.Play(walkAnimation);
-                    state = State.Walking;
                 }
                 break;
 
@@ -401,7 +388,6 @@ public class Player2DAnimations : MonoBehaviour
                 {
                     inativoTime = 0f;
                     player.animation.Play(subindoJumpAnimation);
-                    state = State.Rising;
                 }
                 break;
 
@@ -410,9 +396,10 @@ public class Player2DAnimations : MonoBehaviour
                 {
                     inativoTime = 0f;
                     player.animation.Play(descendoJumpAnimation);
-                    state = State.Falling;
                 }
                 break;
         }
+
+        state = nextState;
     }
 }

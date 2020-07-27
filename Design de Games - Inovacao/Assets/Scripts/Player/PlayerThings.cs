@@ -40,6 +40,7 @@ public class PlayerThings : MonoBehaviour
 
     [SerializeField]
     public FloatingJoystick joyStick;
+    public InputController inputController;
 
     public NewPlayerMovent playerMove;
 
@@ -59,14 +60,15 @@ public class PlayerThings : MonoBehaviour
         controller = GetComponent<Controller2D>();
         PV = GetComponent<PhotonView>();
         playerMove = GetComponent<NewPlayerMovent>();
+        inputController = GetComponent<InputController>();
         buildPC = Resources.Load<BoolVariable>("BuildPC");
 
 
-        joyStick = FindObjectOfType<FloatingJoystick>();
-		if (PhotonNetwork.InRoom && !PV.Owner.IsLocal)
+        //joyStick = FindObjectOfType<FloatingJoystick>();
+		/*if (PhotonNetwork.InRoom && !PV.Owner.IsLocal||(buildPC.Value == true))
 		{
 			Destroy(joyStick);
-		}
+		}*/
 		rightDir = true;
 		leftDir = false;
 
@@ -124,11 +126,31 @@ public class PlayerThings : MonoBehaviour
             return;
         }
 
-        if (joyStick != null)
+        if (joyStick != null || buildPC.Value)
         {
             if (shouldTurn)
             {
-                if (buildPC.Value)
+                input = inputController.joyInput;
+
+                if (input.x > 0 && !rightDir)
+                {
+                    rightDir = true;
+                    leftDir = false;
+                    ThrowObject.dirRight = false;
+
+                    GiraOn(rightDir);
+                }
+
+                else if (input.x < 0 && !leftDir)
+                {
+                    leftDir = true;
+                    rightDir = false;
+                    ThrowObject.dirLeft = false;
+
+                    GiraOn(rightDir);
+                }
+
+                /*if (buildPC.Value)
                 {
                     input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
                 }
@@ -152,7 +174,7 @@ public class PlayerThings : MonoBehaviour
 
 
 					GiraOn(rightDir);
-                }
+                }*/
 
                 /*if (controller.collisions.climbingSlope)
                 {
@@ -167,7 +189,7 @@ public class PlayerThings : MonoBehaviour
                 }*/
             }
 
-            float moveHorizontal = Mathf.Clamp(joyStick.Horizontal + Input.GetAxisRaw("Horizontal") + autoScroll, -2, 2);
+            //float moveHorizontal = Mathf.Clamp(joyStick.Horizontal + Input.GetAxisRaw("Horizontal") + autoScroll, -2, 2);
 
             if (!PhotonNetwork.InRoom)
             {
@@ -219,7 +241,7 @@ public class PlayerThings : MonoBehaviour
 			angle = 180;
 		}
 
-		if (PhotonNetwork.InRoom)
+		if (GameManager.inRoom)
 		{
 			PV.RPC("NewGiraPlayer", RpcTarget.All, angle);
 		}

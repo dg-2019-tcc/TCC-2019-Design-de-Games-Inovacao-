@@ -1,9 +1,13 @@
-﻿using System.Collections;
+﻿using Photon.Pun;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class InputController : MonoBehaviour
 {
+    [HideInInspector]
+    public PhotonView PV;
+
     [SerializeField]
     public FloatingJoystick joyStick;
     public BoolVariable buildPC;
@@ -16,6 +20,7 @@ public class InputController : MonoBehaviour
 
     private void Awake()
     {
+        PV = GetComponent<PhotonView>();
         buildPC = Resources.Load<BoolVariable>("BuildPC");
 
         if(buildPC.Value == false)
@@ -26,6 +31,7 @@ public class InputController : MonoBehaviour
 
     private void Update()
     {
+        if (!PV.IsMine && GameManager.inRoom) return;
         if (GameManager.pausaJogo) return;
         if (buildPC.Value == false)
         {
