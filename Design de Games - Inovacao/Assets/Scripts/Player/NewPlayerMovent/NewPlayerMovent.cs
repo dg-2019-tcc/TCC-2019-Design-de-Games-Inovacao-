@@ -251,11 +251,25 @@ public class NewPlayerMovent : MonoBehaviour
 
         if (input.y >= 0)
         {
-            pipaVelocity.y += pipaGravity * Time.deltaTime;
+            if (pipaVelocity.y < 5)
+            {
+                pipaVelocity.y += pipaGravity * Time.deltaTime;
+            }
+            else
+            {
+                pipaVelocity.y = 5;
+            }
         }
         else
         {
-            pipaVelocity.y -= pipaGravity * Time.deltaTime;
+            if (pipaVelocity.y > -5)
+            {
+                pipaVelocity.y -= pipaGravity * Time.deltaTime;
+            }
+            else
+            {
+                pipaVelocity.y = -5;
+            }
         }
         
 
