@@ -50,8 +50,6 @@ public class CustomDisplay : MonoBehaviour
     {
         pv = GetComponent<PhotonView>();
 
-        //hair.prop2DInd = 1;//utilizei pra resetar os valores do cabelo
-
         PhotonNetwork.LocalPlayer.CustomProperties["hairIndex"] = hair.prop2DInd;
         PhotonNetwork.LocalPlayer.CustomProperties["shirtIndex"] = shirt.prop2DInd;
         PhotonNetwork.LocalPlayer.CustomProperties["legsIndex"] = legs.prop2DInd;
@@ -64,35 +62,55 @@ public class CustomDisplay : MonoBehaviour
         PhotonNetwork.LocalPlayer.CustomProperties["pupilaIndex"] = pupila.prop2DInd;
         PhotonNetwork.LocalPlayer.CustomProperties["sobrancelhaIndex"] = sobrancelha.prop2DInd;
 
-
-        if (GameManager.inRoom)
-        {
-            TrocaOnline();
-        }
-
-        else
+        //hair.prop2DInd = 1;//utilizei pra resetar os valores do cabelo
+        if (GameManager.inRoom == false)
         {
             TrocaOffline();
         }
 
-        /*if(GameManager.inRoom == false)
-        {
-            TrocaOffline();
-        }
         else
         {
-            TrocaOnline();
-        }
+            if (pv.IsMine)
+            {
+                //TrocaPvIsMine();
+                TrocaOffline();
+            }
 
-        /*if (GameManager.inRoom)
-        {
-            TrocaOnline();
+            else
+            {
+                TrocaOtherPv();
+            }
         }
+    }
 
-        else
-        {
-            TrocaOffline();
-        }*/
+    void TrocaOtherPv()
+    {
+        TrocaCabelo((int)pv.Owner.CustomProperties["hairIndex"]);
+        TrocaCamisa((int)pv.Owner.CustomProperties["shirtIndex"]);
+        TrocaCalca((int)pv.Owner.CustomProperties["legsIndex"]);
+        TrocaSapato((int)pv.Owner.CustomProperties["shoeIndex"]);
+        TrocaOculos((int)pv.Owner.CustomProperties["oculosIndex"]);
+        TrocaCilios((int)pv.Owner.CustomProperties["ciliosIndex"]);
+        TrocaMask((int)pv.Owner.CustomProperties["maskIndex"]);
+        TrocaBone((int)pv.Owner.CustomProperties["boneIndex"]);
+        TrocaSkin((int)pv.Owner.CustomProperties["skinIndex"]);
+        TrocaPupila((int)pv.Owner.CustomProperties["pupilaIndex"]);
+        TrocaSobrancelha((int)pv.Owner.CustomProperties["sobrancelhaIndex"]);
+    }
+
+    void TrocaPvIsMine()
+    {
+        TrocaCabelo((int)PhotonNetwork.LocalPlayer.CustomProperties["hairIndex"]);
+        TrocaCamisa((int)PhotonNetwork.LocalPlayer.CustomProperties["shirtIndex"]);
+        TrocaCalca((int)PhotonNetwork.LocalPlayer.CustomProperties["legsIndex"]);
+        TrocaSapato((int)PhotonNetwork.LocalPlayer.CustomProperties["shoeIndex"]);
+        TrocaOculos((int)PhotonNetwork.LocalPlayer.CustomProperties["oculosIndex"]);
+        TrocaCilios((int)PhotonNetwork.LocalPlayer.CustomProperties["ciliosIndex"]);
+        TrocaMask((int)PhotonNetwork.LocalPlayer.CustomProperties["maskIndex"]);
+        TrocaBone((int)PhotonNetwork.LocalPlayer.CustomProperties["boneIndex"]);
+        TrocaSkin((int)PhotonNetwork.LocalPlayer.CustomProperties["skinIndex"]);
+        TrocaPupila((int)PhotonNetwork.LocalPlayer.CustomProperties["pupilaIndex"]);
+        TrocaSobrancelha((int)PhotonNetwork.LocalPlayer.CustomProperties["sobrancelhaIndex"]);
     }
 
     void TrocaOffline()
@@ -123,8 +141,10 @@ public class CustomDisplay : MonoBehaviour
         TrocaSkin((int)pv.Owner.CustomProperties["skinIndex"]);
         TrocaPupila((int)pv.Owner.CustomProperties["pupilaIndex"]);
         TrocaSobrancelha((int)pv.Owner.CustomProperties["sobrancelhaIndex"]);
-        Debug.Log("TrocaOnline");
         Debug.Log(pv.Owner.CustomProperties["hairIndex"]);
+        Debug.Log(pv.Owner.CustomProperties["shirtIndex"]);
+        Debug.Log(pv.Owner.CustomProperties["legsIndex"]);
+        Debug.Log("TrocaOnline");
     }
 
 

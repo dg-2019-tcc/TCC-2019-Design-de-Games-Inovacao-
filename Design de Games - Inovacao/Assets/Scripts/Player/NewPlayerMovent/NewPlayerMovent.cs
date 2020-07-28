@@ -155,7 +155,6 @@ public class NewPlayerMovent : MonoBehaviour
         {
             jump = true;
             velocity.y = maxJumpHeight.Value;
-            Debug.Log("Jump");
         }
 
         input.x = 0;
@@ -218,7 +217,6 @@ public class NewPlayerMovent : MonoBehaviour
         {
             jump = true;
             carroVelocity.y = maxJumpHeight.Value;
-            Debug.Log("Jump");
         }
 
 

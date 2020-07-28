@@ -113,8 +113,10 @@ public class Player2DAnimations : MonoBehaviour
         {
             takeOffFrente.CheckAndExecute();
             takeOffLado.CheckAndExecute();
+
             takeOffFrente.letThemBeOn = true;
             takeOffLado.letThemBeOn = true;
+
             lado.SetActive(false);
         }
         else

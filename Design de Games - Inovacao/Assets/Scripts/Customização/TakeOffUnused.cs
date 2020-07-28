@@ -29,5 +29,6 @@ public class TakeOffUnused : MonoBehaviour
             }
 
         }
+        Debug.Log("CheckAndExecute");
 	}
 }
