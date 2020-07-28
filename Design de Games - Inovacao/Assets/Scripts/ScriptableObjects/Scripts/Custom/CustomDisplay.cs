@@ -44,13 +44,27 @@ public class CustomDisplay : MonoBehaviour
 
 
     private PhotonView pv;
+    private CustomController customController;
 
 
     public void AtivaRoupas()
     {
         pv = GetComponent<PhotonView>();
+        customController = GetComponent<CustomController>();
 
-        PhotonNetwork.LocalPlayer.CustomProperties["hairIndex"] = hair.prop2DInd;
+        PhotonNetwork.LocalPlayer.CustomProperties["hairIndex"] =PlayerPrefs.GetInt("hairIndex");
+        PhotonNetwork.LocalPlayer.CustomProperties["shirtIndex"] = PlayerPrefs.GetInt("shirtIndex");
+        PhotonNetwork.LocalPlayer.CustomProperties["legsIndex"] = PlayerPrefs.GetInt("legsIndex");
+        PhotonNetwork.LocalPlayer.CustomProperties["shoeIndex"] = PlayerPrefs.GetInt("shoeIndex");
+        PhotonNetwork.LocalPlayer.CustomProperties["oculosIndex"] = PlayerPrefs.GetInt("oculosIndex");
+        PhotonNetwork.LocalPlayer.CustomProperties["ciliosIndex"] = PlayerPrefs.GetInt("ciliosIndex");
+        PhotonNetwork.LocalPlayer.CustomProperties["maskIndex"] = PlayerPrefs.GetInt("maskIndex");
+        PhotonNetwork.LocalPlayer.CustomProperties["boneIndex"] = PlayerPrefs.GetInt("boneIndex");
+        PhotonNetwork.LocalPlayer.CustomProperties["skinIndex"] = PlayerPrefs.GetInt("skinIndex");
+        PhotonNetwork.LocalPlayer.CustomProperties["pupilaIndex"] = PlayerPrefs.GetInt("pupilaIndex");
+        PhotonNetwork.LocalPlayer.CustomProperties["sobrancelhaIndex"] = PlayerPrefs.GetInt("sobrancelhaIndex");
+
+        /*PhotonNetwork.LocalPlayer.CustomProperties["hairIndex"] = hair.prop2DInd;
         PhotonNetwork.LocalPlayer.CustomProperties["shirtIndex"] = shirt.prop2DInd;
         PhotonNetwork.LocalPlayer.CustomProperties["legsIndex"] = legs.prop2DInd;
         PhotonNetwork.LocalPlayer.CustomProperties["shoeIndex"] = shoe.prop2DInd;
@@ -60,7 +74,7 @@ public class CustomDisplay : MonoBehaviour
         PhotonNetwork.LocalPlayer.CustomProperties["boneIndex"] = bone.prop2DInd;
         PhotonNetwork.LocalPlayer.CustomProperties["skinIndex"] = skin.prop2DInd;
         PhotonNetwork.LocalPlayer.CustomProperties["pupilaIndex"] = pupila.prop2DInd;
-        PhotonNetwork.LocalPlayer.CustomProperties["sobrancelhaIndex"] = sobrancelha.prop2DInd;
+        PhotonNetwork.LocalPlayer.CustomProperties["sobrancelhaIndex"] = sobrancelha.prop2DInd;*/
 
         //hair.prop2DInd = 1;//utilizei pra resetar os valores do cabelo
         if (GameManager.inRoom == false)
@@ -72,7 +86,6 @@ public class CustomDisplay : MonoBehaviour
         {
             if (pv.IsMine)
             {
-                //TrocaPvIsMine();
                 TrocaOffline();
             }
 
@@ -81,6 +94,8 @@ public class CustomDisplay : MonoBehaviour
                 TrocaOtherPv();
             }
         }
+
+        customController.TiraCustomDesativada();
     }
 
     void TrocaOtherPv()
@@ -96,56 +111,26 @@ public class CustomDisplay : MonoBehaviour
         TrocaSkin((int)pv.Owner.CustomProperties["skinIndex"]);
         TrocaPupila((int)pv.Owner.CustomProperties["pupilaIndex"]);
         TrocaSobrancelha((int)pv.Owner.CustomProperties["sobrancelhaIndex"]);
+        Debug.Log("Troca Other PV");
     }
 
-    void TrocaPvIsMine()
-    {
-        TrocaCabelo((int)PhotonNetwork.LocalPlayer.CustomProperties["hairIndex"]);
-        TrocaCamisa((int)PhotonNetwork.LocalPlayer.CustomProperties["shirtIndex"]);
-        TrocaCalca((int)PhotonNetwork.LocalPlayer.CustomProperties["legsIndex"]);
-        TrocaSapato((int)PhotonNetwork.LocalPlayer.CustomProperties["shoeIndex"]);
-        TrocaOculos((int)PhotonNetwork.LocalPlayer.CustomProperties["oculosIndex"]);
-        TrocaCilios((int)PhotonNetwork.LocalPlayer.CustomProperties["ciliosIndex"]);
-        TrocaMask((int)PhotonNetwork.LocalPlayer.CustomProperties["maskIndex"]);
-        TrocaBone((int)PhotonNetwork.LocalPlayer.CustomProperties["boneIndex"]);
-        TrocaSkin((int)PhotonNetwork.LocalPlayer.CustomProperties["skinIndex"]);
-        TrocaPupila((int)PhotonNetwork.LocalPlayer.CustomProperties["pupilaIndex"]);
-        TrocaSobrancelha((int)PhotonNetwork.LocalPlayer.CustomProperties["sobrancelhaIndex"]);
-    }
 
     void TrocaOffline()
     {
-        TrocaCabelo(hair.prop2DInd);
-        TrocaCamisa(shirt.prop2DInd);
-        TrocaCalca(legs.prop2DInd);
-        TrocaSapato(shoe.prop2DInd);
-        TrocaOculos(oculos.prop2DInd);
-        TrocaCilios(cilios.prop2DInd);
-        TrocaMask(mask.prop2DInd);
-        TrocaBone(bone.prop2DInd);
-        TrocaSkin(skin.prop2DInd);
-        TrocaPupila(pupila.prop2DInd);
-        TrocaSobrancelha(sobrancelha.prop2DInd);
-        Debug.Log("TrocaOffline");
+        TrocaCabelo(PlayerPrefs.GetInt("hairIndex"));
+        TrocaCamisa(PlayerPrefs.GetInt("shirtIndex"));
+        TrocaCalca(PlayerPrefs.GetInt("legsIndex"));
+        TrocaSapato(PlayerPrefs.GetInt("shoeIndex"));
+        TrocaOculos(PlayerPrefs.GetInt("oculosIndex"));
+        TrocaCilios(PlayerPrefs.GetInt("ciliosIndex"));
+        TrocaMask(PlayerPrefs.GetInt("maskIndex"));
+        TrocaBone(PlayerPrefs.GetInt("boneIndex"));
+        TrocaSkin(PlayerPrefs.GetInt("skinIndex"));
+        TrocaPupila(PlayerPrefs.GetInt("pupilaIndex"));
+        TrocaSobrancelha(PlayerPrefs.GetInt("sobrancelhaIndex"));
+        Debug.Log("Troca Mine PV");
     }
-    void TrocaOnline()
-    {
-        TrocaCabelo((int)pv.Owner.CustomProperties["hairIndex"]);
-        TrocaCamisa((int)pv.Owner.CustomProperties["shirtIndex"]);
-        TrocaCalca((int)pv.Owner.CustomProperties["legsIndex"]);
-        TrocaSapato((int)pv.Owner.CustomProperties["shoeIndex"]);
-        TrocaOculos((int)pv.Owner.CustomProperties["oculosIndex"]);
-        TrocaCilios((int)pv.Owner.CustomProperties["ciliosIndex"]);
-        TrocaMask((int)pv.Owner.CustomProperties["maskIndex"]);
-        TrocaBone((int)pv.Owner.CustomProperties["boneIndex"]);
-        TrocaSkin((int)pv.Owner.CustomProperties["skinIndex"]);
-        TrocaPupila((int)pv.Owner.CustomProperties["pupilaIndex"]);
-        TrocaSobrancelha((int)pv.Owner.CustomProperties["sobrancelhaIndex"]);
-        Debug.Log(pv.Owner.CustomProperties["hairIndex"]);
-        Debug.Log(pv.Owner.CustomProperties["shirtIndex"]);
-        Debug.Log(pv.Owner.CustomProperties["legsIndex"]);
-        Debug.Log("TrocaOnline");
-    }
+
 
 
     [PunRPC]
