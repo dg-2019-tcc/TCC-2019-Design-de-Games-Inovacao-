@@ -142,15 +142,64 @@ public class Player2DAnimations : MonoBehaviour
                 moveX = Mathf.Abs(moveAmount.x);
                 if (!isVictory)
                 {
-                    if (!dogController.state.Equals(DogController.State.Carro) && !dogController.state.Equals(DogController.State.Carro) && dogButtonAnim == false && !stun)
+                    if (dogController.state.Equals(DogController.State.Carro) || dogController.state.Equals(DogController.State.Pipa) || dogButtonAnim || stun)
                     {
-                        if (/*oldPos.y < moveAmount.y*/ moveAmount.y > 0 /*&& controller.collisions.below == false*/)
+                        if (stun)
+                        {
+                            nextState = State.Stun;
+                        }
+
+                        else
+                        {
+                            if (dogController.state.Equals(DogController.State.Carro))
+                            {
+                                nextState = State.CarroWalk;
+                                Debug.Log(dogController.state.Equals(DogController.State.Carro));
+                            }
+
+                            else if (dogController.state.Equals(DogController.State.Pipa))
+                            {
+                                nextState = State.Pipa;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (moveAmount.y > 0)
                         {
                             jaAterrisou = false;
                             nextState = State.Rising;
                         }
 
-                        else if (moveAmount.y < 0 && controller.collisions.below == false /*&& jaAterrisou == false*/)
+                        else if (moveAmount.y < 0 && controller.collisions.below == false)
+                        {
+                            nextState = State.Falling;
+                        }
+
+                        else if (moveAmount.y < -2 && controller.collisions.below == true)
+                        {
+                            nextState = State.Aterrisando;
+                        }
+
+                        else if (input.x != 0 && controller.collisions.below)
+                        {
+                            nextState = State.Walking;
+                        }
+
+                        else
+                        {
+                            nextState = State.Idle;
+                        }
+                    }
+                    /*if (!dogController.state.Equals(DogController.State.Carro) && !dogController.state.Equals(DogController.State.Carro) && dogButtonAnim == false && !stun)
+                    {
+                        if (moveAmount.y > 0)
+                        {
+                            jaAterrisou = false;
+                            nextState = State.Rising;
+                        }
+
+                        else if (moveAmount.y < 0 && controller.collisions.below == false)
                         {
                             nextState = State.Falling;
                         }
@@ -185,12 +234,12 @@ public class Player2DAnimations : MonoBehaviour
                                 Debug.Log(dogController.state.Equals(DogController.State.Carro));
                             }
 
-                            if (pipaActive.Value == true)
+                            if (dogController.state.Equals(DogController.State.Pipa))
                             {
                                 nextState = State.Pipa;
                             }
                         }
-                    }
+                    }*/
                 }
 
 
@@ -245,7 +294,7 @@ public class Player2DAnimations : MonoBehaviour
         PlayAnim(nextState);
 	}
 
-	private void PlayAnim(State anim)
+	public void PlayAnim(State anim)
 	{
         coolToNext = 0;
 

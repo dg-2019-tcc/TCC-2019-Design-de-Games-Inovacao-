@@ -90,6 +90,7 @@ public class DogAnim : MonoBehaviour
     [PunRPC]
     public void DogAnimState(string anim)
     {
+
         switch (anim)
         {
             case "Idle":

@@ -48,8 +48,6 @@ public class CustomDisplay : MonoBehaviour
 
     public void AtivaRoupas()
     {
-
-
         pv = GetComponent<PhotonView>();
 
         //hair.prop2DInd = 1;//utilizei pra resetar os valores do cabelo
@@ -67,7 +65,6 @@ public class CustomDisplay : MonoBehaviour
         PhotonNetwork.LocalPlayer.CustomProperties["sobrancelhaIndex"] = sobrancelha.prop2DInd;
 
 
-
         if (GameManager.inRoom)
         {
             TrocaOnline();
@@ -77,6 +74,25 @@ public class CustomDisplay : MonoBehaviour
         {
             TrocaOffline();
         }
+
+        /*if(GameManager.inRoom == false)
+        {
+            TrocaOffline();
+        }
+        else
+        {
+            TrocaOnline();
+        }
+
+        /*if (GameManager.inRoom)
+        {
+            TrocaOnline();
+        }
+
+        else
+        {
+            TrocaOffline();
+        }*/
     }
 
     void TrocaOffline()
@@ -92,6 +108,7 @@ public class CustomDisplay : MonoBehaviour
         TrocaSkin(skin.prop2DInd);
         TrocaPupila(pupila.prop2DInd);
         TrocaSobrancelha(sobrancelha.prop2DInd);
+        Debug.Log("TrocaOffline");
     }
     void TrocaOnline()
     {
@@ -106,6 +123,8 @@ public class CustomDisplay : MonoBehaviour
         TrocaSkin((int)pv.Owner.CustomProperties["skinIndex"]);
         TrocaPupila((int)pv.Owner.CustomProperties["pupilaIndex"]);
         TrocaSobrancelha((int)pv.Owner.CustomProperties["sobrancelhaIndex"]);
+        Debug.Log("TrocaOnline");
+        Debug.Log(pv.Owner.CustomProperties["hairIndex"]);
     }
 
 

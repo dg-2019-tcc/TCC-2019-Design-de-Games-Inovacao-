@@ -222,6 +222,7 @@ public class NewPlayerMovent : MonoBehaviour
         carroVelocity.y += gravity * Time.deltaTime;
         controller.Move(carroVelocity * Time.deltaTime, input);
         triggerController.MoveDirection(carroVelocity);
+        animations.ChangeMoveAnim(carroVelocity, oldPosition, input, levouDogada.Value, ganhou);
 
         if (controller.collisions.above || controller.collisions.below)
         {
@@ -246,34 +247,20 @@ public class NewPlayerMovent : MonoBehaviour
 
     public void PipaMovement()
     {
+        //animations.ChangeMoveAnim(pipaVelocity, oldPosition, input, levouDogada.Value, ganhou);
+        animations.PlayAnim(Player2DAnimations.State.Pipa);
         targetVelocityX = input.x * pipaMoveSpeed;
         pipaVelocity.x = Mathf.SmoothDamp(pipaVelocity.x, targetVelocityX, ref pipaVelocityXSmoothing, pipaAccelerationTimeAirborne);
-        if (/*controller.collisions.below &&*/ triggerController.collisions.caixaDagua)
+
+        if (input.y >= 0)
         {
-            if (triggerController.collisions.direction.x != 0)
-            {
-                Debug.Log(triggerController.collisions.direction.x);
-                velocity.x = maxJumpHeight.Value * 2f * triggerController.collisions.direction.x;
-            }
-
-            else
-            {
-                Debug.Log(triggerController.collisions.direction.y);
-                velocity.y = maxJumpHeight.Value * 1.5f * triggerController.collisions.direction.y;
-            }
-
+            pipaVelocity.y += pipaGravity * Time.deltaTime;
         }
         else
         {
-            if (input.y >= 0)
-            {
-                pipaVelocity.y += pipaGravity * Time.deltaTime;
-            }
-            else
-            {
-                pipaVelocity.y -= pipaGravity * Time.deltaTime;
-            }
+            pipaVelocity.y -= pipaGravity * Time.deltaTime;
         }
+        
 
         triggerController.MoveDirection(pipaVelocity);
         controller.Move(pipaVelocity * Time.deltaTime, input);
