@@ -120,12 +120,7 @@ public class NewPlayerMovent : MonoBehaviour
 
         joyInput = inputController.joyInput;
 
-        if(inputController.pressX == true && controller.collisions.below)
-        {
-            jump = true;
-            velocity.y = maxJumpHeight.Value;
-        }
-
+        
 
         if (!carroActive.Value && !pipaActive.Value)
         {
@@ -156,6 +151,13 @@ public class NewPlayerMovent : MonoBehaviour
 
     public void NormalMovement()
     {
+        if (inputController.pressX == true && controller.collisions.below)
+        {
+            jump = true;
+            velocity.y = maxJumpHeight.Value;
+            Debug.Log("Jump");
+        }
+
         input.x = 0;
         if (Mathf.Abs(joyInput.x) > 0.3f)
         {
@@ -203,7 +205,7 @@ public class NewPlayerMovent : MonoBehaviour
             stopJump = false;
         }
 
-        if (/*controller.collisions.below &&*/ triggerController.collisions.caixaDagua)
+        if (triggerController.collisions.caixaDagua)
         {
             velocity.y = maxJumpHeight.Value * 1.8f;
         }
@@ -212,10 +214,13 @@ public class NewPlayerMovent : MonoBehaviour
 
     public void CarroMovement()
     {
-        if (jump && controller.collisions.below)
+        if (inputController.pressX == true && controller.collisions.below)
         {
+            jump = true;
             carroVelocity.y = maxJumpHeight.Value;
+            Debug.Log("Jump");
         }
+
 
         targetVelocityX = input.x * carroMoveSpeed;
         carroVelocity.x = Mathf.SmoothDamp(carroVelocity.x, targetVelocityX, ref carroVelocityXSmoothing, (controller.collisions.below) ? carroAccelerationTimeGrounded : carroAccelerationTimeAirborne);
@@ -227,21 +232,13 @@ public class NewPlayerMovent : MonoBehaviour
         if (controller.collisions.above || controller.collisions.below)
         {
             carroVelocity.y = 0;
+            jump = false;
             stopJump = false;
         }
 
-        if (/*controller.collisions.below &&*/ triggerController.collisions.caixaDagua)
+        if (triggerController.collisions.caixaDagua)
         {
-            if (triggerController.collisions.direction.x != 0)
-            {
-                velocity.x = maxJumpHeight.Value * 2f * triggerController.collisions.direction.x;
-            }
-
-            else
-            {
-                velocity.y = maxJumpHeight.Value * 1.5f * triggerController.collisions.direction.y;
-            }
-
+            carroVelocity.y = maxJumpHeight.Value * 1.8f;
         }
     }
 

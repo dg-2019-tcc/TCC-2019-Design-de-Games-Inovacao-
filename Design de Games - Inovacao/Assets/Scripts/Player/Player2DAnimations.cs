@@ -154,7 +154,6 @@ public class Player2DAnimations : MonoBehaviour
                             if (dogController.state.Equals(DogController.State.Carro))
                             {
                                 nextState = State.CarroWalk;
-                                Debug.Log(dogController.state.Equals(DogController.State.Carro));
                             }
 
                             else if (dogController.state.Equals(DogController.State.Pipa))
