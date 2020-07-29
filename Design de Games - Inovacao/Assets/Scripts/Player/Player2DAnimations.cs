@@ -10,8 +10,6 @@ public class Player2DAnimations : MonoBehaviour
 {
 	public GameObject frente;
 	public GameObject lado;
-    public TakeOffUnused takeOffFrente;
-    public TakeOffUnused takeOffLado;
 
 	public string idlePose = "0_Idle";
 	public string walkAnimation = "0_Corrida_V2";
@@ -29,9 +27,9 @@ public class Player2DAnimations : MonoBehaviour
 	public string vitoriaAnim = "2_Vencer";
 	public string derrotaAnim = "2_Perder";
 
-	public enum State {Idle, Walking, Rising, Falling, Aterrisando, Chutando, Arremessando, Inativo, Pipa, CarroWalk, CarroUp, CarroDown, Stun, Ganhou, Perdeu}
+	public enum State {Idle, Walking, Rising, Falling, Aterrisando, Chutando, Arremessando, Inativo, Pipa, CarroWalk, CarroUp, CarroDown, Stun, Ganhou, Perdeu, Null}
 
-	public State state = State.Idle;
+	public State state = State.Null;
     public State oldState;
     public State nextState;
     private bool shouldChangeArmature;
@@ -69,60 +67,25 @@ public class Player2DAnimations : MonoBehaviour
 
 	public BoolVariable textoAtivo;
 
-	private bool isOnline;
-
     public BoolVariable levouDogada;
 
     public bool isVictory;
     public bool isLoja;
 
     private bool desativaIdle;
-    private CustomDisplay customDisplay;
     private DogController dogController;
     private ButtonA buttonA;
 
 	private void Start()
 	{
-        lado.SetActive(true);
-        frente.SetActive(true);
-
         textoAtivo = Resources.Load<BoolVariable>("TextoAtivo");
 
 		photonView = gameObject.GetComponent<PhotonView>();
 		controller = GetComponent<Controller2D>();
 		triggerCollisions = GetComponent<TriggerCollisionsController>();
-        customDisplay = GetComponent<CustomDisplay>();
-        takeOffFrente = frente.GetComponent<TakeOffUnused>();
-        takeOffLado = lado.GetComponent<TakeOffUnused>();
         dogController = GetComponent<DogController>();
         buttonA = GetComponent<ButtonA>();
        
-		if (PhotonNetwork.InRoom)
-		{
-			isOnline = true;
-		}
-		else
-		{
-			isOnline = false;
-		}
-
-        GameManager.Instance.ChecaFase();
-        customDisplay.AtivaRoupas();
-        //Tirando a customização não utilizada
-        if (!GameManager.Instance.fase.Equals(GameManager.Fase.Loja))
-        {
-            takeOffFrente.CheckAndExecute();
-            takeOffLado.CheckAndExecute();
-            takeOffFrente.letThemBeOn = true;
-            takeOffLado.letThemBeOn = true;
-            lado.SetActive(false);
-        }
-        else
-        {
-            takeOffFrente.letThemBeOn = true;
-            takeOffLado.letThemBeOn = true;
-            lado.SetActive(false);
-        }
 
 	}
 
@@ -132,30 +95,46 @@ public class Player2DAnimations : MonoBehaviour
         Cooldown();
 		if (!PhotonNetwork.InRoom || photonView.IsMine)
 		{
-            /*if(lado.activeInHierarchy == true && frente.activeInHierarchy == true)
-            {
-                lado.SetActive(false);
-            }*/
             if (textoAtivo.Value == false)
             {
 
                 moveX = Mathf.Abs(moveAmount.x);
                 if (!isVictory)
                 {
-                    if (!dogController.state.Equals(DogController.State.Carro) && !dogController.state.Equals(DogController.State.Carro) && dogButtonAnim == false && !stun)
+                    if (dogController.state.Equals(DogController.State.Carro) || dogController.state.Equals(DogController.State.Pipa) || dogButtonAnim || stun)
                     {
-                        if (/*oldPos.y < moveAmount.y*/ moveAmount.y > 0 /*&& controller.collisions.below == false*/)
+                        if (stun)
+                        {
+                            nextState = State.Stun;
+                        }
+
+                        else
+                        {
+                            if (dogController.state.Equals(DogController.State.Carro))
+                            {
+                                nextState = State.CarroWalk;
+                            }
+
+                            else if (dogController.state.Equals(DogController.State.Pipa))
+                            {
+                                nextState = State.Pipa;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (moveAmount.y > 0)
                         {
                             jaAterrisou = false;
                             nextState = State.Rising;
                         }
 
-                        else if (moveAmount.y < 0 && controller.collisions.below == false /*&& jaAterrisou == false*/)
+                        else if (moveAmount.y < 0 && controller.collisions.below == false)
                         {
                             nextState = State.Falling;
                         }
 
-                        else if(moveAmount.y < -2 && controller.collisions.below == true)
+                        else if (moveAmount.y < -2 && controller.collisions.below == true)
                         {
                             nextState = State.Aterrisando;
                         }
@@ -170,29 +149,7 @@ public class Player2DAnimations : MonoBehaviour
                             nextState = State.Idle;
                         }
                     }
-                    else
-                    {
-                        if (stun)
-                        {
-                            nextState = State.Stun;
-                        }
-
-                        else
-                        {
-                            if (dogController.state.Equals(DogController.State.Carro))
-                            {
-                                nextState = State.CarroWalk;
-                                Debug.Log(dogController.state.Equals(DogController.State.Carro));
-                            }
-
-                            if (pipaActive.Value == true)
-                            {
-                                nextState = State.Pipa;
-                            }
-                        }
-                    }
                 }
-
 
                 else
                 {
@@ -245,11 +202,11 @@ public class Player2DAnimations : MonoBehaviour
         PlayAnim(nextState);
 	}
 
-	private void PlayAnim(State anim)
+	public void PlayAnim(State anim)
 	{
         coolToNext = 0;
 
-        if (isOnline)
+        if (GameManager.inRoom)
 		{
 			photonView.RPC("AnimState", RpcTarget.All, anim);
 		}
@@ -396,6 +353,15 @@ public class Player2DAnimations : MonoBehaviour
                 {
                     inativoTime = 0f;
                     player.animation.Play(descendoJumpAnimation);
+                }
+                break;
+
+            case State.Null:
+                if(state != State.Null)
+                {
+                    frente.SetActive(true);
+                    lado.SetActive(true);
+                    state = State.Null;
                 }
                 break;
         }

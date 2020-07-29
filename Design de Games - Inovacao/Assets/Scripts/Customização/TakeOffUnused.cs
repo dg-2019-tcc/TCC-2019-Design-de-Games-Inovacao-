@@ -26,8 +26,18 @@ public class TakeOffUnused : MonoBehaviour
                 {
                     Destroy(subPart);
                 }
+
+                foreach(GameObject subStroke in changeMultipleCustom.multipleStroke)
+                {
+                    if (!subStroke.gameObject.activeSelf)
+                    {
+                        Destroy(subStroke);
+                    }
+                }
             }
 
         }
+        letThemBeOn = true;
+        Debug.Log("CheckAndExecute");
 	}
 }

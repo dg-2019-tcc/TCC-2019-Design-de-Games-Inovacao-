@@ -186,6 +186,6 @@ public class GameManager : MonoBehaviour
                 fase = Fase.Podium;
                 break;
         }
-        Debug.Log("Checando qual fase: " + sceneName + "InRoom é:" + inRoom);
+        Debug.Log("Checando qual fase: " + fase + "InRoom é: " + inRoom);
     }
 }
