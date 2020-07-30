@@ -63,11 +63,21 @@ namespace Complete
 
         void Start()
         {
-            if ((GameManager.sequestrado == true && GameManager.historiaMode == true) || (GameManager.Instance.fase.Equals(GameManager.Fase.Tutorial)))
+            if (GameManager.historiaMode == true)
             {
-                sequestrado = true;
-                ChangeState("DesativadoState");
-                Debug.Log("DogController");
+                if (GameManager.sequestrado == true || GameManager.Instance.fase.Equals(GameManager.Fase.Tutorial) || GameManager.Instance.fase.Equals(GameManager.Fase.Tutorial))
+                {
+                    sequestrado = true;
+                    ChangeState("DesativadoState");
+                    Debug.Log("Sequestrado: " + sequestrado);
+                }
+                else
+                {
+                    sequestrado = false;
+                    ChangeState("IdleState");
+                    Debug.Log("Sequestrado: " + sequestrado);
+                }
+                
             }
 
             if (PhotonNetwork.InRoom)
@@ -109,9 +119,12 @@ namespace Complete
                 PV.Controller.CustomProperties["dogValue"] = dogAtivo.Value;
 
 
-                if (sequestrado)
+                if (GameManager.historiaMode == true)
                 {
-                    ChangeState("DesativadoState");
+                    if (sequestrado|| GameManager.Instance.fase.Equals(GameManager.Fase.Tutorial))
+                    {
+                        ChangeState("DesativadoState");
+                    }
                 }
             }
         }
@@ -180,9 +193,8 @@ namespace Complete
                     break;
 
                 case "DesativadoState":
-                    if (state == State.Idle)
+                    if (state != State.Desativado)
                     {
-                        Debug.Log(state);
                         Pet.SetActive(false);
 
                         dogAtivo.Value = false;
