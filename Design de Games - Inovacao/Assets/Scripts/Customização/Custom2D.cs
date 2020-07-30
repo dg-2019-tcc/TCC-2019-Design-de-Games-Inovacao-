@@ -309,7 +309,7 @@ public class Custom2D : MonoBehaviour
         sobrancelha2Esq[sobrancelhaInd.prop2DInd].ChangeCustom(true);
         sobrancelha2Dir[sobrancelhaInd.prop2DInd].ChangeCustom(true);
 
-        PlayerPrefs.SetInt("sobrancelhaInd", sobrancelhaInd.prop2DInd);
+        PlayerPrefs.SetInt("sobrancelhaIndex", sobrancelhaInd.prop2DInd);
         PhotonNetwork.LocalPlayer.CustomProperties["sobrancelhaIndex"] = sobrancelhaInd.prop2DInd;
     }
 }
