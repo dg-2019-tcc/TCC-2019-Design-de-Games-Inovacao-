@@ -65,7 +65,7 @@ namespace Complete
         {
             if (GameManager.historiaMode == true)
             {
-                if (GameManager.sequestrado == true || GameManager.Instance.fase.Equals(GameManager.Fase.Tutorial) || GameManager.Instance.fase.Equals(GameManager.Fase.Tutorial))
+                if (GameManager.sequestrado == true || GameManager.Instance.fase.Equals(GameManager.Fase.Tutorial) || GameManager.Instance.fase.Equals(GameManager.Fase.Tutorial) || GameManager.levelIndex == 6 || GameManager.levelIndex == 7)
                 {
                     sequestrado = true;
                     ChangeState("DesativadoState");

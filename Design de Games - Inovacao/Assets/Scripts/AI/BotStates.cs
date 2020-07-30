@@ -184,7 +184,7 @@ namespace Complete {
         {
             if (!reset)
             {
-                if (nextState == horizontalState && nextState == verticalState) { return; }
+                if (nextState == horizontalState || nextState == verticalState) { return; }
                 if (horizontalState == State.Idle || horizontalState == State.Null)
                 {
                     horizontalState = nextState;

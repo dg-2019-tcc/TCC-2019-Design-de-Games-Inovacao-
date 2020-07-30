@@ -82,6 +82,7 @@ public class Custom2D : MonoBehaviour
         skin2[skinInd.prop2DInd].ChangeCustom(true);
         PlayerPrefs.SetInt("skinInd", skinInd.prop2DInd);
 
+        PlayerPrefs.SetInt("skinIndex", skinInd.prop2DInd);
         PhotonNetwork.LocalPlayer.CustomProperties["skinIndex"] = skinInd.prop2DInd;
     }
 

@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 7055313544763821912}
   - component: {fileID: 6820952508627424591}
   - component: {fileID: 8485794918782194672}
+  - component: {fileID: 6642772412200828282}
   m_Layer: 17
   m_Name: KleyCorrida
   m_TagString: AI
@@ -61,7 +62,6 @@ MonoBehaviour:
   canJump: 0
   jumpCooldown: 0
   forceVertical: 0
-  movement: {fileID: 0}
 --- !u!61 &7445157001730892669
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -149,6 +149,7 @@ MonoBehaviour:
   maxJumpHeight: 15
   minJumpHeight: 0.7
   timeToJumpApex: 0.75
+  isJumping: 0
   aiController2D: {fileID: 7493703950428973642}
   triggerController: {fileID: 7055313544763821912}
   animAI: {fileID: 0}
@@ -200,6 +201,26 @@ MonoBehaviour:
   state: 0
   jaAterrisou: 0
   isFut: 0
+--- !u!114 &6642772412200828282
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2700553094261141899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d699d2e40f767f04bb4aa94dc8aea7f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  aiSpawner: {fileID: 0}
+  triggerController: {fileID: 0}
+  active: 8
+  horizontalState: 7
+  verticalState: 7
+  actionState: 7
+  coletaveis: []
+  target: {fileID: 0}
 --- !u!1001 &6484271386363331543
 PrefabInstance:
   m_ObjectHideFlags: 0
