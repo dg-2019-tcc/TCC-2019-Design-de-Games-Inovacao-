@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     public BoolVariable demo;
     public BoolVariable escolheFase;
     public BoolVariable pularModoHistoria;
+    public BoolVariable resetaPlayerPrefs;
     public FloatVariable faseEscolhida;
     private int faseEsc;
 
@@ -20,6 +21,7 @@ public class GameManager : MonoBehaviour
     public static bool sequestrado;
     private int sequestradoPrefs;
     public static int levelIndex;
+    public static int falaIndex;
     public static int ganhouDoKley;
     private string sceneName;
 
@@ -64,11 +66,26 @@ public class GameManager : MonoBehaviour
         escolheFase = Resources.Load<BoolVariable>("EscolheFase");
         faseEscolhida = Resources.Load<FloatVariable>("FaseEscolhida");
         pularModoHistoria = Resources.Load<BoolVariable>("PularModoHistoria");
+        resetaPlayerPrefs = Resources.Load<BoolVariable>("ResetaPlayerPrefs");
 
         if (escolheFase.Value || pularModoHistoria.Value)
         {
             EscolheFase();
         }
+
+        /*if (resetaPlayerPrefs.Value == true)
+        {
+            Debug.Log("ResetaPlayerPrefs  é true");
+            PlayerPrefsManager.Instance.prefsVariables.ResetPlayerPrefs();
+            PlayerPrefsManager.Instance.SavePlayerPrefs("IsFirstTime", 0);
+            resetaPlayerPrefs.Value = false;
+        }
+
+        else
+        {
+            Debug.Log("ResetaPlayerPrefs  é false");
+            PlayerPrefsManager.Instance.LoadPlayerPref("All");
+        }*/
 
     }
     #endregion
@@ -82,22 +99,49 @@ public class GameManager : MonoBehaviour
         {
             OfflineMode.Instance.AtivaOffline(true);
         }
+
+        PlayerPrefsManager.Instance.LoadPlayerPref("All");
+
+        /*if (PlayerPrefsManager.Instance.prefsVariables.isFirstTime == 0 && GameManager.historiaMode == false)
+        {
+            PlayerPrefsManager.Instance.prefsVariables.ResetPlayerPrefs();
+            PlayerPrefsManager.Instance.SavePlayerPrefs("IsFirstTime", 1);
+        }
+
+        else
+        {
+            PlayerPrefsManager.Instance.LoadPlayerPref("All");
+        }*/
     }
 
 
-    public void SaveGame(int index)
+    public void SaveGame(int indexFase,int indexFala)
     {
         lastFase = fase;
-        PlayerPrefs.SetInt("LevelIndex", index);
-        Debug.Log("O level salvo foi:" + index);
+        PlayerPrefsManager.Instance.SavePlayerPrefs("LevelIndex", indexFase);
+        PlayerPrefsManager.Instance.SavePlayerPrefs("FalasIndex", indexFala);
+        //PlayerPrefs.SetInt("LevelIndex", index);
+        Debug.Log("O level salvo foi:" + indexFase + "a fala salva: "+ indexFala);
     }
 
     public void LoadGame()
     {
-        sequestradoPrefs = PlayerPrefs.GetInt("Sequestrado");
-        levelIndex = PlayerPrefs.GetInt("LevelIndex");
-        ganhouDoKley = PlayerPrefs.GetInt("GanhouDoKlay");
-        if(levelIndex < 9)
+        ChecaFase();
+        //sequestradoPrefs = PlayerPrefs.GetInt("Sequestrado");
+        //levelIndex = PlayerPrefs.GetInt("LevelIndex");
+        //ganhouDoKley = PlayerPrefs.GetInt("GanhouDoKlay");
+        /*PlayerPrefsManager.Instance.LoadPlayerPref("LevelIndex");
+        PlayerPrefsManager.Instance.LoadPlayerPref("FalasIndex");
+        PlayerPrefsManager.Instance.LoadPlayerPref("Sequestrado");
+        PlayerPrefsManager.Instance.LoadPlayerPref("GanhouDoKlay");
+
+        levelIndex = PlayerPrefsManager.Instance.prefsVariables.levelIndex;
+        falaIndex = PlayerPrefsManager.Instance.prefsVariables.falasIndex;
+        sequestradoPrefs = PlayerPrefsManager.Instance.prefsVariables.sequestrado;
+        ganhouDoKley = PlayerPrefsManager.Instance.prefsVariables.ganhouDoKlay;*/
+        PlayerPrefsManager.Instance.LoadPlayerPref("All");
+
+        if (PlayerPrefsManager.Instance.prefsVariables.levelIndex < 8)
         {
             historiaMode = true;
             if (sequestradoPrefs == 1)
@@ -110,7 +154,7 @@ public class GameManager : MonoBehaviour
             }
         }
         
-        Debug.Log("O level carregado foi: " + levelIndex + " O modo história é: " + historiaMode);
+        Debug.Log("O level carregado foi: " + PlayerPrefsManager.Instance.prefsVariables.levelIndex + " A falaIndex é: " + PlayerPrefsManager.Instance.prefsVariables.falasIndex + " O modo história é: " + historiaMode);
     }
 
     //Função para escolher a fase ou resetar o jogo
@@ -118,15 +162,17 @@ public class GameManager : MonoBehaviour
     {
         if (pularModoHistoria.Value == false)
         {
-            PlayerPrefs.SetInt("Sequestrado", 0);
+            //PlayerPrefs.SetInt("Sequestrado", 0);
+            PlayerPrefsManager.Instance.SavePlayerPrefs("Sequestrado", 0);
             faseEsc = Mathf.RoundToInt(faseEscolhida.Value);
-            SaveGame(faseEsc);
+            SaveGame(faseEsc, faseEsc);
             escolheFase.Value = false;
             faseEscolhida.Value = 0;
         }
         else
         {
-            SaveGame(9);
+            historiaMode = false;
+            SaveGame(8,8);
             escolheFase.Value = false;
             faseEscolhida.Value = 0;
         }
@@ -148,6 +194,10 @@ public class GameManager : MonoBehaviour
 
             case "Coleta":
                 fase = Fase.Coleta;
+                break;
+
+            case "Futebol":
+                fase = Fase.Futebol;
                 break;
 
             case "Corrida":
@@ -176,16 +226,24 @@ public class GameManager : MonoBehaviour
 
             case "Shirt":
                 fase = Fase.Loja;
+                if (historiaMode)
+                {
+                    PlayerPrefsManager.Instance.SavePlayerPrefs("LevelIndex", 6);
+                }
                 break;
 
             case "Tenis":
                 fase = Fase.Loja;
+                if (historiaMode)
+                {
+                    PlayerPrefsManager.Instance.SavePlayerPrefs("LevelIndex", 3);
+                }
                 break;
 
             case "TelaVitoria":
                 fase = Fase.Podium;
                 break;
         }
-        Debug.Log("Checando qual fase: " + fase + "InRoom é: " + inRoom);
+        //Debug.Log("Checando qual fase: " + fase + " InRoom é: " + inRoom);
     }
 }

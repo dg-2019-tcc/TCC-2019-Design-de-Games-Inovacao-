@@ -29,7 +29,8 @@ public class FirstTextBoxOnHUB : MonoBehaviour
 	private void OnDestroy()
 	{
         //acabou01.Value[0] = true;
-        GameManager.Instance.SaveGame(1);
+        //GameManager.Instance.SaveGame(1,1);
+        PlayerPrefsManager.Instance.SavePlayerPrefs("FalasIndex", 1);
 		tv.CoisasAtivas(1, true);
 	}
 }

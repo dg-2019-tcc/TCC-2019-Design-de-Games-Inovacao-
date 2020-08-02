@@ -32,12 +32,12 @@ public class GameFlowController : MonoBehaviour
             demo = Resources.Load<BoolVariable>("Demo");
         }
 
-        GameManager.Instance.LoadGame();
+        //GameManager.Instance.LoadGame();
 
 
         if (sceneName == "MenuPrincipal")
         {
-            if (GameManager.levelIndex < 8 || demo.Value == true)
+            if (PlayerPrefsManager.Instance.prefsVariables.levelIndex < 8 || demo.Value == true)
             {
                 OfflineButtonMenu(false);
                 OfflineMode.Instance.AtivaOffline(true);
@@ -52,21 +52,34 @@ public class GameFlowController : MonoBehaviour
             if (GameManager.historiaMode)
             {
                 OfflineMode.Instance.AtivaOffline(true);
-                ganhouDoKlay = PlayerPrefs.GetInt("GanhouDoKlay");
-                if (ganhouDoKlay == 1)
+                //ganhouDoKlay = PlayerPrefs.GetInt("GanhouDoKlay");
+                if (PlayerPrefsManager.Instance.prefsVariables.levelIndex >= 1)
                 {
-                    flowManager.FechaTudo();
-                }
+                    if(PlayerPrefsManager.Instance.prefsVariables.levelIndex == PlayerPrefsManager.Instance.prefsVariables.falasIndex)
+                    {
+                        flowManager.FechaTudo();
+                    }
+                    else
+                    {
+                        flowManager.AtivaFase(PlayerPrefsManager.Instance.prefsVariables.levelIndex);
+                    }
 
-                else
-                {
-                    flowManager.AtivaFase(GameManager.levelIndex);
+                   /*if (ganhouDoKlay == 1)
+                    {
+                        flowManager.FechaTudo();
+                    }
+
+                    else
+                    {
+                        Debug.Log(GameManager.levelIndex);
+                        flowManager.AtivaFase(GameManager.levelIndex);
+                    }*/
                 }
             }
 
             else
             {
-                flowManager.AtivaFase(9);
+                flowManager.AtivaFase(8);
             }
         }
 
@@ -80,10 +93,10 @@ public class GameFlowController : MonoBehaviour
 
     public void FlowHUB()
     {
-        GameManager.Instance.LoadGame();
+        //GameManager.Instance.LoadGame();
 
-        flowManager.AtivaFase(GameManager.levelIndex);
-        Debug.Log(GameManager.levelIndex);
+        flowManager.AtivaFase(PlayerPrefsManager.Instance.prefsVariables.levelIndex);
+        Debug.Log(PlayerPrefsManager.Instance.prefsVariables.levelIndex);
     }
     
 

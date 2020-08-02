@@ -43,7 +43,7 @@ public class GameFlowManager : MonoBehaviour
 
         if (GameManager.Instance.fase.Equals(GameManager.Fase.Hub))
         {
-            DestroyNpcs(GameManager.levelIndex);
+            DestroyNpcs(PlayerPrefsManager.Instance.prefsVariables.levelIndex);
         }
 
     }
@@ -63,43 +63,46 @@ public class GameFlowManager : MonoBehaviour
 
     public void AtivaFase(int level)
     {
-        PlayerPrefs.SetInt("GanhouDoKlay", 0);
+        //PlayerPrefs.SetInt("GanhouDoKlay", 0);
+        PlayerPrefsManager.Instance.SavePlayerPrefs("GanhouDoKlay", 0);
         FechaTudo();
         switch (level)
         {
-            case 9 :
+            case 8 :
                 Completo();
                 break;
 
-            case 8:
+            case 7:
                 //FaseRoupa();
                 //Completo();
                 FechaTudo();
-                break;
-
-            case 7:
-                FaseCorrida();
+                PlayerPrefsManager.Instance.SavePlayerPrefs("LevelIndex", 8);
+                //Debug.Log(PlayerPrefsManager.Instance.prefsVariables.levelIndex);
                 break;
 
             case 6:
-                FaseRoupa();
-                FaseCabelo();
+                FaseCorrida();
                 break;
 
             case 5:
+                FaseRoupa();
+                //FaseCabelo();
+                break;
+
+            case 4:
                 FaseMoto();
                 break;
 
 
-            case 4:
+            case 3:
                 FaseFutebol();
                 break;
 
-            case 3:
+            case 2:
                 FaseTenis();
                 break;
 
-            case 2:
+            case 1:
                 FaseColeta();
                 break;
 

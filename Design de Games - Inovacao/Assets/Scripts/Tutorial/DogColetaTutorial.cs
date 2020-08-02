@@ -59,6 +59,12 @@ public class DogColetaTutorial : MonoBehaviour
 
     public void AtivaDog()
     {
+        if (dog)
+        {
+            dogController = FindObjectOfType<DogController>();
+            dogController.sequestrado = false;
+            dogController.ChangeState("IdleState");
+        }
         coletavel.SetActive(true);
         Destroy(gameObject);
     }

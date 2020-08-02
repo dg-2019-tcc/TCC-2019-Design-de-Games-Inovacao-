@@ -52,29 +52,20 @@ public class CustomDisplay : MonoBehaviour
         pv = GetComponent<PhotonView>();
         customController = GetComponent<CustomController>();
 
-        PhotonNetwork.LocalPlayer.CustomProperties["hairIndex"] =PlayerPrefs.GetInt("hairIndex");
-        PhotonNetwork.LocalPlayer.CustomProperties["shirtIndex"] = PlayerPrefs.GetInt("shirtIndex");
-        PhotonNetwork.LocalPlayer.CustomProperties["legsIndex"] = PlayerPrefs.GetInt("legsIndex");
-        PhotonNetwork.LocalPlayer.CustomProperties["shoeIndex"] = PlayerPrefs.GetInt("shoeIndex");
-        PhotonNetwork.LocalPlayer.CustomProperties["oculosIndex"] = PlayerPrefs.GetInt("oculosIndex");
-        PhotonNetwork.LocalPlayer.CustomProperties["ciliosIndex"] = PlayerPrefs.GetInt("ciliosIndex");
-        PhotonNetwork.LocalPlayer.CustomProperties["maskIndex"] = PlayerPrefs.GetInt("maskIndex");
-        PhotonNetwork.LocalPlayer.CustomProperties["boneIndex"] = PlayerPrefs.GetInt("boneIndex");
-        PhotonNetwork.LocalPlayer.CustomProperties["skinIndex"] = PlayerPrefs.GetInt("skinIndex");
-        PhotonNetwork.LocalPlayer.CustomProperties["pupilaIndex"] = PlayerPrefs.GetInt("pupilaIndex");
-        PhotonNetwork.LocalPlayer.CustomProperties["sobrancelhaIndex"] = PlayerPrefs.GetInt("sobrancelhaIndex");
+        PlayerPrefsManager.Instance.LoadPlayerPref("Customização");
 
-        /*PhotonNetwork.LocalPlayer.CustomProperties["hairIndex"] = hair.prop2DInd;
-        PhotonNetwork.LocalPlayer.CustomProperties["shirtIndex"] = shirt.prop2DInd;
-        PhotonNetwork.LocalPlayer.CustomProperties["legsIndex"] = legs.prop2DInd;
-        PhotonNetwork.LocalPlayer.CustomProperties["shoeIndex"] = shoe.prop2DInd;
-        PhotonNetwork.LocalPlayer.CustomProperties["oculosIndex"] = oculos.prop2DInd;
-        PhotonNetwork.LocalPlayer.CustomProperties["ciliosIndex"] = cilios.prop2DInd;
-        PhotonNetwork.LocalPlayer.CustomProperties["maskIndex"] = mask.prop2DInd;
-        PhotonNetwork.LocalPlayer.CustomProperties["boneIndex"] = bone.prop2DInd;
-        PhotonNetwork.LocalPlayer.CustomProperties["skinIndex"] = skin.prop2DInd;
-        PhotonNetwork.LocalPlayer.CustomProperties["pupilaIndex"] = pupila.prop2DInd;
-        PhotonNetwork.LocalPlayer.CustomProperties["sobrancelhaIndex"] = sobrancelha.prop2DInd;*/
+        PhotonNetwork.LocalPlayer.CustomProperties["hairIndex"] = PlayerPrefsManager.Instance.prefsVariables.hairIndex;
+        PhotonNetwork.LocalPlayer.CustomProperties["shirtIndex"] = PlayerPrefsManager.Instance.prefsVariables.shirtIndex;
+        PhotonNetwork.LocalPlayer.CustomProperties["legsIndex"] = PlayerPrefsManager.Instance.prefsVariables.legsIndex;
+        PhotonNetwork.LocalPlayer.CustomProperties["shoeIndex"] = PlayerPrefsManager.Instance.prefsVariables.shoeIndex;
+        PhotonNetwork.LocalPlayer.CustomProperties["oculosIndex"] = PlayerPrefsManager.Instance.prefsVariables.oculosIndex;
+        PhotonNetwork.LocalPlayer.CustomProperties["ciliosIndex"] = PlayerPrefsManager.Instance.prefsVariables.ciliosIndex;
+        PhotonNetwork.LocalPlayer.CustomProperties["maskIndex"] = PlayerPrefsManager.Instance.prefsVariables.maskIndex;
+        PhotonNetwork.LocalPlayer.CustomProperties["boneIndex"] = PlayerPrefsManager.Instance.prefsVariables.boneIndex;
+        PhotonNetwork.LocalPlayer.CustomProperties["skinIndex"] = PlayerPrefsManager.Instance.prefsVariables.skinIndex;
+        PhotonNetwork.LocalPlayer.CustomProperties["pupilaIndex"] = PlayerPrefsManager.Instance.prefsVariables.pupilaIndex;
+        PhotonNetwork.LocalPlayer.CustomProperties["sobrancelhaIndex"] = PlayerPrefsManager.Instance.prefsVariables.sombrancelhaIndex;
+
 
         //hair.prop2DInd = 1;//utilizei pra resetar os valores do cabelo
         if (GameManager.inRoom == false)
@@ -111,24 +102,22 @@ public class CustomDisplay : MonoBehaviour
         TrocaSkin((int)pv.Owner.CustomProperties["skinIndex"]);
         TrocaPupila((int)pv.Owner.CustomProperties["pupilaIndex"]);
         TrocaSobrancelha((int)pv.Owner.CustomProperties["sobrancelhaIndex"]);
-        Debug.Log("Troca Other PV");
     }
 
 
     void TrocaOffline()
     {
-        TrocaCabelo(PlayerPrefs.GetInt("hairIndex"));
-        TrocaCamisa(PlayerPrefs.GetInt("shirtIndex"));
-        TrocaCalca(PlayerPrefs.GetInt("legsIndex"));
-        TrocaSapato(PlayerPrefs.GetInt("shoeIndex"));
-        TrocaOculos(PlayerPrefs.GetInt("oculosIndex"));
-        TrocaCilios(PlayerPrefs.GetInt("ciliosIndex"));
-        TrocaMask(PlayerPrefs.GetInt("maskIndex"));
-        TrocaBone(PlayerPrefs.GetInt("boneIndex"));
-        TrocaSkin(PlayerPrefs.GetInt("skinIndex"));
-        TrocaPupila(PlayerPrefs.GetInt("pupilaIndex"));
-        TrocaSobrancelha(PlayerPrefs.GetInt("sobrancelhaIndex"));
-        Debug.Log("Troca Mine PV");
+        TrocaCabelo(PlayerPrefsManager.Instance.prefsVariables.hairIndex);
+        TrocaCamisa(PlayerPrefsManager.Instance.prefsVariables.shirtIndex);
+        TrocaCalca(PlayerPrefsManager.Instance.prefsVariables.legsIndex);
+        TrocaSapato(PlayerPrefsManager.Instance.prefsVariables.shoeIndex);
+        TrocaOculos(PlayerPrefsManager.Instance.prefsVariables.oculosIndex);
+        TrocaCilios(PlayerPrefsManager.Instance.prefsVariables.ciliosIndex);
+        TrocaMask(PlayerPrefsManager.Instance.prefsVariables.maskIndex);
+        TrocaBone(PlayerPrefsManager.Instance.prefsVariables.boneIndex);
+        TrocaSkin(PlayerPrefsManager.Instance.prefsVariables.skinIndex);
+        TrocaPupila(PlayerPrefsManager.Instance.prefsVariables.pupilaIndex);
+        TrocaSobrancelha(PlayerPrefsManager.Instance.prefsVariables.sombrancelhaIndex);
     }
 
 

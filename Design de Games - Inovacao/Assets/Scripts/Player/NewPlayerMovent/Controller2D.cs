@@ -9,6 +9,7 @@ public class Controller2D : RaycastController
 
     public CollisionInfo collisions;
 
+    private InputController inputController;
     Vector2 playerInput;
 
     public BoolVariable pipaActive;
@@ -19,16 +20,18 @@ public class Controller2D : RaycastController
 	public override void Start()
     {
         base.Start();
+        inputController = GetComponent<InputController>();
     }
 
 
-    public void Move(Vector2 moveAmount, Vector2 input)
+    public void Move(Vector2 moveAmount)
     {
         UpdateRaycastOrigins();
         collisions.Reset();
         collisions.velocityOld = moveAmount;
 
-        playerInput = input;
+        //playerInput = input;
+        playerInput = inputController.joyInput;
 
         if(moveAmount.y < 0)
         {
@@ -76,7 +79,7 @@ public class Controller2D : RaycastController
                     {
                         continue;
                     }
-                    if (directionX == 1 || hit.distance == 0)
+                    if (directionX == 1 || hit.distance == 0 || Mathf.Abs(playerInput.x) != 0)
                     {
                         continue;
                     }

@@ -99,7 +99,7 @@ public class NewMotoPlayerMovement : MonoBehaviour
         }
 
 		velocity.y += gravity * Time.deltaTime;
-		controller.Move(velocity * Time.deltaTime, input);
+		controller.Move(velocity * Time.deltaTime);
 		triggerController.MoveDirection(velocity);
 		animations.ChangeMotoAnim(velocity, oldPosition, levouDogada.Value);
 

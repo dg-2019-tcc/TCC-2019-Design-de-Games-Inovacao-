@@ -50,17 +50,19 @@ public class Custom2D : MonoBehaviour
 
     private void Start()
     {
-        hairInd.prop2DInd = PlayerPrefs.GetInt("hairIndex");
-        shirtInd.prop2DInd = PlayerPrefs.GetInt("shirtIndex");
-        shortsInd.prop2DInd = PlayerPrefs.GetInt("legsIndex");
-        shoesInd.prop2DInd = PlayerPrefs.GetInt("shoeIndex");
-        oculosIndex.prop2DInd = PlayerPrefs.GetInt("oculosIndex");
-        ciliosIndex.prop2DInd = PlayerPrefs.GetInt("ciliosIndex");
-        maskIndex.prop2DInd = PlayerPrefs.GetInt("maskIndex");
-        boneIndex.prop2DInd = PlayerPrefs.GetInt("boneIndex");
-        skinInd.prop2DInd = PlayerPrefs.GetInt("skinIndex");
-        pupilaInd.prop2DInd = PlayerPrefs.GetInt("pupilaIndex");
-        sobrancelhaInd.prop2DInd = PlayerPrefs.GetInt("sobrancelhaIndex");
+        PlayerPrefsManager.Instance.LoadPlayerPref("Customização");
+
+        hairInd.prop2DInd = PlayerPrefsManager.Instance.prefsVariables.hairIndex;
+        shirtInd.prop2DInd = PlayerPrefsManager.Instance.prefsVariables.shirtIndex;
+        shortsInd.prop2DInd = PlayerPrefsManager.Instance.prefsVariables.legsIndex;
+        shoesInd.prop2DInd = PlayerPrefsManager.Instance.prefsVariables.shoeIndex;
+        oculosIndex.prop2DInd = PlayerPrefsManager.Instance.prefsVariables.oculosIndex;
+        ciliosIndex.prop2DInd = PlayerPrefsManager.Instance.prefsVariables.ciliosIndex;
+        maskIndex.prop2DInd = PlayerPrefsManager.Instance.prefsVariables.maskIndex;
+        boneIndex.prop2DInd = PlayerPrefsManager.Instance.prefsVariables.boneIndex;
+        skinInd.prop2DInd = PlayerPrefsManager.Instance.prefsVariables.skinIndex;
+        pupilaInd.prop2DInd = PlayerPrefsManager.Instance.prefsVariables.pupilaIndex;
+        sobrancelhaInd.prop2DInd = PlayerPrefsManager.Instance.prefsVariables.sombrancelhaIndex;
     }
 
     [PunRPC]
@@ -80,9 +82,9 @@ public class Custom2D : MonoBehaviour
 
         skin[skinInd.prop2DInd].ChangeCustom(true);
         skin2[skinInd.prop2DInd].ChangeCustom(true);
-        PlayerPrefs.SetInt("skinInd", skinInd.prop2DInd);
 
-        PlayerPrefs.SetInt("skinIndex", skinInd.prop2DInd);
+        //PlayerPrefs.SetInt("skinIndex", skinInd.prop2DInd);
+        PlayerPrefsManager.Instance.SavePlayerPrefs("SkinIndex", skinInd.prop2DInd);
         PhotonNetwork.LocalPlayer.CustomProperties["skinIndex"] = skinInd.prop2DInd;
     }
 
@@ -103,7 +105,8 @@ public class Custom2D : MonoBehaviour
         hairs[hairInd.prop2DInd].ChangeCustom(true);
         hairs2[hairInd.prop2DInd].ChangeCustom(true);
 
-        PlayerPrefs.SetInt("hairIndex", hairInd.prop2DInd);
+        //PlayerPrefs.SetInt("hairIndex", hairInd.prop2DInd);
+        PlayerPrefsManager.Instance.SavePlayerPrefs("HairIndex", hairInd.prop2DInd);
         PhotonNetwork.LocalPlayer.CustomProperties["hairIndex"] = hairInd.prop2DInd;
     }
 
@@ -126,7 +129,8 @@ public class Custom2D : MonoBehaviour
         shirt[shirtInd.prop2DInd].ChangeCustom(true);
         shirt2[shirtInd.prop2DInd].ChangeCustom(true);
 
-        PlayerPrefs.SetInt("shirtIndex", shirtInd.prop2DInd);
+        //PlayerPrefs.SetInt("shirtIndex", shirtInd.prop2DInd);
+        PlayerPrefsManager.Instance.SavePlayerPrefs("ShirtIndex", shirtInd.prop2DInd);
         PhotonNetwork.LocalPlayer.CustomProperties["shirtIndex"] = shirtInd.prop2DInd;
 
     }
@@ -149,7 +153,8 @@ public class Custom2D : MonoBehaviour
         shorts2[shortsInd.prop2DInd].ChangeCustom(true);
 
 
-        PlayerPrefs.SetInt("legsIndex", shortsInd.prop2DInd);
+        //PlayerPrefs.SetInt("legsIndex", shortsInd.prop2DInd);
+        PlayerPrefsManager.Instance.SavePlayerPrefs("LegsIndex", shortsInd.prop2DInd);
         PhotonNetwork.LocalPlayer.CustomProperties["legsIndex"] = shortsInd.prop2DInd;
     }
 
@@ -170,7 +175,8 @@ public class Custom2D : MonoBehaviour
         shoes[shoesInd.prop2DInd].ChangeCustom(true);
         shoes2[shoesInd.prop2DInd].ChangeCustom(true);
 
-        PlayerPrefs.SetInt("shoeIndex", shoesInd.prop2DInd);
+        //PlayerPrefs.SetInt("shoeIndex", shoesInd.prop2DInd);
+        PlayerPrefsManager.Instance.SavePlayerPrefs("ShoeIndex", shoesInd.prop2DInd);
         PhotonNetwork.LocalPlayer.CustomProperties["shoeIndex"] = shoesInd.prop2DInd;
 
     }
@@ -192,7 +198,8 @@ public class Custom2D : MonoBehaviour
         oculos[oculosIndex.prop2DInd].ChangeCustom(true);
         oculos2[oculosIndex.prop2DInd].ChangeCustom(true);
 
-        PlayerPrefs.SetInt("oculosIndex", oculosIndex.prop2DInd);
+        //PlayerPrefs.SetInt("oculosIndex", oculosIndex.prop2DInd);
+        PlayerPrefsManager.Instance.SavePlayerPrefs("OculosIndex", oculosIndex.prop2DInd);
         PhotonNetwork.LocalPlayer.CustomProperties["oculosIndex"] = oculosIndex.prop2DInd;
     }
 
@@ -214,7 +221,8 @@ public class Custom2D : MonoBehaviour
         cilios[ciliosIndex.prop2DInd].ChangeCustom(true);
         cilios2[ciliosIndex.prop2DInd].ChangeCustom(true);
 
-        PlayerPrefs.SetInt("ciliosIndex", ciliosIndex.prop2DInd);
+        //PlayerPrefs.SetInt("ciliosIndex", ciliosIndex.prop2DInd);
+        PlayerPrefsManager.Instance.SavePlayerPrefs("HairIndex", hairInd.prop2DInd);
         PhotonNetwork.LocalPlayer.CustomProperties["ciliosIndex"] = ciliosIndex.prop2DInd;
     }
 
@@ -236,7 +244,8 @@ public class Custom2D : MonoBehaviour
         mask[maskIndex.prop2DInd].ChangeCustom(true);
         mask2[maskIndex.prop2DInd].ChangeCustom(true);
 
-        PlayerPrefs.SetInt("maskIndex", maskIndex.prop2DInd);
+        //PlayerPrefs.SetInt("maskIndex", maskIndex.prop2DInd);
+        PlayerPrefsManager.Instance.SavePlayerPrefs("MaskIndex", maskIndex.prop2DInd);
         PhotonNetwork.LocalPlayer.CustomProperties["maskIndex"] = maskIndex.prop2DInd;
     }
 
@@ -258,7 +267,8 @@ public class Custom2D : MonoBehaviour
         bone[boneIndex.prop2DInd].ChangeCustom(true);
         bone2[boneIndex.prop2DInd].ChangeCustom(true);
 
-        PlayerPrefs.SetInt("boneIndex", boneIndex.prop2DInd);
+        //PlayerPrefs.SetInt("boneIndex", boneIndex.prop2DInd);
+        PlayerPrefsManager.Instance.SavePlayerPrefs("BoneIndex", boneIndex.prop2DInd);
         PhotonNetwork.LocalPlayer.CustomProperties["boneIndex"] = boneIndex.prop2DInd;
     }
 
@@ -282,7 +292,8 @@ public class Custom2D : MonoBehaviour
         pupila[pupilaInd.prop2DInd].ChangeCustom(true);
         pupila2[pupilaInd.prop2DInd].ChangeCustom(true);
 
-        PlayerPrefs.SetInt("pupilaIndex", pupilaInd.prop2DInd);
+        //PlayerPrefs.SetInt("pupilaIndex", pupilaInd.prop2DInd);
+        PlayerPrefsManager.Instance.SavePlayerPrefs("PupilaIndex", pupilaInd.prop2DInd);
         PhotonNetwork.LocalPlayer.CustomProperties["pupilaIndex"] = pupilaInd.prop2DInd;
     }
 
@@ -309,7 +320,8 @@ public class Custom2D : MonoBehaviour
         sobrancelha2Esq[sobrancelhaInd.prop2DInd].ChangeCustom(true);
         sobrancelha2Dir[sobrancelhaInd.prop2DInd].ChangeCustom(true);
 
-        PlayerPrefs.SetInt("sobrancelhaIndex", sobrancelhaInd.prop2DInd);
+        //PlayerPrefs.SetInt("sobrancelhaIndex", sobrancelhaInd.prop2DInd);
+        PlayerPrefsManager.Instance.SavePlayerPrefs("SombrancelhaIndex", sobrancelhaInd.prop2DInd);
         PhotonNetwork.LocalPlayer.CustomProperties["sobrancelhaIndex"] = sobrancelhaInd.prop2DInd;
     }
 }

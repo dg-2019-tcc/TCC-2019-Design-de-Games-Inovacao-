@@ -122,6 +122,7 @@ namespace Complete {
                 velocity.y = maxJumpHeight * 1.8f;
             }
             aiController2D.Move(velocity * Time.deltaTime, input);
+            //animAI.ChangeAnimAI(velocity * Time.deltaTime, oldPosition, input, isJumping);
         }
 
         public void Move(BotStates.State action01, BotStates.State action02)
@@ -180,13 +181,21 @@ namespace Complete {
 
         public void Stop()
         {
+            if (!GameManager.Instance.fase.Equals(GameManager.Fase.Moto))
+            {
+                animAI.AnimState("Idle");
+            }
             jumpTimes = 0;
             input.x = 0;
         }
 
         public void GoRight()
         {
-           // jumpTimes = 0;
+            if (!GameManager.Instance.fase.Equals(GameManager.Fase.Moto))
+            {
+                animAI.AnimState("Walking");
+            }
+            // jumpTimes = 0;
             input.x = 1;
             dirDir = true;
             Quaternion direction = Quaternion.Euler(0, 0, 0);
@@ -195,6 +204,10 @@ namespace Complete {
 
         public void GoLeft()
         {
+            if (!GameManager.Instance.fase.Equals(GameManager.Fase.Moto))
+            {
+                animAI.AnimState("Walking");
+            }
             //jumpTimes = 0;
             input.x = 1;
             dirDir = false;
@@ -209,7 +222,10 @@ namespace Complete {
                 jumpTimes++;
                 input.y = 1;
                 isJumping = true;
-
+                if (!GameManager.Instance.fase.Equals(GameManager.Fase.Moto))
+                {
+                    animAI.AnimState("NoArUp");
+                }
                 if (jumpTimes > 2)
                 {
                     velocity.y = maxJumpHeight + (jumpTimes * 1.5f);

@@ -38,6 +38,5 @@ public class TakeOffUnused : MonoBehaviour
 
         }
         letThemBeOn = true;
-        Debug.Log("CheckAndExecute");
 	}
 }

@@ -65,6 +65,10 @@ public class ColetaWin : MonoBehaviour
 
 	void Update()
     {
+        if(botScore.Value > 4)
+        {
+            LevelManager.Instance.Perdeu();
+        }
 
             foreach (Photon.Realtime.Player p in PhotonNetwork.PlayerList)
             {

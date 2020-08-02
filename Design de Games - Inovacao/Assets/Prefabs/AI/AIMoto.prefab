@@ -9,11 +9,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2700553094261141896}
-  - component: {fileID: 2700553094261141940}
   - component: {fileID: 7445157001730892669}
   - component: {fileID: 4251823137003717016}
   - component: {fileID: 4373307510311825219}
   - component: {fileID: 3606609252391825369}
+  - component: {fileID: 4394131731677464790}
   m_Layer: 17
   m_Name: AIMoto
   m_TagString: AI
@@ -37,31 +37,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2700553094261141940
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2700553094261141899}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 63cbcb1feb2924b4b94e8e9ec445561c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  botStats: {fileID: 11400000, guid: ba43b43f2ad2fcf4cbf710c66f549711, type: 2}
-  pos: {fileID: 2700553094261141896}
-  maxPoints: 1
-  botScore: {fileID: 11400000, guid: 8b566134829c06c4f870959dc3f30b67, type: 2}
-  rb: {fileID: 0}
-  wayPointList: []
-  nextWayPoint: 0
-  stateTimeElapsed: 0
-  target: {fileID: 0}
-  canJump: 0
-  jumpCooldown: 0
-  forceVertical: 0
-  movement: {fileID: 0}
 --- !u!61 &7445157001730892669
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -106,6 +81,7 @@ MonoBehaviour:
   maxJumpHeight: 12
   minJumpHeight: 0.7
   timeToJumpApex: 0.7
+  isJumping: 0
   aiController2D: {fileID: 4373307510311825219}
   triggerController: {fileID: 3606609252391825369}
   animAI: {fileID: 0}
@@ -171,6 +147,26 @@ MonoBehaviour:
   rayLenghtAI: {fileID: 11400000, guid: 94b3306dd02b77643b5372b030e150d2, type: 2}
   rbBola: {fileID: 0}
   botScore: {fileID: 11400000, guid: 8b566134829c06c4f870959dc3f30b67, type: 2}
+--- !u!114 &4394131731677464790
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2700553094261141899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d699d2e40f767f04bb4aa94dc8aea7f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  aiSpawner: {fileID: 0}
+  triggerController: {fileID: 0}
+  active: 8
+  horizontalState: 7
+  verticalState: 7
+  actionState: 7
+  coletaveis: []
+  target: {fileID: 0}
 --- !u!1001 &1386949201308860627
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -829,6 +825,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Mesh
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1328885396697564217, guid: c081b07bf2f54824cb0cd03381c4079e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1339322812925147537, guid: c081b07bf2f54824cb0cd03381c4079e,
         type: 3}
@@ -1958,6 +1959,11 @@ PrefabInstance:
     - target: {fileID: 4718919211816753767, guid: c081b07bf2f54824cb0cd03381c4079e,
         type: 3}
       propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4725817008396250953, guid: c081b07bf2f54824cb0cd03381c4079e,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 4730429279994158525, guid: c081b07bf2f54824cb0cd03381c4079e,

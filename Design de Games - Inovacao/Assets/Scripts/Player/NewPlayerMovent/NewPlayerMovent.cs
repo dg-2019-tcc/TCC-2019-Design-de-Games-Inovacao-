@@ -187,7 +187,7 @@ public class NewPlayerMovent : MonoBehaviour
             velocity.y = -5f;
         }
 
-        controller.Move(velocity * Time.deltaTime, input);
+        controller.Move(velocity * Time.deltaTime);
         triggerController.MoveDirection(velocity * Time.deltaTime);
 
         animations.ChangeMoveAnim(velocity, oldPosition, input, levouDogada.Value, ganhou);
@@ -223,7 +223,7 @@ public class NewPlayerMovent : MonoBehaviour
         targetVelocityX = input.x * carroMoveSpeed;
         carroVelocity.x = Mathf.SmoothDamp(carroVelocity.x, targetVelocityX, ref carroVelocityXSmoothing, (controller.collisions.below) ? carroAccelerationTimeGrounded : carroAccelerationTimeAirborne);
         carroVelocity.y += gravity * Time.deltaTime;
-        controller.Move(carroVelocity * Time.deltaTime, input);
+        controller.Move(carroVelocity * Time.deltaTime);
         triggerController.MoveDirection(carroVelocity);
         animations.ChangeMoveAnim(carroVelocity, oldPosition, input, levouDogada.Value, ganhou);
 
@@ -272,7 +272,7 @@ public class NewPlayerMovent : MonoBehaviour
         
 
         triggerController.MoveDirection(pipaVelocity);
-        controller.Move(pipaVelocity * Time.deltaTime, input);
+        controller.Move(pipaVelocity * Time.deltaTime);
     }
 
     public void Jump()

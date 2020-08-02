@@ -65,17 +65,18 @@ namespace Complete
         {
             if (GameManager.historiaMode == true)
             {
-                if (GameManager.sequestrado == true || GameManager.Instance.fase.Equals(GameManager.Fase.Tutorial) || GameManager.Instance.fase.Equals(GameManager.Fase.Tutorial) || GameManager.levelIndex == 6 || GameManager.levelIndex == 7)
+                GameManager.Instance.ChecaFase();
+                if (GameManager.sequestrado == true || GameManager.Instance.fase.Equals(GameManager.Fase.Tutorial)|| GameManager.levelIndex == 5 || GameManager.levelIndex == 6)
                 {
                     sequestrado = true;
                     ChangeState("DesativadoState");
-                    Debug.Log("Sequestrado: " + sequestrado);
+                    //Debug.Log("Sequestrado: " + sequestrado);
                 }
                 else
                 {
                     sequestrado = false;
                     ChangeState("IdleState");
-                    Debug.Log("Sequestrado: " + sequestrado);
+                    //Debug.Log("Sequestrado: " + sequestrado);
                 }
                 
             }
@@ -116,12 +117,12 @@ namespace Complete
                     transform.position = Vector3.MoveTowards(transform.position, target.position, step);
                 }
 
-                PV.Controller.CustomProperties["dogValue"] = dogAtivo.Value;
+                //PV.Controller.CustomProperties["dogValue"] = dogAtivo.Value;
 
 
                 if (GameManager.historiaMode == true)
                 {
-                    if (sequestrado|| GameManager.Instance.fase.Equals(GameManager.Fase.Tutorial))
+                    if (sequestrado)
                     {
                         ChangeState("DesativadoState");
                     }

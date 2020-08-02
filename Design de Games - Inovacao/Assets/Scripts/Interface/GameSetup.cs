@@ -17,6 +17,7 @@ public class GameSetup : MonoBehaviour
 		LoadCoins();
 		SetVariables();
 		CheckWhichBuild();
+
 		textoDebug.text = "Plataforma atual: " + plataforma + "\n Build pra pc: " + buildPC.Value.ToString();
 	}
 

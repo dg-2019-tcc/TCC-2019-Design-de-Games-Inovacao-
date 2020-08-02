@@ -50,7 +50,7 @@ public class OfflineMode : MonoBehaviour
     {
         PhotonNetwork.OfflineMode = offMode;
         modoDoOffline = PhotonNetwork.OfflineMode;
-        Debug.Log("O modo Offline está ativo é" + PhotonNetwork.OfflineMode);
+        //Debug.Log("O modo Offline está ativo é" + PhotonNetwork.OfflineMode);
     }
 
 

@@ -36,22 +36,17 @@ public class CustomController : MonoBehaviour
         {
             takeOffFrente.CheckAndExecute();
             takeOffLado.CheckAndExecute();
-
-            Debug.Log("Não é Loja");
         }
         else
         {
             takeOffFrente.letThemBeOn = true;
             takeOffLado.letThemBeOn = true;
             lado.SetActive(false);
-            Debug.Log("Loja");
         }
 
         if (takeOffFrente.letThemBeOn == true && takeOffLado.letThemBeOn == true)
         {
             animations.PlayAnim(Player2DAnimations.State.Idle);
-            Debug.Log("Chama o Idle");
         }
-        Debug.Log("Tira Customização Desativada");
     }
 }

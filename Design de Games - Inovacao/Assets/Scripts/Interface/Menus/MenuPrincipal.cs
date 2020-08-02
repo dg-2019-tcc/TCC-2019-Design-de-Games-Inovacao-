@@ -18,7 +18,7 @@ public class MenuPrincipal : MonoBehaviour
 
     public void ComecaJogo()
     {
-        if(GameManager.levelIndex > 0)
+        if(PlayerPrefsManager.Instance.prefsVariables.levelIndex > 0 || GameManager.historiaMode == false)
         {
             nomeDoMenu = "HUB";
         }

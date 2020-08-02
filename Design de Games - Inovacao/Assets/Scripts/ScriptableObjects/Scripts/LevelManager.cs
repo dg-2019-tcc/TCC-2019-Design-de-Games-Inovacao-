@@ -93,16 +93,21 @@ public class LevelManager : MonoBehaviour
         if (GameManager.Instance.fase.Equals(GameManager.Fase.Moto))
         {
             GameManager.sequestrado = true;
-            PlayerPrefs.SetInt("Sequestrado", 1);
+            //PlayerPrefs.SetInt("Sequestrado", 1);
+            PlayerPrefsManager.Instance.SavePlayerPrefs("Sequestrado", 1);
         }
 
         if (GameManager.Instance.fase.Equals(GameManager.Fase.Corrida))
         {
             GameManager.sequestrado = false;
-            PlayerPrefs.SetInt("Sequestrado", 0);
+            //PlayerPrefs.SetInt("Sequestrado", 0);
+            PlayerPrefsManager.Instance.SavePlayerPrefs("Sequestrado", 0);
+            //PlayerPrefsManager.Instance.SavePlayerPrefs("LevelIndex", 8);
         }
+        PlayerPrefsManager.Instance.SavePlayerPrefs("GanhouDoKlay", 1);
+        PlayerPrefsManager.Instance.SavePlayerPrefs("LevelIndex", PlayerPrefsManager.Instance.prefsVariables.levelIndex + 1);
 
-        PlayerPrefs.SetInt("GanhouDoKlay", 1);
+        //PlayerPrefs.SetInt("GanhouDoKlay", 1);
         SceneManager.LoadScene("Historia");
 
     }
@@ -111,7 +116,8 @@ public class LevelManager : MonoBehaviour
     {
         FailMessageManager.manualShutdown = true;
         PhotonNetwork.Disconnect();
-        PlayerPrefs.SetInt("GanhouDoKlay", 0);
+        PlayerPrefsManager.Instance.SavePlayerPrefs("GanhouDoKlay", 0);
+        //PlayerPrefs.SetInt("GanhouDoKlay", 0);
         SceneManager.LoadScene("HUB");
     }
 

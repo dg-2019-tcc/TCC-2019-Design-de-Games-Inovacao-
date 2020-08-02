@@ -83,7 +83,6 @@ namespace Complete
                     if (hit.collider.CompareTag("Futebol"))
                     {
 
-                        Debug.Log("Direita");
                         if (rbBola == null)
                         {
                             rbBola = hit.collider.GetComponent<Rigidbody2D>();
@@ -250,7 +249,6 @@ namespace Complete
 
                     if (hit.collider.CompareTag("Futebol"))
                     {
-                        Debug.Log("Direita");
 
                         if (rbBola == null)
                         {

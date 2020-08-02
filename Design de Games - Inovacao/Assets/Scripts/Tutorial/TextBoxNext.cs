@@ -87,7 +87,8 @@ public class TextBoxNext : MonoBehaviour
             if (tv != null && !is00)
             {
                 //acabou01.Value[acabou01Index] = true;
-                GameManager.Instance.SaveGame(acabou01Index);
+                //GameManager.Instance.SaveGame(GameManager.levelIndex, acabou01Index);
+                PlayerPrefsManager.Instance.SavePlayerPrefs("FalasIndex", acabou01Index);
                 tv.FalouComTV();
             }
             Destroy(gameObject);

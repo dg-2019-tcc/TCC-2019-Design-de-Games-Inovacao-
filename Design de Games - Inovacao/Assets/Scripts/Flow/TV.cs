@@ -37,17 +37,16 @@ public class TV : MonoBehaviour
 
         if (GameManager.historiaMode)
         {
-            if (GameManager.levelIndex == 2 || GameManager.levelIndex == 4 || GameManager.levelIndex == 5 || GameManager.levelIndex == 7)
+            if (PlayerPrefsManager.Instance.prefsVariables.falasIndex == 2 || PlayerPrefsManager.Instance.prefsVariables.falasIndex == 4 || PlayerPrefsManager.Instance.prefsVariables.falasIndex == 5 || PlayerPrefsManager.Instance.prefsVariables.falasIndex == 7)
             {
-                if (GameManager.ganhouDoKley == 1)
+                if (PlayerPrefsManager.Instance.prefsVariables.falasIndex == PlayerPrefsManager.Instance.prefsVariables.levelIndex)
                 {
-                    CoisasAtivas(GameManager.levelIndex, true);
+                    CoisasAtivas(GameManager.falaIndex, true);
                 }
             }
-            //Falas depois dos jogos, precisa ter ganhado para aparecer
             else
             {
-                CoisasAtivas(GameManager.levelIndex, true);
+                CoisasAtivas(GameManager.falaIndex, true);
             }
         }
 
@@ -57,15 +56,15 @@ public class TV : MonoBehaviour
 
 	
 	public void CoisasAtivas(int index, bool ativar)
-	{
+	{   
         if (!ativar)
         {
             falas[index].SetActive(ativar);
         }
         else
         {
-            GameManager.Instance.LoadGame();
-            falas[GameManager.levelIndex].SetActive(true);
+            //GameManager.Instance.LoadGame();
+            falas[PlayerPrefsManager.Instance.prefsVariables.falasIndex].SetActive(true);
         }
 		pointer.enabled = ativar;
 		precisaFalar = ativar;
@@ -75,9 +74,14 @@ public class TV : MonoBehaviour
 
     public void FalouComTV()
     {
+        Debug.Log("Falou com TV e levelIndex é: " + PlayerPrefsManager.Instance.prefsVariables.levelIndex);
         pointer.enabled = false;
         precisaFalar = false;
         faloComTV = true;
+        if(PlayerPrefsManager.Instance.prefsVariables.falasIndex == 8)
+        {
+            PlayerPrefsManager.Instance.SavePlayerPrefs("LevelIndex", 8);
+        }
         flowController.FlowHUB();
     }
 }
