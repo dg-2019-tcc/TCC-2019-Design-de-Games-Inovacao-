@@ -110,14 +110,22 @@ public class Player2DAnimations : MonoBehaviour
 
                         else
                         {
-                            if (dogController.state.Equals(DogController.State.Carro))
+                            if (!dogButtonAnim)
                             {
-                                nextState = State.CarroWalk;
+                                if (dogController.state.Equals(DogController.State.Carro))
+                                {
+                                    nextState = State.CarroWalk;
+                                }
+
+                                else if (dogController.state.Equals(DogController.State.Pipa))
+                                {
+                                    nextState = State.Pipa;
+                                }
                             }
 
-                            else if (dogController.state.Equals(DogController.State.Pipa))
+                            else
                             {
-                                nextState = State.Pipa;
+                                DogButtonAnim();
                             }
                         }
                     }
@@ -177,28 +185,18 @@ public class Player2DAnimations : MonoBehaviour
         }
 	}
 
-	public void DogButtonAnim(bool dogButtonOn)
+	public void DogButtonAnim()
 	{
-		dogButtonAnim = dogButtonOn;
+        if (buttonA.state.Equals(ButtonA.State.Atirar))
+        {
+            nextState = State.Arremessando;
+            Debug.Log("DogButton");
+        }
 
-		if (dogButtonOn == true)
-		{
-			if (buttonA.state.Equals(ButtonA.State.Atirar))
-			{
-                nextState = State.Arremessando;
-                Debug.Log("DogButton");
-			}
-
-			else if (buttonA.state.Equals(ButtonA.State.Chutar))
-            {
-                nextState = State.Chutando;
-			}
-		}
-
-		else
-		{
-            nextState = State.Idle;
-		}
+        else if (buttonA.state.Equals(ButtonA.State.Chutar))
+        {
+            nextState = State.Chutando;
+        }
         PlayAnim(nextState);
 	}
 

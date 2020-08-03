@@ -113,11 +113,12 @@ namespace Complete {
         void Shoot()
         {
             Debug.Log("Atirou");
-            if (isOnline && !(bool)photonView.Owner.CustomProperties["dogValue"]) return;
+            //if (GameManager.inRoom && !(bool)photonView.Owner.CustomProperties["dogValue"])return;
             GameObject bullet;
             bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);// as GameObject;
             shootAnim = false;
-            anim.DogButtonAnim(shootAnim);
+            //anim.DogButtonAnim(shootAnim);
+            anim.dogButtonAnim = shootAnim;
 
             bullet.GetComponent<ItemThrow>().InitializeBullet(photonView.Owner);
             StartCoroutine("CooldownEffect");
@@ -127,11 +128,11 @@ namespace Complete {
         IEnumerator StartTiro()
         {
             shootAnim = true;
-            anim.DogButtonAnim(shootAnim);
+            anim.dogButtonAnim = shootAnim;
             atirou = false;
             yield return new WaitForSeconds(0.5f);
             shootAnim = false;
-            anim.DogButtonAnim(shootAnim);
+            anim.dogButtonAnim = shootAnim;
             if (isOnline)
             {
                 Debug.Log("Atirou");

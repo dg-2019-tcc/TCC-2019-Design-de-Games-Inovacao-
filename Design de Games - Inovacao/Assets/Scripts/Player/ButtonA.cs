@@ -143,7 +143,11 @@ public class ButtonA : MonoBehaviour
         {
             chuteScript = GetComponent<FutebolPlayer>();
         }
-        chuteScript.Chute();
+        if (chuteScript.kicked == false)
+        {
+            chuteScript.Chute();
+            Debug.Log("ButtonA");
+        }
     }
 
     public void CortarVolei()

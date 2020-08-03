@@ -128,7 +128,10 @@ public class FutebolPlayer : MonoBehaviour
 
     public void Chute()
     {
-        gameObject.GetComponent<PhotonView>().RPC("KickedBall", RpcTarget.All);
+        if (kicked == false)
+        {
+            gameObject.GetComponent<PhotonView>().RPC("KickedBall", RpcTarget.All);
+        }
     }
 
     [PunRPC]
@@ -142,15 +145,14 @@ public class FutebolPlayer : MonoBehaviour
 
     IEnumerator CoolKick()
     {
-        //anim.Chute();
+        Debug.Log(kicked + "0");
         kicked = true;
-        kickAnim = true;
-        anim.DogButtonAnim(kickAnim);
-
+        anim.dogButtonAnim = kicked;
+        Debug.Log(kicked + "1");
         yield return new WaitForSeconds(cooldownKick);
-        kickAnim = false;
-        anim.DogButtonAnim(kickAnim);
+        Debug.Log(kicked + "2");
         kicked = false;
+        anim.dogButtonAnim = kicked;
     }
     [PunRPC]
     public void TocouBola(float forceX, float forceY)

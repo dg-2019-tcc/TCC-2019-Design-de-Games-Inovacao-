@@ -151,11 +151,11 @@ public class HandVolei : MonoBehaviour
     IEnumerator CoolHand()
     {
         cortou = true;
-        anim.DogButtonAnim(cortou);
+        anim.dogButtonAnim = cortou;
 
         yield return new WaitForSeconds(cooldownKick);
         cortou = false;
-        anim.DogButtonAnim(cortou);
+        anim.dogButtonAnim = cortou; 
     }
 
     [PunRPC]

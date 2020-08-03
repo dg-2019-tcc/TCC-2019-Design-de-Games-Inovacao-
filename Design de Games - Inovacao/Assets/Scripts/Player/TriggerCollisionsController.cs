@@ -249,7 +249,6 @@ namespace Complete
                             if (hit.distance == 0)
                             {
                                 collisions.tocouBola = true;
-                                Debug.Log("TocouBola");
                                 if (isBallKicked)
                                 {
                                     StartCoroutine(TocaSomChutaBola());
@@ -413,7 +412,6 @@ namespace Complete
                             if (hit.distance == 0)
                             {
                                 collisions.tocouBola = true;
-                                Debug.Log("TocouBola");
                                 if (isBallKicked)
                                 {
                                     StartCoroutine(TocaSomChutaBola());
