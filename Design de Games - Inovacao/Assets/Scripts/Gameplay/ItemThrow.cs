@@ -35,16 +35,16 @@ namespace Complete
 
         public void InitializeBullet(Photon.Realtime.Player owner)
         {
-            Owner = owner;
-            isLocal = owner.IsLocal;
-            //shootDirection = ThrowObject.direction;
+            if (GameManager.inRoom)
+            {
+                Owner = owner;
+                isLocal = owner.IsLocal;
 
+                Owner.CustomProperties["atirou"] = true;
+                Owner.CustomProperties["dogValue"] = false;
+            }
 
-            //rb.velocity = Vector3.forward * bulletSpeed.Value;
             rb.position += rb.velocity;
-
-            Owner.CustomProperties["atirou"] = true;
-            Owner.CustomProperties["dogValue"] = false;
         }
 
         private void Update()
@@ -55,7 +55,8 @@ namespace Complete
             timeDestroy += Time.deltaTime;
             if (timeDestroy >= 5f)
             {
-                if (PhotonNetwork.IsConnected)
+                //if (PhotonNetwork.IsConnected)
+                if(GameManager.inRoom)
                 {
                     Owner.CustomProperties["dogValue"] = true;
                     Owner.CustomProperties["atirou"] = false;
@@ -72,33 +73,54 @@ namespace Complete
                 aiMove.StartCoroutine("LevouDogada");
             }
 
-            if (collision.CompareTag("Pipa"))
+            if (GameManager.inRoom)
             {
-                if (isLocal)
+                if (collision.CompareTag("Pipa"))
+                {
+                    if (isLocal)
+                    {
+                        totemTarget = collision.transform;
+                        hitTotemPipa.Value = true;
+                        Owner.CustomProperties["dogPipa"] = true;
+                        //tokenSom.Play();
+
+                        Owner.CustomProperties["acertouTotem"] = true;
+                    }
+                    timeDestroy = 4.9f;
+                }
+
+                if (collision.CompareTag("Carrinho"))
+                {
+                    if (isLocal)
+                    {
+                        totemTarget = collision.transform;
+                        hitTotemCarro.Value = true;
+                        Owner.CustomProperties["dogCarro"] = true;
+                        //tokenSom.Play();
+
+                        Owner.CustomProperties["acertouTotem"] = true;
+                    }
+                    timeDestroy = 4.9f;
+
+                }
+            }
+
+            else
+            {
+                if (collision.CompareTag("Pipa"))
                 {
                     totemTarget = collision.transform;
                     hitTotemPipa.Value = true;
-                    Owner.CustomProperties["dogPipa"] = true;
-                    //tokenSom.Play();
-
-                    Owner.CustomProperties["acertouTotem"] = true;
+                    timeDestroy = 4.9f;
                 }
-                timeDestroy = 4.9f;
-            }
 
-            if (collision.CompareTag("Carrinho"))
-            {
-                if (isLocal)
+                if (collision.CompareTag("Carrinho"))
                 {
                     totemTarget = collision.transform;
                     hitTotemCarro.Value = true;
-                    Owner.CustomProperties["dogCarro"] = true;
-                    //tokenSom.Play();
+                    timeDestroy = 4.9f;
 
-                    Owner.CustomProperties["acertouTotem"] = true;
                 }
-                timeDestroy = 4.9f;
-
             }
 
             if (collision.CompareTag("Player") && collision.GetComponent<PhotonView>().Owner != Owner)

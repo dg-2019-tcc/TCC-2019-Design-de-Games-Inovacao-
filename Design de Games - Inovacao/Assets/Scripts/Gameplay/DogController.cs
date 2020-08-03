@@ -157,7 +157,7 @@ namespace Complete
             switch (dogState)
             {
                 case "CarroState":
-                    if (state == State.Idle)
+                    if (state == State.Idle || state ==State.Aviao)
                     {
                         StartCoroutine("DesativandoDog");
 
@@ -171,7 +171,7 @@ namespace Complete
                     break;
 
                 case "PipaState":
-                    if (state == State.Idle)
+                    if (state == State.Idle || state == State.Aviao)
                     {
                         StartCoroutine("DesativandoDog");
 

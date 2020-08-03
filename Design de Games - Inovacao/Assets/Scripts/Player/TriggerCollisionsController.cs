@@ -42,12 +42,18 @@ namespace Complete
         public bool rightRay;
         public bool leftRay;
 
+        public BoolVariable hitCarro;
+        public BoolVariable hitPipa;
+
         public override void Start()
         {
             base.Start();
             cam = transform.parent.gameObject.transform.GetChild(0).gameObject;
             playerThings = GetComponent<PlayerThings>();
             dogController = GetComponent<DogController>();
+
+            hitCarro = Resources.Load<BoolVariable>("HitCarro");
+            hitPipa = Resources.Load<BoolVariable>("HitPipa");
 
             isCaixaDaguaSound = true;
             isBallKicked = true;
@@ -187,6 +193,7 @@ namespace Complete
                     {
                         //dogController.Carro();
                         dogController.ChangeState("CarroState");
+                        hitCarro.Value = false;
                         if (isDogNormal == true)
                         {
                             FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Feedback/Coletaveis/TransformaDog");
@@ -198,6 +205,7 @@ namespace Complete
                     {
                         //dogController.Pipa();
                         dogController.ChangeState("PipaState");
+                        hitPipa.Value = false;
                         if (isDogNormal == true)
                         {
                             FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Feedback/Coletaveis/TransformaDog");
@@ -357,6 +365,7 @@ namespace Complete
                     {
                         //dogController.Carro();
                         dogController.ChangeState("CarroState");
+                        hitCarro.Value = false;
                         if (isDogNormal == true)
                         {
                             FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Feedback/Coletaveis/TransformaDog");
@@ -368,6 +377,7 @@ namespace Complete
                     {
                         //dogController.Pipa();
                         dogController.ChangeState("PipaState");
+                        hitPipa.Value = false;
                         if (isDogNormal == true)
                         {
                             FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Feedback/Coletaveis/TransformaDog");
@@ -505,6 +515,7 @@ namespace Complete
                     {
                         //dogController.Carro();
                         dogController.ChangeState("CarroState");
+                        hitCarro.Value = false;
                         if (isDogNormal == true)
                         {
                             FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Feedback/Coletaveis/TransformaDog");
@@ -516,6 +527,7 @@ namespace Complete
                     {
                         //dogController.Pipa();
                         dogController.ChangeState("PipaState");
+                        hitPipa.Value = false;
                         if (isDogNormal == true)
                         {
                             FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Feedback/Coletaveis/TransformaDog");
@@ -619,6 +631,7 @@ namespace Complete
                     {
                         //dogController.Carro();
                         dogController.ChangeState("CarroState");
+                        hitCarro.Value = false;
                         if (isDogNormal == true)
                         {
                             FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Feedback/Coletaveis/TransformaDog");
@@ -630,6 +643,7 @@ namespace Complete
                     {
                         //dogController.Pipa();
                         dogController.ChangeState("PipaState");
+                        hitPipa.Value = false;
                         if (isDogNormal == true)
                         {
                             FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Feedback/Coletaveis/TransformaDog");

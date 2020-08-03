@@ -122,7 +122,7 @@ namespace Complete {
 
             bullet.GetComponent<ItemThrow>().InitializeBullet(photonView.Owner);
             StartCoroutine("CooldownEffect");
-            photonView.Owner.CustomProperties["atirou"] = true;
+            //photonView.Owner.CustomProperties["atirou"] = true;
         }
 
         IEnumerator StartTiro()
@@ -149,15 +149,32 @@ namespace Complete {
 
         IEnumerator CooldownEffect()
         {
-            if (photonView.Owner.IsLocal)
+            if (GameManager.inRoom)
             {
-                //dogAtivo.Value = false;
+                if (photonView.Owner.IsLocal)
+                {
+                    //dogAtivo.Value = false;
+                    dogController.ChangeState("TiroState");
+                }
+            }
+            else
+            {
                 dogController.ChangeState("TiroState");
             }
             yield return new WaitForSeconds(cooldown);
-            if (photonView.Owner.IsLocal)
+
+            if (GameManager.inRoom)
             {
-                //dogAtivo.Value = true;
+                if (photonView.Owner.IsLocal)
+                {
+                    {
+                        //dogAtivo.Value = true;
+                        dogController.ChangeState("IdleState");
+                    }
+                }
+            }
+            else
+            {
                 dogController.ChangeState("IdleState");
             }
             //gameObject.GetComponent<PhotonView>().RPC("TransformaPet", RpcTarget.All, false);
