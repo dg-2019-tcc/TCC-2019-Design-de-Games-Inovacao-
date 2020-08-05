@@ -9,12 +9,14 @@ namespace Complete {
         private AIMovement aiMovement;
         public AISpawner aiSpawner;
         public AITriggerController triggerController;
+        public HeadAI futebolScript;
 
-        public enum State { Search, Right, Left, Up, Down, Idle, Manobra, Null, On, Off}
+        public enum State { Search, Right, Left, Up, Down, Idle, Manobra, Null, On, Off, Chuta}
         public State active = State.On;
         public State horizontalState = State.Null;
         public State verticalState = State.Null;
         public State actionState = State.Null;
+        public bool actionOn;
 
         private float searchTime;
         private int randomState;
@@ -45,7 +47,7 @@ namespace Complete {
                 }
             }
             SetDirection();
-            aiMovement.Move(horizontalState, verticalState);
+            aiMovement.Move(horizontalState, verticalState, actionOn);
         }
 
 
@@ -126,10 +128,18 @@ namespace Complete {
 
             else if (GameManager.Instance.fase.Equals(GameManager.Fase.Futebol))
             {
-                if (transform.position.x - target.transform.position.x > 0.5)
+                if (transform.position.x - target.transform.position.x > 0.1)
                 {
                     botInfo.isLeft = true;
                     SetState(State.Left, false);
+                    if (transform.position.x - target.transform.position.x < 0.5)
+                    {
+                        SetActionState(State.Chuta);
+                    }
+                    else
+                    {
+                        SetActionState(State.Null);
+                    }
                 }
                 else if (transform.position.x - target.transform.position.x < -0.5)
                 {
@@ -176,6 +186,22 @@ namespace Complete {
                 if (triggerController.triggerCollision.needJump)
                 {
                     SetState(State.Up, false);
+                }
+            }
+        }
+
+        public void SetActionState(State nextActionState)
+        {
+            if(actionState == State.Null)
+            {
+                if (nextActionState != State.Null)
+                {
+                    actionState = nextActionState;
+                    actionOn = true;
+                }
+                else
+                {
+                    actionOn = false;
                 }
             }
         }

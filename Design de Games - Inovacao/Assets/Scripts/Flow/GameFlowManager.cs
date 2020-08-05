@@ -18,7 +18,7 @@ public class GameFlowManager : MonoBehaviour
     public int index;
     public int npcIndex;
 
-    public BoolVariableArray aiGanhou;
+    public BoolVariable demo;
 
     public GameObject teste;
 
@@ -35,10 +35,9 @@ public class GameFlowManager : MonoBehaviour
 
     private void Start()
     {
-
-        if (aiGanhou == null)
+        if(demo == null)
         {
-            aiGanhou = Resources.Load<BoolVariableArray>("AIGanhou");
+            demo = Resources.Load<BoolVariable>("Demo");
         }
 
         if (GameManager.Instance.fase.Equals(GameManager.Fase.Hub))
@@ -66,46 +65,75 @@ public class GameFlowManager : MonoBehaviour
         //PlayerPrefs.SetInt("GanhouDoKlay", 0);
         PlayerPrefsManager.Instance.SavePlayerPrefs("GanhouDoKlay", 0);
         FechaTudo();
-        switch (level)
+        if (demo.Value == false)
         {
-            case 8 :
-                Completo();
-                break;
+            switch (level)
+            {
+                case 8:
+                    Completo();
+                    break;
 
-            case 7:
-                //FaseRoupa();
-                //Completo();
-                FechaTudo();
-                PlayerPrefsManager.Instance.SavePlayerPrefs("LevelIndex", 8);
-                //Debug.Log(PlayerPrefsManager.Instance.prefsVariables.levelIndex);
-                break;
+                case 7:
+                    //FaseRoupa();
+                    //Completo();
+                    FechaTudo();
+                    PlayerPrefsManager.Instance.SavePlayerPrefs("LevelIndex", 8);
+                    //Debug.Log(PlayerPrefsManager.Instance.prefsVariables.levelIndex);
+                    break;
 
-            case 6:
-                FaseCorrida();
-                break;
+                case 6:
+                    FaseCorrida();
+                    break;
 
-            case 5:
-                FaseRoupa();
-                //FaseCabelo();
-                break;
+                case 5:
+                    FaseRoupa();
+                    //FaseCabelo();
+                    break;
 
-            case 4:
-                FaseMoto();
-                break;
+                case 4:
+                    FaseMoto();
+                    break;
 
 
-            case 3:
-                FaseFutebol();
-                break;
+                case 3:
+                    FaseFutebol();
+                    break;
 
-            case 2:
-                FaseTenis();
-                break;
+                case 2:
+                    FaseTenis();
+                    break;
 
-            case 1:
-                FaseColeta();
-                break;
+                case 1:
+                    FaseColeta();
+                    break;
 
+            }
+        }
+        else
+        {
+            switch (level)
+            {
+                case 5:
+                    AcabouDemo();
+                    break;
+
+                case 4:
+                    FaseMoto();
+                    break;
+
+
+                case 3:
+                    FaseFutebol();
+                    break;
+
+                case 2:
+                    FaseTenis();
+                    break;
+
+                case 1:
+                    FaseColeta();
+                    break;
+            }
         }
         tv.precisaFalar = false;
       //  Debug.Log("Flow");
@@ -233,6 +261,18 @@ public class GameFlowManager : MonoBehaviour
 			doorBlock[i].SetActive(false);
 		}
         
+    }
+
+    public void AcabouDemo()
+    {
+        portas[0].SetActive(true);
+        portas[1].SetActive(true);
+        portas[2].SetActive(true);
+        portas[3].SetActive(true);
+        doorBlock[0].SetActive(false);
+        doorBlock[1].SetActive(false);
+        doorBlock[2].SetActive(false);
+        doorBlock[3].SetActive(false);
     }
 
     public void FechaTudo()

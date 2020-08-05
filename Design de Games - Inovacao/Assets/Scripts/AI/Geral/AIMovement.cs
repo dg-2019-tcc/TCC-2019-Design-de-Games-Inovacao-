@@ -74,6 +74,7 @@ namespace Complete {
 
         public enum State { Coleta, Corrida, Futebol, Volei, Moto, Stop }
         public State state;
+        bool actionIsOn;
 
         // Start is called before the first frame update
         public void Start()
@@ -125,11 +126,12 @@ namespace Complete {
             //animAI.ChangeAnimAI(velocity * Time.deltaTime, oldPosition, input, isJumping);
         }
 
-        public void Move(BotStates.State action01, BotStates.State action02)
+        public void Move(BotStates.State horizontalState, BotStates.State verticalState,bool actionOn)
         {
-            if (!action01.Equals(BotStates.State.Null))
+            actionIsOn = actionOn;
+            if (!horizontalState.Equals(BotStates.State.Null))
             {
-                switch (action01)
+                switch (horizontalState)
                 {
                     case BotStates.State.Right:
                         GoRight();
@@ -137,30 +139,14 @@ namespace Complete {
 
                     case BotStates.State.Left:
                         GoLeft();
-                        break;
-
-                    case BotStates.State.Up:
-                        AIJump();
-                        break;
-
-                    case BotStates.State.Down:
-                        GoDown();
                         break;
                 }
             }
 
-            if (!action02.Equals(BotStates.State.Null))
+            if (!verticalState.Equals(BotStates.State.Null))
             {
-                switch (action02)
+                switch (verticalState)
                 {
-                    case BotStates.State.Right:
-                        GoRight();
-                        break;
-
-                    case BotStates.State.Left:
-                        GoLeft();
-                        break;
-
                     case BotStates.State.Up:
                         AIJump();
                         break;
@@ -181,7 +167,7 @@ namespace Complete {
 
         public void Stop()
         {
-            if (!GameManager.Instance.fase.Equals(GameManager.Fase.Moto))
+            if (!GameManager.Instance.fase.Equals(GameManager.Fase.Moto) && !actionIsOn)
             {
                 animAI.AnimState("Idle");
             }
@@ -191,7 +177,7 @@ namespace Complete {
 
         public void GoRight()
         {
-            if (!GameManager.Instance.fase.Equals(GameManager.Fase.Moto))
+            if (!GameManager.Instance.fase.Equals(GameManager.Fase.Moto) && !actionIsOn)
             {
                 animAI.AnimState("Walking");
             }
@@ -204,7 +190,7 @@ namespace Complete {
 
         public void GoLeft()
         {
-            if (!GameManager.Instance.fase.Equals(GameManager.Fase.Moto))
+            if (!GameManager.Instance.fase.Equals(GameManager.Fase.Moto) && !actionIsOn)
             {
                 animAI.AnimState("Walking");
             }
@@ -222,7 +208,7 @@ namespace Complete {
                 jumpTimes++;
                 input.y = 1;
                 isJumping = true;
-                if (!GameManager.Instance.fase.Equals(GameManager.Fase.Moto))
+                if (!GameManager.Instance.fase.Equals(GameManager.Fase.Moto) && !actionIsOn)
                 {
                     animAI.AnimState("NoArUp");
                 }

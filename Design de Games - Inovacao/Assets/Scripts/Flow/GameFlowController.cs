@@ -17,9 +17,6 @@ public class GameFlowController : MonoBehaviour
 
     private void Start()
     {
-        /*GameManager gameManager = GameManager.Instance;
-        OfflineMode offlineMode = OfflineMode.Instance;*/
-
         flowManager = GetComponent<GameFlowManager>();
         sceneName = SceneManager.GetActiveScene().name;
 
@@ -63,17 +60,6 @@ public class GameFlowController : MonoBehaviour
                     {
                         flowManager.AtivaFase(PlayerPrefsManager.Instance.prefsVariables.levelIndex);
                     }
-
-                   /*if (ganhouDoKlay == 1)
-                    {
-                        flowManager.FechaTudo();
-                    }
-
-                    else
-                    {
-                        Debug.Log(GameManager.levelIndex);
-                        flowManager.AtivaFase(GameManager.levelIndex);
-                    }*/
                 }
             }
 
