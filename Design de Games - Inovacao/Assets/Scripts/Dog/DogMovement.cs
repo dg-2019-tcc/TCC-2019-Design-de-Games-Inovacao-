@@ -30,6 +30,7 @@ public class DogMovement : MonoBehaviour
 
     public NewPlayerMovent playerMove;
     public TriggerCollisionsController playerTriggerController;
+    public InputController inputController;
 
     public GameObject player;
     public GameObject dog;
@@ -59,8 +60,10 @@ public class DogMovement : MonoBehaviour
 
         dogAnim = GetComponent<DogAnim>();
         dogController = GetComponent<AIController2D>();
+        inputController = GetComponentInParent<InputController>();
 
-        joyStick = FindObjectOfType<FloatingJoystick>();
+
+        //joyStick = FindObjectOfType<FloatingJoystick>();
 
         gravity = -(2 * maxJumpHeight) / Mathf.Pow(timeToJumpApex, 2);
         maxJumpVelocity = Mathf.Abs(gravity * timeToJumpApex);
@@ -73,7 +76,8 @@ public class DogMovement : MonoBehaviour
     void Update()
     {
         if (trick) return;
-		GetInput();
+        //GetInput();
+        joyInput = inputController.joyInput;
 
         targetVelocityX = input.x * speed;
         velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (dogController.collisions.below) ? accelerationTimeGrounded : accelerationTimeAirborne);
@@ -173,7 +177,7 @@ public class DogMovement : MonoBehaviour
     }
 
 
-	void GetInput()																														//Pra organizar melhor, ter ctz que é setup
+	/*void GetInput()																														//Pra organizar melhor, ter ctz que é setup
 	{
 		if (buildPC.Value == false)
 		{
@@ -193,7 +197,7 @@ public class DogMovement : MonoBehaviour
 		{
 			input.x = 0;
 		}
-	}
+	}*/
 
 	public void DogJump()
     {
