@@ -2,15 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class TextBoxNext : MonoBehaviour
 {
-	public Sprite[] imagens;
 	public ScriptableFalas falas;
 	private SpriteRenderer sprite;
 	private GameObject joystick;
 	private float timeScaleBase;
 	private ButtonA buttonA;
+
+	public TMP_Text text;
 
 	public int boxIndex;
 	private bool finish;
@@ -37,7 +39,8 @@ public class TextBoxNext : MonoBehaviour
 
         sprite = GetComponent<SpriteRenderer>();
 		boxIndex = 0;
-		sprite.sprite = falas.imagens[boxIndex];
+		sprite.sprite = falas.Imagem();
+		text.text = falas.falas[0];
 		//timeScaleBase = Time.timeScale;
 		joystick = FindObjectOfType<Joystick>().gameObject;
 		buttonA = FindObjectOfType<ButtonA>();
@@ -71,10 +74,11 @@ public class TextBoxNext : MonoBehaviour
 
 	private void Next(int index)
 	{
-		if (index < falas.imagens.Length-1)
+		if (index < falas.falas.Length-1)
 		{
 			boxIndex++;
-			sprite.sprite = falas.imagens[boxIndex];
+			sprite.sprite = falas.Imagem();
+			text.text = falas.falas[index];
             buttonA.passouTexto = false;
 
 

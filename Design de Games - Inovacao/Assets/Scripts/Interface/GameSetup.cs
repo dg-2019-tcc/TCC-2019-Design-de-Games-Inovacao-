@@ -11,6 +11,7 @@ public class GameSetup : MonoBehaviour
 
 	public TMP_Text textoDebug;
 
+	public TranslateVariable language;
 
     void Start()
     {
@@ -24,6 +25,12 @@ public class GameSetup : MonoBehaviour
 	void LoadCoins()
 	{
 		moedas.Value = PlayerPrefs.GetFloat("Moedas");
+	}
+
+	void LoadLanguage()
+	{
+		language.Update(PlayerPrefs.GetString("Language"));
+		PlayerPrefs.SetString("Language", language.language);
 	}
 
 	private void SetVariables()
