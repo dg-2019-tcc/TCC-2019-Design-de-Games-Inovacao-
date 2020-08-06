@@ -8,14 +8,15 @@ public class ButtonVisual : MonoBehaviour
 {
 	public TranslateVariable language;
 	public ScriptableButtons scriptableButtons;
-	private Image image;
-	public TMP_Text text;
+//	private Image image;
+	private TMP_Text text;
 
 
     void Start()
     {
-		image = GetComponent<Image>();
-		image.sprite = scriptableButtons.image[language.languageIndex];
+		//	image = GetComponent<Image>();
+		//	image.sprite = scriptableButtons.image[language.languageIndex];
+		text = GetComponent<TMP_Text>();
 		text.text = scriptableButtons.text[language.languageIndex];
     }
 	

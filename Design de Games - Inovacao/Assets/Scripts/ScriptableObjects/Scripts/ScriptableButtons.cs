@@ -7,5 +7,4 @@ public class ScriptableButtons : ScriptableObject
 {
 	[Header ("Colocar na ordem Português > Inglês")]
 	public string[] text;
-	public Sprite[] image;
 }
