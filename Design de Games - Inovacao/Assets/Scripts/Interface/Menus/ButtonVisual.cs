@@ -17,7 +17,12 @@ public class ButtonVisual : MonoBehaviour
 		//	image = GetComponent<Image>();
 		//	image.sprite = scriptableButtons.image[language.languageIndex];
 		text = GetComponent<TMP_Text>();
-		text.text = scriptableButtons.text[language.languageIndex];
+		text.text = scriptableButtons.text[GameManager.languageIndex];
+    }
+
+    public void Change()
+    {
+        text.text = scriptableButtons.text[GameManager.languageIndex];
     }
 	
 

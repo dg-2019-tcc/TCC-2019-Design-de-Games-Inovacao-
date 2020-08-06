@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
     public static bool pausaJogo;
     public static bool historiaMode;
     public static bool sequestrado;
+    public static int languageIndex;
     private int sequestradoPrefs;
     public static int levelIndex;
     public static int falaIndex;

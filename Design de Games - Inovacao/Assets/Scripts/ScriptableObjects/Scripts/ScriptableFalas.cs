@@ -19,7 +19,7 @@ public class ScriptableFalas : ScriptableObject
 	public TranslateVariable language;
 	public Sprite Imagem()
 	{
-		switch (language.languageIndex)
+		switch (GameManager.languageIndex)
 		{
 			default:
 			case 0:
