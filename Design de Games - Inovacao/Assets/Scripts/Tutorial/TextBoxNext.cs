@@ -42,7 +42,7 @@ public class TextBoxNext : MonoBehaviour
 		sprite.sprite = falas.Imagem();
 		text.text = falas.falas[0];
 		//timeScaleBase = Time.timeScale;
-		joystick = FindObjectOfType<Joystick>().gameObject;
+		//joystick = FindObjectOfType<Joystick>().gameObject;
 		buttonA = FindObjectOfType<ButtonA>();
 		finish = false;
 		//StartCoroutine(Fade(1));
@@ -92,7 +92,7 @@ public class TextBoxNext : MonoBehaviour
             {
                 //acabou01.Value[acabou01Index] = true;
                 //GameManager.Instance.SaveGame(GameManager.levelIndex, acabou01Index);
-                PlayerPrefsManager.Instance.SavePlayerPrefs("FalasIndex", acabou01Index);
+                //PlayerPrefsManager.Instance.SavePlayerPrefs("FalasIndex", acabou01Index);
                 tv.FalouComTV();
             }
             Destroy(gameObject);
@@ -109,7 +109,7 @@ public class TextBoxNext : MonoBehaviour
 	{
         textoAtivo.Value = false;
         //Time.timeScale = timeScaleBase;
-        joystick.SetActive(true);
+        //joystick.SetActive(true);
 	}
 
 }

@@ -52,13 +52,16 @@ public class GameFlowController : MonoBehaviour
                 //ganhouDoKlay = PlayerPrefs.GetInt("GanhouDoKlay");
                 if (PlayerPrefsManager.Instance.prefsVariables.levelIndex > 1)
                 {
-                    if(PlayerPrefsManager.Instance.prefsVariables.levelIndex == PlayerPrefsManager.Instance.prefsVariables.falasIndex)
+                    if (PlayerPrefsManager.Instance.prefsVariables.levelIndex == 3 || PlayerPrefsManager.Instance.prefsVariables.levelIndex == 4)
                     {
-                        flowManager.FechaTudo();
-                    }
-                    else
-                    {
-                        flowManager.AtivaFase(PlayerPrefsManager.Instance.prefsVariables.levelIndex);
+                        if (PlayerPrefsManager.Instance.prefsVariables.levelIndex == PlayerPrefsManager.Instance.prefsVariables.falasIndex)
+                        {
+                            flowManager.FechaTudo();
+                        }
+                        else
+                        {
+                            flowManager.AtivaFase(PlayerPrefsManager.Instance.prefsVariables.levelIndex);
+                        }
                     }
                 }
                 else

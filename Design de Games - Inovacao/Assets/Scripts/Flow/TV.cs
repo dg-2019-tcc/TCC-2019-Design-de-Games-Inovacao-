@@ -19,6 +19,9 @@ public class TV : MonoBehaviour
     void Start()
     {
         pointer = GetComponent<ItemLocatorOnScreen>();
+        PlayerPrefsManager.Instance.LoadPlayerPref("FalasIndex");
+        Debug.Log("FalasIndex é: " + PlayerPrefsManager.Instance.prefsVariables.falasIndex);
+        Debug.Log("LevelIndex é: " + PlayerPrefsManager.Instance.prefsVariables.levelIndex);
 
         if (acabou01 == null)
         {
@@ -37,16 +40,17 @@ public class TV : MonoBehaviour
 
         if (GameManager.historiaMode)
         {
-            if (PlayerPrefsManager.Instance.prefsVariables.falasIndex == 2 || PlayerPrefsManager.Instance.prefsVariables.falasIndex == 4 || PlayerPrefsManager.Instance.prefsVariables.falasIndex == 5 || PlayerPrefsManager.Instance.prefsVariables.falasIndex == 7)
+            Debug.Log(PlayerPrefsManager.Instance.prefsVariables.falasIndex);
+            if (PlayerPrefsManager.Instance.prefsVariables.falasIndex == 3 || PlayerPrefsManager.Instance.prefsVariables.falasIndex == 4 || PlayerPrefsManager.Instance.prefsVariables.falasIndex == 5 || PlayerPrefsManager.Instance.prefsVariables.falasIndex == 7)
             {
                 if (PlayerPrefsManager.Instance.prefsVariables.falasIndex == PlayerPrefsManager.Instance.prefsVariables.levelIndex)
                 {
-                    CoisasAtivas(GameManager.falaIndex, true);
+                    CoisasAtivas(PlayerPrefsManager.Instance.prefsVariables.falasIndex, true);
                 }
             }
             else
             {
-                CoisasAtivas(GameManager.falaIndex, true);
+                CoisasAtivas(PlayerPrefsManager.Instance.prefsVariables.falasIndex, true);
             }
         }
 
@@ -74,6 +78,7 @@ public class TV : MonoBehaviour
 
     public void FalouComTV()
     {
+        PlayerPrefsManager.Instance.SavePlayerPrefs("FalasIndex", PlayerPrefsManager.Instance.prefsVariables.falasIndex + 1);
         Debug.Log("Falou com TV e levelIndex é: " + PlayerPrefsManager.Instance.prefsVariables.levelIndex);
         pointer.enabled = false;
         precisaFalar = false;

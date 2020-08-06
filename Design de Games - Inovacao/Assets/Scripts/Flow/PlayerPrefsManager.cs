@@ -99,7 +99,7 @@ public class PlayerPrefsManager : MonoBehaviour
                 break;
 
             case "FalasIndex":
-                prefsVariables.levelIndex = PlayerPrefs.GetInt("FalasIndex");
+                prefsVariables.falasIndex = PlayerPrefs.GetInt("FalasIndex");
                 break;
 
             case "GanhouDoKlay":
@@ -149,7 +149,7 @@ public class PlayerPrefsManager : MonoBehaviour
     public void SavePlayerPrefs(string prefsName, int prefsValue)
     {
         PlayerPrefs.SetInt(prefsName, prefsValue);
-        if (prefsName == "LevelIndex" || prefsName == "LevelIndex")
+        if (prefsName == "LevelIndex" || prefsName == "FalasIndex")
         {
             Debug.Log(prefsName + " " + prefsValue);
         }

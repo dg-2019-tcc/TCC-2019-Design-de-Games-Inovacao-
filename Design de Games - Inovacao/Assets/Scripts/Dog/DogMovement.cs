@@ -76,11 +76,9 @@ public class DogMovement : MonoBehaviour
     void Update()
     {
         if (trick) return;
+        if (GameManager.pausaJogo) return;
         //GetInput();
         joyInput = inputController.joyInput;
-        Debug.Log(joyInput);
-
-
 
         if (playerMove.slowFall == false)
         {
