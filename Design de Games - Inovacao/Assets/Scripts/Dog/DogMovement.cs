@@ -60,7 +60,7 @@ public class DogMovement : MonoBehaviour
 
         dogAnim = GetComponent<DogAnim>();
         dogController = GetComponent<AIController2D>();
-        inputController = GetComponentInParent<InputController>();
+        inputController = FindObjectOfType<InputController>();
 
 
         //joyStick = FindObjectOfType<FloatingJoystick>();
@@ -78,9 +78,8 @@ public class DogMovement : MonoBehaviour
         if (trick) return;
         //GetInput();
         joyInput = inputController.joyInput;
+        Debug.Log(joyInput);
 
-        targetVelocityX = input.x * speed;
-        velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (dogController.collisions.below) ? accelerationTimeGrounded : accelerationTimeAirborne);
 
 
         if (playerMove.slowFall == false)
@@ -147,8 +146,11 @@ public class DogMovement : MonoBehaviour
             velocity.y = maxJumpHeight * 1.8f;
         }
 
+        targetVelocityX = joyInput.x * speed;
+        velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (dogController.collisions.below) ? accelerationTimeGrounded : accelerationTimeAirborne);
+
         dogController.Move(velocity * Time.deltaTime, input);
-        dogAnim.ChangeDogAnim(velocity, input);
+        dogAnim.ChangeDogAnim(velocity, joyInput);
 
     }
 

@@ -50,7 +50,7 @@ public class GameFlowController : MonoBehaviour
             {
                 OfflineMode.Instance.AtivaOffline(true);
                 //ganhouDoKlay = PlayerPrefs.GetInt("GanhouDoKlay");
-                if (PlayerPrefsManager.Instance.prefsVariables.levelIndex >= 1)
+                if (PlayerPrefsManager.Instance.prefsVariables.levelIndex > 1)
                 {
                     if(PlayerPrefsManager.Instance.prefsVariables.levelIndex == PlayerPrefsManager.Instance.prefsVariables.falasIndex)
                     {
@@ -60,6 +60,10 @@ public class GameFlowController : MonoBehaviour
                     {
                         flowManager.AtivaFase(PlayerPrefsManager.Instance.prefsVariables.levelIndex);
                     }
+                }
+                else
+                {
+                    flowManager.FechaTudo();
                 }
             }
 
