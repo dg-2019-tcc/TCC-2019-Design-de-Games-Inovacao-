@@ -9,7 +9,7 @@ public class TranslateVariable : ScriptableObject
 	public int languageIndex;
 
 
-	public void Update(string languageInput)
+	public void UpdateLanguage(string languageInput)
 	{
 		language = languageInput;
 		switch (language)
@@ -36,18 +36,18 @@ public class TranslateVariable : ScriptableObject
 			case "português":
 			case "Portuguese":
 			case "portuguese":
-				Update("Português");
+				UpdateLanguage("Português");
 				break;
 			case "Inglês":
 			case "inglês":
 			case "Ingles":
 			case "ingles":
 			case "english":
-				Update("English");
+				UpdateLanguage("English");
 				break;
 
 			default:
-				Update("Português");
+				UpdateLanguage("Português");
 				break;
 		}
 	}

@@ -29,7 +29,7 @@ public class GameSetup : MonoBehaviour
 
 	void LoadLanguage()
 	{
-		language.Update(PlayerPrefs.GetString("Language"));
+		language.UpdateLanguage(PlayerPrefs.GetString("Language"));
 		PlayerPrefs.SetString("Language", language.language);
 	}
 
