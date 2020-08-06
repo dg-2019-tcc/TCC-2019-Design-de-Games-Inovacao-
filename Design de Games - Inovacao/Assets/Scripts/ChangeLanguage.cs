@@ -16,17 +16,18 @@ public class ChangeLanguage : MonoBehaviour
         if(GameManager.languageIndex == 0)
         {
             GameManager.languageIndex = 1;
-            Debug.Log("Esta em Inglês");
         }
         else
         {
             GameManager.languageIndex = 0;
-            Debug.Log("Esta em Português");
         }
 
         for(int i = 0; i < allButtons.Length; i++)
         {
-            allButtons[i].Change();
+            if (allButtons[i].isActiveAndEnabled)
+            {
+                allButtons[i].Change();
+            }
         }
     }
 }
