@@ -74,6 +74,14 @@ public class ButtonA : MonoBehaviour
             {
                 PressedButtonA();
             }
+
+            if (Input.GetKeyUp(KeyCode.Z))
+            {
+                if(state == State.Manobra)
+                {
+                    manobraScript.stopManobra();
+                }
+            }
         }
     }
 

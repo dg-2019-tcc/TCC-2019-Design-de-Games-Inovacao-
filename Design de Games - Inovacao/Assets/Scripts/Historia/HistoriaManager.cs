@@ -33,7 +33,10 @@ public class HistoriaManager : MonoBehaviour
         int debug = PlayerPrefs.GetInt("Fase");
         sceneName = SceneManager.GetActiveScene().name;
 
-        StartCoroutine("StartHist");
+        if (sceneName != "FimDemo")
+        {
+            StartCoroutine("StartHist");
+        }
     }
 
     public void SkipHist()
