@@ -11,6 +11,7 @@ public class TV : MonoBehaviour
 
     public BoolVariableArray acabou01;
     public BoolVariableArray aiGanhou;
+    public BoolVariable demo;
 
     public GameObject[] falas;
 
@@ -22,6 +23,10 @@ public class TV : MonoBehaviour
         PlayerPrefsManager.Instance.LoadPlayerPref("FalasIndex");
         Debug.Log("FalasIndex é: " + PlayerPrefsManager.Instance.prefsVariables.falasIndex);
         Debug.Log("LevelIndex é: " + PlayerPrefsManager.Instance.prefsVariables.levelIndex);
+        if (demo == null)
+        {
+            demo = Resources.Load<BoolVariable>("Demo");
+        }
 
         if (acabou01 == null)
         {
@@ -41,17 +46,42 @@ public class TV : MonoBehaviour
         if (GameManager.historiaMode)
         {
             Debug.Log(PlayerPrefsManager.Instance.prefsVariables.falasIndex);
-            if (PlayerPrefsManager.Instance.prefsVariables.falasIndex == 3 || PlayerPrefsManager.Instance.prefsVariables.falasIndex == 4 || PlayerPrefsManager.Instance.prefsVariables.falasIndex == 5 || PlayerPrefsManager.Instance.prefsVariables.falasIndex == 7)
+            if (demo.Value == false)
             {
-                if (PlayerPrefsManager.Instance.prefsVariables.falasIndex == PlayerPrefsManager.Instance.prefsVariables.levelIndex)
+                if (PlayerPrefsManager.Instance.prefsVariables.falasIndex == 3 || PlayerPrefsManager.Instance.prefsVariables.falasIndex == 4 || PlayerPrefsManager.Instance.prefsVariables.falasIndex == 5 || PlayerPrefsManager.Instance.prefsVariables.falasIndex == 7)
+                {
+                    if (PlayerPrefsManager.Instance.prefsVariables.falasIndex == PlayerPrefsManager.Instance.prefsVariables.levelIndex)
+                    {
+                        CoisasAtivas(PlayerPrefsManager.Instance.prefsVariables.falasIndex, true);
+                    }
+                }
+                else
                 {
                     CoisasAtivas(PlayerPrefsManager.Instance.prefsVariables.falasIndex, true);
                 }
             }
             else
             {
-                CoisasAtivas(PlayerPrefsManager.Instance.prefsVariables.falasIndex, true);
+                if (PlayerPrefsManager.Instance.prefsVariables.falasIndex < 5)
+                {
+                    if (PlayerPrefsManager.Instance.prefsVariables.falasIndex == 3 || PlayerPrefsManager.Instance.prefsVariables.falasIndex == 4)
+                    {
+                        if (PlayerPrefsManager.Instance.prefsVariables.falasIndex == PlayerPrefsManager.Instance.prefsVariables.levelIndex)
+                        {
+                            CoisasAtivas(PlayerPrefsManager.Instance.prefsVariables.falasIndex, true);
+                        }
+                    }
+                    else
+                    {
+                        CoisasAtivas(PlayerPrefsManager.Instance.prefsVariables.falasIndex, true);
+                    }
+                }
+                else
+                {
+                    flowController.FlowHUB();
+                }
             }
+
         }
 
 

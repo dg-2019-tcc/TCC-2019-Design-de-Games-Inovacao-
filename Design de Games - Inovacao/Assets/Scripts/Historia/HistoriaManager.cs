@@ -13,20 +13,25 @@ public class HistoriaManager : MonoBehaviour
     public Sprite[] histImageCorrida;
     public Sprite[] histSprites;
 
+
     public string nomeDoMenu;
 
     public FloatVariable flowIndex;
-    public BoolVariable acabou01;
+    public BoolVariable demo;
 
     public int nextIndex;
 
     bool histInicial;
 
+    private string sceneName;
+
 
     private void Awake()
     {
+        demo = Resources.Load<BoolVariable>("Demo");
         flowIndex.Value = nextIndex;
         int debug = PlayerPrefs.GetInt("Fase");
+        sceneName = SceneManager.GetActiveScene().name;
 
         StartCoroutine("StartHist");
     }
@@ -97,7 +102,21 @@ public class HistoriaManager : MonoBehaviour
                 break;
 
             case GameManager.Fase.Moto:
-                nomeDoMenu = "HUB";
+                if (demo.Value)
+                {
+                    if (sceneName == "Historia")
+                    {
+                        nomeDoMenu = "FimDemo";
+                    }
+                    if(sceneName == "FimDemo")
+                    {
+                        nomeDoMenu = "MenuPrincipal";
+                    }
+                }
+                else
+                {
+                    nomeDoMenu = "HUB";
+                }
                 histImage.sprite = histImageMoto;
                 yield return new WaitForSeconds(5f);
                 break;
