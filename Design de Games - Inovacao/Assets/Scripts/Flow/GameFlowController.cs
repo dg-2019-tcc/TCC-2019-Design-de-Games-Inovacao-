@@ -50,7 +50,7 @@ public class GameFlowController : MonoBehaviour
             {
                 OfflineMode.Instance.AtivaOffline(true);
                 //ganhouDoKlay = PlayerPrefs.GetInt("GanhouDoKlay");
-                if (PlayerPrefsManager.Instance.prefsVariables.levelIndex > 1)
+                if (PlayerPrefsManager.Instance.prefsVariables.levelIndex > 1 && PlayerPrefsManager.Instance.prefsVariables.levelIndex < 8)
                 {
                     if (PlayerPrefsManager.Instance.prefsVariables.levelIndex == 3 || PlayerPrefsManager.Instance.prefsVariables.levelIndex == 4)
                     {
@@ -66,7 +66,11 @@ public class GameFlowController : MonoBehaviour
                 }
                 else
                 {
-                    flowManager.FechaTudo();
+                    if (PlayerPrefsManager.Instance.prefsVariables.levelIndex == 0)
+                    {
+                        flowManager.FechaTudo();
+                    }
+
                 }
             }
 

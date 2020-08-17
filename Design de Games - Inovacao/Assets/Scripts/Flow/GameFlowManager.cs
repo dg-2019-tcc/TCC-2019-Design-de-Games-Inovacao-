@@ -113,6 +113,10 @@ public class GameFlowManager : MonoBehaviour
         {
             switch (level)
             {
+                case 8:
+                    Completo();
+                    break;
+
                 case 5:
                     AcabouDemo();
                     break;
@@ -260,7 +264,9 @@ public class GameFlowManager : MonoBehaviour
 		{
 			doorBlock[i].SetActive(false);
 		}
-        
+        Debug.Log("AtivaFAse");
+
+
     }
 
     public void AcabouDemo()

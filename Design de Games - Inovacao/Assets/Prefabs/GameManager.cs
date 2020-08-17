@@ -71,6 +71,10 @@ public class GameManager : MonoBehaviour
 
         if (escolheFase.Value || pularModoHistoria.Value)
         {
+            if (pularModoHistoria.Value)
+            {
+                historiaMode = false;
+            }
             EscolheFase();
         }
 
@@ -153,6 +157,10 @@ public class GameManager : MonoBehaviour
             {
                 sequestrado = false;
             }
+        }
+        else
+        {
+            historiaMode = false;
         }
         
         Debug.Log("O level carregado foi: " + PlayerPrefsManager.Instance.prefsVariables.levelIndex + " A falaIndex é: " + PlayerPrefsManager.Instance.prefsVariables.falasIndex + " O modo história é: " + historiaMode);

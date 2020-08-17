@@ -7,7 +7,6 @@ namespace Complete
     public class HeadAI : MonoBehaviour
     {
         public float headForceX;
-
         public float headForceY;
 
         public Rigidbody2D ballrb;
@@ -16,9 +15,10 @@ namespace Complete
         public bool isFut;
         public bool isVolei;
 
-        private void Awake()
+        private void Start()
         {
             triggerController = GetComponent<AITriggerController>();
+            ballrb = triggerController.rbBola;
         }
 
         private void Update()
@@ -53,7 +53,7 @@ namespace Complete
 
         public void Corta()
         {
-            ballrb = triggerController.rbBola;
+            if (ballrb == null) { ballrb = triggerController.rbBola; }
             ballrb.velocity = new Vector2(0, 0);
 
             ballrb.AddForce(new Vector2(headForceX * 5, headForceY * 5), ForceMode2D.Impulse);
@@ -61,21 +61,21 @@ namespace Complete
 
         public void Chuta()
         {
-            ballrb = triggerController.rbBola;
+            if (ballrb == null) { ballrb = triggerController.rbBola; }
             ballrb.velocity = new Vector2(0, 0);
 
-            ballrb.AddForce(new Vector2(headForceX, headForceY), ForceMode2D.Impulse);
+            ballrb.AddForce(new Vector2(Random.Range(-5,-10), Random.Range(5, 10)), ForceMode2D.Impulse);
         }
 
         public void ChutaForte()
         {
-            ballrb = triggerController.rbBola;
-            ballrb.AddForce(new Vector2(controller.botStats.kickForceX, controller.botStats.kickForceY), ForceMode2D.Impulse);
+            if (ballrb == null) { ballrb = triggerController.rbBola; }
+            ballrb.AddForce(new Vector2(Random.Range(-10, -15), Random.Range(-3, 3)), ForceMode2D.Impulse);
         }
 
         public void NaArea()
         {
-            ballrb = triggerController.rbBola;
+            if (ballrb == null) { ballrb = triggerController.rbBola; }
             ballrb.AddForce(new Vector2(headForceX, 0), ForceMode2D.Impulse);
         }
     }
