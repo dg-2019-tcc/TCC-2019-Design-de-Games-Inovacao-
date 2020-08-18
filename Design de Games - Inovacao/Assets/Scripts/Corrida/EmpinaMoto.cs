@@ -67,16 +67,16 @@ public class EmpinaMoto : MonoBehaviour
 
 	private void Update()
 	{
-        if (controller.collisions.climbingSlope)
+        if (controller.collisions.descendingSlope)
+        {
+            //transform.localRotation = Quaternion.Slerp(transform.localRotation, Quaternion.Euler(transform.localRotation.x, transform.localRotation.y, -controller.collisions.slopeAngle -45), 1f);
+            player.transform.localRotation = Quaternion.Slerp(player.transform.localRotation, Quaternion.Euler(player.transform.localRotation.x, player.transform.localRotation.y, -controller.collisions.slopeAngle), 1f);
+        }
+
+        else if (controller.collisions.climbingSlope)
         {
             //transform.localRotation = Quaternion.Slerp(transform.localRotation, Quaternion.Euler(transform.localRotation.x, transform.localRotation.y, controller.collisions.slopeAngle + 30), 1f);
             player.transform.localRotation = Quaternion.Slerp(player.transform.localRotation, Quaternion.Euler(player.transform.localRotation.x, player.transform.localRotation.y, controller.collisions.slopeAngle), 1f);
-        }
-
-        else if (controller.collisions.descendingSlope)
-        {
-            //transform.localRotation = Quaternion.Slerp(transform.localRotation, Quaternion.Euler(transform.localRotation.x, transform.localRotation.y, -controller.collisions.slopeAngle -45), 1f);
-            player.transform.localRotation = Quaternion.Slerp(player.transform.localRotation, Quaternion.Euler(player.transform.localRotation.x, player.transform.localRotation.y, -controller.collisions.slopeAngle +30), 1f);
         }
 
         else
