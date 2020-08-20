@@ -36,20 +36,11 @@ public class LojaCustom : MonoBehaviour
     public Button[] botaoDeModelo; //Qual botão dos modelos estamos mexendo
 
 	[Header("Itens Bloqueados")] //Quais itens estarão bloqueados //ainda não foi passado pro PlayerPrefs, deve ser passado
-	public bool[] blockedCabelo;
-	public bool[] blockedShirt;
-	public bool[] blockedShorts;
-	public bool[] blockedTenis;
-	public bool[] blockedOculos;
-	public bool[] blockedDelineado;
-	public bool[] blockedMascara;
-	public bool[] blockedBone;
-	public bool[] blockedSkin;
-	public bool[] blockedPupila;
+	public BoolVariableMatrix blocked;
 
 
 	[Header("Prefab do botão a bloquear e comprar")]
-	public GameObject buttonBuy;
+	public GameObject buttonBuyPrefab;
 
 
 	[Header("Círculo de seleção")]
@@ -101,9 +92,11 @@ public class LojaCustom : MonoBehaviour
     [Header("Armazena valor do círculo verde")]
     public int circuloVerde;
 
-	
 
-    private void Start()
+
+	private GameObject[] buttonBuy = new GameObject[6];
+
+	private void Start()
     {
         AtivaBotoesModelo(comecaAqui);
     }
@@ -287,9 +280,15 @@ public class LojaCustom : MonoBehaviour
 		botaoDeModelo[index].image.sprite = sprite[iniciaAqui];
 		botaoDeModelo[index].onClick.AddListener(delegate { QualParteVaiMudar(qualParteVaiSer, iniciaAqui); });
 		botaoDeModelo[index].onClick.AddListener(delegate { AtivaCirculoVerde(iniciaAqui, numero, propIndex); });
+		if (blocked.Value(qualParteVaiSer - 1, iniciaAqui))
+		{
+			
+			buttonBuy[index] = Instantiate(buttonBuyPrefab, botaoDeModelo[index].gameObject.transform);
+		}
 
 	}
 
+	
 	public void AtivaCirculoVerde(int qualCirculo, int qualDosSeis, Prop2D qualProp)
 	{
 		for (int i = 0; i < circuloDeSelecaoModelo.Length; i++)
@@ -326,6 +325,14 @@ public class LojaCustom : MonoBehaviour
 	public void ChangeMenu(int muda)
 	{
 		qualMenu += muda;
+		if (buttonBuy.Length >= 1)
+		{
+			for (int i = 0; i < buttonBuy.Length; i++)
+			{
+				Destroy(buttonBuy[i]);
+			}
+		}
+		
 	}
 
 	public void QuaisModelosEstaMostrando()
