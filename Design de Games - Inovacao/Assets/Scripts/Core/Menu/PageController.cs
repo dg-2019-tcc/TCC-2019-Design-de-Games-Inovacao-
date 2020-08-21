@@ -29,6 +29,8 @@ namespace UnityCore
                     if(entryPage != PageType.None)
                     {
                         TurnPageOn(entryPage);
+                        pageAtiva = entryPage;
+                        Debug.Log(pageAtiva);
                     }
                 }
             }
