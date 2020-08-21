@@ -126,7 +126,7 @@ public class GameManager : MonoBehaviour
         PlayerPrefsManager.Instance.SavePlayerPrefs("LevelIndex", indexFase);
         PlayerPrefsManager.Instance.SavePlayerPrefs("FalasIndex", indexFala);
         //PlayerPrefs.SetInt("LevelIndex", index);
-        Debug.Log("O level salvo foi:" + indexFase + "a fala salva: "+ indexFala);
+        //Debug.Log("O level salvo foi:" + indexFase + "a fala salva: "+ indexFala);
     }
 
     public void LoadGame()
@@ -163,7 +163,7 @@ public class GameManager : MonoBehaviour
             historiaMode = false;
         }
         
-        Debug.Log("O level carregado foi: " + PlayerPrefsManager.Instance.prefsVariables.levelIndex + " A falaIndex é: " + PlayerPrefsManager.Instance.prefsVariables.falasIndex + " O modo história é: " + historiaMode);
+        //Debug.Log("O level carregado foi: " + PlayerPrefsManager.Instance.prefsVariables.levelIndex + " A falaIndex é: " + PlayerPrefsManager.Instance.prefsVariables.falasIndex + " O modo história é: " + historiaMode);
     }
 
     //Função para escolher a fase ou resetar o jogo

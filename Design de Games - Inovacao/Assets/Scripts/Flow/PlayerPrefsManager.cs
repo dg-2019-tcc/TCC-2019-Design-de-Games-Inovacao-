@@ -151,7 +151,7 @@ public class PlayerPrefsManager : MonoBehaviour
         PlayerPrefs.SetInt(prefsName, prefsValue);
         if (prefsName == "LevelIndex" || prefsName == "FalasIndex")
         {
-            Debug.Log(prefsName + " " + prefsValue);
+            //Debug.Log(prefsName + " " + prefsValue);
         }
         switch (prefsName)
         {
