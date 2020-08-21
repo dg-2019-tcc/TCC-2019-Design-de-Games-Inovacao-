@@ -137,7 +137,7 @@ public class PlayerPrefsManager : MonoBehaviour
                 prefsVariables.oculosIndex = PlayerPrefs.GetInt("OculosIndex");
                 prefsVariables.ciliosIndex = PlayerPrefs.GetInt("CiliosIndex");
                 prefsVariables.maskIndex = PlayerPrefs.GetInt("MaskIndex");
-                prefsVariables.boneIndex = PlayerPrefs.GetInt("BoneIndex");
+                prefsVariables.boneIndex = PlayerPrefs.GetInt("BoneIndex",10);
                 prefsVariables.skinIndex = PlayerPrefs.GetInt("SkinIndex");
                 prefsVariables.pupilaIndex = PlayerPrefs.GetInt("PupilaIndex");
                 prefsVariables.sombrancelhaIndex = PlayerPrefs.GetInt("SombrancelhaIndex");

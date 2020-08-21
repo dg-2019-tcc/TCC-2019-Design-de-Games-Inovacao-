@@ -18,6 +18,19 @@ namespace UnityCore
             public string targetState { get; private set;}
 
             private Animator m_Animator;
+            private bool m_IsOn;
+
+            public bool isOn
+            {
+                get
+                {
+                    return m_IsOn;
+                }
+                private set
+                {
+                    m_IsOn = value;
+                }
+            }
 
             #region Unity Functions
             private void OnEnable()
@@ -41,7 +54,12 @@ namespace UnityCore
                 {
                     if (!_on)
                     {
+                        isOn = false;
                         gameObject.SetActive(false);
+                    }
+                    else
+                    {
+                        isOn = true;
                     }
                 }
             }
@@ -71,7 +89,12 @@ namespace UnityCore
 
                 if (!_on)
                 {
+                    isOn = false;
                     gameObject.SetActive(false);
+                }
+                else
+                {
+                    isOn = true;
                 }
             }
 
