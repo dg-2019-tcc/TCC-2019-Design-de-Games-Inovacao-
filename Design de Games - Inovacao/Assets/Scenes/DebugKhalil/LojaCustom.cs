@@ -35,8 +35,15 @@ public class LojaCustom : MonoBehaviour
     [Header("Botões da cena")]
     public Button[] botaoDeModelo; //Qual botão dos modelos estamos mexendo
 
+	[Header("Itens Bloqueados")] //Quais itens estarão bloqueados //ainda não foi passado pro PlayerPrefs, deve ser passado
+	public BoolVariableMatrix blocked;
 
-    [Header("Círculo de seleção")]
+
+	[Header("Prefab do botão a bloquear e comprar")]
+	public GameObject buttonBuyPrefab;
+
+
+	[Header("Círculo de seleção")]
     public GameObject[] circuloDeSelecaoModelo;
 
 
@@ -86,1199 +93,339 @@ public class LojaCustom : MonoBehaviour
     public int circuloVerde;
 
 
-    private void Start()
+
+	private GameObject[] buttonBuy = new GameObject[6];
+
+	private void Start()
     {
         AtivaBotoesModelo(comecaAqui);
     }
 
 
-    public void IgnoraParametro()
-    {
-        ativaParametro = true;
-    }    
-
-    public void AtivaBotoesModelo(int iniciaAqui)//EscolheQtdBotoesModelos //Decide quantos botões de modelo serão mostrados
-    {
-
-        int a, b, c, d, e, f;
+	public void IgnoraParametro()
+	{
+		ativaParametro = true;
+	}
 
 
-        if (ativaParametro == true)
-        {
-            iniciaAqui = comecaAqui;
-        }
+	public void AtivaBotoesModelo(int iniciaAqui)//EscolheQtdBotoesModelos //Decide quantos botões de modelo serão mostrados
+	{
 
-        //Desativa todos os game objects para caso algum deles tenha ficado ativo sem querer
-        for(int k = 0; k < botaoDeModelo.Length; k++)
-        {
-            botaoDeModelo[k].gameObject.SetActive(false);
-            botaoDeModelo[k].onClick.RemoveAllListeners();
-        }
-
-        for (int i = 0; i < quantidadeDeModelos; i++)
-        {
-            switch (qualParteVaiSer)//Decide qual sprite vai aparecer nos botões de Modelo
-            {
-                case 1:
-                    if (iniciaAqui < spriteCabelo.Length)
-                    {
-                        if (iniciaAqui == 0 || iniciaAqui == 6 || iniciaAqui == 12 || iniciaAqui == 18 || iniciaAqui == 24 || iniciaAqui == 30)
-                        {
-                            a = iniciaAqui;
-                            if (a == hairInd.prop2DInd)
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(true);
-                            }
-                            else
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(false);
-                            }
-
-                            botaoDeModelo[i].gameObject.SetActive(true);//está sendo ativado aqui porque se não quando passa do limite não funciona
-                            botaoDeModelo[i].image.sprite = spriteCabelo[iniciaAqui];
-                            botaoDeModelo[i].onClick.AddListener(delegate { QualParteVaiMudar(qualParteVaiSer, a); });
-                            botaoDeModelo[i].onClick.AddListener(delegate { AtivaCirculoVerde(a, 0, hairInd); });
-                        }
-                        else if (iniciaAqui == 1 || iniciaAqui == 7 || iniciaAqui == 13 || iniciaAqui == 19 || iniciaAqui == 25 || iniciaAqui == 31)
-                        {
-                            b = iniciaAqui;
-                            if (b == hairInd.prop2DInd)
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(true);
-                            }
-                            else
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(false);
-                            }
-                            botaoDeModelo[i].gameObject.SetActive(true);//está sendo ativado aqui porque se não quando passa do limite não funciona
-                            botaoDeModelo[i].image.sprite = spriteCabelo[iniciaAqui];
-                            botaoDeModelo[i].onClick.AddListener(delegate { QualParteVaiMudar(qualParteVaiSer, b); });
-                            botaoDeModelo[i].onClick.AddListener(delegate { AtivaCirculoVerde(b, 1, hairInd); });
-                        }
-                        else if (iniciaAqui == 2 || iniciaAqui == 8 || iniciaAqui == 14 || iniciaAqui == 20 || iniciaAqui == 26 || iniciaAqui == 32)
-                        {
-                            c = iniciaAqui;
-                            if (c == hairInd.prop2DInd)
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(true);
-                            }
-                            else
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(false);
-                            }
-                            botaoDeModelo[i].gameObject.SetActive(true);//está sendo ativado aqui porque se não quando passa do limite não funciona
-                            botaoDeModelo[i].image.sprite = spriteCabelo[iniciaAqui];
-                            botaoDeModelo[i].onClick.AddListener(delegate { QualParteVaiMudar(qualParteVaiSer, c); });
-                            botaoDeModelo[i].onClick.AddListener(delegate { AtivaCirculoVerde(c, 2, hairInd); });
-                        }
-                        else if (iniciaAqui == 3 || iniciaAqui == 9 || iniciaAqui == 15 || iniciaAqui == 21 || iniciaAqui == 27 || iniciaAqui == 33)
-                        {
-                            d = iniciaAqui;
-                            if (d == hairInd.prop2DInd)
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(true);
-                            }
-                            else
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(false);
-                            }
-                            botaoDeModelo[i].gameObject.SetActive(true);//está sendo ativado aqui porque se não quando passa do limite não funciona
-                            botaoDeModelo[i].image.sprite = spriteCabelo[iniciaAqui];
-                            botaoDeModelo[i].onClick.AddListener(delegate { QualParteVaiMudar(qualParteVaiSer, d); });
-                            botaoDeModelo[i].onClick.AddListener(delegate { AtivaCirculoVerde(d, 3, hairInd); });
-                        }
-                        else if (iniciaAqui == 4 || iniciaAqui == 10 || iniciaAqui == 16 || iniciaAqui == 22 || iniciaAqui == 28 || iniciaAqui == 34)
-                        {
-                            e = iniciaAqui;
-                            if (e == hairInd.prop2DInd)
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(true);
-                            }
-                            else
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(false);
-                            }
-                            botaoDeModelo[i].gameObject.SetActive(true);//está sendo ativado aqui porque se não quando passa do limite não funciona
-                            botaoDeModelo[i].image.sprite = spriteCabelo[iniciaAqui];
-                            botaoDeModelo[i].onClick.AddListener(delegate { QualParteVaiMudar(qualParteVaiSer, e); });
-                            botaoDeModelo[i].onClick.AddListener(delegate { AtivaCirculoVerde(e, 4, hairInd); });
-                        }
-                        else if (iniciaAqui == 5 || iniciaAqui == 11 || iniciaAqui == 17 || iniciaAqui == 23 || iniciaAqui == 29 || iniciaAqui == 35)
-                        {
-                            f = iniciaAqui;
-                            if (f == hairInd.prop2DInd)
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(true);
-                            }
-                            else
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(false);
-                            }
-                            botaoDeModelo[i].gameObject.SetActive(true);//está sendo ativado aqui porque se não quando passa do limite não funciona
-                            botaoDeModelo[i].image.sprite = spriteCabelo[iniciaAqui];
-                            botaoDeModelo[i].onClick.AddListener(delegate { QualParteVaiMudar(qualParteVaiSer, f); });
-                            botaoDeModelo[i].onClick.AddListener(delegate { AtivaCirculoVerde(f, 5, hairInd); });
-                        }
-                    }
-                    break;
-                case 2:
-                    if (iniciaAqui < spriteShirt.Length)
-                    {
-                        if (iniciaAqui == 0 || iniciaAqui == 6 || iniciaAqui == 12 || iniciaAqui == 18 || iniciaAqui == 24 || iniciaAqui == 30)
-                        {
-                            a = iniciaAqui;
-                            if (a == shirtInd.prop2DInd)
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(true);
-                            }
-                            else
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(false);
-                            }
-                            botaoDeModelo[i].gameObject.SetActive(true);//está sendo ativado aqui porque se não quando passa do limite não funciona
-                            botaoDeModelo[i].image.sprite = spriteShirt[iniciaAqui];
-                            botaoDeModelo[i].onClick.AddListener(delegate { QualParteVaiMudar(qualParteVaiSer, a); });
-                            botaoDeModelo[i].onClick.AddListener(delegate { AtivaCirculoVerde(a, 0, shirtInd); });
-                        }
-                        else if (iniciaAqui == 1 || iniciaAqui == 7 || iniciaAqui == 13 || iniciaAqui == 19 || iniciaAqui == 25 || iniciaAqui == 31)
-                        {
-                            b = iniciaAqui;
-                            if (b == shirtInd.prop2DInd)
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(true);
-                            }
-                            else
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(false);
-                            }
-                            botaoDeModelo[i].gameObject.SetActive(true);//está sendo ativado aqui porque se não quando passa do limite não funciona
-                            botaoDeModelo[i].image.sprite = spriteShirt[iniciaAqui];
-                            botaoDeModelo[i].onClick.AddListener(delegate { QualParteVaiMudar(qualParteVaiSer, b); });
-                            botaoDeModelo[i].onClick.AddListener(delegate { AtivaCirculoVerde(b, 1, shirtInd); });
-                        }
-                        else if (iniciaAqui == 2 || iniciaAqui == 8 || iniciaAqui == 14 || iniciaAqui == 20 || iniciaAqui == 26 || iniciaAqui == 32)
-                        {
-                            c = iniciaAqui;
-                            if (c == shirtInd.prop2DInd)
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(true);
-                            }
-                            else
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(false);
-                            }
-                            botaoDeModelo[i].gameObject.SetActive(true);//está sendo ativado aqui porque se não quando passa do limite não funciona
-                            botaoDeModelo[i].image.sprite = spriteShirt[iniciaAqui];
-                            botaoDeModelo[i].onClick.AddListener(delegate { QualParteVaiMudar(qualParteVaiSer, c); });
-                            botaoDeModelo[i].onClick.AddListener(delegate { AtivaCirculoVerde(c, 2, shirtInd); });
-                        }
-                        else if (iniciaAqui == 3 || iniciaAqui == 9 || iniciaAqui == 15 || iniciaAqui == 21 || iniciaAqui == 27 || iniciaAqui == 33)
-                        {
-                            d = iniciaAqui;
-                            if (d == shirtInd.prop2DInd)
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(true);
-                            }
-                            else
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(false);
-                            }
-                            botaoDeModelo[i].gameObject.SetActive(true);//está sendo ativado aqui porque se não quando passa do limite não funciona
-                            botaoDeModelo[i].image.sprite = spriteShirt[iniciaAqui];
-                            botaoDeModelo[i].onClick.AddListener(delegate { QualParteVaiMudar(qualParteVaiSer, d); });
-                            botaoDeModelo[i].onClick.AddListener(delegate { AtivaCirculoVerde(d, 3, shirtInd); });
-                        }
-                        else if (iniciaAqui == 4 || iniciaAqui == 10 || iniciaAqui == 16 || iniciaAqui == 22 || iniciaAqui == 28 || iniciaAqui == 34)
-                        {
-                            e = iniciaAqui;
-                            if (e == shirtInd.prop2DInd)
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(true);
-                            }
-                            else
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(false);
-                            }
-                            botaoDeModelo[i].gameObject.SetActive(true);//está sendo ativado aqui porque se não quando passa do limite não funciona
-                            botaoDeModelo[i].image.sprite = spriteShirt[iniciaAqui];
-                            botaoDeModelo[i].onClick.AddListener(delegate { QualParteVaiMudar(qualParteVaiSer, e); });
-                            botaoDeModelo[i].onClick.AddListener(delegate { AtivaCirculoVerde(e, 4, shirtInd); });
-                        }
-                        else if (iniciaAqui == 5 || iniciaAqui == 11 || iniciaAqui == 17 || iniciaAqui == 23 || iniciaAqui == 29 || iniciaAqui == 35)
-                        {
-                            f = iniciaAqui;
-                            if (f == shirtInd.prop2DInd)
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(true);
-                            }
-                            else
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(false);
-                            }
-                            botaoDeModelo[i].gameObject.SetActive(true);//está sendo ativado aqui porque se não quando passa do limite não funciona
-                            botaoDeModelo[i].image.sprite = spriteShirt[iniciaAqui];
-                            botaoDeModelo[i].onClick.AddListener(delegate { QualParteVaiMudar(qualParteVaiSer, f); });
-                            botaoDeModelo[i].onClick.AddListener(delegate { AtivaCirculoVerde(f, 5, shirtInd); });
-                        }
-                    }
-                    break;
-                case 3:
-                    if (iniciaAqui < spriteTenis.Length)
-                    {
-                        if (iniciaAqui == 0 || iniciaAqui == 6 || iniciaAqui == 12 || iniciaAqui == 18 || iniciaAqui == 24 || iniciaAqui == 30)
-                        {
-                            a = iniciaAqui;
-                            if (a == shoesInd.prop2DInd)
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(true);
-                            }
-                            else
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(false);
-                            }
-                            botaoDeModelo[i].gameObject.SetActive(true);//está sendo ativado aqui porque se não quando passa do limite não funciona
-                            botaoDeModelo[i].image.sprite = spriteTenis[iniciaAqui];
-                            botaoDeModelo[i].onClick.AddListener(delegate { QualParteVaiMudar(qualParteVaiSer, a); });
-                            botaoDeModelo[i].onClick.AddListener(delegate { AtivaCirculoVerde(a, 0, shoesInd); });
-                        }
-                        else if (iniciaAqui == 1 || iniciaAqui == 7 || iniciaAqui == 13 || iniciaAqui == 19 || iniciaAqui == 25 || iniciaAqui == 31)
-                        {
-                            b = iniciaAqui;
-                            if (b == shoesInd.prop2DInd)
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(true);
-                            }
-                            else
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(false);
-                            }
-                            botaoDeModelo[i].gameObject.SetActive(true);//está sendo ativado aqui porque se não quando passa do limite não funciona
-                            botaoDeModelo[i].image.sprite = spriteTenis[iniciaAqui];
-                            botaoDeModelo[i].onClick.AddListener(delegate { QualParteVaiMudar(qualParteVaiSer, b); });
-                            botaoDeModelo[i].onClick.AddListener(delegate { AtivaCirculoVerde(b, 1, shoesInd); });
-                        }
-                        else if (iniciaAqui == 2 || iniciaAqui == 8 || iniciaAqui == 14 || iniciaAqui == 20 || iniciaAqui == 26 || iniciaAqui == 32)
-                        {
-                            c = iniciaAqui;
-                            if (c == shoesInd.prop2DInd)
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(true);
-                            }
-                            else
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(false);
-                            }
-                            botaoDeModelo[i].gameObject.SetActive(true);//está sendo ativado aqui porque se não quando passa do limite não funciona
-                            botaoDeModelo[i].image.sprite = spriteTenis[iniciaAqui];
-                            botaoDeModelo[i].onClick.AddListener(delegate { QualParteVaiMudar(qualParteVaiSer, c); });
-                            botaoDeModelo[i].onClick.AddListener(delegate { AtivaCirculoVerde(c, 2, shoesInd); });
-                        }
-                        else if (iniciaAqui == 3 || iniciaAqui == 9 || iniciaAqui == 15 || iniciaAqui == 21 || iniciaAqui == 27 || iniciaAqui == 33)
-                        {
-                            d = iniciaAqui;
-                            if (d == shoesInd.prop2DInd)
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(true);
-                            }
-                            else
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(false);
-                            }
-                            botaoDeModelo[i].gameObject.SetActive(true);//está sendo ativado aqui porque se não quando passa do limite não funciona
-                            botaoDeModelo[i].image.sprite = spriteTenis[iniciaAqui];
-                            botaoDeModelo[i].onClick.AddListener(delegate { QualParteVaiMudar(qualParteVaiSer, d); });
-                            botaoDeModelo[i].onClick.AddListener(delegate { AtivaCirculoVerde(d, 3, shoesInd); });
-                        }
-                        else if (iniciaAqui == 4 || iniciaAqui == 10 || iniciaAqui == 16 || iniciaAqui == 22 || iniciaAqui == 28 || iniciaAqui == 34)
-                        {
-                            e = iniciaAqui;
-                            if (e == shoesInd.prop2DInd)
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(true);
-                            }
-                            else
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(false);
-                            }
-                            botaoDeModelo[i].gameObject.SetActive(true);//está sendo ativado aqui porque se não quando passa do limite não funciona
-                            botaoDeModelo[i].image.sprite = spriteTenis[iniciaAqui];
-                            botaoDeModelo[i].onClick.AddListener(delegate { QualParteVaiMudar(qualParteVaiSer, e); });
-                            botaoDeModelo[i].onClick.AddListener(delegate { AtivaCirculoVerde(e, 4, shoesInd); });
-                        }
-                        else if (iniciaAqui == 5 || iniciaAqui == 11 || iniciaAqui == 17 || iniciaAqui == 23 || iniciaAqui == 29 || iniciaAqui == 35)
-                        {
-                            f = iniciaAqui;
-                            if (f == shoesInd.prop2DInd)
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(true);
-                            }
-                            else
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(false);
-                            }
-                            botaoDeModelo[i].gameObject.SetActive(true);//está sendo ativado aqui porque se não quando passa do limite não funciona
-                            botaoDeModelo[i].image.sprite = spriteTenis[iniciaAqui];
-                            botaoDeModelo[i].onClick.AddListener(delegate { QualParteVaiMudar(qualParteVaiSer, f); });
-                            botaoDeModelo[i].onClick.AddListener(delegate { AtivaCirculoVerde(f, 5, shoesInd); });
-                        }
-                    }
-                    break;
-                case 4:
-                    if (iniciaAqui < spriteShorts.Length)
-                    {
-                        if (iniciaAqui == 0 || iniciaAqui == 6 || iniciaAqui == 12 || iniciaAqui == 18 || iniciaAqui == 24 || iniciaAqui == 30)
-                        {
-                            a = iniciaAqui;
-                            if (a == shortsInd.prop2DInd)
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(true);
-                            }
-                            else
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(false);
-                            }
-                            botaoDeModelo[i].gameObject.SetActive(true);//está sendo ativado aqui porque se não quando passa do limite não funciona
-                            botaoDeModelo[i].image.sprite = spriteShorts[iniciaAqui];
-                            botaoDeModelo[i].onClick.AddListener(delegate { QualParteVaiMudar(qualParteVaiSer, a); });
-                            botaoDeModelo[i].onClick.AddListener(delegate { AtivaCirculoVerde(a, 0, shortsInd); });
-                        }
-                        else if (iniciaAqui == 1 || iniciaAqui == 7 || iniciaAqui == 13 || iniciaAqui == 19 || iniciaAqui == 25 || iniciaAqui == 31)
-                        {
-                            b = iniciaAqui;
-                            if (b == shortsInd.prop2DInd)
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(true);
-                            }
-                            else
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(false);
-                            }
-                            botaoDeModelo[i].gameObject.SetActive(true);//está sendo ativado aqui porque se não quando passa do limite não funciona
-                            botaoDeModelo[i].image.sprite = spriteShorts[iniciaAqui];
-                            botaoDeModelo[i].onClick.AddListener(delegate { QualParteVaiMudar(qualParteVaiSer, b); });
-                            botaoDeModelo[i].onClick.AddListener(delegate { AtivaCirculoVerde(b, 1, shortsInd); });
-                        }
-                        else if (iniciaAqui == 2 || iniciaAqui == 8 || iniciaAqui == 14 || iniciaAqui == 20 || iniciaAqui == 26 || iniciaAqui == 32)
-                        {
-                            c = iniciaAqui;
-                            if (c == shortsInd.prop2DInd)
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(true);
-                            }
-                            else
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(false);
-                            }
-                            botaoDeModelo[i].gameObject.SetActive(true);//está sendo ativado aqui porque se não quando passa do limite não funciona
-                            botaoDeModelo[i].image.sprite = spriteShorts[iniciaAqui];
-                            botaoDeModelo[i].onClick.AddListener(delegate { QualParteVaiMudar(qualParteVaiSer, c); });
-                            botaoDeModelo[i].onClick.AddListener(delegate { AtivaCirculoVerde(c, 2, shortsInd); });
-                        }
-                        else if (iniciaAqui == 3 || iniciaAqui == 9 || iniciaAqui == 15 || iniciaAqui == 21 || iniciaAqui == 27 || iniciaAqui == 33)
-                        {
-                            d = iniciaAqui;
-                            if (d == shortsInd.prop2DInd)
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(true);
-                            }
-                            else
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(false);
-                            }
-                            botaoDeModelo[i].gameObject.SetActive(true);//está sendo ativado aqui porque se não quando passa do limite não funciona
-                            botaoDeModelo[i].image.sprite = spriteShorts[iniciaAqui];
-                            botaoDeModelo[i].onClick.AddListener(delegate { QualParteVaiMudar(qualParteVaiSer, d); });
-                            botaoDeModelo[i].onClick.AddListener(delegate { AtivaCirculoVerde(d, 3, shortsInd); });
-                        }
-                        else if (iniciaAqui == 4 || iniciaAqui == 10 || iniciaAqui == 16 || iniciaAqui == 22 || iniciaAqui == 28 || iniciaAqui == 34)
-                        {
-                            e = iniciaAqui;
-                            if (e == shortsInd.prop2DInd)
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(true);
-                            }
-                            else
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(false);
-                            }
-                            botaoDeModelo[i].gameObject.SetActive(true);//está sendo ativado aqui porque se não quando passa do limite não funciona
-                            botaoDeModelo[i].image.sprite = spriteShorts[iniciaAqui];
-                            botaoDeModelo[i].onClick.AddListener(delegate { QualParteVaiMudar(qualParteVaiSer, e); });
-                            botaoDeModelo[i].onClick.AddListener(delegate { AtivaCirculoVerde(e, 4, shortsInd); });
-                        }
-                        else if (iniciaAqui == 5 || iniciaAqui == 11 || iniciaAqui == 17 || iniciaAqui == 23 || iniciaAqui == 29 || iniciaAqui == 35)
-                        {
-                            f = iniciaAqui;
-                            if (f == shortsInd.prop2DInd)
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(true);
-                            }
-                            else
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(false);
-                            }
-                            botaoDeModelo[i].gameObject.SetActive(true);//está sendo ativado aqui porque se não quando passa do limite não funciona
-                            botaoDeModelo[i].image.sprite = spriteShorts[iniciaAqui];
-                            botaoDeModelo[i].onClick.AddListener(delegate { QualParteVaiMudar(qualParteVaiSer, f); });
-                            botaoDeModelo[i].onClick.AddListener(delegate { AtivaCirculoVerde(f, 5, shortsInd); });
-                        }
-                    }
-                    break;
-                case 5:
-                    if (iniciaAqui < spriteOculos.Length)
-                    {
-                        if (iniciaAqui == 0 || iniciaAqui == 6 || iniciaAqui == 12 || iniciaAqui == 18 || iniciaAqui == 24 || iniciaAqui == 30)
-                        {
-                            a = iniciaAqui;
-                            if (a == oculosIndex.prop2DInd)
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(true);
-                            }
-                            else
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(false);
-                            }
-                            botaoDeModelo[i].gameObject.SetActive(true);//está sendo ativado aqui porque se não quando passa do limite não funciona
-                            botaoDeModelo[i].image.sprite = spriteOculos[iniciaAqui];
-                            botaoDeModelo[i].onClick.AddListener(delegate { QualParteVaiMudar(qualParteVaiSer, a); });
-                            botaoDeModelo[i].onClick.AddListener(delegate { AtivaCirculoVerde(a, 0, oculosIndex); });
-                        }
-                        else if (iniciaAqui == 1 || iniciaAqui == 7 || iniciaAqui == 13 || iniciaAqui == 19 || iniciaAqui == 25 || iniciaAqui == 31)
-                        {
-                            b = iniciaAqui;
-                            if (b == oculosIndex.prop2DInd)
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(true);
-                            }
-                            else
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(false);
-                            }
-                            botaoDeModelo[i].gameObject.SetActive(true);//está sendo ativado aqui porque se não quando passa do limite não funciona
-                            botaoDeModelo[i].image.sprite = spriteOculos[iniciaAqui];
-                            botaoDeModelo[i].onClick.AddListener(delegate { QualParteVaiMudar(qualParteVaiSer, b); });
-                            botaoDeModelo[i].onClick.AddListener(delegate { AtivaCirculoVerde(b, 1, oculosIndex); });
-                        }
-                        else if (iniciaAqui == 2 || iniciaAqui == 8 || iniciaAqui == 14 || iniciaAqui == 20 || iniciaAqui == 26 || iniciaAqui == 32)
-                        {
-                            c = iniciaAqui;
-                            if (c == oculosIndex.prop2DInd)
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(true);
-                            }
-                            else
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(false);
-                            }
-                            botaoDeModelo[i].gameObject.SetActive(true);//está sendo ativado aqui porque se não quando passa do limite não funciona
-                            botaoDeModelo[i].image.sprite = spriteOculos[iniciaAqui];
-                            botaoDeModelo[i].onClick.AddListener(delegate { QualParteVaiMudar(qualParteVaiSer, c); });
-                            botaoDeModelo[i].onClick.AddListener(delegate { AtivaCirculoVerde(c, 2, oculosIndex); });
-                        }
-                        else if (iniciaAqui == 3 || iniciaAqui == 9 || iniciaAqui == 15 || iniciaAqui == 21 || iniciaAqui == 27 || iniciaAqui == 33)
-                        {
-                            d = iniciaAqui;
-                            if (d == oculosIndex.prop2DInd)
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(true);
-                            }
-                            else
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(false);
-                            }
-                            botaoDeModelo[i].gameObject.SetActive(true);//está sendo ativado aqui porque se não quando passa do limite não funciona
-                            botaoDeModelo[i].image.sprite = spriteOculos[iniciaAqui];
-                            botaoDeModelo[i].onClick.AddListener(delegate { QualParteVaiMudar(qualParteVaiSer, d); });
-                            botaoDeModelo[i].onClick.AddListener(delegate { AtivaCirculoVerde(d, 3, oculosIndex); });
-                        }
-                        else if (iniciaAqui == 4 || iniciaAqui == 10 || iniciaAqui == 16 || iniciaAqui == 22 || iniciaAqui == 28 || iniciaAqui == 34)
-                        {
-                            e = iniciaAqui;
-                            if (e == oculosIndex.prop2DInd)
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(true);
-                            }
-                            else
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(false);
-                            }
-                            botaoDeModelo[i].gameObject.SetActive(true);//está sendo ativado aqui porque se não quando passa do limite não funciona
-                            botaoDeModelo[i].image.sprite = spriteOculos[iniciaAqui];
-                            botaoDeModelo[i].onClick.AddListener(delegate { QualParteVaiMudar(qualParteVaiSer, e); });
-                            botaoDeModelo[i].onClick.AddListener(delegate { AtivaCirculoVerde(e, 4, oculosIndex); });
-                        }
-                        else if (iniciaAqui == 5 || iniciaAqui == 11 || iniciaAqui == 17 || iniciaAqui == 23 || iniciaAqui == 29 || iniciaAqui == 35)
-                        {
-                            f = iniciaAqui;
-                            if (f == oculosIndex.prop2DInd)
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(true);
-                            }
-                            else
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(false);
-                            }
-                            botaoDeModelo[i].gameObject.SetActive(true);//está sendo ativado aqui porque se não quando passa do limite não funciona
-                            botaoDeModelo[i].image.sprite = spriteOculos[iniciaAqui];
-                            botaoDeModelo[i].onClick.AddListener(delegate { QualParteVaiMudar(qualParteVaiSer, f); });
-                            botaoDeModelo[i].onClick.AddListener(delegate { AtivaCirculoVerde(f, 5, oculosIndex); });
-                        }
-                    }
-                    break;
-                case 6:
-                    if (iniciaAqui < spriteDelineado.Length)
-                    {
-                        if (iniciaAqui == 0 || iniciaAqui == 6 || iniciaAqui == 12 || iniciaAqui == 18 || iniciaAqui == 24 || iniciaAqui == 30)
-                        {
-                            a = iniciaAqui;
-                            if (a == ciliosIndex.prop2DInd)
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(true);
-                            }
-                            else
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(false);
-                            }
-                            botaoDeModelo[i].gameObject.SetActive(true);//está sendo ativado aqui porque se não quando passa do limite não funciona
-                            botaoDeModelo[i].image.sprite = spriteDelineado[iniciaAqui];
-                            botaoDeModelo[i].onClick.AddListener(delegate { QualParteVaiMudar(qualParteVaiSer, a); });
-                            botaoDeModelo[i].onClick.AddListener(delegate { AtivaCirculoVerde(a, 0, ciliosIndex); });
-                        }
-                        else if (iniciaAqui == 1 || iniciaAqui == 7 || iniciaAqui == 13 || iniciaAqui == 19 || iniciaAqui == 25 || iniciaAqui == 31)
-                        {
-                            b = iniciaAqui;
-                            if (b == ciliosIndex.prop2DInd)
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(true);
-                            }
-                            else
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(false);
-                            }
-                            botaoDeModelo[i].gameObject.SetActive(true);//está sendo ativado aqui porque se não quando passa do limite não funciona
-                            botaoDeModelo[i].image.sprite = spriteDelineado[iniciaAqui];
-                            botaoDeModelo[i].onClick.AddListener(delegate { QualParteVaiMudar(qualParteVaiSer, b); });
-                            botaoDeModelo[i].onClick.AddListener(delegate { AtivaCirculoVerde(b, 1, ciliosIndex); });
-                        }
-                        else if (iniciaAqui == 2 || iniciaAqui == 8 || iniciaAqui == 14 || iniciaAqui == 20 || iniciaAqui == 26 || iniciaAqui == 32)
-                        {
-                            c = iniciaAqui;
-                            if (c == ciliosIndex.prop2DInd)
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(true);
-                            }
-                            else
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(false);
-                            }
-                            botaoDeModelo[i].gameObject.SetActive(true);//está sendo ativado aqui porque se não quando passa do limite não funciona
-                            botaoDeModelo[i].image.sprite = spriteDelineado[iniciaAqui];
-                            botaoDeModelo[i].onClick.AddListener(delegate { QualParteVaiMudar(qualParteVaiSer, c); });
-                            botaoDeModelo[i].onClick.AddListener(delegate { AtivaCirculoVerde(c, 2, ciliosIndex); });
-                        }
-                        else if (iniciaAqui == 3 || iniciaAqui == 9 || iniciaAqui == 15 || iniciaAqui == 21 || iniciaAqui == 27 || iniciaAqui == 33)
-                        {
-                            d = iniciaAqui;
-                            if (d == ciliosIndex.prop2DInd)
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(true);
-                            }
-                            else
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(false);
-                            }
-                            botaoDeModelo[i].gameObject.SetActive(true);//está sendo ativado aqui porque se não quando passa do limite não funciona
-                            botaoDeModelo[i].image.sprite = spriteDelineado[iniciaAqui];
-                            botaoDeModelo[i].onClick.AddListener(delegate { QualParteVaiMudar(qualParteVaiSer, d); });
-                            botaoDeModelo[i].onClick.AddListener(delegate { AtivaCirculoVerde(d, 3, ciliosIndex); });
-                        }
-                        else if (iniciaAqui == 4 || iniciaAqui == 10 || iniciaAqui == 16 || iniciaAqui == 22 || iniciaAqui == 28 || iniciaAqui == 34)
-                        {
-                            e = iniciaAqui;
-                            if (e == ciliosIndex.prop2DInd)
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(true);
-                            }
-                            else
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(false);
-                            }
-                            botaoDeModelo[i].gameObject.SetActive(true);//está sendo ativado aqui porque se não quando passa do limite não funciona
-                            botaoDeModelo[i].image.sprite = spriteDelineado[iniciaAqui];
-                            botaoDeModelo[i].onClick.AddListener(delegate { QualParteVaiMudar(qualParteVaiSer, e); });
-                            botaoDeModelo[i].onClick.AddListener(delegate { AtivaCirculoVerde(e, 4, ciliosIndex); });
-                        }
-                        else if (iniciaAqui == 5 || iniciaAqui == 11 || iniciaAqui == 17 || iniciaAqui == 23 || iniciaAqui == 29 || iniciaAqui == 35)
-                        {
-                            f = iniciaAqui;
-                            if (f == ciliosIndex.prop2DInd)
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(true);
-                            }
-                            else
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(false);
-                            }
-                            botaoDeModelo[i].gameObject.SetActive(true);//está sendo ativado aqui porque se não quando passa do limite não funciona
-                            botaoDeModelo[i].image.sprite = spriteDelineado[iniciaAqui];
-                            botaoDeModelo[i].onClick.AddListener(delegate { QualParteVaiMudar(qualParteVaiSer, f); });
-                            botaoDeModelo[i].onClick.AddListener(delegate { AtivaCirculoVerde(f, 5, ciliosIndex); });
-                        }
-                    }
-                    break;
-                case 7:
-                    if (iniciaAqui < spriteMascara.Length)
-                    {
-                        if (iniciaAqui == 0 || iniciaAqui == 6 || iniciaAqui == 12 || iniciaAqui == 18 || iniciaAqui == 24 || iniciaAqui == 30)
-                        {
-                            a = iniciaAqui;
-                            if (a == maskIndex.prop2DInd)
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(true);
-                            }
-                            else
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(false);
-                            }
-                            botaoDeModelo[i].gameObject.SetActive(true);//está sendo ativado aqui porque se não quando passa do limite não funciona
-                            botaoDeModelo[i].image.sprite = spriteMascara[iniciaAqui];
-                            botaoDeModelo[i].onClick.AddListener(delegate { QualParteVaiMudar(qualParteVaiSer, a); });
-                            botaoDeModelo[i].onClick.AddListener(delegate { AtivaCirculoVerde(a, 0, maskIndex); });
-                        }
-                        else if (iniciaAqui == 1 || iniciaAqui == 7 || iniciaAqui == 13 || iniciaAqui == 19 || iniciaAqui == 25 || iniciaAqui == 31)
-                        {
-                            b = iniciaAqui;
-                            if (b == maskIndex.prop2DInd)
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(true);
-                            }
-                            else
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(false);
-                            }
-                            botaoDeModelo[i].gameObject.SetActive(true);//está sendo ativado aqui porque se não quando passa do limite não funciona
-                            botaoDeModelo[i].image.sprite = spriteMascara[iniciaAqui];
-                            botaoDeModelo[i].onClick.AddListener(delegate { QualParteVaiMudar(qualParteVaiSer, b); });
-                            botaoDeModelo[i].onClick.AddListener(delegate { AtivaCirculoVerde(b, 1, maskIndex); });
-                        }
-                        else if (iniciaAqui == 2 || iniciaAqui == 8 || iniciaAqui == 14 || iniciaAqui == 20 || iniciaAqui == 26 || iniciaAqui == 32)
-                        {
-                            c = iniciaAqui;
-                            if (c == maskIndex.prop2DInd)
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(true);
-                            }
-                            else
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(false);
-                            }
-                            botaoDeModelo[i].gameObject.SetActive(true);//está sendo ativado aqui porque se não quando passa do limite não funciona
-                            botaoDeModelo[i].image.sprite = spriteMascara[iniciaAqui];
-                            botaoDeModelo[i].onClick.AddListener(delegate { QualParteVaiMudar(qualParteVaiSer, c); });
-                            botaoDeModelo[i].onClick.AddListener(delegate { AtivaCirculoVerde(c, 2, maskIndex); });
-                        }
-                        else if (iniciaAqui == 3 || iniciaAqui == 9 || iniciaAqui == 15 || iniciaAqui == 21 || iniciaAqui == 27 || iniciaAqui == 33)
-                        {
-                            d = iniciaAqui;
-                            if (d == maskIndex.prop2DInd)
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(true);
-                            }
-                            else
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(false);
-                            }
-                            botaoDeModelo[i].gameObject.SetActive(true);//está sendo ativado aqui porque se não quando passa do limite não funciona
-                            botaoDeModelo[i].image.sprite = spriteMascara[iniciaAqui];
-                            botaoDeModelo[i].onClick.AddListener(delegate { QualParteVaiMudar(qualParteVaiSer, d); });
-                            botaoDeModelo[i].onClick.AddListener(delegate { AtivaCirculoVerde(d, 3, maskIndex); });
-                        }
-                        else if (iniciaAqui == 4 || iniciaAqui == 10 || iniciaAqui == 16 || iniciaAqui == 22 || iniciaAqui == 28 || iniciaAqui == 34)
-                        {
-                            e = iniciaAqui;
-                            if (e == maskIndex.prop2DInd)
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(true);
-                            }
-                            else
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(false);
-                            }
-                            botaoDeModelo[i].gameObject.SetActive(true);//está sendo ativado aqui porque se não quando passa do limite não funciona
-                            botaoDeModelo[i].image.sprite = spriteMascara[iniciaAqui];
-                            botaoDeModelo[i].onClick.AddListener(delegate { QualParteVaiMudar(qualParteVaiSer, e); });
-                            botaoDeModelo[i].onClick.AddListener(delegate { AtivaCirculoVerde(e, 4, maskIndex); });
-                        }
-                        else if (iniciaAqui == 5 || iniciaAqui == 11 || iniciaAqui == 17 || iniciaAqui == 23 || iniciaAqui == 29 || iniciaAqui == 35)
-                        {
-                            f = iniciaAqui;
-                            if (f == maskIndex.prop2DInd)
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(true);
-                            }
-                            else
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(false);
-                            }
-                            botaoDeModelo[i].gameObject.SetActive(true);//está sendo ativado aqui porque se não quando passa do limite não funciona
-                            botaoDeModelo[i].image.sprite = spriteMascara[iniciaAqui];
-                            botaoDeModelo[i].onClick.AddListener(delegate { QualParteVaiMudar(qualParteVaiSer, f); });
-                            botaoDeModelo[i].onClick.AddListener(delegate { AtivaCirculoVerde(f, 5, maskIndex); });
-                        }
-                    }
-                    break;
-                case 8:
-                    if (iniciaAqui < spriteBone.Length)
-                    {
-                        if (iniciaAqui == 0 || iniciaAqui == 6 || iniciaAqui == 12 || iniciaAqui == 18 || iniciaAqui == 24 || iniciaAqui == 30)
-                        {
-                            a = iniciaAqui;
-                            if (a == boneIndex.prop2DInd)
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(true);
-                            }
-                            else
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(false);
-                            }
-                            botaoDeModelo[i].gameObject.SetActive(true);//está sendo ativado aqui porque se não quando passa do limite não funciona
-                            botaoDeModelo[i].image.sprite = spriteBone[iniciaAqui];
-                            botaoDeModelo[i].onClick.AddListener(delegate { QualParteVaiMudar(qualParteVaiSer, a); });
-                            botaoDeModelo[i].onClick.AddListener(delegate { AtivaCirculoVerde(a, 0, boneIndex); });
-                        }
-                        else if (iniciaAqui == 1 || iniciaAqui == 7 || iniciaAqui == 13 || iniciaAqui == 19 || iniciaAqui == 25 || iniciaAqui == 31)
-                        {
-                            b = iniciaAqui;
-                            if (b == boneIndex.prop2DInd)
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(true);
-                            }
-                            else
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(false);
-                            }
-                            botaoDeModelo[i].gameObject.SetActive(true);//está sendo ativado aqui porque se não quando passa do limite não funciona
-                            botaoDeModelo[i].image.sprite = spriteBone[iniciaAqui];
-                            botaoDeModelo[i].onClick.AddListener(delegate { QualParteVaiMudar(qualParteVaiSer, b); });
-                            botaoDeModelo[i].onClick.AddListener(delegate { AtivaCirculoVerde(b, 1, boneIndex); });
-                        }
-                        else if (iniciaAqui == 2 || iniciaAqui == 8 || iniciaAqui == 14 || iniciaAqui == 20 || iniciaAqui == 26 || iniciaAqui == 32)
-                        {
-                            c = iniciaAqui;
-                            if (c == boneIndex.prop2DInd)
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(true);
-                            }
-                            else
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(false);
-                            }
-                            botaoDeModelo[i].gameObject.SetActive(true);//está sendo ativado aqui porque se não quando passa do limite não funciona
-                            botaoDeModelo[i].image.sprite = spriteBone[iniciaAqui];
-                            botaoDeModelo[i].onClick.AddListener(delegate { QualParteVaiMudar(qualParteVaiSer, c); });
-                            botaoDeModelo[i].onClick.AddListener(delegate { AtivaCirculoVerde(c, 2, boneIndex); });
-                        }
-                        else if (iniciaAqui == 3 || iniciaAqui == 9 || iniciaAqui == 15 || iniciaAqui == 21 || iniciaAqui == 27 || iniciaAqui == 33)
-                        {
-                            d = iniciaAqui;
-                            if (d == boneIndex.prop2DInd)
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(true);
-                            }
-                            else
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(false);
-                            }
-                            botaoDeModelo[i].gameObject.SetActive(true);//está sendo ativado aqui porque se não quando passa do limite não funciona
-                            botaoDeModelo[i].image.sprite = spriteBone[iniciaAqui];
-                            botaoDeModelo[i].onClick.AddListener(delegate { QualParteVaiMudar(qualParteVaiSer, d); });
-                            botaoDeModelo[i].onClick.AddListener(delegate { AtivaCirculoVerde(d, 3, boneIndex); });
-                        }
-                        else if (iniciaAqui == 4 || iniciaAqui == 10 || iniciaAqui == 16 || iniciaAqui == 22 || iniciaAqui == 28 || iniciaAqui == 34)
-                        {
-                            e = iniciaAqui;
-                            if (e == boneIndex.prop2DInd)
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(true);
-                            }
-                            else
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(false);
-                            }
-                            botaoDeModelo[i].gameObject.SetActive(true);//está sendo ativado aqui porque se não quando passa do limite não funciona
-                            botaoDeModelo[i].image.sprite = spriteBone[iniciaAqui];
-                            botaoDeModelo[i].onClick.AddListener(delegate { QualParteVaiMudar(qualParteVaiSer, e); });
-                            botaoDeModelo[i].onClick.AddListener(delegate { AtivaCirculoVerde(e, 4, boneIndex); });
-                        }
-                        else if (iniciaAqui == 5 || iniciaAqui == 11 || iniciaAqui == 17 || iniciaAqui == 23 || iniciaAqui == 29 || iniciaAqui == 35)
-                        {
-                            f = iniciaAqui;
-                            if (f == boneIndex.prop2DInd)
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(true);
-                            }
-                            else
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(false);
-                            }
-                            botaoDeModelo[i].gameObject.SetActive(true);//está sendo ativado aqui porque se não quando passa do limite não funciona
-                            botaoDeModelo[i].image.sprite = spriteBone[iniciaAqui];
-                            botaoDeModelo[i].onClick.AddListener(delegate { QualParteVaiMudar(qualParteVaiSer, f); });
-                            botaoDeModelo[i].onClick.AddListener(delegate { AtivaCirculoVerde(f, 5, boneIndex); });
-                        }
-                    }
-                    break;
-                case 9:
-                    if (iniciaAqui < spriteSkin.Length)
-                    {
-                        if (iniciaAqui == 0 || iniciaAqui == 6 || iniciaAqui == 12 || iniciaAqui == 18 || iniciaAqui == 24 || iniciaAqui == 30)
-                        {
-                            a = iniciaAqui;
-                            if (a == skinInd.prop2DInd)
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(true);
-                            }
-                            else
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(false);
-                            }
-                            botaoDeModelo[i].gameObject.SetActive(true);//está sendo ativado aqui porque se não quando passa do limite não funciona
-                            botaoDeModelo[i].image.sprite = spriteSkin[iniciaAqui];
-                            botaoDeModelo[i].onClick.AddListener(delegate { QualParteVaiMudar(qualParteVaiSer, a); });
-                            botaoDeModelo[i].onClick.AddListener(delegate { AtivaCirculoVerde(a, 0, skinInd); });
-                        }
-                        else if (iniciaAqui == 1 || iniciaAqui == 7 || iniciaAqui == 13 || iniciaAqui == 19 || iniciaAqui == 25 || iniciaAqui == 31)
-                        {
-                            b = iniciaAqui;
-                            if (b == skinInd.prop2DInd)
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(true);
-                            }
-                            else
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(false);
-                            }
-                            botaoDeModelo[i].gameObject.SetActive(true);//está sendo ativado aqui porque se não quando passa do limite não funciona
-                            botaoDeModelo[i].image.sprite = spriteSkin[iniciaAqui];
-                            botaoDeModelo[i].onClick.AddListener(delegate { QualParteVaiMudar(qualParteVaiSer, b); });
-                            botaoDeModelo[i].onClick.AddListener(delegate { AtivaCirculoVerde(b, 1, skinInd); });
-                        }
-                        else if (iniciaAqui == 2 || iniciaAqui == 8 || iniciaAqui == 14 || iniciaAqui == 20 || iniciaAqui == 26 || iniciaAqui == 32)
-                        {
-                            c = iniciaAqui;
-                            if (c == skinInd.prop2DInd)
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(true);
-                            }
-                            else
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(false);
-                            }
-                            botaoDeModelo[i].gameObject.SetActive(true);//está sendo ativado aqui porque se não quando passa do limite não funciona
-                            botaoDeModelo[i].image.sprite = spriteSkin[iniciaAqui];
-                            botaoDeModelo[i].onClick.AddListener(delegate { QualParteVaiMudar(qualParteVaiSer, c); });
-                            botaoDeModelo[i].onClick.AddListener(delegate { AtivaCirculoVerde(c, 2, skinInd); });
-                        }
-                        else if (iniciaAqui == 3 || iniciaAqui == 9 || iniciaAqui == 15 || iniciaAqui == 21 || iniciaAqui == 27 || iniciaAqui == 33)
-                        {
-                            d = iniciaAqui;
-                            if (d == skinInd.prop2DInd)
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(true);
-                            }
-                            else
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(false);
-                            }
-                            botaoDeModelo[i].gameObject.SetActive(true);//está sendo ativado aqui porque se não quando passa do limite não funciona
-                            botaoDeModelo[i].image.sprite = spriteSkin[iniciaAqui];
-                            botaoDeModelo[i].onClick.AddListener(delegate { QualParteVaiMudar(qualParteVaiSer, d); });
-                            botaoDeModelo[i].onClick.AddListener(delegate { AtivaCirculoVerde(d, 3, skinInd); });
-                        }
-                        else if (iniciaAqui == 4 || iniciaAqui == 10 || iniciaAqui == 16 || iniciaAqui == 22 || iniciaAqui == 28 || iniciaAqui == 34)
-                        {
-                            e = iniciaAqui;
-                            if (e == skinInd.prop2DInd)
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(true);
-                            }
-                            else
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(false);
-                            }
-                            botaoDeModelo[i].gameObject.SetActive(true);//está sendo ativado aqui porque se não quando passa do limite não funciona
-                            botaoDeModelo[i].image.sprite = spriteSkin[iniciaAqui];
-                            botaoDeModelo[i].onClick.AddListener(delegate { QualParteVaiMudar(qualParteVaiSer, e); });
-                            botaoDeModelo[i].onClick.AddListener(delegate { AtivaCirculoVerde(e, 4, skinInd); });
-                        }
-                        else if (iniciaAqui == 5 || iniciaAqui == 11 || iniciaAqui == 17 || iniciaAqui == 23 || iniciaAqui == 29 || iniciaAqui == 35)
-                        {
-                            f = iniciaAqui;
-                            if (f == skinInd.prop2DInd)
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(true);
-                            }
-                            else
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(false);
-                            }
-                            botaoDeModelo[i].gameObject.SetActive(true);//está sendo ativado aqui porque se não quando passa do limite não funciona
-                            botaoDeModelo[i].image.sprite = spriteSkin[iniciaAqui];
-                            botaoDeModelo[i].onClick.AddListener(delegate { QualParteVaiMudar(qualParteVaiSer, f); });
-                            botaoDeModelo[i].onClick.AddListener(delegate { AtivaCirculoVerde(f, 5, skinInd); });
-                        }
-                    }
-                    break;
-                case 10:
-                    if (iniciaAqui < spritePupila.Length)
-                    {
-                        if (iniciaAqui == 0 || iniciaAqui == 6 || iniciaAqui == 12 || iniciaAqui == 18 || iniciaAqui == 24 || iniciaAqui == 30)
-                        {
-                            a = iniciaAqui;
-                            if (a == pupilaInd.prop2DInd)
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(true);
-                            }
-                            else
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(false);
-                            }
-                            botaoDeModelo[i].gameObject.SetActive(true);//está sendo ativado aqui porque se não quando passa do limite não funciona
-                            botaoDeModelo[i].image.sprite = spritePupila[iniciaAqui];
-                            botaoDeModelo[i].onClick.AddListener(delegate { QualParteVaiMudar(qualParteVaiSer, a); });
-                            botaoDeModelo[i].onClick.AddListener(delegate { AtivaCirculoVerde(a, 0, pupilaInd); });
-                        }
-                        else if (iniciaAqui == 1 || iniciaAqui == 7 || iniciaAqui == 13 || iniciaAqui == 19 || iniciaAqui == 25 || iniciaAqui == 31)
-                        {
-                            b = iniciaAqui;
-                            if (b == pupilaInd.prop2DInd)
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(true);
-                            }
-                            else
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(false);
-                            }
-                            botaoDeModelo[i].gameObject.SetActive(true);//está sendo ativado aqui porque se não quando passa do limite não funciona
-                            botaoDeModelo[i].image.sprite = spritePupila[iniciaAqui];
-                            botaoDeModelo[i].onClick.AddListener(delegate { QualParteVaiMudar(qualParteVaiSer, b); });
-                            botaoDeModelo[i].onClick.AddListener(delegate { AtivaCirculoVerde(b, 1, pupilaInd); });
-                        }
-                        else if (iniciaAqui == 2 || iniciaAqui == 8 || iniciaAqui == 14 || iniciaAqui == 20 || iniciaAqui == 26 || iniciaAqui == 32)
-                        {
-                            c = iniciaAqui;
-                            if (c == pupilaInd.prop2DInd)
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(true);
-                            }
-                            else
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(false);
-                            }
-                            botaoDeModelo[i].gameObject.SetActive(true);//está sendo ativado aqui porque se não quando passa do limite não funciona
-                            botaoDeModelo[i].image.sprite = spritePupila[iniciaAqui];
-                            botaoDeModelo[i].onClick.AddListener(delegate { QualParteVaiMudar(qualParteVaiSer, c); });
-                            botaoDeModelo[i].onClick.AddListener(delegate { AtivaCirculoVerde(c, 2, pupilaInd); });
-                        }
-                        else if (iniciaAqui == 3 || iniciaAqui == 9 || iniciaAqui == 15 || iniciaAqui == 21 || iniciaAqui == 27 || iniciaAqui == 33)
-                        {
-                            d = iniciaAqui;
-                            if (d == pupilaInd.prop2DInd)
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(true);
-                            }
-                            else
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(false);
-                            }
-                            botaoDeModelo[i].gameObject.SetActive(true);//está sendo ativado aqui porque se não quando passa do limite não funciona
-                            botaoDeModelo[i].image.sprite = spritePupila[iniciaAqui];
-                            botaoDeModelo[i].onClick.AddListener(delegate { QualParteVaiMudar(qualParteVaiSer, d); });
-                            botaoDeModelo[i].onClick.AddListener(delegate { AtivaCirculoVerde(d, 3, pupilaInd); });
-                        }
-                        else if (iniciaAqui == 4 || iniciaAqui == 10 || iniciaAqui == 16 || iniciaAqui == 22 || iniciaAqui == 28 || iniciaAqui == 34)
-                        {
-                            e = iniciaAqui;
-                            if (e == pupilaInd.prop2DInd)
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(true);
-                            }
-                            else
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(false);
-                            }
-                            botaoDeModelo[i].gameObject.SetActive(true);//está sendo ativado aqui porque se não quando passa do limite não funciona
-                            botaoDeModelo[i].image.sprite = spritePupila[iniciaAqui];
-                            botaoDeModelo[i].onClick.AddListener(delegate { QualParteVaiMudar(qualParteVaiSer, e); });
-                            botaoDeModelo[i].onClick.AddListener(delegate { AtivaCirculoVerde(e, 4, pupilaInd); });
-                        }
-                        else if (iniciaAqui == 5 || iniciaAqui == 11 || iniciaAqui == 17 || iniciaAqui == 23 || iniciaAqui == 29 || iniciaAqui == 35)
-                        {
-                            f = iniciaAqui;
-                            if (f == pupilaInd.prop2DInd)
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(true);
-                            }
-                            else
-                            {
-                                circuloDeSelecaoModelo[i].SetActive(false);
-                            }
-                            botaoDeModelo[i].gameObject.SetActive(true);//está sendo ativado aqui porque se não quando passa do limite não funciona
-                            botaoDeModelo[i].image.sprite = spritePupila[iniciaAqui];
-                            botaoDeModelo[i].onClick.AddListener(delegate { QualParteVaiMudar(qualParteVaiSer, f); });
-                            botaoDeModelo[i].onClick.AddListener(delegate { AtivaCirculoVerde(f, 5, pupilaInd); });
-                        }
-                    }
-                    break;
-            }
-            iniciaAqui++;
-        }
-        ativaParametro = false;
-    }
+		int a, b, c, d, e, f;
 
 
-    public void AtivaCirculoVerde(int qualCirculo, int qualDosSeis, Prop2D qualProp)
-    {
-        for (int i = 0; i < circuloDeSelecaoModelo.Length; i++)
-        {
-            if(qualProp.prop2DInd == qualCirculo && i == qualDosSeis)
-            {
-                circuloDeSelecaoModelo[i].gameObject.SetActive(true);
-            }
-            else
-            {
-                circuloDeSelecaoModelo[i].gameObject.SetActive(false);
-            }
-        }
-    }
+		if (ativaParametro == true)
+		{
+			iniciaAqui = comecaAqui;
+		}
+
+		//Desativa todos os game objects para caso algum deles tenha ficado ativo sem querer
+		for (int k = 0; k < botaoDeModelo.Length; k++)
+		{
+			botaoDeModelo[k].gameObject.SetActive(false);
+			botaoDeModelo[k].onClick.RemoveAllListeners();
+		}
+
+		for (int i = 0; i < quantidadeDeModelos; i++)
+		{
+			
+			switch (qualParteVaiSer)//Decide qual sprite vai aparecer nos botões de Modelo
+			{
+
+				case 1:
+					if (iniciaAqui < spriteCabelo.Length)
+					{
+						SwitchIniciaAqui(iniciaAqui, i, spriteCabelo, hairInd);
+					}
+					break;
+				case 2:
+					if (iniciaAqui < spriteShirt.Length)
+					{
+						SwitchIniciaAqui(iniciaAqui, i, spriteShirt, shirtInd);
+					}
+					break;
+				case 3:
+					if (iniciaAqui < spriteTenis.Length)
+					{
+						SwitchIniciaAqui(iniciaAqui, i, spriteTenis, shoesInd);
+					}
+					break;
+				case 4:
+					if (iniciaAqui < spriteShorts.Length)
+					{
+						SwitchIniciaAqui(iniciaAqui, i, spriteShorts, shortsInd);
+					}
+					break;
+				case 5:
+					if (iniciaAqui < spriteOculos.Length)
+					{
+						SwitchIniciaAqui(iniciaAqui, i, spriteOculos, oculosIndex);
+					}
+					break;
+				case 6:
+					if (iniciaAqui < spriteDelineado.Length)
+					{
+						SwitchIniciaAqui(iniciaAqui, i, spriteDelineado, ciliosIndex);
+					}
+					break;
+				case 7:
+					if (iniciaAqui < spriteMascara.Length)
+					{
+						SwitchIniciaAqui(iniciaAqui, i, spriteMascara, maskIndex);
+					}
+					break;
+				case 8:
+					if (iniciaAqui < spriteBone.Length)
+					{
+						SwitchIniciaAqui(iniciaAqui, i, spriteBone, boneIndex);
+					}
+					break;
+				case 9:
+					if (iniciaAqui < spriteSkin.Length)
+					{
+						SwitchIniciaAqui(iniciaAqui, i, spriteSkin, skinInd);
+					}
+					break;
+				case 10:
+					if (iniciaAqui < spritePupila.Length)
+					{
+						SwitchIniciaAqui(iniciaAqui, i, spritePupila, pupilaInd);
+					}
+					break;
+			}
+			iniciaAqui++;
+		}
+		ativaParametro = false;
+	}
+
+
+	
+
+	private void SwitchIniciaAqui(int iniciaAqui, int index, Sprite[] sprite, Prop2D propIndex)
+	{
+		switch (iniciaAqui)
+		{
+			case 0:
+			case 6:
+			case 12:
+			case 18:
+			case 24:
+			case 30:
+
+				buttonManage(iniciaAqui, 0, index, sprite, propIndex);
+				break;
+
+			case 1:
+			case 7:
+			case 13:
+			case 19:
+			case 25:
+			case 31:
+
+				buttonManage(iniciaAqui, 1, index, sprite, propIndex);
+				break;
+
+			case 2:
+			case 8:
+			case 14:
+			case 20:
+			case 26:
+			case 32:
+
+				buttonManage(iniciaAqui, 2, index, sprite, propIndex);
+				break;
+
+			case 3:
+			case 9:
+			case 15:
+			case 21:
+			case 27:
+			case 33:
+
+				buttonManage(iniciaAqui, 3, index, sprite, propIndex);
+
+				break;
+
+			case 4:
+			case 10:
+			case 16:
+			case 22:
+			case 28:
+			case 34:
+
+				buttonManage(iniciaAqui, 4, index, sprite, propIndex);
+
+				break;
+
+			case 5:
+			case 11:
+			case 17:
+			case 23:
+			case 29:
+			case 35:
+
+				buttonManage(iniciaAqui, 5, index, sprite, propIndex);
+
+				break;
+		}
+
+	}
+
+	private void buttonManage(int iniciaAqui, int numero, int index, Sprite[] sprite, Prop2D propIndex)
+	{
+
+		circuloDeSelecaoModelo[index].SetActive(iniciaAqui == propIndex.prop2DInd);
+
+		botaoDeModelo[index].gameObject.SetActive(true);//está sendo ativado aqui porque se não quando passa do limite não funciona
+		botaoDeModelo[index].image.sprite = sprite[iniciaAqui];
+		botaoDeModelo[index].onClick.AddListener(delegate { QualParteVaiMudar(qualParteVaiSer, iniciaAqui); });
+		botaoDeModelo[index].onClick.AddListener(delegate { AtivaCirculoVerde(iniciaAqui, numero, propIndex); });
+		if (blocked.Value(qualParteVaiSer - 1, iniciaAqui))
+		{
+			
+			buttonBuy[index] = Instantiate(buttonBuyPrefab, botaoDeModelo[index].gameObject.transform);
+		}
+
+	}
+
+	
+	public void AtivaCirculoVerde(int qualCirculo, int qualDosSeis, Prop2D qualProp)
+	{
+		for (int i = 0; i < circuloDeSelecaoModelo.Length; i++)
+		{
+			if (qualProp.prop2DInd == qualCirculo && i == qualDosSeis)
+			{
+				circuloDeSelecaoModelo[i].gameObject.SetActive(true);
+			}
+			else
+			{
+				circuloDeSelecaoModelo[i].gameObject.SetActive(false);
+			}
+		}
+	}
 
 
 
-    public void SetMinLoop(int min)
-    {
-        maximoLoop = min;
-    }
-    public void SetMaxLoop(int max)
-    {
-        maximoLoop = max;
-    }
+	public void SetMinLoop(int min)
+	{
+		maximoLoop = min;
+	}
+	public void SetMaxLoop(int max)
+	{
+		maximoLoop = max;
+	}
 
 
-    public void FrocaModeloLimite(int quantos)
-    {
-        quantidadeDeModelos = quantos;
-    }
+	public void FrocaModeloLimite(int quantos)
+	{
+		quantidadeDeModelos = quantos;
+	}
 
 
-    public void ChangeMenu(int muda)
-    {
-        qualMenu += muda;
-    }
+	public void ChangeMenu(int muda)
+	{
+		qualMenu += muda;
+		if (buttonBuy.Length >= 1)
+		{
+			for (int i = 0; i < buttonBuy.Length; i++)
+			{
+				Destroy(buttonBuy[i]);
+			}
+		}
+		
+	}
 
-    public void QuaisModelosEstaMostrando()
-    {
-        //Lembrar de resetar o valor de "qualMenu" quando mudar de menu
-        if(qualMenu > maximoLoop)
-        {
-            qualMenu = 1;
-        }else if(qualMenu < minimoLoop)
-        {
-            qualMenu = maximoLoop;
-        }
+	public void QuaisModelosEstaMostrando()
+	{
+		//Lembrar de resetar o valor de "qualMenu" quando mudar de menu
+		if (qualMenu > maximoLoop)
+		{
+			qualMenu = 1;
+		}
+		else if (qualMenu < minimoLoop)
+		{
+			qualMenu = maximoLoop;
+		}
 
-        switch (qualMenu)
-        {
-            case 1:
-                comecaAqui = 0;
-                break;
-            case 2:
-                comecaAqui = 6;
-                break;
-            case 3:
-                comecaAqui = 12;
-                break;
-            case 4:
-                comecaAqui = 18;
-                break;
-            case 5:
-                comecaAqui = 24;
-                break;
-            case 6:
-                comecaAqui = 30;
-                break;
-        }
-    }
-
-
-
-
-
-
-
-
-    public void QualParteVaiMudar(int selectedPart, int index)//Envia a escolha de forma definitiva do resultado da combinação (Parte, Modelo e Cor) e efetiva no personagem
-    {
-        switch (selectedPart)
-        {
-            case 1:
-                customizaScript.ChangeSobrancelha(qualSobrancelhaCabelo[index]);
-                customizaScript.ChangeHair(index);
-                customizaScript.ChangeBone(10);
-                break;
-            case 2:
-                customizaScript.ChangeShirt(index);
-                break;
-            case 3:
-                customizaScript.ChangeShoes(index);
-                break;
-            case 4:
-                customizaScript.ChangeShort(index);
-                break;
-            case 5:
-                customizaScript.ChangeOculos(index);
-                //customizaScript.ChangeCilios(0);
-                break;
-            case 6:
-                customizaScript.ChangeOculos(0);
-                customizaScript.ChangeCilios(index);
-                break;
-            case 7:
-                customizaScript.ChangeMask(index);
-                break;
-            case 8:
-                customizaScript.ChangeSobrancelha(qualSobrancelhaBone[index]);
-                customizaScript.ChangeHair(21);
-                customizaScript.ChangeBone(index);
-                break;
-            case 9:
-                customizaScript.ChangeSkin(index);
-                break;
-            case 10:
-                customizaScript.ChangePupila(index);
-                break;
-        }
-    }
+		switch (qualMenu)
+		{
+			case 1:
+				comecaAqui = 0;
+				break;
+			case 2:
+				comecaAqui = 6;
+				break;
+			case 3:
+				comecaAqui = 12;
+				break;
+			case 4:
+				comecaAqui = 18;
+				break;
+			case 5:
+				comecaAqui = 24;
+				break;
+			case 6:
+				comecaAqui = 30;
+				break;
+		}
+	}
 
 
+	public void QualParteVaiMudar(int selectedPart, int index)//Envia a escolha de forma definitiva do resultado da combinação (Parte, Modelo e Cor) e efetiva no personagem
+	{
+		switch (selectedPart)
+		{
+			case 1:
+				customizaScript.ChangeSobrancelha(qualSobrancelhaCabelo[index]);
+				customizaScript.ChangeHair(index);
+				customizaScript.ChangeBone(10);
+				break;
+			case 2:
+				customizaScript.ChangeShirt(index);
+				break;
+			case 3:
+				customizaScript.ChangeShoes(index);
+				break;
+			case 4:
+				customizaScript.ChangeShort(index);
+				break;
+			case 5:
+				customizaScript.ChangeOculos(index);
+				//customizaScript.ChangeCilios(0);
+				break;
+			case 6:
+				customizaScript.ChangeOculos(0);
+				customizaScript.ChangeCilios(index);
+				break;
+			case 7:
+				customizaScript.ChangeMask(index);
+				break;
+			case 8:
+				customizaScript.ChangeSobrancelha(qualSobrancelhaBone[index]);
+				customizaScript.ChangeHair(21);
+				customizaScript.ChangeBone(index);
+				break;
+			case 9:
+				customizaScript.ChangeSkin(index);
+				break;
+			case 10:
+				customizaScript.ChangePupila(index);
+				break;
+		}
+	}
 
-
-
-
-
-
-    /// <QualParte>
-    /// 
-    /// Indica para os botões de Modelo (2 Level) qual das partes foi selecionada (Cabelo, Camisa, Calça,
-    /// Sapato) através da variavel "selectedPart" que pode ser alterada no inspector de cada botão (sendo
-    /// esses botões os botões do menu de Partes (1 Level)).
-    /// 
-    /// Além de também enviar a informação sobre quantas cores diferentes existem no modelo com mais 
-    /// variedade dessa parte (Função "QuantidadeDeCores")
-    /// 
-    /// </QualParte>
-    public void QualParte(int selectedPart) // Vai ter que informar através da porta, talvez separe em código
-    {
-        qualParteVaiSer = selectedPart;
-    }
+	/// <QualParte>
+	/// 
+	/// Indica para os botões de Modelo (2 Level) qual das partes foi selecionada (Cabelo, Camisa, Calça,
+	/// Sapato) através da variavel "selectedPart" que pode ser alterada no inspector de cada botão (sendo
+	/// esses botões os botões do menu de Partes (1 Level)).
+	/// 
+	/// Além de também enviar a informação sobre quantas cores diferentes existem no modelo com mais 
+	/// variedade dessa parte (Função "QuantidadeDeCores")
+	/// 
+	/// </QualParte>
+	public void QualParte(int selectedPart) // Vai ter que informar através da porta, talvez separe em código
+	{
+		qualParteVaiSer = selectedPart;
+	}
 }
-
