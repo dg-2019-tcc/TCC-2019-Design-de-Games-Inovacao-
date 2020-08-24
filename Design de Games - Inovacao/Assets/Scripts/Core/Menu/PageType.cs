@@ -10,7 +10,9 @@
             Options,
             Sound,
             Sticker,
-            InGame
+            InGame,
+            PlayerHUD,
+            Exit
         }
     }
 }

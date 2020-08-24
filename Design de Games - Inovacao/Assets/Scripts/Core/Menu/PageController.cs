@@ -33,7 +33,7 @@ namespace UnityCore
                         Debug.Log(pageAtiva);
                     }
 
-                    DontDestroyOnLoad(gameObject);
+                    //DontDestroyOnLoad(gameObject);
                 }
                 else
                 {

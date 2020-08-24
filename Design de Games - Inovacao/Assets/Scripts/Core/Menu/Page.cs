@@ -1,5 +1,7 @@
 ﻿using System.Collections;
+using UnityEngine.UI;
 using UnityEngine;
+using DG.Tweening;
 
 namespace UnityCore
 {
@@ -17,7 +19,8 @@ namespace UnityCore
             public bool useAnimation;
             public string targetState { get; private set;}
 
-            private Animator m_Animator;
+            //private Animator m_Animator;
+            private DOTweenAnim tweenAnim;
             private bool m_IsOn;
 
             public bool isOn
@@ -44,8 +47,15 @@ namespace UnityCore
             {
                 if (useAnimation)
                 {
-                    m_Animator.SetBool("on", _on);
-
+                    //m_Animator.SetBool("on", _on);
+                    if (_on)
+                    {
+                        tweenAnim.PageIn();
+                    }
+                    else
+                    {
+                        tweenAnim.PageOut();
+                    }
 
                     StopCoroutine("AwaitAnimation");
                     StartCoroutine("AwaitAnimation", _on);
@@ -66,11 +76,13 @@ namespace UnityCore
             #endregion
 
             #region Private Functions
+
             private IEnumerator AwaitAnimation(bool _on)
             {
                 targetState = _on ? FLAG_ON : FLAG_OFF;
 
-                // wait for the animator to reach the target state
+                yield return new WaitForSeconds(0.25f);
+                /*// wait for the animator to reach the target state
                 while (!m_Animator.GetCurrentAnimatorStateInfo(0).IsName(targetState))
                 {
                     yield return null;
@@ -81,7 +93,7 @@ namespace UnityCore
                 while(m_Animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1)
                 {
                     yield return null;
-                }
+                }*/
 
                 targetState = FLAG_None;
 
@@ -89,6 +101,7 @@ namespace UnityCore
 
                 if (!_on)
                 {
+                    //rectTransform.DOAnchorPos(posIni, 0.25f);
                     isOn = false;
                     gameObject.SetActive(false);
                 }
@@ -102,10 +115,10 @@ namespace UnityCore
             {
                 if (useAnimation)
                 {
-                    m_Animator = GetComponent<Animator>();
-                    if (!m_Animator)
+                    tweenAnim = GetComponent<DOTweenAnim>();
+                    if (tweenAnim == null)
                     {
-                        LogWarning("You opted to animate a page [" + type + "], but no Animator component existis on the object.");
+                        LogWarning("A page nao tem rect Transform");
                     }
                 }
             }
