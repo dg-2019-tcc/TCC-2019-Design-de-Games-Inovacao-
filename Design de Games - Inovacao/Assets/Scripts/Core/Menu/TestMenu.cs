@@ -13,11 +13,11 @@ namespace UnityCore
                 if (Input.GetKeyUp(KeyCode.F))
                 {
                     Debug.Log("Apertou F");
-                    pageController.TurnPageOn(PageType.Loading);
+                    pageController.TurnPageOn(PageType.Options);
                 }
                 if (Input.GetKeyUp(KeyCode.G))
                 {
-                    pageController.TurnPageOff(PageType.Loading);
+                    pageController.TurnPageOff(PageType.Options);
                 }
 
                 if (Input.GetKeyUp(KeyCode.H))
@@ -26,7 +26,7 @@ namespace UnityCore
                 }
                 if (Input.GetKeyUp(KeyCode.J))
                 {
-                    pageController.TurnPageOff(PageType.Loading, PageType.Menu, true);
+                    pageController.TurnPageOff(PageType.Menu, PageType.Options, true);
                 }
             }
 #endif

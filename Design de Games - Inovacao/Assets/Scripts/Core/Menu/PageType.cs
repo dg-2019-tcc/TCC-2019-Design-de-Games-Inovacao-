@@ -10,7 +10,8 @@
             Options,
             Sound,
             Sticker,
-            InGame
+            InGame,
+            Exit
         }
     }
 }
