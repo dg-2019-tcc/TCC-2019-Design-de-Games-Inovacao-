@@ -20,9 +20,7 @@ namespace UnityCore
             public string targetState { get; private set;}
 
             //private Animator m_Animator;
-            public UIAnimType uiAnimType;
-            private RectTransform rectTransform;
-            private Vector2 animDir;
+            private DOTweenAnim tweenAnim;
             private bool m_IsOn;
 
             public bool isOn
@@ -40,7 +38,6 @@ namespace UnityCore
             #region Unity Functions
             private void OnEnable()
             {
-                AnimDirection();
                 CheckAnimatorIntegrity();
             }
             #endregion
@@ -53,12 +50,11 @@ namespace UnityCore
                     //m_Animator.SetBool("on", _on);
                     if (_on)
                     {
-                        rectTransform.DOAnchorPos(Vector2.zero, 0.25f);
+                        tweenAnim.PageIn();
                     }
                     else
                     {
-                        rectTransform.DOAnchorPos(animDir, 0.25f);
-                        Debug.Log("nao ta _on");
+                        tweenAnim.PageOut();
                     }
 
                     StopCoroutine("AwaitAnimation");
@@ -80,27 +76,6 @@ namespace UnityCore
             #endregion
 
             #region Private Functions
-            private void AnimDirection()
-            {
-                switch (uiAnimType)
-                {
-                    case UIAnimType.Up:
-                        animDir = new Vector2(0, -1080);
-                        break;
-
-                    case UIAnimType.Down:
-                        animDir = new Vector2(0, 1080);
-                        break;
-
-                    case UIAnimType.Left:
-                        animDir = new Vector2(-2500, 0);
-                        break;
-
-                    case UIAnimType.Right:
-                        animDir = new Vector2(2500, 0);
-                        break;
-                }
-            }
 
             private IEnumerator AwaitAnimation(bool _on)
             {
@@ -140,16 +115,11 @@ namespace UnityCore
             {
                 if (useAnimation)
                 {
-                    rectTransform = GetComponent<RectTransform>();
-                    if (!rectTransform)
+                    tweenAnim = GetComponent<DOTweenAnim>();
+                    if (tweenAnim == null)
                     {
                         LogWarning("A page nao tem rect Transform");
                     }
-                   /* m_Animator = GetComponent<Animator>();
-                    if (!m_Animator)
-                    {
-                        LogWarning("You opted to animate a page [" + type + "], but no Animator component existis on the object.");
-                    }*/
                 }
             }
 

@@ -11,6 +11,7 @@
             Sound,
             Sticker,
             InGame,
+            PlayerHUD,
             Exit
         }
     }
