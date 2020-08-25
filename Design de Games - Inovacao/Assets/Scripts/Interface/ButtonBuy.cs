@@ -23,6 +23,7 @@ public class ButtonBuy : MonoBehaviour
 	public void LiberaCustom()
 	{
 		blocked.rows[x].row[y] = false;
+		//salvar no playerprefs, mas o playerprefs n aceita array por enquanto
 		Destroy(gameObject);
 	}
 }

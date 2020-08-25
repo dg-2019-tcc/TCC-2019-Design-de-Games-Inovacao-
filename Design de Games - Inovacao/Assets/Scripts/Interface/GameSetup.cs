@@ -13,11 +13,15 @@ public class GameSetup : MonoBehaviour
 
 	public TranslateVariable language;
 
+	public BoolVariableMatrix blocked;
+	public BoolVariableMatrix baseBlocked;
+
     void Start()
     {
 		LoadCoins();
 		SetVariables();
 		CheckWhichBuild();
+		CustomizationLocked();
 
 		textoDebug.text = "Plataforma atual: " + plataforma + "\n Build pra pc: " + buildPC.Value.ToString();
 	}
@@ -36,6 +40,18 @@ public class GameSetup : MonoBehaviour
 	private void SetVariables()
 	{
 		buildPC = Resources.Load<BoolVariable>("BuildPC");
+	}
+
+	private void CustomizationLocked()
+	{
+		if (!PlayerPrefs.HasKey("BlockedX"))
+		{
+			blocked.rows = baseBlocked.rows;
+		}
+		else
+		{
+			//pegar do playerprefs, mas o playerprefs n aceita array por hora
+		}
 	}
 
 
