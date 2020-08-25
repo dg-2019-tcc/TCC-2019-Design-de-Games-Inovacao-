@@ -8,6 +8,8 @@ public class SuperMarioSpriteMaskTransition : MonoBehaviour
 
 	public GameObject maskedSprite;
 
+	public int speed = 5;
+
     void Start()
     {
 		close.Value = false;
@@ -26,7 +28,7 @@ public class SuperMarioSpriteMaskTransition : MonoBehaviour
 			maskedSprite.SetActive(true);
 			if (transform.localScale.x > 0.5f)
 			{
-				transform.localScale -= new Vector3(0.3f, 0.3f, 0.3f);
+				transform.localScale -= new Vector3(speed, speed, speed) * Time.deltaTime;
 			}
 			else
 			{
@@ -37,7 +39,7 @@ public class SuperMarioSpriteMaskTransition : MonoBehaviour
 		{
 			if (transform.localScale.x < 7)
 			{
-				transform.localScale += new Vector3(0.3f, 0.3f, 0.3f);
+				transform.localScale += new Vector3(speed, speed, speed) * Time.deltaTime;
 			}
 			else
 			{
