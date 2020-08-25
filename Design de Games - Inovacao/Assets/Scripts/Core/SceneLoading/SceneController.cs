@@ -188,10 +188,25 @@ namespace UnityCore
             {
                 switch (_scene)
                 {
-                    case SceneType.HUB: return "HUB";
+                    case SceneType.PersistentScene: return "PersistentScene";
+                    case SceneType.FirstScene: return "FirstScene";
                     case SceneType.MenuPrincipal: return "MenuPrincipal";
-                    case SceneType.Creditos: return "Creditos";
                     case SceneType.Historia: return "Historia";
+                    case SceneType.HUB: return "HUB";
+                    case SceneType.Customiza: return "Customiza";
+                    case SceneType.SalaDeEspera: return "SalaDeEspera";
+                    case SceneType.Tutorial2: return "Tutorial2";
+                    case SceneType.Coleta: return "Coleta";
+                    case SceneType.Corrida: return "Corrida";
+                    case SceneType.Futebol: return "Futebol";
+                    case SceneType.Moto: return "Moto";
+                    case SceneType.Volei: return "Volei";
+                    case SceneType.TelaVitoria: return "TelaVitoria";
+                    case SceneType.FimDemo: return "FimDemo";
+                    case SceneType.Cabelo: return "Cabelo";
+                    case SceneType.Shirt: return "Shirt";
+                    case SceneType.Tenis: return "Tenis";
+                    case SceneType.Creditos: return "Creditos";
                     default:
                         LogWarning("Scene [" + _scene + "] does not contain a string for a valid scene.");
                         return string.Empty;
@@ -202,8 +217,24 @@ namespace UnityCore
             {
                 switch (_scene)
                 {
-                    case "HUB": return SceneType.HUB;
+                    case "PersistentScene": return SceneType.PersistentScene;
+                    case "FirstScene": return SceneType.FirstScene;
                     case "MenuPrincipal": return SceneType.MenuPrincipal;
+                    case "Historia": return SceneType.Historia;
+                    case "HUB": return SceneType.HUB;
+                    case "Customiza": return SceneType.Customiza;
+                    case "SalaDeEspera": return SceneType.SalaDeEspera;
+                    case "Tutorial2": return SceneType.Tutorial2;
+                    case "Coleta": return SceneType.Coleta;
+                    case "Corrida": return SceneType.Corrida;
+                    case "Futebol": return SceneType.Futebol;
+                    case "Moto": return SceneType.Moto;
+                    case "Volei": return SceneType.Volei;
+                    case "TelaVitoria": return SceneType.TelaVitoria;
+                    case "FimDemo": return SceneType.FimDemo;
+                    case "Cabelo": return SceneType.Cabelo;
+                    case "Shirt": return SceneType.Shirt;
+                    case "Creditos": return SceneType.Creditos;
                     default:
                         LogWarning("Scene [" + _scene + "] does not contain a type for a valid scene.");
                         return SceneType.None;
