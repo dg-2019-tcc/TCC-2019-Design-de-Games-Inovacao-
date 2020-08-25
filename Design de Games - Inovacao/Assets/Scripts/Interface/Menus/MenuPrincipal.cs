@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityCore.Scene;
+using UnityCore.Menu;
 
 public class MenuPrincipal : MonoBehaviour
 {
@@ -9,7 +11,7 @@ public class MenuPrincipal : MonoBehaviour
     private string nomeDoMenu;
 	[SerializeField]
 	private string nomeDosCreditos;
-
+    private SceneType nextScene;
 
     private void Start()
     {
@@ -21,19 +23,28 @@ public class MenuPrincipal : MonoBehaviour
         if(PlayerPrefsManager.Instance.prefsVariables.levelIndex > 0 || GameManager.historiaMode == false)
         {
             nomeDoMenu = "HUB";
+            nextScene = SceneType.HUB;
         }
 
         else
         {
             nomeDoMenu = "Historia";
+            nextScene = SceneType.Historia;
         }
         FMODUnity.RuntimeManager.PlayOneShot("event:/HUD/Start", GetComponent<Transform>().position);
-        SceneManager.LoadScene(nomeDoMenu);
+        LoadingManager.instance.LoadGame(nextScene);
+        /*SceneController.Instance.Load(nextScene, (_scene) => {
+            Debug.Log("Scene [" + _scene + "] loaded from MenuPrincipal scrípt!");
+        }, false, PageType.Loading);*/
+        //SceneManager.LoadScene(nomeDoMenu);
     }
 
 	public void Creditos()
 	{
         FMODUnity.RuntimeManager.PlayOneShot("event:/HUD/Click", GetComponent<Transform>().position);
-        SceneManager.LoadScene(nomeDosCreditos);
-	}
+        SceneController.Instance.Load(SceneType.Creditos, (_scene) => {
+            Debug.Log("Scene [" + _scene + "] loaded from MenuPrincipal scrípt!");
+        }, false, PageType.Loading);
+        //SceneManager.LoadScene(nomeDosCreditos);
+    }
 }

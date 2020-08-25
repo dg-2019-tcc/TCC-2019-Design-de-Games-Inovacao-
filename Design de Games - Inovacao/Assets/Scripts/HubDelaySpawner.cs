@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class HubDelaySpawner : MonoBehaviour
 {
+    public static HubDelaySpawner current;
+
     public GameObject[] coisasHub;
     public GameObject player;
+    public GameObject cam;
 
     public GameObject fadeIn;
 
@@ -13,18 +16,21 @@ public class HubDelaySpawner : MonoBehaviour
 
     public float delay;
 
-    private bool finished;
+    public bool isDone;
 
-    void Start()
+    void Awake()
+    {
+        current = this;
+    }
+
+    private void Start()
     {
         GameManager.pausaJogo = true;
         index = 0;
-        //StartCoroutine(Spawn());
         InvokeRepeating("Spawn", delay, delay);
     }
 
 
-    //private IEnumerator Spawn()
     private void Spawn()
     {
         if (!coisasHub[coisasHub.Length - 1].activeSelf)
@@ -45,8 +51,12 @@ public class HubDelaySpawner : MonoBehaviour
 
     private IEnumerator StartHub()
     {
-        yield return new WaitForSeconds(0.5f);
-        fadeIn.SetActive(false);
+        yield return new WaitForSeconds(1f);
+        isDone = true;
+        //fadeIn.SetActive(false);
         GameManager.pausaJogo = false;
+        cam.SetActive(true);
+        Debug.Log("StartHUB");
+        player.SetActive(true);
     }
 }

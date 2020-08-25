@@ -6,8 +6,11 @@ namespace UnityCore
         public enum SceneType
         {
             None,
-            MenuPrincipal,
-            HUB
+            //PersistentScene = 1,
+            MenuPrincipal = 2,
+            Historia = 3,
+            HUB = 4,
+            Creditos = 18
         }
     }
 }

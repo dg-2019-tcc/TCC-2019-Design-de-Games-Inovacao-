@@ -13,7 +13,7 @@ namespace UnityCore
 
             public static SceneController instance;
 
-            public bool debug;
+            public bool debug = true;
 
             private PageController m_Menu;
             private SceneType m_TargetScene;
@@ -84,18 +84,6 @@ namespace UnityCore
             }
 
             #endregion
-            /*private void Awake()
-        {
-            if (!instance)
-            {
-                Configure();
-                DontDestroyOnLoad(gameObject);
-            }
-            else
-            {
-                Destroy(gameObject);
-            }
-        }*/
 
             private void OnDisable()
             {
@@ -202,6 +190,8 @@ namespace UnityCore
                 {
                     case SceneType.HUB: return "HUB";
                     case SceneType.MenuPrincipal: return "MenuPrincipal";
+                    case SceneType.Creditos: return "Creditos";
+                    case SceneType.Historia: return "Historia";
                     default:
                         LogWarning("Scene [" + _scene + "] does not contain a string for a valid scene.");
                         return string.Empty;
