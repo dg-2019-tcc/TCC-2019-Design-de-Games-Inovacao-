@@ -17,7 +17,7 @@ public class LoadingManager : MonoBehaviour
     {
         instance = this;
 
-        SceneManager.LoadSceneAsync((int)SceneType.MenuPrincipal, LoadSceneMode.Additive);
+        SceneManager.LoadSceneAsync((int)SceneType.FirstScene, LoadSceneMode.Additive);
     }
 
     List<AsyncOperation> scenesLoading = new List<AsyncOperation>();

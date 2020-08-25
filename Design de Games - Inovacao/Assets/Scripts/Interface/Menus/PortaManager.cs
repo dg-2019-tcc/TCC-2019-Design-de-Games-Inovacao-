@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Complete;
+using UnityCore.Scene;
 
 public class PortaManager : MonoBehaviour
 {
@@ -143,13 +144,15 @@ public class PortaManager : MonoBehaviour
             if (keyInput.y > 0 && hairDoor)
             {
                 spawnHUBPoints.Value = 8;
-                SceneManager.LoadScene("Cabelo");
+                LoadingManager.instance.LoadGame(SceneType.Cabelo);
+                //SceneManager.LoadScene("Cabelo");
             }
 
             if (keyInput.y > 0 && shirtDoor)
             {
                 spawnHUBPoints.Value = 7;
-                SceneManager.LoadScene("Shirt");
+                LoadingManager.instance.LoadGame(SceneType.Shirt);
+                //SceneManager.LoadScene("Shirt");
             }
 
 
@@ -157,11 +160,13 @@ public class PortaManager : MonoBehaviour
             {
                 Debug.Log(shoesDoor);
                 spawnHUBPoints.Value = 6;
-                SceneManager.LoadScene("Tenis");
+                LoadingManager.instance.LoadGame(SceneType.Tenis);
+                //SceneManager.LoadScene("Tenis");
             }
 
             if (keyInput.y > 0 && abriPorta)
             {
+                LoadingManager.instance.LoadGame(SceneType.HUB);
                 //SceneManager.LoadScene("HUB");
                 Debug.Log("Colidiu");
                 OpenDoorTutorial();
