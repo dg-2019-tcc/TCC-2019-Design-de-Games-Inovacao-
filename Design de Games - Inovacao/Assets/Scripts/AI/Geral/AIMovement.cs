@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityCore.Scene;
 
 namespace Complete {
     public class AIMovement : MonoBehaviour
@@ -167,7 +168,8 @@ namespace Complete {
 
         public void Stop()
         {
-            if (!GameManager.Instance.fase.Equals(GameManager.Fase.Moto) && !actionIsOn)
+            //if (!GameManager.Instance.fase.Equals(GameManager.Fase.Moto) && !actionIsOn)
+            if(GameManager.Instance.sceneAtual != SceneType.Moto && !actionIsOn)
             {
                 animAI.AnimState("Idle");
             }
@@ -177,7 +179,8 @@ namespace Complete {
 
         public void GoRight()
         {
-            if (!GameManager.Instance.fase.Equals(GameManager.Fase.Moto) && !actionIsOn)
+            //if (!GameManager.Instance.fase.Equals(GameManager.Fase.Moto) && !actionIsOn)
+            if (GameManager.Instance.sceneAtual != SceneType.Moto && !actionIsOn)
             {
                 animAI.AnimState("Walking");
             }
@@ -190,7 +193,8 @@ namespace Complete {
 
         public void GoLeft()
         {
-            if (!GameManager.Instance.fase.Equals(GameManager.Fase.Moto) && !actionIsOn)
+            //if (!GameManager.Instance.fase.Equals(GameManager.Fase.Moto) && !actionIsOn)
+            if (GameManager.Instance.sceneAtual != SceneType.Moto && !actionIsOn)
             {
                 animAI.AnimState("Walking");
             }
@@ -208,7 +212,8 @@ namespace Complete {
                 jumpTimes++;
                 input.y = 1;
                 isJumping = true;
-                if (!GameManager.Instance.fase.Equals(GameManager.Fase.Moto) && !actionIsOn)
+                //if (!GameManager.Instance.fase.Equals(GameManager.Fase.Moto) && !actionIsOn)
+                if (GameManager.Instance.sceneAtual != SceneType.Moto && !actionIsOn)
                 {
                     animAI.AnimState("NoArUp");
                 }

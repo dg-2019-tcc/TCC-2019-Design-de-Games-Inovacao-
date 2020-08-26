@@ -190,7 +190,6 @@ public class Player2DAnimations : MonoBehaviour
         if (buttonA.state.Equals(ButtonA.State.Atirar))
         {
             nextState = State.Arremessando;
-            Debug.Log("DogButton");
         }
 
         else if (buttonA.state.Equals(ButtonA.State.Chutar))

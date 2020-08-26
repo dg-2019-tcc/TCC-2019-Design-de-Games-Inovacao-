@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityCore.Scene;
 
 public class PauseManager : MonoBehaviourPunCallbacks
 {
@@ -48,7 +49,7 @@ public class PauseManager : MonoBehaviourPunCallbacks
     public override void OnDisconnected(DisconnectCause cause)
     {
         base.OnDisconnected(cause);
-        if (goBack)
-            SceneManager.LoadScene(nomeDoMenu);
+        if (goBack) { LoadingManager.instance.LoadNewScene(SceneType.MenuPrincipal, GameManager.Instance.sceneAtual, false); }
+            //SceneManager.LoadScene(nomeDoMenu);
     }
 }

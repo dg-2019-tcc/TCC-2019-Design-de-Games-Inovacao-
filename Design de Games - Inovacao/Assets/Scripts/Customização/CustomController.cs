@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityCore.Scene;
 
 public class CustomController : MonoBehaviour
 {
@@ -32,7 +33,8 @@ public class CustomController : MonoBehaviour
 
     public void TiraCustomDesativada()
     {
-        if (!GameManager.Instance.fase.Equals(GameManager.Fase.Loja))
+        //if (!GameManager.Instance.fase.Equals(GameManager.Fase.Loja))
+        if(GameManager.Instance.sceneAtual != SceneType.Cabelo || GameManager.Instance.sceneAtual != SceneType.Shirt || GameManager.Instance.sceneAtual != SceneType.Tenis)
         {
             takeOffFrente.CheckAndExecute();
             takeOffLado.CheckAndExecute();

@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
 
     public static bool inRoom;
     public static bool pausaJogo;
+    public static bool isPaused;
     public static bool historiaMode;
     public static bool sequestrado;
     public static int languageIndex;
@@ -27,10 +28,11 @@ public class GameManager : MonoBehaviour
     public static int ganhouDoKley;
     private string sceneName;
 
-    public enum Fase {Coleta, Futebol, Moto, Corrida, Start, Loja, Tutorial, Hub, Volei, Podium}
-    public Fase fase = Fase.Start;
-    public Fase lastFase;
+   // public enum Fase {Coleta, Futebol, Moto, Corrida, Start, Loja, Tutorial, Hub, Volei, Podium}
+    //public Fase fase = Fase.Start;
+    //public Fase lastFase;
     public SceneType sceneAtual;
+    public SceneType sceneOld;
 
     #region Singleton
     private static GameManager _instance;
@@ -124,7 +126,7 @@ public class GameManager : MonoBehaviour
 
     public void SaveGame(int indexFase,int indexFala)
     {
-        lastFase = fase;
+        //lastFase = fase;
         PlayerPrefsManager.Instance.SavePlayerPrefs("LevelIndex", indexFase);
         PlayerPrefsManager.Instance.SavePlayerPrefs("FalasIndex", indexFala);
         //PlayerPrefs.SetInt("LevelIndex", index);
@@ -192,9 +194,9 @@ public class GameManager : MonoBehaviour
     public void ChecaFase()
     {
         inRoom = PhotonNetwork.InRoom;
-        sceneName = SceneManager.GetActiveScene().name;
-        Debug.Log(sceneName);
-        switch (sceneName)
+        //sceneName = SceneManager.GetActiveScene().name;
+        //Debug.Log(sceneName);
+       /* switch (sceneName)
         {
             case "HUB":
                 fase = Fase.Hub;
@@ -268,7 +270,7 @@ public class GameManager : MonoBehaviour
                 fase = Fase.Podium;
                 sceneAtual = SceneType.TelaVitoria;
                 break;
-        }
+        }*/
         //Debug.Log("Checando qual fase: " + fase + " InRoom é: " + inRoom);
     }
 }

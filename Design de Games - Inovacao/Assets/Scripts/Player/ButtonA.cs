@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Complete;
+using UnityCore.Scene;
 
 public class ButtonA : MonoBehaviour
 {
@@ -36,16 +37,19 @@ public class ButtonA : MonoBehaviour
         carroActive = Resources.Load<BoolVariable>("CarroActive");
         dogScript = GetComponent<DogController>();
 
-        if (GameManager.Instance.fase.Equals(GameManager.Fase.Futebol))
+        //if (GameManager.Instance.fase.Equals(GameManager.Fase.Futebol))
+        if(GameManager.Instance.sceneAtual == SceneType.Futebol)
         {
             state = State.Chutar;
         }
-        else if(GameManager.Instance.fase.Equals(GameManager.Fase.Coleta) || GameManager.Instance.fase.Equals(GameManager.Fase.Corrida))
+        //else if(GameManager.Instance.fase.Equals(GameManager.Fase.Coleta) || GameManager.Instance.fase.Equals(GameManager.Fase.Corrida))
+        else if (GameManager.Instance.sceneAtual == SceneType.Coleta || GameManager.Instance.sceneAtual == SceneType.Corrida)
         {
             state = State.Atirar;
         }
 
-        else if (GameManager.Instance.fase.Equals(GameManager.Fase.Volei))
+        //else if (GameManager.Instance.fase.Equals(GameManager.Fase.Volei))
+        else if (GameManager.Instance.sceneAtual == SceneType.Volei)
         {
             state = State.Cortar;
         }
@@ -54,7 +58,8 @@ public class ButtonA : MonoBehaviour
     void Update()
     {
         if (!PV.IsMine && GameManager.inRoom) return;
-        if (GameManager.Instance.fase.Equals(GameManager.Fase.Hub) || GameManager.Instance.fase.Equals(GameManager.Fase.Tutorial))
+        //if (GameManager.Instance.fase.Equals(GameManager.Fase.Hub) || GameManager.Instance.fase.Equals(GameManager.Fase.Tutorial))
+        if(GameManager.Instance.sceneAtual == SceneType.HUB || GameManager.Instance.sceneAtual == SceneType.Tutorial2)
          {
             if (textoAtivo.Value == true)
             {

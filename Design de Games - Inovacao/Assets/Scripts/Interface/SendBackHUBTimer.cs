@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Photon.Pun;
+using UnityCore.Scene;
 
 public class SendBackHUBTimer : MonoBehaviour
 {
@@ -19,10 +20,13 @@ public class SendBackHUBTimer : MonoBehaviour
 	{
 
 		yield return new WaitForSeconds(tempo);
-		
-		ChooseScene();
-		
-	}
+        //PhotonNetwork.Disconnect();
+        LoadingManager.instance.LoadNewScene(SceneType.HUB, SceneType.TelaVitoria,false);
+        FailMessageManager.manualShutdown = true;
+        PhotonNetwork.Disconnect();
+        //ChooseScene();
+
+    }
 
 	private void ChooseScene()
 	{

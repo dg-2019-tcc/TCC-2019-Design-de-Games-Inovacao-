@@ -3,6 +3,7 @@ using Photon.Realtime;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityCore.Scene;
 
 public class DelayStartWaitingRoomController : MonoBehaviourPunCallbacks
 {
@@ -17,7 +18,8 @@ public class DelayStartWaitingRoomController : MonoBehaviourPunCallbacks
     [Header("Configurações de sala")]
 
     public static bool tutorialMode;
-	public static string gameMode;
+    public static SceneType gameMode;
+	//public static string gameMode;
     private int playerCount;
     private int roomSize;
 
@@ -196,12 +198,14 @@ public class DelayStartWaitingRoomController : MonoBehaviourPunCallbacks
 		startingGame = true;
 		if (tutorialMode == false)
 		{
-			PhotonNetwork.LoadLevel(gameMode);
-		}
+            //PhotonNetwork.LoadLevel(gameMode);
+            LoadingManager.instance.LoadNewScene(gameMode, SceneType.SalaDeEspera, true);
+        }
 		else
 		{
-			PhotonNetwork.LoadLevel(tutorialSceneIndex);
-		}
+            //PhotonNetwork.LoadLevel(tutorialSceneIndex);
+            LoadingManager.instance.LoadNewScene(SceneType.Tutorial2, SceneType.Customiza, false);
+        }
 	}
 
 	public void OnStartGameButton()

@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine;
 using Photon.Realtime;
 using Photon.Pun;
+using UnityCore.Scene;
 
 public class GameFlowManager : MonoBehaviour
 {
@@ -40,7 +41,8 @@ public class GameFlowManager : MonoBehaviour
             demo = Resources.Load<BoolVariable>("Demo");
         }
 
-        if (GameManager.Instance.fase.Equals(GameManager.Fase.Hub))
+        //if (GameManager.Instance.fase.Equals(GameManager.Fase.Hub))
+        if(GameManager.Instance.sceneAtual == SceneType.HUB)
         {
             DestroyNpcs(PlayerPrefsManager.Instance.prefsVariables.levelIndex);
         }
@@ -154,7 +156,7 @@ public class GameFlowManager : MonoBehaviour
 
     public void FaseColeta()
     {
-        GameManager.Instance.fase = GameManager.Fase.Coleta;
+        //GameManager.Instance.fase = GameManager.Fase.Coleta;
 
         portas[0].SetActive(true);
         doorBlock[0].SetActive(false);
@@ -172,7 +174,7 @@ public class GameFlowManager : MonoBehaviour
 
     public void FaseFutebol()
     {
-        GameManager.Instance.fase = GameManager.Fase.Futebol;
+        //GameManager.Instance.fase = GameManager.Fase.Futebol;
 
         portas[0].SetActive(false);
         portas[1].SetActive(false);

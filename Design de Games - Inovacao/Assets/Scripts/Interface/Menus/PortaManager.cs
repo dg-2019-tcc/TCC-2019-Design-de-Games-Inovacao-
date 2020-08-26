@@ -58,6 +58,8 @@ public class PortaManager : MonoBehaviour
 
     private void Update()
     {
+        if(GameManager.isPaused == true) { return; }
+
 		if (joy == null && buildPC.Value == false)
 		{
 			joy = FindObjectOfType<Joystick>();
@@ -81,13 +83,15 @@ public class PortaManager : MonoBehaviour
                 if (joy.Vertical >= 0.8f && hairDoor)
                 {
                     spawnHUBPoints.Value = 8;
-                    SceneManager.LoadScene("Cabelo");
+                    //SceneManager.LoadScene("Cabelo");
+                    LoadingManager.instance.LoadNewScene(SceneType.Cabelo, SceneType.HUB, false);
                 }
 
                 if (joy.Vertical >= 0.8f && shirtDoor)
                 {
                     spawnHUBPoints.Value = 7;
-                    SceneManager.LoadScene("Shirt");
+                    //SceneManager.LoadScene("Shirt");
+                    LoadingManager.instance.LoadNewScene(SceneType.Shirt, SceneType.HUB, false);
                 }
 
 
@@ -95,7 +99,8 @@ public class PortaManager : MonoBehaviour
                 {
                     Debug.Log(shoesDoor);
                     spawnHUBPoints.Value = 6;
-                    SceneManager.LoadScene("Tenis");
+                    //SceneManager.LoadScene("Tenis");
+                    LoadingManager.instance.LoadNewScene(SceneType.Tenis, SceneType.HUB, false);
                 }
 
                 if (joy.Vertical >= 0.8f && abriPorta)
@@ -107,31 +112,36 @@ public class PortaManager : MonoBehaviour
                 if (joy.Vertical >= 0.8f && corridaDoor == true)
                 {
                     spawnHUBPoints.Value = 5;
-                    lobbyController.DelayStart("Corrida");
+                    //lobbyController.DelayStart("Corrida");
+                    lobbyController.DelayStart(SceneType.Corrida);
                     //ButtonJogarCorrida = false;
                 }
                 if (joy.Vertical >= 0.8f && coletaDoor == true)
                 {
                     spawnHUBPoints.Value = 1;
-                    lobbyController.DelayStart("Coleta");
+                    lobbyController.DelayStart(SceneType.Coleta);
+                    //lobbyController.DelayStart("Coleta");
                     //ButtonJogarColeta = false;
                 }
                 if (joy.Vertical >= 0.8f && futebolDoor == true)
                 {
                     spawnHUBPoints.Value = 2;
-                    lobbyController.DelayStart("Futebol");
+                    lobbyController.DelayStart(SceneType.Futebol);
+                    //lobbyController.DelayStart("Futebol");
                     //ButtonJogarCorrida = false;
                 }
                 if (joy.Vertical >= 0.8f && motoDoor == true)
                 {
                     spawnHUBPoints.Value = 3;
-                    lobbyController.DelayStart("Moto");
+                    //lobbyController.DelayStart("Moto");
+                    lobbyController.DelayStart(SceneType.Moto);
                     //ButtonJogarColeta = false;
                 }
                 if (joy.Vertical >= 0.8f && voleiDoor == true)
                 {
                     spawnHUBPoints.Value = 4;
-                    lobbyController.DelayStart("Volei");
+                    lobbyController.DelayStart(SceneType.Volei);
+                    //lobbyController.DelayStart("Volei");
                     //ButtonJogarCorrida = false;
                 }
             }
@@ -144,14 +154,14 @@ public class PortaManager : MonoBehaviour
             if (keyInput.y > 0 && hairDoor)
             {
                 spawnHUBPoints.Value = 8;
-                LoadingManager.instance.LoadGame(SceneType.Cabelo);
+                LoadingManager.instance.LoadNewScene(SceneType.Cabelo, SceneType.HUB,false);
                 //SceneManager.LoadScene("Cabelo");
             }
 
             if (keyInput.y > 0 && shirtDoor)
             {
                 spawnHUBPoints.Value = 7;
-                LoadingManager.instance.LoadGame(SceneType.Shirt);
+                LoadingManager.instance.LoadNewScene(SceneType.Shirt, SceneType.HUB,false);
                 //SceneManager.LoadScene("Shirt");
             }
 
@@ -160,13 +170,13 @@ public class PortaManager : MonoBehaviour
             {
                 Debug.Log(shoesDoor);
                 spawnHUBPoints.Value = 6;
-                LoadingManager.instance.LoadGame(SceneType.Tenis);
+                LoadingManager.instance.LoadNewScene(SceneType.Tenis, SceneType.HUB,false);
                 //SceneManager.LoadScene("Tenis");
             }
 
             if (keyInput.y > 0 && abriPorta)
             {
-                LoadingManager.instance.LoadGame(SceneType.HUB);
+                LoadingManager.instance.LoadNewScene(SceneType.HUB, SceneType.Tutorial2, false);
                 //SceneManager.LoadScene("HUB");
                 Debug.Log("Colidiu");
                 OpenDoorTutorial();
@@ -174,31 +184,36 @@ public class PortaManager : MonoBehaviour
             if (keyInput.y > 0 && corridaDoor == true)
             {
                 spawnHUBPoints.Value = 5;
-                lobbyController.DelayStart("Corrida");
+                //lobbyController.DelayStart("Corrida");
+                lobbyController.DelayStart(SceneType.Corrida);
                 //ButtonJogarCorrida = false;
             }
             if (keyInput.y > 0 & coletaDoor == true)
             {
                 spawnHUBPoints.Value = 1;
-                lobbyController.DelayStart("Coleta");
+                lobbyController.DelayStart(SceneType.Coleta);
+                //lobbyController.DelayStart("Coleta");
                 //ButtonJogarColeta = false;
             }
             if (keyInput.y > 0 && futebolDoor == true)
             {
                 spawnHUBPoints.Value = 2;
-                lobbyController.DelayStart("Futebol");
+                lobbyController.DelayStart(SceneType.Futebol);
+                //lobbyController.DelayStart("Futebol");
                 //ButtonJogarCorrida = false;
             }
             if (keyInput.y > 0 && motoDoor == true)
             {
                 spawnHUBPoints.Value = 3;
-                lobbyController.DelayStart("Moto");
+                lobbyController.DelayStart(SceneType.Moto);
+                //lobbyController.DelayStart("Moto");
                 //ButtonJogarColeta = false;
             }
             if (keyInput.y > 0 && voleiDoor == true)
             {
                 spawnHUBPoints.Value = 4;
-                lobbyController.DelayStart("Volei");
+                lobbyController.DelayStart(SceneType.Volei);
+                //lobbyController.DelayStart("Volei");
                 //ButtonJogarCorrida = false;
             }
         }

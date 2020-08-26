@@ -66,7 +66,7 @@ namespace Complete
             if (GameManager.historiaMode == true)
             {
                 GameManager.Instance.ChecaFase();
-                if (GameManager.sequestrado == true || GameManager.Instance.fase.Equals(GameManager.Fase.Tutorial)|| GameManager.levelIndex == 5 || GameManager.levelIndex == 6)
+                if (GameManager.sequestrado == true || /*GameManager.Instance.fase.Equals(GameManager.Fase.Tutorial)*/ GameManager.Instance.sceneAtual == UnityCore.Scene.SceneType.Tutorial2|| GameManager.levelIndex == 5 || GameManager.levelIndex == 6)
                 {
                     sequestrado = true;
                     ChangeState("DesativadoState");

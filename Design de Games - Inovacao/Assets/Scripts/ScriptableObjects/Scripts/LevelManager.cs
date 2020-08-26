@@ -90,14 +90,16 @@ public class LevelManager : MonoBehaviour
 
     public void GanhouDoKlay()
     {
-        if (GameManager.Instance.fase.Equals(GameManager.Fase.Moto))
+        //if (GameManager.Instance.fase.Equals(GameManager.Fase.Moto))
+        if(GameManager.Instance.sceneAtual == UnityCore.Scene.SceneType.Moto)
         {
             GameManager.sequestrado = true;
             //PlayerPrefs.SetInt("Sequestrado", 1);
             PlayerPrefsManager.Instance.SavePlayerPrefs("Sequestrado", 1);
         }
 
-        if (GameManager.Instance.fase.Equals(GameManager.Fase.Corrida))
+        //if (GameManager.Instance.fase.Equals(GameManager.Fase.Corrida))
+        if (GameManager.Instance.sceneAtual == UnityCore.Scene.SceneType.Corrida)
         {
             GameManager.sequestrado = false;
             //PlayerPrefs.SetInt("Sequestrado", 0);

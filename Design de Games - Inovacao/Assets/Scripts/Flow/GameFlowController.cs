@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine;
+using UnityCore.Scene;
 
 public class GameFlowController : MonoBehaviour
 {
@@ -12,13 +13,14 @@ public class GameFlowController : MonoBehaviour
 
     public int levelIndex;
     public int ganhouDoKlay;
-    private string sceneName;
+    //private string sceneName;
 
 
     private void Start()
     {
         flowManager = GetComponent<GameFlowManager>();
-        sceneName = SceneManager.GetActiveScene().name;
+        //sceneName = SceneManager.GetActiveScene().name;
+        //sceneName = SceneManager.GetSceneAt();
 
         if (aiGanhou == null)
         {
@@ -31,8 +33,9 @@ public class GameFlowController : MonoBehaviour
 
         //GameManager.Instance.LoadGame();
 
-
-        if (sceneName == "MenuPrincipal")
+        //Debug.Log(sceneName);
+        //if (sceneName == "MenuPrincipal")
+        if(GameManager.Instance.sceneAtual == SceneType.MenuPrincipal)
         {
             if (PlayerPrefsManager.Instance.prefsVariables.levelIndex < 8 || demo.Value == true)
             {
@@ -44,7 +47,8 @@ public class GameFlowController : MonoBehaviour
                 OfflineButtonMenu(true);
             }
         }
-        if(sceneName == "HUB")
+        //if(sceneName == "HUB")
+        if (GameManager.Instance.sceneAtual == SceneType.HUB)
         {
             if (GameManager.historiaMode)
             {

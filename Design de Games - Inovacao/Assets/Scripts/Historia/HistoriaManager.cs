@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityCore.Scene;
 
 public class HistoriaManager : MonoBehaviour
 {
@@ -81,9 +82,10 @@ public class HistoriaManager : MonoBehaviour
 
     IEnumerator StartHist()
     {
-        switch(GameManager.Instance.fase)
+        switch(/*GameManager.Instance.fase*/ GameManager.Instance.sceneOld)
         {
-            case GameManager.Fase.Start:
+            //case GameManager.Fase.Start:
+            case SceneType.MenuPrincipal:
                 nomeDoMenu = "Customiza";
                 for (int i = 0; i < histSprites.Length; i++)
                 {
@@ -92,19 +94,22 @@ public class HistoriaManager : MonoBehaviour
                 }
                 break;
 
-            case GameManager.Fase.Coleta:
+            //case GameManager.Fase.Coleta:
+            case SceneType.Coleta:
                 nomeDoMenu = "HUB";
                 histImage.sprite = histImageColeta;
                 yield return new WaitForSeconds(5f);
                 break;
 
-            case GameManager.Fase.Futebol:
+            //case GameManager.Fase.Futebol:
+            case SceneType.Futebol:
                 nomeDoMenu = "HUB";
                 histImage.sprite = histImageFutebol;
                 yield return new WaitForSeconds(5f);
                 break;
 
-            case GameManager.Fase.Moto:
+            //case GameManager.Fase.Moto:
+            case SceneType.Moto:
                 if (demo.Value)
                 {
                     if (sceneName == "Historia")
@@ -124,7 +129,8 @@ public class HistoriaManager : MonoBehaviour
                 yield return new WaitForSeconds(5f);
                 break;
 
-            case GameManager.Fase.Corrida:
+            //case GameManager.Fase.Corrida:
+            case SceneType.Corrida:
                 nomeDoMenu = "HUB";
                 for (int i = 0; i < histImageCorrida.Length; i++)
                 {

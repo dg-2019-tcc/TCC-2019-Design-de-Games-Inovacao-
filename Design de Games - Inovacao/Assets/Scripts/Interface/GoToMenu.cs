@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityCore.Scene;
 
 public class GoToMenu : MonoBehaviour
 {
@@ -13,7 +14,8 @@ public class GoToMenu : MonoBehaviour
 	private IEnumerator WaitAndGo()
 	{
 		yield return new WaitForSeconds(0.5f);
-		SceneManager.LoadScene(1);
-	}
+        //SceneManager.LoadScene(2);
+       LoadingManager.instance.LoadNewScene(SceneType.MenuPrincipal, SceneType.FirstScene, false);
+    }
     
 }

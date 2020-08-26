@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Photon.Pun;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -10,40 +11,96 @@ public class LoadingManager : MonoBehaviour
 {
     public static LoadingManager instance;
     public GameObject loadingScreen;
+    public bool isLoading;
+
+    #region Singleton
+
+    public static LoadingManager Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = FindObjectOfType<LoadingManager>();
+                if (instance == null)
+                {
+                    GameObject go = new GameObject();
+                    go.name = typeof(LoadingManager).Name;
+                    instance = go.AddComponent<LoadingManager>();
+                    DontDestroyOnLoad(go);
+                }
+            }
+            return instance;
+        }
+    }
 
     private void Awake()
     {
-        instance = this;
-
-        SceneManager.LoadSceneAsync((int)SceneType.MenuPrincipal, LoadSceneMode.Additive);
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(this.gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
+    #endregion
+
+    #region Public Functions
+    public void LoadNewScene(SceneType nextScene, SceneType oldScene, bool isOnline)
+    {
+        loadingScreen.SetActive(true);
+
+        GameManager.isPaused = true;
+        GameManager.Instance.sceneAtual = nextScene;
+        GameManager.Instance.sceneOld = oldScene;
+
+        if (!isOnline){ InitOfflineScene(nextScene, oldScene);}
+        else { StartCoroutine(InitOnlineScene(nextScene, oldScene)); }
+    }
+    #endregion
+
+    #region Private Functions
     List<AsyncOperation> scenesLoading = new List<AsyncOperation>();
 
-    public void LoadGame(SceneType nextScene)
+    private IEnumerator InitOnlineScene(SceneType nextScene, SceneType oldScene)
     {
-        //PageController.instance.TurnPageOff(PageController.pageAtiva, PageType.Loading);
-        loadingScreen.SetActive(true);
-        loadingScreen.SetActive(true);
-        Debug.Log(GameManager.Instance.sceneAtual);
-        scenesLoading.Add(SceneManager.UnloadSceneAsync((int)GameManager.Instance.sceneAtual));
-        scenesLoading.Add(SceneManager.LoadSceneAsync((int)nextScene, LoadSceneMode.Additive));
+        Debug.Log("InitOnlineScene");
+        PhotonNetwork.LoadLevel((int)nextScene);
+        while (PhotonNetwork.LevelLoadingProgress < 1) { yield return null; }
+        Debug.Log("Loaded");
+        GameManager.isPaused = false;
+        loadingScreen.SetActive(false);
+    }
 
+    private void InitOfflineScene(SceneType nextScene, SceneType oldScene)
+    {
+        //scenesLoading.Add(SceneManager.UnloadSceneAsync((int)oldScene));
+        scenesLoading.Add(SceneManager.LoadSceneAsync((int)nextScene, LoadSceneMode.Single));
         StartCoroutine(GetSceneLoadProgress(nextScene));
     }
 
-    public IEnumerator GetSceneLoadProgress(SceneType nextScene)
+    private IEnumerator GetSceneLoadProgress(SceneType nextScene)
     {
-        for(int i = 0; i <scenesLoading.Count; i++)
+        Debug.Log("GetSceneLoadProgress");
+        for (int i = 0; i <scenesLoading.Count; i++)
         {
             while (!scenesLoading[i].isDone) { yield return null; }
+            Debug.Log("GetSceneLoadProgress 2");
         }
+        Debug.Log("GetSceneLoadProgress 2");
         if (nextScene == SceneType.HUB)
         {
             while (HubDelaySpawner.current.isDone == false) { yield return null; }
         }
+
         loadingScreen.SetActive(false);
+        GameManager.isPaused = false;
         //PageController.instance.TurnPageOff(PageType.Loading);
-        Debug.Log("LoadingManager");
+        Debug.Log("Loaded Scene Sucess");
     }
+    #endregion
 }

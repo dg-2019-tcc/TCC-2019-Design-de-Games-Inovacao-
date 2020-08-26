@@ -9,6 +9,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using TMPro;
+using UnityCore.Scene;
 
 public class DelayStartLobbyController : MonoBehaviourPunCallbacks
 {
@@ -103,7 +104,8 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
 
 
 
-    public void DelayStart(string gameMode)
+    //public void DelayStart(string gameMode)
+    public void DelayStart(SceneType gameMode)
     {
 
         if (SomParaFase)
@@ -130,12 +132,13 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
 
 
 
-    public IEnumerator StartGamemode(string gameMode)
+    //public IEnumerator StartGamemode(string gameMode)
+    public IEnumerator StartGamemode(SceneType gameMode)
     {
         currentRoomSize = RoomSize;
         switch (gameMode)
 		{
-			case "Corrida":
+			case SceneType.Corrida:
 
                 CorridaFade.SetActive(true);
 
@@ -146,7 +149,7 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
 				DelayStartWaitingRoomController.minPlayerToStart = 2;
 				DelayStartWaitingRoomController.tutorialMode = false;
 				DelayStartWaitingRoomController.gameMode = gameMode;
-                gameModeAtual = gameMode;
+                gameModeAtual = "Corrida";
                 if (PhotonNetwork.OfflineMode == false)
                 {
                     OnJoinRoomButton(gameModeAtual);
@@ -157,7 +160,7 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
                 }
 				break;
 
-			case "Coleta":
+			case SceneType.Coleta:
 
                 ColetaFade.SetActive(true);
 
@@ -168,7 +171,7 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
 				DelayStartWaitingRoomController.minPlayerToStart = 2;
 				DelayStartWaitingRoomController.tutorialMode = false;
 				DelayStartWaitingRoomController.gameMode = gameMode;
-                gameModeAtual = gameMode;
+                gameModeAtual = "Coleta";
                 if (PhotonNetwork.OfflineMode == false)
                 {
                     OnJoinRoomButton(gameModeAtual);
@@ -180,7 +183,7 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
 
                 break;
 
-			case "Futebol":
+			case SceneType.Futebol:
 
                 FutebolFade.SetActive(true);
 
@@ -192,7 +195,7 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
 				DelayStartWaitingRoomController.minPlayerToStart = 2;
 				DelayStartWaitingRoomController.tutorialMode = false;
 				DelayStartWaitingRoomController.gameMode = gameMode;
-				gameModeAtual = gameMode;
+				gameModeAtual = "Futebol";
 				if (PhotonNetwork.OfflineMode == false)
 				{
 					OnJoinRoomButton(gameModeAtual);
@@ -204,7 +207,7 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
 
 				break;
 
-            case "Volei":
+            case SceneType.Volei:
 
                 VoleiFade.SetActive(true);
 
@@ -216,7 +219,7 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
 				DelayStartWaitingRoomController.minPlayerToStart = 2;
                 DelayStartWaitingRoomController.tutorialMode = false;
                 DelayStartWaitingRoomController.gameMode = gameMode;
-                gameModeAtual = gameMode;
+                gameModeAtual = "Volei";
                 if (PhotonNetwork.OfflineMode == false)
                 {
                     OnJoinRoomButton(gameModeAtual);
@@ -228,7 +231,7 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
 
                 break;
 
-            case "Moto":
+            case SceneType.Moto:
 
                 MotoFade.SetActive(true);
 
@@ -239,7 +242,7 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
 				DelayStartWaitingRoomController.minPlayerToStart = 2;
 				DelayStartWaitingRoomController.tutorialMode = false;
 				DelayStartWaitingRoomController.gameMode = gameMode;
-				gameModeAtual = gameMode;
+				gameModeAtual = "Moto";
 				if (PhotonNetwork.OfflineMode == false)
 				{
 					OnJoinRoomButton(gameModeAtual);
@@ -263,7 +266,7 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
                 DelayStartWaitingRoomController.minPlayerToStart = 2;
                 DelayStartWaitingRoomController.tutorialMode = false;
                 DelayStartWaitingRoomController.gameMode = gameMode;
-                gameModeAtual = gameMode;
+                gameModeAtual = "Tutorial";
                 if (PhotonNetwork.OfflineMode == false)
                 {
                     OnJoinRoomButton(gameModeAtual);

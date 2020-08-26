@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityCore.Scene;
 
 namespace Complete {
     public class BotStates : MonoBehaviour
@@ -39,7 +40,8 @@ namespace Complete {
         public void BotWork()
         {
             if(GameManager.pausaJogo == true || active == State.Off) { return; }
-            if (GameManager.Instance.fase.Equals(GameManager.Fase.Coleta) || GameManager.Instance.fase.Equals(GameManager.Fase.Futebol) || GameManager.Instance.fase.Equals(GameManager.Fase.Volei))
+            //if (GameManager.Instance.fase.Equals(GameManager.Fase.Coleta) || GameManager.Instance.fase.Equals(GameManager.Fase.Futebol) || GameManager.Instance.fase.Equals(GameManager.Fase.Volei))
+            if(GameManager.Instance.sceneAtual == SceneType.Coleta || GameManager.Instance.sceneAtual == SceneType.Futebol || GameManager.Instance.sceneAtual == SceneType.Volei)
             {
                 if (target == null)
                 {
@@ -53,7 +55,8 @@ namespace Complete {
 
         public void CheckTarget()
         {
-            if (GameManager.Instance.fase.Equals(GameManager.Fase.Coleta))
+            //if (GameManager.Instance.fase.Equals(GameManager.Fase.Coleta))
+            if (GameManager.Instance.sceneAtual == SceneType.Coleta)
             {
                 if (target == null)
                 {
@@ -76,7 +79,8 @@ namespace Complete {
                 }
             }
 
-            if (GameManager.Instance.fase.Equals(GameManager.Fase.Futebol))
+            //if (GameManager.Instance.fase.Equals(GameManager.Fase.Futebol))
+            if (GameManager.Instance.sceneAtual == SceneType.Futebol)
             {
                 if(target == null)
                 {
@@ -89,7 +93,8 @@ namespace Complete {
         {
             botInfo.Reset();
             SetState(State.Null, true);
-            if (GameManager.Instance.fase.Equals(GameManager.Fase.Coleta))
+            //if (GameManager.Instance.fase.Equals(GameManager.Fase.Coleta))
+            if (GameManager.Instance.sceneAtual == SceneType.Coleta)
             {
                 if (transform.position.x - target.transform.position.x > 0.5)
                 {
@@ -126,7 +131,8 @@ namespace Complete {
                 }
             }
 
-            else if (GameManager.Instance.fase.Equals(GameManager.Fase.Futebol))
+            //else if (GameManager.Instance.fase.Equals(GameManager.Fase.Futebol))
+            else if (GameManager.Instance.sceneAtual == SceneType.Futebol)
             {
                 if (transform.position.x - target.transform.position.x > 0.1)
                 {
@@ -167,7 +173,8 @@ namespace Complete {
                 }
             }
 
-            else if (GameManager.Instance.fase.Equals(GameManager.Fase.Moto))
+            //else if (GameManager.Instance.fase.Equals(GameManager.Fase.Moto))
+            else if (GameManager.Instance.sceneAtual == SceneType.Moto)
             {
                 SetState(State.Right, false);
 
@@ -179,7 +186,8 @@ namespace Complete {
                 aiMovement.speed += 0.2f * Time.deltaTime;
             }
 
-            else if (GameManager.Instance.fase.Equals(GameManager.Fase.Corrida))
+            //else if (GameManager.Instance.fase.Equals(GameManager.Fase.Corrida))
+             else if (GameManager.Instance.sceneAtual == SceneType.Corrida)
             {
                 SetState(State.Right, false);
 

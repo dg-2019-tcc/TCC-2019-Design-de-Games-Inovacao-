@@ -1,6 +1,7 @@
 ﻿using Photon.Pun;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityCore.Scene;
 
 public class DelayStartRoomController : MonoBehaviourPunCallbacks
 {
@@ -37,7 +38,8 @@ public class DelayStartRoomController : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
-        SceneManager.LoadScene(SalaDeEsperaNomeDaCena);
+        // SceneManager.LoadScene(SalaDeEsperaNomeDaCena);
+        LoadingManager.instance.LoadNewScene(SceneType.SalaDeEspera, SceneType.HUB,false);
 
-	}    
+    }    
 }
