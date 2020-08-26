@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine;
+using UnityCore.Scene;
 
 
 public class GameManager : MonoBehaviour
@@ -29,6 +30,7 @@ public class GameManager : MonoBehaviour
     public enum Fase {Coleta, Futebol, Moto, Corrida, Start, Loja, Tutorial, Hub, Volei, Podium}
     public Fase fase = Fase.Start;
     public Fase lastFase;
+    public SceneType sceneAtual;
 
     #region Singleton
     private static GameManager _instance;
@@ -191,50 +193,62 @@ public class GameManager : MonoBehaviour
     {
         inRoom = PhotonNetwork.InRoom;
         sceneName = SceneManager.GetActiveScene().name;
+        Debug.Log(sceneName);
         switch (sceneName)
         {
             case "HUB":
                 fase = Fase.Hub;
+                sceneAtual = SceneType.HUB;
                 break;
 
             case "Tutorial2":
                 fase = Fase.Tutorial;
+                sceneAtual = SceneType.Tutorial2;
                 break;
 
             case "Coleta":
                 fase = Fase.Coleta;
+                sceneAtual = SceneType.Coleta;
                 break;
 
             case "Futebol":
                 fase = Fase.Futebol;
+                sceneAtual = SceneType.Futebol;
                 break;
 
             case "Corrida":
                 fase = Fase.Corrida;
+                sceneAtual = SceneType.Corrida;
                 break;
 
             case "Moto":
                 fase = Fase.Moto;
+                sceneAtual = SceneType.Moto;
                 break;
 
             case "Volei":
                 fase = Fase.Volei;
+                sceneAtual = SceneType.Volei;
                 break;
 
             case "MenuPrincipal":
                 fase = Fase.Start;
+                sceneAtual = SceneType.MenuPrincipal;
                 break;
 
             case "Cabelo":
                 fase = Fase.Loja;
+                sceneAtual = SceneType.Cabelo;
                 break;
 
             case "Customiza":
                 fase = Fase.Loja;
+                sceneAtual = SceneType.Customiza;
                 break;
 
             case "Shirt":
                 fase = Fase.Loja;
+                sceneAtual = SceneType.Shirt;
                 if (historiaMode)
                 {
                     PlayerPrefsManager.Instance.SavePlayerPrefs("LevelIndex", 6);
@@ -243,6 +257,7 @@ public class GameManager : MonoBehaviour
 
             case "Tenis":
                 fase = Fase.Loja;
+                sceneAtual = SceneType.Tenis;
                 if (historiaMode)
                 {
                     PlayerPrefsManager.Instance.SavePlayerPrefs("LevelIndex", 3);
@@ -251,6 +266,7 @@ public class GameManager : MonoBehaviour
 
             case "TelaVitoria":
                 fase = Fase.Podium;
+                sceneAtual = SceneType.TelaVitoria;
                 break;
         }
         //Debug.Log("Checando qual fase: " + fase + " InRoom é: " + inRoom);

@@ -7,8 +7,8 @@ namespace UnityCore
         {
             //O nome e o index tem q ser igual ao que esta no build settings, tem que ser declarado no SceneCOntroller
             None,
-            PersistentScene = 0,
-            FirstScene = 1,
+           // FirstScene = 0,
+            //PersistentScene = 1,
             MenuPrincipal = 2,
             Historia = 3,
             HUB = 4,

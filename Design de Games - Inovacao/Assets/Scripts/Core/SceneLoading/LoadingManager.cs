@@ -10,35 +10,38 @@ public class LoadingManager : MonoBehaviour
 {
     public static LoadingManager instance;
     public GameObject loadingScreen;
-    [SerializeField]
-    private SceneType sceneAtiva;
 
     private void Awake()
     {
         instance = this;
 
-        SceneManager.LoadSceneAsync((int)SceneType.FirstScene, LoadSceneMode.Additive);
+        SceneManager.LoadSceneAsync((int)SceneType.MenuPrincipal, LoadSceneMode.Additive);
     }
 
     List<AsyncOperation> scenesLoading = new List<AsyncOperation>();
 
     public void LoadGame(SceneType nextScene)
     {
-        PageController.instance.TurnPageOff(PageController.pageAtiva, PageType.Loading);
+        //PageController.instance.TurnPageOff(PageController.pageAtiva, PageType.Loading);
         loadingScreen.SetActive(true);
-        scenesLoading.Add(SceneManager.UnloadSceneAsync((int)sceneAtiva));
+        loadingScreen.SetActive(true);
+        Debug.Log(GameManager.Instance.sceneAtual);
+        scenesLoading.Add(SceneManager.UnloadSceneAsync((int)GameManager.Instance.sceneAtual));
         scenesLoading.Add(SceneManager.LoadSceneAsync((int)nextScene, LoadSceneMode.Additive));
 
-        StartCoroutine(GetSceneLoadProgress());
+        StartCoroutine(GetSceneLoadProgress(nextScene));
     }
 
-    public IEnumerator GetSceneLoadProgress()
+    public IEnumerator GetSceneLoadProgress(SceneType nextScene)
     {
         for(int i = 0; i <scenesLoading.Count; i++)
         {
             while (!scenesLoading[i].isDone) { yield return null; }
         }
-        while(HubDelaySpawner.current.isDone == false) { yield return null; }
+        if (nextScene == SceneType.HUB)
+        {
+            while (HubDelaySpawner.current.isDone == false) { yield return null; }
+        }
         loadingScreen.SetActive(false);
         //PageController.instance.TurnPageOff(PageType.Loading);
         Debug.Log("LoadingManager");

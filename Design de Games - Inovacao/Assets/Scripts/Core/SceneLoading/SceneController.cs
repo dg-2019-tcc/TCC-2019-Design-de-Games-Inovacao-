@@ -21,6 +21,7 @@ namespace UnityCore
             private SceneLoadDelegate m_SceneLoadDelegate;
             private bool m_SceneIsLoading;
 
+
             private PageController menu
             {
                 get
@@ -188,8 +189,8 @@ namespace UnityCore
             {
                 switch (_scene)
                 {
-                    case SceneType.PersistentScene: return "PersistentScene";
-                    case SceneType.FirstScene: return "FirstScene";
+                    //case SceneType.PersistentScene: return "PersistentScene";
+                    //case SceneType.FirstScene: return "FirstScene";
                     case SceneType.MenuPrincipal: return "MenuPrincipal";
                     case SceneType.Historia: return "Historia";
                     case SceneType.HUB: return "HUB";
@@ -217,8 +218,8 @@ namespace UnityCore
             {
                 switch (_scene)
                 {
-                    case "PersistentScene": return SceneType.PersistentScene;
-                    case "FirstScene": return SceneType.FirstScene;
+                    //case "PersistentScene": return SceneType.PersistentScene;
+                    //case "FirstScene": return SceneType.FirstScene;
                     case "MenuPrincipal": return SceneType.MenuPrincipal;
                     case "Historia": return SceneType.Historia;
                     case "HUB": return SceneType.HUB;

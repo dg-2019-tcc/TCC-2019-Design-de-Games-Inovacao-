@@ -30,7 +30,7 @@ namespace UnityCore
                     {
                         TurnPageOn(entryPage);
                         pageAtiva = entryPage;
-                        Debug.Log(pageAtiva);
+                        //Debug.Log(pageAtiva);
                     }
 
                     //DontDestroyOnLoad(gameObject);
