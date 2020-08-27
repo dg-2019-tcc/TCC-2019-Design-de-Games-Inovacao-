@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class CustomDisplay : MonoBehaviour
 {
+    public static CustomDisplay current;
+
     public Prop2D legs;
     public Prop2D shirt;
     public Prop2D hair;
@@ -44,7 +46,14 @@ public class CustomDisplay : MonoBehaviour
 
 
     private PhotonView pv;
-    private CustomController customController;
+    public CustomController customController;
+
+    private void Awake()
+    {
+        current = this;
+        pv = GetComponent<PhotonView>();
+        customController = GetComponent<CustomController>();
+    }
 
 
     public void AtivaRoupas()
@@ -118,7 +127,149 @@ public class CustomDisplay : MonoBehaviour
         TrocaSkin(PlayerPrefsManager.Instance.prefsVariables.skinIndex);
         TrocaPupila(PlayerPrefsManager.Instance.prefsVariables.pupilaIndex);
         TrocaSobrancelha(PlayerPrefsManager.Instance.prefsVariables.sombrancelhaIndex);
+        Debug.Log("[CustomDisplay] TrocaOffline");
     }
+
+    public void AtivaTudo()
+    {
+        skinModels[PlayerPrefsManager.Instance.prefsVariables.skinIndex].ChangeCustom(true);
+        skin2Models[PlayerPrefsManager.Instance.prefsVariables.skinIndex].ChangeCustom(true);
+        hairModels[PlayerPrefsManager.Instance.prefsVariables.hairIndex].ChangeCustom(true);
+        hair2Models[PlayerPrefsManager.Instance.prefsVariables.hairIndex].ChangeCustom(true);
+        shirtModels[PlayerPrefsManager.Instance.prefsVariables.shirtIndex].ChangeCustom(true);
+        shirt2Models[PlayerPrefsManager.Instance.prefsVariables.shirtIndex].ChangeCustom(true);
+        legModels[PlayerPrefsManager.Instance.prefsVariables.legsIndex].ChangeCustom(true);
+        leg2Models[PlayerPrefsManager.Instance.prefsVariables.legsIndex].ChangeCustom(true);
+        shoeModels[PlayerPrefsManager.Instance.prefsVariables.shoeIndex].ChangeCustom(true);
+        shoe2Models[PlayerPrefsManager.Instance.prefsVariables.shoeIndex].ChangeCustom(true);
+        oculosModels[PlayerPrefsManager.Instance.prefsVariables.oculosIndex].ChangeCustom(true);
+        oculos2Models[PlayerPrefsManager.Instance.prefsVariables.oculosIndex].ChangeCustom(true);
+        maskModels[PlayerPrefsManager.Instance.prefsVariables.maskIndex].ChangeCustom(true);
+        mask2Models[PlayerPrefsManager.Instance.prefsVariables.maskIndex].ChangeCustom(true);
+        boneModels[PlayerPrefsManager.Instance.prefsVariables.boneIndex].ChangeCustom(true);
+        bone2Models[PlayerPrefsManager.Instance.prefsVariables.boneIndex].ChangeCustom(true);
+        pupilaModels[PlayerPrefsManager.Instance.prefsVariables.sombrancelhaIndex].ChangeCustom(true);
+        pupila2Models[PlayerPrefsManager.Instance.prefsVariables.sombrancelhaIndex].ChangeCustom(true);
+        sobrancelhaModels[PlayerPrefsManager.Instance.prefsVariables.sombrancelhaIndex].ChangeCustom(true);
+        sobrancelha2EsqModels[PlayerPrefsManager.Instance.prefsVariables.sombrancelhaIndex].ChangeCustom(true);
+        sobrancelha2DirModels[PlayerPrefsManager.Instance.prefsVariables.sombrancelhaIndex].ChangeCustom(true);
+
+        customController = GetComponent<CustomController>();
+        customController.TiraCustomDesativada();
+
+        Debug.Log("[CustomDisplay] AtivaTudo()");
+    }
+
+    public void DesativaTudo()
+    {
+
+        for (int i = 0; i < skinModels.Length; i++)
+        {
+            if (i != PlayerPrefsManager.Instance.prefsVariables.skinIndex)
+            {
+                skinModels[i].ChangeCustom(false);
+                skin2Models[i].ChangeCustom(false);
+            }
+        }
+
+        for (int i = 0; i < hairModels.Length; i++)
+        {
+            hairModels[i].ChangeCustom(false);
+            hair2Models[i].ChangeCustom(false);
+        }
+
+        hairModels[PlayerPrefsManager.Instance.prefsVariables.hairIndex].ChangeCustom(true);
+        hair2Models[PlayerPrefsManager.Instance.prefsVariables.hairIndex].ChangeCustom(true);
+
+        for (int i = 0; i < shirtModels.Length; i++)
+        {
+            if (i != PlayerPrefsManager.Instance.prefsVariables.shirtIndex)
+            {
+                shirtModels[i].ChangeCustom(false);
+                shirt2Models[i].ChangeCustom(false);
+            }
+        }
+
+        for (int i = 0; i < legModels.Length; i++)
+        {
+            if (i != PlayerPrefsManager.Instance.prefsVariables.legsIndex)
+            {
+                legModels[i].ChangeCustom(false);
+                leg2Models[i].ChangeCustom(false);
+            }
+        }
+
+        for (int i = 0; i < shoeModels.Length; i++)
+        {
+            if (i != PlayerPrefsManager.Instance.prefsVariables.shoeIndex)
+            {
+                shoeModels[i].ChangeCustom(false);
+                shoe2Models[i].ChangeCustom(false);
+            }
+        }
+
+        for (int i = 0; i < oculosModels.Length; i++)
+        {
+            if (i != PlayerPrefsManager.Instance.prefsVariables.oculosIndex)
+            {
+                oculosModels[i].ChangeCustom(false);
+                oculos2Models[i].ChangeCustom(false);
+            }
+        }
+
+        for (int i = 0; i < ciliosModels.Length; i++)
+        {
+            if (i != PlayerPrefsManager.Instance.prefsVariables.ciliosIndex)
+            {
+                ciliosModels[i].ChangeCustom(false);
+                cilios2Models[i].ChangeCustom(false);
+            }
+        }
+
+        for (int i = 0; i < maskModels.Length; i++)
+        {
+            if (i != PlayerPrefsManager.Instance.prefsVariables.maskIndex)
+            {
+                maskModels[i].ChangeCustom(false);
+                mask2Models[i].ChangeCustom(false);
+            }
+        }
+
+        for (int i = 0; i < boneModels.Length; i++)
+        {
+            if (i != PlayerPrefsManager.Instance.prefsVariables.boneIndex)
+            {
+                boneModels[i].ChangeCustom(false);
+                bone2Models[i].ChangeCustom(false);
+            }
+        }
+
+        for (int i = 0; i < pupilaModels.Length; i++)
+        {
+            if (i != PlayerPrefsManager.Instance.prefsVariables.pupilaIndex)
+            {
+                pupilaModels[i].ChangeCustom(false);
+                pupila2Models[i].ChangeCustom(false);
+            }
+        }
+
+        for (int i = 0; i < 3; i++)
+        {
+            if (i != PlayerPrefsManager.Instance.prefsVariables.sombrancelhaIndex)
+            {
+                sobrancelhaModels[i].ChangeCustom(false);
+                sobrancelha2EsqModels[i].ChangeCustom(false);
+                sobrancelha2DirModels[i].ChangeCustom(false);
+            }
+        }
+
+        if(customController == null){customController = GetComponent<CustomController>();}
+
+        customController.TiraCustomDesativada();
+        Debug.Log("[CustomDisplay] DesativaTudo()");
+        //AtivaTudo();
+    }
+
 
 
 

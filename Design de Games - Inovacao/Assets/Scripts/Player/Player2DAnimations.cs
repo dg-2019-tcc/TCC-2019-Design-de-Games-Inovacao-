@@ -257,9 +257,12 @@ public class Player2DAnimations : MonoBehaviour
     [PunRPC]
     public void AnimState(State anim)
     {
-        if (!photonView.IsMine)
+        if (!OfflineMode.modoDoOffline)
         {
-            nextState = anim;
+            if (!photonView.IsMine)
+            {
+                nextState = anim;
+            }
         }
         CheckArmature();
         switch (anim)

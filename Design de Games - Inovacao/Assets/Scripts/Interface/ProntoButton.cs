@@ -5,6 +5,7 @@ using Photon.Pun;
 using Photon.Realtime;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 using UnityEngine.SceneManagement;
+using UnityCore.Scene;
 
 public class ProntoButton : MonoBehaviour
 {
@@ -29,7 +30,8 @@ public class ProntoButton : MonoBehaviour
             nomeDoMenu = tutorial;
         }*/
         //jaJogou.Value = true;
-        SceneManager.LoadScene(nomeDoMenu);
+        //SceneManager.LoadScene(nomeDoMenu);
+        LoadingManager.instance.LoadNewScene(SceneType.Tutorial2, SceneType.Customiza, false);
     }
 
     void ChamaTutorial()

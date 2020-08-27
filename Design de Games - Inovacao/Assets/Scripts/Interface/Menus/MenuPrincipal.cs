@@ -37,7 +37,6 @@ public class MenuPrincipal : MonoBehaviour
         }
         FMODUnity.RuntimeManager.PlayOneShot("event:/HUD/Start", GetComponent<Transform>().position);
         LoadingManager.instance.LoadNewScene(nextScene, SceneType.MenuPrincipal,false);
-        Debug.Log("ComecaJOGO[MenuPrincipal script]");
         /*SceneController.Instance.Load(nextScene, (_scene) => {
             Debug.Log("Scene [" + _scene + "] loaded from MenuPrincipal scrípt!");
         }, false, PageType.Loading);*/

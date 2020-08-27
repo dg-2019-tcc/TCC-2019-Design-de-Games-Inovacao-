@@ -12,6 +12,7 @@
             Sticker,
             InGame,
             PlayerHUD,
+            Custom,
             Exit
         }
     }

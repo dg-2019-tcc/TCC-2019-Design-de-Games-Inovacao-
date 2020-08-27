@@ -85,22 +85,16 @@ public class LoadingManager : MonoBehaviour
 
     private IEnumerator GetSceneLoadProgress(SceneType nextScene)
     {
-        Debug.Log("GetSceneLoadProgress");
         for (int i = 0; i <scenesLoading.Count; i++)
         {
             while (!scenesLoading[i].isDone) { yield return null; }
-            Debug.Log("GetSceneLoadProgress 2");
         }
-        Debug.Log("GetSceneLoadProgress 2");
-        if (nextScene == SceneType.HUB)
-        {
-            while (HubDelaySpawner.current.isDone == false) { yield return null; }
-        }
+
+        while (SceneInitializer.current.isDone == false) { yield return null; }
 
         loadingScreen.SetActive(false);
         GameManager.isPaused = false;
-        //PageController.instance.TurnPageOff(PageType.Loading);
-        Debug.Log("Loaded Scene Sucess");
+        Debug.Log("[LoadingManager] Loaded "+ nextScene+ " Scene Sucess");
     }
     #endregion
 }

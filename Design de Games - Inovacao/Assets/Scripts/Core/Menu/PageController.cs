@@ -30,7 +30,6 @@ namespace UnityCore
                     {
                         TurnPageOn(entryPage);
                         pageAtiva = entryPage;
-                        //Debug.Log(pageAtiva);
                     }
 
                     //DontDestroyOnLoad(gameObject);
@@ -40,6 +39,7 @@ namespace UnityCore
                     Destroy(gameObject);
                 }
             }
+
             #endregion
 
             #region Public Functions
@@ -113,7 +113,7 @@ namespace UnityCore
 
             private void RegisterPage(Page _page)
             {
-                if (PageExists(_page.type)){LogWarning("You are trying to turn a page on [" + _page.type + "] that has already been registered." + _page.gameObject.name);return;}
+                if (PageExists(_page.type)){LogWarning("You are trying to register a page on [" + _page.type + "] that has already been registered." + _page.gameObject.name);return;}
 
                 m_Pages.Add(_page.type, _page);
                 Log("Registered new page[" + _page.type + "]");

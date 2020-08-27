@@ -25,6 +25,7 @@ public class HistoriaManager : MonoBehaviour
     bool histInicial;
 
     private string sceneName;
+    public SceneType nextScene;
 
 
     private void Awake()
@@ -44,8 +45,10 @@ public class HistoriaManager : MonoBehaviour
     {
         FMODUnity.RuntimeManager.PlayOneShot("event:/HUD/Click", GetComponent<Transform>().position);
         StopCoroutine("StartHist");
+        //SceneManager.LoadScene(nomeDoMenu);
+        LoadingManager.instance.LoadNewScene(nextScene, SceneType.MenuPrincipal, false);
 
-        SceneManager.LoadScene(nomeDoMenu);
+
     }
 
     void HistInicial()
@@ -87,6 +90,7 @@ public class HistoriaManager : MonoBehaviour
             //case GameManager.Fase.Start:
             case SceneType.MenuPrincipal:
                 nomeDoMenu = "Customiza";
+                nextScene = SceneType.Customiza;
                 for (int i = 0; i < histSprites.Length; i++)
                 {
                     histImage.sprite = histSprites[i];
@@ -97,6 +101,7 @@ public class HistoriaManager : MonoBehaviour
             //case GameManager.Fase.Coleta:
             case SceneType.Coleta:
                 nomeDoMenu = "HUB";
+                nextScene = SceneType.HUB;
                 histImage.sprite = histImageColeta;
                 yield return new WaitForSeconds(5f);
                 break;
@@ -104,6 +109,7 @@ public class HistoriaManager : MonoBehaviour
             //case GameManager.Fase.Futebol:
             case SceneType.Futebol:
                 nomeDoMenu = "HUB";
+                nextScene = SceneType.HUB;
                 histImage.sprite = histImageFutebol;
                 yield return new WaitForSeconds(5f);
                 break;
@@ -115,15 +121,18 @@ public class HistoriaManager : MonoBehaviour
                     if (sceneName == "Historia")
                     {
                         nomeDoMenu = "FimDemo";
+                        nextScene = SceneType.FimDemo;
                     }
                     if(sceneName == "FimDemo")
                     {
                         nomeDoMenu = "MenuPrincipal";
+                        nextScene = SceneType.MenuPrincipal;
                     }
                 }
                 else
                 {
                     nomeDoMenu = "HUB";
+                    nextScene = SceneType.HUB;
                 }
                 histImage.sprite = histImageMoto;
                 yield return new WaitForSeconds(5f);
@@ -132,6 +141,7 @@ public class HistoriaManager : MonoBehaviour
             //case GameManager.Fase.Corrida:
             case SceneType.Corrida:
                 nomeDoMenu = "HUB";
+                nextScene = SceneType.HUB;
                 for (int i = 0; i < histImageCorrida.Length; i++)
                 {
                     histImage.sprite = histImageCorrida[i];
@@ -140,7 +150,7 @@ public class HistoriaManager : MonoBehaviour
                 break;
         }
 
-
-        SceneManager.LoadScene(nomeDoMenu);
+        LoadingManager.instance.LoadNewScene(nextScene, SceneType.MenuPrincipal, false);
+        //SceneManager.LoadScene(nomeDoMenu);
     }
 }

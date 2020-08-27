@@ -27,28 +27,33 @@ public class CustomController : MonoBehaviour
         animations = GetComponent<Player2DAnimations>();
 
         GameManager.Instance.ChecaFase();
-
-        customDisplay.AtivaRoupas();
+        customDisplay.DesativaTudo();
+        //TiraCustomDesativada();
     }
+
 
     public void TiraCustomDesativada()
     {
+        //customDisplay.AtivaTudo();
+        Debug.Log("[Custom Controller] TiraCustomDesativa() sceneAtual =" + GameManager.Instance.sceneAtual);
         //if (!GameManager.Instance.fase.Equals(GameManager.Fase.Loja))
-        if(GameManager.Instance.sceneAtual != SceneType.Cabelo || GameManager.Instance.sceneAtual != SceneType.Shirt || GameManager.Instance.sceneAtual != SceneType.Tenis)
-        {
-            takeOffFrente.CheckAndExecute();
-            takeOffLado.CheckAndExecute();
-        }
-        else
+        if (GameManager.Instance.sceneAtual == SceneType.Cabelo || GameManager.Instance.sceneAtual == SceneType.Shirt || GameManager.Instance.sceneAtual == SceneType.Tenis || GameManager.Instance.sceneAtual == SceneType.Customiza)
         {
             takeOffFrente.letThemBeOn = true;
             takeOffLado.letThemBeOn = true;
             lado.SetActive(false);
+            Debug.Log("[Custom Controller] Desativa player de lado");
+        }
+        else
+        {
+            takeOffFrente.CheckAndExecute();
+            takeOffLado.CheckAndExecute();
         }
 
-        if (takeOffFrente.letThemBeOn == true && takeOffLado.letThemBeOn == true)
+        if (takeOffFrente.letThemBeOn == true/* && takeOffLado.letThemBeOn == true*/)
         {
             animations.PlayAnim(Player2DAnimations.State.Idle);
         }
+        Debug.Log("[Custom Controller] TiraCustomDesativada() Acabou");
     }
 }
