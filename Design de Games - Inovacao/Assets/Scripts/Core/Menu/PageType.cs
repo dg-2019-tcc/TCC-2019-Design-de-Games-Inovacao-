@@ -13,6 +13,7 @@
             InGame,
             PlayerHUD,
             Custom,
+            MobileHUD,
             Exit
         }
     }

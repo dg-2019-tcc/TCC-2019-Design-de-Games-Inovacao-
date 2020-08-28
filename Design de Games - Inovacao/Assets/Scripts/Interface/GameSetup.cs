@@ -62,20 +62,23 @@ public class GameSetup : MonoBehaviour
 #if UNITY_EDITOR
 		Debug.Log("Unity Editor");
 		buildPC.Value = true;
+        GameManager.buildPC = true;
 		plataforma = "Unity Editor";
 #elif UNITY_STANDALONE_WIN
 		Debug.Log("Stand Alone Windows Build");
 		buildPC.Value = true;
+                GameManager.buildPC = true;
 		plataforma = "Windows";
 #elif UNITY_ANDROID
 		Debug.Log("Android Build");
 		buildPC.Value = false;
+                GameManager.buildPC = false;
 		plataforma = "Android";
 #else
 		Debug.Log("Unpredicted Platform, defaulting to android build");
 		buildPC.Value = false;
 		plataforma = "Não Especificada";
 #endif
-	}
+    }
 
 }

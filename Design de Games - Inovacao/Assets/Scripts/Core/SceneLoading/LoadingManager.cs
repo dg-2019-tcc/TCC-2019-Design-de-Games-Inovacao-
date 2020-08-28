@@ -70,8 +70,10 @@ public class LoadingManager : MonoBehaviour
     {
         Debug.Log("InitOnlineScene");
         PhotonNetwork.LoadLevel((int)nextScene);
+        loadingScreen.SetActive(true);
         while (PhotonNetwork.LevelLoadingProgress < 1) { yield return null; }
-        Debug.Log("Loaded");
+        while (SceneInitializer.current.isDone == false) { yield return null; }
+        Debug.Log("[LoadingManager] Loaded Online Scene");
         GameManager.isPaused = false;
         loadingScreen.SetActive(false);
     }

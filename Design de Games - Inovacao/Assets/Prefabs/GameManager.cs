@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour
     public static int falaIndex;
     public static int ganhouDoKley;
     private string sceneName;
+    public static bool buildPC;
 
    // public enum Fase {Coleta, Futebol, Moto, Corrida, Start, Loja, Tutorial, Hub, Volei, Podium}
     //public Fase fase = Fase.Start;

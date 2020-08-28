@@ -94,10 +94,10 @@ public class PlayerThings : MonoBehaviour
 			canvasSelf.SetActive(true);
 		}
 
-        if (menuCustom)
+        /*if (menuCustom)
         {
             cameraManager.SendMessage("ActivateCamera", true);
-        }
+        }*/
     }
 
     private void LateUpdate()
@@ -108,7 +108,7 @@ public class PlayerThings : MonoBehaviour
 
     void Update()
     {
-        if (GameManager.pausaJogo == true) { return; }
+        if (GameManager.pausaJogo == true || GameManager.isPaused) { return; }
         if ((desativaCanvas && canvasSelf.activeSelf) || buildPC.Value == true)
         {
             canvasSelf.SetActive(false);

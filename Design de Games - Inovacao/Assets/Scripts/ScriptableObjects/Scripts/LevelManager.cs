@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityCore.Scene;
 
 [RequireComponent(typeof(PhotonView))]
 public class LevelManager : MonoBehaviour
@@ -64,26 +65,29 @@ public class LevelManager : MonoBehaviour
     {
         Debug.Log("Ganhou");
         PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 1;
-        if (GameManager.historiaMode == true)
-        {
-            GanhouDoKlay();
-        }
-        else
-        {
-            GoVitoria();
-        }
+        StartCoroutine(DelayToNextScene(true));
     }
 
     public void Perdeu()
     {
         PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 0;
-        if (GameManager.historiaMode == false)
+        StartCoroutine(DelayToNextScene(false));
+    }
+
+    public IEnumerator DelayToNextScene(bool ganhou)
+    {
+        GameManager.isPaused = true;
+        GameManager.pausaJogo = true;
+        yield return new WaitForSeconds(3f);
+        if (ganhou)
         {
-            GoDerrota();
+            if (GameManager.historiaMode == true){GanhouDoKlay();}
+            else { GoVitoria();}
         }
         else
         {
-            PerdeuDoKlay();
+            if (GameManager.historiaMode == false){GoDerrota();}
+            else{PerdeuDoKlay();}
         }
     }
 
@@ -110,8 +114,8 @@ public class LevelManager : MonoBehaviour
         PlayerPrefsManager.Instance.SavePlayerPrefs("LevelIndex", PlayerPrefsManager.Instance.prefsVariables.levelIndex + 1);
 
         //PlayerPrefs.SetInt("GanhouDoKlay", 1);
-        SceneManager.LoadScene("Historia");
-
+        //SceneManager.LoadScene("Historia");
+        LoadingManager.instance.LoadNewScene(SceneType.Historia, GameManager.Instance.sceneAtual, false);
     }
 
     public void PerdeuDoKlay()
@@ -120,7 +124,8 @@ public class LevelManager : MonoBehaviour
         PhotonNetwork.Disconnect();
         PlayerPrefsManager.Instance.SavePlayerPrefs("GanhouDoKlay", 0);
         //PlayerPrefs.SetInt("GanhouDoKlay", 0);
-        SceneManager.LoadScene("HUB");
+        //SceneManager.LoadScene("HUB");
+        LoadingManager.instance.LoadNewScene(SceneType.HUB, GameManager.Instance.sceneAtual, false);
     }
 
 
@@ -151,7 +156,8 @@ public class LevelManager : MonoBehaviour
         if (stopSarrada == false)
         {
             Debug.Log("Podium2");
-            PhotonNetwork.LoadLevel("TelaVitoria");
+            // PhotonNetwork.LoadLevel("TelaVitoria");
+            LoadingManager.instance.LoadNewScene(SceneType.TelaVitoria, GameManager.Instance.sceneAtual, true);
             stopSarrada = true;
         }
     }

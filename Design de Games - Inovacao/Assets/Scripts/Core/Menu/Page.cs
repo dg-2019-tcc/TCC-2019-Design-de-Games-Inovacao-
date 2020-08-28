@@ -39,7 +39,14 @@ namespace UnityCore
             #region Unity Functions
             private void OnEnable()
             {
-                CheckAnimatorIntegrity();
+                if (type == PageType.MobileHUD && GameManager.buildPC == true)
+                {
+                    gameObject.SetActive(false);
+                }
+                else
+                {
+                    CheckAnimatorIntegrity();
+                }
             }
             #endregion
 

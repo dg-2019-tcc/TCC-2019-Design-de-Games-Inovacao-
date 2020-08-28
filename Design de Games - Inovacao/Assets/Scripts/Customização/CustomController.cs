@@ -34,7 +34,7 @@ public class CustomController : MonoBehaviour
 
     public void TiraCustomDesativada()
     {
-        //customDisplay.AtivaTudo();
+        // customDisplay.AtivaTudo();
         Debug.Log("[Custom Controller] TiraCustomDesativa() sceneAtual =" + GameManager.Instance.sceneAtual);
         //if (!GameManager.Instance.fase.Equals(GameManager.Fase.Loja))
         if (GameManager.Instance.sceneAtual == SceneType.Cabelo || GameManager.Instance.sceneAtual == SceneType.Shirt || GameManager.Instance.sceneAtual == SceneType.Tenis || GameManager.Instance.sceneAtual == SceneType.Customiza)
