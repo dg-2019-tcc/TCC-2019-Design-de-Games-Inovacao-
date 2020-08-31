@@ -36,6 +36,7 @@ namespace UnityCore
                         break;
 
                     case 2:
+                        Debug.Log(PageController.pageAtiva);
                         pageController.TurnPageOff(PageController.pageAtiva, pageType);
                         break;
                 }

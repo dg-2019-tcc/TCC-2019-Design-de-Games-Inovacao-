@@ -13,6 +13,7 @@ namespace UnityCore
             public bool debug;
             public PageType entryPage;
             public Page[] pages;
+            [SerializeField]
             public static PageType pageAtiva;
 
             private Hashtable m_Pages;
@@ -28,8 +29,18 @@ namespace UnityCore
 
                     if(entryPage != PageType.None)
                     {
-                        TurnPageOn(entryPage);
-                        pageAtiva = entryPage;
+                        if (entryPage == PageType.MobileHUD && GameManager.buildPC)
+                        {
+                            Debug.Log("[PageController] entryPage == PageType.MobileHUD && GameManager.buildPC");
+                            pageAtiva = PageType.None;
+                            return;
+                        }
+                        else
+                        {
+                            Debug.Log("[PageController] else");
+                            TurnPageOn(entryPage);
+                            pageAtiva = entryPage;
+                        }
                     }
 
                     //DontDestroyOnLoad(gameObject);

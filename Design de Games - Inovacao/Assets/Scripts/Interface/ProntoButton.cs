@@ -18,6 +18,8 @@ public class ProntoButton : MonoBehaviour
 
     public BoolVariable jaJogou;
 
+    public SceneType nextScene;
+
     public void ComecaJogo()
     {
         FMODUnity.RuntimeManager.PlayOneShot("event:/HUD/Start", GetComponent<Transform>().position);
@@ -31,7 +33,7 @@ public class ProntoButton : MonoBehaviour
         }*/
         //jaJogou.Value = true;
         //SceneManager.LoadScene(nomeDoMenu);
-        LoadingManager.instance.LoadNewScene(SceneType.Tutorial2, SceneType.Customiza, false);
+        LoadingManager.instance.LoadNewScene(nextScene, GameManager.Instance.sceneAtual, false);
     }
 
     void ChamaTutorial()
