@@ -55,7 +55,7 @@ public class LoadingManager : MonoBehaviour
         loadingScreen.SetActive(true);
 
         GameManager.isPaused = true;
-        GameManager.Instance.sceneAtual = nextScene;
+        GameManager.sceneAtual = nextScene;
         GameManager.Instance.sceneOld = oldScene;
 
         if (!isOnline){ InitOfflineScene(nextScene, oldScene);}

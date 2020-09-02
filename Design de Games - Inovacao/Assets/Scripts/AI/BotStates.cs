@@ -41,7 +41,7 @@ namespace Complete {
         {
             if(GameManager.pausaJogo == true || active == State.Off) { return; }
             //if (GameManager.Instance.fase.Equals(GameManager.Fase.Coleta) || GameManager.Instance.fase.Equals(GameManager.Fase.Futebol) || GameManager.Instance.fase.Equals(GameManager.Fase.Volei))
-            if(GameManager.Instance.sceneAtual == SceneType.Coleta || GameManager.Instance.sceneAtual == SceneType.Futebol || GameManager.Instance.sceneAtual == SceneType.Volei)
+            if(GameManager.sceneAtual == SceneType.Coleta || GameManager.sceneAtual == SceneType.Futebol || GameManager.sceneAtual == SceneType.Volei)
             {
                 if (target == null)
                 {
@@ -56,7 +56,7 @@ namespace Complete {
         public void CheckTarget()
         {
             //if (GameManager.Instance.fase.Equals(GameManager.Fase.Coleta))
-            if (GameManager.Instance.sceneAtual == SceneType.Coleta)
+            if (GameManager.sceneAtual == SceneType.Coleta)
             {
                 if (target == null)
                 {
@@ -80,7 +80,7 @@ namespace Complete {
             }
 
             //if (GameManager.Instance.fase.Equals(GameManager.Fase.Futebol))
-            if (GameManager.Instance.sceneAtual == SceneType.Futebol)
+            if (GameManager.sceneAtual == SceneType.Futebol)
             {
                 if(target == null)
                 {
@@ -94,7 +94,7 @@ namespace Complete {
             botInfo.Reset();
             SetState(State.Null, true);
             //if (GameManager.Instance.fase.Equals(GameManager.Fase.Coleta))
-            if (GameManager.Instance.sceneAtual == SceneType.Coleta)
+            if (GameManager.sceneAtual == SceneType.Coleta)
             {
                 if (transform.position.x - target.transform.position.x > 0.5)
                 {
@@ -132,7 +132,7 @@ namespace Complete {
             }
 
             //else if (GameManager.Instance.fase.Equals(GameManager.Fase.Futebol))
-            else if (GameManager.Instance.sceneAtual == SceneType.Futebol)
+            else if (GameManager.sceneAtual == SceneType.Futebol)
             {
                 if (transform.position.x - target.transform.position.x > 0.1)
                 {
@@ -174,7 +174,7 @@ namespace Complete {
             }
 
             //else if (GameManager.Instance.fase.Equals(GameManager.Fase.Moto))
-            else if (GameManager.Instance.sceneAtual == SceneType.Moto)
+            else if (GameManager.sceneAtual == SceneType.Moto)
             {
                 SetState(State.Right, false);
 
@@ -187,7 +187,7 @@ namespace Complete {
             }
 
             //else if (GameManager.Instance.fase.Equals(GameManager.Fase.Corrida))
-             else if (GameManager.Instance.sceneAtual == SceneType.Corrida)
+             else if (GameManager.sceneAtual == SceneType.Corrida)
             {
                 SetState(State.Right, false);
 

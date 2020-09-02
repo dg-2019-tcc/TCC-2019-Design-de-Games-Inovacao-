@@ -35,9 +35,9 @@ public class CustomController : MonoBehaviour
     public void TiraCustomDesativada()
     {
         // customDisplay.AtivaTudo();
-        Debug.Log("[Custom Controller] TiraCustomDesativa() sceneAtual =" + GameManager.Instance.sceneAtual);
+        Debug.Log("[Custom Controller] TiraCustomDesativa() sceneAtual =" + GameManager.sceneAtual);
         //if (!GameManager.Instance.fase.Equals(GameManager.Fase.Loja))
-        if (GameManager.Instance.sceneAtual == SceneType.Cabelo || GameManager.Instance.sceneAtual == SceneType.Shirt || GameManager.Instance.sceneAtual == SceneType.Tenis || GameManager.Instance.sceneAtual == SceneType.Customiza)
+        if (GameManager.sceneAtual == SceneType.Cabelo || GameManager.sceneAtual == SceneType.Shirt || GameManager.sceneAtual == SceneType.Tenis || GameManager.sceneAtual == SceneType.Customiza)
         {
             takeOffFrente.letThemBeOn = true;
             takeOffLado.letThemBeOn = true;

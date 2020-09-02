@@ -95,7 +95,7 @@ public class LevelManager : MonoBehaviour
     public void GanhouDoKlay()
     {
         //if (GameManager.Instance.fase.Equals(GameManager.Fase.Moto))
-        if(GameManager.Instance.sceneAtual == UnityCore.Scene.SceneType.Moto)
+        if(GameManager.sceneAtual == UnityCore.Scene.SceneType.Moto)
         {
             GameManager.sequestrado = true;
             //PlayerPrefs.SetInt("Sequestrado", 1);
@@ -103,7 +103,7 @@ public class LevelManager : MonoBehaviour
         }
 
         //if (GameManager.Instance.fase.Equals(GameManager.Fase.Corrida))
-        if (GameManager.Instance.sceneAtual == UnityCore.Scene.SceneType.Corrida)
+        if (GameManager.sceneAtual == UnityCore.Scene.SceneType.Corrida)
         {
             GameManager.sequestrado = false;
             //PlayerPrefs.SetInt("Sequestrado", 0);
@@ -115,7 +115,7 @@ public class LevelManager : MonoBehaviour
 
         //PlayerPrefs.SetInt("GanhouDoKlay", 1);
         //SceneManager.LoadScene("Historia");
-        LoadingManager.instance.LoadNewScene(SceneType.Historia, GameManager.Instance.sceneAtual, false);
+        LoadingManager.instance.LoadNewScene(SceneType.Historia, GameManager.sceneAtual, false);
     }
 
     public void PerdeuDoKlay()
@@ -125,7 +125,7 @@ public class LevelManager : MonoBehaviour
         PlayerPrefsManager.Instance.SavePlayerPrefs("GanhouDoKlay", 0);
         //PlayerPrefs.SetInt("GanhouDoKlay", 0);
         //SceneManager.LoadScene("HUB");
-        LoadingManager.instance.LoadNewScene(SceneType.HUB, GameManager.Instance.sceneAtual, false);
+        LoadingManager.instance.LoadNewScene(SceneType.HUB, GameManager.sceneAtual, false);
     }
 
 
@@ -157,7 +157,7 @@ public class LevelManager : MonoBehaviour
         {
             Debug.Log("Podium2");
             // PhotonNetwork.LoadLevel("TelaVitoria");
-            LoadingManager.instance.LoadNewScene(SceneType.TelaVitoria, GameManager.Instance.sceneAtual, true);
+            LoadingManager.instance.LoadNewScene(SceneType.TelaVitoria, GameManager.sceneAtual, true);
             stopSarrada = true;
         }
     }

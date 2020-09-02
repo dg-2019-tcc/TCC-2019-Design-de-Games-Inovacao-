@@ -49,7 +49,7 @@ public class PauseManager : MonoBehaviourPunCallbacks
     public override void OnDisconnected(DisconnectCause cause)
     {
         base.OnDisconnected(cause);
-        if (goBack) { LoadingManager.instance.LoadNewScene(SceneType.MenuPrincipal, GameManager.Instance.sceneAtual, false); }
+        if (goBack) { LoadingManager.instance.LoadNewScene(SceneType.MenuPrincipal, GameManager.sceneAtual, false); }
             //SceneManager.LoadScene(nomeDoMenu);
     }
 }

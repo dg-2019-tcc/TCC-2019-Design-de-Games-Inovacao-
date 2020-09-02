@@ -38,18 +38,18 @@ public class ButtonA : MonoBehaviour
         dogScript = GetComponent<DogController>();
 
         //if (GameManager.Instance.fase.Equals(GameManager.Fase.Futebol))
-        if(GameManager.Instance.sceneAtual == SceneType.Futebol)
+        if(GameManager.sceneAtual == SceneType.Futebol)
         {
             state = State.Chutar;
         }
         //else if(GameManager.Instance.fase.Equals(GameManager.Fase.Coleta) || GameManager.Instance.fase.Equals(GameManager.Fase.Corrida))
-        else if (GameManager.Instance.sceneAtual == SceneType.Coleta || GameManager.Instance.sceneAtual == SceneType.Corrida)
+        else if (GameManager.sceneAtual == SceneType.Coleta || GameManager.sceneAtual == SceneType.Corrida)
         {
             state = State.Atirar;
         }
 
         //else if (GameManager.Instance.fase.Equals(GameManager.Fase.Volei))
-        else if (GameManager.Instance.sceneAtual == SceneType.Volei)
+        else if (GameManager.sceneAtual == SceneType.Volei)
         {
             state = State.Cortar;
         }
@@ -59,7 +59,7 @@ public class ButtonA : MonoBehaviour
     {
         if (!PV.IsMine && GameManager.inRoom) return;
         //if (GameManager.Instance.fase.Equals(GameManager.Fase.Hub) || GameManager.Instance.fase.Equals(GameManager.Fase.Tutorial))
-        if(GameManager.Instance.sceneAtual == SceneType.HUB || GameManager.Instance.sceneAtual == SceneType.Tutorial2)
+        if(GameManager.sceneAtual == SceneType.HUB || GameManager.sceneAtual == SceneType.Tutorial2)
          {
             if (textoAtivo.Value == true)
             {

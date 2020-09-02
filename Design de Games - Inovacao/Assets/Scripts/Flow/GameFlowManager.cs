@@ -42,7 +42,7 @@ public class GameFlowManager : MonoBehaviour
         }
 
         //if (GameManager.Instance.fase.Equals(GameManager.Fase.Hub))
-        if(GameManager.Instance.sceneAtual == SceneType.HUB)
+        if(GameManager.sceneAtual == SceneType.HUB)
         {
             DestroyNpcs(PlayerPrefsManager.Instance.prefsVariables.levelIndex);
         }

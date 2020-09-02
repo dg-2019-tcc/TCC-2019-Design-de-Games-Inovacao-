@@ -33,7 +33,7 @@ public class ProntoButton : MonoBehaviour
         }*/
         //jaJogou.Value = true;
         //SceneManager.LoadScene(nomeDoMenu);
-        LoadingManager.instance.LoadNewScene(nextScene, GameManager.Instance.sceneAtual, false);
+        LoadingManager.instance.LoadNewScene(nextScene, GameManager.sceneAtual, false);
     }
 
     void ChamaTutorial()

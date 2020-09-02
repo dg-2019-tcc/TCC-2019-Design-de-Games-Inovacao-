@@ -35,7 +35,7 @@ public class GameFlowController : MonoBehaviour
 
         //Debug.Log(sceneName);
         //if (sceneName == "MenuPrincipal")
-        if(GameManager.Instance.sceneAtual == SceneType.MenuPrincipal)
+        if(GameManager.sceneAtual == SceneType.MenuPrincipal)
         {
             if (PlayerPrefsManager.Instance.prefsVariables.levelIndex < 8 || demo.Value == true)
             {
@@ -48,7 +48,7 @@ public class GameFlowController : MonoBehaviour
             }
         }
         //if(sceneName == "HUB")
-        if (GameManager.Instance.sceneAtual == SceneType.HUB)
+        if (GameManager.sceneAtual == SceneType.HUB)
         {
             if (GameManager.historiaMode)
             {

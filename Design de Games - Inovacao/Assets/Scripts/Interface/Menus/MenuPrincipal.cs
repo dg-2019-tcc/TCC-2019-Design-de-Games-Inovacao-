@@ -15,9 +15,9 @@ public class MenuPrincipal : MonoBehaviour
 
     private void Start()
     {
-        GameManager.Instance.sceneAtual = SceneType.MenuPrincipal;
+        GameManager.sceneAtual = SceneType.MenuPrincipal;
         GameManager.Instance.ChecaFase();
-        //Debug.Log(GameManager.Instance.sceneAtual);
+        //Debug.Log(GameManager.sceneAtual);
         GameManager.Instance.LoadGame();
     }
 

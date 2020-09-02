@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviour
    // public enum Fase {Coleta, Futebol, Moto, Corrida, Start, Loja, Tutorial, Hub, Volei, Podium}
     //public Fase fase = Fase.Start;
     //public Fase lastFase;
-    public SceneType sceneAtual;
+    public static SceneType sceneAtual;
     public SceneType sceneOld;
 
     #region Singleton

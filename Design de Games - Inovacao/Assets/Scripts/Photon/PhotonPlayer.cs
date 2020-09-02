@@ -14,6 +14,7 @@ namespace Complete
 
         [HideInInspector]
         public GameObject myAvatar;
+        public static GameObject myPlayer;
 
         public PlayerType playerTypePrefabs;
 
@@ -48,6 +49,9 @@ namespace Complete
 
                 myAvatar = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", prefabName),
                     GameSetupController.GS.spawnPoints[spawnPicker].position, GameSetupController.GS.spawnPoints[spawnPicker].rotation, 0);
+
+                myPlayer = myAvatar;
+                SceneInitializer.current.GetPlayerPositionInGame();
 
             }
 
