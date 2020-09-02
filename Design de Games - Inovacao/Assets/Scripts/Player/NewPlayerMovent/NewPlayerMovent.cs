@@ -106,7 +106,7 @@ public class NewPlayerMovent : MonoBehaviour
         }
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if (moveSpeed.Value != 6)
         {
