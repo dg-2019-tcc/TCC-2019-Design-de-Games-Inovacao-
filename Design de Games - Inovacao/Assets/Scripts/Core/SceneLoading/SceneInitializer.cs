@@ -9,11 +9,15 @@ public class SceneInitializer : MonoBehaviour
 
     public GameObject[] objsIni;
     public GameObject player;
+	public GameObject playerMovement;
     public GameObject cam;
 
     public float delay;
     private int index;
     public bool isDone;
+
+
+	public float minSpawnPosition;
 
     void Awake()
     {
@@ -29,16 +33,17 @@ public class SceneInitializer : MonoBehaviour
 
     private void Spawn()
     {
+		/*
         if(!objsIni[objsIni.Length - 1].activeSelf)
         {
             objsIni[index].SetActive(true);
             index++;
         }
         else
-        {
+        {*/
             StartCoroutine("StartScene");
             CancelInvoke();
-        }
+        //}
     }
 
     private IEnumerator StartScene()
@@ -54,4 +59,19 @@ public class SceneInitializer : MonoBehaviour
         }
         Debug.Log("[SceneInitializer] Initialize Scene Done");
     }
+
+	private void Update()
+	{
+		foreach (GameObject grafite in objsIni)
+		{
+			if (Vector3.Distance(playerMovement.transform.position, grafite.transform.position) < minSpawnPosition)
+			{
+				grafite.SetActive(true);
+			}
+			else if(grafite.activeSelf)
+			{
+				grafite.SetActive(false);
+			}
+		}
+	}
 }

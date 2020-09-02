@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -20599,24 +20599,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 58.33, y: 4.814967}
   m_EdgeRadius: 0
---- !u!1 &762311158 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2493879657956009283, guid: 76cf7538b0e5d6446912c2a29f023e6b,
-    type: 3}
-  m_PrefabInstance: {fileID: 762311153}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &762311159
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 762311158}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4fa66ade042d0934e8862d128f9fb251, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &770341795
 GameObject:
   m_ObjectHideFlags: 0
@@ -21673,9 +21655,11 @@ MonoBehaviour:
   - {fileID: 244162618}
   - {fileID: 1268041128}
   player: {fileID: 1074661543}
+  playerMovement: {fileID: 1544808560}
   cam: {fileID: 843781635}
   delay: 0.25
   isDone: 0
+  minSpawnPosition: 0
 --- !u!4 &968619152
 Transform:
   m_ObjectHideFlags: 0
