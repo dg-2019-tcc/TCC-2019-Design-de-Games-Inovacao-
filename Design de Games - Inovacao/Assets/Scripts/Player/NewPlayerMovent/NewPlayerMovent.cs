@@ -187,7 +187,7 @@ public class NewPlayerMovent : MonoBehaviour
             velocity.y = -5f;
         }
 
-        controller.Move(velocity * Time.deltaTime);
+        controller.Move(velocity* Time.deltaTime);
         triggerController.MoveDirection(velocity * Time.deltaTime);
 
         animations.ChangeMoveAnim(velocity, oldPosition, input, levouDogada.Value, ganhou);
@@ -281,7 +281,15 @@ public class NewPlayerMovent : MonoBehaviour
 
         if (controller.collisions.below && jump && levouDogada.Value == false)
         {
-            velocity.y = maxJumpHeight.Value;
+            if (carroActive.Value)
+            {
+                carroVelocity.y = maxJumpHeight.Value;
+            }
+
+            else
+            {
+                velocity.y = maxJumpHeight.Value;
+            }
             FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Pulo", transform.position);
         }
     }

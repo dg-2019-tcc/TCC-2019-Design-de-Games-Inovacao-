@@ -20,7 +20,6 @@ public class SceneInitializer : MonoBehaviour
     public bool isDone;
 	private float minSpawnPosition = 10f;
     private bool shouldDeactivateRuntime;
-    private bool isGame;
 
     void Awake()
     {
@@ -99,39 +98,16 @@ public class SceneInitializer : MonoBehaviour
     {
         switch (GameManager.sceneAtual)
         {
-            case SceneType.Corrida:
-                shouldDeactivateRuntime = true;
-                isGame = true;
-                break;
-
-            case SceneType.Moto:
-                shouldDeactivateRuntime = true;
-                isGame = true;
-                break;
-
             case SceneType.Coleta:
                 shouldDeactivateRuntime = true;
-                isGame = true;
-                break;
-
-            case SceneType.Futebol:
-                shouldDeactivateRuntime = false;
-                isGame = true;
-                break;
-
-            case SceneType.Volei:
-                shouldDeactivateRuntime = false;
-                isGame = true;
                 break;
 
             case SceneType.HUB:
                 shouldDeactivateRuntime = true;
-                isGame = false;
                 break;
 
             default:
                 shouldDeactivateRuntime = false;
-                isGame = false;
                 break;
         }
 

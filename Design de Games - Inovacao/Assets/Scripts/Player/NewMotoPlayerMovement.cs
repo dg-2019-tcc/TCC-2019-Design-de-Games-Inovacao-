@@ -77,7 +77,7 @@ public class NewMotoPlayerMovement : MonoBehaviour
 		joyStick = FindObjectOfType<Joystick>();
 	}
 
-	void Update()
+	void FixedUpdate()
 	{
         if (GameManager.pausaJogo == true) { return; }
         if (!pv.IsMine && PhotonNetwork.InRoom) return;

@@ -88,6 +88,13 @@ namespace UnityCore
                         TurnPageOn(_on);
                     }
                 }
+                else
+                {
+                    if (GameManager.needMobileHUD)
+                    {
+                        TurnPageOn(PageType.MobileHUD);
+                    }
+                }
             }
 
             public bool PageIsOn(PageType _type)
