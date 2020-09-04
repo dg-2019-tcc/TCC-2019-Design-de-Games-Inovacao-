@@ -21,7 +21,7 @@ public class LinhaDeChegada : MonoBehaviour
 
 	[Header ("Variáveis das Moedas")]
 	public Points moedas;
-	public float moedasGanhasNessaFase;
+	public int moedasGanhasNessaFase;
 
     public void Start()
     {

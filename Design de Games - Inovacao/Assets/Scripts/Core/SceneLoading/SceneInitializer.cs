@@ -10,6 +10,7 @@ public class SceneInitializer : MonoBehaviour
     public static SceneInitializer current;
 
     public GameObject[] objsIni;
+    public GameObject[] grafites;
     public GameObject player;
     public GameObject playerMovement;
 	public Transform playerPos;
@@ -36,7 +37,6 @@ public class SceneInitializer : MonoBehaviour
 
     private void Spawn()
     {
-		
         if(!objsIni[objsIni.Length - 1].activeSelf)
         {
             objsIni[index].SetActive(true);
@@ -81,15 +81,15 @@ public class SceneInitializer : MonoBehaviour
 
     private void DeactivateAtRuntime()
     {
-        foreach (GameObject grafite in objsIni)
+        foreach (GameObject objs in grafites)
         {
-            if (Vector3.Distance(playerPos.position, grafite.transform.position) < minSpawnPosition)
+            if (Vector3.Distance(playerPos.position, objs.transform.position) < minSpawnPosition)
             {
-                grafite.SetActive(true);
+                objs.SetActive(true);
             }
-            else if (grafite.activeSelf)
+            else if (objs.activeSelf)
             {
-                grafite.SetActive(false);
+                objs.SetActive(false);
             }
         }
     }
@@ -110,15 +110,7 @@ public class SceneInitializer : MonoBehaviour
                 shouldDeactivateRuntime = false;
                 break;
         }
-
-        if (shouldDeactivateRuntime)
-        {
-            StartCoroutine("StartScene");
-        }
-        else
-        {
-            InvokeRepeating("Spawn", delay, delay);
-        }
+        InvokeRepeating("Spawn", delay, delay);
     }
 
     public void GetPlayerPositionInGame()

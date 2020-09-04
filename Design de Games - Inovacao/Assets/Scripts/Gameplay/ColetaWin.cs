@@ -38,7 +38,7 @@ public class ColetaWin : MonoBehaviour
 
 	[Header("Variáveis das Moedas")]
 	public Points moedas;
-	public float moedasGanhasNessaFase;
+	public int moedasGanhasNessaFase;
 
 
 	private void Start()

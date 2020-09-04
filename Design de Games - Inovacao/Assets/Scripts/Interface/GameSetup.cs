@@ -28,7 +28,7 @@ public class GameSetup : MonoBehaviour
 
 	void LoadCoins()
 	{
-		moedas.Value = PlayerPrefs.GetFloat("Moedas");
+		moedas.Value = PlayerPrefs.GetInt("Moedas");
 	}
 
 	void LoadLanguage()

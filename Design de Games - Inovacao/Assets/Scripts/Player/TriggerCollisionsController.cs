@@ -186,7 +186,9 @@ namespace Complete
                     }
                     if (hit.collider.CompareTag("Moedinha"))
                     {
-                        hit.collider.gameObject.SendMessage("Coleta");
+                        //hit.collider.gameObject.SendMessage("Coleta");
+                        Destroy(hit.collider.gameObject);
+                        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Feedback/Coletaveis/ColetaDoOsso");
                     }
 
                     if (hit.collider.CompareTag("Carrinho"))
@@ -358,7 +360,9 @@ namespace Complete
                     }
                     if (hit.collider.CompareTag("Moedinha"))
                     {
-                        hit.collider.gameObject.SendMessage("Coleta");
+                        //hit.collider.gameObject.SendMessage("Coleta");
+                        Destroy(hit.collider.gameObject);
+                        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Feedback/Coletaveis/ColetaDoOsso");
                     }
 
                     if (hit.collider.CompareTag("Carrinho"))
@@ -508,7 +512,9 @@ namespace Complete
                     }
                     if (hit.collider.CompareTag("Moedinha"))
                     {
-                        hit.collider.gameObject.SendMessage("Coleta");
+                        //hit.collider.gameObject.SendMessage("Coleta");
+                        Destroy(hit.collider.gameObject);
+                        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Feedback/Coletaveis/ColetaDoOsso");
                     }
 
                     if (hit.collider.CompareTag("Carrinho"))
@@ -624,7 +630,9 @@ namespace Complete
 
                     if (hit.collider.CompareTag("Moedinha"))
                     {
-                        hit.collider.gameObject.SendMessage("Coleta");
+                        //hit.collider.gameObject.SendMessage("Coleta");
+                        Destroy(hit.collider.gameObject);
+                        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Feedback/Coletaveis/ColetaDoOsso");
                     }
 
                     if (hit.collider.CompareTag("Carrinho"))

@@ -45,7 +45,7 @@ public class PlayerPrefsManager : MonoBehaviour
 
     public struct PlayerPrefsVariables
     {
-
+        public int coins;
         public int levelIndex;
         public int falasIndex;
         public int ganhouDoKlay;
@@ -94,6 +94,10 @@ public class PlayerPrefsManager : MonoBehaviour
     {
         switch (prefsName)
         {
+            case "Coins":
+                prefsVariables.coins = PlayerPrefs.GetInt("Coins");
+                break;
+
             case "LevelIndex":
                 prefsVariables.levelIndex = PlayerPrefs.GetInt("LevelIndex");
                 break;
@@ -155,6 +159,10 @@ public class PlayerPrefsManager : MonoBehaviour
         }
         switch (prefsName)
         {
+            case "Coins":
+                prefsVariables.coins = prefsValue;
+                break;
+
             case "LevelIndex":
                 prefsVariables.levelIndex = prefsValue;
                 break;
