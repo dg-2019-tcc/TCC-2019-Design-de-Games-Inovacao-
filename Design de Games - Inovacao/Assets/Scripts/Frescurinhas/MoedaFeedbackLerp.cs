@@ -50,6 +50,7 @@ public class MoedaFeedbackLerp : MonoBehaviour
         showingCoin = on;
         if (on == true)
         {
+            timer -= 3;
             //objUI.SetActive(true);
             ShowMoedas();
             tweenUI.TweenIn();

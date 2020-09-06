@@ -28,6 +28,9 @@ public class VoleiManager : MonoBehaviour
     private BolaVolei bolaVolei;
     GolSelect playerGol;
 
+    public Points moedas;
+    public int moedasGanhas = 100;
+
     private void Start()
     {
         playerGol = GetComponentInParent<GolSelect>();
@@ -59,6 +62,7 @@ public class VoleiManager : MonoBehaviour
 
             if (playerGol.jogador.PV.Owner.GetScore() >= 7)
             {
+                moedas.Add(moedasGanhas);
                 feedbackText.Ganhou();
                 PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 1;
                 LevelManager.Instance.GoPodium();

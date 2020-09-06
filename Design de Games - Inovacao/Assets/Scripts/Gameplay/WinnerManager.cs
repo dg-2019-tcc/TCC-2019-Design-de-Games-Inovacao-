@@ -33,6 +33,9 @@ public class WinnerManager : MonoBehaviour
 
 	private bool isloading = false;
 
+    public Points moedas;
+    public int moedasGanhas = 100;
+
 	private void Start()
 	{
         //buildProfs = true;
@@ -95,6 +98,7 @@ public class WinnerManager : MonoBehaviour
 	[PunRPC]
 	void GanhouCorrida()
 	{
+        moedas.Add(moedasGanhas);
         feedback.Ganhou();
         playerGanhou.Value = true;
 		if (isloading) return;
