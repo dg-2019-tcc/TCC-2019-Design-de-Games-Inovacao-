@@ -8,45 +8,21 @@ public class MoedasCanvas : MonoBehaviour
     public TMP_Text text;
     private int amountCoins;
 
-    public GameObject moedasDisplay;
-
-    #region Singleton
-    public static MoedasCanvas _instance;
-
-    private void Awake()
-    {
-        if (_instance == null)
-        {
-            _instance = this;
-            DontDestroyOnLoad(this.gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
-    #endregion
-
+    public Points moedas;
 
     private void Start()
     {
-        PlayerPrefsManager.Instance.LoadPlayerPref("Coins");
-
-        amountCoins = PlayerPrefsManager.Instance.prefsVariables.coins;
+        amountCoins = moedas.Value;
         text.text = "Moedas:" + amountCoins.ToString();
     }
 
     private void Update()
     {
-        if( amountCoins != PlayerPrefsManager.Instance.prefsVariables.coins)
+        if( amountCoins != moedas.Value)
         {
-            amountCoins = PlayerPrefsManager.Instance.prefsVariables.coins;
+            amountCoins = moedas.Value;
             text.text = "Moedas:" + amountCoins.ToString();
         }
     }
 
-    public void MoedaCanvasIsActive(bool on)
-    {
-        moedasDisplay.SetActive(on);
-    }
 }
