@@ -9,9 +9,10 @@ public class CoinObject : MonoBehaviour
 
     public int coinValue;
 
-    private void OnDestroy()
+    public void PegouMoeda()
     {
         coin.Add(coinValue);
         Debug.Log("Pegou a moeda");
+        Destroy(gameObject);
     }
 }

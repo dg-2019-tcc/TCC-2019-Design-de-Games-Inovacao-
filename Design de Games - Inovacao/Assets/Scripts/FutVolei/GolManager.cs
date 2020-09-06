@@ -46,7 +46,8 @@ public class GolManager : MonoBehaviourPunCallbacks
 
 	[Header("Variáveis das Moedas")]
 	public Points moedas;
-	public float moedasGanhasNessaFase;
+	public int moedasGanhasNessaFase = 100;
+    private bool needAddCoins;
 
 
 	private void Start()
@@ -58,6 +59,8 @@ public class GolManager : MonoBehaviourPunCallbacks
         botScore = Resources.Load<FloatVariable>("BotScore");
 
         botScore.Value = 0;
+
+        needAddCoins = true;
 
         playerGanhou.Value = false;
         aiGanhou.Value[4] = false;
@@ -94,13 +97,19 @@ public class GolManager : MonoBehaviourPunCallbacks
 
             if (playerGol.jogador.PV.Owner.GetScore() >= 5)
             {
+                //moedas.Add(moedasGanhasNessaFase);
                 feedbackWin.Ganhou();
                 //aiGanhou.Value[4] = false;
                 playerGanhou.Value = true;
                 LevelManager.Instance.Ganhou();
-				//PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 1;
-				//if (isLoading) return;
-				//isLoading = true;
+                if (needAddCoins == true)
+                {
+                    moedas.Add(moedasGanhasNessaFase);
+                }
+                needAddCoins = false;
+                //PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 1;
+                //if (isLoading) return;
+                //isLoading = true;
                 //StartCoroutine("AcabouFase");
                 //Acaba();
             }

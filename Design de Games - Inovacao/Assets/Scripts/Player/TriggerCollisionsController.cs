@@ -187,7 +187,8 @@ namespace Complete
                     if (hit.collider.CompareTag("Moedinha"))
                     {
                         //hit.collider.gameObject.SendMessage("Coleta");
-                        Destroy(hit.collider.gameObject);
+                        CoinObject coin = hit.collider.GetComponent<CoinObject>();
+                        coin.PegouMoeda();
                         FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Feedback/Coletaveis/ColetaDoOsso");
                     }
 
@@ -361,7 +362,8 @@ namespace Complete
                     if (hit.collider.CompareTag("Moedinha"))
                     {
                         //hit.collider.gameObject.SendMessage("Coleta");
-                        Destroy(hit.collider.gameObject);
+                        CoinObject coin = hit.collider.GetComponent<CoinObject>();
+                        coin.PegouMoeda();
                         FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Feedback/Coletaveis/ColetaDoOsso");
                     }
 
@@ -513,7 +515,8 @@ namespace Complete
                     if (hit.collider.CompareTag("Moedinha"))
                     {
                         //hit.collider.gameObject.SendMessage("Coleta");
-                        Destroy(hit.collider.gameObject);
+                        CoinObject coin = hit.collider.GetComponent<CoinObject>();
+                        coin.PegouMoeda();
                         FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Feedback/Coletaveis/ColetaDoOsso");
                     }
 
@@ -631,7 +634,9 @@ namespace Complete
                     if (hit.collider.CompareTag("Moedinha"))
                     {
                         //hit.collider.gameObject.SendMessage("Coleta");
-                        Destroy(hit.collider.gameObject);
+                        //Destroy(hit.collider.gameObject);
+                        CoinObject coin = hit.collider.GetComponent<CoinObject>();
+                        coin.PegouMoeda();
                         FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Feedback/Coletaveis/ColetaDoOsso");
                     }
 
