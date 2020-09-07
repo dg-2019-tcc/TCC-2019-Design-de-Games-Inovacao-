@@ -7,6 +7,7 @@ using UnityEngine;
 public class DOTweenUI : MonoBehaviour
 {
     public RectTransform rectTransform;
+    public CanvasGroup canvas;
 
     [SerializeField]
     private Vector2 targetPosition;
@@ -18,10 +19,40 @@ public class DOTweenUI : MonoBehaviour
     [Range(0.1f, 10.0f), SerializeField]
     private float _moveDuration = 1.0f;
 
+    public bool finishedTween;
+
+    public AnimUIType anim;
+
+    public enum AnimUIType
+    {
+        Alfa,
+        Move
+    }
+
 
     private void OnEnable()
     {
-        TweenIn();
+        finishedTween = false;
+        if (anim == AnimUIType.Move) { TweenIn(); }
+        else if(anim == AnimUIType.Alfa) { ChangeAlfa(true); }
+    }
+
+    private void OnDisable()
+    {
+        finishedTween = false;
+    }
+
+    public void ChangeAlfa(bool turnOn)
+    {
+        if(canvas == null) { canvas = GetComponent<CanvasGroup>(); }
+        if (turnOn)
+        {
+            canvas.DOFade(1f, _moveDuration).SetEase(moveEase);
+        }
+        else
+        {
+            canvas.DOFade(0f, _moveDuration).SetEase(moveEase).OnComplete(TweenOutCallback());
+        }
     }
 
     public void TweenIn()
@@ -32,12 +63,16 @@ public class DOTweenUI : MonoBehaviour
 
     public void TweenOut()
     {
-        rectTransform.DOAnchorPos(inicialPostion, _moveDuration).SetEase(moveEase);
+        rectTransform.DOAnchorPos(inicialPostion, _moveDuration).SetEase(moveEase).OnComplete(TweenOutCallback());
 
         Debug.Log("Acabou tween");
     }
-    public void DesativaObj()
+
+
+    TweenCallback TweenOutCallback()
     {
-        gameObject.SetActive(false);
+        finishedTween = true;
+        Debug.Log("FinishCallback tween" + finishedTween);
+        return null;
     }
 }

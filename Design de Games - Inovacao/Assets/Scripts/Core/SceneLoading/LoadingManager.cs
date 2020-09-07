@@ -13,6 +13,9 @@ public class LoadingManager : MonoBehaviour
     public GameObject loadingScreen;
     public bool isLoading;
 
+    public DOTweenUI tweenUI;
+    public DOTweenUI tweenCanvas;
+
     #region Singleton
 
     public static LoadingManager Instance
@@ -45,6 +48,16 @@ public class LoadingManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        if (tweenUI == null)
+        {
+            //tweenUI = GetComponentInChildren<DOTweenUI>();
+        }
+
+        if(tweenCanvas == null)
+        {
+            tweenCanvas = GetComponentInChildren<DOTweenUI>();
+        }
     }
 
     #endregion
@@ -53,12 +66,11 @@ public class LoadingManager : MonoBehaviour
     public void LoadNewScene(SceneType nextScene, SceneType oldScene, bool isOnline)
     {
         loadingScreen.SetActive(true);
-
+        //tweenUI.TweenIn();
         GameManager.isPaused = true;
         GameManager.sceneAtual = nextScene;
         GameManager.Instance.sceneOld = oldScene;
-
-        if (!isOnline){ InitOfflineScene(nextScene, oldScene);}
+        if (!isOnline){ Invoke("InitOfflineScene", 1f);}
         else { StartCoroutine(InitOnlineScene(nextScene, oldScene)); }
     }
     #endregion
@@ -69,20 +81,25 @@ public class LoadingManager : MonoBehaviour
     private IEnumerator InitOnlineScene(SceneType nextScene, SceneType oldScene)
     {
         Debug.Log("InitOnlineScene");
-        PhotonNetwork.LoadLevel((int)nextScene);
+        PhotonNetwork.LoadLevel((int)GameManager.sceneAtual);
         loadingScreen.SetActive(true);
         while (PhotonNetwork.LevelLoadingProgress < 1) { yield return null; }
         while (SceneInitializer.current.isDone == false) { yield return null; }
+        //loadingScreen.SetActive(false);
+        tweenUI.TweenOut();
+        while (tweenUI.finishedTween == false) { yield return null; }
+        tweenCanvas.ChangeAlfa(false);
+        loadingScreen.SetActive(false);
+
         Debug.Log("[LoadingManager] Loaded Online Scene");
         GameManager.isPaused = false;
-        loadingScreen.SetActive(false);
     }
 
-    private void InitOfflineScene(SceneType nextScene, SceneType oldScene)
+    private void InitOfflineScene()
     {
         //scenesLoading.Add(SceneManager.UnloadSceneAsync((int)oldScene));
-        scenesLoading.Add(SceneManager.LoadSceneAsync((int)nextScene, LoadSceneMode.Single));
-        StartCoroutine(GetSceneLoadProgress(nextScene));
+        scenesLoading.Add(SceneManager.LoadSceneAsync((int)GameManager.sceneAtual, LoadSceneMode.Single));
+        StartCoroutine(GetSceneLoadProgress(GameManager.sceneAtual));
     }
 
     private IEnumerator GetSceneLoadProgress(SceneType nextScene)
@@ -94,6 +111,10 @@ public class LoadingManager : MonoBehaviour
 
         while (SceneInitializer.current.isDone == false) { yield return null; }
 
+        tweenUI.TweenOut();
+        tweenCanvas.ChangeAlfa(false);
+        while (tweenUI.finishedTween == false) { yield return null; }
+        while (tweenCanvas.finishedTween == false) { yield return null; }
         loadingScreen.SetActive(false);
         GameManager.isPaused = false;
         Debug.Log("[LoadingManager] Loaded "+ nextScene+ " Scene Sucess");
