@@ -26,14 +26,12 @@ public class ButtonBuy : MonoBehaviour
 	void QualX(int value)
 	{
 		x = value;
-        Debug.Log("X é =" + x);
         QualItem();
 	}
 
 	void QualY(int value)
 	{
 		y = value;
-        Debug.Log("Y é =" + y);
     }
 
     private void QualItem()
@@ -119,7 +117,7 @@ public class ButtonBuy : MonoBehaviour
         }
         else
         {
-            moedas.Add(0);
+            moedas.JustShowCoins();
         }
 	}
 

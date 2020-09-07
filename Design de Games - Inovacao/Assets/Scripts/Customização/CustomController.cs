@@ -35,14 +35,12 @@ public class CustomController : MonoBehaviour
     public void TiraCustomDesativada()
     {
         // customDisplay.AtivaTudo();
-        Debug.Log("[Custom Controller] TiraCustomDesativa() sceneAtual =" + GameManager.sceneAtual);
         //if (!GameManager.Instance.fase.Equals(GameManager.Fase.Loja))
         if (GameManager.sceneAtual == SceneType.Cabelo || GameManager.sceneAtual == SceneType.Shirt || GameManager.sceneAtual == SceneType.Tenis || GameManager.sceneAtual == SceneType.Customiza)
         {
             takeOffFrente.letThemBeOn = true;
             takeOffLado.letThemBeOn = true;
             lado.SetActive(false);
-            Debug.Log("[Custom Controller] Desativa player de lado");
         }
         else
         {
@@ -54,6 +52,5 @@ public class CustomController : MonoBehaviour
         {
             animations.PlayAnim(Player2DAnimations.State.Idle);
         }
-        Debug.Log("[Custom Controller] TiraCustomDesativada() Acabou");
     }
 }

@@ -31,13 +31,11 @@ namespace UnityCore
                     {
                         if (entryPage == PageType.MobileHUD && GameManager.buildPC)
                         {
-                            Debug.Log("[PageController] entryPage == PageType.MobileHUD && GameManager.buildPC");
                             pageAtiva = PageType.None;
                             return;
                         }
                         else
                         {
-                            Debug.Log("[PageController] else");
                             TurnPageOn(entryPage);
                             pageAtiva = entryPage;
                         }

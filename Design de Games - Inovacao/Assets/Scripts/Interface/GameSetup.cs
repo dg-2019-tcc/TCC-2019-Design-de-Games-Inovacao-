@@ -6,6 +6,9 @@ using TMPro;
 public class GameSetup : MonoBehaviour
 {
 	public BoolVariable buildPC;
+	public BoolVariable buildFinal;
+	public BoolVariable resetaPlayerPrefs;
+	public BoolVariable pularModoHistoria;
 
 	public Points moedas;
 
@@ -16,15 +19,49 @@ public class GameSetup : MonoBehaviour
 	public BoolVariableMatrix blocked;
 	public BoolVariableMatrix baseBlocked;
 
+    public bool isFirstTime;
+
+    private void Awake()
+    {
+        if(resetaPlayerPrefs.Value == true)
+        {
+            pularModoHistoria.Value = false;
+            PlayerPrefs.DeleteAll();
+            resetaPlayerPrefs.Value = false;
+        }
+        if(PlayerPrefs.GetInt("IsFirstTime") == 0) { isFirstTime = true; }
+        else { isFirstTime = false; }
+    }
+
     void Start()
     {
-		LoadCoins();
-		SetVariables();
-		CheckWhichBuild();
-		CustomizationLocked();
+        SetVariables();
+        CheckWhichBuild();
+        CustomizationLocked();
+
+        if (isFirstTime) { FirstTime(); }
+        else { AlreadyPlayed(); }
 
 		textoDebug.text = "Plataforma atual: " + plataforma + "\n Build pra pc: " + buildPC.Value.ToString();
+
+        PlayerPrefs.SetInt("IsFirstTime", 1);
 	}
+
+    void FirstTime()
+    {
+        pularModoHistoria.Value = false;
+        PlayerPrefsManager.Instance.DefaultCustom();
+        PlayerPrefs.SetInt("Coins", 100);
+        moedas.Value = PlayerPrefs.GetInt("Coins");
+        Debug.Log("[Game Setup] FirstTime Coins =" + moedas.Value + "  " + PlayerPrefs.GetInt("Coins"));
+    }
+
+    void AlreadyPlayed()
+    {
+        LoadCoins();
+        PlayerPrefsManager.Instance.LoadPlayerPref("All");
+        if(PlayerPrefsManager.Instance.prefsVariables.levelIndex > 8) { GameManager.historiaMode = false; pularModoHistoria.Value = true; }
+    }
 
 	void LoadCoins()
 	{

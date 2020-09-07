@@ -36,11 +36,11 @@ namespace UnityCore
                 switch (animType)
                 {
                     case UIAnimType.Up:
-                        animDir = new Vector2(0, -1200);
+                        animDir = new Vector2(0, 1200);
                         break;
 
                     case UIAnimType.Down:
-                        animDir = new Vector2(0, 1200);
+                        animDir = new Vector2(0, -1200);
                         break;
 
                     case UIAnimType.Left:

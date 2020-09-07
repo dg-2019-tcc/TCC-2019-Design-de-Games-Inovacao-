@@ -14,26 +14,45 @@ public class Points : ScriptableObject
 	[Header ("Debug only")]
 	public float lastTimeThisRan = 0;
 
+    public void SetCoins()
+    {
+        Value = PlayerPrefs.GetInt("Coins");
+    }
+
+    public void SaveCoins()
+    {
+        PlayerPrefs.SetInt("Coins", Value);
+    }
+
 	public void Add(int points)
 	{
-		//if (stopAdding()) return;
         Value += points;
-        //PlayerPrefsManager.Instance.LoadPlayerPref("Coins");
-        //PlayerPrefs.SetFloat(this.name, Value);
-        PlayerPrefsManager.Instance.SavePlayerPrefs("Coins", Value);
-		Debug.Log("Setting " + this.name + " as " + Value + " on PlayerPrefs");
+        SaveCoins();
+        DisplayCoins();
+		lastTimeThisRan = Time.time;
+
+        Debug.Log("Setting " + this.name + " as " + Value + " on PlayerPrefs");
+    }
+    public void DisplayCoins()
+    {
         if (MoedaFeedbackLerp.instance == null)
         {
             Instantiate(feedbackCanvas);
-            MoedaFeedbackLerp.instance.MoedaCanvasIsActive(true);
         }
-        else
-        {
-            MoedaFeedbackLerp.instance.MoedaCanvasIsActive(true); 
-        }
-		lastTimeThisRan = Time.time;
-	}
 
+        MoedaFeedbackLerp.instance.MoedaCanvasIsActive(true);
+    }
+
+    public void JustShowCoins()
+    {
+        SetCoins();
+        if (MoedaFeedbackLerp.instance == null)
+        {
+            Instantiate(feedbackCanvas);
+        }
+
+        MoedaFeedbackLerp.instance.MoedaCanvasIsActive(true);
+    }
 	
 	private bool stopAdding()
 	{

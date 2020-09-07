@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -1356,6 +1356,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e377d97d43346443923d9ad8c15ddfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &648400480
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 648400475}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0bafe2ae3f1016b4999ea3a137e5e912, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rectTransform: {fileID: 0}
+  canvas: {fileID: 648400481}
+  targetPosition: {x: 0, y: 0}
+  inicialPostion: {x: 0, y: 0}
+  moveEase: 1
+  _moveDuration: 0.5
+  finishedTween: 0
+  anim: 0
+--- !u!225 &648400481
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 648400475}
+  m_Enabled: 1
+  m_Alpha: 0
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &692095359
 GameObject:
   m_ObjectHideFlags: 0
@@ -1544,6 +1576,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objsIni:
   - {fileID: 2100502040}
+  grafites: []
   player: {fileID: 0}
   playerMovement: {fileID: 0}
   playerPos: {fileID: 0}
@@ -3027,6 +3060,8 @@ GameObject:
   - component: {fileID: 1099749377}
   - component: {fileID: 1099749378}
   - component: {fileID: 1099749379}
+  - component: {fileID: 1099749381}
+  - component: {fileID: 1099749380}
   m_Layer: 5
   m_Name: CanvasInicial_Page
   m_TagString: Untagged
@@ -3083,6 +3118,38 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animType: 2
+--- !u!225 &1099749380
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1099749376}
+  m_Enabled: 1
+  m_Alpha: 0
+  m_Interactable: 1
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
+--- !u!114 &1099749381
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1099749376}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0bafe2ae3f1016b4999ea3a137e5e912, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rectTransform: {fileID: 0}
+  canvas: {fileID: 1099749380}
+  targetPosition: {x: 0, y: 0}
+  inicialPostion: {x: 0, y: 0}
+  moveEase: 32
+  _moveDuration: 0.5
+  finishedTween: 0
+  anim: 0
 --- !u!1 &1234721956
 GameObject:
   m_ObjectHideFlags: 0
@@ -4480,6 +4547,8 @@ GameObject:
   - component: {fileID: 2146657472}
   - component: {fileID: 2146657473}
   - component: {fileID: 489040408}
+  - component: {fileID: 2146657475}
+  - component: {fileID: 2146657474}
   m_Layer: 5
   m_Name: SafetyQuestion_Page
   m_TagString: Untagged
@@ -4525,6 +4594,38 @@ MonoBehaviour:
   debug: 0
   type: 10
   useAnimation: 1
+--- !u!225 &2146657474
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2146657471}
+  m_Enabled: 1
+  m_Alpha: 0
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!114 &2146657475
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2146657471}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0bafe2ae3f1016b4999ea3a137e5e912, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rectTransform: {fileID: 0}
+  canvas: {fileID: 2146657474}
+  targetPosition: {x: 0, y: 0}
+  inicialPostion: {x: 0, y: 0}
+  moveEase: 35
+  _moveDuration: 0.5
+  finishedTween: 0
+  anim: 0
 --- !u!1001 &914469119724184601
 PrefabInstance:
   m_ObjectHideFlags: 0

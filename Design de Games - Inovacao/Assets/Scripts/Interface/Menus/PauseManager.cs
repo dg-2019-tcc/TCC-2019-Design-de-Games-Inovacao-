@@ -15,6 +15,8 @@ public class PauseManager : MonoBehaviourPunCallbacks
 
 	private bool goBack;
 
+    public Points moedas;
+
 	private void Start()
 	{
 		goBack = false;
@@ -24,6 +26,7 @@ public class PauseManager : MonoBehaviourPunCallbacks
     {
         FMODUnity.RuntimeManager.PlayOneShot("event:/HUD/Click", GetComponent<Transform>().position);
         pausebuttons.SetActive(true);
+        moedas.JustShowCoins();
     }
 
     public void QuitGame()

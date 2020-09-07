@@ -33,6 +33,7 @@ public class DOTweenUI : MonoBehaviour
     private void OnEnable()
     {
         finishedTween = false;
+
         if (anim == AnimUIType.Move) { TweenIn(); }
         else if(anim == AnimUIType.Alfa) { ChangeAlfa(true); }
     }
@@ -40,6 +41,9 @@ public class DOTweenUI : MonoBehaviour
     private void OnDisable()
     {
         finishedTween = false;
+
+        if (anim == AnimUIType.Move) { TweenOut(); }
+        else if (anim == AnimUIType.Alfa) { ChangeAlfa(false); }
     }
 
     public void ChangeAlfa(bool turnOn)
@@ -58,21 +62,17 @@ public class DOTweenUI : MonoBehaviour
     public void TweenIn()
     {
         rectTransform.DOAnchorPos(Vector2.zero, _moveDuration).SetEase(moveEase);
-        Debug.Log("TweenIn()");
     }
 
     public void TweenOut()
     {
         rectTransform.DOAnchorPos(inicialPostion, _moveDuration).SetEase(moveEase).OnComplete(TweenOutCallback());
-
-        Debug.Log("Acabou tween");
     }
 
 
     TweenCallback TweenOutCallback()
     {
         finishedTween = true;
-        Debug.Log("FinishCallback tween" + finishedTween);
         return null;
     }
 }

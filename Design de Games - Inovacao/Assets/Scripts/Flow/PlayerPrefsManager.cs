@@ -229,4 +229,22 @@ public class PlayerPrefsManager : MonoBehaviour
         }
     }
 
+
+    public void DefaultCustom()
+    {
+        PlayerPrefs.SetInt("LevelIndex", 0);
+        PlayerPrefs.SetInt("FalasIndex", 0);
+        PlayerPrefs.SetInt("GanhouDoKlay", 0);
+        PlayerPrefs.SetInt("Sequestrado", 0);
+        PlayerPrefs.SetInt("HairIndex", 0);
+        PlayerPrefs.SetInt("LegsIndex", 0);
+        PlayerPrefs.SetInt("ShoeIndex", 0);
+        PlayerPrefs.SetInt("OculosIndex", 0);
+        PlayerPrefs.SetInt("CiliosIndex", 0);
+        PlayerPrefs.SetInt("MaskIndex", 0);
+        PlayerPrefs.SetInt("BoneIndex", 10);
+        PlayerPrefs.SetInt("SkinIndex", 0);
+        PlayerPrefs.SetInt("PupilaIndex", 0);
+        PlayerPrefs.SetInt("SombrancelhaIndex", 0);
+    }
 }

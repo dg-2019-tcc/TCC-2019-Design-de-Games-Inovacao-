@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -284,6 +284,15 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 876054822}
     m_Modifications:
+    - target: {fileID: 619832278, guid: 2ca0514a0c680f9448fc310db81b4066, type: 3}
+      propertyPath: m_Alpha
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 187514045816199138, guid: 2ca0514a0c680f9448fc310db81b4066,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -2200
+      objectReference: {fileID: 0}
     - target: {fileID: 8148133116227348276, guid: 2ca0514a0c680f9448fc310db81b4066,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1261,6 +1270,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   loadingScreen: {fileID: 619832271}
   isLoading: 0
+  tweenUI: {fileID: 1822546984}
+  tweenCanvas: {fileID: 0}
 --- !u!1 &1061941285
 GameObject:
   m_ObjectHideFlags: 0
@@ -1867,6 +1878,18 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1517725314}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1822546984 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5273751744373546230, guid: 2ca0514a0c680f9448fc310db81b4066,
+    type: 3}
+  m_PrefabInstance: {fileID: 175098452}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0bafe2ae3f1016b4999ea3a137e5e912, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1995249283
 GameObject:
   m_ObjectHideFlags: 0
@@ -1996,11 +2019,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildPC: {fileID: 11400000, guid: b784db267615df04d9e1e03e93411d68, type: 2}
+  buildFinal: {fileID: 11400000, guid: 5ab122efc092208448fe6b5512039c9a, type: 2}
+  resetaPlayerPrefs: {fileID: 11400000, guid: b65f68abaf1e7a741aed0d041aee661f, type: 2}
+  pularModoHistoria: {fileID: 11400000, guid: 59e92658c676a7a47a410996b750fd9a, type: 2}
   moedas: {fileID: 11400000, guid: e980b130c71bd2145a0136da60824c34, type: 2}
   textoDebug: {fileID: 662696480}
-  language: {fileID: 0}
+  language: {fileID: 11400000, guid: 91d44ba069d484a4783f7b55f5b8768b, type: 2}
   blocked: {fileID: 11400000, guid: d7b095f31b96e8045ac05f9a517d1fca, type: 2}
   baseBlocked: {fileID: 11400000, guid: d7b095f31b96e8045ac05f9a517d1fca, type: 2}
+  isFirstTime: 0
 --- !u!4 &2019720942
 Transform:
   m_ObjectHideFlags: 0

@@ -51,7 +51,7 @@ public class SceneInitializer : MonoBehaviour
 
     private IEnumerator StartScene()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1f);
         GameManager.pausaJogo = false;
         cam.SetActive(true);
         if (player != null)

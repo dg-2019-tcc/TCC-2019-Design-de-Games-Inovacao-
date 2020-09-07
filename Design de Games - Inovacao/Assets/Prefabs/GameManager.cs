@@ -113,7 +113,7 @@ public class GameManager : MonoBehaviour
             OfflineMode.Instance.AtivaOffline(true);
         }
 
-        PlayerPrefsManager.Instance.LoadPlayerPref("All");
+        //PlayerPrefsManager.Instance.LoadPlayerPref("All");
 
         /*if (PlayerPrefsManager.Instance.prefsVariables.isFirstTime == 0 && GameManager.historiaMode == false)
         {
@@ -152,7 +152,7 @@ public class GameManager : MonoBehaviour
         falaIndex = PlayerPrefsManager.Instance.prefsVariables.falasIndex;
         sequestradoPrefs = PlayerPrefsManager.Instance.prefsVariables.sequestrado;
         ganhouDoKley = PlayerPrefsManager.Instance.prefsVariables.ganhouDoKlay;*/
-        PlayerPrefsManager.Instance.LoadPlayerPref("All");
+        //PlayerPrefsManager.Instance.LoadPlayerPref("All");
 
         if (PlayerPrefsManager.Instance.prefsVariables.levelIndex < 8)
         {
