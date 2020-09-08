@@ -19,7 +19,7 @@ public class SceneInitializer : MonoBehaviour
     public float delay;
     private int index;
     public bool isDone;
-	private float minSpawnPosition = 10f;
+	private float minSpawnPosition = 15f;
     private bool shouldDeactivateRuntime;
 
     void Awake()

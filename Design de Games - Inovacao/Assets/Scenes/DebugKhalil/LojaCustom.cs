@@ -429,5 +429,12 @@ public class LojaCustom : MonoBehaviour
 	public void QualParte(int selectedPart) // Vai ter que informar através da porta, talvez separe em código
 	{
 		qualParteVaiSer = selectedPart;
+		if (buttonBuy.Length >= 1)
+		{
+			for (int i = 0; i < buttonBuy.Length; i++)
+			{
+				Destroy(buttonBuy[i]);
+			}
+		}
 	}
 }
