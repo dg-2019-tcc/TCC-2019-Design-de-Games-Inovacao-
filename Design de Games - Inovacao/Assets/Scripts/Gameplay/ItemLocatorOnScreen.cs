@@ -38,6 +38,10 @@ public class ItemLocatorOnScreen : MonoBehaviour
 
 	void FixedUpdate()
 	{
+		if (cam == null)
+		{
+			cam = FindObjectOfType<Camera>();
+		}
         if(tv != null)
         {
             if (porta == false)
