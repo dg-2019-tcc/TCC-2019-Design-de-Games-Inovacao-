@@ -26,6 +26,7 @@ public class Points : ScriptableObject
 
 	public void Add(int points)
 	{
+        SetCoins();
         Value += points;
         SaveCoins();
         DisplayCoins();

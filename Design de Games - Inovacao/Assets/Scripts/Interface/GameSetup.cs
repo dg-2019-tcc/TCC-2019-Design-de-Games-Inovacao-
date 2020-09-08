@@ -6,6 +6,7 @@ using TMPro;
 public class GameSetup : MonoBehaviour
 {
 	public BoolVariable buildPC;
+    public BoolVariable buildMobile;
 	public BoolVariable buildFinal;
 	public BoolVariable resetaPlayerPrefs;
 	public BoolVariable pularModoHistoria;
@@ -36,8 +37,21 @@ public class GameSetup : MonoBehaviour
     void Start()
     {
         SetVariables();
-        CheckWhichBuild();
         CustomizationLocked();
+
+#if UNITY_EDITOR
+        if (buildMobile.Value == true)
+        {
+            buildPC.Value = false;
+            GameManager.buildPC = false;
+        }
+        else
+        {
+            CheckWhichBuild();
+        }
+#else
+        CheckWhichBuild();
+#endif
 
         if (isFirstTime) { FirstTime(); }
         else { AlreadyPlayed(); }
