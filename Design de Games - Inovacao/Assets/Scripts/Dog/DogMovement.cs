@@ -73,7 +73,7 @@ public class DogMovement : MonoBehaviour
 	
 
 
-    void Update()
+    void FixedUpdate()
     {
         if (trick) return;
         if (GameManager.pausaJogo) return;

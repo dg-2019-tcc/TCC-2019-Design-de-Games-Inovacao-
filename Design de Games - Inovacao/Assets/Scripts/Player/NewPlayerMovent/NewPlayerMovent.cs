@@ -151,10 +151,9 @@ public class NewPlayerMovent : MonoBehaviour
 
     public void NormalMovement()
     {
-        if (inputController.pressX == true && controller.collisions.below)
+        if (triggerController.collisions.caixaDagua)
         {
-            jump = true;
-            velocity.y = maxJumpHeight.Value;
+            velocity.y = maxJumpVelocity * 2f;
         }
 
         input.x = 0;
@@ -203,12 +202,24 @@ public class NewPlayerMovent : MonoBehaviour
             jump = false;
             stopJump = false;
         }
-
-        if (triggerController.collisions.caixaDagua)
+        #region PC Pulo
+        if (!GameManager.buildPC) { return; }
+        //Para PC
+        if (inputController.releaseX == true)
         {
-            velocity.y = maxJumpHeight.Value * 1.8f;
+            if (velocity.y > minJumpVelocity)
+            {
+                velocity.y = minJumpVelocity;
+            }
         }
 
+        if (inputController.pressX == true && controller.collisions.below)
+        {
+            jump = true;
+            velocity.y = maxJumpVelocity;
+            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/PuloGr", transform.position);
+        }
+        #endregion
     }
 
     public void CarroMovement()
@@ -216,7 +227,7 @@ public class NewPlayerMovent : MonoBehaviour
         if (inputController.pressX == true && controller.collisions.below)
         {
             jump = true;
-            carroVelocity.y = maxJumpHeight.Value;
+            carroVelocity.y = maxJumpVelocity;
         }
 
 
@@ -236,7 +247,7 @@ public class NewPlayerMovent : MonoBehaviour
 
         if (triggerController.collisions.caixaDagua)
         {
-            carroVelocity.y = maxJumpHeight.Value * 1.8f;
+            carroVelocity.y = maxJumpVelocity * 1.8f;
         }
     }
 
@@ -283,14 +294,14 @@ public class NewPlayerMovent : MonoBehaviour
         {
             if (carroActive.Value)
             {
-                carroVelocity.y = maxJumpHeight.Value;
+                carroVelocity.y = maxJumpVelocity;
             }
 
             else
             {
-                velocity.y = maxJumpHeight.Value;
+                velocity.y = maxJumpVelocity;
             }
-            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Pulo", transform.position);
+            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/PuloGr", transform.position);
         }
     }
 
@@ -303,6 +314,7 @@ public class NewPlayerMovent : MonoBehaviour
             velocity.y = minJumpVelocity;
         }
         jump = false;
+        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/PuloPq", transform.position);
     }
 
     public void CallFootsteps()

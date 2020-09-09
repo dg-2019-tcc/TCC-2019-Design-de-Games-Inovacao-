@@ -16,7 +16,10 @@ public class InputController : MonoBehaviour
     public Vector2 joyInput;
 
     [HideInInspector]
+    public bool releaseX;
+    [HideInInspector]
     public bool pressX;
+
 
     private void Awake()
     {
@@ -50,11 +53,19 @@ public class InputController : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.X))
             {
                 pressX = true;
+                releaseX = false;
             }
 
-            if (Input.GetKeyUp(KeyCode.X))
+            else if (Input.GetKeyUp(KeyCode.X))
             {
                 pressX = false;
+                releaseX = true;
+            }
+
+            else
+            {
+                pressX = false;
+                releaseX = false;
             }
         }
     }

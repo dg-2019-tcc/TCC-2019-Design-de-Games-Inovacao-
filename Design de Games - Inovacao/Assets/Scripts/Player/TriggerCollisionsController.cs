@@ -189,7 +189,6 @@ namespace Complete
                         //hit.collider.gameObject.SendMessage("Coleta");
                         CoinObject coin = hit.collider.GetComponent<CoinObject>();
                         coin.PegouMoeda();
-                        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Feedback/Coletaveis/ColetaDoOsso");
                     }
 
                     if (hit.collider.CompareTag("Carrinho"))
@@ -364,7 +363,6 @@ namespace Complete
                         //hit.collider.gameObject.SendMessage("Coleta");
                         CoinObject coin = hit.collider.GetComponent<CoinObject>();
                         coin.PegouMoeda();
-                        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Feedback/Coletaveis/ColetaDoOsso");
                     }
 
                     if (hit.collider.CompareTag("Carrinho"))
@@ -517,7 +515,6 @@ namespace Complete
                         //hit.collider.gameObject.SendMessage("Coleta");
                         CoinObject coin = hit.collider.GetComponent<CoinObject>();
                         coin.PegouMoeda();
-                        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Feedback/Coletaveis/ColetaDoOsso");
                     }
 
                     if (hit.collider.CompareTag("Carrinho"))
@@ -637,7 +634,6 @@ namespace Complete
                         //Destroy(hit.collider.gameObject);
                         CoinObject coin = hit.collider.GetComponent<CoinObject>();
                         coin.PegouMoeda();
-                        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Feedback/Coletaveis/ColetaDoOsso");
                     }
 
                     if (hit.collider.CompareTag("Carrinho"))
