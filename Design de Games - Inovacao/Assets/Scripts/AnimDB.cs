@@ -83,7 +83,7 @@ public class AnimDB : MonoBehaviour
         //if ((int)animState04 < (int)state04 && state04!= AnimState04.None) { return; }
         animState04 = state04;
         PlayAnimState04();
-        Debug.Log("[AnimDB] CallAnimState04()");
+//        Debug.Log("[AnimDB] CallAnimState04()");
     }
 
     private void PlayAnimState01()
@@ -103,7 +103,7 @@ public class AnimDB : MonoBehaviour
                 PlayAnim(stunAnim, true);
                 break;
         }
-        Debug.Log("[AnimDB] PlayAnimState01()");
+//        Debug.Log("[AnimDB] PlayAnimState01()");
 
     }
 
@@ -184,7 +184,7 @@ public class AnimDB : MonoBehaviour
                 IdleAnim();
                 break;
         }
-        Debug.Log("[AnimDB] PlayAnimState04()");
+     //   Debug.Log("[AnimDB] PlayAnimState04()");
     }
 
     // int type é 0 para ativar a frente e 1 para a de lado
@@ -204,7 +204,7 @@ public class AnimDB : MonoBehaviour
             playerAtivo = playerLado;
         }
         changingArmature = false;
-        Debug.Log("[AnimDB] ChangeArmature()");
+       // Debug.Log("[AnimDB] ChangeArmature()");
     }
 
     public void PlayAnim(string anim, bool isLoop)
@@ -219,7 +219,7 @@ public class AnimDB : MonoBehaviour
             CallAnim(anim,isLoop);
         }
 
-        Debug.Log("[AnimDB] PlayAnim()");
+       // Debug.Log("[AnimDB] PlayAnim()");
     }
     public void WalkAnim()
     {
@@ -240,6 +240,6 @@ public class AnimDB : MonoBehaviour
     {
         if (!isLoop) { playerAtivo.animation.Play(anim, 1); }
         else{ playerAtivo.animation.Play(anim);}
-        Debug.Log("[AnimDB] CallAnim()");
+     //   Debug.Log("[AnimDB] CallAnim()");
     }
 }

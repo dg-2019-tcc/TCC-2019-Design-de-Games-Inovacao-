@@ -7,6 +7,8 @@ public class MoedaFeedbackLerp : MonoBehaviour
 {
     public static MoedaFeedbackLerp instance;
     public DOTweenUI tweenUI;
+    public GameObject[] tweenCoinPrefabs;
+    private GameObject coinPrefab;
 	public TMP_Text texto;
 	public Points moedas;
 	private float pontosDisplay;
@@ -45,7 +47,7 @@ public class MoedaFeedbackLerp : MonoBehaviour
             }
         }
     }
-    public void MoedaCanvasIsActive(bool on)
+    public void MoedaCanvasIsActive(bool on, int coinType = 0)
     {
         showingCoin = on;
         if (on == true)
@@ -54,8 +56,33 @@ public class MoedaFeedbackLerp : MonoBehaviour
             //objUI.SetActive(true);
             ShowMoedas();
             tweenUI.TweenIn();
+            if (coinType != 0)
+            {
+                switch (coinType)
+                {
+                    case 1:
+                        coinPrefab = tweenCoinPrefabs[0];
+                        break;
+                    case 5:
+                        coinPrefab = tweenCoinPrefabs[1];
+                        break;
+                    case 10:
+                        coinPrefab = tweenCoinPrefabs[2];
+                        break;
+                    case 100:
+                        coinPrefab = tweenCoinPrefabs[3];
+                        break;
+                }
+
+                Instantiate(coinPrefab);
+            }
+            //tweenCoin.SetActive(true);
         }
-        else { tweenUI.TweenOut(); }
+        else
+        {
+            tweenUI.TweenOut();
+            //tweenCoin.SetActive(false);
+        }
     }
 
     void ShowMoedas()

@@ -9,6 +9,8 @@ public class DOTweenUI : MonoBehaviour
     public RectTransform rectTransform;
     public CanvasGroup canvas;
 
+    public GameObject coinCanvas;
+
     [SerializeField]
     private Vector2 targetPosition;
     [SerializeField]
@@ -26,7 +28,8 @@ public class DOTweenUI : MonoBehaviour
     public enum AnimUIType
     {
         Alfa,
-        Move
+        Move,
+        Coin
     }
 
 
@@ -36,14 +39,16 @@ public class DOTweenUI : MonoBehaviour
 
         if (anim == AnimUIType.Move) { TweenIn(); }
         else if(anim == AnimUIType.Alfa) { ChangeAlfa(true); }
+        else if (anim == AnimUIType.Coin) { TweenInCoin(); }
     }
 
     private void OnDisable()
     {
         finishedTween = false;
 
-        if (anim == AnimUIType.Move) { TweenOut(); }
+        if (anim == AnimUIType.Move || anim == AnimUIType.Coin) { TweenOut(); }
         else if (anim == AnimUIType.Alfa) { ChangeAlfa(false); }
+
     }
 
     public void ChangeAlfa(bool turnOn)
@@ -59,6 +64,16 @@ public class DOTweenUI : MonoBehaviour
         }
     }
 
+    public void TweenInCoin()
+    {
+        DOTween.Sequence().Append(rectTransform.DOAnchorPos(targetPosition, _moveDuration).SetEase(moveEase)).OnComplete(() => { Destroy(coinCanvas); Debug.Log("TweenOutCallback"); });
+        /*rectTransform.DOAnchorPos(targetPosition, _moveDuration).SetEase(moveEase).OnComplete(TweenOutCoinCallback());
+        while (DOTween.IsTweening(rectTransform)) { return; }
+        rectTransform.DOAnchorPos(inicialPostion, _moveDuration).SetEase(moveEase);*/
+
+    }
+
+
     public void TweenIn()
     {
         rectTransform.DOAnchorPos(Vector2.zero, _moveDuration).SetEase(moveEase);
@@ -68,11 +83,21 @@ public class DOTweenUI : MonoBehaviour
     {
         rectTransform.DOAnchorPos(inicialPostion, _moveDuration).SetEase(moveEase).OnComplete(TweenOutCallback());
     }
-
+    TweenCallback TweenOutCoinCallback()
+    {
+        Debug.Log("TweenOutCallback");
+        //rectTransform.DOAnchorPos(inicialPostion, _moveDuration).SetEase(moveEase);
+        finishedTween = true;
+        //gameObject.SetActive(false);
+        return null;
+    }
 
     TweenCallback TweenOutCallback()
     {
+        Debug.Log("TweenOutCallback");
+        rectTransform.DOAnchorPos(inicialPostion, _moveDuration).SetEase(moveEase);
         finishedTween = true;
+
         return null;
     }
 }

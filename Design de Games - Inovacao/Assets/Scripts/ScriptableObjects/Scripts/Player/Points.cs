@@ -6,13 +6,15 @@ using UnityEngine;
 public class Points : ScriptableObject
 {
 	public int Value;
-
 	public GameObject feedbackCanvas;
 
 	public float waitTimeToLetAddAgain;
 
 	[Header ("Debug only")]
 	public float lastTimeThisRan = 0;
+
+    // valor só para a anim da moeda no canvas
+    public int coinValue;
 
     public void SetCoins()
     {
@@ -26,6 +28,7 @@ public class Points : ScriptableObject
 
 	public void Add(int points)
 	{
+        coinValue = points;
         SetCoins();
         Value += points;
         SaveCoins();
@@ -41,7 +44,7 @@ public class Points : ScriptableObject
             Instantiate(feedbackCanvas);
         }
 
-        MoedaFeedbackLerp.instance.MoedaCanvasIsActive(true);
+        MoedaFeedbackLerp.instance.MoedaCanvasIsActive(true, coinValue);
     }
 
     public void JustShowCoins()
