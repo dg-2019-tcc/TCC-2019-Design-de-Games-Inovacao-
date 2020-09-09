@@ -46,7 +46,7 @@ public class DOTweenUI : MonoBehaviour
     {
         finishedTween = false;
 
-        if (anim == AnimUIType.Move || anim == AnimUIType.Coin) { TweenOut(); }
+        if (anim == AnimUIType.Move) { TweenOut(); }
         else if (anim == AnimUIType.Alfa) { ChangeAlfa(false); }
 
     }
@@ -66,11 +66,7 @@ public class DOTweenUI : MonoBehaviour
 
     public void TweenInCoin()
     {
-        DOTween.Sequence().Append(rectTransform.DOAnchorPos(targetPosition, _moveDuration).SetEase(moveEase)).OnComplete(() => { Destroy(coinCanvas); Debug.Log("TweenOutCallback"); });
-        /*rectTransform.DOAnchorPos(targetPosition, _moveDuration).SetEase(moveEase).OnComplete(TweenOutCoinCallback());
-        while (DOTween.IsTweening(rectTransform)) { return; }
-        rectTransform.DOAnchorPos(inicialPostion, _moveDuration).SetEase(moveEase);*/
-
+        DOTween.Sequence().Append(rectTransform.DOAnchorPos(targetPosition, _moveDuration).SetEase(moveEase)).OnComplete(() => { Destroy(coinCanvas);});
     }
 
 
