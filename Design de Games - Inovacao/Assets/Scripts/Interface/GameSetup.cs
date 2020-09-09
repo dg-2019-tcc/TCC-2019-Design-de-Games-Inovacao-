@@ -96,15 +96,25 @@ public class GameSetup : MonoBehaviour
 
 	private void CustomizationLocked()
 	{
-		if (!PlayerPrefs.HasKey("BlockedX"))
+		if (!PlayerPrefs.HasKey("Blocked_0_0"))
 		{
 			blocked.rows = baseBlocked.rows;
+			for (int x = 0; x < blocked.rows.Length; x++)
+			{
+				for (int y = 0; y < blocked.rows[x].row.Length; y++)
+				{
+					PlayerPrefs.SetInt("Blocked_" + x + "_" + y, blocked.rows[x].row[y] ? 1 : 0);
+				}
+			}
 		}
 		else
 		{
-			//pegar do playerprefs, mas o playerprefs n aceita array por hora
+			GetCustomizationFromPlayerPrefs();
+			
 		}
 	}
+
+	
 
 
 	private string plataforma;
@@ -132,5 +142,16 @@ public class GameSetup : MonoBehaviour
 		plataforma = "Não Especificada";
 #endif
     }
+	
+	private void GetCustomizationFromPlayerPrefs()
+	{
+		for (int x = 0; x < blocked.rows.Length; x++)
+		{
+			for (int y = 0; y < blocked.rows[x].row.Length; y++)
+			{
+				blocked.rows[x].row[y] = (PlayerPrefs.GetInt("Blocked_" + x + "_" + y) == 0 ? false : true);
+			}
+		}
+	}
 
 }

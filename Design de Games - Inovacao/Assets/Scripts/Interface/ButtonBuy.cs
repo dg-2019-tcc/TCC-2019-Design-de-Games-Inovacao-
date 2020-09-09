@@ -112,8 +112,11 @@ public class ButtonBuy : MonoBehaviour
         {
             moedas.Add(-itemPrice);
             blocked.rows[x].row[y] = false;
-            //salvar no playerprefs, mas o playerprefs n aceita array por enquanto
-            Destroy(gameObject);
+
+			PlayerPrefs.SetInt("Blocked_" + x + "_" + y, 0);
+			Debug.Log("Blocked_" + x + "_" + y + " set to false on playerprefs");
+
+			Destroy(gameObject);
         }
         else
         {
