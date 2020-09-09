@@ -8,7 +8,6 @@ using Complete;
 public class SceneInitializer : MonoBehaviour
 {
     public static SceneInitializer current;
-
     public GameObject[] objsIni;
     public GameObject[] grafites;
     public GameObject player;

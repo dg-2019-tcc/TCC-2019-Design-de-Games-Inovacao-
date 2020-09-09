@@ -14,7 +14,7 @@ public class CustomController : MonoBehaviour
     private CustomDisplay customDisplay;
 
     private Player2DAnimations animations;
-
+    private AnimDB animDB;
     private void Start()
     {
         lado.SetActive(true);
@@ -25,6 +25,7 @@ public class CustomController : MonoBehaviour
 
         customDisplay = GetComponent<CustomDisplay>();
         animations = GetComponent<Player2DAnimations>();
+        animDB = GetComponent<AnimDB>();
 
         GameManager.Instance.ChecaFase();
         customDisplay.DesativaTudo();
@@ -50,7 +51,9 @@ public class CustomController : MonoBehaviour
 
         if (takeOffFrente.letThemBeOn == true/* && takeOffLado.letThemBeOn == true*/)
         {
-            animations.PlayAnim(Player2DAnimations.State.Idle);
+            animDB.ChangeArmature(0);
+            animDB.CallAnimState04(AnimState04.Idle);
+            //animations.PlayAnim(Player2DAnimations.State.Idle);
         }
     }
 }

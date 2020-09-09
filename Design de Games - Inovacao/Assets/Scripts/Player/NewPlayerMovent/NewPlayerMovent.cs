@@ -43,6 +43,7 @@ public class NewPlayerMovent : MonoBehaviour
     public BoolVariable pipaActive;
     public BoolVariable levouDogada;
 
+
     [HideInInspector]
     public Vector3 velocity;
     Vector3 carroVelocity;
@@ -50,7 +51,8 @@ public class NewPlayerMovent : MonoBehaviour
     Vector3 motoVelocity;
 
     public Vector3 oldPosition;
-    Vector2 input;
+    [HideInInspector]
+    public Vector2 input;
     Vector2 oldInput;
     [HideInInspector]
     public Vector2 joyInput;
@@ -59,7 +61,6 @@ public class NewPlayerMovent : MonoBehaviour
     public Controller2D dogController;
     TriggerCollisionsController triggerController;
     Player2DAnimations animations;
-
 
     public InputController inputController;
 
@@ -162,6 +163,7 @@ public class NewPlayerMovent : MonoBehaviour
             input.x = joyInput.x;
         }
 
+
         input.y = joyInput.y;
         targetVelocityX = input.x * moveSpeed.Value;
         if (levouDogada.Value == false)
@@ -189,7 +191,7 @@ public class NewPlayerMovent : MonoBehaviour
         controller.Move(velocity* Time.deltaTime);
         triggerController.MoveDirection(velocity * Time.deltaTime);
 
-        animations.ChangeMoveAnim(velocity, oldPosition, input, levouDogada.Value, ganhou);
+        //animations.ChangeMoveAnim(velocity, oldPosition, input, levouDogada.Value, ganhou);
 
 
         if (controller.collisions.above || controller.collisions.below)
@@ -203,7 +205,7 @@ public class NewPlayerMovent : MonoBehaviour
             stopJump = false;
         }
         #region PC Pulo
-        if (!GameManager.buildPC) { return; }
+        //if (!GameManager.buildPC) { return; }
         //Para PC
         if (inputController.releaseX == true)
         {
@@ -215,6 +217,7 @@ public class NewPlayerMovent : MonoBehaviour
 
         if (inputController.pressX == true && controller.collisions.below)
         {
+            //animDB.CallAnimState04(AnimState04.Rising);
             jump = true;
             velocity.y = maxJumpVelocity;
             FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/PuloGr", transform.position);
