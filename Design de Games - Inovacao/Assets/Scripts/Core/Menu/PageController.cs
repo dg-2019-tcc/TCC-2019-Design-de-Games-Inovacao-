@@ -10,7 +10,7 @@ namespace UnityCore
         {
             public static PageController instance;
 
-            public bool debug;
+            private bool debug = false;
             public PageType entryPage;
             public Page[] pages;
             [SerializeField]

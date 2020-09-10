@@ -239,7 +239,7 @@ public class NewPlayerMovent : MonoBehaviour
         carroVelocity.y += gravity * Time.deltaTime;
         controller.Move(carroVelocity * Time.deltaTime);
         triggerController.MoveDirection(carroVelocity);
-        animations.ChangeMoveAnim(carroVelocity, oldPosition, input, levouDogada.Value, ganhou);
+        //animations.ChangeMoveAnim(carroVelocity, oldPosition, input, levouDogada.Value, ganhou);
 
         if (controller.collisions.above || controller.collisions.below)
         {
@@ -257,7 +257,7 @@ public class NewPlayerMovent : MonoBehaviour
     public void PipaMovement()
     {
         //animations.ChangeMoveAnim(pipaVelocity, oldPosition, input, levouDogada.Value, ganhou);
-        animations.PlayAnim(Player2DAnimations.State.Pipa);
+        //animations.PlayAnim(Player2DAnimations.State.Pipa);
         targetVelocityX = input.x * pipaMoveSpeed;
         pipaVelocity.x = Mathf.SmoothDamp(pipaVelocity.x, targetVelocityX, ref pipaVelocityXSmoothing, pipaAccelerationTimeAirborne);
 

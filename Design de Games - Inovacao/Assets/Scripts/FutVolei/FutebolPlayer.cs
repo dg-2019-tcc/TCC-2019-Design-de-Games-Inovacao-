@@ -34,7 +34,8 @@ public class FutebolPlayer : MonoBehaviour
     public bool kickAnim;
 
 
-    private Player2DAnimations anim;
+    //private Player2DAnimations anim;
+    private PlayerAnimController playerAnim;
 
     [HideInInspector]
     public PhotonView photonView;
@@ -46,7 +47,8 @@ public class FutebolPlayer : MonoBehaviour
 
         controller = GetComponent<Controller2D>();
         triggerController = GetComponent<TriggerCollisionsController>();
-        anim = GetComponent<Player2DAnimations>();
+        //anim = GetComponent<Player2DAnimations>();
+        playerAnim = GetComponent<PlayerAnimController>();
 
         bola = GameObject.FindWithTag("Futebol");
         ballrb = bola.GetComponent<Rigidbody2D>();
@@ -145,14 +147,13 @@ public class FutebolPlayer : MonoBehaviour
 
     IEnumerator CoolKick()
     {
-        Debug.Log(kicked + "0");
         kicked = true;
-        anim.dogButtonAnim = kicked;
-        Debug.Log(kicked + "1");
+        //anim.dogButtonAnim = kicked;
+        playerAnim.dogButtonAnim = kicked;
         yield return new WaitForSeconds(cooldownKick);
-        Debug.Log(kicked + "2");
         kicked = false;
-        anim.dogButtonAnim = kicked;
+        playerAnim.dogButtonAnim = kicked;
+        //anim.dogButtonAnim = kicked;
     }
     [PunRPC]
     public void TocouBola(float forceX, float forceY)

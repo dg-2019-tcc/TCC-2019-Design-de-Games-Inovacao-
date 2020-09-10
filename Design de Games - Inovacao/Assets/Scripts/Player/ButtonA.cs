@@ -123,6 +123,7 @@ public class ButtonA : MonoBehaviour
                 state = State.Null;
                 break;
         }
+        Debug.Log("[ButtonA] PressedButtonA()");
     }
 
     public void PassarFala()
@@ -159,7 +160,7 @@ public class ButtonA : MonoBehaviour
         if (chuteScript.kicked == false)
         {
             chuteScript.Chute();
-            Debug.Log("ButtonA");
+            //Debug.Log("ButtonA");
         }
     }
 

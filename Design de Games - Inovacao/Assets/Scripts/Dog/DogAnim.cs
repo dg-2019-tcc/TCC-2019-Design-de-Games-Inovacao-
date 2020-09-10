@@ -96,7 +96,6 @@ public class DogAnim : MonoBehaviour
             case "Idle":
                 if (state != State.Idle)
                 {
-                    dogArmature.animation.timeScale = 1;
                     dogArmature.animation.Play("4_Idle");
                     state = State.Idle;
                 }
@@ -105,7 +104,6 @@ public class DogAnim : MonoBehaviour
             case "Walk":
                 if (state != State.Walk)
                 {
-                    dogArmature.animation.timeScale = 1;
                     dogArmature.animation.Play("0_Run");
                     state = State.Walk;
                 }
@@ -114,7 +112,6 @@ public class DogAnim : MonoBehaviour
             case "Up":
                 if (state != State.Up)
                 {
-                    dogArmature.animation.timeScale = 1;
                     dogArmature.animation.Play("1_Subindo(NoAr)");
                     state = State.Up;
                 }

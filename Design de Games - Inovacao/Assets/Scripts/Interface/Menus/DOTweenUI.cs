@@ -81,7 +81,6 @@ public class DOTweenUI : MonoBehaviour
     }
     TweenCallback TweenOutCoinCallback()
     {
-        Debug.Log("TweenOutCallback");
         //rectTransform.DOAnchorPos(inicialPostion, _moveDuration).SetEase(moveEase);
         finishedTween = true;
         //gameObject.SetActive(false);
@@ -90,7 +89,6 @@ public class DOTweenUI : MonoBehaviour
 
     TweenCallback TweenOutCallback()
     {
-        Debug.Log("TweenOutCallback");
         rectTransform.DOAnchorPos(inicialPostion, _moveDuration).SetEase(moveEase);
         finishedTween = true;
 

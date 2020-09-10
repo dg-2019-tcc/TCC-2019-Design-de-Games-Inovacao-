@@ -148,7 +148,7 @@ public class DogMovement : MonoBehaviour
         velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (dogController.collisions.below) ? accelerationTimeGrounded : accelerationTimeAirborne);
 
         dogController.Move(velocity * Time.deltaTime, input);
-        dogAnim.ChangeDogAnim(velocity, joyInput);
+        //dogAnim.ChangeDogAnim(velocity, joyInput);
 
     }
 

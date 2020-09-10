@@ -89,7 +89,7 @@ public class Player2DAnimations : MonoBehaviour
 
 	}
 
-    public void ChangeMoveAnim(Vector3 moveAmount, Vector2 oldPos, Vector2 input, bool stun, bool ganhou)
+    /*public void ChangeMoveAnim(Vector3 moveAmount, Vector2 oldPos, Vector2 input, bool stun, bool ganhou)
 	{
         if (isLoja) return;
         Cooldown();
@@ -367,5 +367,5 @@ public class Player2DAnimations : MonoBehaviour
         }
 
         state = nextState;
-    }
+    }*/
 }

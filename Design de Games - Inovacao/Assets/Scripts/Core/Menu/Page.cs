@@ -9,7 +9,7 @@ namespace UnityCore
     {
         public class Page : MonoBehaviour
         {
-            public bool debug;
+            private bool debug = false;
 
             public static readonly string FLAG_ON = "On";
             public static readonly string FLAG_OFF = "Off";

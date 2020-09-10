@@ -47,6 +47,7 @@ public class AnimDB : MonoBehaviour
     public PhotonView photonView;
 
     private bool changingArmature;
+    private bool canFadeIn;
 
     private void Start()
     {
@@ -63,135 +64,136 @@ public class AnimDB : MonoBehaviour
 
     public void CallAnimState02(AnimState02 state02)
     {
-        if(animState01 != AnimState01.None) { return; }
-        if ((int)animState02 < (int)state02) { return; }
+        if(state02 == animState02) { return; }
+        if (animState01 != AnimState01.None) { return; }
+        //if ((int)animState02 < (int)state02) { return; }
         animState02 = state02;
+        if(animState02 == AnimState02.None) { return; }
         PlayAnimState02();
     }
 
     public void CallAnimState03(AnimState03 state03)
     {
+        if (state03 == animState03) { return; }
         if (animState01 != AnimState01.None || animState02 != AnimState02.None) { return; }
-        if ((int)animState03 < (int)state03) { return; }
+        //if ((int)animState03 < (int)state03) { return; }
         animState03 = state03;
+        if(animState03 == AnimState03.None) { return; }
         PlayAnimState03();
+        Debug.Log("[AnimDB] CallAnimState03()");
     }
 
     public void CallAnimState04(AnimState04 state04)
     {
-        if(state04 == animState04) { return; }
+        if (state04 == animState04) { return; }
         if (animState01 != AnimState01.None || animState02 != AnimState02.None || animState03 != AnimState03.None) { return; }
         //if ((int)animState04 < (int)state04 && state04!= AnimState04.None) { return; }
         animState04 = state04;
         PlayAnimState04();
-//        Debug.Log("[AnimDB] CallAnimState04()");
+        //        Debug.Log("[AnimDB] CallAnimState04()");
     }
 
     private void PlayAnimState01()
     {
-        if(frente.activeInHierarchy == false) { ChangeArmature(0); }
+        if (frente.activeInHierarchy == false) { ChangeArmature(0); }
+        else { canFadeIn = true; }
         switch (animState01)
         {
-            /*case AnimState01.Ganhou:
-                PlayAnim(vitoriaAnim, true);
+            case AnimState01.Ganhou:
+                animFuction = "GanhouAnim";
                 break;
 
             case AnimState01.Perdeu:
-                PlayAnim(derrotaAnim, true);
+                animFuction = "PerdeuAnim";
                 break;
 
             case AnimState01.Stun:
-                PlayAnim(stunAnim, true);
-                break;*/
+                animFuction = "StunAnim";
+                break;
         }
-//        Debug.Log("[AnimDB] PlayAnimState01()");
-
+        PlayAnim(animFuction);
     }
 
     private void PlayAnimState02()
     {
-        if(lado.activeInHierarchy == false) { ChangeArmature(1); }
+        if (lado.activeInHierarchy == false) { ChangeArmature(1); }
+        else { canFadeIn = true; }
+        while (changingArmature) { return; }
         switch (animState02)
         {
-            /*case AnimState02.Pipa:
-                PlayAnim(pipaAnimation, true);
+            case AnimState02.Pipa:
+                animFuction = "PipaAnim";
                 break;
 
             case AnimState02.CarroDown:
-                PlayAnim(carroDownAnim, true);
+                animFuction = "CarroDownAnim";
                 break;
 
             case AnimState02.CarroUp:
-                PlayAnim(carroUpAnim, true);
+                animFuction = "CarroUpAnim";
                 break;
 
             case AnimState02.CarroWalk:
-                PlayAnim(carroWalkAnim, true);
-                break;*/
+                animFuction = "CarroWalkAnim";
+                break;
         }
+        PlayAnim(animFuction);
     }
     private void PlayAnimState03()
     {
         if (lado.activeInHierarchy == false) { ChangeArmature(1); }
+        else { canFadeIn = true; }
+        while (changingArmature) { return; }
         switch (animState03)
         {
-            /*case AnimState03.Arremesando:
-                PlayAnim(arremessoAnimation, false);
+            case AnimState03.Arremesando:
+                animFuction = "ArremessandoAnim";
                 break;
 
             case AnimState03.Chute:
-                PlayAnim(chuteAnimation, false);
-                break;*/
-
+                animFuction = "ChutandoAnim";
+                break;
         }
+        PlayAnim(animFuction);
+        Debug.Log("[AnimDB] PlayAnimState03()");
     }
     private void PlayAnimState04()
     {
-        if (animState04 == AnimState04.Idle  && frente.activeInHierarchy == false) { ChangeArmature(0); }
+        if (animState04 == AnimState04.Idle && frente.activeInHierarchy == false) { ChangeArmature(0); }
         else if (animState04 != AnimState04.Idle && frente.activeInHierarchy == true) { ChangeArmature(1); }
+        else { canFadeIn = true; }
         while (changingArmature) { return; }
         switch (animState04)
         {
             case AnimState04.Aterrisando:
-                //PlayAnim(aterrisandoAnimation, false);
-                //AterrisandoAnim();
                 animFuction = "AterrisandoAnim";
                 break;
 
             case AnimState04.Falling:
-                //PlayAnim(descendoJumpAnimation, true);
-                //FallingAnim();
                 animFuction = "FallingAnim";
                 break;
 
             case AnimState04.Rising:
-                //PlayAnim(subindoJumpAnimation, true);
-                //umpAnim();
                 animFuction = "JumpAnim";
                 break;
 
             case AnimState04.Walk:
-                //PlayAnim(walkAnimation, true);
-                //WalkAnim();
                 animFuction = "WalkAnim";
                 break;
 
             case AnimState04.Idle:
-                //PlayAnim(idlePose, true);
-                //IdleAnim();
                 animFuction = "IdleAnim";
                 break;
         }
         PlayAnim(animFuction);
-     //   Debug.Log("[AnimDB] PlayAnimState04()");
     }
 
     // int type é 0 para ativar a frente e 1 para a de lado
     public void ChangeArmature(int type)
     {
-        playerAtivo.animation.AdvanceTime(0);
+        canFadeIn = false;
         changingArmature = true;
-        if(type == 0)
+        if (type == 0)
         {
             frente.SetActive(true);
             lado.SetActive(false);
@@ -204,53 +206,34 @@ public class AnimDB : MonoBehaviour
             playerAtivo = playerLado;
         }
         changingArmature = false;
-       // Debug.Log("[AnimDB] ChangeArmature()");
     }
 
     public void PlayAnim(string functionName)
     {
-
-        if (GameManager.inRoom)
-        {
-            photonView.RPC(functionName, RpcTarget.All);
-        }
-        else
-        {
-            //CallAnim(anim,isLoop);
-            Invoke(functionName,0);
-        }
-
-       // Debug.Log("[AnimDB] PlayAnim()");
+        if (GameManager.inRoom) { photonView.RPC(functionName, RpcTarget.All); }
+        else { Invoke(functionName, 0); }
     }
+
     //Animações do State01
-    [PunRPC] public void GanhouAnim() => playerAtivo.animation.FadeIn("2_Vencer", 0.2f);
-    [PunRPC] public void PerdeuAnim() => playerAtivo.animation.FadeIn("2_Perder", 0.2f);
-    [PunRPC] public void StunAnim() => playerAtivo.animation.FadeIn("3_Atordoado", 0.2f);
+    [PunRPC] public void GanhouAnim() { if (canFadeIn) { playerAtivo.animation.FadeIn("2_Vencer", 0.2f); } else { playerAtivo.animation.GotoAndPlayByFrame("2_Vencer", 0); } }
+    [PunRPC] public void PerdeuAnim() { if (canFadeIn) { playerAtivo.animation.FadeIn("2_Perder", 0.2f); } else { playerAtivo.animation.GotoAndPlayByFrame("2_Perder", 0); } }
+    [PunRPC] public void StunAnim() { if (canFadeIn) { playerAtivo.animation.FadeIn("3_Atordoado", 0.2f); } else { playerAtivo.animation.GotoAndPlayByFrame("3_Atordoado", 0); } }
 
     //Animações do state02
-    [PunRPC] public void PipaAnim() => playerAtivo.animation.FadeIn("7_Pipa", 0.2f);
-    [PunRPC] public void CarroWalkAnim() => playerAtivo.animation.FadeIn("6_Rolima(Andando)", 0.2f);
-    [PunRPC] public void CarroUpAnim() => playerAtivo.animation.FadeIn("6_Rolima(SubindoNoAr)", 0.2f);
-    [PunRPC] public void CarroDownAnim() => playerAtivo.animation.FadeIn("6_Rolima(DescendoNoAr)", 0.2f);
+    [PunRPC] public void PipaAnim() => playerAtivo.animation.GotoAndPlayByFrame("7_Pipa", 0); //{ if (canFadeIn) { playerAtivo.animation.FadeIn("7_Pipa", 0.2f); } else { playerAtivo.animation.GotoAndPlayByFrame("7_Pipa", 0); } }
+    [PunRPC] public void CarroWalkAnim() => playerAtivo.animation.GotoAndPlayByFrame("6_Rolima(Andando)", 0); //{ if (canFadeIn) { playerAtivo.animation.FadeIn("6_Rolima(Andando)", 0.2f); } else { playerAtivo.animation.GotoAndPlayByFrame("6_Rolima(Andando)", 0); } }
+    [PunRPC] public void CarroUpAnim() { if (canFadeIn) { playerAtivo.animation.FadeIn("6_Rolima(SubindoNoAr)", 0.2f); } else { playerAtivo.animation.GotoAndPlayByFrame("6_Rolima(SubindoNoAr)", 0); } }
+    [PunRPC] public void CarroDownAnim() { if (canFadeIn) { playerAtivo.animation.FadeIn("6_Rolima(DescendoNoAr)", 0.2f); } else { playerAtivo.animation.GotoAndPlayByFrame("6_Rolima(DescendoNoAr)", 0); } }
 
     // Animações do state03
-    [PunRPC] public void ArremessandoAnim() => playerAtivo.animation.FadeIn("6_Arremessar(3_Arremesso)", 0.2f);
-    [PunRPC] public void ChutandoAnim() => playerAtivo.animation.FadeIn("3_Bicuda(SemPreparacao)", 0.2f);
+    [PunRPC] public void ArremessandoAnim() { if (canFadeIn) { playerAtivo.animation.FadeIn("5_Arremessar", 0.2f); } else { playerAtivo.animation.GotoAndPlayByFrame("5_Arremessar", 0); } }
+    [PunRPC] public void ChutandoAnim() { if (canFadeIn) { playerAtivo.animation.FadeIn("3_Bicuda"); } else { playerAtivo.animation.GotoAndPlayByFrame("3_Bicuda", 0, 1); } }
 
 
     // Animações do state04
-    [PunRPC] public void FallingAnim() => playerAtivo.animation.FadeIn("1_NoAr(2_Descendo)", 0.2f);
-    [PunRPC] public void AterrisandoAnim() => playerAtivo.animation.FadeIn("1_Aterrisando", 0.2f);
-    [PunRPC] public void WalkAnim() => playerAtivo.animation.FadeIn("0_Corrida_V2", 0.2f);
-    [PunRPC] public void JumpAnim() => playerAtivo.animation.FadeIn("1_NoAr(1_Subindo)", 0.2f);
-    [PunRPC] public void IdleAnim() => playerAtivo.animation.FadeIn("0_Idle", 0.2f);
-
-
-    [PunRPC]
-    public void CallAnim(string anim, bool isLoop)
-    {
-        if (!isLoop) { playerAtivo.animation.Play(anim, 1); }
-        else{ playerAtivo.animation.Play(anim);}
-     //   Debug.Log("[AnimDB] CallAnim()");
-    }
+    [PunRPC] public void FallingAnim() { if (canFadeIn) { playerAtivo.animation.FadeIn("1_NoAr(2_Descendo)",0.2f); } else { playerAtivo.animation.GotoAndPlayByFrame("1_NoAr(2_Descendo)", 0); } }
+    [PunRPC] public void AterrisandoAnim() { if (canFadeIn) { playerAtivo.animation.FadeIn("1_Aterrisando", 0.2f); } else { playerAtivo.animation.GotoAndPlayByFrame("1_Aterrisando", 0); } }
+    [PunRPC] public void WalkAnim() { if (canFadeIn) { playerAtivo.animation.FadeIn("0_Corrida_V2", 0.2f); } else { playerAtivo.animation.GotoAndPlayByFrame("0_Corrida_V2", 0); } }
+    [PunRPC] public void JumpAnim() { if (canFadeIn) { playerAtivo.animation.FadeIn("1_NoAr(1_Subindo)", 0.2f); } else { playerAtivo.animation.GotoAndPlayByFrame("1_NoAr(1_Subindo)", 0); } }
+    [PunRPC] public void IdleAnim() => playerAtivo.animation.GotoAndPlayByFrame("0_Idle", 0); 
 }

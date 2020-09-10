@@ -35,7 +35,8 @@ namespace Complete {
         [HideInInspector]
         public PhotonView photonView;
 
-        public Player2DAnimations anim;
+        //public Player2DAnimations anim;
+        public PlayerAnimController playerAnim;
 
         public AudioSource tiroSom;
 
@@ -61,8 +62,9 @@ namespace Complete {
             textoAtivo = Resources.Load<BoolVariable>("TextoAtivo");
 
             photonView = gameObject.GetComponent<PhotonView>();
-            anim = GetComponent<Player2DAnimations>();
+            //anim = GetComponent<Player2DAnimations>();
             dogController = GetComponent<DogController>();
+            playerAnim = GetComponent<PlayerAnimController>();
 
             tiroImage = tiroButton.GetComponent<Image>();
 
@@ -118,7 +120,8 @@ namespace Complete {
             bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);// as GameObject;
             shootAnim = false;
             //anim.DogButtonAnim(shootAnim);
-            anim.dogButtonAnim = shootAnim;
+            //anim.dogButtonAnim = shootAnim;
+            playerAnim.dogButtonAnim = shootAnim;
 
             bullet.GetComponent<ItemThrow>().InitializeBullet(photonView.Owner);
             StartCoroutine("CooldownEffect");
@@ -128,11 +131,13 @@ namespace Complete {
         IEnumerator StartTiro()
         {
             shootAnim = true;
-            anim.dogButtonAnim = shootAnim;
+            //anim.dogButtonAnim = shootAnim;
+            playerAnim.dogButtonAnim = shootAnim;
             atirou = false;
             yield return new WaitForSeconds(0.5f);
             shootAnim = false;
-            anim.dogButtonAnim = shootAnim;
+            //anim.dogButtonAnim = shootAnim;
+            playerAnim.dogButtonAnim = shootAnim;
             if (isOnline)
             {
                 Debug.Log("Atirou");

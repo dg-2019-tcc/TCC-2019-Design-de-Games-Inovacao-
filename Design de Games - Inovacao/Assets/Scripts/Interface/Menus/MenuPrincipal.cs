@@ -27,7 +27,7 @@ public class MenuPrincipal : MonoBehaviour
         {
             nomeDoMenu = "HUB";
             nextScene = SceneType.HUB;
-            Debug.Log("ComecaJOGO[MenuPrincipal script]");
+            //Debug.Log("ComecaJOGO[MenuPrincipal script]");
         }
 
         else

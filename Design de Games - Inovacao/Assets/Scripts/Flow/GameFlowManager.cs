@@ -266,7 +266,7 @@ public class GameFlowManager : MonoBehaviour
 		{
 			doorBlock[i].SetActive(false);
 		}
-        Debug.Log("AtivaFAse");
+        //Debug.Log("AtivaFAse");
 
 
     }

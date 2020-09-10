@@ -21,8 +21,8 @@ public class TV : MonoBehaviour
     {
         pointer = GetComponent<ItemLocatorOnScreen>();
         PlayerPrefsManager.Instance.LoadPlayerPref("FalasIndex");
-        Debug.Log("FalasIndex é: " + PlayerPrefsManager.Instance.prefsVariables.falasIndex);
-        Debug.Log("LevelIndex é: " + PlayerPrefsManager.Instance.prefsVariables.levelIndex);
+        //Debug.Log("FalasIndex é: " + PlayerPrefsManager.Instance.prefsVariables.falasIndex);
+        //Debug.Log("LevelIndex é: " + PlayerPrefsManager.Instance.prefsVariables.levelIndex);
         if (demo == null)
         {
             demo = Resources.Load<BoolVariable>("Demo");
