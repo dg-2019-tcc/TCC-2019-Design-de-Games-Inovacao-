@@ -31,16 +31,16 @@ public class PlayerAnimController : MonoBehaviour
     {
         Cooldown();
         NormalMovement();
-        if (coolToNext >= 0.2f) { CallNormalMovementAnim(); }
+        if (coolToNext >= 0.1f) { CallNormalMovementAnim(); }
     }
 
     void NormalMovement()
     {
-        //if(playerMovement.velocity.y < 0 && controller.collisions.below == true) {nextAnimState04 = AnimState04.Aterrisando; return; }
-        //else if(playerMovement.velocity.y < 0 && controller.collisions.below == false){ nextAnimState04 = AnimState04.Falling; return; }
-        /*else*/ if(playerMovement.jump) { nextAnimState04 = AnimState04.Rising;  }
-        else if(inputController.joyInput.x != 0 && controller.collisions.below) { nextAnimState04 = AnimState04.Walk; return; }
-        //else { nextAnimState04 = AnimState04.Idle; return; }
+        if(playerMovement.velocity.y < 0 && controller.collisions.below == true) {nextAnimState04 = AnimState04.Aterrisando;  }
+        else if(playerMovement.velocity.y < 0 && controller.collisions.below == false){ nextAnimState04 = AnimState04.Falling; }
+        else if(playerMovement.jump) { nextAnimState04 = AnimState04.Rising;  }
+        else if(inputController.joyInput.x != 0 && controller.collisions.below) { nextAnimState04 = AnimState04.Walk; }
+        else { nextAnimState04 = AnimState04.Idle; }
     }
 
     void Cooldown()

@@ -51,6 +51,7 @@ public class CustomController : MonoBehaviour
 
         if (takeOffFrente.letThemBeOn == true/* && takeOffLado.letThemBeOn == true*/)
         {
+            animDB.playerAtivo = animDB.playerFrente;
             animDB.ChangeArmature(0);
             animDB.CallAnimState04(AnimState04.Idle);
             //animations.PlayAnim(Player2DAnimations.State.Idle);

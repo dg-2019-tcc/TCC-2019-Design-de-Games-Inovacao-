@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using UnityEngine;
 using UnityCore.Scene;
 using UnityCore.Menu;
+using Kintal;
 
 public class LoadingManager : MonoBehaviour
 {
@@ -15,6 +16,8 @@ public class LoadingManager : MonoBehaviour
 
     public DOTweenUI tweenUI;
     public DOTweenUI tweenCanvas;
+
+    public GarbageController gc;
 
     #region Singleton
 
@@ -65,6 +68,8 @@ public class LoadingManager : MonoBehaviour
     #region Public Functions
     public void LoadNewScene(SceneType nextScene, SceneType oldScene, bool isOnline)
     {
+
+        GarbageController.EnableGC();
         loadingScreen.SetActive(true);
         //tweenUI.TweenIn();
         GameManager.isPaused = true;

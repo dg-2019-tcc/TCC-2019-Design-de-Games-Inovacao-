@@ -11,13 +11,12 @@ public class AnimDB : MonoBehaviour
     public GameObject frente;
     public GameObject lado;
 
-    [SerializeField]
-    private UnityArmatureComponent playerLado;
-    [SerializeField]
-    private UnityArmatureComponent playerFrente;
-    private UnityArmatureComponent playerAtivo;
+    public UnityArmatureComponent playerLado;
+    public UnityArmatureComponent playerFrente;
+    [HideInInspector]
+    public UnityArmatureComponent playerAtivo;
 
-    public string idlePose = "0_Idle";
+    /*public string idlePose = "0_Idle";
     public string walkAnimation = "0_Corrida_V2";
     public string subindoJumpAnimation = "1_NoAr(1_Subindo)";
     public string descendoJumpAnimation = "1_NoAr(3_Descendo)";
@@ -31,10 +30,12 @@ public class AnimDB : MonoBehaviour
     public string carroDownAnim = "6_Rolima(DescendoNoAr)";
     public string stunAnim = "3_Atordoado";
     public string vitoriaAnim = "2_Vencer";
-    public string derrotaAnim = "2_Perder";
+    public string derrotaAnim = "2_Perder";*/
 
     [SerializeField]
     private string nextAnim;
+
+    private string animFuction;
 
     public enum State { Idle, Walking, Rising, Falling, Aterrisando, Chutando, Arremessando, Inativo, Pipa, CarroWalk, CarroUp, CarroDown, Stun, Ganhou, Perdeu, Null }
     public AnimState01 animState01 = AnimState01.None;
@@ -91,7 +92,7 @@ public class AnimDB : MonoBehaviour
         if(frente.activeInHierarchy == false) { ChangeArmature(0); }
         switch (animState01)
         {
-            case AnimState01.Ganhou:
+            /*case AnimState01.Ganhou:
                 PlayAnim(vitoriaAnim, true);
                 break;
 
@@ -101,7 +102,7 @@ public class AnimDB : MonoBehaviour
 
             case AnimState01.Stun:
                 PlayAnim(stunAnim, true);
-                break;
+                break;*/
         }
 //        Debug.Log("[AnimDB] PlayAnimState01()");
 
@@ -112,7 +113,7 @@ public class AnimDB : MonoBehaviour
         if(lado.activeInHierarchy == false) { ChangeArmature(1); }
         switch (animState02)
         {
-            case AnimState02.Pipa:
+            /*case AnimState02.Pipa:
                 PlayAnim(pipaAnimation, true);
                 break;
 
@@ -126,7 +127,7 @@ public class AnimDB : MonoBehaviour
 
             case AnimState02.CarroWalk:
                 PlayAnim(carroWalkAnim, true);
-                break;
+                break;*/
         }
     }
     private void PlayAnimState03()
@@ -134,62 +135,61 @@ public class AnimDB : MonoBehaviour
         if (lado.activeInHierarchy == false) { ChangeArmature(1); }
         switch (animState03)
         {
-            case AnimState03.Arremesando:
+            /*case AnimState03.Arremesando:
                 PlayAnim(arremessoAnimation, false);
                 break;
 
             case AnimState03.Chute:
                 PlayAnim(chuteAnimation, false);
-                break;
+                break;*/
 
         }
     }
     private void PlayAnimState04()
     {
-        if ((animState04 == AnimState04.Idle || animState04 == AnimState04.None) && frente.activeInHierarchy == false) { ChangeArmature(0); }
+        if (animState04 == AnimState04.Idle  && frente.activeInHierarchy == false) { ChangeArmature(0); }
         else if (animState04 != AnimState04.Idle && frente.activeInHierarchy == true) { ChangeArmature(1); }
         while (changingArmature) { return; }
         switch (animState04)
         {
             case AnimState04.Aterrisando:
-                PlayAnim(aterrisandoAnimation, false);
+                //PlayAnim(aterrisandoAnimation, false);
+                //AterrisandoAnim();
+                animFuction = "AterrisandoAnim";
                 break;
 
             case AnimState04.Falling:
-                PlayAnim(descendoJumpAnimation, true);
+                //PlayAnim(descendoJumpAnimation, true);
+                //FallingAnim();
+                animFuction = "FallingAnim";
                 break;
 
             case AnimState04.Rising:
                 //PlayAnim(subindoJumpAnimation, true);
-                JumpAnim();
+                //umpAnim();
+                animFuction = "JumpAnim";
                 break;
 
             case AnimState04.Walk:
                 //PlayAnim(walkAnimation, true);
-                WalkAnim();
+                //WalkAnim();
+                animFuction = "WalkAnim";
                 break;
 
             case AnimState04.Idle:
                 //PlayAnim(idlePose, true);
-                IdleAnim();
-                break;
-
-            case AnimState04.None:
-                //PlayAnim(idlePose, true);
-                IdleAnim();
-                break;
-
-            default:
-                //PlayAnim(idlePose, true);
-                IdleAnim();
+                //IdleAnim();
+                animFuction = "IdleAnim";
                 break;
         }
+        PlayAnim(animFuction);
      //   Debug.Log("[AnimDB] PlayAnimState04()");
     }
 
     // int type é 0 para ativar a frente e 1 para a de lado
     public void ChangeArmature(int type)
     {
+        playerAtivo.animation.AdvanceTime(0);
         changingArmature = true;
         if(type == 0)
         {
@@ -207,33 +207,44 @@ public class AnimDB : MonoBehaviour
        // Debug.Log("[AnimDB] ChangeArmature()");
     }
 
-    public void PlayAnim(string anim, bool isLoop)
+    public void PlayAnim(string functionName)
     {
 
         if (GameManager.inRoom)
         {
-            photonView.RPC("CallAnim", RpcTarget.All, anim, isLoop);
+            photonView.RPC(functionName, RpcTarget.All);
         }
         else
         {
-            CallAnim(anim,isLoop);
+            //CallAnim(anim,isLoop);
+            Invoke(functionName,0);
         }
 
        // Debug.Log("[AnimDB] PlayAnim()");
     }
-    public void WalkAnim()
-    {
-        playerAtivo.animation.Play(walkAnimation);
-    }
-    public void JumpAnim()
-    {
-        playerAtivo.animation.Play(subindoJumpAnimation);
-    }
+    //Animações do State01
+    [PunRPC] public void GanhouAnim() => playerAtivo.animation.FadeIn("2_Vencer", 0.2f);
+    [PunRPC] public void PerdeuAnim() => playerAtivo.animation.FadeIn("2_Perder", 0.2f);
+    [PunRPC] public void StunAnim() => playerAtivo.animation.FadeIn("3_Atordoado", 0.2f);
 
-    public void IdleAnim()
-    {
-        playerAtivo.animation.Play(idlePose);
-    }
+    //Animações do state02
+    [PunRPC] public void PipaAnim() => playerAtivo.animation.FadeIn("7_Pipa", 0.2f);
+    [PunRPC] public void CarroWalkAnim() => playerAtivo.animation.FadeIn("6_Rolima(Andando)", 0.2f);
+    [PunRPC] public void CarroUpAnim() => playerAtivo.animation.FadeIn("6_Rolima(SubindoNoAr)", 0.2f);
+    [PunRPC] public void CarroDownAnim() => playerAtivo.animation.FadeIn("6_Rolima(DescendoNoAr)", 0.2f);
+
+    // Animações do state03
+    [PunRPC] public void ArremessandoAnim() => playerAtivo.animation.FadeIn("6_Arremessar(3_Arremesso)", 0.2f);
+    [PunRPC] public void ChutandoAnim() => playerAtivo.animation.FadeIn("3_Bicuda(SemPreparacao)", 0.2f);
+
+
+    // Animações do state04
+    [PunRPC] public void FallingAnim() => playerAtivo.animation.FadeIn("1_NoAr(2_Descendo)", 0.2f);
+    [PunRPC] public void AterrisandoAnim() => playerAtivo.animation.FadeIn("1_Aterrisando", 0.2f);
+    [PunRPC] public void WalkAnim() => playerAtivo.animation.FadeIn("0_Corrida_V2", 0.2f);
+    [PunRPC] public void JumpAnim() => playerAtivo.animation.FadeIn("1_NoAr(1_Subindo)", 0.2f);
+    [PunRPC] public void IdleAnim() => playerAtivo.animation.FadeIn("0_Idle", 0.2f);
+
 
     [PunRPC]
     public void CallAnim(string anim, bool isLoop)

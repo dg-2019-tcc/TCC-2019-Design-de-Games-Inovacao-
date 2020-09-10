@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityCore.Menu;
 using UnityCore.Scene;
 using Complete;
+using Kintal;
 
 public class SceneInitializer : MonoBehaviour
 {
@@ -66,6 +67,7 @@ public class SceneInitializer : MonoBehaviour
         {
             PageController.instance.TurnPageOn(PageController.instance.entryPage);
         }
+        GarbageController.DisableGC();
         Debug.Log("[SceneInitializer] Initialize Scene Done");
     }
 
