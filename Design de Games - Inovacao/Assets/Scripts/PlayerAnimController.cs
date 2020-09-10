@@ -14,6 +14,9 @@ public class PlayerAnimController : MonoBehaviour
 
     public AnimState04 nextAnimState04 = AnimState04.None;
 
+    [SerializeField]
+    private float coolToNext;
+
     private void Start()
     {
         animDB = GetComponent<AnimDB>();
@@ -24,10 +27,11 @@ public class PlayerAnimController : MonoBehaviour
         inputController = GetComponent<InputController>();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
+        Cooldown();
         NormalMovement();
-        CallNormalMovementAnim();
+        if (coolToNext >= 0.2f) { CallNormalMovementAnim(); }
     }
 
     void NormalMovement()
@@ -36,10 +40,16 @@ public class PlayerAnimController : MonoBehaviour
         //else if(playerMovement.velocity.y < 0 && controller.collisions.below == false){ nextAnimState04 = AnimState04.Falling; return; }
         /*else*/ if(playerMovement.jump) { nextAnimState04 = AnimState04.Rising;  }
         else if(inputController.joyInput.x != 0 && controller.collisions.below) { nextAnimState04 = AnimState04.Walk; return; }
-        else { nextAnimState04 = AnimState04.Idle; return; }
+        //else { nextAnimState04 = AnimState04.Idle; return; }
+    }
+
+    void Cooldown()
+    {
+        coolToNext += Time.deltaTime;
     }
     void CallNormalMovementAnim()
     {
         animDB.CallAnimState04(nextAnimState04);
+        coolToNext = 0;
     }
 }
