@@ -44,9 +44,8 @@ public class NewPlayerMovent : MonoBehaviour
     public BoolVariable levouDogada;
 
 
-    [HideInInspector]
-    public Vector3 velocity;
-    Vector3 carroVelocity;
+    [HideInInspector] public Vector3 velocity;
+    [HideInInspector] public Vector3 carroVelocity;
     Vector3 pipaVelocity;
     Vector3 motoVelocity;
 
@@ -250,6 +249,7 @@ public class NewPlayerMovent : MonoBehaviour
 
         if (triggerController.collisions.caixaDagua)
         {
+            jump = true;
             carroVelocity.y = maxJumpVelocity * 1.8f;
         }
     }

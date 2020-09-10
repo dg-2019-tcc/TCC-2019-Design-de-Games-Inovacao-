@@ -56,7 +56,7 @@ public class PlayerAnimController : MonoBehaviour
 
     void CarroAnim()
     {
-        if (playerMovement.velocity.y < 0 && controller.collisions.below == false) { nextAnimState02 = AnimState02.CarroDown; }
+        if (playerMovement.carroVelocity.y < 0 && controller.collisions.below == false) { nextAnimState02 = AnimState02.CarroDown; }
         else if (playerMovement.jump) { nextAnimState02 = AnimState02.CarroUp; }
         else if (inputController.joyInput.x != 0 && controller.collisions.below) { nextAnimState02 = AnimState02.CarroWalk; }
     }

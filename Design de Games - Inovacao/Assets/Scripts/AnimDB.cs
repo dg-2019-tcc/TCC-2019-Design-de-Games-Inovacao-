@@ -221,7 +221,7 @@ public class AnimDB : MonoBehaviour
 
     //Animações do state02
     [PunRPC] public void PipaAnim() => playerAtivo.animation.GotoAndPlayByFrame("7_Pipa", 0); //{ if (canFadeIn) { playerAtivo.animation.FadeIn("7_Pipa", 0.2f); } else { playerAtivo.animation.GotoAndPlayByFrame("7_Pipa", 0); } }
-    [PunRPC] public void CarroWalkAnim() => playerAtivo.animation.GotoAndPlayByFrame("6_Rolima(Andando)", 0); //{ if (canFadeIn) { playerAtivo.animation.FadeIn("6_Rolima(Andando)", 0.2f); } else { playerAtivo.animation.GotoAndPlayByFrame("6_Rolima(Andando)", 0); } }
+    [PunRPC] public void CarroWalkAnim() /*=> playerAtivo.animation.GotoAndPlayByFrame("6_Rolima(Andando)", 0);*/ { if (canFadeIn) { playerAtivo.animation.FadeIn("6_Rolima(Andando)", 0.2f); } else { playerAtivo.animation.GotoAndPlayByFrame("6_Rolima(Andando)", 0); } }
     [PunRPC] public void CarroUpAnim() { if (canFadeIn) { playerAtivo.animation.FadeIn("6_Rolima(SubindoNoAr)", 0.2f); } else { playerAtivo.animation.GotoAndPlayByFrame("6_Rolima(SubindoNoAr)", 0); } }
     [PunRPC] public void CarroDownAnim() { if (canFadeIn) { playerAtivo.animation.FadeIn("6_Rolima(DescendoNoAr)", 0.2f); } else { playerAtivo.animation.GotoAndPlayByFrame("6_Rolima(DescendoNoAr)", 0); } }
 
