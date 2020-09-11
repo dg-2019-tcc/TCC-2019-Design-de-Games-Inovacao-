@@ -231,6 +231,7 @@ public class WinnerManager : MonoBehaviour
     {
 		isloading = true;
 		yield return new WaitForSeconds(3f);
+		AdMobManager.instance.ShowInterstitialAd();
         SceneManager.LoadScene(faseNome);
     }
 

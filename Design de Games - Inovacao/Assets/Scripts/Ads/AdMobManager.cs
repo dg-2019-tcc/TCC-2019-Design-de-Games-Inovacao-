@@ -11,7 +11,9 @@ public class AdMobManager : MonoBehaviour
 
 	public static AdMobManager instance;
 	
-	private RewardedAd rewardedAd;
+	public RewardedAd rewardedAd;
+	public InterstitialAd interstitial;
+
 
 
 	private void Awake()
@@ -61,6 +63,7 @@ public class AdMobManager : MonoBehaviour
 		AdRequest request = new AdRequest.Builder().Build();
 		// Load the rewarded ad with the request.
 		this.rewardedAd.LoadAd(request);
+		RequestInterstitial();
 	}
 
 
@@ -93,7 +96,7 @@ public class AdMobManager : MonoBehaviour
 		MonoBehaviour.print("HandleRewardedAdClosed event received");
 	}
 
-	public void HandleUserEarnedReward(object sender, Reward args)
+	public void HandleUserEarnedReward(object sender, Reward args)  // --------------------------------------------aqui o player recebe o prêmio, tem que passar pras moedas
 	{
 		string type = args.Type;
 		double amount = args.Amount;
@@ -103,13 +106,83 @@ public class AdMobManager : MonoBehaviour
 	}
 
 
+	
 
-	public void UserChoseToWatchAd()
+
+	public void UserChoseToWatchAd() // ---------------------------------------chamar esse pra quando o player escolher ver o Ad
 	{
 		if (this.rewardedAd.IsLoaded())
 		{
 			this.rewardedAd.Show();
 			Debug.Log("Ad is being shown");
+		}
+	}
+
+
+
+
+	private void RequestInterstitial()
+	{
+#if UNITY_ANDROID
+		string adUnitId = "ca-app-pub-3940256099942544/1033173712";
+#elif UNITY_IPHONE
+        string adUnitId = "ca-app-pub-3940256099942544/4411468910";
+#else
+        string adUnitId = "unexpected_platform";
+#endif
+
+		// Called when an ad request has successfully loaded.
+		this.interstitial.OnAdLoaded += HandleOnAdLoaded;
+		// Called when an ad request failed to load.
+		this.interstitial.OnAdFailedToLoad += HandleOnAdFailedToLoad;
+		// Called when an ad is shown.
+		this.interstitial.OnAdOpening += HandleOnAdOpened;
+		// Called when the ad is closed.
+		this.interstitial.OnAdClosed += HandleOnAdClosed;
+		// Called when the ad click caused the user to leave the application.
+		this.interstitial.OnAdLeavingApplication += HandleOnAdLeavingApplication;
+
+		// Initialize an InterstitialAd.
+		this.interstitial = new InterstitialAd(adUnitId);
+		// Create an empty ad request.
+		AdRequest request = new AdRequest.Builder().Build();
+		// Load the interstitial with the request.
+		this.interstitial.LoadAd(request);
+	}
+
+	public void HandleOnAdLoaded(object sender, EventArgs args)
+	{
+		MonoBehaviour.print("HandleAdLoaded event received");
+	}
+
+	public void HandleOnAdFailedToLoad(object sender, AdFailedToLoadEventArgs args)
+	{
+		MonoBehaviour.print("HandleFailedToReceiveAd event received with message: "
+							+ args.Message);
+	}
+
+	public void HandleOnAdOpened(object sender, EventArgs args)
+	{
+		MonoBehaviour.print("HandleAdOpened event received");
+	}
+
+	public void HandleOnAdClosed(object sender, EventArgs args)
+	{
+		MonoBehaviour.print("HandleAdClosed event received");
+		interstitial.Destroy();
+		RequestInterstitial();
+	}
+
+	public void HandleOnAdLeavingApplication(object sender, EventArgs args)
+	{
+		MonoBehaviour.print("HandleAdLeavingApplication event received");
+	}
+
+	public void ShowInterstitialAd() // ----------------------------------------------------chamar esse em momentos que for pra rodar um Ad
+	{
+		if (this.interstitial.IsLoaded())
+		{
+			this.interstitial.Show();
 		}
 	}
 
