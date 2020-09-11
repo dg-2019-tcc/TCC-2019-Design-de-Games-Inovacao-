@@ -6,7 +6,7 @@ using Complete;
 public class PlayerAnimController : MonoBehaviour
 {
     private AnimDB animDB;
-    private NewPlayerMovent playerMovement;
+    public NewPlayerMovent playerMovement;
     private DogController dogController;
     private ButtonA buttonA;
     private Controller2D controller;
@@ -18,6 +18,12 @@ public class PlayerAnimController : MonoBehaviour
     public AnimState04 nextAnimState04 = AnimState04.None;
 
     public AnimState04 oldAnimState04 = AnimState04.None;
+
+
+    public PlayerAnimInfo playerAnimInfo;
+
+    public AnimInfo animInfo;
+    public PlayerInfo playerInfo;
 
     [SerializeField] private float coolToNext;
     [HideInInspector] public bool dogButtonAnim;
@@ -32,13 +38,14 @@ public class PlayerAnimController : MonoBehaviour
         buttonA = GetComponent<ButtonA>();
         controller = GetComponent<Controller2D>();
         inputController = GetComponent<InputController>();
+        playerAnimInfo = GetComponent<PlayerAnimInfo>();
     }
 
     private void FixedUpdate()
     {
-        Cooldown();
+        CheckNormalMovement();
 
-        if (GameManager.acabouFase) { WinLoseAnim(); return; }
+        if (GameManager.acabouFase) { WinLoseAnim(); }
         if (levouDogada.Value) { StunAnim(); return; }
 
         if (dogController.state.Equals(DogController.State.Carro) || dogController.state.Equals(DogController.State.Pipa))
@@ -56,7 +63,6 @@ public class PlayerAnimController : MonoBehaviour
                 callDogButtonAnim = false;
                 animDB.CallAnimState03(AnimState03.None);
                 CheckNormalMovement();
-                //if (coolToNext >= 0.1f) { CallState04(); }
             }
         }
     }
@@ -64,6 +70,7 @@ public class PlayerAnimController : MonoBehaviour
     //State01 é WinLoseAnim() e StunAnim()
     void WinLoseAnim()
     {
+        Debug.Log(GameManager.acabouFase);
         if (GameManager.ganhou) { nextAnimState01 = AnimState01.Ganhou; }
         else { nextAnimState01 = AnimState01.Perdeu; }
 
@@ -78,7 +85,7 @@ public class PlayerAnimController : MonoBehaviour
     {
         if (playerMovement.carroVelocity.y < 0 && controller.collisions.below == false) { nextAnimState02 = AnimState02.CarroDown; }
         else if (playerMovement.jump) { nextAnimState02 = AnimState02.CarroUp; }
-        else if (inputController.joyInput.x != 0 && controller.collisions.below) { nextAnimState02 = AnimState02.CarroWalk; }
+        else  { nextAnimState02 = AnimState02.CarroWalk; }
     }
     void PipaAnim() => nextAnimState02 = AnimState02.Pipa;
     void CallState02()
@@ -112,28 +119,61 @@ public class PlayerAnimController : MonoBehaviour
     //State04
     void CheckNormalMovement()
     {
-        if(oldAnimState04 == AnimState04.Falling && controller.collisions.below == false) { return; }
-        if (oldAnimState04 == AnimState04.Falling && controller.collisions.below == true) { nextAnimState04 = AnimState04.Aterrisando;}
+        AtualizaInfo();
 
-        if (oldAnimState04 == AnimState04.Falling)
+        if (playerAnimInfo.playerInfo.velocity.y < 1f && controller.collisions.below == false) { animInfo.anim04 = AnimState04.Falling; }
+        else if (playerAnimInfo.playerInfo.jump || playerAnimInfo.playerInfo.velocity.y > 0) { animInfo.anim04 = AnimState04.Rising; }
+        else if (playerAnimInfo.playerInfo.input.x != 0 && playerAnimInfo.playerInfo.isGrounded) { animInfo.anim04 = AnimState04.Walk; }
+        else { animInfo.anim04 = AnimState04.Idle; }
+
+        #region Com Animação de landing travando
+        /*if (animInfo.oldAnim04 == AnimState04.Falling)
         {
-            if (controller.collisions.below == false) { return; }
-            else { nextAnimState04 = AnimState04.Aterrisando; }
+            if (playerInfo.isGrounded == true) { return; }
+            else { animInfo.anim04 = AnimState04.Aterrisando; }
         }
         else
         {
-            if (playerMovement.velocity.y < 0 && controller.collisions.below == false) { nextAnimState04 = AnimState04.Falling; }
-            else if (playerMovement.jump || playerMovement.velocity.y > 0) { nextAnimState04 = AnimState04.Rising; }
-            else if (inputController.joyInput.x != 0 && controller.collisions.below) { nextAnimState04 = AnimState04.Walk; }
-            else if (oldAnimState04 == AnimState04.Walk || oldAnimState04 == AnimState04.None) { nextAnimState04 = AnimState04.Idle; }
-        }
+            if (playerMovement.velocity.y < 1f && controller.collisions.below == false) { animInfo.anim04 = AnimState04.Falling; }
+            else if (playerMovement.jump || playerMovement.velocity.y > 0) { animInfo.anim04 = AnimState04.Rising;  }
+            else if (inputController.joyInput.x != 0 && controller.collisions.below) { animInfo.anim04 = AnimState04.Walk;  }
+            else if (animInfo.oldAnim04 == AnimState04.Walk || animInfo.oldAnim04 == AnimState04.None) { animInfo.anim04 = AnimState04.Idle; }
+        }*/
+        #endregion
         CallState04();
+    }
+
+    public void AtualizaInfo()
+    {
+        if (playerInfo.velocity != playerMovement.velocity) { playerInfo.velocity = playerMovement.velocity; }
+        if (playerInfo.input != inputController.joyInput) { playerInfo.input = inputController.joyInput; }
+        if (playerInfo.isGrounded != controller.collisions.below) { playerInfo.isGrounded = controller.collisions.below; }
+        if (playerInfo.jump != playerMovement.jump) { playerInfo.jump = playerMovement.jump; }
     }
     void CallState04()
     {
-        animDB.CallAnimState04(nextAnimState04);
-        oldAnimState04 = nextAnimState04;
+        animDB.CallAnimState04(animInfo.anim04);
+        animInfo.oldAnim04 = animInfo.anim04;
         coolToNext = 0;
+    }
+
+    public struct PlayerInfo
+    {
+        public Vector2 velocity;
+        public Vector2 input;
+        public bool isGrounded;
+        public bool jump;
+
+    }
+
+    public struct AnimInfo
+    {
+        public AnimState01 anim01;
+        public AnimState02 anim02;
+        public AnimState03 anim03;
+        public AnimState04 anim04;
+
+        public AnimState04 oldAnim04;
     }
 
 

@@ -23,18 +23,19 @@ namespace Kintal
 
         public static void EnableGC()
         {
-            FPSDisplay.gcOn = true;
             GarbageCollector.GCMode = GarbageCollector.Mode.Enabled;
             // Trigger a collection to free memory.
-            GC.Collect();
-            FPSDisplay.gcOn = true;
+            //GC.Collect();
+            if (Time.frameCount % 300 == 0)
+            {
+                Debug.Log("[GarbageCollector] Collect");
+                System.GC.Collect();
+            }
         }
 
         public static void DisableGC()
         {
-            FPSDisplay.gcOn = false;
             GarbageCollector.GCMode = GarbageCollector.Mode.Disabled;
-            FPSDisplay.gcOn = false;
         }
     }
 }

@@ -18,7 +18,6 @@ GameObject:
   - component: {fileID: 7680839277090315740}
   - component: {fileID: 7680839277090315739}
   - component: {fileID: 7680839277090315738}
-  - component: {fileID: 3907264441298140004}
   - component: {fileID: 3056123588536786328}
   m_Layer: 8
   m_Name: NewPlayer 1
@@ -116,8 +115,10 @@ MonoBehaviour:
   carroActive: {fileID: 0}
   pipaActive: {fileID: 0}
   levouDogada: {fileID: 11400000, guid: 99d1bd11c5b71c140adc47ce4ba5ba41, type: 2}
-  velocity: {x: 0, y: 0, z: 0}
+  velocity: {x: 0, y: 0}
+  carroVelocity: {x: 0, y: 0, z: 0}
   oldPosition: {x: 0, y: 0, z: 0}
+  input: {x: 0, y: 0}
   joyInput: {x: 0, y: 0}
   dogController: {fileID: 0}
   inputController: {fileID: 0}
@@ -127,6 +128,7 @@ MonoBehaviour:
   buildPC: {fileID: 0}
   slowFall: 0
   ganhou: 0
+  playerAnimInfo: {fileID: 0}
 --- !u!114 &7680839277090315728
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -151,6 +153,7 @@ MonoBehaviour:
   levou: {fileID: 11400000, guid: 99d1bd11c5b71c140adc47ce4ba5ba41, type: 2}
   StunTime: 3
   joyStick: {fileID: 0}
+  inputController: {fileID: 0}
   playerMove: {fileID: 0}
   playerParado: {fileID: 0}
   playerAndando: {fileID: 0}
@@ -257,54 +260,9 @@ MonoBehaviour:
   acabou01: {fileID: 0}
   aiGanhou: {fileID: 0}
   state: 0
+  sequestrado: 0
   isCorrida: 0
---- !u!114 &3907264441298140004
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5964529505427211193}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1725a19e458ac24da8fc3fc9c66413a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  frente: {fileID: 0}
-  lado: {fileID: 0}
-  idlePose: SettingPose_SD
-  walkAnimation: 0_Corrida
-  subindoJumpAnimation: 1_NoAr(1_Subindo)
-  descendoJumpAnimation: 1_NoAr(3_Descendo)
-  aterrisandoAnimation: 1_Aterrisando
-  chuteAnimation: 3_Bicuda(SemPreparacao)
-  arremessoAnimation: 6_Arremessar(3_Arremesso)
-  inativoAnimation: 1_Inatividade(2_IdlePose)
-  pipaAnimation: 7_Pipa
-  carroWalkAnim: 6_Rolima(Andando)
-  carroUpAnim: 6_Rolima(SubindoNoAr)
-  carroDownAnim: 6_Rolima(DescendoNoAr)
-  stunAnim: 3_Atordoado
-  vitoriaAnim: 2_Vencer
-  derrotaAnim: 2_Perder
-  state: 1
-  oldState: 0
-  nextState: 0
-  player: {fileID: 0}
-  playerFrente: {fileID: 0}
-  dogButtonAnim: 0
-  fase: 0
-  photonView: {fileID: 0}
-  jaAterrisou: 0
-  coolToNext: 0
-  pipaActive: {fileID: 0}
-  carroActive: {fileID: 0}
-  isCorrida: 0
-  inativoTime: 0
-  triggerCollisions: {fileID: 0}
-  textoAtivo: {fileID: 0}
-  levouDogada: {fileID: 0}
-  isVictory: 0
+  isTutorial: 0
 --- !u!114 &3056123588536786328
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -317,9 +275,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8b3c93deec5a9b478daa02668b2e732, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PV: {fileID: 0}
   joyStick: {fileID: 0}
   buildPC: {fileID: 0}
   joyInput: {x: 0, y: 0}
+  releaseX: 0
   pressX: 0
 --- !u!1 &7680839276490418294
 GameObject:
@@ -3049,6 +3009,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 5398543898941256433, guid: 862a04f6dea5e96408377591b02ac7f9,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5399519236520489960, guid: 862a04f6dea5e96408377591b02ac7f9,
         type: 3}
       propertyPath: m_Mesh
       value: 

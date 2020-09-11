@@ -7,10 +7,8 @@ public class FPSDisplay : MonoBehaviour
 {
     public static FPSDisplay instance;
     public TMP_Text texto;
-    public TMP_Text gcText;
     float deltaTime = 0.0f;
 
-    public static bool gcOn;
 
     private void Awake()
     {
@@ -22,8 +20,6 @@ public class FPSDisplay : MonoBehaviour
     {
         deltaTime += (Time.unscaledDeltaTime - deltaTime) * 0.1f;
 
-        if (gcOn) { gcText.text = "GC is On"; }
-        else { gcText.text = "GC is Off"; }
     }
 
     void OnGUI()

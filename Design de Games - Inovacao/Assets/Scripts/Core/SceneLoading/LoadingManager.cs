@@ -18,7 +18,6 @@ public class LoadingManager : MonoBehaviour
     public DOTweenUI tweenUI;
     public DOTweenUI tweenCanvas;
 
-    public GarbageController gc;
 
     #region Singleton
 
@@ -69,8 +68,7 @@ public class LoadingManager : MonoBehaviour
     #region Public Functions
     public void LoadNewScene(SceneType nextScene, SceneType oldScene, bool isOnline)
     {
-        if(nextScene != SceneType.TelaVitoria) { GameManager.ganhou = false; GameManager.perdeu = false; }
-
+        if(nextScene != SceneType.TelaVitoria) { GameManager.ganhou = false; GameManager.perdeu = false; GameManager.acabouFase = false; }
         loadingScreen.SetActive(true);
         //tweenUI.TweenIn();
         GameManager.isPaused = true;

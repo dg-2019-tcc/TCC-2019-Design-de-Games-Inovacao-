@@ -31,7 +31,7 @@ public class GameManager : MonoBehaviour
     public static bool needMobileHUD;
     public static bool isLoja;
     public static bool isGame;
-    public static bool acabouFase;
+    public static bool acabouFase = false;
     public static bool ganhou;
     public static bool perdeu;
 

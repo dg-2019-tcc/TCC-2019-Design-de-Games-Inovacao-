@@ -123,7 +123,7 @@ namespace Complete
                 {
                     if (anim == "Walking" || anim == "NoArUp" || anim == "Fall" || anim == "Aterrisando" || anim == "Chute" || anim == "Arremesso" || anim == "Abaixar" || anim == "TransitionAir")
                     {
-                        playerFrente.animation.Play(idlePose);
+                        playerFrente.animation.Play("0_Idle");
                         lado.SetActive(true);
                         frente.SetActive(false);
                     }
@@ -139,12 +139,12 @@ namespace Complete
                             frente.SetActive(true);
                             lado.SetActive(false);
                             playerFrente.animation.timeScale = 1;
-                            playerFrente.animation.Play(idlePose);
+                            playerFrente.animation.Play("0_Idle");
                         }
 
                         else
                         {
-                            playerSide.animation.Play(idlePose);
+                            playerSide.animation.Play("0_Idle");
                         }
 
                         state = State.Idle;
@@ -155,7 +155,7 @@ namespace Complete
                 case "Walking":
                     if (state != State.Walking)
                     {
-                        playerSide.animation.Play(walkAnimation);
+                        playerSide.animation.Play("0_Corrida_V2");
                         state = State.Walking;
                     }
                     break;
@@ -163,7 +163,7 @@ namespace Complete
                 case "StartPulo":
                     if (state != State.Jumping)
                     {
-                        playerSide.animation.FadeIn(startJumpAnimation, 0f, 1);
+                        playerSide.animation.Play("1_NoAr(1_Subindo)");
                         playerSide.animation.timeScale = 1;
                         state = State.Jumping;
                     }
@@ -171,21 +171,21 @@ namespace Complete
                 case "NoArUp":
                     if (state != State.Rising)
                     {
-                        playerSide.animation.Play(subindoJumpAnimation);
+                        playerSide.animation.Play("1_NoAr(1_Subindo)");
                         state = State.Rising;
                     }
                     break;
                 case "Fall":
                     if (state != State.Falling)
                     {
-                        playerSide.animation.Play(descendoJumpAnimation);
+                        playerSide.animation.Play("1_NoAr(2_Descendo)");
                         state = State.Falling;
                     }
                     break;
                 case "Aterrisando":
                     if (state != State.Aterrisando)
                     {
-                        playerSide.animation.Play(aterrisandoAnimation);
+                        playerSide.animation.Play("1_Aterrisando");
                         state = State.Aterrisando;
                         jaAterrisou = true;
                     }
@@ -194,7 +194,7 @@ namespace Complete
                     if (state != State.Chutando)
                     {
                         //player.animation.timeScale = 1f;
-                        playerSide.animation.Play(chuteAnimation);
+                        playerSide.animation.Play("3_Bicuda");
                         state = State.Chutando;
                     }
                     break;
@@ -202,24 +202,8 @@ namespace Complete
                     if (state != State.Arremessando)
                     {
                         //player.animation.timeScale = 1;
-                        playerSide.animation.Play(arremessoAnimation);
+                        playerSide.animation.Play("5_Arremessar");
                         state = State.Arremessando;
-                    }
-                    break;
-                case "Abaixar":
-                    if (state != State.Abaixando)
-                    {
-                        //player.animation.timeScale = 1;
-                        playerSide.animation.Play(abaixarAnimation);
-                        state = State.Abaixando;
-                    }
-                    break;
-                case "TransitionAir":
-                    if (state != State.TransitionAir)
-                    {
-                        // player.animation.timeScale = 1.5f;
-                        playerSide.animation.Play(transitionJumpAnimation);
-                        state = State.TransitionAir;
                     }
                     break;
             }

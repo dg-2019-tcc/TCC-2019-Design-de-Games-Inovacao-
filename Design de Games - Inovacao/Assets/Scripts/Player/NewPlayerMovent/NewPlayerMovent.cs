@@ -44,7 +44,7 @@ public class NewPlayerMovent : MonoBehaviour
     public BoolVariable levouDogada;
 
 
-    [HideInInspector] public Vector3 velocity;
+    [HideInInspector] public Vector2 velocity;
     [HideInInspector] public Vector3 carroVelocity;
     Vector3 pipaVelocity;
     Vector3 motoVelocity;
@@ -75,7 +75,7 @@ public class NewPlayerMovent : MonoBehaviour
 
     public bool ganhou;
     private bool oldStun;
-
+    public PlayerAnimInfo playerAnimInfo;
 
     void Start()
     {
@@ -83,6 +83,7 @@ public class NewPlayerMovent : MonoBehaviour
         controller = GetComponent<Controller2D>();
         triggerController = GetComponent<TriggerCollisionsController>();
         animations = GetComponent<Player2DAnimations>();
+        playerAnimInfo = GetComponent<PlayerAnimInfo>();
 
         gravity = -(2 * maxJumpHeight.Value) / Mathf.Pow(timeToJumpApex.Value, 2);
         maxJumpVelocity = Mathf.Abs(gravity * timeToJumpApex.Value);
@@ -222,6 +223,8 @@ public class NewPlayerMovent : MonoBehaviour
             FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/PuloGr", transform.position);
         }
         #endregion
+
+        playerAnimInfo.UpdateInfo04(velocity, input, controller.collisions.below, jump);
     }
 
     public void CarroMovement()
