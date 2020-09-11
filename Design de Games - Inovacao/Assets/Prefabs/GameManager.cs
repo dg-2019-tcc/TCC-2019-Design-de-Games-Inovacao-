@@ -89,19 +89,6 @@ public class GameManager : MonoBehaviour
             EscolheFase();
         }
 
-        /*if (resetaPlayerPrefs.Value == true)
-        {
-            Debug.Log("ResetaPlayerPrefs  é true");
-            PlayerPrefsManager.Instance.prefsVariables.ResetPlayerPrefs();
-            PlayerPrefsManager.Instance.SavePlayerPrefs("IsFirstTime", 0);
-            resetaPlayerPrefs.Value = false;
-        }
-
-        else
-        {
-            Debug.Log("ResetaPlayerPrefs  é false");
-            PlayerPrefsManager.Instance.LoadPlayerPref("All");
-        }*/
 
     }
     #endregion
@@ -115,19 +102,6 @@ public class GameManager : MonoBehaviour
         {
             OfflineMode.Instance.AtivaOffline(true);
         }
-
-        //PlayerPrefsManager.Instance.LoadPlayerPref("All");
-
-        /*if (PlayerPrefsManager.Instance.prefsVariables.isFirstTime == 0 && GameManager.historiaMode == false)
-        {
-            PlayerPrefsManager.Instance.prefsVariables.ResetPlayerPrefs();
-            PlayerPrefsManager.Instance.SavePlayerPrefs("IsFirstTime", 1);
-        }
-
-        else
-        {
-            PlayerPrefsManager.Instance.LoadPlayerPref("All");
-        }*/
     }
 
 
@@ -143,19 +117,6 @@ public class GameManager : MonoBehaviour
     public void LoadGame()
     {
         ChecaFase();
-        //sequestradoPrefs = PlayerPrefs.GetInt("Sequestrado");
-        //levelIndex = PlayerPrefs.GetInt("LevelIndex");
-        //ganhouDoKley = PlayerPrefs.GetInt("GanhouDoKlay");
-        /*PlayerPrefsManager.Instance.LoadPlayerPref("LevelIndex");
-        PlayerPrefsManager.Instance.LoadPlayerPref("FalasIndex");
-        PlayerPrefsManager.Instance.LoadPlayerPref("Sequestrado");
-        PlayerPrefsManager.Instance.LoadPlayerPref("GanhouDoKlay");
-
-        levelIndex = PlayerPrefsManager.Instance.prefsVariables.levelIndex;
-        falaIndex = PlayerPrefsManager.Instance.prefsVariables.falasIndex;
-        sequestradoPrefs = PlayerPrefsManager.Instance.prefsVariables.sequestrado;
-        ganhouDoKley = PlayerPrefsManager.Instance.prefsVariables.ganhouDoKlay;*/
-        //PlayerPrefsManager.Instance.LoadPlayerPref("All");
 
         if (PlayerPrefsManager.Instance.prefsVariables.levelIndex < 8)
         {
