@@ -31,6 +31,9 @@ public class GameManager : MonoBehaviour
     public static bool needMobileHUD;
     public static bool isLoja;
     public static bool isGame;
+    public static bool acabouFase;
+    public static bool ganhou;
+    public static bool perdeu;
 
    // public enum Fase {Coleta, Futebol, Moto, Corrida, Start, Loja, Tutorial, Hub, Volei, Podium}
     //public Fase fase = Fase.Start;

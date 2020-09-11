@@ -457,7 +457,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e377d97d43346443923d9ad8c15ddfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debug: 1
   type: 3
   useAnimation: 1
 --- !u!114 &8592927144673315583
@@ -2313,7 +2312,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82380c57e39278f44a7332359651d71a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debug: 1
   entryPage: 0
   pages:
   - {fileID: 5394835470303579964}
@@ -3161,7 +3159,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e377d97d43346443923d9ad8c15ddfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debug: 1
   type: 9
   useAnimation: 0
 --- !u!1 &4090565566202622111
@@ -3219,7 +3216,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e377d97d43346443923d9ad8c15ddfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debug: 1
   type: 5
   useAnimation: 1
 --- !u!114 &5187603103363830155
@@ -4637,7 +4633,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e377d97d43346443923d9ad8c15ddfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debug: 1
   type: 10
   useAnimation: 1
 --- !u!114 &215273303539607891
@@ -5466,39 +5461,6 @@ MonoBehaviour:
   - {fileID: 6765477733464077652}
   - {fileID: 3724033275623364719}
   customController: {fileID: 0}
---- !u!114 &5171274495172853568
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6181612733439549319}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e7ae94567f65a7540a165df26d4d7ee0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  PV: {fileID: 0}
-  state: 1
-  textoAtivo: {fileID: 11400000, guid: 4311317237d5bb64c9dccf64263971b9, type: 2}
-  desativaPower: {fileID: 11400000, guid: 56db79b8367dccf41bdeadcaf2665bcb, type: 2}
-  buildPC: {fileID: 0}
-  carroActive: {fileID: 0}
-  pipaActive: {fileID: 0}
-  passouTexto: 0
---- !u!114 &8938500195627318681
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6181612733439549319}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 86c6556701af9e04380698b89f691b6e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ListenerNumber: -1
 --- !u!114 &4249350453121171707
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5522,6 +5484,26 @@ MonoBehaviour:
   animState03: 0
   animState04: 6
   photonView: {fileID: 0}
+--- !u!114 &5171274495172853568
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6181612733439549319}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7ae94567f65a7540a165df26d4d7ee0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PV: {fileID: 0}
+  state: 1
+  textoAtivo: {fileID: 11400000, guid: 4311317237d5bb64c9dccf64263971b9, type: 2}
+  desativaPower: {fileID: 11400000, guid: 56db79b8367dccf41bdeadcaf2665bcb, type: 2}
+  buildPC: {fileID: 0}
+  carroActive: {fileID: 0}
+  pipaActive: {fileID: 0}
+  passouTexto: 0
 --- !u!114 &6052610415563278233
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5534,10 +5516,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 722e5a78ca6e5554e93e119c5ebee941, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nextAnimState01: 0
+  nextAnimState02: 0
   nextAnimState03: 0
   nextAnimState04: 6
   coolToNext: 0
   dogButtonAnim: 0
+  levouDogada: {fileID: 11400000, guid: 99d1bd11c5b71c140adc47ce4ba5ba41, type: 2}
+--- !u!114 &8938500195627318681
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6181612733439549319}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86c6556701af9e04380698b89f691b6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ListenerNumber: -1
 --- !u!1 &6209111960375935714
 GameObject:
   m_ObjectHideFlags: 0

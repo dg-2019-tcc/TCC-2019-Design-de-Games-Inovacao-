@@ -13,24 +13,8 @@ public class AnimDB : MonoBehaviour
 
     public UnityArmatureComponent playerLado;
     public UnityArmatureComponent playerFrente;
-    [HideInInspector]
+    //[HideInInspector]
     public UnityArmatureComponent playerAtivo;
-
-    /*public string idlePose = "0_Idle";
-    public string walkAnimation = "0_Corrida_V2";
-    public string subindoJumpAnimation = "1_NoAr(1_Subindo)";
-    public string descendoJumpAnimation = "1_NoAr(3_Descendo)";
-    public string aterrisandoAnimation = "1_Aterrisando";
-    public string chuteAnimation = "3_Bicuda(SemPreparacao)";
-    public string arremessoAnimation = "6_Arremessar(3_Arremesso)";
-    public string inativoAnimation = "1_Inatividade(2_IdlePose)";
-    public string pipaAnimation = "7_Pipa";
-    public string carroWalkAnim = "6_Rolima(Andando)";
-    public string carroUpAnim = "6_Rolima(SubindoNoAr)";
-    public string carroDownAnim = "6_Rolima(DescendoNoAr)";
-    public string stunAnim = "3_Atordoado";
-    public string vitoriaAnim = "2_Vencer";
-    public string derrotaAnim = "2_Perder";*/
 
     [SerializeField]
     private string nextAnim;
@@ -43,11 +27,14 @@ public class AnimDB : MonoBehaviour
     public AnimState03 animState03 = AnimState03.None;
     public AnimState04 animState04 = AnimState04.None;
 
+    public AnimState02 oldState02 = AnimState02.None;
+
     [HideInInspector]
     public PhotonView photonView;
 
     private bool changingArmature;
     private bool canFadeIn;
+    public bool callLanding;
 
     private void Start()
     {
@@ -57,7 +44,7 @@ public class AnimDB : MonoBehaviour
 
     public void CallAnimState01(AnimState01 state01)
     {
-        if ((int)animState01 < (int)state01) { return; }
+        //if ((int)animState01 < (int)state01) { return; }
         animState01 = state01;
         PlayAnimState01();
     }
@@ -68,7 +55,9 @@ public class AnimDB : MonoBehaviour
         if (animState01 != AnimState01.None) { return; }
         //if ((int)animState02 < (int)state02) { return; }
         animState02 = state02;
+
         if(animState02 == AnimState02.None) { return; }
+
         PlayAnimState02();
     }
 
@@ -78,25 +67,28 @@ public class AnimDB : MonoBehaviour
         if (animState01 != AnimState01.None || animState02 != AnimState02.None) { return; }
         //if ((int)animState03 < (int)state03) { return; }
         animState03 = state03;
+
         if(animState03 == AnimState03.None) { return; }
+
         PlayAnimState03();
-        Debug.Log("[AnimDB] CallAnimState03()");
     }
 
     public void CallAnimState04(AnimState04 state04)
     {
         if (state04 == animState04) { return; }
         if (animState01 != AnimState01.None || animState02 != AnimState02.None || animState03 != AnimState03.None) { return; }
-        //if ((int)animState04 < (int)state04 && state04!= AnimState04.None) { return; }
+
         animState04 = state04;
+
+        if (animState04 == AnimState04.None) { animState04 = AnimState04.Idle; canFadeIn = true; }
+
         PlayAnimState04();
-        //        Debug.Log("[AnimDB] CallAnimState04()");
     }
 
     private void PlayAnimState01()
     {
         if (frente.activeInHierarchy == false) { ChangeArmature(0); }
-        else { canFadeIn = true; }
+        canFadeIn = false;
         switch (animState01)
         {
             case AnimState01.Ganhou:
@@ -113,12 +105,17 @@ public class AnimDB : MonoBehaviour
         }
         PlayAnim(animFuction);
     }
-
     private void PlayAnimState02()
     {
         if (lado.activeInHierarchy == false) { ChangeArmature(1); }
+
+        if (oldState02 == AnimState02.None) { canFadeIn = false; }
         else { canFadeIn = true; }
+
+        oldState02 = animState02;
+
         while (changingArmature) { return; }
+
         switch (animState02)
         {
             case AnimState02.Pipa:
@@ -162,7 +159,9 @@ public class AnimDB : MonoBehaviour
         if (animState04 == AnimState04.Idle && frente.activeInHierarchy == false) { ChangeArmature(0); }
         else if (animState04 != AnimState04.Idle && frente.activeInHierarchy == true) { ChangeArmature(1); }
         else { canFadeIn = true; }
+
         while (changingArmature) { return; }
+
         switch (animState04)
         {
             case AnimState04.Aterrisando:
@@ -211,29 +210,118 @@ public class AnimDB : MonoBehaviour
     public void PlayAnim(string functionName)
     {
         if (GameManager.inRoom) { photonView.RPC(functionName, RpcTarget.All); }
-        else { Invoke(functionName, 0); }
+        else { ChooseFunction(); } //{ Invoke(functionName, 0); }
+    }
+
+    private void ChooseFunction()
+    {
+        if(animState01 != AnimState01.None)
+        {
+            switch (animState01)
+            {
+                case AnimState01.Ganhou:
+                    GanhouAnim();
+                    return;
+
+                case AnimState01.Perdeu:
+                    PerdeuAnim();
+                    return;
+
+                case AnimState01.Stun:
+                    StunAnim();
+                    return;
+            }
+        }
+        else
+        {
+            if(animState02 != AnimState02.None)
+            {
+                switch (animState02)
+                {
+                    case AnimState02.Pipa:
+                        PipaAnim();
+                        return;
+
+                    case AnimState02.CarroDown:
+                        CarroDownAnim();
+                        return;
+
+                    case AnimState02.CarroUp:
+                        CarroUpAnim();
+                        return;
+
+                    case AnimState02.CarroWalk:
+                        CarroWalkAnim();
+                        return;
+                }
+            }
+            else
+            {
+                if(animState03 != AnimState03.None)
+                {
+                    switch (animState03)
+                    {
+                        case AnimState03.Arremesando:
+                            ArremessandoAnim();
+                            return;
+
+                        case AnimState03.Chute:
+                            ChutandoAnim();
+                            return;
+                    }
+                }
+
+                else
+                {
+                    if(animState04 != AnimState04.None)
+                    {
+                        switch (animState04)
+                        {
+                            case AnimState04.Aterrisando:
+                                AterrisandoAnim();
+                                return;
+
+                            case AnimState04.Falling:
+                                FallingAnim();
+                                return;
+
+                            case AnimState04.Rising:
+                                JumpAnim();
+                                return;
+
+                            case AnimState04.Walk:
+                                WalkAnim();
+                                return;
+
+                            case AnimState04.Idle:
+                                IdleAnim();
+                                return;
+                        }
+                    }
+                }
+            }
+        }
     }
 
     //Animações do State01
-    [PunRPC] public void GanhouAnim() { if (canFadeIn) { playerAtivo.animation.FadeIn("2_Vencer", 0.2f); } else { playerAtivo.animation.GotoAndPlayByFrame("2_Vencer", 0); } }
-    [PunRPC] public void PerdeuAnim() { if (canFadeIn) { playerAtivo.animation.FadeIn("2_Perder", 0.2f); } else { playerAtivo.animation.GotoAndPlayByFrame("2_Perder", 0); } }
-    [PunRPC] public void StunAnim() { if (canFadeIn) { playerAtivo.animation.FadeIn("3_Atordoado", 0.2f); } else { playerAtivo.animation.GotoAndPlayByFrame("3_Atordoado", 0); } }
+    [PunRPC] public void GanhouAnim() => playerAtivo.animation.GotoAndPlayByFrame("2_Vencer");
+    [PunRPC] public void PerdeuAnim()=> playerAtivo.animation.GotoAndPlayByFrame("2_Perder", 0); 
+    [PunRPC] public void StunAnim() => playerAtivo.animation.GotoAndPlayByFrame("3_Atordoado", 0);
 
     //Animações do state02
-    [PunRPC] public void PipaAnim() => playerAtivo.animation.GotoAndPlayByFrame("7_Pipa", 0); //{ if (canFadeIn) { playerAtivo.animation.FadeIn("7_Pipa", 0.2f); } else { playerAtivo.animation.GotoAndPlayByFrame("7_Pipa", 0); } }
-    [PunRPC] public void CarroWalkAnim() /*=> playerAtivo.animation.GotoAndPlayByFrame("6_Rolima(Andando)", 0);*/ { if (canFadeIn) { playerAtivo.animation.FadeIn("6_Rolima(Andando)", 0.2f); } else { playerAtivo.animation.GotoAndPlayByFrame("6_Rolima(Andando)", 0); } }
-    [PunRPC] public void CarroUpAnim() { if (canFadeIn) { playerAtivo.animation.FadeIn("6_Rolima(SubindoNoAr)", 0.2f); } else { playerAtivo.animation.GotoAndPlayByFrame("6_Rolima(SubindoNoAr)", 0); } }
-    [PunRPC] public void CarroDownAnim() { if (canFadeIn) { playerAtivo.animation.FadeIn("6_Rolima(DescendoNoAr)", 0.2f); } else { playerAtivo.animation.GotoAndPlayByFrame("6_Rolima(DescendoNoAr)", 0); } }
+    [PunRPC] public void PipaAnim() => playerAtivo.animation.GotoAndPlayByFrame("7_Pipa", 0);
+    [PunRPC] public void CarroWalkAnim(){ if (canFadeIn) { playerAtivo.animation.FadeIn("6_Rolima(Andando)", 0.15f); } else { playerAtivo.animation.GotoAndPlayByFrame("6_Rolima(Andando)", 0); } }
+    [PunRPC] public void CarroUpAnim() { if (canFadeIn) { playerAtivo.animation.FadeIn("6_Rolima(SubindoNoAr)", 0.15f); } else { playerAtivo.animation.GotoAndPlayByFrame("6_Rolima(SubindoNoAr)", 0); } }
+    [PunRPC] public void CarroDownAnim() { if (canFadeIn) { playerAtivo.animation.FadeIn("6_Rolima(DescendoNoAr)", 0.15f); } else { playerAtivo.animation.GotoAndPlayByFrame("6_Rolima(DescendoNoAr)", 0); } }
 
     // Animações do state03
-    [PunRPC] public void ArremessandoAnim() { if (canFadeIn) { playerAtivo.animation.FadeIn("5_Arremessar", 0.2f); } else { playerAtivo.animation.GotoAndPlayByFrame("5_Arremessar", 0); } }
-    [PunRPC] public void ChutandoAnim() { if (canFadeIn) { playerAtivo.animation.FadeIn("3_Bicuda"); } else { playerAtivo.animation.GotoAndPlayByFrame("3_Bicuda", 0, 1); } }
-
+    [PunRPC] public void ArremessandoAnim() { if (canFadeIn) { playerAtivo.animation.FadeIn("5_Arremessar", 0.15f,1); } else { playerAtivo.animation.GotoAndPlayByFrame("5_Arremessar", 0, 1); } }
+    [PunRPC] public void ChutandoAnim() { if (canFadeIn) { playerAtivo.animation.FadeIn("3_Bicuda",0.15f,1); } else { playerAtivo.animation.GotoAndPlayByFrame("3_Bicuda", 0, 1); } }
 
     // Animações do state04
-    [PunRPC] public void FallingAnim() { if (canFadeIn) { playerAtivo.animation.FadeIn("1_NoAr(2_Descendo)",0.2f); } else { playerAtivo.animation.GotoAndPlayByFrame("1_NoAr(2_Descendo)", 0); } }
-    [PunRPC] public void AterrisandoAnim() { if (canFadeIn) { playerAtivo.animation.FadeIn("1_Aterrisando", 0.2f); } else { playerAtivo.animation.GotoAndPlayByFrame("1_Aterrisando", 0); } }
-    [PunRPC] public void WalkAnim() { if (canFadeIn) { playerAtivo.animation.FadeIn("0_Corrida_V2", 0.2f); } else { playerAtivo.animation.GotoAndPlayByFrame("0_Corrida_V2", 0); } }
-    [PunRPC] public void JumpAnim() { if (canFadeIn) { playerAtivo.animation.FadeIn("1_NoAr(1_Subindo)", 0.2f); } else { playerAtivo.animation.GotoAndPlayByFrame("1_NoAr(1_Subindo)", 0); } }
-    [PunRPC] public void IdleAnim() => playerAtivo.animation.GotoAndPlayByFrame("0_Idle", 0); 
+    [PunRPC] public void IdleAnim() => playerAtivo.animation.GotoAndPlayByFrame("0_Idle", 0);
+    [PunRPC] public void AterrisandoAnim() => playerAtivo.animation.FadeIn("1_Aterrisando", 0.15f, 1);
+    [PunRPC] public void FallingAnim() { if (canFadeIn) { playerAtivo.animation.FadeIn("1_NoAr(2_Descendo)",0.15f);} else { playerAtivo.animation.GotoAndPlayByFrame("1_NoAr(2_Descendo)", 0); } }
+    [PunRPC] public void WalkAnim() { if (canFadeIn) { playerAtivo.animation.FadeIn("0_Corrida_V2", 0.15f); } else { playerAtivo.animation.GotoAndPlayByFrame("0_Corrida_V2", 0); } }
+    [PunRPC] public void JumpAnim() { if (canFadeIn) { playerAtivo.animation.FadeIn("1_NoAr(1_Subindo)", 0.15f); } else { playerAtivo.animation.GotoAndPlayByFrame("1_NoAr(1_Subindo)", 0); } } 
 }

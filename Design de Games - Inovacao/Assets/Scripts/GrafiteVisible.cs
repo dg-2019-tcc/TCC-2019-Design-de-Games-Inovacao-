@@ -1,17 +1,26 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Spine;
 
 public class GrafiteVisible : MonoBehaviour
 {
-    public GameObject obj;
-    private void OnBecameVisible()
+    public MeshRenderer mesh;
+    public Skeleton skeleton;
+    public bool isVisible = false;
+
+
+    /*private void OnBecameVisible()
     {
-        obj.SetActive(true);
+        isVisible = true;
+        Debug.Log("Visible");
+        mesh.enabled = true;
+        //skeleton.
     }
 
     private void OnBecameInvisible()
     {
-        obj.SetActive(false);
-    }
+        Debug.Log("Invisible");
+        mesh.enabled = false;
+    }*/
 }

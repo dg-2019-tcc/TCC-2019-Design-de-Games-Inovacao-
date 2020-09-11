@@ -87,7 +87,7 @@ public class MoedaFeedbackLerp : MonoBehaviour
 
     void ShowMoedas()
     {
-        pontosDisplay = Mathf.Lerp(pontosDisplay, moedas.Value, 1f);
+        pontosDisplay = moedas.Value;
         texto.text = pontosDisplay.ToString();
         while(timer < timeToDisable) { return; }
     }

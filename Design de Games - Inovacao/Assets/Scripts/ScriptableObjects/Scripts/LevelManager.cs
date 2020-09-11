@@ -63,6 +63,8 @@ public class LevelManager : MonoBehaviour
 
     public void Ganhou()
     {
+        GameManager.acabouFase = true;
+        GameManager.ganhou = true;
         Debug.Log("Ganhou");
         PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 1;
         StartCoroutine(DelayToNextScene(true));
@@ -70,6 +72,8 @@ public class LevelManager : MonoBehaviour
 
     public void Perdeu()
     {
+        GameManager.acabouFase = true;
+        GameManager.perdeu = true;
         PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 0;
         StartCoroutine(DelayToNextScene(false));
     }

@@ -28,7 +28,7 @@ public class PauseManager : MonoBehaviourPunCallbacks
         FMODUnity.RuntimeManager.PlayOneShot("event:/HUD/Click", GetComponent<Transform>().position);
         pausebuttons.SetActive(true);
         moedas.JustShowCoins();
-        GarbageController.EnableGC();
+        //GarbageController.EnableGC();
     }
 
     public void QuitGame()
@@ -49,7 +49,7 @@ public class PauseManager : MonoBehaviourPunCallbacks
     {
         FMODUnity.RuntimeManager.PlayOneShot("event:/HUD/Click", GetComponent<Transform>().position);
         pausebuttons.SetActive(false);
-        GarbageController.DisableGC();
+        //GarbageController.DisableGC();
     }
 
     public override void OnDisconnected(DisconnectCause cause)

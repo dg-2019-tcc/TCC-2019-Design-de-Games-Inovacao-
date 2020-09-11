@@ -67,7 +67,7 @@ public class SceneInitializer : MonoBehaviour
         {
             PageController.instance.TurnPageOn(PageController.instance.entryPage);
         }
-        GarbageController.DisableGC();
+        //GarbageController.DisableGC();
         Debug.Log("[SceneInitializer] Initialize Scene Done");
     }
 

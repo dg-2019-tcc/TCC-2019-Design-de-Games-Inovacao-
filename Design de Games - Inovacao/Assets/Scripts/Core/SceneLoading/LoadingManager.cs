@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityCore.Scene;
 using UnityCore.Menu;
 using Kintal;
+using System;
 
 public class LoadingManager : MonoBehaviour
 {
@@ -68,8 +69,8 @@ public class LoadingManager : MonoBehaviour
     #region Public Functions
     public void LoadNewScene(SceneType nextScene, SceneType oldScene, bool isOnline)
     {
+        if(nextScene != SceneType.TelaVitoria) { GameManager.ganhou = false; GameManager.perdeu = false; }
 
-        GarbageController.EnableGC();
         loadingScreen.SetActive(true);
         //tweenUI.TweenIn();
         GameManager.isPaused = true;
