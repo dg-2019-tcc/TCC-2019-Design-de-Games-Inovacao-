@@ -7,6 +7,15 @@ namespace Kintal
     public class GarbageController : MonoBehaviour
     {
 
+        private void FixedUpdate()
+        {
+            if (Time.frameCount % 300 == 0)
+            {
+                Debug.Log("[GarbageCollector] Collect");
+                System.GC.Collect();
+            }
+        }
+
         static void ListenForGCModeChange()
         {
             // Listen on garbage collector mode changes.
@@ -25,12 +34,7 @@ namespace Kintal
         {
             GarbageCollector.GCMode = GarbageCollector.Mode.Enabled;
             // Trigger a collection to free memory.
-            //GC.Collect();
-            if (Time.frameCount % 300 == 0)
-            {
-                Debug.Log("[GarbageCollector] Collect");
-                System.GC.Collect();
-            }
+            GC.Collect();
         }
 
         public static void DisableGC()

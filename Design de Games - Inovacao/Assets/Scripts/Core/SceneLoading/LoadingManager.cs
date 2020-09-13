@@ -71,6 +71,10 @@ public class LoadingManager : MonoBehaviour
         if(nextScene != SceneType.TelaVitoria) { GameManager.ganhou = false; GameManager.perdeu = false; GameManager.acabouFase = false; }
         loadingScreen.SetActive(true);
         //tweenUI.TweenIn();
+#if UNITY_EDITOR
+#else
+        GarbageController.EnableGC();
+#endif
         GameManager.isPaused = true;
         GameManager.sceneAtual = nextScene;
         GameManager.Instance.sceneOld = oldScene;
@@ -119,6 +123,11 @@ public class LoadingManager : MonoBehaviour
         tweenCanvas.ChangeAlfa(false);
         while (tweenUI.finishedTween == false) { yield return null; }
         while (tweenCanvas.finishedTween == false) { yield return null; }
+#if UNITY_EDITOR
+#else
+        GarbageController.DisableGC();
+#endif
+
         loadingScreen.SetActive(false);
         GameManager.isPaused = false;
         Debug.Log("[LoadingManager] Loaded "+ nextScene+ " Scene Sucess");

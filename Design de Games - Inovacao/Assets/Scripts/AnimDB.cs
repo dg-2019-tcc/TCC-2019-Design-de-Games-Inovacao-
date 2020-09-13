@@ -1,4 +1,5 @@
-﻿using Photon.Pun;
+﻿using System;
+using Photon.Pun;
 using Photon.Realtime;
 using System.Collections;
 using System.Collections.Generic;
@@ -22,6 +23,10 @@ public class AnimDB : MonoBehaviour
     public enum State { Idle, Walking, Rising, Falling, Aterrisando, Chutando, Arremessando, Inativo, Pipa, CarroWalk, CarroUp, CarroDown, Stun, Ganhou, Perdeu, Null }
 
     public AnimStates animStates;
+
+    [SerializeField]
+    public Armature arm01 = null;
+    public Armature arm02 = null;
 
     public struct AnimStates
     {
@@ -54,6 +59,14 @@ public class AnimDB : MonoBehaviour
     private void Start()
     {
         photonView = gameObject.GetComponent<PhotonView>();
+        //playerFrente.armature.clock.Add(playerFrente.armature);
+        //playerLado.armature.clock.Add(playerLado.armature);
+    }
+
+    public void AtivaClock()
+    {
+        playerFrente.armature.clock.Add(playerFrente.armature);
+        playerLado.armature.clock.Add(playerLado.armature);
     }
 
 
@@ -176,7 +189,7 @@ public class AnimDB : MonoBehaviour
     {
         if (animStates.animState04 == AnimState04.Idle && frente.activeInHierarchy == false) { ChangeArmature(0); }
         else if (animStates.animState04 != AnimState04.Idle && frente.activeInHierarchy == true) { ChangeArmature(1); }
-
+        
         while (animStates.changingArmature) { return; }
         if (GameManager.inRoom)
         {
@@ -212,15 +225,27 @@ public class AnimDB : MonoBehaviour
         animStates.changingArmature = true;
         if (type == 0)
         {
+
+            //playerAtivo.armature.clock.Add(playerFrente.armature);
+            //playerFrente.armature.clock.Remove(playerAtivo.armature);
+            //frente.SetActive(true);
+            //lado.SetActive(false);
             frente.SetActive(true);
-            lado.SetActive(false);
+            var transform = playerFrente.armature.display as GameObject;
             playerAtivo = playerFrente;
+            //playerAtivo.armature.clock.Remove(playerLado.armature);
+            lado.SetActive(false);
         }
         else
         {
-            frente.SetActive(false);
+            //playerAtivo.armature.clock.Add(playerLado.armature);
+            //playerLado.armature.clock.Remove(playerAtivo.armature);
+            //frente.SetActive(false);
             lado.SetActive(true);
+            var transform = playerLado.armature.display as GameObject;
             playerAtivo = playerLado;
+            //playerAtivo.armature.clock.Remove(playerFrente.armature);
+            frente.SetActive(false);
         }
         animStates.changingArmature = false;
     }
@@ -319,28 +344,32 @@ public class AnimDB : MonoBehaviour
                 }
             }
         }
-
     }
 
     //Animações do State01
-    [PunRPC] public void GanhouAnim() => playerAtivo.animation.GotoAndPlayByFrame("2_Vencer");
-    [PunRPC] public void PerdeuAnim()=> playerAtivo.animation.GotoAndPlayByFrame("2_Perder", 0); 
-    [PunRPC] public void StunAnim() => playerAtivo.animation.GotoAndPlayByFrame("3_Atordoado", 0);
+    [PunRPC] public void GanhouAnim() => playerAtivo.animation.FadeIn("2_Vencer", 0.1f);
+    [PunRPC] public void PerdeuAnim()=> playerAtivo.animation.FadeIn("2_Perder", 0.1f); 
+    [PunRPC] public void StunAnim() => playerAtivo.animation.FadeIn("3_Atordoado", 0.1f);
 
     //Animações do state02
-    [PunRPC] public void PipaAnim() => playerAtivo.animation.GotoAndPlayByFrame("7_Pipa", 0);
-    [PunRPC] public void CarroWalkAnim()=> playerAtivo.animation.GotoAndPlayByFrame("6_Rolima(Andando)", 0); 
-    [PunRPC] public void CarroUpAnim() => playerAtivo.animation.GotoAndPlayByFrame("6_Rolima(SubindoNoAr)", 0); 
-    [PunRPC] public void CarroDownAnim() => playerAtivo.animation.GotoAndPlayByFrame("6_Rolima(DescendoNoAr)", 0);
+    [PunRPC] public void PipaAnim() => playerAtivo.animation.FadeIn("7_Pipa", 0.1f);
+    [PunRPC] public void CarroWalkAnim()=> playerAtivo.animation.FadeIn("6_Rolima(Andando)", 0.1f); 
+    [PunRPC] public void CarroUpAnim() => playerAtivo.animation.FadeIn("6_Rolima(SubindoNoAr)", 0.1f); 
+    [PunRPC] public void CarroDownAnim() => playerAtivo.animation.FadeIn("6_Rolima(DescendoNoAr)", 0.1f);
 
     // Animações do state03
-    [PunRPC] public void ArremessandoAnim() => playerAtivo.animation.GotoAndPlayByFrame("5_Arremessar", 0, 1); 
-    [PunRPC] public void ChutandoAnim() => playerAtivo.animation.GotoAndPlayByFrame("3_Bicuda", 0, 1); 
+    [PunRPC] public void ArremessandoAnim() => playerAtivo.animation.FadeIn("5_Arremessar", 0.1f, 1); 
+    [PunRPC] public void ChutandoAnim() => playerAtivo.animation.FadeIn("3_Bicuda", 0.1f, 1);
 
     // Animações do state04
-    [PunRPC] public void IdleAnim() => playerAtivo.animation.GotoAndPlayByFrame("0_Idle", 0);
-    [PunRPC] public void AterrisandoAnim() => playerAtivo.animation.FadeIn("1_Aterrisando", 0.15f, 1);
-    [PunRPC] public void FallingAnim() => playerAtivo.animation.GotoAndPlayByFrame("1_NoAr(2_Descendo)", 0);
-    [PunRPC] public void WalkAnim() => playerAtivo.animation.GotoAndPlayByFrame("0_Corrida_V2", 0); 
-    [PunRPC] public void JumpAnim() => playerAtivo.animation.GotoAndPlayByFrame("1_NoAr(1_Subindo)", 0);
+    [PunRPC] public void IdleAnim()
+    {
+        //playerLado.animation.GotoAndStopByProgress("1_Aterrisando",1f);
+        playerFrente.animation.Play("0_Idle");
+    }
+
+    [PunRPC] public void AterrisandoAnim() => playerAtivo.animation.FadeIn("1_Aterrisando", 0.1f, 1);
+    [PunRPC] public void FallingAnim() => playerAtivo.animation.FadeIn("1_NoAr(2_Descendo)",0.1f);
+    [PunRPC] public void WalkAnim() => playerAtivo.animation.FadeIn("0_Corrida_V2", 0.1f); 
+    [PunRPC] public void JumpAnim() => playerAtivo.animation.FadeIn("1_NoAr(1_Subindo)", 0.1f);
 }

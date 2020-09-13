@@ -7,6 +7,7 @@ public class Landing : MonoBehaviour
 	private Player2DAnimations p2Danim;
 	private string oldAnimState;
 	private ParticleSystem particle;
+    public PlayerAnimController animController;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,12 +18,10 @@ public class Landing : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-		if (p2Danim.state.ToString() == "Aterrisando" && oldAnimState != p2Danim.state.ToString())
-		{
+        if(animController.animInfo.anim04 == AnimState04.Aterrisando || animController.animInfo.anim04 == AnimState04.Walk)
+        {
+            particle.Play();
+        }
 
-			particle.Play();
-		}
-
-		oldAnimState = p2Danim.state.ToString();
     }
 }

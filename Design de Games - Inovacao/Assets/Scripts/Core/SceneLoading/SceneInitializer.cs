@@ -71,7 +71,7 @@ public class SceneInitializer : MonoBehaviour
         Debug.Log("[SceneInitializer] Initialize Scene Done");
     }
 
-	private void Update()
+	/*private void FixedUpdate()
 	{
         if(isDone == false)return;
         if (shouldDeactivateRuntime)
@@ -93,7 +93,7 @@ public class SceneInitializer : MonoBehaviour
                 objs.SetActive(false);
             }
         }
-    }
+    }*/
 
     private void CheckFase()
     {

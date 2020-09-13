@@ -41,10 +41,10 @@ public class PlayerAnimController : MonoBehaviour
         playerAnimInfo = GetComponent<PlayerAnimInfo>();
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
-        CheckNormalMovement();
-
+        Cooldown();
+        //if(coolToNext < 0.2f) { return; }
         if (GameManager.acabouFase) { WinLoseAnim(); }
         if (levouDogada.Value) { StunAnim(); return; }
 
@@ -65,6 +65,7 @@ public class PlayerAnimController : MonoBehaviour
                 CheckNormalMovement();
             }
         }
+        coolToNext = 0;
     }
 
     //State01 é WinLoseAnim() e StunAnim()
@@ -121,24 +122,25 @@ public class PlayerAnimController : MonoBehaviour
     {
         AtualizaInfo();
 
-        if (playerAnimInfo.playerInfo.velocity.y < 1f && controller.collisions.below == false) { animInfo.anim04 = AnimState04.Falling; }
+        /*if (playerAnimInfo.playerInfo.velocity.y < 1f && controller.collisions.below == false) { animInfo.anim04 = AnimState04.Falling; }
         else if (playerAnimInfo.playerInfo.jump || playerAnimInfo.playerInfo.velocity.y > 0) { animInfo.anim04 = AnimState04.Rising; }
         else if (playerAnimInfo.playerInfo.input.x != 0 && playerAnimInfo.playerInfo.isGrounded) { animInfo.anim04 = AnimState04.Walk; }
-        else { animInfo.anim04 = AnimState04.Idle; }
+        else { animInfo.anim04 = AnimState04.Idle; }*/
 
         #region Com Animação de landing travando
-        /*if (animInfo.oldAnim04 == AnimState04.Falling)
+        if (animInfo.anim04 == AnimState04.Falling)
         {
-            if (playerInfo.isGrounded == true) { return; }
-            else { animInfo.anim04 = AnimState04.Aterrisando; }
+
+            if (playerInfo.isGrounded == false) { return; }
+            else {animInfo.anim04 = AnimState04.Aterrisando;}
         }
         else
         {
-            if (playerMovement.velocity.y < 1f && controller.collisions.below == false) { animInfo.anim04 = AnimState04.Falling; }
-            else if (playerMovement.jump || playerMovement.velocity.y > 0) { animInfo.anim04 = AnimState04.Rising;  }
-            else if (inputController.joyInput.x != 0 && controller.collisions.below) { animInfo.anim04 = AnimState04.Walk;  }
-            else if (animInfo.oldAnim04 == AnimState04.Walk || animInfo.oldAnim04 == AnimState04.None) { animInfo.anim04 = AnimState04.Idle; }
-        }*/
+            if (playerMovement.velocity.y < 1f && controller.collisions.below == false) { animInfo.anim04 = AnimState04.Falling; CallState04(); return; }
+            else if (playerMovement.jump || playerMovement.velocity.y > 0) { animInfo.anim04 = AnimState04.Rising; CallState04(); return; }
+            else if (inputController.joyInput.x != 0 && controller.collisions.below) { animInfo.anim04 = AnimState04.Walk; CallState04(); return; }
+            else if (animInfo.oldAnim04 == AnimState04.Walk || animInfo.oldAnim04 == AnimState04.None ) { animInfo.anim04 = AnimState04.Idle; }
+        }
         #endregion
         CallState04();
     }
