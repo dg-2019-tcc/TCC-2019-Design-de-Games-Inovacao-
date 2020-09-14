@@ -68,10 +68,9 @@ public class SceneInitializer : MonoBehaviour
             PageController.instance.TurnPageOn(PageController.instance.entryPage);
         }
         //GarbageController.DisableGC();
-        Debug.Log("[SceneInitializer] Initialize Scene Done");
     }
 
-	/*private void FixedUpdate()
+	private void FixedUpdate()
 	{
         if(isDone == false)return;
         if (shouldDeactivateRuntime)
@@ -86,14 +85,16 @@ public class SceneInitializer : MonoBehaviour
         {
             if (Vector3.Distance(playerPos.position, objs.transform.position) < minSpawnPosition)
             {
+                GarbageController.callIndex++;
                 objs.SetActive(true);
             }
             else if (objs.activeSelf)
             {
+                //GarbageController.callIndex++;
                 objs.SetActive(false);
             }
         }
-    }*/
+    }
 
     private void CheckFase()
     {

@@ -9,7 +9,8 @@ public class FPSDisplay : MonoBehaviour
     public TMP_Text texto;
     float deltaTime = 0.0f;
 
-
+    float fps;
+    string text;
     private void Awake()
     {
         instance = this;
@@ -25,9 +26,8 @@ public class FPSDisplay : MonoBehaviour
     void OnGUI()
     {
 
-        float msec = deltaTime * 1000.0f;
-        float fps = 1.0f / deltaTime;
-        string text = string.Format("{0:0.0} ms ({1:0.} fps)", msec, fps);
+        fps = 1.0f / deltaTime;
+        text = fps.ToString(); ;
 
         texto.text = text;
     }

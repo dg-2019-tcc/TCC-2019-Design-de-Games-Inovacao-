@@ -41,7 +41,7 @@ public class PlayerAnimController : MonoBehaviour
         playerAnimInfo = GetComponent<PlayerAnimInfo>();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         Cooldown();
         //if(coolToNext < 0.2f) { return; }
@@ -71,7 +71,6 @@ public class PlayerAnimController : MonoBehaviour
     //State01 é WinLoseAnim() e StunAnim()
     void WinLoseAnim()
     {
-        Debug.Log(GameManager.acabouFase);
         if (GameManager.ganhou) { nextAnimState01 = AnimState01.Ganhou; }
         else { nextAnimState01 = AnimState01.Perdeu; }
 
@@ -109,7 +108,6 @@ public class PlayerAnimController : MonoBehaviour
         }
         callDogButtonAnim = true;
         CallState03();
-        Debug.Log("[PlayerAnimController] DogButton()");
     }
     void CallState03()
     {

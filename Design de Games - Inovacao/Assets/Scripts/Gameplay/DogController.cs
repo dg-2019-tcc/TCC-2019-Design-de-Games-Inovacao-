@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Kintal;
 
 namespace Complete
 {
@@ -107,6 +108,7 @@ namespace Complete
             {
                 if (desativaPower.Value == true)
                 {
+                    GarbageController.callFreeMemory = true;
                     ChangeState("IdleState");
                 }
 
@@ -210,6 +212,7 @@ namespace Complete
                 case "IdleState":
                     if (state != State.Idle)
                     {
+                        //GarbageController.callIndex++;
                         Pet.SetActive(true);
                         ativouDog = true;
                         Pet.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, Pet.transform.position.z);

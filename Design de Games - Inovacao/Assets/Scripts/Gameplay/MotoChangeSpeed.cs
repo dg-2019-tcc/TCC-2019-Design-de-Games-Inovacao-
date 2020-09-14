@@ -58,13 +58,13 @@ public class MotoChangeSpeed : MonoBehaviour
         controller = GetComponent<Controller2D>();
 
 
-        CarEngine.start();
+        //CarEngine.start();
     }
 
 
     void FixedUpdate()
     {
-        if (controller.collisions.bateuObs || levouDogada.Value)
+        if (/*controller.collisions.bateuObs ||*/ levouDogada.Value)
         {
             motoSpeedChange.Value = 0f;
             float speedZero = 0f;

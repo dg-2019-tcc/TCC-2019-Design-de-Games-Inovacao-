@@ -15,9 +15,9 @@ public class ArmatureDeactivate : MonoBehaviour
         unityArmature.armature.clock.Remove(unityArmature.armature);
     }*/
 
-    private void OnEnable()
+    /*private void OnEnable()
     {
-        unityArmature.armature.AdvanceTime(0);
+        //unityArmature.armature.AdvanceTime(0);
             Debug.Log("Armature Activate" + gameObject);
     }
 

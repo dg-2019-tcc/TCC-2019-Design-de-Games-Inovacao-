@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DragonBones;
 using Complete;
+using Kintal;
 
 public class AnimDB : MonoBehaviour
 {
@@ -28,6 +29,7 @@ public class AnimDB : MonoBehaviour
     public Armature arm01 = null;
     public Armature arm02 = null;
 
+
     public struct AnimStates
     {
         public AnimState01 animState01;
@@ -35,11 +37,22 @@ public class AnimDB : MonoBehaviour
         public AnimState03 animState03;
         public AnimState04 animState04;
 
+        public AnimState01 oldState01;
         public AnimState02 oldState02;
+        public AnimState03 oldState03;
+        public AnimState04 oldState04;
 
         public string animFuction;
         public bool changingArmature;
         public bool callLanding;
+        public bool canFadeIn;
+
+        public DragonBones.AnimationState idleState;
+        DragonBones.AnimationState jumpState;
+        DragonBones.AnimationState fallState;
+        DragonBones.AnimationState landState;
+        public DragonBones.AnimationState walkState;
+        public DragonBones.AnimationState walkFadeState;
 
         public void Reset()
         {
@@ -48,7 +61,10 @@ public class AnimDB : MonoBehaviour
         animState03 = AnimState03.None;
         animState04 = AnimState04.None;
 
+        oldState01 = AnimState01.None;
         oldState02 = AnimState02.None;
+        oldState03 = AnimState03.None;
+        oldState04 = AnimState04.None;
         }
     }
 
@@ -56,24 +72,18 @@ public class AnimDB : MonoBehaviour
     public PhotonView photonView;
 
 
+
     private void Start()
     {
         photonView = gameObject.GetComponent<PhotonView>();
-        //playerFrente.armature.clock.Add(playerFrente.armature);
-        //playerLado.armature.clock.Add(playerLado.armature);
-    }
 
-    public void AtivaClock()
-    {
-        playerFrente.armature.clock.Add(playerFrente.armature);
-        playerLado.armature.clock.Add(playerLado.armature);
     }
-
 
     public void CallAnimState01(AnimState01 state01)
     {
         //if ((int)animState01 < (int)state01) { return; }
         animStates.animState01 = state01;
+
         PlayAnimState01();
     }
 
@@ -83,6 +93,7 @@ public class AnimDB : MonoBehaviour
         if (animStates.animState01 != AnimState01.None) { return; }
         //if ((int)animState02 < (int)state02) { return; }
         animStates.animState02 = state02;
+        animStates.oldState02 = state02;
 
         if(animStates.animState02 == AnimState02.None) { return; }
 
@@ -95,6 +106,7 @@ public class AnimDB : MonoBehaviour
         if (animStates.animState01 != AnimState01.None || animStates.animState02 != AnimState02.None) { return; }
         //if ((int)animState03 < (int)state03) { return; }
         animStates.animState03 = state03;
+        animStates.oldState03 = state03;
 
         if(animStates.animState03 == AnimState03.None) { return; }
 
@@ -107,6 +119,7 @@ public class AnimDB : MonoBehaviour
         if (animStates.animState01 != AnimState01.None || animStates.animState02 != AnimState02.None || animStates.animState03 != AnimState03.None) { return; }
 
         animStates.animState04 = state04;
+        animStates.oldState04 = state04;
 
         if (animStates.animState04 == AnimState04.None) { animStates.animState04 = AnimState04.Idle; }
 
@@ -116,6 +129,18 @@ public class AnimDB : MonoBehaviour
     private void PlayAnimState01()
     {
         if (frente.activeInHierarchy == false) { ChangeArmature(0); }
+        else
+        {
+            if (animStates.oldState02 == AnimState02.None && animStates.oldState03 == AnimState03.None && animStates.oldState04 == AnimState04.None)
+            {
+                animStates.canFadeIn = true;
+            }
+        }
+        animStates.oldState01 = animStates.animState01;
+        animStates.oldState02 = AnimState02.None;
+        animStates.oldState03 = AnimState03.None;
+        animStates.oldState04 = AnimState04.None;
+
         if (GameManager.inRoom)
         {
             switch (animStates.animState01)
@@ -138,8 +163,18 @@ public class AnimDB : MonoBehaviour
     private void PlayAnimState02()
     {
         if (lado.activeInHierarchy == false) { ChangeArmature(1); }
+        else
+        {
+            if (animStates.oldState01 == AnimState01.None && animStates.oldState03 == AnimState03.None && animStates.oldState04 == AnimState04.None)
+            {
+                animStates.canFadeIn = true;
+            }
+        }
 
+        animStates.oldState01 = AnimState01.None;
         animStates.oldState02 = animStates.animState02;
+        animStates.oldState03 = AnimState03.None;
+        animStates.oldState04 = AnimState04.None;
 
         while (animStates.changingArmature) { return; }
         if (GameManager.inRoom)
@@ -168,7 +203,20 @@ public class AnimDB : MonoBehaviour
     private void PlayAnimState03()
     {
         if (lado.activeInHierarchy == false) { ChangeArmature(1); }
+        else
+        {
+            if (animStates.oldState01 == AnimState01.None && animStates.oldState02 == AnimState02.None && animStates.oldState04 == AnimState04.None)
+            {
+                animStates.canFadeIn = true;
+            }
+        }
+        animStates.oldState01 = AnimState01.None;
+        animStates.oldState02 = AnimState02.None;
+        animStates.oldState03 = animStates.animState03;
+        animStates.oldState04 = AnimState04.None;
+
         while (animStates.changingArmature) { return; }
+
         if (GameManager.inRoom)
         {
             switch (animStates.animState03)
@@ -183,13 +231,24 @@ public class AnimDB : MonoBehaviour
             }
         }
         PlayAnim();
-        Debug.Log("[AnimDB] PlayAnimState03()");
     }
     private void PlayAnimState04()
     {
         if (animStates.animState04 == AnimState04.Idle && frente.activeInHierarchy == false) { ChangeArmature(0); }
-        else if (animStates.animState04 != AnimState04.Idle && frente.activeInHierarchy == true) { ChangeArmature(1); }
-        
+        else if (animStates.animState04 != AnimState04.Idle && lado.activeInHierarchy == false) { ChangeArmature(1); }
+        else
+        {
+            if (animStates.oldState01 == AnimState01.None && animStates.oldState02 == AnimState02.None && animStates.oldState03 == AnimState03.None)
+            {
+                animStates.canFadeIn = true;
+            }
+        }
+        animStates.oldState01 = AnimState01.None;
+        animStates.oldState02 = AnimState02.None;
+        animStates.oldState03 =AnimState03.None;
+        animStates.oldState04 = animStates.animState04;
+
+
         while (animStates.changingArmature) { return; }
         if (GameManager.inRoom)
         {
@@ -219,32 +278,22 @@ public class AnimDB : MonoBehaviour
         PlayAnim();
     }
 
+
     // int type é 0 para ativar a frente e 1 para a de lado
     public void ChangeArmature(int type)
     {
+        animStates.canFadeIn = false;
         animStates.changingArmature = true;
         if (type == 0)
         {
-
-            //playerAtivo.armature.clock.Add(playerFrente.armature);
-            //playerFrente.armature.clock.Remove(playerAtivo.armature);
-            //frente.SetActive(true);
-            //lado.SetActive(false);
             frente.SetActive(true);
-            var transform = playerFrente.armature.display as GameObject;
             playerAtivo = playerFrente;
-            //playerAtivo.armature.clock.Remove(playerLado.armature);
             lado.SetActive(false);
         }
         else
         {
-            //playerAtivo.armature.clock.Add(playerLado.armature);
-            //playerLado.armature.clock.Remove(playerAtivo.armature);
-            //frente.SetActive(false);
             lado.SetActive(true);
-            var transform = playerLado.armature.display as GameObject;
             playerAtivo = playerLado;
-            //playerAtivo.armature.clock.Remove(playerFrente.armature);
             frente.SetActive(false);
         }
         animStates.changingArmature = false;
@@ -252,6 +301,7 @@ public class AnimDB : MonoBehaviour
 
     public void PlayAnim()
     {
+        GarbageController.callIndex++;
         if (GameManager.inRoom) { photonView.RPC(animStates.animFuction, RpcTarget.All); }
         else { ChooseFunction(); } //{ Invoke(functionName, 0); }
     }
@@ -352,24 +402,117 @@ public class AnimDB : MonoBehaviour
     [PunRPC] public void StunAnim() => playerAtivo.animation.FadeIn("3_Atordoado", 0.1f);
 
     //Animações do state02
-    [PunRPC] public void PipaAnim() => playerAtivo.animation.FadeIn("7_Pipa", 0.1f);
-    [PunRPC] public void CarroWalkAnim()=> playerAtivo.animation.FadeIn("6_Rolima(Andando)", 0.1f); 
-    [PunRPC] public void CarroUpAnim() => playerAtivo.animation.FadeIn("6_Rolima(SubindoNoAr)", 0.1f); 
-    [PunRPC] public void CarroDownAnim() => playerAtivo.animation.FadeIn("6_Rolima(DescendoNoAr)", 0.1f);
+    [PunRPC] public void PipaAnim() => playerAtivo.animation.Play("7_Pipa");
+
+    [PunRPC]
+    public void CarroWalkAnim()
+    {
+        if (animStates.canFadeIn)
+        {
+            playerAtivo.animation.FadeIn("6_Rolima(Andando)", 0.1f);
+        }
+        else
+        {
+            playerAtivo.animation.Play("6_Rolima(Andando)");
+        }
+    }
+    [PunRPC]
+    public void CarroUpAnim()
+    {
+        if (animStates.canFadeIn)
+        {
+            playerAtivo.animation.FadeIn("6_Rolima(SubindoNoAr)", 0.1f);
+        }
+        else
+        {
+            playerAtivo.animation.Play("6_Rolima(SubindoNoAr)");
+        }
+    }
+    [PunRPC]
+    public void CarroDownAnim()
+    {
+        if (animStates.canFadeIn)
+        {
+            playerAtivo.animation.FadeIn("6_Rolima(DescendoNoAr)", 0.1f);
+        }
+        else
+        {
+            playerAtivo.animation.Play("6_Rolima(DescendoNoAr)");
+        }
+    }
 
     // Animações do state03
-    [PunRPC] public void ArremessandoAnim() => playerAtivo.animation.FadeIn("5_Arremessar", 0.1f, 1); 
-    [PunRPC] public void ChutandoAnim() => playerAtivo.animation.FadeIn("3_Bicuda", 0.1f, 1);
+    [PunRPC] public void ArremessandoAnim() => playerAtivo.animation.Play("5_Arremessar", 1).resetToPose = true; 
+    [PunRPC] public void ChutandoAnim() => playerAtivo.animation.Play("3_Bicuda", 1).resetToPose = true;
 
     // Animações do state04
     [PunRPC] public void IdleAnim()
     {
-        //playerLado.animation.GotoAndStopByProgress("1_Aterrisando",1f);
-        playerFrente.animation.Play("0_Idle");
+        if (animStates.idleState == null)
+        {
+            animStates.idleState = playerFrente.animation.Play("0_Idle");
+        }
+        else
+        {
+            animStates.idleState.Play();
+        }
     }
 
-    [PunRPC] public void AterrisandoAnim() => playerAtivo.animation.FadeIn("1_Aterrisando", 0.1f, 1);
-    [PunRPC] public void FallingAnim() => playerAtivo.animation.FadeIn("1_NoAr(2_Descendo)",0.1f);
-    [PunRPC] public void WalkAnim() => playerAtivo.animation.FadeIn("0_Corrida_V2", 0.1f); 
-    [PunRPC] public void JumpAnim() => playerAtivo.animation.FadeIn("1_NoAr(1_Subindo)", 0.1f);
+    [PunRPC] public void AterrisandoAnim() => playerAtivo.animation.FadeIn("1_Aterrisando", 0.1f, 1).resetToPose = true;
+
+    [PunRPC]
+    public void FallingAnim()
+    {
+        if (animStates.canFadeIn)
+        {
+            playerAtivo.animation.FadeIn("1_NoAr(2_Descendo)", 0.1f);
+        }
+
+        else
+        {
+            playerAtivo.animation.Play("1_NoAr(2_Descendo)");
+        }
+    }
+
+    [PunRPC]
+    public void WalkAnim()
+    {
+        /* if (animStates.canFadeIn)
+         {
+             if (animStates.walkFadeState == null)
+             {
+                 animStates.walkFadeState = playerAtivo.animation.FadeIn("0_Corrida_V2", 0.1f);
+             }
+             else
+             {
+                 animStates.walkFadeState.Play();
+             }
+         }
+         else
+         {
+             if (animStates.walkState == null)
+             {
+                 animStates.walkState = playerAtivo.animation.Play("0_Corrida_V2");
+             }
+             else
+             {
+                 animStates.walkState.Play();
+             }
+         }*/
+        playerAtivo.animation.Play("0_Corrida_V2");
+    }
+
+    [PunRPC]
+    public void JumpAnim()
+    {
+        if (animStates.canFadeIn)
+        {
+            playerAtivo.animation.FadeIn("1_NoAr(1_Subindo)", 0.1f);
+        }
+        else
+        {
+            playerAtivo.animation.Play("1_NoAr(1_Subindo)");
+        }
+
+    }
 }

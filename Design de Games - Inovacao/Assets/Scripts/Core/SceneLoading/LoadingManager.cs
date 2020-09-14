@@ -73,7 +73,7 @@ public class LoadingManager : MonoBehaviour
         //tweenUI.TweenIn();
 #if UNITY_EDITOR
 #else
-        GarbageController.EnableGC();
+        //GarbageController.EnableGC();
 #endif
         GameManager.isPaused = true;
         GameManager.sceneAtual = nextScene;
@@ -88,7 +88,6 @@ public class LoadingManager : MonoBehaviour
 
     private IEnumerator InitOnlineScene(SceneType nextScene, SceneType oldScene)
     {
-        Debug.Log("InitOnlineScene");
         PhotonNetwork.LoadLevel((int)GameManager.sceneAtual);
         loadingScreen.SetActive(true);
         while (PhotonNetwork.LevelLoadingProgress < 1) { yield return null; }
@@ -99,7 +98,6 @@ public class LoadingManager : MonoBehaviour
         tweenCanvas.ChangeAlfa(false);
         loadingScreen.SetActive(false);
 
-        Debug.Log("[LoadingManager] Loaded Online Scene");
         GameManager.isPaused = false;
     }
 
@@ -125,12 +123,11 @@ public class LoadingManager : MonoBehaviour
         while (tweenCanvas.finishedTween == false) { yield return null; }
 #if UNITY_EDITOR
 #else
-        GarbageController.DisableGC();
+        //GarbageController.DisableGC();
 #endif
 
         loadingScreen.SetActive(false);
         GameManager.isPaused = false;
-        Debug.Log("[LoadingManager] Loaded "+ nextScene+ " Scene Sucess");
     }
     #endregion
 }

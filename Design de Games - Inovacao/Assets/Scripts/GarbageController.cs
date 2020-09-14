@@ -2,32 +2,46 @@
 using UnityEngine;
 using UnityEngine.Scripting;
 
+
 namespace Kintal
 {
     public class GarbageController : MonoBehaviour
     {
+        public static int callIndex;
+        public static bool callFreeMemory;
+        public int maxCalls = 10;
+        float collectTime;
 
-        private void FixedUpdate()
+
+
+        /*private void Update()
         {
+            if (callFreeMemory) { FreeMemory(); return; }
+
+#if UNITY_EDITOR
+#else
             if (Time.frameCount % 300 == 0)
             {
-                Debug.Log("[GarbageCollector] Collect");
-                System.GC.Collect();
+                Debug.Log("[Garbage Controller] frameCount");
+                EnableGC();
             }
-        }
+            else { DisableGC(); }
+#endif
+           /* if (callIndex < maxCalls) { return; }
+            FreeMemory();
+            Debug.Log("[Garbage Controller] Max Calls " + callIndex);*/
+       /* }
 
-        static void ListenForGCModeChange()
+        public void FreeMemory()
         {
-            // Listen on garbage collector mode changes.
-            GarbageCollector.GCModeChanged += (GarbageCollector.Mode mode) =>
-            {
-                Debug.Log("GCModeChanged: " + mode);
-            };
-        }
-
-        static void LogMode()
-        {
-            Debug.Log("GCMode: " + GarbageCollector.GCMode);
+            if (collectTime > 3f) { callIndex = 0; callFreeMemory = false; return; }
+#if UNITY_EDITOR
+            GC.Collect();   
+#else
+            EnableGC();
+#endif
+            collectTime += Time.deltaTime;
+            Debug.Log("[Garbage Controller] FreeMemory");
         }
 
         public static void EnableGC()
@@ -40,6 +54,6 @@ namespace Kintal
         public static void DisableGC()
         {
             GarbageCollector.GCMode = GarbageCollector.Mode.Disabled;
-        }
+        }*/
     }
 }

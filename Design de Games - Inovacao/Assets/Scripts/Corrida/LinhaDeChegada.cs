@@ -43,6 +43,7 @@ public class LinhaDeChegada : MonoBehaviour
     public void AIGanhou()
     {
         winnerManager.perdeuCorrida = true;
+        LevelManager.Instance.Perdeu();
     }
 
 	public void Colidiu(GameObject other)
