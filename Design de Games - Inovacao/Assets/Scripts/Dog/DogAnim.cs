@@ -24,7 +24,7 @@ public class DogAnim : MonoBehaviour
     {
         pv = GetComponent<PhotonView>();
         controller = GetComponent<AIController2D>();
-
+        dogArmature.armature.cacheFrameRate = 24;
         if (PhotonNetwork.InRoom)
         {
             isOnline = true;
@@ -96,7 +96,7 @@ public class DogAnim : MonoBehaviour
             case "Idle":
                 if (state != State.Idle)
                 {
-                    dogArmature.animation.Play("4_Idle");
+                    dogArmature.animation.FadeIn("4_Idle", 0.1f);
                     state = State.Idle;
                 }
                 break;
@@ -104,7 +104,7 @@ public class DogAnim : MonoBehaviour
             case "Walk":
                 if (state != State.Walk)
                 {
-                    dogArmature.animation.Play("0_Run");
+                    dogArmature.animation.FadeIn("0_Run",0.1f);
                     state = State.Walk;
                 }
                 break;
@@ -112,7 +112,7 @@ public class DogAnim : MonoBehaviour
             case "Up":
                 if (state != State.Up)
                 {
-                    dogArmature.animation.Play("1_Subindo(NoAr)");
+                    dogArmature.animation.FadeIn("1_Subindo(NoAr)",0.1f);
                     state = State.Up;
                 }
                 break;
@@ -120,7 +120,7 @@ public class DogAnim : MonoBehaviour
             case "Down":
                 if (state != State.Down)
                 {
-                    dogArmature.animation.Play("2_Descendo(NoAr)");
+                    dogArmature.animation.FadeIn("2_Descendo(NoAr)", 0.1f);
                     state = State.Down;
                 }
                 break;
@@ -128,7 +128,8 @@ public class DogAnim : MonoBehaviour
             case "Ativa":
                 if (state != State.Ativa)
                 {
-                    dogArmature.animation.Play("4_Transform(Voltando)");
+                    DragonBones.UnityFactory.factory.clock.Add(dogArmature.armature);
+                    dogArmature.animation.FadeIn("4_Transform(Voltando)", 0.1f);
                     dogController.ativouDog = false;
                     state = State.Ativa;
                 }
@@ -138,7 +139,8 @@ public class DogAnim : MonoBehaviour
             case "Desativa":
                 if (state != State.Desativa)
                 {
-                    dogArmature.animation.Play("4_Transform(PraTudo)");
+                    dogArmature.animation.FadeIn("4_Transform(PraTudo)", 0.1f);
+                    dogArmature.armature.clock.Remove(dogArmature.armature);
                     state = State.Desativa;
                 }
                 break;

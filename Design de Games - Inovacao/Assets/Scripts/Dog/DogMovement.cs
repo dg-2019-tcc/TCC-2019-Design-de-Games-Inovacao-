@@ -75,7 +75,6 @@ public class DogMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (trick) return;
         if (GameManager.pausaJogo) return;
         //GetInput();
         joyInput = inputController.joyInput;
@@ -177,27 +176,6 @@ public class DogMovement : MonoBehaviour
     }
 
 
-	/*void GetInput()																														//Pra organizar melhor, ter ctz que é setup
-	{
-		if (buildPC.Value == false)
-		{
-			joyInput = new Vector2(joyStick.Horizontal, joyStick.Vertical);
-		}
-		else
-		{
-			joyInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-		}
-		//joyInput = playerMove.joyInput;
-		if (joyInput.x > 0.3f || joyInput.x < -0.3f)
-		{
-			input.x = joyInput.x;
-		}
-
-		else
-		{
-			input.x = 0;
-		}
-	}*/
 
 	public void DogJump()
     {

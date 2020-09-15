@@ -76,6 +76,8 @@ public class AnimDB : MonoBehaviour
     private void Start()
     {
         photonView = gameObject.GetComponent<PhotonView>();
+        /*playerLado.armature.cacheFrameRate = 30;
+        playerFrente.armature.cacheFrameRate = 30;*/
 
     }
 
@@ -287,13 +289,13 @@ public class AnimDB : MonoBehaviour
         if (type == 0)
         {
             frente.SetActive(true);
-            playerAtivo = playerFrente;
+                playerAtivo = playerFrente;
             lado.SetActive(false);
         }
         else
         {
             lado.SetActive(true);
-            playerAtivo = playerLado;
+                playerAtivo = playerLado;
             frente.SetActive(false);
         }
         animStates.changingArmature = false;

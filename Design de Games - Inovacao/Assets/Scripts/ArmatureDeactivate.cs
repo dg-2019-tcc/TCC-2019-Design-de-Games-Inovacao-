@@ -9,19 +9,23 @@ public class ArmatureDeactivate : MonoBehaviour
     public Armature armature = null;
     public UnityDragonBonesData data;
 
-    /*private void Start()
+    private void Start()
     {
         armature = unityArmature.armature;
         unityArmature.armature.clock.Remove(unityArmature.armature);
-    }*/
+    }
 
-    /*private void OnEnable()
+    private void OnEnable()
     {
+        if(armature.clock == null)
+        {
+            DragonBones.UnityFactory.factory.clock.Add(armature);
+        }
         //unityArmature.armature.AdvanceTime(0);
             Debug.Log("Armature Activate" + gameObject);
     }
 
-    /*private void OnDisable()
+    private void OnDisable()
     {
         //data = unityArmature.unityData;
         if (armature.clock != null)
@@ -29,6 +33,6 @@ public class ArmatureDeactivate : MonoBehaviour
             unityArmature.armature.clock.Remove(unityArmature.armature);
         }
         Debug.Log("Armature Deactivate" + gameObject);
-    }*/
+    }
 
 }
