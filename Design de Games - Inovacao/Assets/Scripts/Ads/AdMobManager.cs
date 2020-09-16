@@ -31,15 +31,24 @@ public class AdMobManager : MonoBehaviour
 
 	void Start()
     {
+		RequestRewarded();
+		RequestInterstitial();
+	}
+
+
+
+	private void RequestRewarded()
+	{
 		MobileAds.Initialize(initStatus => { });
 
 
 
 		string adUnitId;
 #if UNITY_ANDROID
-		adUnitId = "ca-app-pub-3940256099942544/5224354917";
+		//adUnitId = "ca-app-pub-3940256099942544/5224354917";    //test
+		adUnitId = "ca - app - pub - 9479274669829895 / 4531331901";
 #elif UNITY_IPHONE
-            adUnitId = "ca-app-pub-3940256099942544/1712485313";
+            adUnitId = "ca-app-pub-3940256099942544/1712485313";   //test
 #else
             adUnitId = "unexpected_platform";
 #endif
@@ -63,7 +72,6 @@ public class AdMobManager : MonoBehaviour
 		AdRequest request = new AdRequest.Builder().Build();
 		// Load the rewarded ad with the request.
 		this.rewardedAd.LoadAd(request);
-		RequestInterstitial();
 	}
 
 
@@ -124,9 +132,10 @@ public class AdMobManager : MonoBehaviour
 	private void RequestInterstitial()
 	{
 #if UNITY_ANDROID
-		string adUnitId = "ca-app-pub-3940256099942544/1033173712";
+		//	string adUnitId = "ca-app-pub-3940256099942544/1033173712"; // test
+		string adUnitId =  "ca - app - pub - 9479274669829895 / 7868135205";
 #elif UNITY_IPHONE
-        string adUnitId = "ca-app-pub-3940256099942544/4411468910";
+        string adUnitId = "ca-app-pub-3940256099942544/4411468910"; //test
 #else
         string adUnitId = "unexpected_platform";
 #endif
