@@ -17,6 +17,11 @@ public class DogAnim : MonoBehaviour
     public enum State { Idle, Walk, Up, Down, Ativa, Desativa}
     public State state = State.Idle;
 
+    public DragonBones.AnimationState idleState;
+    public DragonBones.AnimationState walkState;
+    public DragonBones.AnimationState upState;
+    public DragonBones.AnimationState downState;
+
     public bool ativaDog;
     public bool dogState;
 
@@ -96,7 +101,8 @@ public class DogAnim : MonoBehaviour
             case "Idle":
                 if (state != State.Idle)
                 {
-                    dogArmature.animation.FadeIn("4_Idle", 0.1f);
+                    if (idleState != null) { idleState = dogArmature.animation.FadeIn("4_Idle", 0.1f); }
+                    else { idleState.Play(); }
                     state = State.Idle;
                 }
                 break;
@@ -104,7 +110,8 @@ public class DogAnim : MonoBehaviour
             case "Walk":
                 if (state != State.Walk)
                 {
-                    dogArmature.animation.FadeIn("0_Run",0.1f);
+                    if (walkState != null) { dogArmature.animation.FadeIn("0_Run", 0.1f); }
+                    else { walkState.Play(); }
                     state = State.Walk;
                 }
                 break;

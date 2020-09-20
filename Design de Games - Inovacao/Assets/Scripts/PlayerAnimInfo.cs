@@ -36,15 +36,5 @@ public class PlayerAnimInfo : MonoBehaviour
         if(playerInfo.input != inp) { playerInfo.input = inp; }
         if(playerInfo.isGrounded!= isGro) { playerInfo.isGrounded = isGro; }
         if(playerInfo.jump != j) { playerInfo.jump = j; }
-    }
-
-    public struct AnimInfo
-    {
-        public AnimState01 anim01;
-        public AnimState02 anim02;
-        public AnimState03 anim03;
-        public AnimState04 anim04;
-
-        public AnimState04 oldAnim04;
-    }
+    }   
 }

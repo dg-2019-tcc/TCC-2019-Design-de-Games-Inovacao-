@@ -6,23 +6,23 @@ using Complete;
 public class PlayerAnimController : MonoBehaviour
 {
     private AnimDB animDB;
+    private PlayerAnimationsDB playerAnim;
     public NewPlayerMovent playerMovement;
     private DogController dogController;
     private ButtonA buttonA;
     private Controller2D controller;
     private InputController inputController;
 
-    public AnimState01 nextAnimState01 = AnimState01.None;
-    public AnimState02 nextAnimState02 = AnimState02.None;
-    public AnimState03 nextAnimState03 = AnimState03.None;
-    public AnimState04 nextAnimState04 = AnimState04.None;
+    public AnimStateFrente nextAnimState01 = AnimStateFrente.None;
+    public AnimStatePowerUp nextAnimState02 = AnimStatePowerUp.None;
+    public AnimStateAction nextAnimState03 = AnimStateAction.None;
+    public AnimStateMovement nextAnimState04 = AnimStateMovement.None;
 
-    public AnimState04 oldAnimState04 = AnimState04.None;
+    public AnimStateMovement oldAnimState04 = AnimStateMovement.None;
 
 
     public PlayerAnimInfo playerAnimInfo;
 
-    public AnimInfo animInfo;
     public PlayerInfo playerInfo;
 
     [SerializeField] private float coolToNext;
@@ -32,6 +32,7 @@ public class PlayerAnimController : MonoBehaviour
 
     private void Start()
     {
+        playerAnim = GetComponent<PlayerAnimationsDB>();
         animDB = GetComponent<AnimDB>();
         playerMovement = GetComponent<NewPlayerMovent>();
         dogController = GetComponent<DogController>();
@@ -41,27 +42,31 @@ public class PlayerAnimController : MonoBehaviour
         playerAnimInfo = GetComponent<PlayerAnimInfo>();
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         Cooldown();
-        //if(coolToNext < 0.2f) { return; }
+        if (coolToNext < 0.3f) { return; }
         if (GameManager.acabouFase) { WinLoseAnim(); }
         if (levouDogada.Value) { StunAnim(); return; }
 
         if (dogController.state.Equals(DogController.State.Carro) || dogController.state.Equals(DogController.State.Pipa))
         {
             if (dogController.state.Equals(DogController.State.Carro)) { CarroAnim(); }
-            else { PipaAnim(); }
+            else { PipaAnim(); playerAnim.updateCar = false; }
             CallState02();
         }
         else
         {
-            animDB.CallAnimState02(AnimState02.None);
+            playerAnim.updateCar = false;
+            playerAnim.statePowerUp = AnimStatePowerUp.None;
+            playerAnim.StatePowerUpUpdate(false);
+
             if (dogButtonAnim) { DogButton(); }
             else
             {
                 callDogButtonAnim = false;
-                animDB.CallAnimState03(AnimState03.None);
+                playerAnim.statePowerUp = AnimStatePowerUp.None;
+                playerAnim.StateActionUpdate(false);
                 CheckNormalMovement();
             }
         }
@@ -69,28 +74,35 @@ public class PlayerAnimController : MonoBehaviour
     }
 
     //State01 é WinLoseAnim() e StunAnim()
+
     void WinLoseAnim()
     {
-        if (GameManager.ganhou) { nextAnimState01 = AnimState01.Ganhou; }
-        else { nextAnimState01 = AnimState01.Perdeu; }
+        if (GameManager.ganhou) { nextAnimState01 = AnimStateFrente.Ganhou; }
+        else { nextAnimState01 = AnimStateFrente.Perdeu; }
 
-        if (GameManager.perdeu) { nextAnimState01 = AnimState01.Perdeu; }
+        if (GameManager.perdeu) { nextAnimState01 = AnimStateFrente.Perdeu; }
 
-        animDB.CallAnimState01(nextAnimState01);
+        playerAnim.stateFrente = nextAnimState01;
+        playerAnim.StateFrenteUpdate();
     }
-    void StunAnim() { nextAnimState01 = AnimState01.Stun; animDB.CallAnimState01(nextAnimState01); }
+    void StunAnim() { nextAnimState01 = AnimStateFrente.Stun; playerAnim.StateFrenteUpdate();}
 
     //State02
     void CarroAnim()
     {
-        if (playerMovement.carroVelocity.y < 0 && controller.collisions.below == false) { nextAnimState02 = AnimState02.CarroDown; }
-        else if (playerMovement.jump) { nextAnimState02 = AnimState02.CarroUp; }
-        else  { nextAnimState02 = AnimState02.CarroWalk; }
+        playerAnim.updateCar = true;
+        if (playerMovement.carroVelocity.y < 0 && controller.collisions.below == false) { nextAnimState02 = AnimStatePowerUp.CarroDown; }
+        else if (playerMovement.jump) { nextAnimState02 = AnimStatePowerUp.CarroUp; }
+        else { nextAnimState02 = AnimStatePowerUp.CarroWalk; }
     }
-    void PipaAnim() => nextAnimState02 = AnimState02.Pipa;
+    void PipaAnim()
+    {
+        nextAnimState02 = AnimStatePowerUp.Pipa;
+    } 
     void CallState02()
     {
-        animDB.CallAnimState02(nextAnimState02);
+        playerAnim.statePowerUp = nextAnimState02;
+        playerAnim.StatePowerUpUpdate(true);
     }
 
     //State03
@@ -99,19 +111,20 @@ public class PlayerAnimController : MonoBehaviour
         if (callDogButtonAnim) return;
         if (buttonA.state.Equals(ButtonA.State.Atirar))
         {
-            nextAnimState03 = AnimState03.Arremesando;
+            nextAnimState03 = AnimStateAction.Arremesando;
         }
 
         else if (buttonA.state.Equals(ButtonA.State.Chutar))
         {
-            nextAnimState03 = AnimState03.Chute;
+            nextAnimState03 = AnimStateAction.Chute;
         }
         callDogButtonAnim = true;
         CallState03();
     }
     void CallState03()
     {
-        animDB.CallAnimState03(nextAnimState03);
+        playerAnim.stateAction = nextAnimState03;
+        playerAnim.StateActionUpdate(true);
         coolToNext = 0;
     }
 
@@ -119,25 +132,19 @@ public class PlayerAnimController : MonoBehaviour
     void CheckNormalMovement()
     {
         AtualizaInfo();
-
-        /*if (playerAnimInfo.playerInfo.velocity.y < 1f && controller.collisions.below == false) { animInfo.anim04 = AnimState04.Falling; }
-        else if (playerAnimInfo.playerInfo.jump || playerAnimInfo.playerInfo.velocity.y > 0) { animInfo.anim04 = AnimState04.Rising; }
-        else if (playerAnimInfo.playerInfo.input.x != 0 && playerAnimInfo.playerInfo.isGrounded) { animInfo.anim04 = AnimState04.Walk; }
-        else { animInfo.anim04 = AnimState04.Idle; }*/
-
         #region Com Animação de landing travando
-        if (animInfo.anim04 == AnimState04.Falling)
+        if (nextAnimState04 == AnimStateMovement.Falling)
         {
 
             if (playerInfo.isGrounded == false) { return; }
-            else {animInfo.anim04 = AnimState04.Aterrisando;}
+            else { nextAnimState04 = AnimStateMovement.Aterrisando;}
         }
         else
         {
-            if (playerMovement.velocity.y < 1f && controller.collisions.below == false) { animInfo.anim04 = AnimState04.Falling; CallState04(); return; }
-            else if (playerMovement.jump || playerMovement.velocity.y > 0) { animInfo.anim04 = AnimState04.Rising; CallState04(); return; }
-            else if (inputController.joyInput.x != 0 && controller.collisions.below) { animInfo.anim04 = AnimState04.Walk; CallState04(); return; }
-            else if (animInfo.oldAnim04 == AnimState04.Walk || animInfo.oldAnim04 == AnimState04.None ) { animInfo.anim04 = AnimState04.Idle; }
+            if (playerMovement.velocity.y < 1f && controller.collisions.below == false) { nextAnimState04 = AnimStateMovement.Falling;  nextAnimState01 = AnimStateFrente.None; }
+            else if (playerMovement.jump || playerMovement.velocity.y > 0) { nextAnimState04 = AnimStateMovement.Rising;  nextAnimState01 = AnimStateFrente.None; }
+            else if (inputController.joyInput.x != 0 && controller.collisions.below) { nextAnimState04 = AnimStateMovement.Walk;  nextAnimState01 = AnimStateFrente.None; }
+            else { nextAnimState01 = AnimStateFrente.Idle; }
         }
         #endregion
         CallState04();
@@ -152,8 +159,17 @@ public class PlayerAnimController : MonoBehaviour
     }
     void CallState04()
     {
-        animDB.CallAnimState04(animInfo.anim04);
-        animInfo.oldAnim04 = animInfo.anim04;
+        if(nextAnimState01 == AnimStateFrente.None)
+        {
+            playerAnim.stateMovement = nextAnimState04;
+            playerAnim.StateMoveUpdate(true);
+        }
+        else
+        {
+            playerAnim.stateFrente = nextAnimState01;
+            playerAnim.StateFrenteUpdate();
+        }
+
         coolToNext = 0;
     }
 
@@ -165,17 +181,6 @@ public class PlayerAnimController : MonoBehaviour
         public bool jump;
 
     }
-
-    public struct AnimInfo
-    {
-        public AnimState01 anim01;
-        public AnimState02 anim02;
-        public AnimState03 anim03;
-        public AnimState04 anim04;
-
-        public AnimState04 oldAnim04;
-    }
-
 
     void Cooldown()
     {

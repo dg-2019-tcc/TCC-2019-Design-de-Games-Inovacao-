@@ -51,11 +51,13 @@ public class CustomController : MonoBehaviour
 
         if (takeOffFrente.letThemBeOn == true/* && takeOffLado.letThemBeOn == true*/)
         {
-            animDB.playerAtivo = animDB.playerFrente;
+            //animDB.playerAtivo = animDB.playerFrente;
             //animDB.ChangeArmature(0);
-            animDB.CallAnimState04(AnimState04.Idle);
-            lado.SetActive(false);
+            //animDB.CallAnimState04(AnimState04.Idle);
+            //lado.SetActive(false);
             //animations.PlayAnim(Player2DAnimations.State.Idle);
+
+            frente.SetActive(false);
         }
     }
 }

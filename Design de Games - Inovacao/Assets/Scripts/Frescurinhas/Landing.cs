@@ -18,7 +18,7 @@ public class Landing : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(animController.animInfo.anim04 == AnimState04.Aterrisando || animController.animInfo.anim04 == AnimState04.Walk)
+        if(animController.nextAnimState04 == AnimStateMovement.Aterrisando || animController.nextAnimState04 == AnimStateMovement.Walk)
         {
             particle.Play();
         }

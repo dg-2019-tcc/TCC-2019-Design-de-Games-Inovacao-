@@ -877,7 +877,7 @@ namespace DragonBones
                 // Update cache.
                 var cacheFrameIndex = (int)Math.Floor(this._actionTimeline.currentTime * cacheFrameRate); // uint
                 if (this._armature._cacheFrameIndex == cacheFrameIndex)
-                { 
+                {
                     // Same cache.
                     isUpdateTimeline = false;
                     isUpdateBoneTimeline = false;

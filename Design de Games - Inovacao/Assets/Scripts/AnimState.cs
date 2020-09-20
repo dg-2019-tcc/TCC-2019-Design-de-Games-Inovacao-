@@ -1,12 +1,5 @@
-﻿public enum AnimState01
-{
-    None = 0,
-    Ganhou = 1,
-    Perdeu = 2,
-    Stun = 3
-}
-
-public enum AnimState02
+﻿
+public enum AnimStatePowerUp
 {
     None = 0,
     Pipa = 1,
@@ -15,19 +8,27 @@ public enum AnimState02
     CarroWalk = 4
 }
 
-public enum AnimState03
+public enum AnimStateAction
 {
     None = 0,
     Arremesando = 1,
     Chute = 2
 }
 
-public enum AnimState04
+public enum AnimStateMovement
 {
+    None = 0,
     Aterrisando = 1,
     Falling = 2,
     Rising = 3,
     Walk = 4,
-    Idle = 5,
-    None = 6,
+}
+
+public enum AnimStateFrente
+{
+    None = 0,
+    Idle = 1,
+    Ganhou = 2,
+    Perdeu = 3,
+    Stun = 4
 }
