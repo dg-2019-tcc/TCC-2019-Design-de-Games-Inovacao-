@@ -136,8 +136,8 @@ public class PlayerAnimController : MonoBehaviour
         if (nextAnimState04 == AnimStateMovement.Falling)
         {
 
-            if (playerInfo.isGrounded == false) { return; }
-            else { nextAnimState04 = AnimStateMovement.Aterrisando;}
+            while (playerInfo.isGrounded == false) { return; }
+            nextAnimState04 = AnimStateMovement.Aterrisando;
         }
         else
         {

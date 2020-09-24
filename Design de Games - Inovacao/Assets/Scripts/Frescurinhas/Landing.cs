@@ -6,22 +6,29 @@ public class Landing : MonoBehaviour
 {
 	private Player2DAnimations p2Danim;
 	private string oldAnimState;
-	private ParticleSystem particle;
-    public PlayerAnimController animController;
+	private ParticleSystem particleOneShot;
+	public ParticleSystem particleLoop;
+    public PlayerAnimationsDB animController;
     // Start is called before the first frame update
     void Start()
     {
-		particle = GetComponent<ParticleSystem>();
+        particleOneShot = GetComponent<ParticleSystem>();
 		p2Danim = GetComponentInParent<Player2DAnimations>();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void PlayLand()
     {
-        if(animController.nextAnimState04 == AnimStateMovement.Aterrisando || animController.nextAnimState04 == AnimStateMovement.Walk)
+        particleOneShot.Play();
+    }
+
+
+    // Update is called once per frame
+    /*void Update()
+    {
+        if(animController.stateMovement ==AnimStateMovement.Aterrisando )
         {
             particle.Play();
         }
 
-    }
+    }*/
 }

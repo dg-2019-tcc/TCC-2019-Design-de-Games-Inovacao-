@@ -19,23 +19,23 @@ public class PlayerAnimationsDB : MonoBehaviour
     public UnityArmatureComponent playerLado;
     public UnityArmatureComponent playerFrente;
 
-    private DragonBones.AnimationState idleState = null;
-    private DragonBones.AnimationState stunState = null;
-    private DragonBones.AnimationState winState = null;
-    private DragonBones.AnimationState loseState = null;
+    public DragonBones.AnimationState idleState = null;
+    public DragonBones.AnimationState stunState = null;
+    public DragonBones.AnimationState winState = null;
+    public DragonBones.AnimationState loseState = null;
 
-    private DragonBones.AnimationState jumpState = null;
-    private DragonBones.AnimationState fallState = null;
-    private DragonBones.AnimationState landState = null;
-    private DragonBones.AnimationState walkState = null;
+    public DragonBones.AnimationState jumpState = null;
+    public DragonBones.AnimationState fallState = null;
+    public DragonBones.AnimationState landState = null;
+    public DragonBones.AnimationState walkState = null;
 
-    private DragonBones.AnimationState chuteState = null;
-    private DragonBones.AnimationState tiroState = null;
+    public DragonBones.AnimationState chuteState = null;
+    public DragonBones.AnimationState tiroState = null;
 
-    private DragonBones.AnimationState carroWalkState = null;
-    private DragonBones.AnimationState carroUpState = null;
-    private DragonBones.AnimationState carroDownState = null;
-    private DragonBones.AnimationState pipaState = null;
+    public DragonBones.AnimationState carroWalkState = null;
+    public DragonBones.AnimationState carroUpState = null;
+    public DragonBones.AnimationState carroDownState = null;
+    public DragonBones.AnimationState pipaState = null;
 
     public enum State { Idle, Walking, Rising, Falling, Aterrisando, Chutando, Arremessando, Inativo, Pipa, CarroWalk, CarroUp, CarroDown, Stun, Ganhou, Perdeu, Null }
 
@@ -51,7 +51,7 @@ public class PlayerAnimationsDB : MonoBehaviour
     public GameObject[] pipaMesh;
     public GameObject[] carroMesh;
 
-    public List<Material> carroMat;
+    public Landing landParticles;
 
     private bool updateMove;
     [HideInInspector]
@@ -510,6 +510,7 @@ public class PlayerAnimationsDB : MonoBehaviour
     {
         if (play)
         {
+            landParticles.particleLoop.Play();
             if (pipaState != null) pipaState = null;
             if (tiroState != null) tiroState = null;
             playerLado.animation.lastAnimationState.weight = 0;
@@ -531,6 +532,7 @@ public class PlayerAnimationsDB : MonoBehaviour
         }
         else
         {
+            landParticles.particleLoop.Stop();
             if (carroWalkState == null) return;
             else
             {
@@ -702,6 +704,7 @@ public class PlayerAnimationsDB : MonoBehaviour
         if (play)
         {
             playerLado.animation.lastAnimationState.weight = 0;
+            landParticles.PlayLand();
 
             if (landState == null)
             {
@@ -770,7 +773,7 @@ public class PlayerAnimationsDB : MonoBehaviour
         if (play)
         {
             playerLado.animation.lastAnimationState.weight = 0;
-
+            landParticles.particleLoop.Play();
             if (walkState == null)
             {
                 walkState = playerLado.animation.FadeIn("0_Corrida_V2", -1, -1, 21, null, AnimationFadeOutMode.SameLayer);
@@ -787,6 +790,7 @@ public class PlayerAnimationsDB : MonoBehaviour
 
         else
         {
+            landParticles.particleLoop.Stop();
             if (walkState == null) return;
             else
             {
@@ -806,6 +810,7 @@ public class PlayerAnimationsDB : MonoBehaviour
         if (play)
         {
             playerLado.animation.lastAnimationState.weight = 0;
+            landParticles.PlayLand();
 
             if (jumpState == null)
             {
