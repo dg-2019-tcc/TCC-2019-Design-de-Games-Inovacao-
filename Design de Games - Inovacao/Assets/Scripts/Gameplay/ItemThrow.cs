@@ -53,7 +53,7 @@ namespace Complete
             rb.position += rb.velocity;
 
             timeDestroy += Time.deltaTime;
-            if (timeDestroy >= 5f)
+            if (timeDestroy >= 3f)
             {
                 //if (PhotonNetwork.IsConnected)
                 if(GameManager.inRoom)

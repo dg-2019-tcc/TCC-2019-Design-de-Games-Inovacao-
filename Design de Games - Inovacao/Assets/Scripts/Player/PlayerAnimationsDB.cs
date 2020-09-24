@@ -37,10 +37,21 @@ public class PlayerAnimationsDB : MonoBehaviour
     private DragonBones.AnimationState carroDownState = null;
     private DragonBones.AnimationState pipaState = null;
 
+    public enum State { Idle, Walking, Rising, Falling, Aterrisando, Chutando, Arremessando, Inativo, Pipa, CarroWalk, CarroUp, CarroDown, Stun, Ganhou, Perdeu, Null }
+
+    public State state = State.Idle;
+
+
+
     public AnimStateFrente stateFrente;
     public AnimStatePowerUp statePowerUp;
     public AnimStateAction stateAction;
     public AnimStateMovement stateMovement;
+
+    public GameObject[] pipaMesh;
+    public GameObject[] carroMesh;
+
+    public List<Material> carroMat;
 
     private bool updateMove;
     [HideInInspector]
@@ -61,79 +72,51 @@ public class PlayerAnimationsDB : MonoBehaviour
         }
         if(stateFrente != AnimStateFrente.None)
         {
-            if(GameManager.inRoom == false)
+            switch (stateFrente)
             {
-                switch (stateFrente)
-                {
-                    case AnimStateFrente.Idle:
-                        IdleAnim(true);
+                case AnimStateFrente.Idle:
+                    if (!GameManager.inRoom) IdleAnim(true);
+                    else photonView.RPC("IdleAnim", RpcTarget.All, true);
+                    break;
 
-                        StunAnim(false);
-                        PerdeuAnim(false);
-                        GanhouAnim(false);
-                        break;
+                case AnimStateFrente.Stun:
+                    if (!GameManager.inRoom) StunAnim(true);
+                    else photonView.RPC("StunAnim", RpcTarget.All, true);
+                    break;
 
-                    case AnimStateFrente.Stun:
-                        StunAnim(true);
+                case AnimStateFrente.Perdeu:
+                    if (!GameManager.inRoom) PerdeuAnim(true);
+                    else photonView.RPC("PerdeuAnim", RpcTarget.All, true);
+                    break;
 
-                        IdleAnim(false);
-                        PerdeuAnim(false);
-                        GanhouAnim(false);
-                        break;
-
-                    case AnimStateFrente.Perdeu:
-                        PerdeuAnim(true);
-
-                        IdleAnim(false);
-                        StunAnim(false);
-                        GanhouAnim(false);
-                        break;
-
-                    case AnimStateFrente.Ganhou:
-                        GanhouAnim(true);
-
-                        IdleAnim(false);
-                        StunAnim(false);
-                        PerdeuAnim(false);
-                        break;
-                }
+                case AnimStateFrente.Ganhou:
+                    if (!GameManager.inRoom) GanhouAnim(true);
+                    else photonView.RPC("GanhouAnim", RpcTarget.All, true);
+                    break;
             }
-            else
+
+            if(stateFrente != AnimStateFrente.Idle)
             {
-                switch (stateFrente)
-                {
-                    case AnimStateFrente.Idle:
-                        photonView.RPC("IdleAnim", RpcTarget.All, true);
+                if (!GameManager.inRoom) IdleAnim(false);
+                else photonView.RPC("IdleAnim", RpcTarget.All, false);
+            }
 
-                        photonView.RPC("StunAnim", RpcTarget.All, false);
-                        photonView.RPC("PerdeuAnim", RpcTarget.All, false);
-                        photonView.RPC("GanhouAnim", RpcTarget.All, false);
-                        break;
+            if (stateFrente != AnimStateFrente.Ganhou && winState !=null)
+            {
+                if (!GameManager.inRoom) GanhouAnim(false);
+                else photonView.RPC("GanhouAnim", RpcTarget.All, false);
+            }
 
-                    case AnimStateFrente.Stun:
-                        photonView.RPC("StunAnim", RpcTarget.All, true);
+            if (stateFrente != AnimStateFrente.Perdeu && loseState !=null)
+            {
+                if (!GameManager.inRoom) PerdeuAnim(false);
+                else photonView.RPC("PerdeuAnim", RpcTarget.All, false);
+            }
 
-                        photonView.RPC("IdleAnim", RpcTarget.All, false);
-                        photonView.RPC("PerdeuAnim", RpcTarget.All, false);
-                        photonView.RPC("GanhouAnim", RpcTarget.All, false);
-                        break;
-
-                    case AnimStateFrente.Perdeu:
-                        photonView.RPC("PerdeuAnim", RpcTarget.All, true);
-
-                        photonView.RPC("IdleAnim", RpcTarget.All, false);
-                        photonView.RPC("StunAnim", RpcTarget.All, false);
-                        photonView.RPC("GanhouAnim", RpcTarget.All, false);
-                        break;
-
-                    case AnimStateFrente.Ganhou:
-                        photonView.RPC("GanhouAnim", RpcTarget.All, true);
-
-                        photonView.RPC("IdleAnim", RpcTarget.All, false);
-                        photonView.RPC("StunAnim", RpcTarget.All, false);
-                        photonView.RPC("PerdeuAnim", RpcTarget.All, false);
-                        break;
-                }
+            if (stateFrente != AnimStateFrente.Stun && stunState != null)
+            {
+                if (!GameManager.inRoom) StunAnim(false);
+                else photonView.RPC("StunAnim", RpcTarget.All, false);
             }
         }
     }
@@ -150,74 +133,64 @@ public class PlayerAnimationsDB : MonoBehaviour
             StateMoveUpdate(false);
             if (statePowerUp != AnimStatePowerUp.None)
             {
-                if (GameManager.inRoom == false)
+                switch (statePowerUp)
                 {
-                    switch (statePowerUp)
-                    {
-                        case AnimStatePowerUp.Pipa:
-                            PipaAnim(true);
-                            break;
+                    case AnimStatePowerUp.Pipa:
+                        if (state == State.Pipa) return;
+                        if (!GameManager.inRoom) PipaAnim(true);
+                        else photonView.RPC("PipaAnim", RpcTarget.All, true);
+                        break;
 
-                        case AnimStatePowerUp.CarroWalk:
-                            CarroWalkAnim(true);
+                    case AnimStatePowerUp.CarroWalk:
+                        if (state == State.CarroWalk) return;
+                        if (!GameManager.inRoom) CarroWalkAnim(true);
+                        else photonView.RPC("CarroWalkAnim", RpcTarget.All, true);
+                        break;
 
-                            CarroUpAnim(false);
-                            CarroDownAnim(false);
-                            break;
+                    case AnimStatePowerUp.CarroUp:
+                        if (state == State.CarroUp) return;
+                        if (!GameManager.inRoom) CarroUpAnim(true);
+                        else photonView.RPC("CarroUpAnim", RpcTarget.All, true);
+                        break;
 
-                        case AnimStatePowerUp.CarroUp:
-                            CarroUpAnim(true);
-
-                            CarroWalkAnim(false);
-                            CarroDownAnim(false);
-                            break;
-
-                        case AnimStatePowerUp.CarroDown:
-                            CarroDownAnim(true);
-
-                            CarroWalkAnim(false);
-                            CarroUpAnim(false);
-                            break;
-                    }
+                    case AnimStatePowerUp.CarroDown:
+                        if (state == State.CarroDown) return;
+                        if (!GameManager.inRoom) CarroDownAnim(true);
+                        else photonView.RPC("CarroDownAnim", RpcTarget.All, true);
+                        break;
                 }
-                else
+
+                if(state != State.Pipa && pipaState != null)
                 {
-                    switch (statePowerUp)
-                    {
-                        case AnimStatePowerUp.Pipa:
-                            photonView.RPC("PipaAnim", RpcTarget.All, true);
-                            break;
+                    if (!GameManager.inRoom) PipaAnim(false);
+                    else photonView.RPC("PipaAnim", RpcTarget.All, false);
+                }
 
-                        case AnimStatePowerUp.CarroWalk:
-                            photonView.RPC("CarroWalkAnim", RpcTarget.All, true);
+                if (state != State.CarroDown && carroDownState != null)
+                {
+                    if (!GameManager.inRoom) CarroDownAnim(false);
+                    else photonView.RPC("CarroDownAnim", RpcTarget.All, false);
+                }
 
-                            photonView.RPC("CarroUpAnim", RpcTarget.All, false);
-                            photonView.RPC("CarroDownAnim", RpcTarget.All, false);
-                            break;
+                if (state != State.CarroUp && carroUpState != null)
+                {
+                    if (!GameManager.inRoom) CarroUpAnim(false);
+                    else photonView.RPC("CarroUpAnim", RpcTarget.All, false);
+                }
 
-                        case AnimStatePowerUp.CarroUp:
-                            photonView.RPC("CarroUpAnim", RpcTarget.All, true);
-
-                            photonView.RPC("CarroWalkAnim", RpcTarget.All, false);
-                            photonView.RPC("CarroDownAnim", RpcTarget.All, false);
-                            break;
-
-                        case AnimStatePowerUp.CarroDown:
-                            photonView.RPC("CarroDownAnim", RpcTarget.All, true);
-
-                            photonView.RPC("CarroWalkAnim", RpcTarget.All, false);
-                            photonView.RPC("CarroUpAnim", RpcTarget.All, false);
-                            break;
-                    }
+                if (state != State.CarroWalk && carroWalkState != null)
+                {
+                    if (!GameManager.inRoom) CarroWalkAnim(false);
+                    else photonView.RPC("CarroWalkAnim", RpcTarget.All, false);
                 }
             }
         }
         else
         {
-            if (pipaState != null) if (GameManager.inRoom) { photonView.RPC("PipaAnim", RpcTarget.All, false); } else { PipaAnim(false); }
-            if (carroDownState != null) if (GameManager.inRoom) { photonView.RPC("CarroDownAnim", RpcTarget.All, false); } else { CarroDownAnim(false); }
-            if (carroUpState != null) if (GameManager.inRoom) { photonView.RPC("CarroUpAnim", RpcTarget.All, false); } else { CarroUpAnim(false); }
-            if (carroWalkState != null) if (GameManager.inRoom) { photonView.RPC("CarroWalkAnim", RpcTarget.All, false); } else { CarroWalkAnim(false); }
+            if (pipaState != null && pipaState.weight !=0) if (GameManager.inRoom) { photonView.RPC("PipaAnim", RpcTarget.All, false); } else { PipaAnim(false); }
+            if (carroDownState != null && carroDownState.weight != 0) if (GameManager.inRoom) { photonView.RPC("CarroDownAnim", RpcTarget.All, false); } else { CarroDownAnim(false); }
+            if (carroUpState != null && carroUpState.weight != 0) if (GameManager.inRoom) { photonView.RPC("CarroUpAnim", RpcTarget.All, false); } else { CarroUpAnim(false); }
+            if (carroWalkState != null && carroWalkState.weight != 0) if (GameManager.inRoom) { photonView.RPC("CarroWalkAnim", RpcTarget.All, false); } else { CarroWalkAnim(false); }
         }
     }
 
@@ -238,11 +211,13 @@ public class PlayerAnimationsDB : MonoBehaviour
                 switch (stateAction)
                 {
                     case AnimStateAction.Chute:
-                        if (GameManager.inRoom == false) { ChutandoAnim(true); }
+                        if (state == State.Chutando) return;
+                        if (GameManager.inRoom == false) {  ChutandoAnim(true); }
                         else { photonView.RPC("ChutandoAnim", RpcTarget.All, true); }
                         break;
 
                     case AnimStateAction.Arremesando:
+                        if (state == State.Arremessando) return;
                         if (GameManager.inRoom == false) { ArremessandoAnim(true); }
                         else { photonView.RPC("ArremessandoAnim", RpcTarget.All, true); }
                         break;
@@ -272,105 +247,80 @@ public class PlayerAnimationsDB : MonoBehaviour
             updateMove = false;
             if (GameManager.inRoom == false)
             {
-                WalkAnim(false);
-                JumpAnim(false);
-                FallingAnim(false);
-                AterrisandoAnim(false);
+                if(walkState !=null && walkState.weight !=0) WalkAnim(false);
+                if (jumpState != null && jumpState.weight != 0) JumpAnim(false);
+                if (fallState != null && fallState.weight != 0) FallingAnim(false);
+                if (landState != null && landState.weight != 0) AterrisandoAnim(false);
             }
             else
             {
-                photonView.RPC("WalkAnim", RpcTarget.All, false);
-                photonView.RPC("JumpAnim", RpcTarget.All, false);
-                photonView.RPC("FallingAnim", RpcTarget.All, false);
-                photonView.RPC("AterrisandoAnim", RpcTarget.All, false);
+                if (walkState != null && walkState.weight != 0) photonView.RPC("WalkAnim", RpcTarget.All, false);
+                if (jumpState != null && jumpState.weight != 0) photonView.RPC("JumpAnim", RpcTarget.All, false);
+                if (fallState != null && fallState.weight != 0) photonView.RPC("FallingAnim", RpcTarget.All, false);
+                if (landState != null && landState.weight != 0) photonView.RPC("AterrisandoAnim", RpcTarget.All, false);
             }
         }
         else
         {
+            ActivateCarro(false);
+            ActivatePipa(false);
             updateMove = true;
             if (lado.activeInHierarchy == false)
             {
                 lado.SetActive(true);
                 frente.SetActive(false);
             }
+
             if (stateMovement != AnimStateMovement.None)
             {
-                if (GameManager.inRoom == false)
+                switch (stateMovement)
                 {
-                    switch (stateMovement)
-                    {
-                        case AnimStateMovement.Walk:
-                            WalkAnim(true);
+                    case AnimStateMovement.Walk:
+                        if (state == State.Walking) return;
+                        if (!GameManager.inRoom) WalkAnim(true);
+                        else photonView.RPC("WalkAnim", RpcTarget.All, true);
+                        break;
+                    case AnimStateMovement.Rising:
+                        if (state == State.Rising) return;
+                        if (!GameManager.inRoom) JumpAnim(true);
+                        else photonView.RPC("JumpAnim", RpcTarget.All, true);
+                        break;
+                    case AnimStateMovement.Falling:
+                        if (state == State.Falling) return;
+                        if (!GameManager.inRoom) FallingAnim(true);
+                        else photonView.RPC("FallingAnim", RpcTarget.All, true);
+                        break;
+                    case AnimStateMovement.Aterrisando:
+                        if (state == State.Aterrisando) return;
+                        if (!GameManager.inRoom) AterrisandoAnim(true);
+                        else photonView.RPC("AterrisandoAnim", RpcTarget.All, true);
+                        break;
 
-                            JumpAnim(false);
-                            FallingAnim(false);
-                            AterrisandoAnim(false);
-                            break;
-
-                        case AnimStateMovement.Rising:
-                            JumpAnim(true);
-
-                            FallingAnim(false);
-                            AterrisandoAnim(false);
-                            WalkAnim(false);
-                            break;
-
-                        case AnimStateMovement.Falling:
-                            FallingAnim(true);
-
-                            AterrisandoAnim(false);
-                            WalkAnim(false);
-                            JumpAnim(false);
-                            break;
-
-                        case AnimStateMovement.Aterrisando:
-                            AterrisandoAnim(true);
-
-                            FallingAnim(false);
-                            WalkAnim(false);
-                            JumpAnim(false);
-                            break;
-
-                    }
                 }
-                else
-                {
-                    switch (stateMovement)
-                    {
-                        case AnimStateMovement.Walk:
-                            photonView.RPC("WalkAnim", RpcTarget.All, true);
+            }
 
-                            photonView.RPC("JumpAnim", RpcTarget.All, false);
-                            photonView.RPC("FallingAnim", RpcTarget.All, false);
-                            photonView.RPC("AterrisandoAnim", RpcTarget.All, false);
-                            break;
+            if(state != State.Walking)
+            {
+                if (!GameManager.inRoom) WalkAnim(false);
+                else photonView.RPC("WalkAnim", RpcTarget.All, false);
+            }
 
-                        case AnimStateMovement.Rising:
-                            photonView.RPC("JumpAnim", RpcTarget.All, true);
+            if (state != State.Rising)
+            {
+                if (!GameManager.inRoom) JumpAnim(false);
+                else photonView.RPC("JumpAnim", RpcTarget.All, false);
+            }
 
-                            photonView.RPC("WalkAnim", RpcTarget.All, false);
-                            photonView.RPC("FallingAnim", RpcTarget.All, false);
-                            photonView.RPC("AterrisandoAnim", RpcTarget.All, false);
-                            break;
+            if (state != State.Falling)
+            {
+                if (!GameManager.inRoom) FallingAnim(false);
+                else photonView.RPC("FallingAnim", RpcTarget.All, false);
+            }
 
-                        case AnimStateMovement.Falling:
-                            photonView.RPC("FallingAnim", RpcTarget.All, true);
-
-                            photonView.RPC("WalkAnim", RpcTarget.All, false);
-                            photonView.RPC("JumpAnim", RpcTarget.All, false);
-                            photonView.RPC("AterrisandoAnim", RpcTarget.All, false);
-                            break;
-
-                        case AnimStateMovement.Aterrisando:
-                            photonView.RPC("AterrisandoAnim", RpcTarget.All, true);
-
-                            photonView.RPC("WalkAnim", RpcTarget.All, false);
-                            photonView.RPC("JumpAnim", RpcTarget.All, false);
-                            photonView.RPC("FallingAnim", RpcTarget.All, false);
-                            break;
-
-                    }
-                }
+            if (state != State.Aterrisando)
+            {
+                if (!GameManager.inRoom) AterrisandoAnim(false);
+                else photonView.RPC("AterrisandoAnim", RpcTarget.All, false);
             }
         }
 
@@ -383,9 +333,10 @@ public class PlayerAnimationsDB : MonoBehaviour
     {
         if (play)
         {
+            playerFrente.animation.lastAnimationState.weight = 0;
             if (idleState == null)
             {
-                idleState = playerFrente.animation.Play("0_Idle");
+                idleState = playerFrente.animation.FadeIn("0_Idle", 0.1f, -1, 15, null, AnimationFadeOutMode.None);
                 idleState.displayControl = true;
             }
             else
@@ -394,6 +345,8 @@ public class PlayerAnimationsDB : MonoBehaviour
                 idleState.weight = 1;
                 idleState.Play();
             }
+
+            state = State.Idle;
         }
         else
         {
@@ -413,6 +366,7 @@ public class PlayerAnimationsDB : MonoBehaviour
     {
         if (play)
         {
+            playerFrente.animation.lastAnimationState.weight = 0;
             if (winState == null)
             {
                 winState = playerFrente.animation.FadeIn("2_Vencer", 0.1f, -1, 12, null, AnimationFadeOutMode.Single);
@@ -424,6 +378,8 @@ public class PlayerAnimationsDB : MonoBehaviour
                 winState.weight = 1;
                 winState.Play();
             }
+
+            state = State.Ganhou;
         }
         else
         {
@@ -442,6 +398,7 @@ public class PlayerAnimationsDB : MonoBehaviour
     {
         if (play)
         {
+            playerFrente.animation.lastAnimationState.weight = 0;
             if (loseState == null)
             {
                 loseState = playerFrente.animation.FadeIn("2_Perder", 0.1f, -1, 11, null, AnimationFadeOutMode.Single);
@@ -453,6 +410,8 @@ public class PlayerAnimationsDB : MonoBehaviour
                 loseState.weight = 1;
                 loseState.Play();
             }
+
+            state = State.Perdeu;
         }
         else
         {
@@ -471,6 +430,7 @@ public class PlayerAnimationsDB : MonoBehaviour
     {
         if (play)
         {
+            playerFrente.animation.lastAnimationState.weight = 0;
             if (stunState == null)
             {
                 stunState = playerFrente.animation.FadeIn("3_Atordoado", 0.1f, -1, 10, null, AnimationFadeOutMode.Single);
@@ -482,6 +442,8 @@ public class PlayerAnimationsDB : MonoBehaviour
                 stunState.weight = 1;
                 stunState.Play();
             }
+
+            state = State.Stun;
         }
         else
         {
@@ -501,46 +463,46 @@ public class PlayerAnimationsDB : MonoBehaviour
     {
         if (play)
         {
+            if (carroDownState != null || carroUpState != null || carroWalkState != null) carroDownState = null; carroUpState = null; carroWalkState = null;
+            if (tiroState != null) tiroState = null;
+            playerLado.animation.lastAnimationState.weight = 0;
             if (pipaState == null)
             {
-                pipaState = playerLado.animation.FadeIn("7_Pipa", 0.1f, -1, 9, null, AnimationFadeOutMode.Single);
+                pipaState = playerLado.animation.FadeIn("7_Pipa", 0.1f, -1, 9, null, AnimationFadeOutMode.None);
                 pipaState.displayControl = true;
+                Debug.Log("PipaState == NULL");
             }
             else
             {
+                ActivatePipa(true);
+
                 pipaState.displayControl = true;
                 pipaState.weight = 1;
                 pipaState.Play();
             }
+            state = State.Pipa;
         }
         else
         {
             if (pipaState == null) return;
             else
             {
-                var pipaCarretel = playerLado.armature.GetSlot("Pipa_CArretel");
-                var pipaStrokeNariz = playerLado.armature.GetSlot("Stroke_Pipanariz");
-                var pipaStrokeBase = playerLado.armature.GetSlot("Stroke_Pipabase");
-                var pipaRabo = playerLado.armature.GetSlot("PipaRabo");
-                var pipaOrelhaBaixo = playerLado.armature.GetSlot("Pipa_Orelha_Baixo");
-                var pipaOrelhaCima = playerLado.armature.GetSlot("Pipa_Orelha_Cima");
-                var pipaBase = playerLado.armature.GetSlot("Pipa_Base");
-                var pipaNariz = playerLado.armature.GetSlot("Pipa_Nariz");
-
-                pipaCarretel.display = null;
-                pipaStrokeNariz.display = null;
-                pipaStrokeBase.display = null;
-                pipaRabo.display = null;
-                pipaOrelhaBaixo.display = null;
-                pipaOrelhaCima.display = null;
-                pipaBase.display = null;
-                pipaNariz.display = null;
-
                 pipaState.displayControl = false;
                 pipaState.weight = 0;
-                pipaState.Stop();
+                ActivatePipa(false);
+                pipaState = null;
             }
         }
+    }
+
+    private void ActivatePipa(bool isOn)
+    {
+        if (pipaMesh[0].activeInHierarchy == isOn) return;
+        for (int i = 0; i < pipaMesh.Length; i++)
+        {
+            pipaMesh[i].SetActive(isOn);
+        }
+        Debug.Log("ActivatePipa2 = " + isOn);
     }
 
     [PunRPC]
@@ -548,6 +510,9 @@ public class PlayerAnimationsDB : MonoBehaviour
     {
         if (play)
         {
+            if (pipaState != null) pipaState = null;
+            if (tiroState != null) tiroState = null;
+            playerLado.animation.lastAnimationState.weight = 0;
             if (carroWalkState == null)
             {
                 carroWalkState = playerLado.animation.FadeIn("6_Rolima(Andando)", 0.1f, -1, 8, null, AnimationFadeOutMode.None);
@@ -555,34 +520,20 @@ public class PlayerAnimationsDB : MonoBehaviour
             }
             else
             {
+                ActivateCarro(true);
+
                 carroWalkState.displayControl = true;
                 carroWalkState.weight = 1;
                 carroWalkState.Play();
             }
+
+            state = State.CarroWalk;
         }
         else
         {
             if (carroWalkState == null) return;
             else
             {
-                if (!updateCar)
-                {
-                    var rolimaStrokw = playerLado.armature.GetSlot("Rolima_Strokw");
-                    var rolimaRabo = playerLado.armature.GetSlot("Rolima_Rabo");
-                    var rolimaBase = playerLado.armature.GetSlot("Rolima_Base");
-                    var rolimaRoda1 = playerLado.armature.GetSlot("Rolima_Roda1");
-                    var rolimaRoda2 = playerLado.armature.GetSlot("Rolima_Roda2");
-                    var rolimaSombras = playerLado.armature.GetSlot("Rolima_Sombras");
-
-                    rolimaStrokw.display = null;
-                    rolimaRabo.display = null;
-                    rolimaBase.display = null;
-                    rolimaRoda1.display = null;
-                    rolimaRoda2.display = null;
-                    rolimaSombras.display = null;
-                }
-
-                carroWalkState.displayControl = false;
                 carroWalkState.weight = 0;
                 carroWalkState.Stop();
             }
@@ -593,6 +544,10 @@ public class PlayerAnimationsDB : MonoBehaviour
     {
         if (play)
         {
+            if (pipaState != null) pipaState = null;
+            if (tiroState != null) tiroState = null;
+            playerLado.animation.lastAnimationState.weight = 0;
+            ActivateCarro(true);
             if (carroUpState == null)
             {
                 carroUpState = playerLado.animation.FadeIn("6_Rolima(SubindoNoAr)", 0.1f, -1, 7, null, AnimationFadeOutMode.None);
@@ -600,34 +555,20 @@ public class PlayerAnimationsDB : MonoBehaviour
             }
             else
             {
+                //ActivateCarro(true);
+
                 carroUpState.displayControl = true;
                 carroUpState.weight = 1;
                 carroUpState.Play();
             }
+
+            state = State.CarroUp;
         }
         else
         {
             if (carroUpState == null) return;
             else
             {
-                if (!updateCar)
-                {
-                    var rolimaStrokw = playerLado.armature.GetSlot("Rolima_Strokw");
-                    var rolimaRabo = playerLado.armature.GetSlot("Rolima_Rabo");
-                    var rolimaBase = playerLado.armature.GetSlot("Rolima_Base");
-                    var rolimaRoda1 = playerLado.armature.GetSlot("Rolima_Roda1");
-                    var rolimaRoda2 = playerLado.armature.GetSlot("Rolima_Roda2");
-                    var rolimaSombras = playerLado.armature.GetSlot("Rolima_Sombras");
-
-                    rolimaStrokw.display = null;
-                    rolimaRabo.display = null;
-                    rolimaBase.display = null;
-                    rolimaRoda1.display = null;
-                    rolimaRoda2.display = null;
-                    rolimaSombras.display = null;
-                }
-
-                carroUpState.displayControl = false;
                 carroUpState.weight = 0;
                 carroUpState.Stop();
             }
@@ -638,45 +579,47 @@ public class PlayerAnimationsDB : MonoBehaviour
     {
         if (play)
         {
-            if(carroDownState == null)
+            if (pipaState != null) pipaState = null;
+            if (tiroState != null) tiroState = null;
+            playerLado.animation.lastAnimationState.weight = 0;
+            //ActivateCarro(true);
+            if (carroDownState == null)
             {
                 carroDownState = playerLado.animation.FadeIn("6_Rolima(DescendoNoAr)", 0.1f, -1, 6, null, AnimationFadeOutMode.None);
                 carroDownState.displayControl = true;
             }
             else
             {
+                //ActivateCarro(true);
                 carroDownState.displayControl = true;
                 carroDownState.weight = 1;
                 carroDownState.Play();
             }
+
+            state = State.CarroDown;
         }
         else
         {
             if (carroDownState == null) return;
             else
             {
-                if (!updateCar)
-                {
-                    var rolimaStrokw = playerLado.armature.GetSlot("Rolima_Strokw");
-                    var rolimaRabo = playerLado.armature.GetSlot("Rolima_Rabo");
-                    var rolimaBase = playerLado.armature.GetSlot("Rolima_Base");
-                    var rolimaRoda1 = playerLado.armature.GetSlot("Rolima_Roda1");
-                    var rolimaRoda2 = playerLado.armature.GetSlot("Rolima_Roda2");
-                    var rolimaSombras = playerLado.armature.GetSlot("Rolima_Sombras");
-
-                    rolimaStrokw.display = null;
-                    rolimaRabo.display = null;
-                    rolimaBase.display = null;
-                    rolimaRoda1.display = null;
-                    rolimaRoda2.display = null;
-                    rolimaSombras.display = null;
-                }
-
-                carroDownState.displayControl = false;
                 carroDownState.weight = 0;
                 carroDownState.Stop();
             }
         }
+    }
+
+
+    private void ActivateCarro(bool isOn)
+    {
+        if (carroMesh[0].activeInHierarchy == isOn) return;
+
+        for (int i = 0; i < carroMesh.Length; i++)
+        {
+            carroMesh[i].SetActive(isOn);
+        }
+
+        Debug.Log("ActivateCarro2 = " + isOn);
     }
 
     // Animações do stateAction
@@ -686,9 +629,14 @@ public class PlayerAnimationsDB : MonoBehaviour
 
         if (play)
         {
+            if (carroDownState != null || carroUpState != null || carroWalkState != null) carroDownState = null; carroUpState = null; carroWalkState = null;
+            if (pipaState != null) pipaState = null;
+
+            playerLado.animation.lastAnimationState.weight = 0;
+
             if (tiroState == null)
             {
-                tiroState = playerLado.animation.FadeIn("5_Arremessar", 0.1f, -1, 5, null, AnimationFadeOutMode.Single);
+                tiroState = playerLado.animation.FadeIn("5_Arremessar", 0.1f, -1, 5, null, AnimationFadeOutMode.None);
                 tiroState.resetToPose = true;
                 tiroState.displayControl = true;
             }
@@ -698,6 +646,8 @@ public class PlayerAnimationsDB : MonoBehaviour
                 tiroState.weight = 1;
                 tiroState.Play();
             }
+
+            state = State.Arremessando;
         }
         else
         {
@@ -717,9 +667,11 @@ public class PlayerAnimationsDB : MonoBehaviour
     {
         if (play)
         {
+            playerLado.animation.lastAnimationState.weight = 0;
+
             if (chuteState == null)
             {
-                chuteState = playerLado.animation.FadeIn("3_Bicuda", 0.1f, -1, 4, null, AnimationFadeOutMode.Single);
+                chuteState = playerLado.animation.FadeIn("3_Bicuda", 0.1f, -1, 4, null, AnimationFadeOutMode.None);
                 chuteState.displayControl = true;
                 chuteState.resetToPose = true;
             }
@@ -729,6 +681,7 @@ public class PlayerAnimationsDB : MonoBehaviour
                 chuteState.weight = 1;
                 chuteState.Play();
             }
+            state = State.Chutando;
         }
         else
         {
@@ -748,6 +701,8 @@ public class PlayerAnimationsDB : MonoBehaviour
     {
         if (play)
         {
+            playerLado.animation.lastAnimationState.weight = 0;
+
             if (landState == null)
             {
                 landState = playerLado.animation.FadeIn("1_Aterrisando", 0.1f, -1, 3, null, AnimationFadeOutMode.Single);
@@ -760,6 +715,8 @@ public class PlayerAnimationsDB : MonoBehaviour
                 landState.weight = 1;
                 landState.Play();
             }
+
+            state = State.Aterrisando;
         }
         else
         {
@@ -780,6 +737,8 @@ public class PlayerAnimationsDB : MonoBehaviour
     {
         if (play)
         {
+            playerLado.animation.lastAnimationState.weight = 0;
+
             if (fallState == null)
             {
                 fallState = playerLado.animation.FadeIn("1_NoAr(2_Descendo)", 0.1f, -1, 20, null, AnimationFadeOutMode.Single);
@@ -791,6 +750,7 @@ public class PlayerAnimationsDB : MonoBehaviour
                 fallState.weight = 1;
                 fallState.Play();
             }
+            state = State.Falling;
         }
         else
         {
@@ -809,6 +769,8 @@ public class PlayerAnimationsDB : MonoBehaviour
     {
         if (play)
         {
+            playerLado.animation.lastAnimationState.weight = 0;
+
             if (walkState == null)
             {
                 walkState = playerLado.animation.FadeIn("0_Corrida_V2", -1, -1, 21, null, AnimationFadeOutMode.SameLayer);
@@ -820,6 +782,7 @@ public class PlayerAnimationsDB : MonoBehaviour
                 walkState.weight = 1f;
                 walkState.Play();
             }
+            state = State.Walking;
         }
 
         else
@@ -842,6 +805,8 @@ public class PlayerAnimationsDB : MonoBehaviour
     {
         if (play)
         {
+            playerLado.animation.lastAnimationState.weight = 0;
+
             if (jumpState == null)
             {
                 jumpState = playerLado.animation.FadeIn("1_NoAr(1_Subindo)", -1, -1, 22, null, AnimationFadeOutMode.Single);
@@ -853,6 +818,7 @@ public class PlayerAnimationsDB : MonoBehaviour
                 jumpState.weight = 1;
                 jumpState.Play();
             }
+            state = State.Rising;
         }
         else
         {

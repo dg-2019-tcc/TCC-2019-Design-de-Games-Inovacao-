@@ -81,13 +81,12 @@ public class NewMotoPlayerMovement : MonoBehaviour
 	{
         if (GameManager.pausaJogo == true) { return; }
         if (!pv.IsMine && PhotonNetwork.InRoom) return;
-        //if (levouDogada.Value) return;
         if (playerGanhou.Value) return;
 
         input = inputController.joyInput;
 
 	    float targetVelocityX = (motoSpeedChange.Value + motoMoveSpeed);
-        //float targetVelocityX = (Mathf.Clamp(input.x, -1, 0)+1) * (moveSpeed.Value + motoMoveSpeed);
+
         if (levouDogada.Value == false)
         {
             velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (controller.collisions.below) ? accelerationTimeGrounded : accelerationTimeAirborne);
@@ -99,9 +98,6 @@ public class NewMotoPlayerMovement : MonoBehaviour
         }
 
 		velocity.y += gravity * Time.deltaTime;
-		controller.Move(velocity * Time.deltaTime);
-		triggerController.MoveDirection(velocity);
-		animations.ChangeMotoAnim(velocity, oldPosition, levouDogada.Value);
 
 		if (controller.collisions.above || controller.collisions.below)
 		{
@@ -112,7 +108,6 @@ public class NewMotoPlayerMovement : MonoBehaviour
         {
             if (controller.collisions.climbingSlope)
             {
-                //Debug.Log("Pulo");
                 velocity.y = maxJumpHeight + 10f;
             }
             else
@@ -121,8 +116,11 @@ public class NewMotoPlayerMovement : MonoBehaviour
             }
         }
 
-
+        controller.Move(velocity * Time.deltaTime);
+        triggerController.MoveDirection(velocity);
+        animations.ChangeMotoAnim(velocity, oldPosition, levouDogada.Value);
     }
+
 	private void LateUpdate()
 	{
 		oldPosition = velocity; 

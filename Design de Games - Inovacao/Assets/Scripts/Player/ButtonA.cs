@@ -14,6 +14,7 @@ public class ButtonA : MonoBehaviour
     public State state = State.Null;
 
     private DogController dogScript;
+    public DogAnim dogAnim;
     private ThrowObject tiroScript;
     private FutebolPlayer chuteScript;
     private HandVolei corteScript;

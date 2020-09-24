@@ -70,6 +70,7 @@ namespace Complete {
         public BoolVariable playerGanhou;
 
         public Vector2 oldPosition;
+        public Vector2 animDir;
 
         private float targetDist;
 
@@ -99,8 +100,9 @@ namespace Complete {
 
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
+            if (GameManager.pausaJogo) return;
             botStates.BotWork();
             triggerController.RayTriggerDirection();
 
@@ -124,7 +126,6 @@ namespace Complete {
                 velocity.y = maxJumpHeight * 1.8f;
             }
             aiController2D.Move(velocity * Time.deltaTime, input);
-            //animAI.ChangeAnimAI(velocity * Time.deltaTime, oldPosition, input, isJumping);
         }
 
         public void Move(BotStates.State horizontalState, BotStates.State verticalState,bool actionOn)
@@ -157,6 +158,7 @@ namespace Complete {
                         break;
                 }
             }
+
         }
 
 
@@ -169,10 +171,10 @@ namespace Complete {
         public void Stop()
         {
             //if (!GameManager.Instance.fase.Equals(GameManager.Fase.Moto) && !actionIsOn)
-            if(GameManager.sceneAtual != SceneType.Moto && !actionIsOn)
+            /*if(GameManager.sceneAtual != SceneType.Moto && !actionIsOn)
             {
                 animAI.AnimState("Idle");
-            }
+            }*/
             jumpTimes = 0;
             input.x = 0;
         }
@@ -180,11 +182,13 @@ namespace Complete {
         public void GoRight()
         {
             //if (!GameManager.Instance.fase.Equals(GameManager.Fase.Moto) && !actionIsOn)
-            if (GameManager.sceneAtual != SceneType.Moto && !actionIsOn)
+            /*f (GameManager.sceneAtual != SceneType.Moto && !actionIsOn)
             {
                 animAI.AnimState("Walking");
-            }
+            }*/
             // jumpTimes = 0;
+            animDir = new Vector2(1, 0);
+            animAI.ChangeAnimAI(animDir);
             input.x = 1;
             dirDir = true;
             Quaternion direction = Quaternion.Euler(0, 0, 0);
@@ -194,11 +198,13 @@ namespace Complete {
         public void GoLeft()
         {
             //if (!GameManager.Instance.fase.Equals(GameManager.Fase.Moto) && !actionIsOn)
-            if (GameManager.sceneAtual != SceneType.Moto && !actionIsOn)
+            /*if (GameManager.sceneAtual != SceneType.Moto && !actionIsOn)
             {
                 animAI.AnimState("Walking");
-            }
+            }*/
             //jumpTimes = 0;
+            animDir = new Vector2(1, 0);
+            animAI.ChangeAnimAI(animDir);
             input.x = 1;
             dirDir = false;
             Quaternion direction = Quaternion.Euler(0, 180, 0);
@@ -209,14 +215,17 @@ namespace Complete {
         {
             if (isJumping == false)
             {
+                animDir = new Vector2(0, 1);
+                animAI.ChangeAnimAI(animDir);
+
                 jumpTimes++;
                 input.y = 1;
                 isJumping = true;
                 //if (!GameManager.Instance.fase.Equals(GameManager.Fase.Moto) && !actionIsOn)
-                if (GameManager.sceneAtual != SceneType.Moto && !actionIsOn)
+                /*if (GameManager.sceneAtual != SceneType.Moto && !actionIsOn)
                 {
                     animAI.AnimState("NoArUp");
-                }
+                }*/
                 if (jumpTimes > 2)
                 {
                     velocity.y = maxJumpHeight + (jumpTimes * 1.5f);
@@ -231,6 +240,8 @@ namespace Complete {
 
         public void GoDown()
         {
+            animDir = new Vector2(0, -1);
+            animAI.ChangeAnimAI(animDir);
             input.y = -1;
         }
 

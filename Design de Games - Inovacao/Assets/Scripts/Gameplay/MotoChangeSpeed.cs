@@ -62,7 +62,7 @@ public class MotoChangeSpeed : MonoBehaviour
     }
 
 
-    void FixedUpdate()
+    void Update()
     {
         if (/*controller.collisions.bateuObs ||*/ levouDogada.Value)
         {

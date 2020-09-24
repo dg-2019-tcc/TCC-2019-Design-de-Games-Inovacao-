@@ -62,6 +62,8 @@ namespace Complete
         private ButtonA buttonA;
         public bool isTutorial;
 
+        public ParticleSystem puffOff;
+
         void Start()
         {
             if (GameManager.historiaMode == true)
@@ -99,6 +101,11 @@ namespace Complete
             //dogAtivo.Value = true;
 
             triggerCollisionsScript = GetComponent<TriggerCollisionsController>();
+
+            if (puffOff.isPlaying)
+            {
+                puffOff.Stop();
+            }
         }
 
 
@@ -108,7 +115,6 @@ namespace Complete
             {
                 if (desativaPower.Value == true)
                 {
-                    GarbageController.callFreeMemory = true;
                     ChangeState("IdleState");
                 }
 
@@ -145,13 +151,28 @@ namespace Complete
             }
         }
 
-        IEnumerator DesativandoDog()
+
+        IEnumerator DogDisplay(bool isOn)
         {
-            desativouDog = true;
-            yield return new WaitForSeconds(0.5f);
-            Pet.SetActive(false);
-            desativouDog = false;
+            if (isOn)
+            {
+                Pet.SetActive(isOn);
+                puffOff.Play();
+            }
+            else
+            {
+                puffOff.Play();
+            }
+
+            yield return new WaitForSeconds(1f);
+
+            if (isOn) puffOff.Stop();
+            else
+            {
+                Pet.SetActive(isOn);
+            }
         }
+
 
         [PunRPC]
         public void DogState(string dogState)
@@ -161,7 +182,7 @@ namespace Complete
                 case "CarroState":
                     if (state == State.Idle || state ==State.Aviao)
                     {
-                        StartCoroutine("DesativandoDog");
+                        StartCoroutine("DogDisplay", false);
 
                         buttonA.state = ButtonA.State.PowerUp;
 
@@ -175,7 +196,7 @@ namespace Complete
                 case "PipaState":
                     if (state == State.Idle || state == State.Aviao)
                     {
-                        StartCoroutine("DesativandoDog");
+                        StartCoroutine("DogDisplay", false);
 
                         buttonA.state = ButtonA.State.PowerUp;
 
@@ -189,7 +210,7 @@ namespace Complete
                 case "TiroState":
                     if (state == State.Idle)
                     {
-                        StartCoroutine("DesativandoDog");
+                        StartCoroutine("DogDisplay", false);
 
                         state = State.Aviao;
                     }
@@ -212,8 +233,8 @@ namespace Complete
                 case "IdleState":
                     if (state != State.Idle)
                     {
-                        //GarbageController.callIndex++;
-                        Pet.SetActive(true);
+                        StartCoroutine("DogDisplay", true);
+
                         ativouDog = true;
                         Pet.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, Pet.transform.position.z);
 

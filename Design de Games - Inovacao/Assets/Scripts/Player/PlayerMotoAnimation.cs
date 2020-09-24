@@ -11,12 +11,19 @@ public class PlayerMotoAnimation : MonoBehaviour
     public GameObject frente;
     public GameObject lado;
 
-    public string motoWalkAnim = "8_Moto(Andando)";
+    public string motoMotoWalkAnim = "8_Moto(Andando)";
     public string motoDownAnim = "8_Moto(DescendoNoAr)";
     public string motoUpAnim = "8_Moto(SubindoNoAr)";
     public string motoGrauAnim = "8_Moto(Empinando)";
     public string motoCrashAnim = "8_Moto(Batendo)";
     public string motoLandAnim = "8_Moto(Aterrisando)";
+
+    private DragonBones.AnimationState trickState = null;
+    private DragonBones.AnimationState crashState = null;
+    private DragonBones.AnimationState motoLandState = null;
+    private DragonBones.AnimationState motoJumpState = null;
+    private DragonBones.AnimationState motoFallState = null;
+    private DragonBones.AnimationState motoWalkState = null;
 
     public enum State{ MotoWalk, MotoUp, MotoDown, MotoGrau, MotoCrash, MotoLand}
 
@@ -24,7 +31,7 @@ public class PlayerMotoAnimation : MonoBehaviour
 
     private Controller2D controller;
     [SerializeField]
-    private UnityArmatureComponent player;
+    private UnityArmatureComponent playerLado;
     [SerializeField]
     private UnityArmatureComponent playerFrente;
 
@@ -60,92 +67,262 @@ public class PlayerMotoAnimation : MonoBehaviour
     {
         if (stun == false)
         {
-
             if (empina.isEmpinando || empina.isManobrandoNoAr)
             {
-                PlayAnim("MotoGrau");
+                if(empina.isManobrandoNoAr && controller.collisions.below)
+                {
+                    if (!GameManager.inRoom) CrashAnim(true);
+                    else photonView.RPC("CrashAnim", RpcTarget.All, true);
+                    return;
+                }
+                if (state == State.MotoGrau) return;
+                if (!GameManager.inRoom) ManobraAnim(true);
+                else photonView.RPC("ManobraAnim", RpcTarget.All, true);
             }
 
 
-            else if (oldPos.y < moveAmount.y && controller.collisions.below == false)
+            else if (moveAmount.y > 0 && controller.collisions.below == false)
             {
-                PlayAnim("MotoUp");
+                if (state == State.MotoUp) return;
+                if (!GameManager.inRoom) MotoUpAnim(true);
+                else photonView.RPC("MotoUpAnim", RpcTarget.All, true);
             }
 
-            else if (moveAmount.y <= 0 && controller.collisions.below == false)
+            else if (moveAmount.y <= -1 && controller.collisions.below == false)
             {
-                PlayAnim("MotoDown");
+                if (state == State.MotoDown) return;
+                if (!GameManager.inRoom) MotoFallAnim(true);
+                else photonView.RPC("MotoFallAnim", RpcTarget.All, true);
             }
 
-            else
+            else if (moveAmount.y == 0)
             {
-                PlayAnim("MotoWalk");
+                if (state == State.MotoWalk) return;
+                if (!GameManager.inRoom) MotoWalkAnim(true);
+                else photonView.RPC("MotoWalkAnim", RpcTarget.All, true);
             }
         }
 
         else
         {
-            PlayAnim("MotoCrash");
+            if (state == State.MotoCrash) return;
+            if (!GameManager.inRoom) CrashAnim(true);
+            else photonView.RPC("CrashAnim", RpcTarget.All, true);
+        }
+
+        if (!GameManager.inRoom) AnimStateUpdate();
+        else photonView.RPC("AnimStateUpdate", RpcTarget.All);
+    }
+
+    [PunRPC]
+    public void CrashAnim(bool play)
+    {
+        if (play)
+        {
+            if (crashState == null)
+            {
+                crashState = playerLado.animation.FadeIn("8_Moto(Batendo)", 0.1f, -1, 10, null, AnimationFadeOutMode.Single);
+            }
+            else
+            {
+                crashState.weight = 1;
+                crashState.Play();
+            }
+            Debug.Log("Crash");
+            state = State.MotoCrash;
+        }
+        else
+        {
+            if (crashState == null) return;
+            else
+            {
+                crashState.weight = 0;
+                crashState.Stop();
+            }
         }
     }
 
-    private void PlayAnim(string anim)
+    [PunRPC]
+    public void ManobraAnim(bool play)
     {
-        if (isOnline)
+        if (play)
         {
-            photonView.RPC("MotoState", RpcTarget.All, anim);
+            if (trickState == null)
+            {
+                trickState = playerLado.animation.FadeIn("8_Moto(Empinando)", 0.1f, -1, 4, null, AnimationFadeOutMode.Single);
+                trickState.resetToPose = true;
+            }
+            else
+            {
+                trickState.weight = 1;
+                trickState.Play();
+            }
+            state = State.MotoGrau;
         }
         else
         {
-            MotoState(anim);
+            if (trickState == null) return;
+            else
+            {
+                trickState.Stop();
+                trickState.weight = 0;
+            }
+        }
+    }
+
+    [PunRPC]
+    public void MotoLandAnim(bool play)
+    {
+        if (play)
+        {
+            if (motoLandState == null)
+            {
+                motoLandState = playerLado.animation.FadeIn("8_Moto(Aterrisando)", 0.1f, -1, 3, null, AnimationFadeOutMode.Single);
+                motoLandState.resetToPose = true;
+            }
+            else
+            {
+                motoLandState.weight = 1;
+                motoLandState.Play();
+            }
+
+            state = State.MotoLand;
+        }
+        else
+        {
+            if (motoLandState == null) return;
+            else
+            {
+                motoLandState.Stop();
+                motoLandState.weight = 0;
+            }
         }
 
     }
 
     [PunRPC]
-    void MotoState(string anim)
+    public void MotoFallAnim(bool play)
     {
-        switch (anim)
+        if (play)
         {
-            case "MotoWalk":
-                if (state != State.MotoWalk)
-                {
-                    player.animation.Play(motoWalkAnim);
-                    state = State.MotoWalk;
-                }
-                break;
+            if (motoFallState == null)
+            {
+                motoFallState = playerLado.animation.FadeIn("8_Moto(DescendoNoAr)", 0.1f, -1, 20, null, AnimationFadeOutMode.Single);
+            }
+            else
+            {
+                motoFallState.weight = 1;
+                motoFallState.Play();
+            }
+            state = State.MotoDown;
+        }
+        else
+        {
+            if (motoFallState == null) { return; }
+            else
+            {
+                motoFallState.Stop();
+                motoFallState.weight = 0;
+            }
+        }
 
-            case "MotoCrash":
-                if (state != State.MotoCrash)
-                {
-                    player.animation.Play(motoCrashAnim);
-                    state = State.MotoCrash;
-                }
-                break;
+    }
 
-            case "MotoUp":
-                if (state != State.MotoUp)
-                {
-                    player.animation.Play(motoUpAnim);
-                    state = State.MotoUp;
-                }
-                break;
+    [PunRPC]
+    public void MotoWalkAnim(bool play)
+    {
+        if (play)
+        {
+            if (motoWalkState == null)
+            {
+                motoWalkState = playerLado.animation.FadeIn("8_Moto(Andando)", -1, -1, 21, null, AnimationFadeOutMode.Single);
+            }
+            else
+            {
+                motoWalkState.weight = 1f;
+                motoWalkState.Play();
+            }
+            state = State.MotoWalk;
+        }
 
-            case "MotoDown":
-                if (state != State.MotoDown)
-                {
-                    player.animation.Play(motoDownAnim);
-                    state = State.MotoDown;
-                }
-                break;
+        else
+        {
+            if (motoWalkState == null) return;
+            else
+            {
+                motoWalkState.Stop();
+                motoWalkState.weight = 0;
+            }
+        }
 
-            case "MotoGrau":
-                if (state != State.MotoGrau)
-                {
-                    player.animation.Play(motoGrauAnim);
-                    state = State.MotoGrau;
-                }
-                break;
+
+
+    }
+
+    [PunRPC]
+    public void MotoUpAnim(bool play)
+    {
+        if (play)
+        {
+            if (motoJumpState == null)
+            {
+                motoJumpState = playerLado.animation.FadeIn("8_Moto(SubindoNoAr)", -1, -1, 22, null, AnimationFadeOutMode.Single);
+            }
+            else
+            {
+                motoJumpState.weight = 1;
+                motoJumpState.Play();
+            }
+            state = State.MotoUp;
+        }
+        else
+        {
+            if (motoJumpState == null) return;
+            else
+            {
+                motoJumpState.Stop();
+                motoJumpState.weight = 0;
+            }
+        }
+    }
+
+    [PunRPC]
+    void AnimStateUpdate()
+    {
+        if(state != State.MotoWalk && motoWalkState != null)
+        {
+            if (!GameManager.inRoom) MotoWalkAnim(false);
+            else photonView.RPC("MotoWalkAnim", RpcTarget.All, false);
+        }
+
+        if (state != State.MotoUp && motoJumpState != null)
+        {
+            if (!GameManager.inRoom) MotoUpAnim(false);
+            else photonView.RPC("MotoUpAnim", RpcTarget.All, false);
+        }
+
+        if (state != State.MotoDown && motoFallState != null)
+        {
+            if (!GameManager.inRoom) MotoFallAnim(false);
+            else photonView.RPC("MotoFallAnim", RpcTarget.All, false);
+        }
+
+        if (state != State.MotoLand && motoLandState != null)
+        {
+            if (!GameManager.inRoom) MotoLandAnim(false);
+            else photonView.RPC("MotoLandAnim", RpcTarget.All, false);
+        }
+
+        if (state != State.MotoGrau && trickState != null)
+        {
+            if (!GameManager.inRoom) ManobraAnim(false);
+            else photonView.RPC("ManobraAnim", RpcTarget.All, false);
+        }
+
+        if (state != State.MotoCrash && crashState != null)
+        {
+            if (!GameManager.inRoom) CrashAnim(false);
+            else photonView.RPC("CrashAnim", RpcTarget.All, false);
         }
     }
 }

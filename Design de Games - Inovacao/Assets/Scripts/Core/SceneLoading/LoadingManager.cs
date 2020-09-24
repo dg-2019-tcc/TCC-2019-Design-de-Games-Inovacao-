@@ -68,6 +68,7 @@ public class LoadingManager : MonoBehaviour
     #region Public Functions
     public void LoadNewScene(SceneType nextScene, SceneType oldScene, bool isOnline)
     {
+        if (isLoading) return;
         if(nextScene != SceneType.TelaVitoria) { GameManager.ganhou = false; GameManager.perdeu = false; GameManager.acabouFase = false; }
         loadingScreen.SetActive(true);
         //tweenUI.TweenIn();
@@ -80,6 +81,7 @@ public class LoadingManager : MonoBehaviour
         GameManager.Instance.sceneOld = oldScene;
         if (!isOnline){ Invoke("InitOfflineScene", 1f);}
         else { StartCoroutine(InitOnlineScene(nextScene, oldScene)); }
+        isLoading = true;
     }
     #endregion
 
@@ -128,6 +130,7 @@ public class LoadingManager : MonoBehaviour
 
         loadingScreen.SetActive(false);
         GameManager.isPaused = false;
+        isLoading = false;
     }
     #endregion
 }

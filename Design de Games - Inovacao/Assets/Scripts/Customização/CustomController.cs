@@ -49,7 +49,7 @@ public class CustomController : MonoBehaviour
             takeOffLado.CheckAndExecute();
         }
 
-        if (takeOffFrente.letThemBeOn == true/* && takeOffLado.letThemBeOn == true*/)
+        if (takeOffFrente.letThemBeOn == true/* && takeOffLado.letThemBeOn == true*/ && GameManager.sceneAtual != SceneType.Moto)
         {
             //animDB.playerAtivo = animDB.playerFrente;
             //animDB.ChangeArmature(0);

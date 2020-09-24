@@ -25,6 +25,8 @@ namespace Complete {
         public List<GameObject> coletaveis;
         public GameObject target;
 
+        public Vector2 distTarget;
+
         private void Start()
         {
             aiMovement = GetComponent<AIMovement>();
@@ -93,15 +95,17 @@ namespace Complete {
         {
             botInfo.Reset();
             SetState(State.Null, true);
+            distTarget = transform.position - target.transform.position;
+
             //if (GameManager.Instance.fase.Equals(GameManager.Fase.Coleta))
             if (GameManager.sceneAtual == SceneType.Coleta)
             {
-                if (transform.position.x - target.transform.position.x > 0.5)
+                if (distTarget.x > 0.5)
                 {
                     botInfo.isLeft = true;
                     SetState(State.Left, false);
                 }
-                else if (transform.position.x - target.transform.position.x < -0.5)
+                else if (distTarget.x < -0.5)
                 {
                     botInfo.isRight = true;
                     SetState(State.Right, false);
@@ -113,12 +117,12 @@ namespace Complete {
                     SetState(State.Idle, false);
                 }
 
-                if (transform.position.y - target.transform.position.y < -0.8)
+                if (distTarget.y < -0.8)
                 {
                     botInfo.isUp = true;
                     SetState(State.Up, false);
                 }
-                else if (transform.position.y - target.transform.position.y > 0.5)
+                else if (distTarget.y > 0.5)
                 {
                     botInfo.isDown = true;
                     SetState(State.Down, false);
