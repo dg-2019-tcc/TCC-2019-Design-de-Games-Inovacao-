@@ -47,9 +47,10 @@ public class CustomController : MonoBehaviour
         {
             takeOffFrente.CheckAndExecute();
             takeOffLado.CheckAndExecute();
+            if(GameManager.sceneAtual != SceneType.Moto) frente.SetActive(false);
         }
 
-        if (takeOffFrente.letThemBeOn == true/* && takeOffLado.letThemBeOn == true*/ && GameManager.sceneAtual != SceneType.Moto)
+        /*if (takeOffFrente.letThemBeOn == true/* && takeOffLado.letThemBeOn == true && GameManager.sceneAtual != SceneType.Moto)
         {
             //animDB.playerAtivo = animDB.playerFrente;
             //animDB.ChangeArmature(0);
@@ -58,6 +59,6 @@ public class CustomController : MonoBehaviour
             //animations.PlayAnim(Player2DAnimations.State.Idle);
 
             frente.SetActive(false);
-        }
+        }*/
     }
 }

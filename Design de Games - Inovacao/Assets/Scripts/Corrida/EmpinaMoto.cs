@@ -58,7 +58,7 @@ public class EmpinaMoto : MonoBehaviour
 		originalSpeed = playerSpeed.Value;
 		playerSpeed.Value = baseSpeed;
 		motoPV = GetComponent<PhotonView>();
-		brilhoDeBoost.gameObject.SetActive(false);
+		//brilhoDeBoost.gameObject.SetActive(false);
 		motoBrilho.gameObject.SetActive(false);
 		originalJumpForce = jumpForce.Value;
 		jumpForce.Value = jumpMoto;

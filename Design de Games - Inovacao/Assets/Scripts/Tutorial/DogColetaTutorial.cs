@@ -63,6 +63,7 @@ public class DogColetaTutorial : MonoBehaviour
         {
             dogController = FindObjectOfType<DogController>();
             dogController.sequestrado = false;
+            GameManager.sequestrado = false;
             dogController.ChangeState("IdleState");
         }
         coletavel.SetActive(true);

@@ -57,8 +57,8 @@ public class PortaTutorial : MonoBehaviour
     public void OpenDoorTutorial()
     {
         PlayerPrefsManager.Instance.SavePlayerPrefs("LevelIndex", 1);
-
-       SceneManager.LoadScene("HUB");
+        LoadingManager.instance.LoadNewScene(UnityCore.Scene.SceneType.HUB, UnityCore.Scene.SceneType.Tutorial2,false);
+       //SceneManager.LoadScene("HUB");
 
        // FindObjectOfType<PauseManager>().VoltaMenu();
     }

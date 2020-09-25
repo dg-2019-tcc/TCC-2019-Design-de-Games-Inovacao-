@@ -6,14 +6,13 @@ using UnityEngine.UI;
 using UnityEngine;
 using UnityCore.Scene;
 using UnityCore.Menu;
-using Kintal;
 using System;
 
 public class LoadingManager : MonoBehaviour
 {
     public static LoadingManager instance;
     public GameObject loadingScreen;
-    public bool isLoading;
+    public static bool isLoading;
 
     public DOTweenUI tweenUI;
     public DOTweenUI tweenCanvas;
@@ -82,6 +81,7 @@ public class LoadingManager : MonoBehaviour
         if (!isOnline){ Invoke("InitOfflineScene", 1f);}
         else { StartCoroutine(InitOnlineScene(nextScene, oldScene)); }
         isLoading = true;
+        Debug.Log("[LoadingManager] Load New Scene");
     }
     #endregion
 
@@ -90,6 +90,7 @@ public class LoadingManager : MonoBehaviour
 
     private IEnumerator InitOnlineScene(SceneType nextScene, SceneType oldScene)
     {
+        isLoading = false;
         PhotonNetwork.LoadLevel((int)GameManager.sceneAtual);
         loadingScreen.SetActive(true);
         while (PhotonNetwork.LevelLoadingProgress < 1) { yield return null; }
@@ -105,6 +106,7 @@ public class LoadingManager : MonoBehaviour
 
     private void InitOfflineScene()
     {
+        isLoading = false;
         //scenesLoading.Add(SceneManager.UnloadSceneAsync((int)oldScene));
         scenesLoading.Add(SceneManager.LoadSceneAsync((int)GameManager.sceneAtual, LoadSceneMode.Single));
         StartCoroutine(GetSceneLoadProgress(GameManager.sceneAtual));
@@ -130,7 +132,6 @@ public class LoadingManager : MonoBehaviour
 
         loadingScreen.SetActive(false);
         GameManager.isPaused = false;
-        isLoading = false;
     }
     #endregion
 }

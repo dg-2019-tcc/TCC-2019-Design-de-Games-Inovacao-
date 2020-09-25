@@ -170,25 +170,17 @@ namespace Complete {
 
         public void Stop()
         {
-            //if (!GameManager.Instance.fase.Equals(GameManager.Fase.Moto) && !actionIsOn)
-            /*if(GameManager.sceneAtual != SceneType.Moto && !actionIsOn)
-            {
-                animAI.AnimState("Idle");
-            }*/
             jumpTimes = 0;
             input.x = 0;
         }
 
         public void GoRight()
         {
-            //if (!GameManager.Instance.fase.Equals(GameManager.Fase.Moto) && !actionIsOn)
-            /*f (GameManager.sceneAtual != SceneType.Moto && !actionIsOn)
-            {
-                animAI.AnimState("Walking");
-            }*/
-            // jumpTimes = 0;
             animDir = new Vector2(1, 0);
-            animAI.ChangeAnimAI(animDir);
+            if (GameManager.sceneAtual != SceneType.Moto && !actionIsOn)
+            {
+                animAI.ChangeAnimAI(animDir);
+            }
             input.x = 1;
             dirDir = true;
             Quaternion direction = Quaternion.Euler(0, 0, 0);
@@ -197,12 +189,6 @@ namespace Complete {
 
         public void GoLeft()
         {
-            //if (!GameManager.Instance.fase.Equals(GameManager.Fase.Moto) && !actionIsOn)
-            /*if (GameManager.sceneAtual != SceneType.Moto && !actionIsOn)
-            {
-                animAI.AnimState("Walking");
-            }*/
-            //jumpTimes = 0;
             animDir = new Vector2(1, 0);
             animAI.ChangeAnimAI(animDir);
             input.x = 1;
@@ -216,16 +202,16 @@ namespace Complete {
             if (isJumping == false)
             {
                 animDir = new Vector2(0, 1);
-                animAI.ChangeAnimAI(animDir);
+
+                if (GameManager.sceneAtual != SceneType.Moto && !actionIsOn)
+                {
+                    animAI.ChangeAnimAI(animDir);
+                }
 
                 jumpTimes++;
                 input.y = 1;
                 isJumping = true;
-                //if (!GameManager.Instance.fase.Equals(GameManager.Fase.Moto) && !actionIsOn)
-                /*if (GameManager.sceneAtual != SceneType.Moto && !actionIsOn)
-                {
-                    animAI.AnimState("NoArUp");
-                }*/
+
                 if (jumpTimes > 2)
                 {
                     velocity.y = maxJumpHeight + (jumpTimes * 1.5f);

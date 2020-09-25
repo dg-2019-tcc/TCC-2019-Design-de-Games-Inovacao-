@@ -95,11 +95,12 @@ namespace Complete {
         {
             botInfo.Reset();
             SetState(State.Null, true);
-            distTarget = transform.position - target.transform.position;
 
             //if (GameManager.Instance.fase.Equals(GameManager.Fase.Coleta))
             if (GameManager.sceneAtual == SceneType.Coleta)
             {
+                distTarget = transform.position - target.transform.position;
+
                 if (distTarget.x > 0.5)
                 {
                     botInfo.isLeft = true;

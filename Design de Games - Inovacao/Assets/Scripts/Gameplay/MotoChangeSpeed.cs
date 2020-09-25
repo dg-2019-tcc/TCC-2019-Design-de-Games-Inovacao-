@@ -18,7 +18,7 @@ public class MotoChangeSpeed : MonoBehaviour
     public FloatVariable motoSpeedChange;
     public BoolVariable levouDogada;
 
-    private Controller2D controller;
+    public Controller2D controller;
 
     private NewMotoPlayerMovement player;
 
@@ -35,15 +35,15 @@ public class MotoChangeSpeed : MonoBehaviour
     float RPM;
     float AccelInput;
 
-    Bus somMoto;
+    //Bus somMoto;
 
 
     void Start()
     {
 
-        somMoto = RuntimeManager.GetBus("bus:/Master/SFX/Moto");
+        //somMoto = RuntimeManager.GetBus("bus:/Master/SFX/Moto");
 
-        somMoto.setMute(false);
+        //somMoto.setMute(false);
 
         CarEngine = FMODUnity.RuntimeManager.CreateInstance("event:/SFX/MotoMotor");
         CarEngine.getParameterByName("RPM", out RPM);
@@ -116,6 +116,6 @@ public class MotoChangeSpeed : MonoBehaviour
     private void OnDestroy()
     {
         CarEngine.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
-        somMoto.setMute(true);
+        //somMoto.setMute(true);
     }
 }

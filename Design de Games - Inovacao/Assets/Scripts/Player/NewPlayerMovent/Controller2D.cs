@@ -79,11 +79,24 @@ public class Controller2D : RaycastController
                     {
                         continue;
                     }
-                    if (directionX == 1 || hit.distance == 0 || Mathf.Abs(playerInput.x) != 0)
+                    if (collisions.isFalling)
                     {
                         continue;
                     }
-                    if (collisions.fallingPlatform && collisions.climbingSlope == false)
+                    if (directionX == 1 && Mathf.Abs(playerInput.x) != 0)
+                    {
+                        continue;
+                    }
+
+                    if(hit.distance == 0)
+                    {
+                        continue;
+                    }
+                    //if (directionX == 1 && /*hit.distance == 0 && */Mathf.Abs(playerInput.x) != 0 && !collisions.descendingSlope && !collisions.climbingSlope && moveAmount.y !=0 )
+                    //{
+                    //    continue;
+                    //}
+                    if (collisions.fallingPlatform && collisions.climbingSlope == false || collisions.isFalling)
                     {
                         continue;
                     }
@@ -92,6 +105,7 @@ public class Controller2D : RaycastController
                     {
                         if (playerInput.y < -0.9)
                         {
+                            collisions.isFalling = true;
                             collisions.fallingPlatform = true;
                             Invoke("ResetFallingPlatform", 0.1f);
                             continue;
@@ -160,15 +174,18 @@ public class Controller2D : RaycastController
                 {
                     if(pipaActive.Value == true)
                     {
+                        collisions.isFalling = true;
                         continue;
                     }
 
-                    if(directionY == 1 || hit.distance == 0)
+                    if(directionY == 1 || hit.distance == 0 || collisions.isFalling)
                     {
+                        collisions.isFalling = true;
                         continue;
                     }
                     if (collisions.fallingPlatform)
                     {
+                        collisions.isFalling = true;
                         continue;
                     }
 
@@ -176,7 +193,8 @@ public class Controller2D : RaycastController
 					{
 						if (playerInput.y < -0.9)
 						{
-							collisions.fallingPlatform = true;
+                            collisions.isFalling = true;
+                            collisions.fallingPlatform = true;
 							Invoke("ResetFallingPlatform", 0.1f);
 							continue;
 						}
@@ -296,6 +314,7 @@ public class Controller2D : RaycastController
         public bool fallingPlatform;
 
         public bool isDoor;
+        public bool isFalling;
 
         public bool bateuObs;
 
@@ -305,7 +324,7 @@ public class Controller2D : RaycastController
             left = right = false;
             climbingSlope = false;
             descendingSlope = false;
-            isDoor = false;
+            isDoor = isFalling = false;
             bateuObs = false;
 
             slopeAngleOld = slopeAngle;

@@ -82,6 +82,7 @@ public class LevelManager : MonoBehaviour
     {
         GameManager.isPaused = true;
         GameManager.pausaJogo = true;
+        LoadingManager.isLoading = false;
         yield return new WaitForSeconds(3f);
         if (ganhou)
         {
@@ -116,7 +117,7 @@ public class LevelManager : MonoBehaviour
         }
         PlayerPrefsManager.Instance.SavePlayerPrefs("GanhouDoKlay", 1);
         PlayerPrefsManager.Instance.SavePlayerPrefs("LevelIndex", PlayerPrefsManager.Instance.prefsVariables.levelIndex + 1);
-
+        Debug.Log("[LevelManager] Ganhou do Klay");
         //PlayerPrefs.SetInt("GanhouDoKlay", 1);
         //SceneManager.LoadScene("Historia");
         LoadingManager.instance.LoadNewScene(SceneType.Historia, GameManager.sceneAtual, false);

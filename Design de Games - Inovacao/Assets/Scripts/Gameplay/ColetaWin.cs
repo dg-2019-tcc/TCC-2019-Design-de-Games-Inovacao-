@@ -115,7 +115,7 @@ public class ColetaWin : MonoBehaviour
                 {
 					if (PhotonNetwork.LocalPlayer == winning)
 					{
-                        LevelManager.Instance.Ganhou();
+                    LevelManager.Instance.Ganhou();
 						Debug.Log("Ganhou");
 						feedbackWin.Ganhou();
 						winning.CustomProperties["Ganhador"] = 1;
