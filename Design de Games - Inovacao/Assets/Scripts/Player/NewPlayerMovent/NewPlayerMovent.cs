@@ -107,7 +107,7 @@ public class NewPlayerMovent : MonoBehaviour
         }
     }
 
-    void FixedUpdate()
+    void Update()
     {
         if (moveSpeed.Value != 6)
         {
@@ -188,7 +188,7 @@ public class NewPlayerMovent : MonoBehaviour
             velocity.y = -5f;
         }
 
-        controller.Move(velocity* Time.deltaTime);
+        controller.Move(velocity * Time.deltaTime);
         triggerController.MoveDirection(velocity * Time.deltaTime);
 
         //animations.ChangeMoveAnim(velocity, oldPosition, input, levouDogada.Value, ganhou);
