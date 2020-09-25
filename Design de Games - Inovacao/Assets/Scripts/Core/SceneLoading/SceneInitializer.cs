@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityCore.Menu;
 using UnityCore.Scene;
 using Complete;
-using Kintal;
 
 public class SceneInitializer : MonoBehaviour
 {
@@ -85,7 +84,6 @@ public class SceneInitializer : MonoBehaviour
         {
             if (Vector3.Distance(playerPos.position, objs.transform.position) < minSpawnPosition)
             {
-                GarbageController.callIndex++;
                 objs.SetActive(true);
             }
             else if (objs.activeSelf)

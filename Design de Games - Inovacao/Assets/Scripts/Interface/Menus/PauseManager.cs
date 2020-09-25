@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityCore.Scene;
-using Kintal;
 
 public class PauseManager : MonoBehaviourPunCallbacks
 {
