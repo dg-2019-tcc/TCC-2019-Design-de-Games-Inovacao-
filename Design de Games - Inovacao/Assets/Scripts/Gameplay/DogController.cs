@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Kintal;
 
 namespace Complete
 {
@@ -69,7 +68,7 @@ namespace Complete
             if (GameManager.historiaMode == true)
             {
                 GameManager.Instance.ChecaFase();
-                if (GameManager.sequestrado == true || /*GameManager.Instance.fase.Equals(GameManager.Fase.Tutorial)*/ GameManager.sceneAtual == UnityCore.Scene.SceneType.Tutorial2|| GameManager.levelIndex == 5 || GameManager.levelIndex == 6)
+                if (GameManager.sequestrado == true || GameManager.sceneAtual == UnityCore.Scene.SceneType.Tutorial2|| GameManager.levelIndex == 5 || GameManager.levelIndex == 6)
                 {
                     sequestrado = true;
                     ChangeState("DesativadoState");
@@ -164,11 +163,12 @@ namespace Complete
                 puffOff.Play();
             }
 
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(.5f);
 
             if (isOn) puffOff.Stop();
             else
             {
+                puffOff.Stop();
                 Pet.SetActive(isOn);
             }
         }
