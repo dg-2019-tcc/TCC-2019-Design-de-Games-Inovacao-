@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using DragonBones;
 using Complete;
-using Kintal;
 
 public class PlayerAnimationsDB : MonoBehaviour
 {
@@ -160,7 +159,7 @@ public class PlayerAnimationsDB : MonoBehaviour
                         break;
                 }
 
-                if(state != State.Pipa && pipaState != null)
+                if (state != State.Pipa && pipaState != null)
                 {
                     if (!GameManager.inRoom) PipaAnim(false);
                     else photonView.RPC("PipaAnim", RpcTarget.All, false);
@@ -265,6 +264,7 @@ public class PlayerAnimationsDB : MonoBehaviour
             ActivateCarro(false);
             ActivatePipa(false);
             updateMove = true;
+
             if (lado.activeInHierarchy == false)
             {
                 lado.SetActive(true);
@@ -333,6 +333,7 @@ public class PlayerAnimationsDB : MonoBehaviour
     {
         if (play)
         {
+            landParticles.particleLoop.Stop();
             playerFrente.animation.lastAnimationState.weight = 0;
             if (idleState == null)
             {
@@ -490,7 +491,7 @@ public class PlayerAnimationsDB : MonoBehaviour
                 pipaState.displayControl = false;
                 pipaState.weight = 0;
                 ActivatePipa(false);
-                pipaState = null;
+                //pipaState = null;
             }
         }
     }
@@ -510,13 +511,15 @@ public class PlayerAnimationsDB : MonoBehaviour
     {
         if (play)
         {
-            landParticles.particleLoop.Play();
+            landParticles.CarPaticles();
             if (pipaState != null) pipaState = null;
             if (tiroState != null) tiroState = null;
+
             playerLado.animation.lastAnimationState.weight = 0;
+
             if (carroWalkState == null)
             {
-                carroWalkState = playerLado.animation.FadeIn("6_Rolima(Andando)", 0.1f, -1, 8, null, AnimationFadeOutMode.None);
+                carroWalkState = playerLado.animation.FadeIn("6_Rolima(Andando)", 0.1f, -1, 6, null, AnimationFadeOutMode.None);
                 carroWalkState.displayControl = true;
             }
             else
@@ -526,18 +529,23 @@ public class PlayerAnimationsDB : MonoBehaviour
                 carroWalkState.displayControl = true;
                 carroWalkState.weight = 1;
                 carroWalkState.Play();
-            }
 
+                Debug.Log("CArroWalk = " + carroWalkState.name);
+            }
             state = State.CarroWalk;
         }
         else
         {
-            landParticles.particleLoop.Stop();
             if (carroWalkState == null) return;
             else
             {
+                landParticles.particleLoop.Stop();
+
+                carroWalkState.displayControl = false;
                 carroWalkState.weight = 0;
                 carroWalkState.Stop();
+
+                Debug.Log("CArroWalk == FALSE");
             }
         }
     }
@@ -548,8 +556,9 @@ public class PlayerAnimationsDB : MonoBehaviour
         {
             if (pipaState != null) pipaState = null;
             if (tiroState != null) tiroState = null;
+
             playerLado.animation.lastAnimationState.weight = 0;
-            ActivateCarro(true);
+
             if (carroUpState == null)
             {
                 carroUpState = playerLado.animation.FadeIn("6_Rolima(SubindoNoAr)", 0.1f, -1, 7, null, AnimationFadeOutMode.None);
@@ -557,13 +566,13 @@ public class PlayerAnimationsDB : MonoBehaviour
             }
             else
             {
-                //ActivateCarro(true);
+                ActivateCarro(true);
 
                 carroUpState.displayControl = true;
                 carroUpState.weight = 1;
                 carroUpState.Play();
+                Debug.Log("CArroUp");
             }
-
             state = State.CarroUp;
         }
         else
@@ -571,8 +580,10 @@ public class PlayerAnimationsDB : MonoBehaviour
             if (carroUpState == null) return;
             else
             {
+                carroUpState.displayControl = false;
                 carroUpState.weight = 0;
                 carroUpState.Stop();
+                Debug.Log("CArroUp == FALSE");
             }
         }
     }
@@ -583,21 +594,24 @@ public class PlayerAnimationsDB : MonoBehaviour
         {
             if (pipaState != null) pipaState = null;
             if (tiroState != null) tiroState = null;
+
             playerLado.animation.lastAnimationState.weight = 0;
-            //ActivateCarro(true);
+
             if (carroDownState == null)
             {
-                carroDownState = playerLado.animation.FadeIn("6_Rolima(DescendoNoAr)", 0.1f, -1, 6, null, AnimationFadeOutMode.None);
+                carroDownState = playerLado.animation.FadeIn("6_Rolima(DescendoNoAr)", 0.1f, -1, 8, null, AnimationFadeOutMode.None);
                 carroDownState.displayControl = true;
             }
             else
             {
-                //ActivateCarro(true);
+                ActivateCarro(true);
+
                 carroDownState.displayControl = true;
                 carroDownState.weight = 1;
                 carroDownState.Play();
-            }
 
+                Debug.Log("CArroDown");
+            }
             state = State.CarroDown;
         }
         else
@@ -605,8 +619,10 @@ public class PlayerAnimationsDB : MonoBehaviour
             if (carroDownState == null) return;
             else
             {
+                carroDownState.displayControl = false;
                 carroDownState.weight = 0;
                 carroDownState.Stop();
+                Debug.Log("CArroDown == FALSE");
             }
         }
     }
@@ -709,12 +725,12 @@ public class PlayerAnimationsDB : MonoBehaviour
             if (landState == null)
             {
                 landState = playerLado.animation.FadeIn("1_Aterrisando", 0.1f, -1, 3, null, AnimationFadeOutMode.Single);
-                landState.displayControl = true;
+                landState.displayControl = false;
                 landState.resetToPose = true;
             }
             else
             {
-                landState.displayControl = true;
+                //landState.displayControl = true;
                 landState.weight = 1;
                 landState.Play();
             }
@@ -745,11 +761,11 @@ public class PlayerAnimationsDB : MonoBehaviour
             if (fallState == null)
             {
                 fallState = playerLado.animation.FadeIn("1_NoAr(2_Descendo)", 0.1f, -1, 20, null, AnimationFadeOutMode.Single);
-                fallState.displayControl = true;
+                fallState.displayControl = false;
             }
             else
             {
-                fallState.displayControl = true;
+                //fallState.displayControl = true;
                 fallState.weight = 1;
                 fallState.Play();
             }
@@ -773,15 +789,15 @@ public class PlayerAnimationsDB : MonoBehaviour
         if (play)
         {
             playerLado.animation.lastAnimationState.weight = 0;
-            landParticles.particleLoop.Play();
+            landParticles.WalkParticles();
             if (walkState == null)
             {
-                walkState = playerLado.animation.FadeIn("0_Corrida_V2", -1, -1, 21, null, AnimationFadeOutMode.SameLayer);
-                walkState.displayControl = true;
+                walkState = playerLado.animation.FadeIn("0_Corrida_V2", -1, -1, 21, null, AnimationFadeOutMode.Single);
+                walkState.displayControl = false;
             }
             else
             {
-                walkState.displayControl = true;
+                //walkState.displayControl = true;
                 walkState.weight = 1f;
                 walkState.Play();
             }
@@ -815,11 +831,11 @@ public class PlayerAnimationsDB : MonoBehaviour
             if (jumpState == null)
             {
                 jumpState = playerLado.animation.FadeIn("1_NoAr(1_Subindo)", -1, -1, 22, null, AnimationFadeOutMode.Single);
-                jumpState.displayControl = true;
+                jumpState.displayControl = false;
             }
             else
             {
-                jumpState.displayControl = true;
+                //jumpState.displayControl = true;
                 jumpState.weight = 1;
                 jumpState.Play();
             }

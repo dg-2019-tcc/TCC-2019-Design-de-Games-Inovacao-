@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using DragonBones;
 using Complete;
-using Kintal;
 
 public class AnimDB : MonoBehaviour
 {

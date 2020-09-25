@@ -45,7 +45,7 @@ public class PlayerAnimController : MonoBehaviour
     private void Update()
     {
         Cooldown();
-        if (coolToNext < 0.3f) { return; }
+        if (coolToNext < 0.2f) { return; }
         if (GameManager.acabouFase) { WinLoseAnim(); }
         if (levouDogada.Value) { StunAnim(); return; }
 
@@ -91,9 +91,10 @@ public class PlayerAnimController : MonoBehaviour
     void CarroAnim()
     {
         playerAnim.updateCar = true;
-        if (playerMovement.carroVelocity.y < 0 && controller.collisions.below == false) { nextAnimState02 = AnimStatePowerUp.CarroDown; }
-        else if (playerMovement.jump) { nextAnimState02 = AnimStatePowerUp.CarroUp; }
+        if(playerMovement.carroVelocity.y < -1 && controller.collisions.below == false) { nextAnimState02 = AnimStatePowerUp.CarroDown; }
+        else if (playerMovement.carroVelocity.y > 1 && controller.collisions.below == false) { nextAnimState02 = AnimStatePowerUp.CarroUp; }
         else { nextAnimState02 = AnimStatePowerUp.CarroWalk; }
+
     }
     void PipaAnim()
     {
