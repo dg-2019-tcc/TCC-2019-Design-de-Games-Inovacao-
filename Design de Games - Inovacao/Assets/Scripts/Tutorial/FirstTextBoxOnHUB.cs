@@ -32,9 +32,10 @@ public class FirstTextBoxOnHUB : MonoBehaviour
         {
             PlayerPrefsManager.Instance.SavePlayerPrefs("FalasIndex", 1);
         }
+        CheckPointController.instance.TalkCheckPoint(2);
         //acabou01.Value[0] = true;
         //GameManager.Instance.SaveGame(1,1);
         //PlayerPrefsManager.Instance.SavePlayerPrefs("FalasIndex", 1);
-		tv.CoisasAtivas(1, true);
+		//tv.CoisasAtivas(1, true);
 	}
 }

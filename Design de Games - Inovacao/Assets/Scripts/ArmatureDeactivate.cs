@@ -21,18 +21,14 @@ public class ArmatureDeactivate : MonoBehaviour
         {
             DragonBones.UnityFactory.factory.clock.Add(armature);
         }
-        //unityArmature.armature.AdvanceTime(0);
-            Debug.Log("Armature Activate" + gameObject);
     }
 
     private void OnDisable()
     {
-        //data = unityArmature.unityData;
         if (armature.clock != null)
         {
             unityArmature.armature.clock.Remove(unityArmature.armature);
         }
-        Debug.Log("Armature Deactivate" + gameObject);
     }
 
 }

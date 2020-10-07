@@ -205,9 +205,6 @@ public class DogAnim : MonoBehaviour
                     downState.Play();
                 }
                 state = State.Down;
-            
-
-            Debug.Log("Fall");
         }
         else
         {
@@ -238,7 +235,6 @@ public class DogAnim : MonoBehaviour
                 {
                     idleState = dogArmature.animation.FadeIn("4_Idle", 0.1f, -1, 3, null, AnimationFadeOutMode.None);
                     idleState.displayControl = true;
-                    Debug.Log("DogIdle == NULL");
                 }
                 else
                 {

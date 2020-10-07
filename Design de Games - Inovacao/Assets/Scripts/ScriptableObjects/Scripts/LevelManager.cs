@@ -12,6 +12,7 @@ public class LevelManager : MonoBehaviour
 
     //public FloatVariable CurrentLevelIndex;
     private bool stopSarrada;
+    private bool calledNewScene;
 
     public int coletaMax = 7;
 
@@ -80,9 +81,12 @@ public class LevelManager : MonoBehaviour
 
     public IEnumerator DelayToNextScene(bool ganhou)
     {
+        calledNewScene = false;
+
         GameManager.isPaused = true;
         GameManager.pausaJogo = true;
         LoadingManager.isLoading = false;
+
         yield return new WaitForSeconds(3f);
         if (ganhou)
         {
@@ -94,43 +98,45 @@ public class LevelManager : MonoBehaviour
             if (GameManager.historiaMode == false){GoDerrota();}
             else{PerdeuDoKlay();}
         }
+        StopCoroutine("DelayToNextScene");
+        Debug.Log("[LevelManager] DelayToNextScene");
     }
 
 
     public void GanhouDoKlay()
     {
-        //if (GameManager.Instance.fase.Equals(GameManager.Fase.Moto))
+
         if(GameManager.sceneAtual == UnityCore.Scene.SceneType.Moto)
         {
             GameManager.sequestrado = true;
-            //PlayerPrefs.SetInt("Sequestrado", 1);
             PlayerPrefsManager.Instance.SavePlayerPrefs("Sequestrado", 1);
         }
 
-        //if (GameManager.Instance.fase.Equals(GameManager.Fase.Corrida))
         if (GameManager.sceneAtual == UnityCore.Scene.SceneType.Corrida)
         {
             GameManager.sequestrado = false;
-            //PlayerPrefs.SetInt("Sequestrado", 0);
             PlayerPrefsManager.Instance.SavePlayerPrefs("Sequestrado", 0);
-            //PlayerPrefsManager.Instance.SavePlayerPrefs("LevelIndex", 8);
         }
+
         PlayerPrefsManager.Instance.SavePlayerPrefs("GanhouDoKlay", 1);
         PlayerPrefsManager.Instance.SavePlayerPrefs("LevelIndex", PlayerPrefsManager.Instance.prefsVariables.levelIndex + 1);
+        CheckPointController.instance.WonGameCheckPoint();
         Debug.Log("[LevelManager] Ganhou do Klay");
-        //PlayerPrefs.SetInt("GanhouDoKlay", 1);
-        //SceneManager.LoadScene("Historia");
         LoadingManager.instance.LoadNewScene(SceneType.Historia, GameManager.sceneAtual, false);
     }
 
+
     public void PerdeuDoKlay()
     {
-        FailMessageManager.manualShutdown = true;
-        PhotonNetwork.Disconnect();
-        PlayerPrefsManager.Instance.SavePlayerPrefs("GanhouDoKlay", 0);
-        //PlayerPrefs.SetInt("GanhouDoKlay", 0);
-        //SceneManager.LoadScene("HUB");
-        LoadingManager.instance.LoadNewScene(SceneType.HUB, GameManager.sceneAtual, false);
+        if (calledNewScene == false)
+        {
+            FailMessageManager.manualShutdown = true;
+            PhotonNetwork.Disconnect();
+            PlayerPrefsManager.Instance.SavePlayerPrefs("GanhouDoKlay", 0);
+            LoadingManager.instance.LoadNewScene(SceneType.HUB, GameManager.sceneAtual, false);
+            calledNewScene = true;
+            Debug.Log("[LevelManager] PerdeuDoKlay");
+        }
     }
 
 

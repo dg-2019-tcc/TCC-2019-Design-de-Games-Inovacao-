@@ -28,16 +28,19 @@ namespace Complete
                 if (triggerController.triggerCollision.touchBall && triggerController.triggerCollision.naArea == false)
                 {
                     Chuta();
+                    triggerController.triggerCollision.touchBall = false;
                 }
 
                 else if (triggerController.triggerCollision.chutouBall && triggerController.triggerCollision.naArea == false)
                 {
                     ChutaForte();
+                    triggerController.triggerCollision.chutouBall = false;
                 }
 
                 else if (triggerController.triggerCollision.naArea && triggerController.triggerCollision.chutouBall)
                 {
                     NaArea();
+                    triggerController.triggerCollision.chutouBall = false;
                 }
             }
 

@@ -27,6 +27,8 @@ public class TextBoxNext : MonoBehaviour
 
     public int acabou01Index;
 
+    public int checkpoint;
+
 	private void Start()
 	{
         textoAtivo = Resources.Load<BoolVariable>("TextoAtivo");
@@ -93,7 +95,9 @@ public class TextBoxNext : MonoBehaviour
                 //acabou01.Value[acabou01Index] = true;
                 //GameManager.Instance.SaveGame(GameManager.levelIndex, acabou01Index);
                 //PlayerPrefsManager.Instance.SavePlayerPrefs("FalasIndex", acabou01Index);
-                tv.FalouComTV();
+                CheckPointController.instance.TalkCheckPoint(checkpoint);
+                Debug.Log("Falou");
+                //tv.FalouComTV();
             }
             Destroy(gameObject);
 		}
@@ -107,6 +111,8 @@ public class TextBoxNext : MonoBehaviour
 
 	void OnDestroy()
 	{
+        CheckPointController.instance.TalkCheckPoint(checkpoint);
+        Debug.Log("Falou");
         textoAtivo.Value = false;
         //Time.timeScale = timeScaleBase;
         //joystick.SetActive(true);

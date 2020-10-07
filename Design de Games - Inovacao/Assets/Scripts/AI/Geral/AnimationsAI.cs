@@ -369,7 +369,6 @@ namespace Complete
                     fallBotState.displayControl = true;
                     fallBotState.weight = 1;
                     fallBotState.Play();
-                    Debug.Log("FallAnim != NULL");
                 }
                 state = State.Falling;
             }

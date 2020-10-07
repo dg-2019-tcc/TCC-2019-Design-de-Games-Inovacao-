@@ -68,11 +68,12 @@ public class FailMessageManager : MonoBehaviour
 	IEnumerator WeHaveToGoBack()
 	{
 		
-			message.SetActive(true);
+		message.SetActive(true);
 
-			yield return new WaitForSeconds(timeToWait);
-			message.SetActive(false);
-			SceneManager.LoadScene("HUB");
+		yield return new WaitForSeconds(timeToWait);
+		message.SetActive(false);
+        LoadingManager.instance.LoadNewScene(UnityCore.Scene.SceneType.HUB, GameManager.sceneAtual, false);
+			//SceneManager.LoadScene("HUB");
 		
 
 	}
