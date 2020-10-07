@@ -46,7 +46,11 @@ public class TV : MonoBehaviour
         if (GameManager.historiaMode)
         {
             Debug.Log(PlayerPrefsManager.Instance.prefsVariables.falasIndex);
-            if (demo.Value == false)
+            if(CheckPointController.nextFalaIndex != 0)
+            {
+                CoisasAtivas(CheckPointController.nextFalaIndex, true);
+            }
+            /*if (demo.Value == false)
             {
                 if (PlayerPrefsManager.Instance.prefsVariables.falasIndex == 3 || PlayerPrefsManager.Instance.prefsVariables.falasIndex == 4 || PlayerPrefsManager.Instance.prefsVariables.falasIndex == 5 || PlayerPrefsManager.Instance.prefsVariables.falasIndex == 7)
                 {
@@ -80,7 +84,7 @@ public class TV : MonoBehaviour
                 {
                     flowController.FlowHUB();
                 }
-            }
+            }*/
 
         }
 
@@ -99,6 +103,7 @@ public class TV : MonoBehaviour
         {
             //GameManager.Instance.LoadGame();
             falas[PlayerPrefsManager.Instance.prefsVariables.falasIndex].SetActive(true);
+            falas[CheckPointController.nextFalaIndex].SetActive(true);
         }
 		pointer.enabled = ativar;
 		precisaFalar = ativar;

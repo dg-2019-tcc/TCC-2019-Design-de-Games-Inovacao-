@@ -40,6 +40,7 @@ public class ColetaWin : MonoBehaviour
 	public Points moedas;
 	public int moedasGanhasNessaFase;
 
+    private bool finished;
 
 	private void Start()
 	{
@@ -65,9 +66,11 @@ public class ColetaWin : MonoBehaviour
 
 	void Update()
     {
+        if (finished) return;
         if(botScore.Value > 4)
         {
             LevelManager.Instance.Perdeu();
+            finished = true;
         }
 
             foreach (Photon.Realtime.Player p in PhotonNetwork.PlayerList)
@@ -102,15 +105,9 @@ public class ColetaWin : MonoBehaviour
 					feedbackWin.Perdeu();
 
                     LevelManager.Instance.Perdeu();
-					/*winning.CustomProperties["Ganhador"] = 0;
-					PlayerPrefs.SetInt("GanhouColeta", 0);
-					PlayerPrefs.SetInt("AIGanhou", 1);
-					aiGanhou.Value[2] = true;
-					playerGanhou.Value = false;
-					faseNome = "TelaVitoria";
-					StartCoroutine("AcabouFase");*/
+                finished = true;
 
-				}
+            }
                 else
                 {
 					if (PhotonNetwork.LocalPlayer == winning)
@@ -125,7 +122,8 @@ public class ColetaWin : MonoBehaviour
                         LevelManager.Instance.Perdeu();
 						Debug.Log("Perdeu");
 						feedbackWin.Perdeu();
-					}
+                    finished = true;
+                }
                     //StartCoroutine("AcabouFaseOnline");
                 }
                 ganhouJa = true;

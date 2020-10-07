@@ -33,6 +33,7 @@ public class ProntoButton : MonoBehaviour
         }*/
         //jaJogou.Value = true;
         //SceneManager.LoadScene(nomeDoMenu);
+        CheckPointController.instance.WonGameCheckPoint();
         LoadingManager.instance.LoadNewScene(nextScene, GameManager.sceneAtual, false);
     }
 

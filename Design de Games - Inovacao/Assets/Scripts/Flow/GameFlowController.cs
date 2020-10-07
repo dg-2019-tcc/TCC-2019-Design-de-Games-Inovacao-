@@ -30,51 +30,26 @@ public class GameFlowController : MonoBehaviour
         {
             demo = Resources.Load<BoolVariable>("Demo");
         }
-
-        //GameManager.Instance.LoadGame();
-
-        //Debug.Log(sceneName);
-        //if (sceneName == "MenuPrincipal")
-        if(GameManager.sceneAtual == SceneType.MenuPrincipal)
+        OfflineMode.Instance.AtivaOffline(true);
+         /*if (GameManager.sceneAtual == SceneType.MenuPrincipal)
         {
-            if (PlayerPrefsManager.Instance.prefsVariables.levelIndex < 8 || demo.Value == true)
-            {
-                OfflineButtonMenu(false);
-                OfflineMode.Instance.AtivaOffline(true);
-            }
-            else
-            {
-                OfflineButtonMenu(true);
-            }
+            CheckPointController.instance.LoadCheckPoint();
         }
-        //if(sceneName == "HUB")
+
         if (GameManager.sceneAtual == SceneType.HUB)
         {
+            GameManager.historiaMode = false;
             if (GameManager.historiaMode)
             {
                 OfflineMode.Instance.AtivaOffline(true);
-                //ganhouDoKlay = PlayerPrefs.GetInt("GanhouDoKlay");
-                if (PlayerPrefsManager.Instance.prefsVariables.levelIndex > 1 && PlayerPrefsManager.Instance.prefsVariables.levelIndex < 8)
+
+                if(CheckPointController.nextFalaIndex != 0)
                 {
-                    if (PlayerPrefsManager.Instance.prefsVariables.levelIndex == 3 || PlayerPrefsManager.Instance.prefsVariables.levelIndex == 4)
-                    {
-                        if (PlayerPrefsManager.Instance.prefsVariables.levelIndex == PlayerPrefsManager.Instance.prefsVariables.falasIndex)
-                        {
-                            flowManager.FechaTudo();
-                        }
-                        else
-                        {
-                            flowManager.AtivaFase(PlayerPrefsManager.Instance.prefsVariables.levelIndex);
-                        }
-                    }
+                    flowManager.FechaTudo();
                 }
                 else
                 {
-                    if (PlayerPrefsManager.Instance.prefsVariables.levelIndex == 0)
-                    {
-                        flowManager.FechaTudo();
-                    }
-
+                    flowManager.AtivaFase(CheckPointController.nextFaseIndex);
                 }
             }
 
@@ -82,7 +57,7 @@ public class GameFlowController : MonoBehaviour
             {
                 flowManager.AtivaFase(8);
             }
-        }
+        }*/
 
     }
 

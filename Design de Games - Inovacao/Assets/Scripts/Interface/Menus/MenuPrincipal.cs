@@ -23,7 +23,7 @@ public class MenuPrincipal : MonoBehaviour
 
     public void ComecaJogo()
     {
-        if(PlayerPrefsManager.Instance.prefsVariables.levelIndex > 0 || GameManager.historiaMode == false)
+        if(CheckPointController.checkPointIndex > 0 || GameManager.historiaMode == false)
         {
             nomeDoMenu = "HUB";
             nextScene = SceneType.HUB;

@@ -105,20 +105,20 @@ public class GameManager : MonoBehaviour
     }
 
 
-    public void SaveGame(int indexFase,int indexFala)
+    /*public void SaveGame(int indexFase,int indexFala)
     {
         //lastFase = fase;
         PlayerPrefsManager.Instance.SavePlayerPrefs("LevelIndex", indexFase);
         PlayerPrefsManager.Instance.SavePlayerPrefs("FalasIndex", indexFala);
         //PlayerPrefs.SetInt("LevelIndex", index);
         //Debug.Log("O level salvo foi:" + indexFase + "a fala salva: "+ indexFala);
-    }
+    }*/
 
     public void LoadGame()
     {
         ChecaFase();
 
-        if (PlayerPrefsManager.Instance.prefsVariables.levelIndex < 8)
+        if (CheckPointController.checkPointIndex < 15)
         {
             historiaMode = true;
             if (sequestradoPrefs == 1)
@@ -146,14 +146,17 @@ public class GameManager : MonoBehaviour
             //PlayerPrefs.SetInt("Sequestrado", 0);
             PlayerPrefsManager.Instance.SavePlayerPrefs("Sequestrado", 0);
             faseEsc = Mathf.RoundToInt(faseEscolhida.Value);
-            SaveGame(faseEsc, faseEsc);
+            CheckPointController.instance.TalkCheckPoint(faseEsc);
+            //SaveGame(faseEsc, faseEsc);
             escolheFase.Value = false;
             faseEscolhida.Value = 0;
+            Debug.Log("[GameManager] Escolheu Fase");
         }
         else
         {
+            CheckPointController.instance.TalkCheckPoint(15);
             historiaMode = false;
-            SaveGame(8,8);
+            //SaveGame(8,8);
             escolheFase.Value = false;
             faseEscolhida.Value = 0;
         }

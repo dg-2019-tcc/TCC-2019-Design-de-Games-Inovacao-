@@ -63,6 +63,7 @@ public class GameSetup : MonoBehaviour
 
     void FirstTime()
     {
+        GameManager.historiaMode = true;
         pularModoHistoria.Value = false;
         PlayerPrefsManager.Instance.DefaultCustom();
         PlayerPrefs.SetInt("Coins", 100);
@@ -74,7 +75,9 @@ public class GameSetup : MonoBehaviour
     {
         LoadCoins();
         PlayerPrefsManager.Instance.LoadPlayerPref("All");
-        if(PlayerPrefsManager.Instance.prefsVariables.levelIndex > 8) { GameManager.historiaMode = false; pularModoHistoria.Value = true; }
+        CheckPointController.instance.LoadCheckPoint();
+        if(CheckPointController.checkPointIndex >= 15) { GameManager.historiaMode = false; pularModoHistoria.Value = true; }
+        else { GameManager.historiaMode = true; }
     }
 
 	void LoadCoins()
