@@ -23,7 +23,14 @@ public class PlayerLocatorOnScreen : MonoBehaviour
 		instance.SetActive(false);
 		if (PhotonNetwork.InRoom)
 		{
-			instance.GetComponentInChildren<PointerName>().nickname = GetComponent<PhotonView>().Owner.NickName;
+			if (instance.GetComponentInChildren<PointerName>().nickname != null)
+			{
+				instance.GetComponentInChildren<PointerName>().nickname = GetComponent<PhotonView>().Owner.NickName;
+			}
+			else
+			{
+				instance.GetComponentInChildren<PointerName>().nickname = "Você";
+			}
 		}
     }
 

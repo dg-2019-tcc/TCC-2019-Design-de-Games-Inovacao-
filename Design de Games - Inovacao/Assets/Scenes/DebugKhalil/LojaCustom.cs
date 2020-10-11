@@ -284,8 +284,7 @@ public class LojaCustom : MonoBehaviour
 		{
 			
 			buttonBuy[index] = Instantiate(buttonBuyPrefab, botaoDeModelo[index].gameObject.transform);
-			buttonBuy[index].SendMessage("QualX", qualParteVaiSer - 1);
-			buttonBuy[index].SendMessage("QualY", iniciaAqui);
+			buttonBuy[index].GetComponent<ButtonBuy>().SetItemInfo(qualParteVaiSer - 1, iniciaAqui);
 		}
 
 	}

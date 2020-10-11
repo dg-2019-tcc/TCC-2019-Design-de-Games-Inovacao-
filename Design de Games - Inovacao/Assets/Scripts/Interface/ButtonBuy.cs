@@ -23,16 +23,14 @@ public class ButtonBuy : MonoBehaviour
     public int maskPrice;
     public int bonePrice;
 
-	void QualX(int value)
+	public void SetItemInfo(int getX, int getY)
 	{
-		x = value;
-        QualItem();
+		x = getX;
+		y = getY;
+		QualItem();
+
 	}
 
-	void QualY(int value)
-	{
-		y = value;
-    }
 
     private void QualItem()
     {
