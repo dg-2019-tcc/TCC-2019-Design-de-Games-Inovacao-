@@ -11,6 +11,8 @@ namespace Complete {
         [Header("Alvo e Prefab")]
         public Transform firePoint;
         public GameObject bulletPrefab;
+		public int poolSize;
+		private GameObject[] bulletPool;
 
         public static Vector2 direction;
 
@@ -67,6 +69,8 @@ namespace Complete {
             playerAnim = GetComponent<PlayerAnimController>();
 
             tiroImage = tiroButton.GetComponent<Image>();
+			PoolInitialize();
+
 
             if (PhotonNetwork.InRoom)
             {
@@ -117,7 +121,20 @@ namespace Complete {
             Debug.Log("Atirou");
             //if (GameManager.inRoom && !(bool)photonView.Owner.CustomProperties["dogValue"])return;
             GameObject bullet;
-            bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);// as GameObject;
+			int i = 0;
+			while (i <= bulletPool.Length-1 && bulletPool[i].activeSelf)
+			{
+				
+				i++;
+			}
+			if (i > bulletPool.Length - 1)
+			{
+				bulletPool[i] = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+			}
+			bullet = bulletPool[i];// as GameObject;
+			bullet.transform.position = firePoint.position;
+			bullet.transform.rotation = firePoint.rotation;
+			bullet.SetActive(true);
             shootAnim = false;
             //anim.DogButtonAnim(shootAnim);
             //anim.dogButtonAnim = shootAnim;
@@ -185,5 +202,15 @@ namespace Complete {
             //gameObject.GetComponent<PhotonView>().RPC("TransformaPet", RpcTarget.All, false);
             atirando = false;
         }
+
+		private void PoolInitialize()
+		{
+			bulletPool = new GameObject[poolSize];
+			for (int i = 0; i < poolSize-1; i++)
+			{
+				bulletPool[i] = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+				bulletPool[i].SetActive(false);
+			}
+		}
     }
 }

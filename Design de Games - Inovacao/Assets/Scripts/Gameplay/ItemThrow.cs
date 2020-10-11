@@ -33,7 +33,16 @@ namespace Complete
         private bool isLocal;
 
 
-        public void InitializeBullet(Photon.Realtime.Player owner)
+
+		private Vector3 startingPos;
+
+
+		private void OnEnable()
+		{
+			timeDestroy = 0;
+		}
+
+		public void InitializeBullet(Photon.Realtime.Player owner)
         {
             if (GameManager.inRoom)
             {
@@ -45,6 +54,8 @@ namespace Complete
             }
 
             rb.position += rb.velocity;
+
+			startingPos = transform.position;
         }
 
         private void Update()
@@ -61,7 +72,8 @@ namespace Complete
                     Owner.CustomProperties["dogValue"] = true;
                     Owner.CustomProperties["atirou"] = false;
                 }
-                Destroy(this.gameObject);
+				transform.position = startingPos;
+				gameObject.SetActive(false);
             }
         }
 
