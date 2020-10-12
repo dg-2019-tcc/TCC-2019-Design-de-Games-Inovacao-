@@ -11,6 +11,7 @@ public class FalaController : MonoBehaviour
         Debug.Log(CheckPointController.nextFaseIndex);
         if (CheckPointController.nextFaseIndex == 0 && GameManager.historiaMode == true)
         {
+            GameManager.precisaFalarTV = true;
             Debug.Log(CheckPointController.nextFalaIndex);
             falaObj[CheckPointController.nextFalaIndex-1].SetActive(true);
             if(CheckPointController.nextFalaIndex == 1)

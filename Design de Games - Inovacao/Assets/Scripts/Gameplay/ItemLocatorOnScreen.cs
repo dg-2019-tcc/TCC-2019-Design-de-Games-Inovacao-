@@ -16,6 +16,7 @@ public class ItemLocatorOnScreen : MonoBehaviour
 	public Sprite image;
 
     public TV tv;
+    public bool isTV;
 
     public bool desativa;
     public bool porta;
@@ -42,19 +43,31 @@ public class ItemLocatorOnScreen : MonoBehaviour
 		{
 			cam = FindObjectOfType<Camera>();
 		}
-        if(tv != null)
+
+        if(isTV)
         {
+            desativa = !GameManager.precisaFalarTV;
             if (porta == false)
             {
-                desativa = tv.faloComTV;
+                //desativa = tv.faloComTV;
+                desativa = !GameManager.precisaFalarTV;
             }
+        }
 
-            else
+        if (porta)
+        {
+            if (GameManager.historiaMode)
             {
                 desativa = tv.precisaFalar;
             }
+            else
+            {
+                desativa = true;
+            }
         }
-		instance.transform.position = cam.WorldToScreenPoint(transform.position + positionAdjust);
+        if (desativa) { instance.SetActive(false); return; }
+
+        instance.transform.position = cam.WorldToScreenPoint(transform.position + positionAdjust);
 		if (instance.transform.position.y <= 0 || instance.transform.position.y >= Screen.height || instance.transform.position.x <= 0 || instance.transform.position.x >= Screen.width && desativa == false)
 		{
 			instance.SetActive(true);

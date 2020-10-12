@@ -31,6 +31,7 @@ public class GameManager : MonoBehaviour
     public static bool acabouFase = false;
     public static bool ganhou;
     public static bool perdeu;
+    public static bool precisaFalarTV;
 
     public static SceneType sceneAtual;
     public SceneType scene;

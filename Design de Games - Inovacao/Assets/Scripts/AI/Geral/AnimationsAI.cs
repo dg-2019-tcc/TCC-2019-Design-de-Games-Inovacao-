@@ -151,18 +151,20 @@ namespace Complete
                 {
                     if (!isKlay)
                     {
+                        ChangeArmature(false);
                         idleBotState = playerFrente.animation.FadeIn("0_Idle", 0.1f, -1, 12, null, AnimationFadeOutMode.Single);
-                        idleBotState.displayControl = true;
                     }
-                    else
-                    {
-                        idleBotState = playerSide.animation.FadeIn("0_Idle", 0.1f, -1, 12, null, AnimationFadeOutMode.Single);
-                        idleBotState.displayControl = true;
-                    }
+                    else { idleBotState = playerSide.animation.FadeIn("0_Idle", 0.1f, -1, 12, null, AnimationFadeOutMode.Single); }
+
+                    idleBotState.displayControl = true;
                     Debug.Log("IdleAnim == NULL");
                 }
                 else
                 {
+                    if (!isKlay)
+                    {
+                        ChangeArmature(false);
+                    }
                     idleBotState.displayControl = true;
                     idleBotState.weight = 1;
                     idleBotState.Play();
@@ -355,17 +357,23 @@ namespace Complete
                 {
                     if (!isKlay)
                     {
+                        ChangeArmature(true);
                         fallBotState = playerSide.animation.FadeIn("1_NoAr(2_Descendo)", 0.1f, -1, 20, null, AnimationFadeOutMode.Single);
+                        Debug.Log("FallAnim == NULL");
                     }
                     else
                     {
                         fallBotState = playerSide.animation.FadeIn("3_Descendo(NoAr)", 0.1f, -1, 20, null, AnimationFadeOutMode.Single);
                     }
                     //fallBotState.displayControl = true;
-                    Debug.Log("FallAnim == NULL");
                 }
                 else
                 {
+                    if (!isKlay)
+                    {
+                        ChangeArmature(true);
+                    }
+
                     fallBotState.displayControl = true;
                     fallBotState.weight = 1;
                     fallBotState.Play();
@@ -394,17 +402,26 @@ namespace Complete
 
                 if (walkBotState == null)
                 {
-                    if (!isKlay) { walkBotState = playerSide.animation.FadeIn("0_Corrida_V2", -1, -1, 21, null, AnimationFadeOutMode.Single); }
+                    if (!isKlay)
+                    {
+                        ChangeArmature(true);
+                        walkBotState = playerSide.animation.FadeIn("0_Corrida_V2", -1, -1, 21, null, AnimationFadeOutMode.Single);
+                        Debug.Log("WalkAnim == NULL");
+                    }
                     else { walkBotState = playerSide.animation.FadeIn("1_Run", -1, -1, 21, null, AnimationFadeOutMode.Single); }
                     //walkBotState.displayControl = true;
                     Debug.Log("WalkAnim == NULL");
                 }
                 else
                 {
+                    if (!isKlay)
+                    {
+                        ChangeArmature(true);
+                    }
+
                     walkBotState.displayControl = true;
                     walkBotState.weight = 1f;
                     walkBotState.Play();
-                    Debug.Log("WalkAnim != NULL");
                 }
                 state = State.Walking;
             }
@@ -434,17 +451,25 @@ namespace Complete
 
                 if (jumpBotState == null)
                 {
-                    if (!isKlay) { jumpBotState = playerSide.animation.FadeIn("1_NoAr(1_Subindo)", -1, -1, 22, null, AnimationFadeOutMode.Single); }
+                    if (!isKlay)
+                    {
+                        ChangeArmature(true);
+                        jumpBotState = playerSide.animation.FadeIn("1_NoAr(1_Subindo)", -1, -1, 22, null, AnimationFadeOutMode.Single);
+                        Debug.Log("JumpAnim = NULL");
+                    }
                     else { jumpBotState = playerSide.animation.FadeIn("3_Subindo(NoAr)", -1, -1, 22, null, AnimationFadeOutMode.Single); }
 //                    jumpBotState.displayControl = true;
-                    Debug.Log("JumpAnim = NULL");
                 }
                 else
                 {
+                    if (!isKlay)
+                    {
+                        ChangeArmature(true);
+                    }
+
                     jumpBotState.displayControl = true;
                     jumpBotState.weight = 1;
                     jumpBotState.Play();
-                    Debug.Log("JumpAnim != NULL");
                 }
                 state = State.Rising;
             }
@@ -460,100 +485,18 @@ namespace Complete
             }
         }
 
-        /*
-        public void AnimState(string anim)
+        private void ChangeArmature(bool isSide)
         {
-
-            if (isKlay == false)
+            if (isSide)
             {
-                if (state == State.Idle || state == State.Inativo)
-                {
-                    if (anim == "Walking" || anim == "NoArUp" || anim == "Fall" || anim == "Aterrisando" || anim == "Chute" || anim == "Arremesso" || anim == "Abaixar" || anim == "TransitionAir")
-                    {
-                        playerFrente.animation.Play("0_Idle");
-                        lado.SetActive(true);
-                        frente.SetActive(false);
-                    }
-                }
+                lado.SetActive(true);
+                frente.SetActive(false);
             }
-            switch (anim)
+            else
             {
-                case "Idle":
-                    if (state != State.Idle)
-                    {
-                        if (!isKlay)
-                        {
-                            frente.SetActive(true);
-                            lado.SetActive(false);
-                            playerFrente.animation.timeScale = 1;
-                            playerFrente.animation.Play("0_Idle");
-                        }
-
-                        else
-                        {
-                            playerSide.animation.Play("0_Idle");
-                        }
-
-                        state = State.Idle;
-                    }
-                    break;
-
-
-                case "Walking":
-                    if (state != State.Walking)
-                    {
-                        playerSide.animation.Play("0_Corrida_V2");
-                        state = State.Walking;
-                    }
-                    break;
-
-                case "StartPulo":
-                    if (state != State.Jumping)
-                    {
-                        playerSide.animation.Play("1_NoAr(1_Subindo)");
-                        playerSide.animation.timeScale = 1;
-                        state = State.Jumping;
-                    }
-                    break;
-                case "NoArUp":
-                    if (state != State.Rising)
-                    {
-                        playerSide.animation.Play("1_NoAr(1_Subindo)");
-                        state = State.Rising;
-                    }
-                    break;
-                case "Fall":
-                    if (state != State.Falling)
-                    {
-                        playerSide.animation.Play("1_NoAr(2_Descendo)");
-                        state = State.Falling;
-                    }
-                    break;
-                case "Aterrisando":
-                    if (state != State.Aterrisando)
-                    {
-                        playerSide.animation.Play("1_Aterrisando");
-                        state = State.Aterrisando;
-                        jaAterrisou = true;
-                    }
-                    break;
-                case "Chute":
-                    if (state != State.Chutando)
-                    {
-                        //player.animation.timeScale = 1f;
-                        playerSide.animation.Play("3_Bicuda");
-                        state = State.Chutando;
-                    }
-                    break;
-                case "Arremesso":
-                    if (state != State.Arremessando)
-                    {
-                        //player.animation.timeScale = 1;
-                        playerSide.animation.Play("5_Arremessar");
-                        state = State.Arremessando;
-                    }
-                    break;
+                lado.SetActive(false);
+                frente.SetActive(true);
             }
-        }*/
+        }
     }
 }

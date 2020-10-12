@@ -76,7 +76,7 @@ public class TextBoxNext : MonoBehaviour
 
 	private void Next(int index)
 	{
-		if (index < falas.falas.Length-1)
+		if (index < falas.falas.Length)
 		{
 			boxIndex++;
 			sprite.sprite = falas.Imagem();

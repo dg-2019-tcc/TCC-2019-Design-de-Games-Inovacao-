@@ -26,6 +26,7 @@ public class PortaController : MonoBehaviour
     {
         if (CheckPointController.nextFaseIndex == portaIndex || CheckPointController.finishedGame || GameManager.historiaMode == false)
         {
+            GameManager.precisaFalarTV = false;
             //if (doorIsOpen) return;
             DoorOpen(true);
         }

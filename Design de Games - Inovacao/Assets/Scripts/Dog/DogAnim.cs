@@ -230,17 +230,17 @@ public class DogAnim : MonoBehaviour
 
                 dog01Ativo = true;
                 desativaPuff = true;
-
+                dogArmature.animation.lastAnimationState.Stop();
                 if (idleState == null)
                 {
-                    idleState = dogArmature.animation.FadeIn("4_Idle", 0.1f, -1, 3, null, AnimationFadeOutMode.None);
-                    idleState.displayControl = true;
+                    //idleState = dogArmature.animation.FadeIn("4_Idle", 0.1f, -1, 3, null, AnimationFadeOutMode.None);
+                    //idleState.displayControl = true;
                 }
                 else
                 {
-                    idleState.displayControl = true;
-                    idleState.weight = 1;
-                    idleState.Play();
+                    //idleState.displayControl = true;
+                    //idleState.weight = 1;
+                    //idleState.Play();
                 }
                 state = State.Idle;
             }
