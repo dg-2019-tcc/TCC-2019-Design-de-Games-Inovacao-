@@ -9,7 +9,7 @@ public class FalaController : MonoBehaviour
     private void Start()
     {
         Debug.Log(CheckPointController.nextFaseIndex);
-        if (CheckPointController.nextFaseIndex == 0)
+        if (CheckPointController.nextFaseIndex == 0 && GameManager.historiaMode == true)
         {
             Debug.Log(CheckPointController.nextFalaIndex);
             falaObj[CheckPointController.nextFalaIndex-1].SetActive(true);

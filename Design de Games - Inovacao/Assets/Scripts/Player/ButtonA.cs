@@ -54,6 +54,11 @@ public class ButtonA : MonoBehaviour
         {
             state = State.Cortar;
         }
+
+        else if (GameManager.sceneAtual == SceneType.Moto)
+        {
+            state = State.Manobra;
+        }
     }
 
     void Update()
@@ -68,9 +73,29 @@ public class ButtonA : MonoBehaviour
             }
         }
 
-        if (textoAtivo.Value == false && (pipaActive.Value == true || carroActive.Value == true))
+        if (GameManager.sceneAtual != SceneType.Moto || GameManager.sceneAtual != SceneType.Futebol || GameManager.sceneAtual != SceneType.Volei)
         {
-            state = State.PowerUp;
+            if (textoAtivo.Value == false && (pipaActive.Value == true || carroActive.Value == true))
+            {
+                state = State.PowerUp;
+            }
+        }
+        else
+        {
+            if(GameManager.sceneAtual == SceneType.Moto && state != State.Manobra)
+            {
+                state = State.Manobra; 
+            }
+
+            else if (GameManager.sceneAtual == SceneType.Futebol && state != State.Chutar)
+            {
+                state = State.Chutar;
+            }
+
+            else if (GameManager.sceneAtual == SceneType.Volei && state != State.Cortar)
+            {
+                state = State.Cortar;
+            }
         }
 
 
@@ -124,6 +149,7 @@ public class ButtonA : MonoBehaviour
                 state = State.Null;
                 break;
         }
+        Debug.Log("PressedButtonA");
     }
 
     public void PassarFala()
@@ -179,7 +205,7 @@ public class ButtonA : MonoBehaviour
         {
             manobraScript = FindObjectOfType<EmpinaMoto>();
         }
-
+        Debug.Log("EmpinarMoto");
         manobraScript.buttonEmpina();
     }
 }

@@ -24,7 +24,7 @@ public class PortaController : MonoBehaviour
 
     void CheckDoor()
     {
-        if (CheckPointController.nextFaseIndex == portaIndex)
+        if (CheckPointController.nextFaseIndex == portaIndex || CheckPointController.finishedGame || GameManager.historiaMode == false)
         {
             //if (doorIsOpen) return;
             DoorOpen(true);

@@ -10,11 +10,8 @@ public class GameManager : MonoBehaviour
 {
     public BoolVariableArray acabou01;
     public BoolVariable demo;
-    public BoolVariable escolheFase;
     public BoolVariable pularModoHistoria;
     public BoolVariable resetaPlayerPrefs;
-    public FloatVariable faseEscolhida;
-    private int faseEsc;
 
     public static bool inRoom;
     public static bool pausaJogo;
@@ -35,10 +32,8 @@ public class GameManager : MonoBehaviour
     public static bool ganhou;
     public static bool perdeu;
 
-   // public enum Fase {Coleta, Futebol, Moto, Corrida, Start, Loja, Tutorial, Hub, Volei, Podium}
-    //public Fase fase = Fase.Start;
-    //public Fase lastFase;
     public static SceneType sceneAtual;
+    public SceneType scene;
     public SceneType sceneOld;
 
     #region Singleton
@@ -74,22 +69,6 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-
-        escolheFase = Resources.Load<BoolVariable>("EscolheFase");
-        faseEscolhida = Resources.Load<FloatVariable>("FaseEscolhida");
-        pularModoHistoria = Resources.Load<BoolVariable>("PularModoHistoria");
-        resetaPlayerPrefs = Resources.Load<BoolVariable>("ResetaPlayerPrefs");
-
-        if (escolheFase.Value || pularModoHistoria.Value)
-        {
-            if (pularModoHistoria.Value)
-            {
-                historiaMode = false;
-            }
-            EscolheFase();
-        }
-
-
     }
     #endregion
 
@@ -103,16 +82,6 @@ public class GameManager : MonoBehaviour
             OfflineMode.Instance.AtivaOffline(true);
         }
     }
-
-
-    /*public void SaveGame(int indexFase,int indexFala)
-    {
-        //lastFase = fase;
-        PlayerPrefsManager.Instance.SavePlayerPrefs("LevelIndex", indexFase);
-        PlayerPrefsManager.Instance.SavePlayerPrefs("FalasIndex", indexFala);
-        //PlayerPrefs.SetInt("LevelIndex", index);
-        //Debug.Log("O level salvo foi:" + indexFase + "a fala salva: "+ indexFala);
-    }*/
 
     public void LoadGame()
     {
@@ -138,29 +107,6 @@ public class GameManager : MonoBehaviour
         //Debug.Log("O level carregado foi: " + PlayerPrefsManager.Instance.prefsVariables.levelIndex + " A falaIndex é: " + PlayerPrefsManager.Instance.prefsVariables.falasIndex + " O modo história é: " + historiaMode);
     }
 
-    //Função para escolher a fase ou resetar o jogo
-    public void EscolheFase()
-    {
-        if (pularModoHistoria.Value == false)
-        {
-            //PlayerPrefs.SetInt("Sequestrado", 0);
-            PlayerPrefsManager.Instance.SavePlayerPrefs("Sequestrado", 0);
-            faseEsc = Mathf.RoundToInt(faseEscolhida.Value);
-            CheckPointController.instance.TalkCheckPoint(faseEsc);
-            //SaveGame(faseEsc, faseEsc);
-            escolheFase.Value = false;
-            faseEscolhida.Value = 0;
-            Debug.Log("[GameManager] Escolheu Fase");
-        }
-        else
-        {
-            CheckPointController.instance.TalkCheckPoint(15);
-            historiaMode = false;
-            //SaveGame(8,8);
-            escolheFase.Value = false;
-            faseEscolhida.Value = 0;
-        }
-    }
 
     public void ChecaFase()
     {

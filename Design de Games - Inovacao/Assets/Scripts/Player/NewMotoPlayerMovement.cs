@@ -28,8 +28,8 @@ public class NewMotoPlayerMovement : MonoBehaviour
 	float motoMaxJumpVelocity;
 	float motoMinJumpVelocity;
 	float motoGravity;
-	public float motoMaxJumpHeight = 4;
-	public float motoMinJumpHeight = 2;
+	//public float motoMaxJumpHeight = 4;
+	//public float motoMinJumpHeight = 2;
 	public float motoTimeToJumpApex = 0.4f;
 
 	bool jump;
@@ -72,12 +72,13 @@ public class NewMotoPlayerMovement : MonoBehaviour
         gravity = -(2 * maxJumpHeight) / Mathf.Pow(timeToJumpApex, 2);
 		maxJumpVelocity = Mathf.Abs(gravity * timeToJumpApex);
 		minJumpVelocity = Mathf.Sqrt(2 * Mathf.Abs(gravity) * minJumpHeight);
+        Debug.Log(maxJumpVelocity);
 
 		pv = GetComponent<PhotonView>();
 		joyStick = FindObjectOfType<Joystick>();
 	}
 
-	void FixedUpdate()
+	void Update()
 	{
         if (GameManager.pausaJogo == true) { return; }
         if (!pv.IsMine && PhotonNetwork.InRoom) return;
@@ -101,18 +102,18 @@ public class NewMotoPlayerMovement : MonoBehaviour
 
 		if (controller.collisions.above || controller.collisions.below)
 		{
-			velocity.y = 0;
+            if(!jump) velocity.y = 0;
 		}
 
         if (inputController.pressX == true && controller.collisions.below)
         {
             if (controller.collisions.climbingSlope)
             {
-                velocity.y = maxJumpHeight + 10f;
+                velocity.y = maxJumpVelocity + 10f;
             }
             else
             {
-                velocity.y = maxJumpHeight;
+                velocity.y = maxJumpVelocity;
             }
         }
 
@@ -130,16 +131,21 @@ public class NewMotoPlayerMovement : MonoBehaviour
 	{
 		if (controller.collisions.below && levouDogada.Value == false)
 		{
+            jump = true;
             if (controller.collisions.climbingSlope)
             {
                 //Debug.Log("Pulo");
-                velocity.y = maxJumpHeight + 10f;
+                velocity.y = maxJumpVelocity + 10f;
+                Debug.Log("BIG Jump");
             }
             else
             {
-                velocity.y = maxJumpHeight;
+                velocity.y = maxJumpVelocity;
+                Debug.Log("Jump");
             }
         }
+
+        Debug.Log("End Jump");
 	}
 
 	public void StopJump()

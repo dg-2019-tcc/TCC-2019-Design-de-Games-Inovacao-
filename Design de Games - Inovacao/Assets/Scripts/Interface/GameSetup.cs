@@ -10,8 +10,10 @@ public class GameSetup : MonoBehaviour
 	public BoolVariable buildFinal;
 	public BoolVariable resetaPlayerPrefs;
 	public BoolVariable pularModoHistoria;
+    public BoolVariable escolheFase;
+    public FloatVariable faseEscolhida;
 
-	public Points moedas;
+    public Points moedas;
 
 	public TMP_Text textoDebug;
 
@@ -21,16 +23,22 @@ public class GameSetup : MonoBehaviour
 	public BoolVariableMatrix baseBlocked;
 
     public bool isFirstTime;
+    private int faseEsc;
 
     private void Awake()
     {
-        if(resetaPlayerPrefs.Value == true)
+        escolheFase = Resources.Load<BoolVariable>("EscolheFase");
+        faseEscolhida = Resources.Load<FloatVariable>("FaseEscolhida");
+
+        if (resetaPlayerPrefs.Value == true)
         {
+            escolheFase.Value = true;
+            faseEscolhida.Value = 0;
             pularModoHistoria.Value = false;
             PlayerPrefs.DeleteAll();
             resetaPlayerPrefs.Value = false;
         }
-        if(PlayerPrefs.GetInt("IsFirstTime") == 0) { isFirstTime = true; }
+        if (PlayerPrefs.GetInt("IsFirstTime") == 0) { isFirstTime = true; }
         else { isFirstTime = false; }
     }
 
@@ -52,9 +60,15 @@ public class GameSetup : MonoBehaviour
 #else
         CheckWhichBuild();
 #endif
-
-        if (isFirstTime) { FirstTime(); }
-        else { AlreadyPlayed(); }
+        if (escolheFase.Value == false)
+        {
+            if (isFirstTime) { FirstTime(); }
+            else { AlreadyPlayed(); }
+        }
+        else
+        {
+            EscolheFase();
+        }
 
 		textoDebug.text = "Plataforma atual: " + plataforma + "\n Build pra pc: " + buildPC.Value.ToString();
 
@@ -78,6 +92,30 @@ public class GameSetup : MonoBehaviour
         CheckPointController.instance.LoadCheckPoint();
         if(CheckPointController.checkPointIndex >= 15) { GameManager.historiaMode = false; pularModoHistoria.Value = true; }
         else { GameManager.historiaMode = true; }
+    }
+
+    void EscolheFase()
+    {
+        if (pularModoHistoria.Value == false)
+        {
+            //PlayerPrefs.SetInt("Sequestrado", 0);
+            PlayerPrefsManager.Instance.SavePlayerPrefs("Sequestrado", 0);
+            faseEsc = Mathf.RoundToInt(faseEscolhida.Value);
+            CheckPointController.instance.TalkCheckPoint(faseEsc);
+            GameManager.historiaMode = true;
+            //SaveGame(faseEsc, faseEsc);
+            escolheFase.Value = false;
+            faseEscolhida.Value = 0;
+            Debug.Log("[GameManager] Escolheu Fase");
+        }
+        else
+        {
+            CheckPointController.instance.TalkCheckPoint(15);
+            GameManager.historiaMode = false;
+            //SaveGame(8,8);
+            escolheFase.Value = false;
+            faseEscolhida.Value = 0;
+        }
     }
 
 	void LoadCoins()

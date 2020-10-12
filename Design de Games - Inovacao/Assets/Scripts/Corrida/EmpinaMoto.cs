@@ -176,6 +176,7 @@ public class EmpinaMoto : MonoBehaviour
                 motoPV.RPC("daGrau", RpcTarget.All, 2);
             }
         }
+        Debug.Log("buttonEmpina");
     }
 
 
@@ -212,7 +213,8 @@ public class EmpinaMoto : MonoBehaviour
 				isManobrandoNoAr = false;
 				break;
 		}
-	}
+        Debug.Log("daGrau");
+    }
 
 	public IEnumerator Empinando()
 	{

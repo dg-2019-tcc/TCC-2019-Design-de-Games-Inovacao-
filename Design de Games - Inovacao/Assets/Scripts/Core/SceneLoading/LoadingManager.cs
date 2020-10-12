@@ -67,15 +67,18 @@ public class LoadingManager : MonoBehaviour
     #region Public Functions
     public void LoadNewScene(SceneType nextScene, SceneType oldScene, bool isOnline)
     {
-        //if (isLoading) return;
-        if(nextScene != SceneType.TelaVitoria) { GameManager.ganhou = false; GameManager.perdeu = false; GameManager.acabouFase = false; }
-        loadingScreen.SetActive(true);
-        GameManager.isPaused = true;
-        GameManager.sceneAtual = nextScene;
-        GameManager.Instance.sceneOld = oldScene;
-        if (!isOnline){ Invoke("InitOfflineScene", 1f);}
-        else { StartCoroutine(InitOnlineScene(nextScene, oldScene)); }
-        isLoading = true;
+        if (!isLoading)
+        {
+            if (nextScene != SceneType.TelaVitoria) { GameManager.ganhou = false; GameManager.perdeu = false; GameManager.acabouFase = false; }
+            loadingScreen.SetActive(true);
+            GameManager.isPaused = true;
+            GameManager.sceneAtual = nextScene;
+            GameManager.Instance.scene = GameManager.sceneAtual;
+            GameManager.Instance.sceneOld = oldScene;
+            if (!isOnline) { Invoke("InitOfflineScene", 1f); }
+            else { StartCoroutine(InitOnlineScene(nextScene, oldScene)); }
+            isLoading = true;
+        }
         Debug.Log("[LoadingManager] Load New Scene");
     }
     #endregion

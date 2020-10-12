@@ -242,11 +242,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: {fileID: 11400000, guid: 48ab2cb7cf0b76541b0f02c5decb29f3, type: 2}
   motoSpeedChange: {fileID: 11400000, guid: 3a76fdd6c24777c4c8d829e28ddc7def, type: 2}
-  maxJumpHeight: 22
+  maxJumpHeight: 5
   minJumpHeight: 0.5
-  timeToJumpApex: 0.85
-  motoMaxJumpHeight: 4
-  motoMinJumpHeight: 2
+  timeToJumpApex: 0.6
   motoTimeToJumpApex: 0.4
   oldPosition: {x: 0, y: 0}
   velocity: {x: 0, y: 0, z: 0}
@@ -297,7 +295,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 0}
+        - m_Target: {fileID: 1406578554322208868}
           m_MethodName: stopManobra
           m_Mode: 1
           m_Arguments:
@@ -1920,6 +1918,11 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 2808967290770963740, guid: 650c79142e52b1a46944cd798e3de766,
+        type: 3}
+      propertyPath: m_RaycastTarget
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2839845408567350918, guid: 650c79142e52b1a46944cd798e3de766,
         type: 3}
       propertyPath: m_Mesh
@@ -2958,6 +2961,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5042768572350841546, guid: 650c79142e52b1a46944cd798e3de766,
         type: 3}
+      propertyPath: m_Delegates.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5042768572350841546, guid: 650c79142e52b1a46944cd798e3de766,
+        type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5042768572350841546, guid: 650c79142e52b1a46944cd798e3de766,
+        type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 9111521665537455695}
@@ -2966,6 +2979,26 @@ PrefabInstance:
       propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 9111521665537455695}
+    - target: {fileID: 5042768572350841546, guid: 650c79142e52b1a46944cd798e3de766,
+        type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5042768572350841546, guid: 650c79142e52b1a46944cd798e3de766,
+        type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5042768572350841546, guid: 650c79142e52b1a46944cd798e3de766,
+        type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 279062277676543969}
+    - target: {fileID: 5042768572350841546, guid: 650c79142e52b1a46944cd798e3de766,
+        type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: StopJump
+      objectReference: {fileID: 0}
     - target: {fileID: 5046147458226192561, guid: 650c79142e52b1a46944cd798e3de766,
         type: 3}
       propertyPath: m_Mesh
@@ -3575,6 +3608,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Mesh
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6189286397693109002, guid: 650c79142e52b1a46944cd798e3de766,
+        type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6191850190192122246, guid: 650c79142e52b1a46944cd798e3de766,
         type: 3}
@@ -4241,6 +4279,21 @@ PrefabInstance:
       propertyPath: m_RootOrder
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 7486435996004523891, guid: 650c79142e52b1a46944cd798e3de766,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 142.2635
+      objectReference: {fileID: 0}
+    - target: {fileID: 7486435996004523891, guid: 650c79142e52b1a46944cd798e3de766,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 79.861046
+      objectReference: {fileID: 0}
+    - target: {fileID: 7486435996004523891, guid: 650c79142e52b1a46944cd798e3de766,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 142.2635
+      objectReference: {fileID: 0}
     - target: {fileID: 7490939271397780171, guid: 650c79142e52b1a46944cd798e3de766,
         type: 3}
       propertyPath: m_Mesh
@@ -4705,6 +4758,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Mesh
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8597821039552196485, guid: 650c79142e52b1a46944cd798e3de766,
+        type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8598071974656046155, guid: 650c79142e52b1a46944cd798e3de766,
         type: 3}
