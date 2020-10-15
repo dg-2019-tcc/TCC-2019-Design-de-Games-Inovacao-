@@ -45,6 +45,7 @@ public class PlayerMotoAnimation : MonoBehaviour
 
     private bool isOnline;
 
+    #region Unity Function
 
     void Start()
     {
@@ -63,13 +64,17 @@ public class PlayerMotoAnimation : MonoBehaviour
         }
     }
 
+    #endregion
+
+    #region Public Functions
+
     public void ChangeMotoAnim(Vector3 moveAmount, Vector2 oldPos, bool stun)
     {
         if (stun == false)
         {
             if (empina.isEmpinando || empina.isManobrandoNoAr)
             {
-                if(empina.isManobrandoNoAr && controller.collisions.below)
+                if (empina.isManobrandoNoAr && controller.collisions.below)
                 {
                     if (!GameManager.inRoom) CrashAnim(true);
                     else photonView.RPC("CrashAnim", RpcTarget.All, true);
@@ -114,8 +119,12 @@ public class PlayerMotoAnimation : MonoBehaviour
         else photonView.RPC("AnimStateUpdate", RpcTarget.All);
     }
 
+    #endregion
+
+    #region Private Functions
+
     [PunRPC]
-    public void CrashAnim(bool play)
+    private void CrashAnim(bool play)
     {
         if (play)
         {
@@ -143,7 +152,7 @@ public class PlayerMotoAnimation : MonoBehaviour
     }
 
     [PunRPC]
-    public void ManobraAnim(bool play)
+    private void ManobraAnim(bool play)
     {
         if (play)
         {
@@ -171,7 +180,7 @@ public class PlayerMotoAnimation : MonoBehaviour
     }
 
     [PunRPC]
-    public void MotoLandAnim(bool play)
+    private void MotoLandAnim(bool play)
     {
         if (play)
         {
@@ -201,7 +210,7 @@ public class PlayerMotoAnimation : MonoBehaviour
     }
 
     [PunRPC]
-    public void MotoFallAnim(bool play)
+    private void MotoFallAnim(bool play)
     {
         if (play)
         {
@@ -229,7 +238,7 @@ public class PlayerMotoAnimation : MonoBehaviour
     }
 
     [PunRPC]
-    public void MotoWalkAnim(bool play)
+    private void MotoWalkAnim(bool play)
     {
         if (play)
         {
@@ -260,7 +269,7 @@ public class PlayerMotoAnimation : MonoBehaviour
     }
 
     [PunRPC]
-    public void MotoUpAnim(bool play)
+    private void MotoUpAnim(bool play)
     {
         if (play)
         {
@@ -287,9 +296,9 @@ public class PlayerMotoAnimation : MonoBehaviour
     }
 
     [PunRPC]
-    void AnimStateUpdate()
+    private void AnimStateUpdate()
     {
-        if(state != State.MotoWalk && motoWalkState != null)
+        if (state != State.MotoWalk && motoWalkState != null)
         {
             if (!GameManager.inRoom) MotoWalkAnim(false);
             else photonView.RPC("MotoWalkAnim", RpcTarget.All, false);
@@ -325,4 +334,7 @@ public class PlayerMotoAnimation : MonoBehaviour
             else photonView.RPC("CrashAnim", RpcTarget.All, false);
         }
     }
+
+    #endregion
+
 }

@@ -16,13 +16,22 @@ public class Controller2D : RaycastController
 
 	private float joyGambiarra;
 
+    #region Unity Function
 
-	public override void Start()
+    public override void Start()
     {
         base.Start();
         inputController = GetComponent<InputController>();
     }
 
+    private void LateUpdate()
+    {
+        joyGambiarra = playerInput.y;
+    }
+
+    #endregion
+
+    #region Public Functions
 
     public void Move(Vector2 moveAmount)
     {
@@ -33,7 +42,7 @@ public class Controller2D : RaycastController
         //playerInput = input;
         playerInput = inputController.joyInput;
 
-        if(moveAmount.y < 0)
+        if (moveAmount.y < 0)
         {
             DescendSlope(ref moveAmount);
         }
@@ -48,6 +57,10 @@ public class Controller2D : RaycastController
 
         transform.Translate(moveAmount);
     }
+
+    #endregion
+
+    #region Private Functions
 
     void HorizontalCollisions(ref Vector2 moveAmount)
     {
@@ -67,7 +80,7 @@ public class Controller2D : RaycastController
             {
                 float slopeAngle = Vector2.Angle(hit.normal, Vector2.up);
 
-                if(hit.collider.CompareTag ("Barreira"))
+                if (hit.collider.CompareTag("Barreira"))
                 {
                     collisions.bateuObs = true;
                 }
@@ -88,7 +101,7 @@ public class Controller2D : RaycastController
                         continue;
                     }
 
-                    if(hit.distance == 0)
+                    if (hit.distance == 0)
                     {
                         continue;
                     }
@@ -114,23 +127,23 @@ public class Controller2D : RaycastController
                 }
 
 
-                    if (i == 0 && slopeAngle <= maxClimbAngle)
+                if (i == 0 && slopeAngle <= maxClimbAngle)
+                {
+                    if (collisions.descendingSlope)
                     {
-                        if (collisions.descendingSlope)
-                        {
-                            collisions.descendingSlope = false;
-                            moveAmount = collisions.velocityOld;
-                        }
-
-                        float distanceToSlopeStart = 0;
-                        if (slopeAngle != collisions.slopeAngleOld)
-                        {
-                            distanceToSlopeStart = hit.distance - skinWidth;
-                            moveAmount.x -= distanceToSlopeStart * directionX;
-                        }
-                            ClimbSlope(ref moveAmount, slopeAngle);
-                            moveAmount.x += distanceToSlopeStart * directionX;
+                        collisions.descendingSlope = false;
+                        moveAmount = collisions.velocityOld;
                     }
+
+                    float distanceToSlopeStart = 0;
+                    if (slopeAngle != collisions.slopeAngleOld)
+                    {
+                        distanceToSlopeStart = hit.distance - skinWidth;
+                        moveAmount.x -= distanceToSlopeStart * directionX;
+                    }
+                    ClimbSlope(ref moveAmount, slopeAngle);
+                    moveAmount.x += distanceToSlopeStart * directionX;
+                }
 
                 if (!collisions.climbingSlope || slopeAngle > maxClimbAngle)
                 {
@@ -155,8 +168,8 @@ public class Controller2D : RaycastController
         float directionY = Mathf.Sign(moveAmount.y);
         float rayLenght = Mathf.Abs(moveAmount.y) + skinWidth;
 
-        for(int i = 0; i <verticalRayCount; i++)
-            {
+        for (int i = 0; i < verticalRayCount; i++)
+        {
             Vector2 rayOrigin = (directionY == -1) ? raycastOrigins.bottomLeft : raycastOrigins.topLeft;
             rayOrigin += Vector2.right * (verticalRaySpacing * i + moveAmount.x);
             RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.up * directionY, rayLenght, collisionMask);
@@ -165,20 +178,20 @@ public class Controller2D : RaycastController
 
             if (hit)
             {
-                if(hit.collider.CompareTag("Destroy"))
+                if (hit.collider.CompareTag("Destroy"))
                 {
-					hit.collider.gameObject.SendMessage("ToAqui");
+                    hit.collider.gameObject.SendMessage("ToAqui");
                 }
 
-                if (hit.collider.CompareTag ("Through"))
+                if (hit.collider.CompareTag("Through"))
                 {
-                    if(pipaActive.Value == true)
+                    if (pipaActive.Value == true)
                     {
                         collisions.isFalling = true;
                         continue;
                     }
 
-                    if(directionY == 1 || hit.distance == 0 || collisions.isFalling)
+                    if (directionY == 1 || hit.distance == 0 || collisions.isFalling)
                     {
                         collisions.isFalling = true;
                         continue;
@@ -189,19 +202,19 @@ public class Controller2D : RaycastController
                         continue;
                     }
 
-					if (playerInput.y < joyGambiarra)
-					{
-						if (playerInput.y < -0.9)
-						{
+                    if (playerInput.y < joyGambiarra)
+                    {
+                        if (playerInput.y < -0.9)
+                        {
                             collisions.isFalling = true;
                             collisions.fallingPlatform = true;
-							Invoke("ResetFallingPlatform", 0.1f);
-							continue;
-						}
-						
-					}
-					
-				}
+                            Invoke("ResetFallingPlatform", 0.1f);
+                            continue;
+                        }
+
+                    }
+
+                }
 
                 moveAmount.y = (hit.distance - skinWidth) * directionY;
                 rayLenght = hit.distance;
@@ -217,9 +230,9 @@ public class Controller2D : RaycastController
             }
 
         }
-		//joyGambiarra = playerInput.y;
+        //joyGambiarra = playerInput.y;
 
-		if (collisions.climbingSlope)
+        if (collisions.climbingSlope)
         {
             float directionX = Mathf.Sign(moveAmount.x);
             rayLenght = Mathf.Abs(moveAmount.x) + skinWidth;
@@ -238,11 +251,6 @@ public class Controller2D : RaycastController
         }
 
 
-    }
-
-    private void LateUpdate()
-    {
-        joyGambiarra = playerInput.y;
     }
 
     void ClimbSlope(ref Vector2 moveAmount, float slopeAngle)
@@ -271,9 +279,9 @@ public class Controller2D : RaycastController
         {
             float slopeAngle = Vector2.Angle(hit.normal, Vector2.up);
 
-            if(slopeAngle != 0 && slopeAngle<= maxDescendAngle)
+            if (slopeAngle != 0 && slopeAngle <= maxDescendAngle)
             {
-                if(Mathf.Sign(hit.normal.x) == directionX)
+                if (Mathf.Sign(hit.normal.x) == directionX)
                 {
                     if (hit.distance - skinWidth <= Mathf.Tan(slopeAngle * Mathf.Deg2Rad) * Mathf.Abs(moveAmount.x))
                     {
@@ -292,12 +300,12 @@ public class Controller2D : RaycastController
         }
     }
 
-
-
     void ResetFallingPlatform()
     {
         collisions.fallingPlatform = false;
     }
+
+    #endregion
 
     public struct CollisionInfo
     {

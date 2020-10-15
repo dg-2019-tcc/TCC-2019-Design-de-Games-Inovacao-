@@ -32,7 +32,8 @@ public class AICustom : MonoBehaviour
     public ChangeMultipleCustom[] mask2Models;
     public ChangeMultipleCustom[] skin2Models;
 
-    // Start is called before the first frame update
+    #region Unity Function
+
     void Start()
     {
 
@@ -75,6 +76,14 @@ public class AICustom : MonoBehaviour
         TrocaSkin(skinIndex);
 
     }
+
+    #endregion
+
+    #region Public Functions
+
+    #endregion
+
+    #region Private Functions
 
     private void TrocaSkin(int onlineIndex)
     {
@@ -133,13 +142,13 @@ public class AICustom : MonoBehaviour
 
     private void TrocaOculos(int onlineIndex)
     {
-        for(int i = 0; i < oculosModels.Length; i++)
+        for (int i = 0; i < oculosModels.Length; i++)
         {
             oculosModels[i].ChangeCustom(false);
             oculos2Models[i].ChangeCustom(false);
         }
 
-        if(oculosIndex != 2)
+        if (oculosIndex != 2)
         {
             oculosModels[onlineIndex].ChangeCustom(true);
             oculos2Models[onlineIndex].ChangeCustom(true);
@@ -160,4 +169,6 @@ public class AICustom : MonoBehaviour
             mask2Models[onlineIndex].ChangeCustom(true);
         }
     }
+
+    #endregion
 }

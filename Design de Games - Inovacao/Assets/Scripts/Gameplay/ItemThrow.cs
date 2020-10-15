@@ -36,28 +36,12 @@ namespace Complete
 
 		private Vector3 startingPos;
 
+        #region Unity Function
 
-		private void OnEnable()
-		{
-			timeDestroy = 0;
-		}
-
-		public void InitializeBullet(Photon.Realtime.Player owner)
+        private void OnEnable()
         {
-            if (GameManager.inRoom)
-            {
-                Owner = owner;
-                isLocal = owner.IsLocal;
-
-                Owner.CustomProperties["atirou"] = true;
-                Owner.CustomProperties["dogValue"] = false;
-            }
-
-            rb.position += rb.velocity;
-
-			startingPos = transform.position;
+            timeDestroy = 0;
         }
-
         private void Update()
         {
             rb.velocity = transform.right * bulletSpeed.Value * Time.deltaTime;
@@ -67,13 +51,13 @@ namespace Complete
             if (timeDestroy >= 3f)
             {
                 //if (PhotonNetwork.IsConnected)
-                if(GameManager.inRoom)
+                if (GameManager.inRoom)
                 {
                     Owner.CustomProperties["dogValue"] = true;
                     Owner.CustomProperties["atirou"] = false;
                 }
-				transform.position = startingPos;
-				gameObject.SetActive(false);
+                transform.position = startingPos;
+                gameObject.SetActive(false);
             }
         }
 
@@ -154,5 +138,32 @@ namespace Complete
                 }
             }
         }
+
+        #endregion
+
+        #region Public Functions
+
+        public void InitializeBullet(Photon.Realtime.Player owner)
+        {
+            if (GameManager.inRoom)
+            {
+                Owner = owner;
+                isLocal = owner.IsLocal;
+
+                Owner.CustomProperties["atirou"] = true;
+                Owner.CustomProperties["dogValue"] = false;
+            }
+
+            rb.position += rb.velocity;
+
+            startingPos = transform.position;
+        }
+
+        #endregion
+
+        #region Private Functions
+
+        #endregion
+
     }
 }

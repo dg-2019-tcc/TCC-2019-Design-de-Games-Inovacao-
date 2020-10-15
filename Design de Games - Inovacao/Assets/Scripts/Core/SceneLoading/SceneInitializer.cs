@@ -21,6 +21,7 @@ public class SceneInitializer : MonoBehaviour
 	private float minSpawnPosition = 15f;
     private bool shouldDeactivateRuntime;
 
+    #region Unity Function
     void Awake()
     {
         current = this;
@@ -33,10 +34,20 @@ public class SceneInitializer : MonoBehaviour
 
         CheckFase();
     }
+    #endregion
 
+    #region Public Functions
+    public void GetPlayerPositionInGame()
+    {
+        playerMovement = PhotonPlayer.myPlayer;
+        playerPos = playerMovement.transform.GetChild(1);
+    }
+    #endregion
+
+    #region Private Functions
     private void Spawn()
     {
-        if(!objsIni[objsIni.Length - 1].activeSelf)
+        if (!objsIni[objsIni.Length - 1].activeSelf)
         {
             objsIni[index].SetActive(true);
             index++;
@@ -56,7 +67,7 @@ public class SceneInitializer : MonoBehaviour
         if (player != null)
         {
             player.SetActive(true);
-            if(GameManager.sceneAtual == SceneType.HUB)
+            if (GameManager.sceneAtual == SceneType.HUB)
             {
                 GetPlayerPositionHUB();
             }
@@ -69,14 +80,14 @@ public class SceneInitializer : MonoBehaviour
         //GarbageController.DisableGC();
     }
 
-	private void FixedUpdate()
-	{
-        if(isDone == false)return;
+    private void FixedUpdate()
+    {
+        if (isDone == false) return;
         if (shouldDeactivateRuntime)
         {
             DeactivateAtRuntime();
         }
-	}
+    }
 
     private void DeactivateAtRuntime()
     {
@@ -113,14 +124,9 @@ public class SceneInitializer : MonoBehaviour
         InvokeRepeating("Spawn", delay, delay);
     }
 
-    public void GetPlayerPositionInGame()
-    {
-        playerMovement = PhotonPlayer.myPlayer;
-        playerPos = playerMovement.transform.GetChild(1);
-    }
-
     private void GetPlayerPositionHUB()
     {
         playerPos = player.transform.GetChild(1);
     }
+    #endregion
 }

@@ -28,6 +28,7 @@ public class ButtonA : MonoBehaviour
 
     public bool passouTexto;
 
+    #region Unity Function
     void Start()
     {
         PV = GetComponent<PhotonView>();
@@ -39,7 +40,7 @@ public class ButtonA : MonoBehaviour
         dogScript = GetComponent<DogController>();
 
         //if (GameManager.Instance.fase.Equals(GameManager.Fase.Futebol))
-        if(GameManager.sceneAtual == SceneType.Futebol)
+        if (GameManager.sceneAtual == SceneType.Futebol)
         {
             state = State.Chutar;
         }
@@ -65,8 +66,8 @@ public class ButtonA : MonoBehaviour
     {
         if (!PV.IsMine && GameManager.inRoom) return;
         //if (GameManager.Instance.fase.Equals(GameManager.Fase.Hub) || GameManager.Instance.fase.Equals(GameManager.Fase.Tutorial))
-        if(GameManager.sceneAtual == SceneType.HUB || GameManager.sceneAtual == SceneType.Tutorial2)
-         {
+        if (GameManager.sceneAtual == SceneType.HUB || GameManager.sceneAtual == SceneType.Tutorial2)
+        {
             if (textoAtivo.Value == true)
             {
                 state = State.Fala;
@@ -82,9 +83,9 @@ public class ButtonA : MonoBehaviour
         }
         else
         {
-            if(GameManager.sceneAtual == SceneType.Moto && state != State.Manobra)
+            if (GameManager.sceneAtual == SceneType.Moto && state != State.Manobra)
             {
-                state = State.Manobra; 
+                state = State.Manobra;
             }
 
             else if (GameManager.sceneAtual == SceneType.Futebol && state != State.Chutar)
@@ -108,14 +109,16 @@ public class ButtonA : MonoBehaviour
 
             if (Input.GetKeyUp(KeyCode.Z))
             {
-                if(state == State.Manobra)
+                if (state == State.Manobra)
                 {
                     manobraScript.stopManobra();
                 }
             }
         }
     }
+    #endregion
 
+    #region Public Functions
     public void PressedButtonA()
     {
         if (GameManager.pausaJogo == true) { return; }
@@ -165,7 +168,7 @@ public class ButtonA : MonoBehaviour
 
     public void Atirar()
     {
-        if(tiroScript == null)
+        if (tiroScript == null)
         {
             tiroScript = GetComponent<ThrowObject>();
         }
@@ -179,7 +182,7 @@ public class ButtonA : MonoBehaviour
 
     public void Kick()
     {
-        if(chuteScript == null)
+        if (chuteScript == null)
         {
             chuteScript = GetComponent<FutebolPlayer>();
         }
@@ -191,7 +194,7 @@ public class ButtonA : MonoBehaviour
 
     public void CortarVolei()
     {
-        if(corteScript == null)
+        if (corteScript == null)
         {
             corteScript = GetComponent<HandVolei>();
         }
@@ -201,11 +204,16 @@ public class ButtonA : MonoBehaviour
 
     public void EmpinarMoto()
     {
-        if(manobraScript == null)
+        if (manobraScript == null)
         {
             manobraScript = FindObjectOfType<EmpinaMoto>();
         }
         Debug.Log("EmpinarMoto");
         manobraScript.buttonEmpina();
     }
+    #endregion
+
+    #region Private Functions
+
+    #endregion
 }

@@ -17,12 +17,18 @@ public class PauseManager : MonoBehaviourPunCallbacks
 
     public Points moedas;
 
-	private void Start()
-	{
-		goBack = false;
-	}
+    #region Unity Function
 
-	public void Pause()
+    private void Start()
+    {
+        goBack = false;
+    }
+
+    #endregion
+
+    #region Public Functions
+
+    public void Pause()
     {
         FMODUnity.RuntimeManager.PlayOneShot("event:/HUD/Click", GetComponent<Transform>().position);
         pausebuttons.SetActive(true);
@@ -38,10 +44,10 @@ public class PauseManager : MonoBehaviourPunCallbacks
     public void VoltaMenu()
     {
         FMODUnity.RuntimeManager.PlayOneShot("event:/HUD/Click", GetComponent<Transform>().position);
-		FailMessageManager.manualShutdown= true;
-		goBack = true;
-		PhotonNetwork.Disconnect();
-		
+        FailMessageManager.manualShutdown = true;
+        goBack = true;
+        PhotonNetwork.Disconnect();
+
     }
 
     public void VoltaJogo()
@@ -55,6 +61,12 @@ public class PauseManager : MonoBehaviourPunCallbacks
     {
         base.OnDisconnected(cause);
         if (goBack) { LoadingManager.instance.LoadNewScene(SceneType.MenuPrincipal, GameManager.sceneAtual, false); }
-            //SceneManager.LoadScene(nomeDoMenu);
+        //SceneManager.LoadScene(nomeDoMenu);
     }
+
+    #endregion
+
+    #region Private Functions
+
+    #endregion
 }

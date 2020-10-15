@@ -42,7 +42,6 @@ public class PlayerPrefsManager : MonoBehaviour
     }
     #endregion
 
-
     public struct PlayerPrefsVariables
     {
         public int coins;
@@ -87,8 +86,6 @@ public class PlayerPrefsManager : MonoBehaviour
             Debug.Log("Reseta as Player Prefs");
         }*/
     }
-
-
 
     public void LoadPlayerPref(string prefsName)
     {
@@ -148,7 +145,6 @@ public class PlayerPrefsManager : MonoBehaviour
                 break;
         }
     }
-
 
     public void SavePlayerPrefs(string prefsName, int prefsValue)
     {
@@ -228,7 +224,6 @@ public class PlayerPrefsManager : MonoBehaviour
                 break;
         }
     }
-
 
     public void DefaultCustom()
     {

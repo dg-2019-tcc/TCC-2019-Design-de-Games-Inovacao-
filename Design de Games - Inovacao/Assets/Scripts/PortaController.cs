@@ -11,6 +11,8 @@ public class PortaController : MonoBehaviour
 
     private bool doorIsOpen;
 
+    #region Unity Function
+
     private void Start()
     {
         CheckDoor();
@@ -21,6 +23,13 @@ public class PortaController : MonoBehaviour
         CheckDoor();
     }
 
+    #endregion
+
+    #region Public Functions
+
+    #endregion
+
+    #region Private Functions
 
     void CheckDoor()
     {
@@ -44,4 +53,7 @@ public class PortaController : MonoBehaviour
 
         doorIsOpen = isOn;
     }
+
+    #endregion
+
 }

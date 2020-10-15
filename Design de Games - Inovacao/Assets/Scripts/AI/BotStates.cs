@@ -27,6 +27,8 @@ namespace Complete {
 
         public Vector2 distTarget;
 
+        #region Unity Function
+
         private void Start()
         {
             aiMovement = GetComponent<AIMovement>();
@@ -38,12 +40,15 @@ namespace Complete {
             coletaveis = aiSpawner.wayPointsForAI;
         }
 
+        #endregion
+
+        #region Public Functions
 
         public void BotWork()
         {
-            if(GameManager.pausaJogo == true || active == State.Off) { return; }
+            if (GameManager.pausaJogo == true || active == State.Off) { return; }
             //if (GameManager.Instance.fase.Equals(GameManager.Fase.Coleta) || GameManager.Instance.fase.Equals(GameManager.Fase.Futebol) || GameManager.Instance.fase.Equals(GameManager.Fase.Volei))
-            if(GameManager.sceneAtual == SceneType.Coleta || GameManager.sceneAtual == SceneType.Futebol || GameManager.sceneAtual == SceneType.Volei)
+            if (GameManager.sceneAtual == SceneType.Coleta || GameManager.sceneAtual == SceneType.Futebol || GameManager.sceneAtual == SceneType.Volei)
             {
                 if (target == null)
                 {
@@ -54,8 +59,11 @@ namespace Complete {
             aiMovement.Move(horizontalState, verticalState, actionOn);
         }
 
+        #endregion
 
-        public void CheckTarget()
+        #region Private Functions
+
+        private void CheckTarget()
         {
             //if (GameManager.Instance.fase.Equals(GameManager.Fase.Coleta))
             if (GameManager.sceneAtual == SceneType.Coleta)
@@ -84,14 +92,14 @@ namespace Complete {
             //if (GameManager.Instance.fase.Equals(GameManager.Fase.Futebol))
             if (GameManager.sceneAtual == SceneType.Futebol)
             {
-                if(target == null)
+                if (target == null)
                 {
                     target = aiSpawner.bola;
                 }
             }
         }
 
-        public void SetDirection()
+        private void SetDirection()
         {
             botInfo.Reset();
             SetState(State.Null, true);
@@ -192,7 +200,7 @@ namespace Complete {
             }
 
             //else if (GameManager.Instance.fase.Equals(GameManager.Fase.Corrida))
-             else if (GameManager.sceneAtual == SceneType.Corrida)
+            else if (GameManager.sceneAtual == SceneType.Corrida)
             {
                 SetState(State.Right, false);
 
@@ -203,9 +211,9 @@ namespace Complete {
             }
         }
 
-        public void SetActionState(State nextActionState)
+        private void SetActionState(State nextActionState)
         {
-            if(actionState == State.Null)
+            if (actionState == State.Null)
             {
                 if (nextActionState != State.Null)
                 {
@@ -219,7 +227,7 @@ namespace Complete {
             }
         }
 
-        public void SetState(State nextState, bool reset)
+        private void SetState(State nextState, bool reset)
         {
             if (!reset)
             {
@@ -240,6 +248,8 @@ namespace Complete {
                 verticalState = State.Null;
             }
         }
+
+        #endregion
 
         public struct BotInfo
         {

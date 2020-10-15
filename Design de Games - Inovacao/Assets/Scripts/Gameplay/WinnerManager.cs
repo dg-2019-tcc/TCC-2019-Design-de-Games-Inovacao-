@@ -36,11 +36,13 @@ public class WinnerManager : MonoBehaviour
     public Points moedas;
     public int moedasGanhas = 100;
 
-	private void Start()
-	{
+    #region Unity Function
+
+    private void Start()
+    {
         //buildProfs = true;
-		pv = GetComponent<PhotonView>();
-		isloading = false;
+        pv = GetComponent<PhotonView>();
+        isloading = false;
         feedback = FindObjectOfType<FeedbackText>();
 
         acabou01 = Resources.Load<BoolVariableArray>("Acabou01");
@@ -51,58 +53,70 @@ public class WinnerManager : MonoBehaviour
         aiGanhou.Value[7] = false;
 
         if (pv.IsMine)
-		{
-			pv.RPC("ZeraPontuacao", RpcTarget.All);
+        {
+            pv.RPC("ZeraPontuacao", RpcTarget.All);
 
-			pv.Controller.SetScore(0);
-		}
-	}
+            pv.Controller.SetScore(0);
+        }
+    }
 
-
-
-	// Update is called once per frame
-	void Update()
+    void Update()
     {
-		if (player == null)
-		{
-			player = FindObjectOfType<PlayerThings>();
-		}
-		else
-		{
-			/*if (LinhaDeChegada.changeRoom == true)
+        if (player == null)
+        {
+            player = FindObjectOfType<PlayerThings>();
+        }
+        else
+        {
+            /*if (LinhaDeChegada.changeRoom == true)
 			{
 				StartCoroutine(Venceu());
 			}*/
-			if (!isloading)
-			{
-				if (perdeuCorrida)
-				{
-					PerdeuCorrida();
-				}
-				else if (ganhouCorrida)
-				{
-					GanhouCorrida();
-				}
-			}
+            if (!isloading)
+            {
+                if (perdeuCorrida)
+                {
+                    PerdeuCorrida();
+                }
+                else if (ganhouCorrida)
+                {
+                    GanhouCorrida();
+                }
+            }
 
-			/*
+            /*
 			if (perdeuCorrida)
 			{
 				PerdeuCorrida();
 			}
 			*/
-		}
+        }
 
     }
 
-	[PunRPC]
-	void GanhouCorrida()
-	{
+    #endregion
+
+    #region Public Functions
+
+    [PunRPC]
+    public void Terminou()
+    {
+        //PlayerMovement.acabouPartida = true;
+    }
+
+    #endregion
+
+    #region Private Functions
+
+    [PunRPC]
+    void GanhouCorrida()
+    {
         moedas.Add(moedasGanhas);
         feedback.Ganhou();
         playerGanhou.Value = true;
-		if (isloading) return;
-		if (buildProfs == false) {
+        if (isloading) return;
+        if (buildProfs == false)
+        {
             if (acabou01.Value[7] == false)
             {
 
@@ -158,12 +172,12 @@ public class WinnerManager : MonoBehaviour
 
     }
 
-	[PunRPC]
-	void PerdeuCorrida()
-	{
+    [PunRPC]
+    void PerdeuCorrida()
+    {
         feedback.Perdeu();
-		if (isloading) return;
-		if (buildProfs == false)
+        if (isloading) return;
+        if (buildProfs == false)
         {
             if (acabou01.Value[7] == true/* || buildProfs == false*/)
             {
@@ -202,61 +216,54 @@ public class WinnerManager : MonoBehaviour
             faseNome = "HUB";
             StartCoroutine("AcabouFase");
         }
-	}
+    }
 
-
-	[PunRPC]
-	void TrocaSala()
-	{
-		isloading = true;
+    [PunRPC]
+    void TrocaSala()
+    {
+        isloading = true;
         Debug.Log("TrocaSala");
         ganhouCorrida = false;
-		perdeuCorrida = false;
-		PhotonNetwork.LoadLevel("TelaVitoria");
-	}
+        perdeuCorrida = false;
+        PhotonNetwork.LoadLevel("TelaVitoria");
+    }
 
-	[PunRPC]
-	void ZeraPontuacao()
-	{
-		pv.Controller.SetScore(0);
-	}
-
-	[PunRPC]
-	public void Terminou()
-	{
-		//PlayerMovement.acabouPartida = true;
-	}
+    [PunRPC]
+    void ZeraPontuacao()
+    {
+        pv.Controller.SetScore(0);
+    }
 
     IEnumerator AcabouFase()
     {
-		isloading = true;
-		yield return new WaitForSeconds(3f);
-		AdMobManager.instance.ShowInterstitialAd();
+        isloading = true;
+        yield return new WaitForSeconds(3f);
+        AdMobManager.instance.ShowInterstitialAd();
         SceneManager.LoadScene(faseNome);
     }
 
     IEnumerator Venceu()
-	{
+    {
         Debug.Log("Venceu");
-		player.cameraManager.SendMessage("ActivateCamera", false);
-		pv.RPC("Terminou", RpcTarget.All);
-		for (int i = 0; i < PhotonNetwork.PlayerList.Length; i++)
-		{
-			if ((int)PhotonNetwork.PlayerList[i].CustomProperties["Ganhador"] == 1)
-			{
-				StopCoroutine(Venceu());
-			}
-		}
-		PhotonNetwork.LocalPlayer.SetScore(-1);
-		ganhouCorrida = false;
-		yield return new WaitForSeconds(delayForWinScreen);
-		PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 1;
+        player.cameraManager.SendMessage("ActivateCamera", false);
+        pv.RPC("Terminou", RpcTarget.All);
+        for (int i = 0; i < PhotonNetwork.PlayerList.Length; i++)
+        {
+            if ((int)PhotonNetwork.PlayerList[i].CustomProperties["Ganhador"] == 1)
+            {
+                StopCoroutine(Venceu());
+            }
+        }
+        PhotonNetwork.LocalPlayer.SetScore(-1);
+        ganhouCorrida = false;
+        yield return new WaitForSeconds(delayForWinScreen);
+        PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 1;
 
-		//gameObject.GetComponent<PhotonView>().RPC("ZeraPontuacao", RpcTarget.All);
+        //gameObject.GetComponent<PhotonView>().RPC("ZeraPontuacao", RpcTarget.All);
 
-		pv.RPC("TrocaSala", RpcTarget.All);
+        pv.RPC("TrocaSala", RpcTarget.All);
 
-	}
+    }
 
-
+    #endregion
 }

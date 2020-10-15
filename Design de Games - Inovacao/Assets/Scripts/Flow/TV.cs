@@ -17,6 +17,8 @@ public class TV : MonoBehaviour
 
     public GameFlowController flowController;
 
+    #region Unity Function
+
     void Start()
     {
         pointer = GetComponent<ItemLocatorOnScreen>();
@@ -38,63 +40,29 @@ public class TV : MonoBehaviour
             aiGanhou = Resources.Load<BoolVariableArray>("AIGanhou");
         }
 
-		for (int i = 0; i < acabou01.Value.Length; i++)
-		{
-			CoisasAtivas(i, false);
-		}
+        for (int i = 0; i < acabou01.Value.Length; i++)
+        {
+            CoisasAtivas(i, false);
+        }
 
         if (GameManager.historiaMode)
         {
             Debug.Log(PlayerPrefsManager.Instance.prefsVariables.falasIndex);
-            if(CheckPointController.nextFalaIndex != 0)
+            if (CheckPointController.nextFalaIndex != 0)
             {
                 CoisasAtivas(CheckPointController.nextFalaIndex, true);
             }
-            /*if (demo.Value == false)
-            {
-                if (PlayerPrefsManager.Instance.prefsVariables.falasIndex == 3 || PlayerPrefsManager.Instance.prefsVariables.falasIndex == 4 || PlayerPrefsManager.Instance.prefsVariables.falasIndex == 5 || PlayerPrefsManager.Instance.prefsVariables.falasIndex == 7)
-                {
-                    if (PlayerPrefsManager.Instance.prefsVariables.falasIndex == PlayerPrefsManager.Instance.prefsVariables.levelIndex)
-                    {
-                        CoisasAtivas(PlayerPrefsManager.Instance.prefsVariables.falasIndex, true);
-                    }
-                }
-                else
-                {
-                    CoisasAtivas(PlayerPrefsManager.Instance.prefsVariables.falasIndex, true);
-                }
-            }
-            else
-            {
-                if (PlayerPrefsManager.Instance.prefsVariables.falasIndex < 5)
-                {
-                    if (PlayerPrefsManager.Instance.prefsVariables.falasIndex == 3 || PlayerPrefsManager.Instance.prefsVariables.falasIndex == 4)
-                    {
-                        if (PlayerPrefsManager.Instance.prefsVariables.falasIndex == PlayerPrefsManager.Instance.prefsVariables.levelIndex)
-                        {
-                            CoisasAtivas(PlayerPrefsManager.Instance.prefsVariables.falasIndex, true);
-                        }
-                    }
-                    else
-                    {
-                        CoisasAtivas(PlayerPrefsManager.Instance.prefsVariables.falasIndex, true);
-                    }
-                }
-                else
-                {
-                    flowController.FlowHUB();
-                }
-            }*/
-
         }
 
 
-		faloComTV = false;
+        faloComTV = false;
     }
+    #endregion
 
-	
-	public void CoisasAtivas(int index, bool ativar)
-	{   
+    #region Public Functions
+
+    public void CoisasAtivas(int index, bool ativar)
+    {
         if (!ativar)
         {
             falas[index].SetActive(ativar);
@@ -105,8 +73,8 @@ public class TV : MonoBehaviour
             falas[PlayerPrefsManager.Instance.prefsVariables.falasIndex].SetActive(true);
             falas[CheckPointController.nextFalaIndex].SetActive(true);
         }
-		pointer.enabled = ativar;
-		precisaFalar = ativar;
+        pointer.enabled = ativar;
+        precisaFalar = ativar;
         //FalouComTV();
 
     }
@@ -118,10 +86,17 @@ public class TV : MonoBehaviour
         pointer.enabled = false;
         precisaFalar = false;
         faloComTV = true;
-        if(PlayerPrefsManager.Instance.prefsVariables.falasIndex == 8)
+        if (PlayerPrefsManager.Instance.prefsVariables.falasIndex == 8)
         {
             PlayerPrefsManager.Instance.SavePlayerPrefs("LevelIndex", 8);
         }
         flowController.FlowHUB();
     }
+
+    #endregion
+
+    #region Private Functions
+
+    #endregion
+
 }

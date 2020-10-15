@@ -49,24 +49,25 @@ public class EmpinaMoto : MonoBehaviour
     public Joystick joy;
     public PlayerThings playerThings;
 
+    #region Unity Function
 
     private void Start()
-	{
+    {
         joy = FindObjectOfType<Joystick>();
         isEmpinando = false;
-		isManobrandoNoAr = false;
-		originalSpeed = playerSpeed.Value;
-		playerSpeed.Value = baseSpeed;
-		motoPV = GetComponent<PhotonView>();
-		//brilhoDeBoost.gameObject.SetActive(false);
-		motoBrilho.gameObject.SetActive(false);
-		originalJumpForce = jumpForce.Value;
-		jumpForce.Value = jumpMoto;
-		//motoPV.ViewID = playerPV.ViewID;
-	}
+        isManobrandoNoAr = false;
+        originalSpeed = playerSpeed.Value;
+        playerSpeed.Value = baseSpeed;
+        motoPV = GetComponent<PhotonView>();
+        //brilhoDeBoost.gameObject.SetActive(false);
+        motoBrilho.gameObject.SetActive(false);
+        originalJumpForce = jumpForce.Value;
+        jumpForce.Value = jumpMoto;
+        //motoPV.ViewID = playerPV.ViewID;
+    }
 
-	private void Update()
-	{
+    private void Update()
+    {
         if (controller.collisions.descendingSlope)
         {
             player.transform.localRotation = Quaternion.Slerp(player.transform.localRotation, Quaternion.Euler(player.transform.localRotation.x, player.transform.localRotation.y, -controller.collisions.slopeAngle), 1f);
@@ -99,14 +100,14 @@ public class EmpinaMoto : MonoBehaviour
         }
 
         else if (isEmpinando)
-		{
+        {
             playerSpeed.Value = Mathf.Lerp(playerSpeed.Value, boostSpeed, 0.5f);
 
-			if (!trail.isPlaying)
-			{
-				trail.Play();
-			}
-		}
+            if (!trail.isPlaying)
+            {
+                trail.Play();
+            }
+        }
 
         else
         {
@@ -123,33 +124,43 @@ public class EmpinaMoto : MonoBehaviour
 
 
 
-		if (motoPV.IsMine || !PhotonNetwork.InRoom)
-		{
-			if ((triggerController.collisions.boostMoto && controller.collisions.below) || carregado || !controller.collisions.below)
-			{
-				motoBrilho.gameObject.SetActive(true);
-				motoBrilho.color = Color.Lerp(motoBrilho.color, Random.ColorHSV(0, 1), 0.1f);
-			}
-			else
-			{
-				motoBrilho.gameObject.SetActive(false);
-			}
-		}
+        if (motoPV.IsMine || !PhotonNetwork.InRoom)
+        {
+            if ((triggerController.collisions.boostMoto && controller.collisions.below) || carregado || !controller.collisions.below)
+            {
+                motoBrilho.gameObject.SetActive(true);
+                motoBrilho.color = Color.Lerp(motoBrilho.color, Random.ColorHSV(0, 1), 0.1f);
+            }
+            else
+            {
+                motoBrilho.gameObject.SetActive(false);
+            }
+        }
 
 
-		baseSpeed = Mathf.Lerp(baseSpeed, boostSpeed, 0.01f * Time.deltaTime);
+        baseSpeed = Mathf.Lerp(baseSpeed, boostSpeed, 0.01f * Time.deltaTime);
 
 
 
-	}
+    }
 
-	public void buttonEmpina()
-	{
-		if (isManobrandoNoAr || isEmpinando) return;
+    private void OnDestroy()
+    {
+        playerSpeed.Value = originalSpeed;
+        jumpForce.Value = originalJumpForce;
+    }
 
-		if (triggerController.collisions.boostMoto && controller.collisions.below)
-		{
-				isEmpinando = true;
+    #endregion
+
+    #region Public Functions
+
+    public void buttonEmpina()
+    {
+        if (isManobrandoNoAr || isEmpinando) return;
+
+        if (triggerController.collisions.boostMoto && controller.collisions.below)
+        {
+            isEmpinando = true;
 
             if (!PhotonNetwork.InRoom)
             {
@@ -159,13 +170,13 @@ public class EmpinaMoto : MonoBehaviour
             {
                 motoPV.RPC("daGrau", RpcTarget.All, 1);
             }
-			
-		}
+
+        }
 
 
         if (!controller.collisions.below)
-		{
-			isManobrandoNoAr = true;
+        {
+            isManobrandoNoAr = true;
 
             if (!PhotonNetwork.InRoom)
             {
@@ -180,9 +191,9 @@ public class EmpinaMoto : MonoBehaviour
     }
 
 
-	public void stopManobra()
-	{
-		isManobrandoNoAr = false;
+    public void stopManobra()
+    {
+        isManobrandoNoAr = false;
         if (!PhotonNetwork.InRoom)
         {
             daGrau(0);
@@ -191,40 +202,40 @@ public class EmpinaMoto : MonoBehaviour
         {
             motoPV.RPC("daGrau", RpcTarget.All, 0);
         }
-	}
+    }
 
+    #endregion
 
-	[PunRPC]
-	public void daGrau(int modo)
-	{
-		switch (modo)
-		{
-			case 1:
-				StartCoroutine("Empinando");
-				isEmpinando = true;
-				break;
+    #region Private Functions
 
-			case 2:
-				//StartCoroutine("Empinando");
-				isManobrandoNoAr = true;
-				break;
+    [PunRPC]
+    private void daGrau(int modo)
+    {
+        switch (modo)
+        {
+            case 1:
+                StartCoroutine("Empinando");
+                isEmpinando = true;
+                break;
 
-			default:
-				isManobrandoNoAr = false;
-				break;
-		}
+            case 2:
+                //StartCoroutine("Empinando");
+                isManobrandoNoAr = true;
+                break;
+
+            default:
+                isManobrandoNoAr = false;
+                break;
+        }
         Debug.Log("daGrau");
     }
 
-	public IEnumerator Empinando()
-	{
-		yield return new WaitForSeconds(2);
-		isEmpinando = false;
-	}
+    private IEnumerator Empinando()
+    {
+        yield return new WaitForSeconds(2);
+        isEmpinando = false;
+    }
 
-	private void OnDestroy()
-	{
-		playerSpeed.Value = originalSpeed;
-		jumpForce.Value = originalJumpForce;
-	}
+    #endregion
+
 }

@@ -6,6 +6,8 @@ public class FalaController : MonoBehaviour
 {
     public GameObject[] falaObj;
 
+    #region Unity Function
+
     private void Start()
     {
         Debug.Log(CheckPointController.nextFaseIndex);
@@ -13,11 +15,21 @@ public class FalaController : MonoBehaviour
         {
             GameManager.precisaFalarTV = true;
             Debug.Log(CheckPointController.nextFalaIndex);
-            falaObj[CheckPointController.nextFalaIndex-1].SetActive(true);
-            if(CheckPointController.nextFalaIndex == 1)
+            falaObj[CheckPointController.nextFalaIndex - 1].SetActive(true);
+            if (CheckPointController.nextFalaIndex == 1)
             {
                 falaObj[1].SetActive(true);
             }
         }
     }
+
+    #endregion
+
+    #region Public Functions
+
+    #endregion
+
+    #region Private Functions
+
+    #endregion
 }

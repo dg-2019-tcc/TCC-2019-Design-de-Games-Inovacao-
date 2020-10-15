@@ -20,13 +20,13 @@ public class InputController : MonoBehaviour
     [HideInInspector]
     public bool pressX;
 
-
+    #region Unity Function
     private void Awake()
     {
         PV = GetComponent<PhotonView>();
         buildPC = Resources.Load<BoolVariable>("BuildPC");
 
-        if(buildPC.Value == false)
+        if (buildPC.Value == false)
         {
             joyStick = FindObjectOfType<FloatingJoystick>();
         }
@@ -69,4 +69,14 @@ public class InputController : MonoBehaviour
             }
         }
     }
+    #endregion
+
+    #region Public Functions
+
+    #endregion
+
+    #region Private Functions
+
+    #endregion
+
 }

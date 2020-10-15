@@ -11,11 +11,16 @@ public class AIController2D : RaycastController
 
     Vector2 aiInput;
 
+    #region Unity Function
+
     public override void Start()
     {
         base.Start();
     }
 
+    #endregion
+
+    #region Public Functions
 
     public void Move(Vector2 moveAmount, Vector2 input)
     {
@@ -41,6 +46,10 @@ public class AIController2D : RaycastController
         transform.Translate(moveAmount);
     }
 
+    #endregion
+
+    #region Private Functions
+
     void HorizontalCollisions(ref Vector2 moveAmount)
     {
         float directionX = Mathf.Sign(moveAmount.x);
@@ -58,7 +67,7 @@ public class AIController2D : RaycastController
             {
                 float slopeAngle = Vector2.Angle(hit.normal, Vector2.up);
 
-                if (hit.collider.CompareTag ("Barreira"))
+                if (hit.collider.CompareTag("Barreira"))
                 {
                     collisions.bateuObs = true;
                 }
@@ -135,12 +144,12 @@ public class AIController2D : RaycastController
 
             if (hit)
             {
-                if (hit.collider.CompareTag ("Destroy"))
+                if (hit.collider.CompareTag("Destroy"))
                 {
                     hit.collider.gameObject.SendMessage("ToAqui");
                 }
 
-                if (hit.collider.CompareTag ("Through"))
+                if (hit.collider.CompareTag("Through"))
                 {
                     if (directionY == 1 || hit.distance == 0)
                     {
@@ -242,12 +251,12 @@ public class AIController2D : RaycastController
         }
     }
 
-
-
     void ResetFallingPlatform()
     {
         collisions.fallingPlatform = false;
     }
+
+    #endregion
 
     public struct CollisionInfo
     {

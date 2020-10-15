@@ -15,6 +15,7 @@ public class GameFlowController : MonoBehaviour
     public int ganhouDoKlay;
     //private string sceneName;
 
+    #region Unity Function
 
     private void Start()
     {
@@ -31,41 +32,12 @@ public class GameFlowController : MonoBehaviour
             demo = Resources.Load<BoolVariable>("Demo");
         }
         OfflineMode.Instance.AtivaOffline(true);
-         /*if (GameManager.sceneAtual == SceneType.MenuPrincipal)
-        {
-            CheckPointController.instance.LoadCheckPoint();
-        }
-
-        if (GameManager.sceneAtual == SceneType.HUB)
-        {
-            GameManager.historiaMode = false;
-            if (GameManager.historiaMode)
-            {
-                OfflineMode.Instance.AtivaOffline(true);
-
-                if(CheckPointController.nextFalaIndex != 0)
-                {
-                    flowManager.FechaTudo();
-                }
-                else
-                {
-                    flowManager.AtivaFase(CheckPointController.nextFaseIndex);
-                }
-            }
-
-            else
-            {
-                flowManager.AtivaFase(8);
-            }
-        }*/
 
     }
 
+    #endregion
 
-    public void OfflineButtonMenu(bool isOn)
-    {
-        flowManager.OfflineButtonOn(isOn);
-    }
+    #region Public Functions
 
     public void FlowHUB()
     {
@@ -74,6 +46,17 @@ public class GameFlowController : MonoBehaviour
         flowManager.AtivaFase(PlayerPrefsManager.Instance.prefsVariables.levelIndex);
         Debug.Log(PlayerPrefsManager.Instance.prefsVariables.levelIndex);
     }
+
+    #endregion
+
+    #region Private Functions
+
+    private void OfflineButtonMenu(bool isOn)
+    {
+        flowManager.OfflineButtonOn(isOn);
+    }
+
+    #endregion
     
 
 }

@@ -9,33 +9,38 @@ public class TakeOffUnused : MonoBehaviour
 
     private UnityArmatureComponent armature;
 
+    #region Unity Function
+
     private void Start()
     {
         armature = GetComponent<UnityArmatureComponent>();
     }
 
+    #endregion
+
+    #region Public Functions
 
     //Está sendo chamado pelo script Player2DAnimations
     public void CheckAndExecute()
-	{
-		if (letThemBeOn)
-		{
-			return;
+    {
+        if (letThemBeOn)
+        {
+            return;
 
-		}
+        }
 
-		foreach (UnityEngine.Transform part in GetComponentsInChildren<UnityEngine.Transform>(true))
-		{
-			ChangeMultipleCustom changeMultipleCustom = part.GetComponent<ChangeMultipleCustom>();
-			if (!part.gameObject.activeSelf && changeMultipleCustom != null)
-			{
+        foreach (UnityEngine.Transform part in GetComponentsInChildren<UnityEngine.Transform>(true))
+        {
+            ChangeMultipleCustom changeMultipleCustom = part.GetComponent<ChangeMultipleCustom>();
+            if (!part.gameObject.activeSelf && changeMultipleCustom != null)
+            {
 
                 foreach (GameObject subPart in changeMultipleCustom.multipleCustom)
                 {
                     Destroy(subPart);
                 }
 
-                foreach(GameObject subStroke in changeMultipleCustom.multipleStroke)
+                foreach (GameObject subStroke in changeMultipleCustom.multipleStroke)
                 {
                     if (!subStroke.gameObject.activeSelf)
                     {
@@ -46,5 +51,11 @@ public class TakeOffUnused : MonoBehaviour
 
         }
         letThemBeOn = true;
-	}
+    }
+
+    #endregion
+
+    #region Private Functions
+
+    #endregion
 }

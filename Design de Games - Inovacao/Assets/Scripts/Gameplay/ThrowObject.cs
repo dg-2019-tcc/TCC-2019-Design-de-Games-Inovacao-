@@ -59,6 +59,8 @@ namespace Complete {
         private DogController dogController;
         private bool isOnline;
 
+        #region Unity Function
+
         private void Awake()
         {
             textoAtivo = Resources.Load<BoolVariable>("TextoAtivo");
@@ -69,7 +71,7 @@ namespace Complete {
             playerAnim = GetComponent<PlayerAnimController>();
 
             tiroImage = tiroButton.GetComponent<Image>();
-			PoolInitialize();
+            PoolInitialize();
 
 
             if (PhotonNetwork.InRoom)
@@ -81,7 +83,6 @@ namespace Complete {
                 isOnline = false;
             }
         }
-
 
         void Update()
         {
@@ -108,12 +109,19 @@ namespace Complete {
             }
         }
 
+        #endregion
+
+        #region Public Functions
+
         //Sendo chamado pelo script ButtonA
         public void Atirou()
         {
             atirou = true;
         }
 
+        #endregion
+
+        #region Private Functions
 
         [PunRPC]
         void Shoot()
@@ -121,20 +129,20 @@ namespace Complete {
             Debug.Log("Atirou");
             //if (GameManager.inRoom && !(bool)photonView.Owner.CustomProperties["dogValue"])return;
             GameObject bullet;
-			int i = 0;
-			while (i <= bulletPool.Length-1 && bulletPool[i].activeSelf)
-			{
-				
-				i++;
-			}
-			if (i > bulletPool.Length - 1)
-			{
-				bulletPool[i] = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
-			}
-			bullet = bulletPool[i];// as GameObject;
-			bullet.transform.position = firePoint.position;
-			bullet.transform.rotation = firePoint.rotation;
-			bullet.SetActive(true);
+            int i = 0;
+            while (i <= bulletPool.Length - 1 && bulletPool[i].activeSelf)
+            {
+
+                i++;
+            }
+            if (i > bulletPool.Length - 1)
+            {
+                bulletPool[i] = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+            }
+            bullet = bulletPool[i];// as GameObject;
+            bullet.transform.position = firePoint.position;
+            bullet.transform.rotation = firePoint.rotation;
+            bullet.SetActive(true);
             shootAnim = false;
             //anim.DogButtonAnim(shootAnim);
             //anim.dogButtonAnim = shootAnim;
@@ -166,8 +174,6 @@ namespace Complete {
                 Shoot();
             }
         }
-
-
 
         IEnumerator CooldownEffect()
         {
@@ -203,14 +209,16 @@ namespace Complete {
             atirando = false;
         }
 
-		private void PoolInitialize()
-		{
-			bulletPool = new GameObject[poolSize];
-			for (int i = 0; i < poolSize-1; i++)
-			{
-				bulletPool[i] = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
-				bulletPool[i].SetActive(false);
-			}
-		}
+        private void PoolInitialize()
+        {
+            bulletPool = new GameObject[poolSize];
+            for (int i = 0; i < poolSize - 1; i++)
+            {
+                bulletPool[i] = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+                bulletPool[i].SetActive(false);
+            }
+        }
+
+        #endregion
     }
 }

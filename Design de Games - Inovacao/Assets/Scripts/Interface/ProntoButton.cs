@@ -20,22 +20,31 @@ public class ProntoButton : MonoBehaviour
 
     public SceneType nextScene;
 
+    #region Unity Function
+
+    #endregion
+
+    #region Public Functions
+
     public void ComecaJogo()
     {
         FMODUnity.RuntimeManager.PlayOneShot("event:/HUD/Start", GetComponent<Transform>().position);
-        /*if (jaJogou.Value)
-        {
-            nomeDoMenu = hub;
-        }
-        else
-        {
-            nomeDoMenu = tutorial;
-        }*/
-        //jaJogou.Value = true;
-        //SceneManager.LoadScene(nomeDoMenu);
+
         CheckPointController.instance.WonGameCheckPoint();
         LoadingManager.instance.LoadNewScene(nextScene, GameManager.sceneAtual, false);
     }
+
+    public void TutorialStart()
+    {
+        FMODUnity.RuntimeManager.PlayOneShot("event:/HUD/Start", GetComponent<Transform>().position);
+        DelayStartWaitingRoomController.minPlayerToStart = 1;
+        DelayStartWaitingRoomController.tutorialMode = true;
+        CreateTutorialRoom();
+    }
+
+    #endregion
+
+    #region Private Functions
 
     void ChamaTutorial()
     {
@@ -53,16 +62,9 @@ public class ProntoButton : MonoBehaviour
         else
         {
             PhotonNetwork.NickName = "Player " + Random.Range(0, 1000);
-        }        
+        }
     }
 
-    public void TutorialStart()
-    {
-        FMODUnity.RuntimeManager.PlayOneShot("event:/HUD/Start", GetComponent<Transform>().position);
-        DelayStartWaitingRoomController.minPlayerToStart = 1;
-        DelayStartWaitingRoomController.tutorialMode = true;
-        CreateTutorialRoom();        
-    }
 
     void CreateTutorialRoom()
     {
@@ -70,4 +72,7 @@ public class ProntoButton : MonoBehaviour
         RoomOptions roomOps = new RoomOptions() { IsVisible = false, IsOpen = false, MaxPlayers = (byte)1 };
         PhotonNetwork.CreateRoom("Room" + randomRoomNumber, roomOps);
     }
+
+    #endregion
+
 }

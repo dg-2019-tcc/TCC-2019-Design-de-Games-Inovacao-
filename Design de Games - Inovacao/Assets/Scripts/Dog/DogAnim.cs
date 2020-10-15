@@ -36,7 +36,7 @@ public class DogAnim : MonoBehaviour
     public GameObject[] dog01;
     public GameObject[] dog02;
 
-
+    #region Unity Function
     void Start()
     {
         pv = GetComponent<PhotonView>();
@@ -51,24 +51,26 @@ public class DogAnim : MonoBehaviour
             isOnline = false;
         }
     }
+    #endregion
 
+    #region Public Functions
     public void ChangeDogAnim(Vector3 moveAmount, Vector2 input)
     {
         //if (!jaAtivou) return;
         if (input.x != 0)
         {
-            if (GameManager.inRoom)pv.RPC("WalkDog", RpcTarget.All, true);
+            if (GameManager.inRoom) pv.RPC("WalkDog", RpcTarget.All, true);
             else WalkDog(true);
         }
 
         else if (moveAmount.y > 3)
         {
-            if (GameManager.inRoom)pv.RPC("UpDog", RpcTarget.All, true);
+            if (GameManager.inRoom) pv.RPC("UpDog", RpcTarget.All, true);
             else UpDog(true);
         }
         else if (moveAmount.y < -1)
         {
-            if (GameManager.inRoom)pv.RPC("DownDog", RpcTarget.All, true);
+            if (GameManager.inRoom) pv.RPC("DownDog", RpcTarget.All, true);
             else DownDog(true);
         }
 
@@ -78,32 +80,33 @@ public class DogAnim : MonoBehaviour
             else IdleDog(true);
         }
 
-        if(state != State.Idle)
+        if (state != State.Idle)
         {
             if (GameManager.inRoom) pv.RPC("IdleDog", RpcTarget.All, false);
             else IdleDog(false);
         }
 
-        if(state != State.Walk)
+        if (state != State.Walk)
         {
             if (GameManager.inRoom) pv.RPC("WalkDog", RpcTarget.All, false);
             else WalkDog(false);
         }
 
-        if(state != State.Up)
+        if (state != State.Up)
         {
             if (GameManager.inRoom) pv.RPC("UpDog", RpcTarget.All, false);
             else UpDog(false);
         }
 
-        if(state != State.Down)
+        if (state != State.Down)
         {
             if (GameManager.inRoom) pv.RPC("DownDog", RpcTarget.All, false);
             else DownDog(false);
         }
     }
+    #endregion
 
-
+    #region Private Functions
     [PunRPC]
     void WalkDog(bool play)
     {
@@ -128,14 +131,14 @@ public class DogAnim : MonoBehaviour
                 walkState.Play();
             }
             state = State.Walk;
-            
+
         }
         else
         {
             if (walkState == null) return;
             else
             {
-               
+
                 walkState.weight = 0;
                 walkState.displayControl = false;
                 walkState.Stop();
@@ -191,20 +194,20 @@ public class DogAnim : MonoBehaviour
             dogArmature.animation.lastAnimationState.weight = 0;
 
             dog01Ativo = false;
-                desativaPuff = true;
+            desativaPuff = true;
 
-                if (downState == null)
-                {
-                    downState = dogArmature.animation.FadeIn("2_Descendo(NoAr)", 0.1f, -1, 2, null, AnimationFadeOutMode.None);
-                    downState.displayControl = true;
-                }
-                else
-                {
-                    downState.displayControl = true;
-                    downState.weight = 1;
-                    downState.Play();
-                }
-                state = State.Down;
+            if (downState == null)
+            {
+                downState = dogArmature.animation.FadeIn("2_Descendo(NoAr)", 0.1f, -1, 2, null, AnimationFadeOutMode.None);
+                downState.displayControl = true;
+            }
+            else
+            {
+                downState.displayControl = true;
+                downState.weight = 1;
+                downState.Play();
+            }
+            state = State.Down;
         }
         else
         {
@@ -262,7 +265,7 @@ public class DogAnim : MonoBehaviour
     {
         if (dog01[0].activeInHierarchy == isOn) return;
 
-        for(int i = 0; i < dog01.Length; i++)
+        for (int i = 0; i < dog01.Length; i++)
         {
             dog01[i].SetActive(isOn);
         }
@@ -277,5 +280,5 @@ public class DogAnim : MonoBehaviour
             dog02[i].SetActive(isOn);
         }
     }
-
+    #endregion
 }

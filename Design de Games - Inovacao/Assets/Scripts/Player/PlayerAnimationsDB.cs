@@ -57,19 +57,22 @@ public class PlayerAnimationsDB : MonoBehaviour
     public bool updateCar;
     private bool canFadeIn;
 
+    #region Unity Function
     private void Start()
     {
         photonView = gameObject.GetComponent<PhotonView>();
     }
+    #endregion
 
+    #region Public Functions
     public void StateFrenteUpdate()
     {
-        if(frente.activeInHierarchy == false)
+        if (frente.activeInHierarchy == false)
         {
             frente.SetActive(true);
             lado.SetActive(false);
         }
-        if(stateFrente != AnimStateFrente.None)
+        if (stateFrente != AnimStateFrente.None)
         {
             switch (stateFrente)
             {
@@ -94,19 +97,19 @@ public class PlayerAnimationsDB : MonoBehaviour
                     break;
             }
 
-            if(stateFrente != AnimStateFrente.Idle)
+            if (stateFrente != AnimStateFrente.Idle)
             {
                 if (!GameManager.inRoom) IdleAnim(false);
                 else photonView.RPC("IdleAnim", RpcTarget.All, false);
             }
 
-            if (stateFrente != AnimStateFrente.Ganhou && winState !=null)
+            if (stateFrente != AnimStateFrente.Ganhou && winState != null)
             {
                 if (!GameManager.inRoom) GanhouAnim(false);
                 else photonView.RPC("GanhouAnim", RpcTarget.All, false);
             }
 
-            if (stateFrente != AnimStateFrente.Perdeu && loseState !=null)
+            if (stateFrente != AnimStateFrente.Perdeu && loseState != null)
             {
                 if (!GameManager.inRoom) PerdeuAnim(false);
                 else photonView.RPC("PerdeuAnim", RpcTarget.All, false);
@@ -186,7 +189,7 @@ public class PlayerAnimationsDB : MonoBehaviour
         }
         else
         {
-            if (pipaState != null && pipaState.weight !=0) if (GameManager.inRoom) { photonView.RPC("PipaAnim", RpcTarget.All, false); } else { PipaAnim(false); }
+            if (pipaState != null && pipaState.weight != 0) if (GameManager.inRoom) { photonView.RPC("PipaAnim", RpcTarget.All, false); } else { PipaAnim(false); }
             if (carroDownState != null && carroDownState.weight != 0) if (GameManager.inRoom) { photonView.RPC("CarroDownAnim", RpcTarget.All, false); } else { CarroDownAnim(false); }
             if (carroUpState != null && carroUpState.weight != 0) if (GameManager.inRoom) { photonView.RPC("CarroUpAnim", RpcTarget.All, false); } else { CarroUpAnim(false); }
             if (carroWalkState != null && carroWalkState.weight != 0) if (GameManager.inRoom) { photonView.RPC("CarroWalkAnim", RpcTarget.All, false); } else { CarroWalkAnim(false); }
@@ -211,7 +214,7 @@ public class PlayerAnimationsDB : MonoBehaviour
                 {
                     case AnimStateAction.Chute:
                         if (state == State.Chutando) return;
-                        if (GameManager.inRoom == false) {  ChutandoAnim(true); }
+                        if (GameManager.inRoom == false) { ChutandoAnim(true); }
                         else { photonView.RPC("ChutandoAnim", RpcTarget.All, true); }
                         break;
 
@@ -225,13 +228,13 @@ public class PlayerAnimationsDB : MonoBehaviour
         }
         else
         {
-            if(chuteState != null)
+            if (chuteState != null)
             {
                 if (GameManager.inRoom == false) { ChutandoAnim(false); }
                 else { photonView.RPC("ChutandoAnim", RpcTarget.All, false); }
             }
 
-            if(tiroState != null)
+            if (tiroState != null)
             {
                 if (GameManager.inRoom == false) { ArremessandoAnim(false); }
                 else { photonView.RPC("ArremessandoAnim", RpcTarget.All, false); }
@@ -246,7 +249,7 @@ public class PlayerAnimationsDB : MonoBehaviour
             updateMove = false;
             if (GameManager.inRoom == false)
             {
-                if(walkState !=null && walkState.weight !=0) WalkAnim(false);
+                if (walkState != null && walkState.weight != 0) WalkAnim(false);
                 if (jumpState != null && jumpState.weight != 0) JumpAnim(false);
                 if (fallState != null && fallState.weight != 0) FallingAnim(false);
                 if (landState != null && landState.weight != 0) AterrisandoAnim(false);
@@ -299,7 +302,7 @@ public class PlayerAnimationsDB : MonoBehaviour
                 }
             }
 
-            if(state != State.Walking)
+            if (state != State.Walking)
             {
                 if (!GameManager.inRoom) WalkAnim(false);
                 else photonView.RPC("WalkAnim", RpcTarget.All, false);
@@ -325,11 +328,12 @@ public class PlayerAnimationsDB : MonoBehaviour
         }
 
     }
+    #endregion
 
-
+    #region Private Functions
     //Animações do StateFrente
     [PunRPC]
-    public void IdleAnim(bool play)
+    private void IdleAnim(bool play)
     {
         if (play)
         {
@@ -363,7 +367,7 @@ public class PlayerAnimationsDB : MonoBehaviour
     }
 
     [PunRPC]
-    public void GanhouAnim(bool play)
+    private void GanhouAnim(bool play)
     {
         if (play)
         {
@@ -395,7 +399,7 @@ public class PlayerAnimationsDB : MonoBehaviour
     }
 
     [PunRPC]
-    public void PerdeuAnim(bool play)
+    private void PerdeuAnim(bool play)
     {
         if (play)
         {
@@ -426,8 +430,8 @@ public class PlayerAnimationsDB : MonoBehaviour
         }
     }
 
-
-    [PunRPC] public void StunAnim(bool play)
+    [PunRPC]
+    private void StunAnim(bool play)
     {
         if (play)
         {
@@ -460,7 +464,7 @@ public class PlayerAnimationsDB : MonoBehaviour
 
     //Animações do statePowerUp
     [PunRPC]
-    public void PipaAnim(bool play)
+    private void PipaAnim(bool play)
     {
         if (play)
         {
@@ -507,7 +511,7 @@ public class PlayerAnimationsDB : MonoBehaviour
     }
 
     [PunRPC]
-    public void CarroWalkAnim(bool play)
+    private void CarroWalkAnim(bool play)
     {
         if (play)
         {
@@ -549,8 +553,9 @@ public class PlayerAnimationsDB : MonoBehaviour
             }
         }
     }
+
     [PunRPC]
-    public void CarroUpAnim(bool play)
+    private void CarroUpAnim(bool play)
     {
         if (play)
         {
@@ -587,8 +592,9 @@ public class PlayerAnimationsDB : MonoBehaviour
             }
         }
     }
+
     [PunRPC]
-    public void CarroDownAnim(bool play)
+    private void CarroDownAnim(bool play)
     {
         if (play)
         {
@@ -627,7 +633,6 @@ public class PlayerAnimationsDB : MonoBehaviour
         }
     }
 
-
     private void ActivateCarro(bool isOn)
     {
         if (carroMesh[0].activeInHierarchy == isOn) return;
@@ -642,7 +647,7 @@ public class PlayerAnimationsDB : MonoBehaviour
 
     // Animações do stateAction
     [PunRPC]
-    public void ArremessandoAnim(bool play)
+    private void ArremessandoAnim(bool play)
     {
 
         if (play)
@@ -681,7 +686,7 @@ public class PlayerAnimationsDB : MonoBehaviour
 
     }
     [PunRPC]
-    public void ChutandoAnim(bool play)
+    private void ChutandoAnim(bool play)
     {
         if (play)
         {
@@ -715,7 +720,7 @@ public class PlayerAnimationsDB : MonoBehaviour
 
     // Animações do stateMovement
     [PunRPC]
-    public void AterrisandoAnim(bool play)
+    private void AterrisandoAnim(bool play)
     {
         if (play)
         {
@@ -752,7 +757,7 @@ public class PlayerAnimationsDB : MonoBehaviour
 
 
     [PunRPC]
-    public void FallingAnim(bool play)
+    private void FallingAnim(bool play)
     {
         if (play)
         {
@@ -784,7 +789,7 @@ public class PlayerAnimationsDB : MonoBehaviour
 
     }
     [PunRPC]
-    public void WalkAnim(bool play)
+    private void WalkAnim(bool play)
     {
         if (play)
         {
@@ -821,7 +826,7 @@ public class PlayerAnimationsDB : MonoBehaviour
     }
 
     [PunRPC]
-    public void JumpAnim(bool play)
+    private void JumpAnim(bool play)
     {
         if (play)
         {
@@ -852,4 +857,5 @@ public class PlayerAnimationsDB : MonoBehaviour
             }
         }
     }
+    #endregion
 }

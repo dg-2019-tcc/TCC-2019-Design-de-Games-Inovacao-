@@ -9,6 +9,8 @@ public class ArmatureDeactivate : MonoBehaviour
     public Armature armature = null;
     public UnityDragonBonesData data;
 
+    #region Unity Function
+
     private void Start()
     {
         armature = unityArmature.armature;
@@ -17,7 +19,7 @@ public class ArmatureDeactivate : MonoBehaviour
 
     private void OnEnable()
     {
-        if(armature.clock == null)
+        if (armature.clock == null)
         {
             DragonBones.UnityFactory.factory.clock.Add(armature);
         }
@@ -31,4 +33,13 @@ public class ArmatureDeactivate : MonoBehaviour
         }
     }
 
+    #endregion
+
+    #region Public Functions
+
+    #endregion
+
+    #region Private Functions
+
+    #endregion
 }

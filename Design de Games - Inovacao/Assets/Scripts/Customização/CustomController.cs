@@ -15,6 +15,8 @@ public class CustomController : MonoBehaviour
 
     private Player2DAnimations animations;
     private AnimDB animDB;
+
+    #region Unity Function
     private void Start()
     {
         lado.SetActive(true);
@@ -31,8 +33,13 @@ public class CustomController : MonoBehaviour
         customDisplay.DesativaTudo();
         //TiraCustomDesativada();
     }
+    #endregion
 
+    #region Public Functions
 
+    #endregion
+
+    #region Private Functions
     public void TiraCustomDesativada()
     {
         // customDisplay.AtivaTudo();
@@ -47,7 +54,7 @@ public class CustomController : MonoBehaviour
         {
             takeOffFrente.CheckAndExecute();
             takeOffLado.CheckAndExecute();
-            if(GameManager.sceneAtual != SceneType.Moto) frente.SetActive(false);
+            if (GameManager.sceneAtual != SceneType.Moto) frente.SetActive(false);
         }
 
         /*if (takeOffFrente.letThemBeOn == true/* && takeOffLado.letThemBeOn == true && GameManager.sceneAtual != SceneType.Moto)
@@ -61,4 +68,6 @@ public class CustomController : MonoBehaviour
             frente.SetActive(false);
         }*/
     }
+    #endregion
+
 }

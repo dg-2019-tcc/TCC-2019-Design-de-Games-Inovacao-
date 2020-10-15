@@ -16,6 +16,12 @@ public class Points : ScriptableObject
     // valor só para a anim da moeda no canvas
     public int coinValue;
 
+    #region Unity Function
+
+    #endregion
+
+    #region Public Functions
+
     public void SetCoins()
     {
         Value = PlayerPrefs.GetInt("Coins");
@@ -26,14 +32,14 @@ public class Points : ScriptableObject
         PlayerPrefs.SetInt("Coins", Value);
     }
 
-	public void Add(int points)
-	{
+    public void Add(int points)
+    {
         coinValue = points;
         SetCoins();
         Value += points;
         SaveCoins();
         DisplayCoins();
-		lastTimeThisRan = Time.time;
+        lastTimeThisRan = Time.time;
 
         Debug.Log("Setting " + this.name + " as " + Value + " on PlayerPrefs");
     }
@@ -57,9 +63,15 @@ public class Points : ScriptableObject
 
         MoedaFeedbackLerp.instance.MoedaCanvasIsActive(true);
     }
-	
-	private bool stopAdding()
-	{
-		return Time.time - waitTimeToLetAddAgain <= lastTimeThisRan;
-	}
+
+    #endregion
+
+    #region Private Functions
+
+    private bool stopAdding()
+    {
+        return Time.time - waitTimeToLetAddAgain <= lastTimeThisRan;
+    }
+
+    #endregion
 }

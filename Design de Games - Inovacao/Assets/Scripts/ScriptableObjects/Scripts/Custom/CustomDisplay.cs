@@ -48,6 +48,8 @@ public class CustomDisplay : MonoBehaviour
     private PhotonView pv;
     public CustomController customController;
 
+    #region Unity Function
+
     private void Awake()
     {
         current = this;
@@ -55,6 +57,9 @@ public class CustomDisplay : MonoBehaviour
         customController = GetComponent<CustomController>();
     }
 
+    #endregion
+
+    #region Public Functions
 
     public void AtivaRoupas()
     {
@@ -96,38 +101,6 @@ public class CustomDisplay : MonoBehaviour
         }
 
         customController.TiraCustomDesativada();
-    }
-
-    void TrocaOtherPv()
-    {
-        TrocaCabelo((int)pv.Owner.CustomProperties["hairIndex"]);
-        TrocaCamisa((int)pv.Owner.CustomProperties["shirtIndex"]);
-        TrocaCalca((int)pv.Owner.CustomProperties["legsIndex"]);
-        TrocaSapato((int)pv.Owner.CustomProperties["shoeIndex"]);
-        TrocaOculos((int)pv.Owner.CustomProperties["oculosIndex"]);
-        TrocaCilios((int)pv.Owner.CustomProperties["ciliosIndex"]);
-        TrocaMask((int)pv.Owner.CustomProperties["maskIndex"]);
-        TrocaBone((int)pv.Owner.CustomProperties["boneIndex"]);
-        TrocaSkin((int)pv.Owner.CustomProperties["skinIndex"]);
-        TrocaPupila((int)pv.Owner.CustomProperties["pupilaIndex"]);
-        TrocaSobrancelha((int)pv.Owner.CustomProperties["sobrancelhaIndex"]);
-    }
-
-
-    void TrocaOffline()
-    {
-        TrocaCabelo(PlayerPrefsManager.Instance.prefsVariables.hairIndex);
-        TrocaCamisa(PlayerPrefsManager.Instance.prefsVariables.shirtIndex);
-        TrocaCalca(PlayerPrefsManager.Instance.prefsVariables.legsIndex);
-        TrocaSapato(PlayerPrefsManager.Instance.prefsVariables.shoeIndex);
-        TrocaOculos(PlayerPrefsManager.Instance.prefsVariables.oculosIndex);
-        TrocaCilios(PlayerPrefsManager.Instance.prefsVariables.ciliosIndex);
-        TrocaMask(PlayerPrefsManager.Instance.prefsVariables.maskIndex);
-        TrocaBone(PlayerPrefsManager.Instance.prefsVariables.boneIndex);
-        TrocaSkin(PlayerPrefsManager.Instance.prefsVariables.skinIndex);
-        TrocaPupila(PlayerPrefsManager.Instance.prefsVariables.pupilaIndex);
-        TrocaSobrancelha(PlayerPrefsManager.Instance.prefsVariables.sombrancelhaIndex);
-        Debug.Log("[CustomDisplay] TrocaOffline");
     }
 
     public void AtivaTudo()
@@ -263,15 +236,47 @@ public class CustomDisplay : MonoBehaviour
             }
         }
 
-        if(customController == null){customController = GetComponent<CustomController>();}
+        if (customController == null) { customController = GetComponent<CustomController>(); }
 
         customController.TiraCustomDesativada();
         Debug.Log("[CustomDisplay] DesativaTudo()");
         //AtivaTudo();
     }
 
+    #endregion
 
+    #region Private Functions
 
+    private void TrocaOtherPv()
+    {
+        TrocaCabelo((int)pv.Owner.CustomProperties["hairIndex"]);
+        TrocaCamisa((int)pv.Owner.CustomProperties["shirtIndex"]);
+        TrocaCalca((int)pv.Owner.CustomProperties["legsIndex"]);
+        TrocaSapato((int)pv.Owner.CustomProperties["shoeIndex"]);
+        TrocaOculos((int)pv.Owner.CustomProperties["oculosIndex"]);
+        TrocaCilios((int)pv.Owner.CustomProperties["ciliosIndex"]);
+        TrocaMask((int)pv.Owner.CustomProperties["maskIndex"]);
+        TrocaBone((int)pv.Owner.CustomProperties["boneIndex"]);
+        TrocaSkin((int)pv.Owner.CustomProperties["skinIndex"]);
+        TrocaPupila((int)pv.Owner.CustomProperties["pupilaIndex"]);
+        TrocaSobrancelha((int)pv.Owner.CustomProperties["sobrancelhaIndex"]);
+    }
+
+    private void TrocaOffline()
+    {
+        TrocaCabelo(PlayerPrefsManager.Instance.prefsVariables.hairIndex);
+        TrocaCamisa(PlayerPrefsManager.Instance.prefsVariables.shirtIndex);
+        TrocaCalca(PlayerPrefsManager.Instance.prefsVariables.legsIndex);
+        TrocaSapato(PlayerPrefsManager.Instance.prefsVariables.shoeIndex);
+        TrocaOculos(PlayerPrefsManager.Instance.prefsVariables.oculosIndex);
+        TrocaCilios(PlayerPrefsManager.Instance.prefsVariables.ciliosIndex);
+        TrocaMask(PlayerPrefsManager.Instance.prefsVariables.maskIndex);
+        TrocaBone(PlayerPrefsManager.Instance.prefsVariables.boneIndex);
+        TrocaSkin(PlayerPrefsManager.Instance.prefsVariables.skinIndex);
+        TrocaPupila(PlayerPrefsManager.Instance.prefsVariables.pupilaIndex);
+        TrocaSobrancelha(PlayerPrefsManager.Instance.prefsVariables.sombrancelhaIndex);
+        Debug.Log("[CustomDisplay] TrocaOffline");
+    }
 
     [PunRPC]
     private void TrocaSkin(int onlineIndex)
@@ -284,8 +289,6 @@ public class CustomDisplay : MonoBehaviour
         skinModels[onlineIndex].ChangeCustom(true);
         skin2Models[onlineIndex].ChangeCustom(true);
     }
-
-
 
     [PunRPC]
     private void TrocaCabelo(int onlineIndex)
@@ -300,8 +303,6 @@ public class CustomDisplay : MonoBehaviour
 
     }
 
-
-
     [PunRPC]
     private void TrocaCamisa(int onlineIndex)
     {
@@ -314,8 +315,6 @@ public class CustomDisplay : MonoBehaviour
         shirt2Models[onlineIndex].ChangeCustom(true);
     }
 
-
-
     [PunRPC]
     private void TrocaCalca(int onlineIndex)
     {
@@ -327,8 +326,6 @@ public class CustomDisplay : MonoBehaviour
         legModels[onlineIndex].ChangeCustom(true);
         leg2Models[onlineIndex].ChangeCustom(true);
     }
-
-
 
     [PunRPC]
     private void TrocaSapato(int onlineIndex)
@@ -398,7 +395,6 @@ public class CustomDisplay : MonoBehaviour
         bone2Models[onlineIndex].ChangeCustom(true);
     }
 
-
     [PunRPC]
     private void TrocaPupila(int onlineIndex)
     {
@@ -410,7 +406,6 @@ public class CustomDisplay : MonoBehaviour
         pupilaModels[onlineIndex].ChangeCustom(true);
         pupila2Models[onlineIndex].ChangeCustom(true);
     }
-
 
     [PunRPC]
     private void TrocaSobrancelha(int onlineIndex)
@@ -426,4 +421,6 @@ public class CustomDisplay : MonoBehaviour
         sobrancelha2EsqModels[onlineIndex].ChangeCustom(true);
         sobrancelha2DirModels[onlineIndex].ChangeCustom(true);
     }
+
+    #endregion
 }

@@ -14,13 +14,7 @@ public class DestroyColetavel2D : MonoBehaviourPunCallbacks
 
     public FloatVariable botScore;
 
-    public void PegouColetavel(bool isLocal)
-    {
-
-        Destroy(gameObject);
-    }
-
-
+    #region Unity Function
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -41,7 +35,7 @@ public class DestroyColetavel2D : MonoBehaviourPunCallbacks
                 {
                     PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 1;
                 }
-                
+
                 LevelManager.Instance.GoPodium();
             }
 
@@ -59,4 +53,21 @@ public class DestroyColetavel2D : MonoBehaviourPunCallbacks
 
 
     }
+
+    #endregion
+
+    #region Public Functions
+
+    public void PegouColetavel(bool isLocal)
+    {
+
+        Destroy(gameObject);
+    }
+
+    #endregion
+
+    #region Private Functions
+
+    #endregion
+
 }

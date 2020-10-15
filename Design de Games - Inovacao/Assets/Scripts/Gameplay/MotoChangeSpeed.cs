@@ -37,6 +37,7 @@ public class MotoChangeSpeed : MonoBehaviour
 
     //Bus somMoto;
 
+    #region Unity Function
 
     void Start()
     {
@@ -118,4 +119,14 @@ public class MotoChangeSpeed : MonoBehaviour
         CarEngine.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
         //somMoto.setMute(true);
     }
+
+    #endregion
+
+    #region Public Functions
+
+    #endregion
+
+    #region Private Functions
+
+    #endregion
 }

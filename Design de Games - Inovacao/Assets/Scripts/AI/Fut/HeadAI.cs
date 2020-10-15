@@ -15,6 +15,8 @@ namespace Complete
         public bool isFut;
         public bool isVolei;
 
+        #region Unity Function
+
         private void Start()
         {
             triggerController = GetComponent<AITriggerController>();
@@ -53,8 +55,15 @@ namespace Complete
             }
         }
 
+        #endregion
 
-        public void Corta()
+        #region Public Functions
+
+        #endregion
+
+        #region Private Functions
+
+        private void Corta()
         {
             if (ballrb == null) { ballrb = triggerController.rbBola; }
             ballrb.velocity = new Vector2(0, 0);
@@ -62,24 +71,26 @@ namespace Complete
             ballrb.AddForce(new Vector2(headForceX * 5, headForceY * 5), ForceMode2D.Impulse);
         }
 
-        public void Chuta()
+        private void Chuta()
         {
             if (ballrb == null) { ballrb = triggerController.rbBola; }
             ballrb.velocity = new Vector2(0, 0);
 
-            ballrb.AddForce(new Vector2(Random.Range(-5,-10), Random.Range(5, 10)), ForceMode2D.Impulse);
+            ballrb.AddForce(new Vector2(Random.Range(-5, -10), Random.Range(5, 10)), ForceMode2D.Impulse);
         }
 
-        public void ChutaForte()
+        private void ChutaForte()
         {
             if (ballrb == null) { ballrb = triggerController.rbBola; }
             ballrb.AddForce(new Vector2(Random.Range(-10, -15), Random.Range(-3, 3)), ForceMode2D.Impulse);
         }
 
-        public void NaArea()
+        private void NaArea()
         {
             if (ballrb == null) { ballrb = triggerController.rbBola; }
             ballrb.AddForce(new Vector2(headForceX, 0), ForceMode2D.Impulse);
         }
+
+        #endregion
     }
 }

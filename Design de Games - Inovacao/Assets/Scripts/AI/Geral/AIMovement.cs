@@ -78,7 +78,8 @@ namespace Complete {
         public State state;
         bool actionIsOn;
 
-        // Start is called before the first frame update
+        #region Unity Function
+
         public void Start()
         {
             animAI = GetComponent<AnimationsAI>();
@@ -100,7 +101,7 @@ namespace Complete {
 
         }
 
-        private void FixedUpdate()
+        private void Update()
         {
             if (GameManager.pausaJogo) return;
             botStates.BotWork();
@@ -128,7 +129,16 @@ namespace Complete {
             aiController2D.Move(velocity * Time.deltaTime, input);
         }
 
-        public void Move(BotStates.State horizontalState, BotStates.State verticalState,bool actionOn)
+        private void LateUpdate()
+        {
+            oldPosition = velocity;
+        }
+
+        #endregion
+
+        #region Public Functions
+
+        public void Move(BotStates.State horizontalState, BotStates.State verticalState, bool actionOn)
         {
             actionIsOn = actionOn;
             if (!horizontalState.Equals(BotStates.State.Null))
@@ -161,20 +171,17 @@ namespace Complete {
 
         }
 
+        #endregion
 
+        #region Private Functions
 
-        private void LateUpdate()
-        {
-            oldPosition = velocity;
-        }
-
-        public void Stop()
+        private void Stop()
         {
             jumpTimes = 0;
             input.x = 0;
         }
 
-        public void GoRight()
+        private void GoRight()
         {
             animDir = new Vector2(1, 0);
             if (GameManager.sceneAtual != SceneType.Moto && !actionIsOn)
@@ -187,7 +194,7 @@ namespace Complete {
             transform.rotation = direction;
         }
 
-        public void GoLeft()
+        private void GoLeft()
         {
             animDir = new Vector2(1, 0);
             animAI.ChangeAnimAI(animDir);
@@ -197,7 +204,7 @@ namespace Complete {
             transform.rotation = direction;
         }
 
-        public void AIJump()
+        private void AIJump()
         {
             if (isJumping == false)
             {
@@ -224,20 +231,20 @@ namespace Complete {
             }
         }
 
-        public void GoDown()
+        private void GoDown()
         {
             animDir = new Vector2(0, -1);
             animAI.ChangeAnimAI(animDir);
             input.y = -1;
         }
 
-        public IEnumerator LevouDogada()
+        private IEnumerator LevouDogada()
         {
             levouDogada = true;
             yield return new WaitForSeconds(3f);
             levouDogada = false;
         }
 
-
+        #endregion
     }
 }

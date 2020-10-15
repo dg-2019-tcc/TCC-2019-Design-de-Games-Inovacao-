@@ -33,6 +33,7 @@ public class DOTweenMoveObjects : MonoBehaviour
 
     }
 
+    #region Unity Function
     private void Start()
     {
         inicialPosition = transform.position;
@@ -47,9 +48,17 @@ public class DOTweenMoveObjects : MonoBehaviour
             BounceCoin();
         }
     }
+    #endregion
 
+    #region Public Functions
+
+    #endregion
+
+    #region Private Functions
     private void BounceCoin()
     {
         transform.DOMove(_targetPosition, _moveDuration).SetEase(moveEase).SetLoops(-1, loopType);
     }
+    #endregion
+
 }

@@ -23,22 +23,28 @@ public class LinhaDeChegada : MonoBehaviour
 	public Points moedas;
 	public int moedasGanhasNessaFase;
 
+    #region Unity Function
+
     public void Start()
     {
         euAcabei = false;
         finished = false;
-		winnerManager = FindObjectOfType<WinnerManager>();
+        winnerManager = FindObjectOfType<WinnerManager>();
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("AI"))
-		{
-			winnerManager.perdeuCorrida = true;
+        {
+            winnerManager.perdeuCorrida = true;
             LevelManager.Instance.Perdeu();
-			other.GetComponent<StateController>().enabled = false;
-		}
+            other.GetComponent<StateController>().enabled = false;
+        }
     }
+
+    #endregion
+
+    #region Public Functions
 
     public void AIGanhou()
     {
@@ -46,40 +52,46 @@ public class LinhaDeChegada : MonoBehaviour
         LevelManager.Instance.Perdeu();
     }
 
-	public void Colidiu(GameObject other)
-	{
-		playerView = other.GetComponent<PhotonView>();
-		if (finished == false)
-		{
-			if (playerView.IsMine == true && euAcabei == false)
-			{
+    public void Colidiu(GameObject other)
+    {
+        playerView = other.GetComponent<PhotonView>();
+        if (finished == false)
+        {
+            if (playerView.IsMine == true && euAcabei == false)
+            {
                 Debug.Log("colidiu com linha");
                 // PlayerMovement jogador = other.GetComponent<PlayerMovement>();
                 //playerView.RPC("Acabou", RpcTarget.All);
                 LevelManager.Instance.Ganhou();
                 winnerManager.ganhouCorrida = true;
-				totalPlayers++;
-				euAcabei = true;
-				changeRoom = true;
-			}
-		}
-		else
-		{
-			if (playerView.IsMine == true && euAcabei == false)
-			{
-				//PlayerMovement jogador = other.GetComponent<PlayerMovement>();
-				totalPlayers++;
-				euAcabei = true;
+                totalPlayers++;
+                euAcabei = true;
+                changeRoom = true;
+            }
+        }
+        else
+        {
+            if (playerView.IsMine == true && euAcabei == false)
+            {
+                //PlayerMovement jogador = other.GetComponent<PlayerMovement>();
+                totalPlayers++;
+                euAcabei = true;
 
 
-			}
-		}
-		moedas.Add(moedasGanhasNessaFase);
-	}
+            }
+        }
+        moedas.Add(moedasGanhasNessaFase);
+    }
 
     [PunRPC]
     public void Acabou()
     {
         finished = true;
     }
+
+    #endregion
+
+    #region Private Functions
+
+    #endregion
 }

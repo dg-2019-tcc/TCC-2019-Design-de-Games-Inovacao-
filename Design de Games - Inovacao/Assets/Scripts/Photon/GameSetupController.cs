@@ -39,6 +39,7 @@ namespace Complete
 
         public AIMovement aiMovement;
 
+        #region Unity Function
 
         private void OnEnable()
         {
@@ -74,7 +75,7 @@ namespace Complete
                     Debug.Log("isClient");
                 }
             }
-             else
+            else
             {
                 PlayerInst = (GameObject)PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PhotonPlayer"),
                                    spawnPoints[0].position, Quaternion.identity);
@@ -94,6 +95,18 @@ namespace Complete
             }
         }
 
+        private void OnDestroy()
+        {
+            StopAllCoroutines();
+        }
+
+        #endregion
+
+        #region Public Functions
+
+        #endregion
+
+        #region Private Functions
 
         [PunRPC]
         private void SpawnPlayer(float alterPlayerCount)
@@ -115,7 +128,7 @@ namespace Complete
             }
         }
 
-        public IEnumerator UniteSynchronization(float delay)
+        private IEnumerator UniteSynchronization(float delay)
         {
             yield return new WaitForSeconds(delay);
             if (number.Length > 0)
@@ -125,21 +138,21 @@ namespace Complete
                 yield return new WaitForSeconds(1);
                 number[number.Length - index].SetActive(false);
             }
-			if (index < number.Length)
-				StartCoroutine("UniteSynchronization", 0);
-			else
+            if (index < number.Length)
+                StartCoroutine("UniteSynchronization", 0);
+            else
             {
                 FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Feedback/Contagem/Start");
                 //PlayerInst.SetActive(true);
                 if (playerMove.playerMove != null && isMoto == false)
-				{
-					playerMove.playerMove.enabled = true;
+                {
+                    playerMove.playerMove.enabled = true;
 
-				}
-				if (playerMove.motoPlayerMovement != null)
-				{
-					playerMove.motoPlayerMovement.enabled = true;
-				}
+                }
+                if (playerMove.motoPlayerMovement != null)
+                {
+                    playerMove.motoPlayerMovement.enabled = true;
+                }
                 if (OfflineMode.modoDoOffline && !isTutorial)
                 {
                     aiSpawner.enabled = true;
@@ -147,27 +160,16 @@ namespace Complete
                 }
 
                 playerMove.playerThings.comecou = true;
-				partidaComecou.Value = true;
+                partidaComecou.Value = true;
                 GameManager.pausaJogo = false;
                 Debug.Log("Pausa jogo é" + GameManager.pausaJogo);
             }
-			
+
             index++;
 
         }
 
-        /*public IEnumerator SpawnAI()
-        {
-            yield return new WaitForSeconds(aiSpawnCooldown);
-			if (OfflineMode.modoDoOffline)
-			{
-				gameManager.SpawnAI();
-			}
-        }*/
+        #endregion
 
-		private void OnDestroy()
-		{
-			StopAllCoroutines();
-		}
 	}
 }

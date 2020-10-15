@@ -9,12 +9,18 @@ public class Landing : MonoBehaviour
 	private ParticleSystem particleOneShot;
 	public ParticleSystem particleLoop;
     public PlayerAnimationsDB animController;
-    // Start is called before the first frame update
+
+    #region Unity Function
+
     void Start()
     {
         particleOneShot = GetComponent<ParticleSystem>();
-		p2Danim = GetComponentInParent<Player2DAnimations>();
+        p2Danim = GetComponentInParent<Player2DAnimations>();
     }
+
+    #endregion
+
+    #region Public Functions
 
     public void PlayLand()
     {
@@ -37,14 +43,10 @@ public class Landing : MonoBehaviour
         particleLoop.Play();
     }
 
+    #endregion
 
-    // Update is called once per frame
-    /*void Update()
-    {
-        if(animController.stateMovement ==AnimStateMovement.Aterrisando )
-        {
-            particle.Play();
-        }
+    #region Private Functions
 
-    }*/
+    #endregion
+
 }

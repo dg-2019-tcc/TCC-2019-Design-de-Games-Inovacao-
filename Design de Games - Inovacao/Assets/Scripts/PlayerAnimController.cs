@@ -30,6 +30,7 @@ public class PlayerAnimController : MonoBehaviour
     private bool callDogButtonAnim;
     public BoolVariable levouDogada;
 
+    #region Unity Function
     private void Start()
     {
         playerAnim = GetComponent<PlayerAnimationsDB>();
@@ -72,7 +73,13 @@ public class PlayerAnimController : MonoBehaviour
         }
         coolToNext = 0;
     }
+    #endregion
 
+    #region Public Functions
+
+    #endregion
+
+    #region Private Functions
     //State01 é WinLoseAnim() e StunAnim()
 
     void WinLoseAnim()
@@ -85,13 +92,13 @@ public class PlayerAnimController : MonoBehaviour
         playerAnim.stateFrente = nextAnimState01;
         playerAnim.StateFrenteUpdate();
     }
-    void StunAnim() { nextAnimState01 = AnimStateFrente.Stun; playerAnim.StateFrenteUpdate();}
+    void StunAnim() { nextAnimState01 = AnimStateFrente.Stun; playerAnim.StateFrenteUpdate(); }
 
     //State02
     void CarroAnim()
     {
         playerAnim.updateCar = true;
-        if(playerMovement.carroVelocity.y < -1 && controller.collisions.below == false) { nextAnimState02 = AnimStatePowerUp.CarroDown; }
+        if (playerMovement.carroVelocity.y < -1 && controller.collisions.below == false) { nextAnimState02 = AnimStatePowerUp.CarroDown; }
         else if (playerMovement.carroVelocity.y > 1 && controller.collisions.below == false) { nextAnimState02 = AnimStatePowerUp.CarroUp; }
         else { nextAnimState02 = AnimStatePowerUp.CarroWalk; }
 
@@ -99,7 +106,7 @@ public class PlayerAnimController : MonoBehaviour
     void PipaAnim()
     {
         nextAnimState02 = AnimStatePowerUp.Pipa;
-    } 
+    }
     void CallState02()
     {
         playerAnim.statePowerUp = nextAnimState02;
@@ -142,16 +149,16 @@ public class PlayerAnimController : MonoBehaviour
         }
         else
         {
-            if (playerMovement.velocity.y < 1f && controller.collisions.below == false) { nextAnimState04 = AnimStateMovement.Falling;  nextAnimState01 = AnimStateFrente.None; }
-            else if (playerMovement.jump || playerMovement.velocity.y > 0) { nextAnimState04 = AnimStateMovement.Rising;  nextAnimState01 = AnimStateFrente.None; }
-            else if (inputController.joyInput.x != 0 && controller.collisions.below) { nextAnimState04 = AnimStateMovement.Walk;  nextAnimState01 = AnimStateFrente.None; }
+            if (playerMovement.velocity.y < 1f && controller.collisions.below == false) { nextAnimState04 = AnimStateMovement.Falling; nextAnimState01 = AnimStateFrente.None; }
+            else if (playerMovement.jump || playerMovement.velocity.y > 0) { nextAnimState04 = AnimStateMovement.Rising; nextAnimState01 = AnimStateFrente.None; }
+            else if (inputController.joyInput.x != 0 && controller.collisions.below) { nextAnimState04 = AnimStateMovement.Walk; nextAnimState01 = AnimStateFrente.None; }
             else { nextAnimState01 = AnimStateFrente.Idle; }
         }
         #endregion
         CallState04();
     }
 
-    public void AtualizaInfo()
+    private void AtualizaInfo()
     {
         if (playerInfo.velocity != playerMovement.velocity) { playerInfo.velocity = playerMovement.velocity; }
         if (playerInfo.input != inputController.joyInput) { playerInfo.input = inputController.joyInput; }
@@ -160,7 +167,7 @@ public class PlayerAnimController : MonoBehaviour
     }
     void CallState04()
     {
-        if(nextAnimState01 == AnimStateFrente.None)
+        if (nextAnimState01 == AnimStateFrente.None)
         {
             playerAnim.stateMovement = nextAnimState04;
             playerAnim.StateMoveUpdate(true);
@@ -174,6 +181,12 @@ public class PlayerAnimController : MonoBehaviour
         coolToNext = 0;
     }
 
+    void Cooldown()
+    {
+        coolToNext += Time.deltaTime;
+    }
+    #endregion
+
     public struct PlayerInfo
     {
         public Vector2 velocity;
@@ -181,10 +194,5 @@ public class PlayerAnimController : MonoBehaviour
         public bool isGrounded;
         public bool jump;
 
-    }
-
-    void Cooldown()
-    {
-        coolToNext += Time.deltaTime;
     }
 }

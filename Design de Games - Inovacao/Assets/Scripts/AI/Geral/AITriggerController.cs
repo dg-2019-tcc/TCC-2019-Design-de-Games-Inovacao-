@@ -13,12 +13,17 @@ namespace Complete
 
         public FloatVariable botScore;
 
+        #region Unity Function
+
         public override void Start()
         {
             base.Start();
             aiMove = GetComponent<AIMovement>();
         }
 
+        #endregion
+
+        #region Public Functions
 
         public void RayTriggerDirection()
         {
@@ -39,6 +44,10 @@ namespace Complete
                 DownCollisions();
             }
         }
+
+        #endregion
+
+        #region Private Functions
 
         void RightCollisions()
         {
@@ -347,6 +356,8 @@ namespace Complete
                 }
             }
         }
+
+        #endregion
 
         public struct TriggerCollisionInfo
         {

@@ -22,6 +22,8 @@ public class MoedaFeedbackLerp : MonoBehaviour
 
     private bool showingCoin;
 
+    #region Unity Function
+
     private void Awake()
     {
         if (instance == null)
@@ -40,13 +42,18 @@ public class MoedaFeedbackLerp : MonoBehaviour
         if (showingCoin)
         {
             timer += Time.deltaTime;
-            if(timer >= timeToDisable)
+            if (timer >= timeToDisable)
             {
                 MoedaCanvasIsActive(false);
                 timer = 0;
             }
         }
     }
+
+    #endregion
+
+    #region Public Functions
+
     public void MoedaCanvasIsActive(bool on, int coinType = 0)
     {
         showingCoin = on;
@@ -85,12 +92,16 @@ public class MoedaFeedbackLerp : MonoBehaviour
         }
     }
 
+    #endregion
+
+    #region Private Functions
+
     void ShowMoedas()
     {
         pontosDisplay = moedas.Value;
         texto.text = pontosDisplay.ToString();
-        while(timer < timeToDisable) { return; }
+        while (timer < timeToDisable) { return; }
     }
 
-    
+    #endregion    
 }

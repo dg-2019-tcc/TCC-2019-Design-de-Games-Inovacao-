@@ -45,6 +45,8 @@ namespace Complete
         public BoolVariable hitCarro;
         public BoolVariable hitPipa;
 
+        #region Unity Function
+
         public override void Start()
         {
             base.Start();
@@ -73,10 +75,9 @@ namespace Complete
 
         }
 
+        #endregion
 
-
-
-
+        #region Public Functions
 
         public void MoveDirection(Vector2 dir)
         {
@@ -89,6 +90,22 @@ namespace Complete
             DownCollisions();
         }
 
+        [PunRPC]
+        public void SendOnlineCollisions()
+        {
+            DestroyColetavel2D coletavel2D = FindObjectOfType<DestroyColetavel2D>();
+            coletavel2D.PegouColetavel(false);
+        }
+
+        public void Scored()
+        {
+            playerThings.PV.Owner.AddScore(1);
+
+        }
+
+        #endregion
+
+        #region Private Functions
 
         void RightCollisions()
         {
@@ -685,18 +702,31 @@ namespace Complete
             }
         }
 
-        [PunRPC]
-        public void SendOnlineCollisions()
+        IEnumerator TocaSomCaixaDeAgua()
         {
-            DestroyColetavel2D coletavel2D = FindObjectOfType<DestroyColetavel2D>();
-            coletavel2D.PegouColetavel(false);
+            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Objetos/CaixaDeAgua");
+            isCaixaDaguaSound = false;
+            yield return new WaitForSeconds(0.5f);
+            isCaixaDaguaSound = true;
         }
 
-        public void Scored()
+        IEnumerator TocaSomTiroDoDog()
         {
-            playerThings.PV.Owner.AddScore(1);
-
+            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Impacto");
+            isShotRecived = false;
+            yield return new WaitForSeconds(0.5f);
+            isShotRecived = true;
         }
+
+        IEnumerator TocaSomChutaBola()
+        {
+            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Objetos/Bola");
+            isBallKicked = false;
+            yield return new WaitForSeconds(0.5f);
+            isBallKicked = true;
+        }
+
+        #endregion
 
         public struct TriggerCollisionInfo
         {
@@ -731,29 +761,6 @@ namespace Complete
                 hitTV = false;
                 direction.x = direction.y = 0;
             }
-        }
-
-        IEnumerator TocaSomCaixaDeAgua()
-        {
-            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Objetos/CaixaDeAgua");
-            isCaixaDaguaSound = false;
-            yield return new WaitForSeconds(0.5f);
-            isCaixaDaguaSound = true;
-        }
-
-        IEnumerator TocaSomTiroDoDog()
-        {
-            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Impacto");
-            isShotRecived = false;
-            yield return new WaitForSeconds(0.5f);
-            isShotRecived = true;
-        }
-        IEnumerator TocaSomChutaBola()
-        {
-            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Objetos/Bola");
-            isBallKicked = false;
-            yield return new WaitForSeconds(0.5f);
-            isBallKicked = true;
         }
     }
 }

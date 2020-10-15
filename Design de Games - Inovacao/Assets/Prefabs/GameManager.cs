@@ -37,6 +37,8 @@ public class GameManager : MonoBehaviour
     public SceneType scene;
     public SceneType sceneOld;
 
+    #region Unity Function
+
     #region Singleton
     private static GameManager _instance;
 
@@ -44,10 +46,10 @@ public class GameManager : MonoBehaviour
     {
         get
         {
-            if(_instance == null)
+            if (_instance == null)
             {
                 _instance = FindObjectOfType<GameManager>();
-                if(_instance == null)
+                if (_instance == null)
                 {
                     GameObject go = new GameObject();
                     go.name = typeof(GameManager).Name;
@@ -61,7 +63,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        if(_instance == null)
+        if (_instance == null)
         {
             _instance = this;
             DontDestroyOnLoad(this.gameObject);
@@ -84,6 +86,10 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    #endregion
+
+    #region Public Functions
+
     public void LoadGame()
     {
         ChecaFase();
@@ -104,7 +110,7 @@ public class GameManager : MonoBehaviour
         {
             historiaMode = false;
         }
-        
+
         //Debug.Log("O level carregado foi: " + PlayerPrefsManager.Instance.prefsVariables.levelIndex + " A falaIndex é: " + PlayerPrefsManager.Instance.prefsVariables.falasIndex + " O modo história é: " + historiaMode);
     }
 
@@ -112,19 +118,19 @@ public class GameManager : MonoBehaviour
     public void ChecaFase()
     {
         inRoom = PhotonNetwork.InRoom;
-        if(sceneAtual == SceneType.Coleta || sceneAtual == SceneType.Corrida || sceneAtual == SceneType.Futebol || sceneAtual == SceneType.Moto || sceneAtual == SceneType.Volei || sceneAtual == SceneType.HUB || sceneAtual == SceneType.Tutorial2)
+        if (sceneAtual == SceneType.Coleta || sceneAtual == SceneType.Corrida || sceneAtual == SceneType.Futebol || sceneAtual == SceneType.Moto || sceneAtual == SceneType.Volei || sceneAtual == SceneType.HUB || sceneAtual == SceneType.Tutorial2)
         {
             if (!buildPC)
             {
                 needMobileHUD = true;
             }
-            if(sceneAtual != SceneType.HUB)
+            if (sceneAtual != SceneType.HUB)
             {
                 isGame = false;
             }
             isLoja = false;
         }
-        else if (sceneAtual == SceneType.Cabelo|| sceneAtual == SceneType.Shirt || sceneAtual == SceneType.Tenis || sceneAtual == SceneType.Customiza)
+        else if (sceneAtual == SceneType.Cabelo || sceneAtual == SceneType.Shirt || sceneAtual == SceneType.Tenis || sceneAtual == SceneType.Customiza)
         {
             isGame = false;
             isLoja = true;
@@ -137,4 +143,10 @@ public class GameManager : MonoBehaviour
             needMobileHUD = false;
         }
     }
+
+    #endregion
+
+    #region Private Functions
+
+    #endregion
 }

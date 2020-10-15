@@ -77,6 +77,7 @@ public class NewPlayerMovent : MonoBehaviour
     private bool oldStun;
     public PlayerAnimInfo playerAnimInfo;
 
+    #region Unity Function
     void Start()
     {
         inputController = GetComponent<InputController>();
@@ -101,7 +102,7 @@ public class NewPlayerMovent : MonoBehaviour
         textoAtivo = Resources.Load<BoolVariable>("TextoAtivo");
         playerGanhou.Value = false;
 
-        if(moveSpeed.Value != 6)
+        if (moveSpeed.Value != 6)
         {
             moveSpeed.Value = 6;
         }
@@ -115,13 +116,13 @@ public class NewPlayerMovent : MonoBehaviour
         }
 
         if (playerGanhou.Value || !pv.IsMine && PhotonNetwork.InRoom || textoAtivo.Value)
-		{
-			return;
-		}
+        {
+            return;
+        }
 
         joyInput = inputController.joyInput;
 
-        
+
 
         if (!carroActive.Value && !pipaActive.Value)
         {
@@ -144,13 +145,57 @@ public class NewPlayerMovent : MonoBehaviour
             }
         }
     }
+
     private void LateUpdate()
     {
         oldPosition = velocity;
-		joyInput = new Vector2(0, 0);
+        joyInput = new Vector2(0, 0);
+    }
+    #endregion
+
+    #region Public Functions
+    public void Jump()
+    {
+        jump = true;
+
+        if (controller.collisions.below && jump && levouDogada.Value == false)
+        {
+            if (carroActive.Value)
+            {
+                carroVelocity.y = maxJumpVelocity;
+            }
+
+            else
+            {
+                velocity.y = maxJumpVelocity;
+            }
+            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/PuloGr", transform.position);
+        }
     }
 
-    public void NormalMovement()
+    public void StopJump()
+    {
+        stopJump = true;
+
+        if (velocity.y > minJumpVelocity)
+        {
+            velocity.y = minJumpVelocity;
+        }
+        jump = false;
+        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/PuloPq", transform.position);
+    }
+
+    public void CallFootsteps()
+    {
+        if ((!carroActive.Value && !pipaActive.Value) && (velocity.x > 0.3f || velocity.x < -0.3f) && (controller.collisions.below && jump == false) && (textoAtivo.Value == false))
+        {
+            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Passos", transform.position);
+        }
+    }
+    #endregion
+
+    #region Private Functions
+    private void NormalMovement()
     {
         if (triggerController.collisions.caixaDagua)
         {
@@ -227,7 +272,7 @@ public class NewPlayerMovent : MonoBehaviour
         playerAnimInfo.UpdateInfo04(velocity, input, controller.collisions.below, jump);
     }
 
-    public void CarroMovement()
+    private void CarroMovement()
     {
         if (inputController.pressX == true && controller.collisions.below)
         {
@@ -257,7 +302,7 @@ public class NewPlayerMovent : MonoBehaviour
         }
     }
 
-    public void PipaMovement()
+    private void PipaMovement()
     {
         //animations.ChangeMoveAnim(pipaVelocity, oldPosition, input, levouDogada.Value, ganhou);
         //animations.PlayAnim(Player2DAnimations.State.Pipa);
@@ -286,48 +331,10 @@ public class NewPlayerMovent : MonoBehaviour
                 pipaVelocity.y = -5;
             }
         }
-        
+
 
         triggerController.MoveDirection(pipaVelocity);
         controller.Move(pipaVelocity * Time.deltaTime);
     }
-
-    public void Jump()
-    {
-        jump = true;
-
-        if (controller.collisions.below && jump && levouDogada.Value == false)
-        {
-            if (carroActive.Value)
-            {
-                carroVelocity.y = maxJumpVelocity;
-            }
-
-            else
-            {
-                velocity.y = maxJumpVelocity;
-            }
-            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/PuloGr", transform.position);
-        }
-    }
-
-    public void StopJump()
-    {
-        stopJump = true;
-
-        if (velocity.y > minJumpVelocity)
-        {
-            velocity.y = minJumpVelocity;
-        }
-        jump = false;
-        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/PuloPq", transform.position);
-    }
-
-    public void CallFootsteps()
-    {
-        if ((!carroActive.Value && !pipaActive.Value) && (velocity.x > 0.3f || velocity.x < -0.3f) && (controller.collisions.below && jump == false) && (textoAtivo.Value == false))
-        {
-            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Passos", transform.position);
-        }
-    }
+    #endregion
 }

@@ -19,6 +19,8 @@ public class CheckPointController : MonoBehaviour
 
     public static bool finishedGame;
 
+    #region Unity Function
+
     #region Singleton
 
     public static CheckPointController Instance
@@ -55,15 +57,18 @@ public class CheckPointController : MonoBehaviour
 
     #endregion
 
+    private void OnApplicationQuit()
+    {
+        SaveCheckPoint();
+    }
+
+    #endregion
+
+    #region Public Functions
+
     public void LoadCheckPoint()
     {
         checkPointIndex = PlayerPrefs.GetInt("CheckPointIndex");
-        SetCheckPoint();
-    }
-
-    private void SaveCheckPoint()
-    {
-        PlayerPrefs.SetInt("CheckPointIndex", checkPointIndex);
         SetCheckPoint();
     }
 
@@ -102,6 +107,16 @@ public class CheckPointController : MonoBehaviour
                 break;
         }
         SaveCheckPoint();
+    }
+
+    #endregion
+
+    #region Private Functions
+
+    private void SaveCheckPoint()
+    {
+        PlayerPrefs.SetInt("CheckPointIndex", checkPointIndex);
+        SetCheckPoint();
     }
 
     private void SetCheckPoint()
@@ -171,7 +186,7 @@ public class CheckPointController : MonoBehaviour
                 nextFalaIndex = 7;
                 nextFaseIndex = 0;
                 break;
-        //Depois da 7° fala antes da corrida
+            //Depois da 7° fala antes da corrida
             case 13:
                 nextFalaIndex = 0;
                 nextFaseIndex = 6;
@@ -195,8 +210,5 @@ public class CheckPointController : MonoBehaviour
         Debug.Log("{CheckPointController] Setou CheckPoint");
     }
 
-    private void OnApplicationQuit()
-    {
-        SaveCheckPoint();
-    }
+    #endregion
 }

@@ -63,17 +63,19 @@ namespace Complete
 
         public ParticleSystem puffOff;
 
+        #region Unity Function
+
         void Start()
         {
             if (GameManager.historiaMode == true)
             {
                 GameManager.Instance.ChecaFase();
-                if (GameManager.sequestrado == true || GameManager.sceneAtual == UnityCore.Scene.SceneType.Tutorial2|| GameManager.levelIndex == 5 || GameManager.levelIndex == 6)
+                if (GameManager.sequestrado == true || GameManager.sceneAtual == UnityCore.Scene.SceneType.Tutorial2 || GameManager.levelIndex == 5 || GameManager.levelIndex == 6)
                 {
                     sequestrado = true;
                     ChangeState("DesativadoState");
                     Debug.Log("Sequestrado: " + GameManager.sequestrado);
-                    Debug.Log("Sequestrado: " +  GameManager.sceneAtual);
+                    Debug.Log("Sequestrado: " + GameManager.sceneAtual);
                 }
                 else
                 {
@@ -81,7 +83,7 @@ namespace Complete
                     ChangeState("IdleState");
                     Debug.Log("Sequestrado: " + sequestrado);
                 }
-                
+
             }
 
             if (PhotonNetwork.InRoom)
@@ -138,6 +140,10 @@ namespace Complete
             }
         }
 
+        #endregion
+
+        #region Public Functions
+
         [PunRPC]
         public void ChangeState(string changeState)
         {
@@ -151,6 +157,9 @@ namespace Complete
             }
         }
 
+        #endregion
+
+        #region Private Functions
 
         IEnumerator DogDisplay(bool isOn)
         {
@@ -176,12 +185,12 @@ namespace Complete
 
 
         [PunRPC]
-        public void DogState(string dogState)
+        private void DogState(string dogState)
         {
             switch (dogState)
             {
                 case "CarroState":
-                    if (state == State.Idle || state ==State.Aviao)
+                    if (state == State.Idle || state == State.Aviao)
                     {
                         StartCoroutine("DogDisplay", false);
 
@@ -251,5 +260,6 @@ namespace Complete
             }
         }
 
+        #endregion
     }
 }

@@ -13,6 +13,8 @@ public class MenuPrincipal : MonoBehaviour
 	private string nomeDosCreditos;
     private SceneType nextScene;
 
+    #region Unity Function
+
     private void Start()
     {
         GameManager.sceneAtual = SceneType.MenuPrincipal;
@@ -21,9 +23,13 @@ public class MenuPrincipal : MonoBehaviour
         GameManager.Instance.LoadGame();
     }
 
+    #endregion
+
+    #region Public Functions
+
     public void ComecaJogo()
     {
-        if(CheckPointController.checkPointIndex > 0 || GameManager.historiaMode == false)
+        if (CheckPointController.checkPointIndex > 0 || GameManager.historiaMode == false)
         {
             nomeDoMenu = "HUB";
             nextScene = SceneType.HUB;
@@ -36,19 +42,25 @@ public class MenuPrincipal : MonoBehaviour
             nextScene = SceneType.Historia;
         }
         FMODUnity.RuntimeManager.PlayOneShot("event:/HUD/Start", GetComponent<Transform>().position);
-        LoadingManager.instance.LoadNewScene(nextScene, SceneType.MenuPrincipal,false);
+        LoadingManager.instance.LoadNewScene(nextScene, SceneType.MenuPrincipal, false);
         /*SceneController.Instance.Load(nextScene, (_scene) => {
             Debug.Log("Scene [" + _scene + "] loaded from MenuPrincipal scrípt!");
         }, false, PageType.Loading);*/
         //SceneManager.LoadScene(nomeDoMenu);
     }
 
-	public void Creditos()
-	{
+    public void Creditos()
+    {
         FMODUnity.RuntimeManager.PlayOneShot("event:/HUD/Click", GetComponent<Transform>().position);
         SceneController.Instance.Load(SceneType.Creditos, (_scene) => {
             Debug.Log("Scene [" + _scene + "] loaded from MenuPrincipal scrípt!");
         }, false, PageType.Loading);
         //SceneManager.LoadScene(nomeDosCreditos);
     }
+
+    #endregion
+
+    #region Private Functions
+
+    #endregion
 }

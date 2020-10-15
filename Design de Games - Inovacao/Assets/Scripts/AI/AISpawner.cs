@@ -6,83 +6,96 @@ using UnityEngine.UI;
 
 namespace Complete
 { 
-public class AISpawner : MonoBehaviour
-{
-
-    public GameObject[] aiPrefab;
-    public AIManager[] m_AI;
-    public List<GameObject> wayPointsForAI;
-    public GameObject bola;
-
-    public GameObject thingsAI;
-    public GameObject thingsOnline;
-
-    public FloatVariable botScore;
-
-    public AIMovement aiMovement;
-
-    public bool comecouPartida;
-
-    public BoolVariableArray acabou01;
-
-    private void Start()
+    public class AISpawner : MonoBehaviour
     {
-        if (!OfflineMode.modoDoOffline)
-        {
-            if (thingsOnline != null)
-            {
-                thingsOnline.SetActive(true);
-            }
-            thingsAI.SetActive(false);
-        }
-        else
-        {
-            botScore.Value = 0;
-            if (thingsOnline != null)
-            {
-                thingsOnline.SetActive(false);
-            }
-            thingsAI.SetActive(true);
-        }
-    }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
+        public GameObject[] aiPrefab;
+        public AIManager[] m_AI;
+        public List<GameObject> wayPointsForAI;
+        public GameObject bola;
+
+        public GameObject thingsAI;
+        public GameObject thingsOnline;
+
+        public FloatVariable botScore;
+
+        public AIMovement aiMovement;
+
+        public bool comecouPartida;
+
+        public BoolVariableArray acabou01;
+
+        #region Unity Function
+
+        private void Start()
         {
-                //SpawnAI();
+            if (!OfflineMode.modoDoOffline)
+            {
+                if (thingsOnline != null)
+                {
+                    thingsOnline.SetActive(true);
+                }
+                thingsAI.SetActive(false);
+            }
+            else
+            {
+                botScore.Value = 0;
+                if (thingsOnline != null)
+                {
+                    thingsOnline.SetActive(false);
+                }
+                thingsAI.SetActive(true);
+            }
+        }
+
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                    //SpawnAI();
+                    m_AI[0].m_Instance =
+                       Instantiate(aiPrefab[1], m_AI[0].m_SpawnPoint.position, m_AI[0].m_SpawnPoint.rotation) as GameObject;
+                }
+
+            /*if (OfflineMode.modoDoOffline && comecouPartida && aiMovement.enabled == false)
+            {
+                aiMovement.enabled = true;
+            }*/
+        }
+
+        #endregion
+
+        #region Public Functions
+
+        public void SpawnAI()
+        {
+            if (GameManager.historiaMode == false)
+            {
                 m_AI[0].m_Instance =
-                   Instantiate(aiPrefab[1], m_AI[0].m_SpawnPoint.position, m_AI[0].m_SpawnPoint.rotation) as GameObject;
+                    Instantiate(aiPrefab[0], m_AI[0].m_SpawnPoint.position, m_AI[0].m_SpawnPoint.rotation) as GameObject;
+                //m_AI[0].SetupAI(wayPointsForAI);
+
+                aiMovement = m_AI[0].aiMovement;
             }
 
-        /*if (OfflineMode.modoDoOffline && comecouPartida && aiMovement.enabled == false)
-        {
-            aiMovement.enabled = true;
-        }*/
-    }
+            else
+            {
+                m_AI[0].m_Instance =
+                    Instantiate(aiPrefab[1], m_AI[0].m_SpawnPoint.position, m_AI[0].m_SpawnPoint.rotation) as GameObject;
+                //m_AI[0].SetupAI(wayPointsForAI);
 
-    public void SpawnAI()
-    {
-        if (GameManager.historiaMode == false)
-        {
-            m_AI[0].m_Instance =
-                Instantiate(aiPrefab[0], m_AI[0].m_SpawnPoint.position, m_AI[0].m_SpawnPoint.rotation) as GameObject;
-            //m_AI[0].SetupAI(wayPointsForAI);
+                aiMovement = m_AI[0].aiMovement;
+            }
+            //aiMovement.enabled = false;
 
-            aiMovement = m_AI[0].aiMovement;
         }
 
-        else
-        {
-            m_AI[0].m_Instance =
-                Instantiate(aiPrefab[1], m_AI[0].m_SpawnPoint.position, m_AI[0].m_SpawnPoint.rotation) as GameObject;
-            //m_AI[0].SetupAI(wayPointsForAI);
+        #endregion
 
-            aiMovement = m_AI[0].aiMovement;
-        }
-        //aiMovement.enabled = false;
+        #region Private Functions
+
+        #endregion
 
     }
-}
 }
 

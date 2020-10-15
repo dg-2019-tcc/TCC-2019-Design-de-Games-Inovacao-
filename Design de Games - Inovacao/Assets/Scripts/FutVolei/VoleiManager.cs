@@ -31,6 +31,8 @@ public class VoleiManager : MonoBehaviour
     public Points moedas;
     public int moedasGanhas = 100;
 
+    #region Unity Function
+
     private void Start()
     {
         playerGol = GetComponentInParent<GolSelect>();
@@ -72,18 +74,24 @@ public class VoleiManager : MonoBehaviour
 
     }
 
-    IEnumerator Acabou()
-    {
+    #endregion
 
-
-        yield return new WaitForSeconds(3f);
-        LevelManager.Instance.GoPodium();
-    }
+    #region Public Functions
 
     [PunRPC]
     public void RecomecaVolei()
     {
         StartCoroutine("ResetaBola");
+    }
+
+    #endregion
+
+    #region Private Functions
+
+    IEnumerator Acabou()
+    {
+        yield return new WaitForSeconds(3f);
+        LevelManager.Instance.GoPodium();
     }
 
     IEnumerator ResetaBola()
@@ -104,4 +112,6 @@ public class VoleiManager : MonoBehaviour
         bola.GetComponent<Rigidbody2D>().isKinematic = false;
 
     }
+
+    #endregion
 }

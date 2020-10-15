@@ -25,6 +25,8 @@ public class GameSetup : MonoBehaviour
     public bool isFirstTime;
     private int faseEsc;
 
+    #region Unity Function
+
     private void Awake()
     {
         escolheFase = Resources.Load<BoolVariable>("EscolheFase");
@@ -70,10 +72,18 @@ public class GameSetup : MonoBehaviour
             EscolheFase();
         }
 
-		textoDebug.text = "Plataforma atual: " + plataforma + "\n Build pra pc: " + buildPC.Value.ToString();
+        textoDebug.text = "Plataforma atual: " + plataforma + "\n Build pra pc: " + buildPC.Value.ToString();
 
         PlayerPrefs.SetInt("IsFirstTime", 1);
-	}
+    }
+
+    #endregion
+
+    #region Public Functions
+
+    #endregion
+
+    #region Private Functions
 
     void FirstTime()
     {
@@ -90,7 +100,7 @@ public class GameSetup : MonoBehaviour
         LoadCoins();
         PlayerPrefsManager.Instance.LoadPlayerPref("All");
         CheckPointController.instance.LoadCheckPoint();
-        if(CheckPointController.checkPointIndex >= 15) { GameManager.historiaMode = false; pularModoHistoria.Value = true; }
+        if (CheckPointController.checkPointIndex >= 15) { GameManager.historiaMode = false; pularModoHistoria.Value = true; }
         else { GameManager.historiaMode = true; }
     }
 
@@ -118,55 +128,55 @@ public class GameSetup : MonoBehaviour
         }
     }
 
-	void LoadCoins()
-	{
-		moedas.Value = PlayerPrefs.GetInt("Coins");
-        Debug.Log("[Game Setup] Load Coins =" + moedas.Value+ "  " + PlayerPrefs.GetInt("Coins"));
-	}
+    void LoadCoins()
+    {
+        moedas.Value = PlayerPrefs.GetInt("Coins");
+        Debug.Log("[Game Setup] Load Coins =" + moedas.Value + "  " + PlayerPrefs.GetInt("Coins"));
+    }
 
-	void LoadLanguage()
-	{
-		language.UpdateLanguage(PlayerPrefs.GetString("Language"));
-		PlayerPrefs.SetString("Language", language.language);
-	}
+    void LoadLanguage()
+    {
+        language.UpdateLanguage(PlayerPrefs.GetString("Language"));
+        PlayerPrefs.SetString("Language", language.language);
+    }
 
-	private void SetVariables()
-	{
-		buildPC = Resources.Load<BoolVariable>("BuildPC");
-	}
+    private void SetVariables()
+    {
+        buildPC = Resources.Load<BoolVariable>("BuildPC");
+    }
 
-	private void CustomizationLocked()
-	{
-		if (!PlayerPrefs.HasKey("Blocked_0_0"))
-		{
-			blocked.rows = baseBlocked.rows;
-			for (int x = 0; x < blocked.rows.Length; x++)
-			{
-				for (int y = 0; y < blocked.rows[x].row.Length; y++)
-				{
-					PlayerPrefs.SetInt("Blocked_" + x + "_" + y, blocked.rows[x].row[y] ? 1 : 0);
-				}
-			}
-		}
-		else
-		{
-			GetCustomizationFromPlayerPrefs();
-			
-		}
-	}
+    private void CustomizationLocked()
+    {
+        if (!PlayerPrefs.HasKey("Blocked_0_0"))
+        {
+            blocked.rows = baseBlocked.rows;
+            for (int x = 0; x < blocked.rows.Length; x++)
+            {
+                for (int y = 0; y < blocked.rows[x].row.Length; y++)
+                {
+                    PlayerPrefs.SetInt("Blocked_" + x + "_" + y, blocked.rows[x].row[y] ? 1 : 0);
+                }
+            }
+        }
+        else
+        {
+            GetCustomizationFromPlayerPrefs();
 
-	
+        }
+    }
 
 
-	private string plataforma;
 
-	private void CheckWhichBuild()
-	{
+
+    private string plataforma;
+
+    private void CheckWhichBuild()
+    {
 #if UNITY_EDITOR
-		Debug.Log("Unity Editor");
-		buildPC.Value = true;
+        Debug.Log("Unity Editor");
+        buildPC.Value = true;
         GameManager.buildPC = true;
-		plataforma = "Unity Editor";
+        plataforma = "Unity Editor";
 #elif UNITY_STANDALONE_WIN
 		Debug.Log("Stand Alone Windows Build");
 		buildPC.Value = true;
@@ -183,16 +193,18 @@ public class GameSetup : MonoBehaviour
 		plataforma = "Não Especificada";
 #endif
     }
-	
-	private void GetCustomizationFromPlayerPrefs()
-	{
-		for (int x = 0; x < blocked.rows.Length; x++)
-		{
-			for (int y = 0; y < blocked.rows[x].row.Length; y++)
-			{
-				blocked.rows[x].row[y] = (PlayerPrefs.GetInt("Blocked_" + x + "_" + y) == 0 ? false : true);
-			}
-		}
-	}
+
+    private void GetCustomizationFromPlayerPrefs()
+    {
+        for (int x = 0; x < blocked.rows.Length; x++)
+        {
+            for (int y = 0; y < blocked.rows[x].row.Length; y++)
+            {
+                blocked.rows[x].row[y] = (PlayerPrefs.GetInt("Blocked_" + x + "_" + y) == 0 ? false : true);
+            }
+        }
+    }
+
+    #endregion
 
 }

@@ -32,13 +32,14 @@ public class DOTweenUI : MonoBehaviour
         Coin
     }
 
+    #region Unity Function
 
     private void OnEnable()
     {
         finishedTween = false;
 
         if (anim == AnimUIType.Move) { TweenIn(); }
-        else if(anim == AnimUIType.Alfa) { ChangeAlfa(true); }
+        else if (anim == AnimUIType.Alfa) { ChangeAlfa(true); }
         else if (anim == AnimUIType.Coin) { TweenInCoin(); }
     }
 
@@ -51,9 +52,13 @@ public class DOTweenUI : MonoBehaviour
 
     }
 
+    #endregion
+
+    #region Public Functions
+
     public void ChangeAlfa(bool turnOn)
     {
-        if(canvas == null) { canvas = GetComponent<CanvasGroup>(); }
+        if (canvas == null) { canvas = GetComponent<CanvasGroup>(); }
         if (turnOn)
         {
             canvas.DOFade(1f, _moveDuration).SetEase(moveEase);
@@ -66,7 +71,7 @@ public class DOTweenUI : MonoBehaviour
 
     public void TweenInCoin()
     {
-        DOTween.Sequence().Append(rectTransform.DOAnchorPos(targetPosition, _moveDuration).SetEase(moveEase)).OnComplete(() => { Destroy(coinCanvas);});
+        DOTween.Sequence().Append(rectTransform.DOAnchorPos(targetPosition, _moveDuration).SetEase(moveEase)).OnComplete(() => { Destroy(coinCanvas); });
     }
 
 
@@ -79,6 +84,11 @@ public class DOTweenUI : MonoBehaviour
     {
         rectTransform.DOAnchorPos(inicialPostion, _moveDuration).SetEase(moveEase).OnComplete(TweenOutCallback());
     }
+
+    #endregion
+
+    #region Private Functions
+
     TweenCallback TweenOutCoinCallback()
     {
         //rectTransform.DOAnchorPos(inicialPostion, _moveDuration).SetEase(moveEase);
@@ -94,4 +104,6 @@ public class DOTweenUI : MonoBehaviour
 
         return null;
     }
+
+    #endregion
 }

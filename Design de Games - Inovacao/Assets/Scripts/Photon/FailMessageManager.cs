@@ -18,70 +18,82 @@ public class FailMessageManager : MonoBehaviour
 	private string cena;
 
 	private HistoriaManager taNaCenaDeHist;
-    // Start is called before the first frame update
+
+    #region Unity Function
+
     void Start()
     {
-		DontDestroyOnLoad(gameObject);
+        DontDestroyOnLoad(gameObject);
     }
 
-	void Update()
-	{
-		cena = SceneManager.GetActiveScene().name;
+    void Update()
+    {
+        cena = SceneManager.GetActiveScene().name;
 
-		if (cena == "MenuPrincipal" || cena == "HUB")
-		{
-			return;
-		}
-
-
-		if (!startChecking)
-		{
-			if (PhotonNetwork.IsConnected != wasConnected && cena != "MenuPrincipal")
-			{
-				startChecking = true;
-			}
-		}
-		else
-		{
-			if (!PhotonNetwork.IsConnected && !manualShutdown && !message.activeSelf && cena != "HUB")
-			{
-				taNaCenaDeHist = FindObjectOfType<HistoriaManager>();
-				if (taNaCenaDeHist == null)
-				{
+        if (cena == "MenuPrincipal" || cena == "HUB")
+        {
+            return;
+        }
 
 
-					manualShutdown = true;
-					startChecking = false;
-					StartCoroutine(WeHaveToGoBack());
-				}
-				taNaCenaDeHist = null;
-			}
-			else if (manualShutdown)
-			{
-				StartCoroutine(resetShutdownMode());
-			}
-			
-		}
-	}
+        if (!startChecking)
+        {
+            if (PhotonNetwork.IsConnected != wasConnected && cena != "MenuPrincipal")
+            {
+                startChecking = true;
+            }
+        }
+        else
+        {
+            if (!PhotonNetwork.IsConnected && !manualShutdown && !message.activeSelf && cena != "HUB")
+            {
+                taNaCenaDeHist = FindObjectOfType<HistoriaManager>();
+                if (taNaCenaDeHist == null)
+                {
 
 
-	IEnumerator WeHaveToGoBack()
-	{
-		
-		message.SetActive(true);
+                    manualShutdown = true;
+                    startChecking = false;
+                    StartCoroutine(WeHaveToGoBack());
+                }
+                taNaCenaDeHist = null;
+            }
+            else if (manualShutdown)
+            {
+                StartCoroutine(resetShutdownMode());
+            }
 
-		yield return new WaitForSeconds(timeToWait);
-		message.SetActive(false);
+        }
+    }
+
+    #endregion
+
+    #region Public Functions
+
+    #endregion
+
+    #region Private Functions
+
+    IEnumerator WeHaveToGoBack()
+    {
+
+        message.SetActive(true);
+
+        yield return new WaitForSeconds(timeToWait);
+        message.SetActive(false);
         LoadingManager.instance.LoadNewScene(UnityCore.Scene.SceneType.HUB, GameManager.sceneAtual, false);
-			//SceneManager.LoadScene("HUB");
-		
+        //SceneManager.LoadScene("HUB");
 
-	}
 
-	IEnumerator resetShutdownMode()
-	{
-		yield return new WaitForSeconds(timeToWait);
-		manualShutdown = false;
+    }
 
-	}
+    IEnumerator resetShutdownMode()
+    {
+        yield return new WaitForSeconds(timeToWait);
+        manualShutdown = false;
+
+    }
+
+    #endregion
+
 }

@@ -15,47 +15,23 @@ public class DogColetaTutorial : MonoBehaviour
 
 	public bool dog;
 	private bool araki = true;
-    // Start is called before the first frame update
+
+    #region Unity Function
+
     void Start()
     {
-        //dogController.sequestrado = true;
-		// dogSpawn = gsp.PlayerInst.GetComponent<PhotonPlayer>().myAvatar.GetComponent<DogController>().Pet;
-		//		dogSpawn.Value = false;
-		if (dog)
-		{
-			pv = GetComponent<PhotonView>();
-		
-			dogSpawn.Value = false;
-		}
-		coletavel.SetActive(false);
+        if (dog)
+        {
+            pv = GetComponent<PhotonView>();
+
+            dogSpawn.Value = false;
+        }
+        coletavel.SetActive(false);
     }
 
-	// Update is called once per frame
-	 /*void Update()
-	 {
-		if (dog && araki && dogSpawn.Value)
-		{
-			dogSpawn.Value = false;
-			//dog = false;
-			araki = false;
-		}
-	 }*/
+    #endregion
 
-
-	/*private void OnTriggerEnter2D(Collider2D collision)
-	{
-		//		dogSpawn.Value = true;
-		if (collision.CompareTag("Player"))
-		{
-            Debug.Log("Trigger");
-			if (dog)
-			{
-				dogSpawn.Value = true;
-			}
-			coletavel.SetActive(true);
-			Destroy(gameObject);
-		}
-	}*/
+    #region Public Functions
 
     public void AtivaDog()
     {
@@ -69,4 +45,10 @@ public class DogColetaTutorial : MonoBehaviour
         coletavel.SetActive(true);
         Destroy(gameObject);
     }
+
+    #endregion
+
+    #region Private Functions
+
+    #endregion
 }

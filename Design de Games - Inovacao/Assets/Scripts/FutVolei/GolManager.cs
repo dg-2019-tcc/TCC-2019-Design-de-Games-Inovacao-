@@ -49,8 +49,9 @@ public class GolManager : MonoBehaviourPunCallbacks
 	public int moedasGanhasNessaFase = 100;
     private bool needAddCoins;
 
+    #region Unity Function
 
-	private void Start()
+    private void Start()
     {
         acabou01 = Resources.Load<BoolVariableArray>("Acabou01");
         aiGanhou = Resources.Load<BoolVariableArray>("AIGanhou");
@@ -71,20 +72,18 @@ public class GolManager : MonoBehaviourPunCallbacks
         bolaPV = bola.GetPhotonView();
     }
 
-
-
-
-    public void PerdeuProBot()
+    private void Update()
     {
-        Debug.Log("Perdeu");
-        feedbackWin.Perdeu();
-        aiGanhou.Value[4] = true;
-        playerGanhou.Value = false;
-        PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 0;
-        if (isLoading) return;
-        isLoading = true;
-        LevelManager.Instance.Perdeu();
-        //StartCoroutine("AcabouFase");
+        foreach (Photon.Realtime.Player p in PhotonNetwork.PlayerList)
+        {
+            if (p.GetScore() >= 5)
+            {
+                if (isLoading) return;
+                isLoading = true;
+                //StartCoroutine("AcabouFase");
+                //Acaba();
+            }
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -113,77 +112,31 @@ public class GolManager : MonoBehaviourPunCallbacks
                 //StartCoroutine("AcabouFase");
                 //Acaba();
             }
-            
+
         }
 
     }
 
-	private void Update()
-	{
-		foreach (Photon.Realtime.Player p in PhotonNetwork.PlayerList)
-		{
-			if (p.GetScore() >= 5)
-			{
-				if (isLoading) return;
-				isLoading = true;
-				//StartCoroutine("AcabouFase");
-				//Acaba();
-			}
-		}
-	}
+    #endregion
 
-	/*[PunRPC]
-    void Acaba()
+    #region Public Functions
+
+    public void PerdeuProBot()
     {
-        StartCoroutine("AcabouFase");
+        Debug.Log("Perdeu");
+        feedbackWin.Perdeu();
+        aiGanhou.Value[4] = true;
+        playerGanhou.Value = false;
+        PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 0;
+        if (isLoading) return;
+        isLoading = true;
+        LevelManager.Instance.Perdeu();
     }
 
-    IEnumerator AcabouFase()
-    {
-        isLoading = true;
-        yield return new WaitForSeconds(3f);
+    #endregion
 
-		if (!PhotonNetwork.OfflineMode)
-		{
-			PhotonNetwork.LoadLevel("TelaVitoria");
+    #region Private Functions
 
-
-		}
-		else
-		{
-			if (aiGanhou.Value[4] == true)
-			{
-				if (acabou01.Value[4] == true)
-				{
-					LevelManager.Instance.GoPodium();
-					//PhotonNetwork.LoadLevel("TelaVitoria");
-
-				}
-				else
-				{
-                    FailMessageManager.manualShutdown = true;
-                    PhotonNetwork.Disconnect();
-                    //LevelManager.Instance.GoHub();
-				}
-			}
-
-			else if (playerGanhou.Value == true)
-			{
-				if (acabou01.Value[4] == true)
-				{
-					PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 1;
-					LevelManager.Instance.GoPodium();
-					//PhotonNetwork.LoadLevel("TelaVitoria");
-				}
-				else
-				{
-					//LevelManager.Instance.HistFutebol();
-					//flowIndex.Value = 4;
-				}
-
-				moedas.Add(moedasGanhasNessaFase);
-			}
-		}
-    }*/
+    #endregion
 
 }

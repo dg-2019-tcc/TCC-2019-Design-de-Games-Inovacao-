@@ -52,6 +52,7 @@ public class DogMovement : MonoBehaviour
     public BoolVariable buildPC;
     public int trickIndex;
 
+    #region Unity Function
 
     void Start()
     {
@@ -69,9 +70,6 @@ public class DogMovement : MonoBehaviour
         maxJumpVelocity = Mathf.Abs(gravity * timeToJumpApex);
         minJumpVelocity = Mathf.Sqrt(2 * Mathf.Abs(gravity) * minJumpHeight);
     }
-
-	
-
 
     void Update()
     {
@@ -127,13 +125,13 @@ public class DogMovement : MonoBehaviour
         {
             dog.transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, 0, 0), 0.5f);
         }
-		
-        if(transform.position.y - player.transform.position.y >= 0)
+
+        if (transform.position.y - player.transform.position.y >= 0)
         {
             jumpTimes = 0;
         }
-		
-        if (transform.position.x < player.transform.position.x && joyInput.x < 0f ||transform.position.x > player.transform.position.x && joyInput.x > 0f || playerTriggerController.collisions.hitDog)
+
+        if (transform.position.x < player.transform.position.x && joyInput.x < 0f || transform.position.x > player.transform.position.x && joyInput.x > 0f || playerTriggerController.collisions.hitDog)
         {
             velocity.x = 0;
         }
@@ -150,6 +148,28 @@ public class DogMovement : MonoBehaviour
         dogAnim.ChangeDogAnim(velocity, joyInput);
 
     }
+
+    #endregion
+
+    #region Public Functions
+
+    public void DogJump()
+    {
+        isJumping = true;
+        if (jumpTimes > 0)
+        {
+            velocity.y = maxJumpHeight + (jumpTimes * 5f);
+        }
+        else
+        {
+            velocity.y = maxJumpHeight;
+        }
+    }
+
+    #endregion
+
+    #region Private Functions
+
 
     void IsFar()
     {
@@ -174,20 +194,6 @@ public class DogMovement : MonoBehaviour
             }
         }
     }
-
-
-
-	public void DogJump()
-    {
-        isJumping = true;
-        if (jumpTimes > 0)
-        {
-            velocity.y = maxJumpHeight + (jumpTimes * 5f);
-        }
-        else
-        {
-            velocity.y = maxJumpHeight;
-        }
-    }
+    #endregion
 
 }

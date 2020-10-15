@@ -72,37 +72,41 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
 
     bool SomParaFase = true;
 
+    #region Unity Function
 
     private void Start()
-	{
+    {
         SomParaFase = true;
 
         spawnHUBPoints = Resources.Load<FloatVariable>("SpawnHUBPoints");
 
         if (SceneManager.GetActiveScene().name != "MenuCustomizacao") return;
 
-		if (PlayerPrefs.HasKey("NickName"))
-		{
-			if (PlayerPrefs.GetString("NickName") == "")
-			{
-				PhotonNetwork.NickName = "Player " + Random.Range(0, 1000);
-			}
-			else
-			{
-				PhotonNetwork.NickName = PlayerPrefs.GetString("NickName");
-			}
-		}
-		else
-		{
-			PhotonNetwork.NickName = "Player " + Random.Range(0, 1000);
-		}
-		playerNameInput.text = PhotonNetwork.NickName;
+        if (PlayerPrefs.HasKey("NickName"))
+        {
+            if (PlayerPrefs.GetString("NickName") == "")
+            {
+                PhotonNetwork.NickName = "Player " + Random.Range(0, 1000);
+            }
+            else
+            {
+                PhotonNetwork.NickName = PlayerPrefs.GetString("NickName");
+            }
+        }
+        else
+        {
+            PhotonNetwork.NickName = "Player " + Random.Range(0, 1000);
+        }
+        playerNameInput.text = PhotonNetwork.NickName;
 
-		CorridaFade.SetActive(false);
-		ColetaFade.SetActive(false);
-	}
+        CorridaFade.SetActive(false);
+        ColetaFade.SetActive(false);
+    }
 
 
+    #endregion
+
+    #region Public Functions
 
     //public void DelayStart(string gameMode)
     public void DelayStart(SceneType gameMode)
@@ -115,30 +119,24 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
         //delayStartButton.SetActive(false);
         //delayStartButton2.SetActive(false);
         delayCancelButton.SetActive(true);
-		//loadingScene.SetActive(true);
-		//	PlayerCanvas.SetActive(false);
+        //loadingScene.SetActive(true);
+        //	PlayerCanvas.SetActive(false);
 
-		if (PhotonNetwork.InRoom)
-		{
-			PhotonNetwork.LeaveRoom();
-		}
+        if (PhotonNetwork.InRoom)
+        {
+            PhotonNetwork.LeaveRoom();
+        }
 
-		StartCoroutine(StartGamemode(gameMode));     
+        StartCoroutine(StartGamemode(gameMode));
     }
-
-
-
-   
-
-
 
     //public IEnumerator StartGamemode(string gameMode)
     public IEnumerator StartGamemode(SceneType gameMode)
     {
         currentRoomSize = RoomSize;
         switch (gameMode)
-		{
-			case SceneType.Corrida:
+        {
+            case SceneType.Corrida:
 
                 CorridaFade.SetActive(true);
 
@@ -146,9 +144,9 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
 
                 yield return new WaitForSeconds(tempoPraFade);
 
-				DelayStartWaitingRoomController.minPlayerToStart = 2;
-				DelayStartWaitingRoomController.tutorialMode = false;
-				DelayStartWaitingRoomController.gameMode = gameMode;
+                DelayStartWaitingRoomController.minPlayerToStart = 2;
+                DelayStartWaitingRoomController.tutorialMode = false;
+                DelayStartWaitingRoomController.gameMode = gameMode;
                 gameModeAtual = "Corrida";
                 if (PhotonNetwork.OfflineMode == false)
                 {
@@ -158,9 +156,9 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
                 {
                     CreateRoomWithMode(gameModeAtual);
                 }
-				break;
+                break;
 
-			case SceneType.Coleta:
+            case SceneType.Coleta:
 
                 ColetaFade.SetActive(true);
 
@@ -168,9 +166,9 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
 
                 yield return new WaitForSeconds(tempoPraFade);
 
-				DelayStartWaitingRoomController.minPlayerToStart = 2;
-				DelayStartWaitingRoomController.tutorialMode = false;
-				DelayStartWaitingRoomController.gameMode = gameMode;
+                DelayStartWaitingRoomController.minPlayerToStart = 2;
+                DelayStartWaitingRoomController.tutorialMode = false;
+                DelayStartWaitingRoomController.gameMode = gameMode;
                 gameModeAtual = "Coleta";
                 if (PhotonNetwork.OfflineMode == false)
                 {
@@ -183,7 +181,7 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
 
                 break;
 
-			case SceneType.Futebol:
+            case SceneType.Futebol:
 
                 FutebolFade.SetActive(true);
 
@@ -191,21 +189,21 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
 
                 yield return new WaitForSeconds(tempoPraFade);
 
-				currentRoomSize = 2;
-				DelayStartWaitingRoomController.minPlayerToStart = 2;
-				DelayStartWaitingRoomController.tutorialMode = false;
-				DelayStartWaitingRoomController.gameMode = gameMode;
-				gameModeAtual = "Futebol";
-				if (PhotonNetwork.OfflineMode == false)
-				{
-					OnJoinRoomButton(gameModeAtual);
-				}
-				else
-				{
-					CreateRoomWithMode(gameModeAtual);
-				}
+                currentRoomSize = 2;
+                DelayStartWaitingRoomController.minPlayerToStart = 2;
+                DelayStartWaitingRoomController.tutorialMode = false;
+                DelayStartWaitingRoomController.gameMode = gameMode;
+                gameModeAtual = "Futebol";
+                if (PhotonNetwork.OfflineMode == false)
+                {
+                    OnJoinRoomButton(gameModeAtual);
+                }
+                else
+                {
+                    CreateRoomWithMode(gameModeAtual);
+                }
 
-				break;
+                break;
 
             case SceneType.Volei:
 
@@ -215,8 +213,8 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
 
                 yield return new WaitForSeconds(tempoPraFade);
 
-				currentRoomSize = 2;
-				DelayStartWaitingRoomController.minPlayerToStart = 2;
+                currentRoomSize = 2;
+                DelayStartWaitingRoomController.minPlayerToStart = 2;
                 DelayStartWaitingRoomController.tutorialMode = false;
                 DelayStartWaitingRoomController.gameMode = gameMode;
                 gameModeAtual = "Volei";
@@ -239,23 +237,23 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
 
                 yield return new WaitForSeconds(tempoPraFade);
 
-				DelayStartWaitingRoomController.minPlayerToStart = 2;
-				DelayStartWaitingRoomController.tutorialMode = false;
-				DelayStartWaitingRoomController.gameMode = gameMode;
-				gameModeAtual = "Moto";
-				if (PhotonNetwork.OfflineMode == false)
-				{
-					OnJoinRoomButton(gameModeAtual);
-				}
-				else
-				{
-					CreateRoomWithMode(gameModeAtual);
-				}
+                DelayStartWaitingRoomController.minPlayerToStart = 2;
+                DelayStartWaitingRoomController.tutorialMode = false;
+                DelayStartWaitingRoomController.gameMode = gameMode;
+                gameModeAtual = "Moto";
+                if (PhotonNetwork.OfflineMode == false)
+                {
+                    OnJoinRoomButton(gameModeAtual);
+                }
+                else
+                {
+                    CreateRoomWithMode(gameModeAtual);
+                }
 
-				break;
+                break;
 
-			
-			default:                                                                                                        //Caso padrão vai pro Tutorial
+
+            default:                                                                                                        //Caso padrão vai pro Tutorial
 
                 ColetaFade.SetActive(true);
 
@@ -279,19 +277,8 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
                 break;
 
         }
-	}
-
-
-    IEnumerator EntrarNaFaseSom()
-    {
-        SomParaFase = false;
-        FMODUnity.RuntimeManager.PlayOneShot("event:/HUD/Start", GetComponent<Transform>().position);
-        yield return new WaitForSeconds(2);
-        SomParaFase = true;
     }
 
- 
-    
     public void PlayerNameUpdate(string nameInput)
     {
         PhotonNetwork.NickName = nameInput;
@@ -302,7 +289,7 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
     {
         //Debug para saber que falhou em conectar numa sala
         //Debug.Log("Failed to join a room");
-        if(tutorialMode == false)
+        if (tutorialMode == false)
         {
             CreateRoomWithMode(gameModeAtual);
         }
@@ -336,8 +323,6 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
         PhotonNetwork.CreateRoom("Room" + randomRoomNumber, newRoomOptions, null, null);
     }
 
-
-
     public void OnJoinRoomButton(string gameMode)
     {
         ExitGames.Client.Photon.Hashtable expectecProperties = new ExitGames.Client.Photon.Hashtable();
@@ -346,19 +331,10 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
         PhotonNetwork.JoinRandomRoom(expectecProperties, 0);
     }
 
-
-    void CreateTutorialRoom()
-    {
-        int randomRoomNumber = Random.Range(0, 10000);
-        RoomOptions roomOps = new RoomOptions() { IsVisible = false, IsOpen = false, MaxPlayers = (byte)1 };
-        PhotonNetwork.CreateRoom("Room" + randomRoomNumber, roomOps);        
-    }
-
-
     public override void OnCreateRoomFailed(short returnCode, string message)
     {
-        
-        if(tutorialMode == false)
+
+        if (tutorialMode == false)
         {
             CreateRoomWithMode(gameModeAtual);
         }
@@ -368,26 +344,46 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
         }
     }
 
-
     public void DelayCancel()
     {
         FMODUnity.RuntimeManager.PlayOneShot("event:/HUD/Click", GetComponent<Transform>().position);
         delayCancelButton.SetActive(false);
-    //  delayStartButton.SetActive(true);
-		//loadingScene.SetActive(false);
-	//	PlayerCanvas.SetActive(true);
+        //  delayStartButton.SetActive(true);
+        //loadingScene.SetActive(false);
+        //	PlayerCanvas.SetActive(true);
 
-		CorridaFade.SetActive(false);
-		FutebolFade.SetActive(false);
-		MotoFade.SetActive(false);
-		VoleiFade.SetActive(false);
-		ColetaFade.SetActive(false);
-		StopAllCoroutines();
+        CorridaFade.SetActive(false);
+        FutebolFade.SetActive(false);
+        MotoFade.SetActive(false);
+        VoleiFade.SetActive(false);
+        ColetaFade.SetActive(false);
+        StopAllCoroutines();
 
-        if(PhotonNetwork.CurrentRoom != null)
+        if (PhotonNetwork.CurrentRoom != null)
         {
             PhotonNetwork.LeaveRoom();
         }
     }
+
+    #endregion
+
+    #region Private Functions
+
+    IEnumerator EntrarNaFaseSom()
+    {
+        SomParaFase = false;
+        FMODUnity.RuntimeManager.PlayOneShot("event:/HUD/Start", GetComponent<Transform>().position);
+        yield return new WaitForSeconds(2);
+        SomParaFase = true;
+    }
+
+    void CreateTutorialRoom()
+    {
+        int randomRoomNumber = Random.Range(0, 10000);
+        RoomOptions roomOps = new RoomOptions() { IsVisible = false, IsOpen = false, MaxPlayers = (byte)1 };
+        PhotonNetwork.CreateRoom("Room" + randomRoomNumber, roomOps);
+    }
+
+    #endregion
 }
 

@@ -54,6 +54,7 @@ namespace Complete
 
         public bool isFut;
 
+        #region Unity Function
         private void Start()
         {
             controller = GetComponent<AIController2D>();
@@ -74,13 +75,15 @@ namespace Complete
                 playerSide = lado.GetComponent<UnityArmatureComponent>();
             }
         }
+        #endregion
 
+        #region Public Functions
         public void ChangeAnimAI(Vector2 dir)
         {
             if (triggerController.triggerCollision.ativaAnimChute == false)
             {
 
-                if (dir.y >1 && controller.collisions.below == false)
+                if (dir.y > 1 && controller.collisions.below == false)
                 {
                     jaAterrisou = false;
                     //AnimState("NoArUp");
@@ -116,7 +119,7 @@ namespace Complete
                     ChutandoAnim(false);
                     return;
                 }
-                else if(dir.x == 0 && dir.y ==0)
+                else if (dir.x == 0 && dir.y == 0)
                 {
                     IdleAnim(true);
                     //AnimState("Idle");
@@ -140,8 +143,10 @@ namespace Complete
                 return;
             }
         }
+        #endregion
 
-        public void IdleAnim(bool play)
+        #region Private Functions
+        private void IdleAnim(bool play)
         {
             if (play)
             {
@@ -186,7 +191,7 @@ namespace Complete
 
         }
 
-        public void GanhouAnim(bool play)
+        private void GanhouAnim(bool play)
         {
             if (play)
             {
@@ -216,7 +221,7 @@ namespace Complete
             }
         }
 
-        public void PerdeuAnim(bool play)
+        private void PerdeuAnim(bool play)
         {
             if (play)
             {
@@ -247,7 +252,7 @@ namespace Complete
         }
 
 
-        public void StunAnim(bool play)
+        private void StunAnim(bool play)
         {
             if (play)
             {
@@ -277,7 +282,7 @@ namespace Complete
             }
         }
 
-        public void ChutandoAnim(bool play)
+        private void ChutandoAnim(bool play)
         {
             if (play)
             {
@@ -308,7 +313,7 @@ namespace Complete
         }
 
         // Animações do stateMovement
-        public void AterrisandoAnim(bool play)
+        private void AterrisandoAnim(bool play)
         {
             if (play)
             {
@@ -345,7 +350,7 @@ namespace Complete
         }
 
 
-        public void FallingAnim(bool play)
+        private void FallingAnim(bool play)
         {
             if (play)
             {
@@ -392,7 +397,7 @@ namespace Complete
             }
 
         }
-        public void WalkAnim(bool play)
+        private void WalkAnim(bool play)
         {
             if (play)
             {
@@ -441,7 +446,7 @@ namespace Complete
 
         }
 
-        public void JumpAnim(bool play)
+        private void JumpAnim(bool play)
         {
             if (play)
             {
@@ -458,7 +463,7 @@ namespace Complete
                         Debug.Log("JumpAnim = NULL");
                     }
                     else { jumpBotState = playerSide.animation.FadeIn("3_Subindo(NoAr)", -1, -1, 22, null, AnimationFadeOutMode.Single); }
-//                    jumpBotState.displayControl = true;
+                    //                    jumpBotState.displayControl = true;
                 }
                 else
                 {
@@ -498,5 +503,6 @@ namespace Complete
                 frente.SetActive(true);
             }
         }
+        #endregion
     }
 }

@@ -40,6 +40,7 @@ public class FutebolPlayer : MonoBehaviour
     [HideInInspector]
     public PhotonView photonView;
 
+    #region Unity Function
 
     void Awake()
     {
@@ -55,78 +56,81 @@ public class FutebolPlayer : MonoBehaviour
         bolaFutebol = bola.GetComponent<BolaFutebol>();
     }
 
-
     void Update()
     {
-            if (PlayerThings.rightDir)
+        if (PlayerThings.rightDir)
+        {
+            normalX = normalKickForce.Value;
+            kickForceX = kickForce.Value;
+            superKickForceX = superKickForce.Value;
+
+            if (kicked)
             {
-                normalX = normalKickForce.Value;
-                kickForceX = kickForce.Value;
-                superKickForceX = superKickForce.Value;
-
-                if (kicked)
-                {
-                    triggerController.rightRay = true;
-                }
-
-                else
-                {
-                    triggerController.leftRay = false;
-                    triggerController.rightRay = false;
-                }
-            }
-
-            if (PlayerThings.leftDir)
-            {
-                normalX = normalKickForce.Value * -1;
-                kickForceX = kickForce.Value * -1;
-                superKickForceX = superKickForce.Value * -1;
-
-                if (kicked)
-                {
-                    triggerController.leftRay = true;
-                    triggerController.rightRay = false;
-                }
-                else
-                {
-                    triggerController.leftRay = false;
-                    triggerController.rightRay = false;
-                }
-            }
-
-            if (kicked == false)
-            {
-                if (triggerController.collisions.tocouBola == true || triggerController.collisions.cabecaBola == true || triggerController.collisions.chutouBola == true)
-                {
-                    gameObject.GetComponent<PhotonView>().RPC("TocouBola", RpcTarget.All,normalX,normalY);
-                    triggerController.collisions.tocouBola = false;
-                    triggerController.collisions.cabecaBola = false;
-                    triggerController.collisions.chutouBola = false;
-                }
+                triggerController.rightRay = true;
             }
 
             else
             {
-                if (triggerController.collisions.chutouBola == true || triggerController.collisions.cabecaBola == true)
-                {
-                    if (controller.collisions.below == true)
-                    {
-                        gameObject.GetComponent<PhotonView>().RPC("KickBola", RpcTarget.All, kickForceX, kickForceY);
-                        triggerController.collisions.chutouBola = false;
-                        triggerController.collisions.cabecaBola = false;
-                    }
+                triggerController.leftRay = false;
+                triggerController.rightRay = false;
+            }
+        }
 
-                    else
-                    {
-                        gameObject.GetComponent<PhotonView>().RPC("SuperKickBola", RpcTarget.All, superKickForceX, kickForceY);
-                        triggerController.collisions.chutouBola = false;
-                        triggerController.collisions.cabecaBola = false;
-                    }
+        if (PlayerThings.leftDir)
+        {
+            normalX = normalKickForce.Value * -1;
+            kickForceX = kickForce.Value * -1;
+            superKickForceX = superKickForce.Value * -1;
+
+            if (kicked)
+            {
+                triggerController.leftRay = true;
+                triggerController.rightRay = false;
+            }
+            else
+            {
+                triggerController.leftRay = false;
+                triggerController.rightRay = false;
+            }
+        }
+
+        if (kicked == false)
+        {
+            if (triggerController.collisions.tocouBola == true || triggerController.collisions.cabecaBola == true || triggerController.collisions.chutouBola == true)
+            {
+                gameObject.GetComponent<PhotonView>().RPC("TocouBola", RpcTarget.All, normalX, normalY);
+                triggerController.collisions.tocouBola = false;
+                triggerController.collisions.cabecaBola = false;
+                triggerController.collisions.chutouBola = false;
+            }
+        }
+
+        else
+        {
+            if (triggerController.collisions.chutouBola == true || triggerController.collisions.cabecaBola == true)
+            {
+                if (controller.collisions.below == true)
+                {
+                    gameObject.GetComponent<PhotonView>().RPC("KickBola", RpcTarget.All, kickForceX, kickForceY);
+                    triggerController.collisions.chutouBola = false;
+                    triggerController.collisions.cabecaBola = false;
                 }
 
+                else
+                {
+                    gameObject.GetComponent<PhotonView>().RPC("SuperKickBola", RpcTarget.All, superKickForceX, kickForceY);
+                    triggerController.collisions.chutouBola = false;
+                    triggerController.collisions.cabecaBola = false;
+                }
             }
-        
+
+        }
+
     }
+
+    #endregion
+
+    #region Public Functions
 
     public void Chute()
     {
@@ -145,6 +149,10 @@ public class FutebolPlayer : MonoBehaviour
         }
     }
 
+    #endregion
+
+    #region Private Functions
+
     IEnumerator CoolKick()
     {
         kicked = true;
@@ -155,10 +163,11 @@ public class FutebolPlayer : MonoBehaviour
         playerAnim.dogButtonAnim = kicked;
         //anim.dogButtonAnim = kicked;
     }
+
     [PunRPC]
-    public void TocouBola(float forceX, float forceY)
+    private void TocouBola(float forceX, float forceY)
     {
-        
+
         bolaFutebol.normal = true;
 
         ballrb.velocity = new Vector2(0, 0);
@@ -166,7 +175,7 @@ public class FutebolPlayer : MonoBehaviour
     }
 
     [PunRPC]
-    public void KickBola(float forceX, float forceY)
+    private void KickBola(float forceX, float forceY)
     {
         bolaFutebol.kick = true;
         bolaFutebol.normal = false;
@@ -177,7 +186,7 @@ public class FutebolPlayer : MonoBehaviour
     }
 
     [PunRPC]
-    public void SuperKickBola(float forceX, float forceY)
+    private void SuperKickBola(float forceX, float forceY)
     {
         bolaFutebol.superKick = true;
         bolaFutebol.kick = false;
@@ -185,4 +194,6 @@ public class FutebolPlayer : MonoBehaviour
 
         ballrb.AddForce(new Vector2(forceX, forceY), ForceMode2D.Impulse);
     }
+
+    #endregion
 }

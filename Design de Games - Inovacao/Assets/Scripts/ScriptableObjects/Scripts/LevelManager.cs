@@ -16,7 +16,9 @@ public class LevelManager : MonoBehaviour
 
     public int coletaMax = 7;
 
-      #region Singleton
+    #region Unity Function
+
+    #region Singleton
     private static LevelManager _instance;
 
     public static LevelManager Instance
@@ -62,6 +64,10 @@ public class LevelManager : MonoBehaviour
         }
     }
 
+    #endregion
+
+    #region Public Functions
+
     public void Ganhou()
     {
         GameManager.acabouFase = true;
@@ -79,7 +85,11 @@ public class LevelManager : MonoBehaviour
         StartCoroutine(DelayToNextScene(false));
     }
 
-    public IEnumerator DelayToNextScene(bool ganhou)
+    #endregion
+
+    #region Private Functions
+
+    private IEnumerator DelayToNextScene(bool ganhou)
     {
         calledNewScene = false;
 
@@ -90,23 +100,22 @@ public class LevelManager : MonoBehaviour
         yield return new WaitForSeconds(3f);
         if (ganhou)
         {
-            if (GameManager.historiaMode == true){GanhouDoKlay();}
-            else { GoVitoria();}
+            if (GameManager.historiaMode == true) { GanhouDoKlay(); }
+            else { GoVitoria(); }
         }
         else
         {
-            if (GameManager.historiaMode == false){GoDerrota();}
-            else{PerdeuDoKlay();}
+            if (GameManager.historiaMode == false) { GoDerrota(); }
+            else { PerdeuDoKlay(); }
         }
         StopCoroutine("DelayToNextScene");
         Debug.Log("[LevelManager] DelayToNextScene");
     }
 
-
-    public void GanhouDoKlay()
+    private void GanhouDoKlay()
     {
 
-        if(GameManager.sceneAtual == UnityCore.Scene.SceneType.Moto)
+        if (GameManager.sceneAtual == UnityCore.Scene.SceneType.Moto)
         {
             GameManager.sequestrado = true;
             PlayerPrefsManager.Instance.SavePlayerPrefs("Sequestrado", 1);
@@ -125,8 +134,7 @@ public class LevelManager : MonoBehaviour
         LoadingManager.instance.LoadNewScene(SceneType.Historia, GameManager.sceneAtual, false);
     }
 
-
-    public void PerdeuDoKlay()
+    private void PerdeuDoKlay()
     {
         if (calledNewScene == false)
         {
@@ -139,9 +147,8 @@ public class LevelManager : MonoBehaviour
         }
     }
 
-
     [PunRPC]
-     public void GoVitoria()
+    private void GoVitoria()
     {
         PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 1;
         //CurrentLevelIndex.Value = 3;
@@ -172,4 +179,6 @@ public class LevelManager : MonoBehaviour
             stopSarrada = true;
         }
     }
+
+    #endregion
 }

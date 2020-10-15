@@ -42,16 +42,11 @@ public class ColetaWin : MonoBehaviour
 
     private bool finished;
 
-	private void Start()
-	{
-        /*indexTutorial = PlayerPrefs.GetInt("Fase");
-        PlayerPrefs.SetInt("GanhouColeta", 0);
-        if(indexTutorial == 8)
-        {
-            acabouTutorial = true;
-        }*/
+    #region Unity Function
 
-		coletavelGerador = FindObjectOfType<ColetavelGerador>();
+    private void Start()
+    {
+        coletavelGerador = FindObjectOfType<ColetavelGerador>();
         aiGanhou = Resources.Load<BoolVariableArray>("AIGanhou");
         playerGanhou = Resources.Load<BoolVariable>("PlayerGanhou");
 
@@ -59,77 +54,77 @@ public class ColetaWin : MonoBehaviour
         playerGanhou.Value = false;
 
         winning = PhotonNetwork.PlayerList[0];
-		ganhouJa = false;
-		isEmpatado = false;
-	}
+        ganhouJa = false;
+        isEmpatado = false;
+    }
 
 
-	void Update()
+    void Update()
     {
         if (finished) return;
-        if(botScore.Value > 4)
+        if (botScore.Value > 4)
         {
             LevelManager.Instance.Perdeu();
             finished = true;
         }
 
-            foreach (Photon.Realtime.Player p in PhotonNetwork.PlayerList)
-            {
-				//Debug.Log(p.ActorNumber);
+        foreach (Photon.Realtime.Player p in PhotonNetwork.PlayerList)
+        {
+            //Debug.Log(p.ActorNumber);
 
-				//players[p.ActorNumber] = p;
-				//score[p.ActorNumber] = p.GetScore();
-				if (compareScore - p.GetScore() < 0)
-				{
-					compareScore = p.GetScore();
-					winning = p;
-					isEmpatado = false;
-				}
-				else if (winning != p && compareScore == p.GetScore())
-				{
-					isEmpatado = true;
-				}
+            //players[p.ActorNumber] = p;
+            //score[p.ActorNumber] = p.GetScore();
+            if (compareScore - p.GetScore() < 0)
+            {
+                compareScore = p.GetScore();
+                winning = p;
+                isEmpatado = false;
             }
-
-
-            if (coletavelGerador.coletaveis.Length <= 0)
+            else if (winning != p && compareScore == p.GetScore())
             {
-				if (isEmpatado)
-				{
-					coletavelGerador.DrawProtocol();
-					return;
-				}
-                if (ganhouJa) return;
-                if (OfflineMode.modoDoOffline && compareScore < 4)
-                {
-					feedbackWin.Perdeu();
+                isEmpatado = true;
+            }
+        }
 
-                    LevelManager.Instance.Perdeu();
+
+        if (coletavelGerador.coletaveis.Length <= 0)
+        {
+            if (isEmpatado)
+            {
+                coletavelGerador.DrawProtocol();
+                return;
+            }
+            if (ganhouJa) return;
+            if (OfflineMode.modoDoOffline && compareScore < 4)
+            {
+                feedbackWin.Perdeu();
+
+                LevelManager.Instance.Perdeu();
                 finished = true;
 
             }
+            else
+            {
+                if (PhotonNetwork.LocalPlayer == winning)
+                {
+                    LevelManager.Instance.Ganhou();
+                    Debug.Log("Ganhou");
+                    feedbackWin.Ganhou();
+                    winning.CustomProperties["Ganhador"] = 1;
+                }
                 else
                 {
-					if (PhotonNetwork.LocalPlayer == winning)
-					{
-                    LevelManager.Instance.Ganhou();
-						Debug.Log("Ganhou");
-						feedbackWin.Ganhou();
-						winning.CustomProperties["Ganhador"] = 1;
-					}
-					else
-					{
-                        LevelManager.Instance.Perdeu();
-						Debug.Log("Perdeu");
-						feedbackWin.Perdeu();
+                    LevelManager.Instance.Perdeu();
+                    Debug.Log("Perdeu");
+                    feedbackWin.Perdeu();
                     finished = true;
                 }
-                    //StartCoroutine("AcabouFaseOnline");
-                }
-                ganhouJa = true;
+                //StartCoroutine("AcabouFaseOnline");
+            }
+            ganhouJa = true;
 
-            }   
-        
+        }
+
 
         /*else
         {
@@ -162,12 +157,20 @@ public class ColetaWin : MonoBehaviour
             }
 
         }*/
-	}
+    }
+
+    #endregion
+
+    #region Public Functions
+
+    #endregion
+
+    #region Private Functions
 
     IEnumerator AcabouFaseOnline()
     {
-		moedas.Add(moedasGanhasNessaFase);
-		yield return new WaitForSeconds(3f);
+        moedas.Add(moedasGanhasNessaFase);
+        yield return new WaitForSeconds(3f);
         PhotonNetwork.LoadLevel("TelaVitoria");
     }
 
@@ -176,13 +179,11 @@ public class ColetaWin : MonoBehaviour
     {
         FailMessageManager.manualShutdown = true;
         PhotonNetwork.Disconnect();
-		moedas.Add(moedasGanhasNessaFase);
-		yield return new WaitForSeconds(3f);
+        moedas.Add(moedasGanhasNessaFase);
+        yield return new WaitForSeconds(3f);
         SceneManager.LoadScene(faseNome);
     }
 
-	
+    #endregion
 
-
-	
 }
