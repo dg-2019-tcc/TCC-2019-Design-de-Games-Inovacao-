@@ -45,16 +45,11 @@ public class PlayerAnimController : MonoBehaviour
 
     private void Update()
     {
-        Cooldown();
-        if (coolToNext < 0.2f) { return; }
-        if (GameManager.acabouFase) { WinLoseAnim(); }
-        if (levouDogada.Value) { StunAnim(); return; }
+        ShouldUpdate();
 
         if (dogController.state.Equals(DogController.State.Carro) || dogController.state.Equals(DogController.State.Pipa))
         {
-            if (dogController.state.Equals(DogController.State.Carro)) { CarroAnim(); }
-            else { PipaAnim(); playerAnim.updateCar = false; }
-            CallState02();
+            PowerUpUpdate();
         }
         else
         {
@@ -80,6 +75,14 @@ public class PlayerAnimController : MonoBehaviour
     #endregion
 
     #region Private Functions
+    void ShouldUpdate()
+    {
+        Cooldown();
+        if (coolToNext < 0.2f) { return; }
+        if (GameManager.acabouFase) { WinLoseAnim(); }
+        if (levouDogada.Value) { StunAnim(); return; }
+    }
+
     //State01 é WinLoseAnim() e StunAnim()
 
     void WinLoseAnim()
@@ -95,6 +98,13 @@ public class PlayerAnimController : MonoBehaviour
     void StunAnim() { nextAnimState01 = AnimStateFrente.Stun; playerAnim.StateFrenteUpdate(); }
 
     //State02
+    void PowerUpUpdate()
+    {
+        if (dogController.state.Equals(DogController.State.Carro)) { CarroAnim(); }
+        else { PipaAnim(); playerAnim.updateCar = false; }
+        CallState02();
+    }
+
     void CarroAnim()
     {
         playerAnim.updateCar = true;
