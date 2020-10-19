@@ -33,12 +33,6 @@ public class EmpinaMoto : MonoBehaviour
 	private float originalSpeed;
 	public float jumpMoto;
 
-
-	[Header("Feedbacks")]
-	//public TMP_Text acelerometro;
-	public Image brilhoDeBoost;
-	public SpriteRenderer motoBrilho;
-
 	[Header("GayTrail")]
 	public GameObject particula;
 	public ParticleSystem trail;
@@ -59,89 +53,18 @@ public class EmpinaMoto : MonoBehaviour
         originalSpeed = playerSpeed.Value;
         playerSpeed.Value = baseSpeed;
         motoPV = GetComponent<PhotonView>();
-        //brilhoDeBoost.gameObject.SetActive(false);
-        motoBrilho.gameObject.SetActive(false);
         originalJumpForce = jumpForce.Value;
         jumpForce.Value = jumpMoto;
-        //motoPV.ViewID = playerPV.ViewID;
     }
 
     private void Update()
     {
-        if (controller.collisions.descendingSlope)
-        {
-            player.transform.localRotation = Quaternion.Slerp(player.transform.localRotation, Quaternion.Euler(player.transform.localRotation.x, player.transform.localRotation.y, -controller.collisions.slopeAngle), 1f);
-        }
+        UpdateRotation();
+        CheckTrick();
 
-        else if (controller.collisions.climbingSlope)
-        {
-            player.transform.localRotation = Quaternion.Slerp(player.transform.localRotation, Quaternion.Euler(player.transform.localRotation.x, player.transform.localRotation.y, controller.collisions.slopeAngle), 1f);
-        }
-
-        else
-        {
-            player.transform.localRotation = Quaternion.Slerp(player.transform.localRotation, Quaternion.Euler(player.transform.localRotation.x, player.transform.localRotation.y, 0), 0.5f);
-        }
-
-        if (isManobrandoNoAr)
-        {
-            if (!trail.isPlaying)
-            {
-                trail.Play();
-            }
-            if (controller.collisions.below)
-            {
-                playerThings.StartCoroutine("LevouDogada");
-                if (trail.isPlaying)
-                {
-                    trail.Stop();
-                }
-            }
-        }
-
-        else if (isEmpinando)
-        {
-            playerSpeed.Value = Mathf.Lerp(playerSpeed.Value, boostSpeed, 0.5f);
-
-            if (!trail.isPlaying)
-            {
-                trail.Play();
-            }
-        }
-
-        else
-        {
-            if (trail.isPlaying)
-            {
-                trail.Stop();
-            }
-        }
-
-        if (controller.collisions.below)
-        {
-            isManobrandoNoAr = false;
-        }
-
-
-
-        if (motoPV.IsMine || !PhotonNetwork.InRoom)
-        {
-            if ((triggerController.collisions.boostMoto && controller.collisions.below) || carregado || !controller.collisions.below)
-            {
-                motoBrilho.gameObject.SetActive(true);
-                motoBrilho.color = Color.Lerp(motoBrilho.color, Random.ColorHSV(0, 1), 0.1f);
-            }
-            else
-            {
-                motoBrilho.gameObject.SetActive(false);
-            }
-        }
-
+        if (controller.collisions.below) { isManobrandoNoAr = false;}
 
         baseSpeed = Mathf.Lerp(baseSpeed, boostSpeed, 0.01f * Time.deltaTime);
-
-
-
     }
 
     private void OnDestroy()
@@ -190,23 +113,54 @@ public class EmpinaMoto : MonoBehaviour
         Debug.Log("buttonEmpina");
     }
 
-
     public void stopManobra()
     {
         isManobrandoNoAr = false;
-        if (!PhotonNetwork.InRoom)
-        {
-            daGrau(0);
-        }
-        else
-        {
-            motoPV.RPC("daGrau", RpcTarget.All, 0);
-        }
+        if (!PhotonNetwork.InRoom){ daGrau(0); }
+        else{ motoPV.RPC("daGrau", RpcTarget.All, 0);}
     }
 
     #endregion
 
     #region Private Functions
+
+    void UpdateRotation()
+    {
+        if (controller.collisions.descendingSlope)
+        {
+            player.transform.localRotation = Quaternion.Slerp(player.transform.localRotation, Quaternion.Euler(player.transform.localRotation.x, player.transform.localRotation.y, -controller.collisions.slopeAngle), 1f);
+        }
+        else if (controller.collisions.climbingSlope)
+        {
+            player.transform.localRotation = Quaternion.Slerp(player.transform.localRotation, Quaternion.Euler(player.transform.localRotation.x, player.transform.localRotation.y, controller.collisions.slopeAngle), 1f);
+        }
+        else
+        {
+            player.transform.localRotation = Quaternion.Slerp(player.transform.localRotation, Quaternion.Euler(player.transform.localRotation.x, player.transform.localRotation.y, 0), 0.5f);
+        }
+    }
+
+    void CheckTrick()
+    {
+        if (isManobrandoNoAr)
+        {
+            if (!trail.isPlaying) { trail.Play(); }
+            if (controller.collisions.below)
+            {
+                playerThings.StartCoroutine("LevouDogada");
+                if (trail.isPlaying) { trail.Stop();}
+            }
+        }
+        else if (isEmpinando)
+        {
+            playerSpeed.Value = Mathf.Lerp(playerSpeed.Value, boostSpeed, 0.5f);
+            if (!trail.isPlaying){ trail.Play();}
+        }
+        else
+        {
+            if (trail.isPlaying) {trail.Stop();}
+        }
+    }
 
     [PunRPC]
     private void daGrau(int modo)

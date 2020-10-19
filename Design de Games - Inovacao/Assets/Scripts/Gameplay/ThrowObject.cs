@@ -144,13 +144,10 @@ namespace Complete {
             bullet.transform.rotation = firePoint.rotation;
             bullet.SetActive(true);
             shootAnim = false;
-            //anim.DogButtonAnim(shootAnim);
-            //anim.dogButtonAnim = shootAnim;
             playerAnim.dogButtonAnim = shootAnim;
 
             bullet.GetComponent<ItemThrow>().InitializeBullet(photonView.Owner);
             StartCoroutine("CooldownEffect");
-            //photonView.Owner.CustomProperties["atirou"] = true;
         }
 
         IEnumerator StartTiro()

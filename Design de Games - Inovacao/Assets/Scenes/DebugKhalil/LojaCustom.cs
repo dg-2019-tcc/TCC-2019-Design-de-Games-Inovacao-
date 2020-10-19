@@ -111,9 +111,6 @@ public class LojaCustom : MonoBehaviour
 	public void AtivaBotoesModelo(int iniciaAqui)//EscolheQtdBotoesModelos //Decide quantos botões de modelo serão mostrados
 	{
 
-		int a, b, c, d, e, f;
-
-
 		if (ativaParametro == true)
 		{
 			iniciaAqui = comecaAqui;

@@ -34,6 +34,15 @@ public class SceneInitializer : MonoBehaviour
 
         CheckFase();
     }
+
+    private void FixedUpdate()
+    {
+        if (isDone == false) return;
+        if (shouldDeactivateRuntime)
+        {
+            DeactivateAtRuntime();
+        }
+    }
     #endregion
 
     #region Public Functions
@@ -78,15 +87,6 @@ public class SceneInitializer : MonoBehaviour
             PageController.instance.TurnPageOn(PageController.instance.entryPage);
         }
         //GarbageController.DisableGC();
-    }
-
-    private void FixedUpdate()
-    {
-        if (isDone == false) return;
-        if (shouldDeactivateRuntime)
-        {
-            DeactivateAtRuntime();
-        }
     }
 
     private void DeactivateAtRuntime()

@@ -7,8 +7,6 @@ using UnityCore.Scene;
 public class GameFlowController : MonoBehaviour
 {
     private GameFlowManager flowManager;
-
-    public BoolVariableArray aiGanhou;
     public BoolVariable demo;
 
     public int levelIndex;
@@ -20,19 +18,8 @@ public class GameFlowController : MonoBehaviour
     private void Start()
     {
         flowManager = GetComponent<GameFlowManager>();
-        //sceneName = SceneManager.GetActiveScene().name;
-        //sceneName = SceneManager.GetSceneAt();
-
-        if (aiGanhou == null)
-        {
-            aiGanhou = Resources.Load<BoolVariableArray>("AIGanhou");
-        }
-        if (demo == null)
-        {
-            demo = Resources.Load<BoolVariable>("Demo");
-        }
+        if (demo == null){ demo = Resources.Load<BoolVariable>("Demo");}
         OfflineMode.Instance.AtivaOffline(true);
-
     }
 
     #endregion
@@ -41,8 +28,6 @@ public class GameFlowController : MonoBehaviour
 
     public void FlowHUB()
     {
-        //GameManager.Instance.LoadGame();
-
         flowManager.AtivaFase(PlayerPrefsManager.Instance.prefsVariables.levelIndex);
         Debug.Log(PlayerPrefsManager.Instance.prefsVariables.levelIndex);
     }

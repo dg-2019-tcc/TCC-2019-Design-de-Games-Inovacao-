@@ -7,98 +7,51 @@ namespace Complete {
     public class AIMovement : MonoBehaviour
     {
         public float speed = 3f;
-        public float jumpVelocity = 1f;
-        public bool isDown;
-
         float targetVelocityX;
         float velocityXSmoothing;
 
         Vector2 input;
-
         Vector3 velocity;
+
         float maxJumpVelocity;
         float minJumpVelocity;
         float gravity;
         public float maxJumpHeight;
         public float minJumpHeight;
         public float timeToJumpApex;
-
         public bool isJumping;
-
         float jumpTimes;
 
-
-        private StateController controller;
-        //public TriggerCollisionInfo collisions;
         public AIController2D aiController2D;
         public AITriggerController triggerController;
         public AnimationsAI animAI;
-        public Rigidbody2D rbBola;
-        public GameObject ai;
         private BotStates botStates;
-
-        public float turnCooldown;
-
-
-        public BoxCollider2D boxCollider;
-
-        public float hitLenght = 5f;
-
-        private ColetavelGerador coletavelGerador;
-        private Vector2 coletavelPos;
-
 
         public bool isColteta;
         public bool isFut;
         public bool isCorrida;
         public bool isMoto;
         public bool isVolei;
-        float newVel = 0.01f;
-        private bool found;
-        public float maxSpeed = 0.5f;
-
         public bool dirDir;
-
-        Transform target;
-
-        public float jumpIndex;
-
         public bool levouDogada;
-
-        public BoolVariableArray aiGanhou;
-        public int indexDaFase;
-        public BoolVariable playerGanhou;
-
-        public Vector2 oldPosition;
         public Vector2 animDir;
-
-        private float targetDist;
 
         public enum State { Coleta, Corrida, Futebol, Volei, Moto, Stop }
         public State state;
         bool actionIsOn;
 
         #region Unity Function
-
         public void Start()
         {
             animAI = GetComponent<AnimationsAI>();
-            controller = GetComponent<StateController>();
             aiController2D = GetComponent<AIController2D>();
             triggerController = GetComponent<AITriggerController>();
             botStates = GetComponent<BotStates>();
 
-            //target = controller.wayPointList[0];
 
             gravity = -(2 * maxJumpHeight) / Mathf.Pow(timeToJumpApex, 2);
             maxJumpVelocity = Mathf.Abs(gravity * timeToJumpApex);
             minJumpVelocity = Mathf.Sqrt(2 * Mathf.Abs(gravity) * minJumpHeight);
-
-            aiGanhou = Resources.Load<BoolVariableArray>("AIGanhou");
-            playerGanhou = Resources.Load<BoolVariable>("PlayerGanhou");
-
-            //aiGanhou.Value[indexDaFase] = false;
-
         }
 
         private void Update()
@@ -106,34 +59,8 @@ namespace Complete {
             if (GameManager.pausaJogo) return;
             botStates.BotWork();
             triggerController.RayTriggerDirection();
-
-
-            if (levouDogada == false)
-            {
-                targetVelocityX = input.x * speed;
-            }
-
-            velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (aiController2D.collisions.below) ? 0.1f : 0.2f);
-
-            velocity.y += gravity * Time.deltaTime;
-
-            if (aiController2D.collisions.below == true || aiController2D.collisions.climbingSlope || aiController2D.collisions.descendingSlope)
-            {
-                isJumping = false;
-                velocity.y = 0;
-            }
-            if (triggerController.triggerCollision.caixaDagua)
-            {
-                velocity.y = maxJumpHeight * 1.8f;
-            }
-            aiController2D.Move(velocity * Time.deltaTime, input);
+            UpdateMove();
         }
-
-        private void LateUpdate()
-        {
-            oldPosition = velocity;
-        }
-
         #endregion
 
         #region Public Functions
@@ -174,6 +101,25 @@ namespace Complete {
         #endregion
 
         #region Private Functions
+
+        void UpdateMove()
+        {
+            if (levouDogada == false) { targetVelocityX = input.x * speed;}
+
+            velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (aiController2D.collisions.below) ? 0.1f : 0.2f);
+            velocity.y += gravity * Time.deltaTime;
+
+            if (aiController2D.collisions.below == true || aiController2D.collisions.climbingSlope || aiController2D.collisions.descendingSlope)
+            {
+                isJumping = false;
+                velocity.y = 0;
+            }
+            if (triggerController.triggerCollision.caixaDagua)
+            {
+                velocity.y = maxJumpHeight * 1.8f;
+            }
+            aiController2D.Move(velocity * Time.deltaTime, input);
+        }
 
         private void Stop()
         {

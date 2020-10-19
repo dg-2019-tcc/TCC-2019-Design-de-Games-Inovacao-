@@ -17,7 +17,6 @@ public class LoadingManager : MonoBehaviour
     public DOTweenUI tweenUI;
     public DOTweenUI tweenCanvas;
 
-
     #region Singleton
 
     public static LoadingManager Instance
@@ -51,17 +50,8 @@ public class LoadingManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-        if (tweenUI == null)
-        {
-            //tweenUI = GetComponentInChildren<DOTweenUI>();
-        }
-
-        if(tweenCanvas == null)
-        {
-            tweenCanvas = GetComponentInChildren<DOTweenUI>();
-        }
+        if(tweenCanvas == null){ tweenCanvas = GetComponentInChildren<DOTweenUI>();}
     }
-
     #endregion
 
     #region Public Functions
@@ -105,7 +95,6 @@ public class LoadingManager : MonoBehaviour
     private void InitOfflineScene()
     {
         isLoading = false;
-        //scenesLoading.Add(SceneManager.UnloadSceneAsync((int)oldScene));
         scenesLoading.Add(SceneManager.LoadSceneAsync((int)GameManager.sceneAtual, LoadSceneMode.Single));
         StartCoroutine(GetSceneLoadProgress(GameManager.sceneAtual));
     }
@@ -123,10 +112,6 @@ public class LoadingManager : MonoBehaviour
         tweenCanvas.ChangeAlfa(false);
         while (tweenUI.finishedTween == false) { yield return null; }
         while (tweenCanvas.finishedTween == false) { yield return null; }
-#if UNITY_EDITOR
-#else
-        //GarbageController.DisableGC();
-#endif
 
         loadingScreen.SetActive(false);
         GameManager.isPaused = false;

@@ -18,11 +18,9 @@ namespace Complete
         private HandVolei handVolei;
         private FutebolPlayer futebolPlayer;
 
-
         public bool isBallGame;
         public bool isVolei;
         public bool isFut;
-
 
         public float hitLenght = 3f;
 
@@ -63,15 +61,9 @@ namespace Complete
 
             motoSpd = GetComponent<MotoChangeSpeed>();
 
-            if (isVolei)
-            {
-                handVolei = GetComponent<HandVolei>();
-            }
+            if (isVolei) { handVolei = GetComponent<HandVolei>(); }
 
-            if (isFut)
-            {
-                futebolPlayer = GetComponent<FutebolPlayer>();
-            }
+            if (isFut) { futebolPlayer = GetComponent<FutebolPlayer>();}
 
         }
 

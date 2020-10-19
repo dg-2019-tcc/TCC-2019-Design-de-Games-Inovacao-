@@ -21,32 +21,18 @@ public class NewMotoPlayerMovement : MonoBehaviour
 	public float timeToJumpApex = 0.4f;
 	
 	float motoMoveSpeed = 6;
-	float motoVelocityXSmoothing;
-	float motoAccelerationTimeAirborne = 0f;
-	float motoAccelerationTimeGrounded = 0.05f;
-
-	float motoMaxJumpVelocity;
-	float motoMinJumpVelocity;
-	float motoGravity;
-	//public float motoMaxJumpHeight = 4;
-	//public float motoMinJumpHeight = 2;
-	public float motoTimeToJumpApex = 0.4f;
 
 	bool jump;
 	bool stopJump;
-    bool subindo;
 
 	public Vector2 oldPosition;
 
     [HideInInspector]
 	public Vector3 velocity;
-	Vector3 motoVelocity;
 
-	public Controller2D controller;
-    private InputController inputController;
+	Controller2D controller;
+    InputController inputController;
     Vector2 input;
-
-
     TriggerCollisionsController triggerController;
 	PlayerMotoAnimation animations;
 
@@ -54,7 +40,7 @@ public class NewMotoPlayerMovement : MonoBehaviour
 	public Joystick joyStick;
 
     public BoolVariable levouDogada;
-    public BoolVariable playerGanhou;
+    BoolVariable playerGanhou;
 
     private PhotonView pv;
 
@@ -65,6 +51,8 @@ public class NewMotoPlayerMovement : MonoBehaviour
         inputController = GetComponent<InputController>();
         triggerController = GetComponent<TriggerCollisionsController>();
         animations = GetComponent<PlayerMotoAnimation>();
+        pv = GetComponent<PhotonView>();
+        joyStick = FindObjectOfType<Joystick>();
 
         playerGanhou = Resources.Load<BoolVariable>("PlayerGanhou");
         playerGanhou.Value = false;
@@ -72,17 +60,11 @@ public class NewMotoPlayerMovement : MonoBehaviour
         gravity = -(2 * maxJumpHeight) / Mathf.Pow(timeToJumpApex, 2);
         maxJumpVelocity = Mathf.Abs(gravity * timeToJumpApex);
         minJumpVelocity = Mathf.Sqrt(2 * Mathf.Abs(gravity) * minJumpHeight);
-        Debug.Log(maxJumpVelocity);
-
-        pv = GetComponent<PhotonView>();
-        joyStick = FindObjectOfType<Joystick>();
     }
 
     void Update()
     {
-        if (GameManager.pausaJogo == true) { return; }
-        if (!pv.IsMine && PhotonNetwork.InRoom) return;
-        if (playerGanhou.Value) return;
+        ShouldUpdate();
 
         input = inputController.joyInput;
 
@@ -105,21 +87,8 @@ public class NewMotoPlayerMovement : MonoBehaviour
             if (!jump) velocity.y = 0;
         }
 
-        if (inputController.pressX == true && controller.collisions.below)
-        {
-            if (controller.collisions.climbingSlope)
-            {
-                velocity.y = maxJumpVelocity + 10f;
-            }
-            else
-            {
-                velocity.y = maxJumpVelocity;
-            }
-        }
-
-        controller.Move(velocity * Time.deltaTime);
-        triggerController.MoveDirection(velocity);
-        animations.ChangeMotoAnim(velocity, oldPosition, levouDogada.Value);
+        PCJump();
+        UpdateMove();
     }
 
     private void LateUpdate()
@@ -162,10 +131,38 @@ public class NewMotoPlayerMovement : MonoBehaviour
 
     #region Private Functions
 
+    void ShouldUpdate()
+    {
+        if (GameManager.pausaJogo == true) { return; }
+        if (!pv.IsMine && PhotonNetwork.InRoom) return;
+        if (playerGanhou.Value) return;
+    }
+
+    void PCJump()
+    {
+        if (inputController.pressX == true && controller.collisions.below)
+        {
+            if (controller.collisions.climbingSlope)
+            {
+                velocity.y = maxJumpVelocity + 10f;
+            }
+            else
+            {
+                velocity.y = maxJumpVelocity;
+            }
+        }
+    }
+
+    void UpdateMove()
+    {
+        controller.Move(velocity * Time.deltaTime);
+        triggerController.MoveDirection(velocity);
+        animations.ChangeMotoAnim(velocity, oldPosition, levouDogada.Value);
+    }
+
     IEnumerator CaiuMoto()
     {
         yield return new WaitForSeconds(1.5f);
-
     }
     #endregion
 }

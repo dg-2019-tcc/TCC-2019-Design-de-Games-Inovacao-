@@ -38,12 +38,7 @@ public class GameFlowManager : MonoBehaviour
 
     private void Start()
     {
-        if (demo == null)
-        {
-            demo = Resources.Load<BoolVariable>("Demo");
-        }
-
-        //if (GameManager.Instance.fase.Equals(GameManager.Fase.Hub))
+        if (demo == null) { demo = Resources.Load<BoolVariable>("Demo");}
         if (GameManager.sceneAtual == SceneType.HUB)
         {
             DestroyNpcs(PlayerPrefsManager.Instance.prefsVariables.levelIndex);

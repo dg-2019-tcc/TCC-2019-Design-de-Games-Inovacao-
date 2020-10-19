@@ -21,7 +21,6 @@ public class DOTweenMoveObjects : MonoBehaviour
     [SerializeField]
     private LoopType loopType = LoopType.Yoyo;
 
-
     [SerializeField]
     private DoTweenType doTweenType = DoTweenType.BounceCoin;
 
@@ -30,23 +29,13 @@ public class DOTweenMoveObjects : MonoBehaviour
         MoveOneWay,
         MoveTwoWay,
         BounceCoin
-
     }
 
     #region Unity Function
     private void Start()
     {
         inicialPosition = transform.position;
-        if (doTweenType == DoTweenType.BounceCoin)
-        {
-            if (_targetPosition == Vector3.zero)
-            {
-                _targetPosition = inicialPosition;
-                _targetPosition.y += _moveDistance;
-            }
-
-            BounceCoin();
-        }
+        if (doTweenType == DoTweenType.BounceCoin) { BounceCoin();}
     }
     #endregion
 
@@ -57,6 +46,11 @@ public class DOTweenMoveObjects : MonoBehaviour
     #region Private Functions
     private void BounceCoin()
     {
+        if (_targetPosition == Vector3.zero)
+        {
+            _targetPosition = inicialPosition;
+            _targetPosition.y += _moveDistance;
+        }
         transform.DOMove(_targetPosition, _moveDuration).SetEase(moveEase).SetLoops(-1, loopType);
     }
     #endregion

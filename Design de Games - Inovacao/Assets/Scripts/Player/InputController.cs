@@ -34,40 +34,9 @@ public class InputController : MonoBehaviour
 
     private void Update()
     {
-        if (!PV.IsMine && GameManager.inRoom) return;
-        if (GameManager.pausaJogo) return;
-        if (buildPC.Value == false)
-        {
-            if (joyStick == null)
-            {
-                joyStick = FindObjectOfType<FloatingJoystick>();
-            }
-
-            joyInput = new Vector2(joyStick.Horizontal, joyStick.Vertical);
-        }
-
-        else
-        {
-            joyInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-
-            if (Input.GetKeyDown(KeyCode.X))
-            {
-                pressX = true;
-                releaseX = false;
-            }
-
-            else if (Input.GetKeyUp(KeyCode.X))
-            {
-                pressX = false;
-                releaseX = true;
-            }
-
-            else
-            {
-                pressX = false;
-                releaseX = false;
-            }
-        }
+        ShouldUpdate();
+        if (buildPC.Value == false) { BuildMobile();}
+        else{ BuildPC();}
     }
     #endregion
 
@@ -76,7 +45,41 @@ public class InputController : MonoBehaviour
     #endregion
 
     #region Private Functions
+    void ShouldUpdate()
+    {
+        if (!PV.IsMine && GameManager.inRoom) return;
+        if (GameManager.pausaJogo) return;
+    }
 
+    void BuildMobile()
+    {
+        if (joyStick == null)
+        {
+            joyStick = FindObjectOfType<FloatingJoystick>();
+        }
+        joyInput = new Vector2(joyStick.Horizontal, joyStick.Vertical);
+    }
+
+    void BuildPC()
+    {
+        joyInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            pressX = true;
+            releaseX = false;
+        }
+        else if (Input.GetKeyUp(KeyCode.X))
+        {
+            pressX = false;
+            releaseX = true;
+        }
+        else
+        {
+            pressX = false;
+            releaseX = false;
+        }
+    }
     #endregion
 
 }

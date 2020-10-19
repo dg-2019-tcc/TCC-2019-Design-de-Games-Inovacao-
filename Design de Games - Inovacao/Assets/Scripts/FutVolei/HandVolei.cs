@@ -40,7 +40,6 @@ public class HandVolei : MonoBehaviour
 
     public Controller2D controller;
 
-    public Player2DAnimations anim;
 
     [HideInInspector]
     public PhotonView photonView;
@@ -48,10 +47,7 @@ public class HandVolei : MonoBehaviour
 
     public void Start()
     {
-        if (GetComponent<PhotonView>().IsMine || PhotonNetwork.InRoom)
-        {
-            joyStick = FindObjectOfType<Joystick>();
-        }
+        if (GetComponent<PhotonView>().IsMine || PhotonNetwork.InRoom) {  joyStick = FindObjectOfType<Joystick>();}
 
 
         photonView = gameObject.GetComponent<PhotonView>();
@@ -151,11 +147,9 @@ public class HandVolei : MonoBehaviour
     IEnumerator CoolHand()
     {
         cortou = true;
-        anim.dogButtonAnim = cortou;
 
         yield return new WaitForSeconds(cooldownKick);
         cortou = false;
-        anim.dogButtonAnim = cortou; 
     }
 
     [PunRPC]

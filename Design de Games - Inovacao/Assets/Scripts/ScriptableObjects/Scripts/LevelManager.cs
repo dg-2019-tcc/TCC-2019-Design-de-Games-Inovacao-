@@ -10,7 +10,6 @@ public class LevelManager : MonoBehaviour
 {
     public PhotonView pv;
 
-    //public FloatVariable CurrentLevelIndex;
     private bool stopSarrada;
     private bool calledNewScene;
 

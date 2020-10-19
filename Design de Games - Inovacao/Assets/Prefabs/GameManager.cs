@@ -80,10 +80,7 @@ public class GameManager : MonoBehaviour
         ChecaFase();
         demo = Resources.Load<BoolVariable>("Demo");
 
-        if (demo.Value == true)
-        {
-            OfflineMode.Instance.AtivaOffline(true);
-        }
+        if (demo.Value == true) { OfflineMode.Instance.AtivaOffline(true);}
     }
 
     #endregion

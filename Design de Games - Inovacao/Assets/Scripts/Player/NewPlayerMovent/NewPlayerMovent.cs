@@ -9,17 +9,17 @@ public class NewPlayerMovent : MonoBehaviour
 {
     // Movimentação Normal
     public FloatVariable moveSpeed;
-    float velocityXSmoothing;
     public FloatVariable accelerationAir;
     public FloatVariable accelerationGround;
+    public FloatVariable maxJumpHeight;
+    public FloatVariable minJumpHeight;
+    public FloatVariable timeToJumpApex;
+    float velocityXSmoothing;
     float targetVelocityX;
     float maxJumpVelocity;
     float minJumpVelocity;
     float gravity;
     float slowGravity;
-    public FloatVariable maxJumpHeight;
-    public FloatVariable minJumpHeight;
-    public FloatVariable timeToJumpApex;
 
     //Move Pipa
     float pipaMoveSpeed = 6;
@@ -41,6 +41,8 @@ public class NewPlayerMovent : MonoBehaviour
     public BoolVariable carroActive;
     public BoolVariable pipaActive;
     public BoolVariable levouDogada;
+    public BoolVariable playerGanhou;
+    public BoolVariable textoAtivo;
 
 
     [HideInInspector] public Vector2 velocity;
@@ -53,20 +55,16 @@ public class NewPlayerMovent : MonoBehaviour
     public Vector2 joyInput;
 
     //Controllers
-    Controller2D controller;
     public Controller2D dogController;
+    Controller2D controller;
     TriggerCollisionsController triggerController;
-    Player2DAnimations animations;
-    public InputController inputController;
+    InputController inputController;
+    PlayerAnimInfo playerAnimInfo;
 
 
     private PhotonView pv;
 
-    public BoolVariable playerGanhou;
-    public BoolVariable textoAtivo;
-
     public bool slowFall;
-    public PlayerAnimInfo playerAnimInfo;
 
     #region Unity Function
     void Start()
@@ -74,22 +72,16 @@ public class NewPlayerMovent : MonoBehaviour
         inputController = GetComponent<InputController>();
         controller = GetComponent<Controller2D>();
         triggerController = GetComponent<TriggerCollisionsController>();
-        animations = GetComponent<Player2DAnimations>();
         playerAnimInfo = GetComponent<PlayerAnimInfo>();
-
-        gravity = -(2 * maxJumpHeight.Value) / Mathf.Pow(timeToJumpApex.Value, 2);
-        maxJumpVelocity = Mathf.Abs(gravity * timeToJumpApex.Value);
-        minJumpVelocity = Mathf.Sqrt(2 * Mathf.Abs(gravity) * minJumpHeight.Value);
-
-        slowGravity = gravity * 0.5f;
-
         pv = GetComponent<PhotonView>();
-
-        //Utilizado para fazer os sons dos passos tocarem
-        InvokeRepeating("CallFootsteps", 0, 0.3f);
 
         playerGanhou = Resources.Load<BoolVariable>("PlayerGanhou");
         textoAtivo = Resources.Load<BoolVariable>("TextoAtivo");
+
+        CalculateJumpStats();
+
+        //Utilizado para fazer os sons dos passos tocarem
+        InvokeRepeating("CallFootsteps", 0, 0.3f);
         playerGanhou.Value = false;
 
         if (moveSpeed.Value != 6)
@@ -112,17 +104,12 @@ public class NewPlayerMovent : MonoBehaviour
 
         joyInput = inputController.joyInput;
 
-
-
         if (!carroActive.Value && !pipaActive.Value)
         {
             NormalMovement();
-
         }
-
         else
         {
-
             input = joyInput;
 
             if (carroActive.Value)
@@ -186,47 +173,35 @@ public class NewPlayerMovent : MonoBehaviour
     #region Private Functions
     private void NormalMovement()
     {
-        if (triggerController.collisions.caixaDagua)
-        {
-            velocity.y = maxJumpVelocity * 2f;
-        }
+        if (triggerController.collisions.caixaDagua){ velocity.y = maxJumpVelocity * 2f;}
 
         input.x = 0;
-        if (Mathf.Abs(joyInput.x) > 0.3f)
-        {
-            input.x = joyInput.x;
-        }
-
+        if (Mathf.Abs(joyInput.x) > 0.3f){input.x = joyInput.x;}
 
         input.y = joyInput.y;
         targetVelocityX = input.x * moveSpeed.Value;
-        if (levouDogada.Value == false)
-        {
-            velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (controller.collisions.below) ? accelerationGround.Value : accelerationAir.Value);
-        }
-        else
-        {
-            velocity.x = 0;
-        }
 
+        if (levouDogada.Value == false){velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (controller.collisions.below) ? accelerationGround.Value : accelerationAir.Value);}
+        else{ velocity.x = 0;}
 
-        if (!triggerController.collisions.slowTime)
-        {
-            slowFall = false;
-            velocity.y += gravity * Time.deltaTime;
-        }
+        ShouldSlowTime();
+        UpdateMoveControllers(velocity * Time.deltaTime);
+        IsGrounded();
+        PCJump();
 
-        else
-        {
-            slowFall = true;
-            velocity.y = -5f;
-        }
+        playerAnimInfo.UpdateInfo04(velocity, input, controller.collisions.below, jump);
+    }
 
-        controller.Move(velocity * Time.deltaTime);
-        triggerController.MoveDirection(velocity * Time.deltaTime);
+    void CalculateJumpStats()
+    {
+        gravity = -(2 * maxJumpHeight.Value) / Mathf.Pow(timeToJumpApex.Value, 2);
+        maxJumpVelocity = Mathf.Abs(gravity * timeToJumpApex.Value);
+        minJumpVelocity = Mathf.Sqrt(2 * Mathf.Abs(gravity) * minJumpHeight.Value);
+        slowGravity = gravity * 0.5f;
+    }
 
-
-
+    void IsGrounded()
+    {
         if (controller.collisions.above || controller.collisions.below)
         {
             if (stopJump)
@@ -237,8 +212,24 @@ public class NewPlayerMovent : MonoBehaviour
             jump = false;
             stopJump = false;
         }
-        #region PC Pulo
-        //Para PC
+    }
+
+    void ShouldSlowTime()
+    {
+        if (!triggerController.collisions.slowTime)
+        {
+            slowFall = false;
+            velocity.y += gravity * Time.deltaTime;
+        }
+        else
+        {
+            slowFall = true;
+            velocity.y = -5f;
+        }
+    }
+
+    void PCJump()
+    {
         if (inputController.releaseX == true)
         {
             if (velocity.y > minJumpVelocity)
@@ -249,17 +240,13 @@ public class NewPlayerMovent : MonoBehaviour
 
         if (inputController.pressX == true && controller.collisions.below)
         {
-            //animDB.CallAnimState04(AnimState04.Rising);
             jump = true;
             velocity.y = maxJumpVelocity;
             FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/PuloGr", transform.position);
         }
-        #endregion
-
-        playerAnimInfo.UpdateInfo04(velocity, input, controller.collisions.below, jump);
     }
 
-    private void CarroMovement()
+    void CarroMovement()
     {
         if (inputController.pressX == true && controller.collisions.below)
         {
@@ -267,12 +254,11 @@ public class NewPlayerMovent : MonoBehaviour
             carroVelocity.y = maxJumpVelocity;
         }
 
-
         targetVelocityX = input.x * carroMoveSpeed;
         carroVelocity.x = Mathf.SmoothDamp(carroVelocity.x, targetVelocityX, ref carroVelocityXSmoothing, (controller.collisions.below) ? carroAccelerationTimeGrounded : carroAccelerationTimeAirborne);
         carroVelocity.y += gravity * Time.deltaTime;
-        controller.Move(carroVelocity * Time.deltaTime);
-        triggerController.MoveDirection(carroVelocity);
+
+        UpdateMoveControllers(carroVelocity * Time.deltaTime);
 
         if (controller.collisions.above || controller.collisions.below)
         {
@@ -288,37 +274,29 @@ public class NewPlayerMovent : MonoBehaviour
         }
     }
 
-    private void PipaMovement()
+    void PipaMovement()
     {
         targetVelocityX = input.x * pipaMoveSpeed;
         pipaVelocity.x = Mathf.SmoothDamp(pipaVelocity.x, targetVelocityX, ref pipaVelocityXSmoothing, pipaAccelerationTimeAirborne);
 
         if (input.y >= 0)
         {
-            if (pipaVelocity.y < 5)
-            {
-                pipaVelocity.y += pipaGravity * Time.deltaTime;
-            }
-            else
-            {
-                pipaVelocity.y = 5;
-            }
+            if (pipaVelocity.y < 5){ pipaVelocity.y += pipaGravity * Time.deltaTime; }
+            else { pipaVelocity.y = 5;}
         }
         else
         {
-            if (pipaVelocity.y > -5)
-            {
-                pipaVelocity.y -= pipaGravity * Time.deltaTime;
-            }
-            else
-            {
-                pipaVelocity.y = -5;
-            }
+            if (pipaVelocity.y > -5){ pipaVelocity.y -= pipaGravity * Time.deltaTime;}
+            else{ pipaVelocity.y = -5;}
         }
 
+        UpdateMoveControllers(pipaVelocity * Time.deltaTime);
+    }
 
-        triggerController.MoveDirection(pipaVelocity);
-        controller.Move(pipaVelocity * Time.deltaTime);
+    void UpdateMoveControllers(Vector2 vel)
+    {
+        controller.Move(vel);
+        triggerController.MoveDirection(vel);
     }
     #endregion
 }

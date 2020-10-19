@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Landing : MonoBehaviour
 {
-	private Player2DAnimations p2Danim;
 	private string oldAnimState;
 	private ParticleSystem particleOneShot;
 	public ParticleSystem particleLoop;
@@ -15,7 +14,6 @@ public class Landing : MonoBehaviour
     void Start()
     {
         particleOneShot = GetComponent<ParticleSystem>();
-        p2Danim = GetComponentInParent<Player2DAnimations>();
     }
 
     #endregion

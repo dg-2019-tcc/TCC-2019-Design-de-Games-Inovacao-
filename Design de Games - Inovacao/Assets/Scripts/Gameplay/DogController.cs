@@ -115,27 +115,13 @@ namespace Complete
         {
             if (PV == null || PV.IsMine || !PhotonNetwork.InRoom)
             {
-                if (desativaPower.Value == true)
-                {
-                    ChangeState("IdleState");
-                }
+                if (desativaPower.Value == true) { ChangeState("IdleState");}
 
-                if (hitTotemCarro.Value == true || hitTotemPipa.Value == true)
-                {
-                    target = ItemThrow.totemTarget;
-                    float step = speedToTotem * Time.deltaTime;
-                    transform.position = Vector3.MoveTowards(transform.position, target.position, step);
-                }
-
-                //PV.Controller.CustomProperties["dogValue"] = dogAtivo.Value;
-
+                CheckHitTotem();
 
                 if (GameManager.historiaMode == true)
                 {
-                    if (sequestrado)
-                    {
-                        ChangeState("DesativadoState");
-                    }
+                    if (sequestrado){  ChangeState("DesativadoState"); }
                 }
             }
         }
@@ -160,6 +146,16 @@ namespace Complete
         #endregion
 
         #region Private Functions
+
+        void CheckHitTotem()
+        {
+            if (hitTotemCarro.Value == true || hitTotemPipa.Value == true)
+            {
+                target = ItemThrow.totemTarget;
+                float step = speedToTotem * Time.deltaTime;
+                transform.position = Vector3.MoveTowards(transform.position, target.position, step);
+            }
+        }
 
         IEnumerator DogDisplay(bool isOn)
         {

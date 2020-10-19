@@ -13,7 +13,6 @@ public class CustomController : MonoBehaviour
 
     private CustomDisplay customDisplay;
 
-    private Player2DAnimations animations;
     private AnimDB animDB;
 
     #region Unity Function
@@ -26,12 +25,10 @@ public class CustomController : MonoBehaviour
         takeOffLado = lado.GetComponent<TakeOffUnused>();
 
         customDisplay = GetComponent<CustomDisplay>();
-        animations = GetComponent<Player2DAnimations>();
         animDB = GetComponent<AnimDB>();
 
         GameManager.Instance.ChecaFase();
         customDisplay.DesativaTudo();
-        //TiraCustomDesativada();
     }
     #endregion
 
@@ -42,8 +39,6 @@ public class CustomController : MonoBehaviour
     #region Private Functions
     public void TiraCustomDesativada()
     {
-        // customDisplay.AtivaTudo();
-        //if (!GameManager.Instance.fase.Equals(GameManager.Fase.Loja))
         if (GameManager.sceneAtual == SceneType.Cabelo || GameManager.sceneAtual == SceneType.Shirt || GameManager.sceneAtual == SceneType.Tenis || GameManager.sceneAtual == SceneType.Customiza)
         {
             takeOffFrente.letThemBeOn = true;
@@ -56,17 +51,6 @@ public class CustomController : MonoBehaviour
             takeOffLado.CheckAndExecute();
             if (GameManager.sceneAtual != SceneType.Moto) frente.SetActive(false);
         }
-
-        /*if (takeOffFrente.letThemBeOn == true/* && takeOffLado.letThemBeOn == true && GameManager.sceneAtual != SceneType.Moto)
-        {
-            //animDB.playerAtivo = animDB.playerFrente;
-            //animDB.ChangeArmature(0);
-            //animDB.CallAnimState04(AnimState04.Idle);
-            //lado.SetActive(false);
-            //animations.PlayAnim(Player2DAnimations.State.Idle);
-
-            frente.SetActive(false);
-        }*/
     }
     #endregion
 

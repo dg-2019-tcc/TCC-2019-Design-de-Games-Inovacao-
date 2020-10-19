@@ -17,12 +17,9 @@ public class PlayerAnimController : MonoBehaviour
     public AnimStatePowerUp nextAnimState02 = AnimStatePowerUp.None;
     public AnimStateAction nextAnimState03 = AnimStateAction.None;
     public AnimStateMovement nextAnimState04 = AnimStateMovement.None;
-
     public AnimStateMovement oldAnimState04 = AnimStateMovement.None;
 
-
     public PlayerAnimInfo playerAnimInfo;
-
     public PlayerInfo playerInfo;
 
     [SerializeField] private float coolToNext;

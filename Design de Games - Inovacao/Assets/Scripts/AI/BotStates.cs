@@ -35,19 +35,16 @@ namespace Complete {
             aiSpawner = FindObjectOfType<AISpawner>();
             triggerController = GetComponent<AITriggerController>();
 
-            //GameManager.Instance.ChecaFase();
-
             coletaveis = aiSpawner.wayPointsForAI;
         }
 
         #endregion
 
         #region Public Functions
-
+        // Chamado Pelo AIMovement
         public void BotWork()
         {
             if (GameManager.pausaJogo == true || active == State.Off) { return; }
-            //if (GameManager.Instance.fase.Equals(GameManager.Fase.Coleta) || GameManager.Instance.fase.Equals(GameManager.Fase.Futebol) || GameManager.Instance.fase.Equals(GameManager.Fase.Volei))
             if (GameManager.sceneAtual == SceneType.Coleta || GameManager.sceneAtual == SceneType.Futebol || GameManager.sceneAtual == SceneType.Volei)
             {
                 if (target == null)
@@ -65,7 +62,6 @@ namespace Complete {
 
         private void CheckTarget()
         {
-            //if (GameManager.Instance.fase.Equals(GameManager.Fase.Coleta))
             if (GameManager.sceneAtual == SceneType.Coleta)
             {
                 if (target == null)
@@ -89,7 +85,6 @@ namespace Complete {
                 }
             }
 
-            //if (GameManager.Instance.fase.Equals(GameManager.Fase.Futebol))
             if (GameManager.sceneAtual == SceneType.Futebol)
             {
                 if (target == null)
@@ -104,112 +99,119 @@ namespace Complete {
             botInfo.Reset();
             SetState(State.Null, true);
 
-            //if (GameManager.Instance.fase.Equals(GameManager.Fase.Coleta))
-            if (GameManager.sceneAtual == SceneType.Coleta)
+            switch (GameManager.sceneAtual)
             {
-                distTarget = transform.position - target.transform.position;
+                case SceneType.Coleta:
+                    ColetaDirection();
+                    break;
 
-                if (distTarget.x > 0.5)
+                case SceneType.Futebol:
+                    FutebolDirection();
+                    break;
+
+                case SceneType.Moto:
+                    MotoDirection();
+                    break;
+
+                case SceneType.Corrida:
+                    CorridaDirection();
+                    break;
+            }
+        }
+
+        void ColetaDirection()
+        {
+            distTarget = transform.position - target.transform.position;
+
+            if (distTarget.x > 0.5)
+            {
+                botInfo.isLeft = true;
+                SetState(State.Left, false);
+            }
+            else if (distTarget.x < -0.5)
+            {
+                botInfo.isRight = true;
+                SetState(State.Right, false);
+            }
+            else
+            {
+                botInfo.isRight = false;
+                botInfo.isLeft = false;
+                SetState(State.Idle, false);
+            }
+
+            if (distTarget.y < -0.8)
+            {
+                botInfo.isUp = true;
+                SetState(State.Up, false);
+            }
+            else if (distTarget.y > 0.5)
+            {
+                botInfo.isDown = true;
+                SetState(State.Down, false);
+            }
+            else
+            {
+                botInfo.isUp = false;
+                botInfo.isDown = false;
+                SetState(State.Idle, false);
+            }
+        }
+
+        void FutebolDirection()
+        {
+            if (transform.position.x - target.transform.position.x > 0.1)
+            {
+                botInfo.isLeft = true;
+                SetState(State.Left, false);
+                if (transform.position.x - target.transform.position.x < 0.5)
                 {
-                    botInfo.isLeft = true;
-                    SetState(State.Left, false);
-                }
-                else if (distTarget.x < -0.5)
-                {
-                    botInfo.isRight = true;
-                    SetState(State.Right, false);
+                    SetActionState(State.Chuta);
                 }
                 else
                 {
-                    botInfo.isRight = false;
-                    botInfo.isLeft = false;
-                    SetState(State.Idle, false);
+                    SetActionState(State.Null);
                 }
+            }
+            else if (transform.position.x - target.transform.position.x < -0.5)
+            {
+                botInfo.isRight = true;
+                SetState(State.Right, false);
+            }
+            else
+            {
+                botInfo.isRight = false;
+                botInfo.isLeft = false;
+                SetState(State.Idle, false);
+            }
 
-                if (distTarget.y < -0.8)
+            if (transform.position.x - target.transform.position.x < 0.5f && transform.position.x - target.transform.position.x > -0.5f)
+            {
+                if (transform.position.y - target.transform.position.y < -2)
                 {
                     botInfo.isUp = true;
                     SetState(State.Up, false);
                 }
-                else if (distTarget.y > 0.5)
-                {
-                    botInfo.isDown = true;
-                    SetState(State.Down, false);
-                }
-                else
-                {
-                    botInfo.isUp = false;
-                    botInfo.isDown = false;
-                    SetState(State.Idle, false);
-                }
             }
-
-            //else if (GameManager.Instance.fase.Equals(GameManager.Fase.Futebol))
-            else if (GameManager.sceneAtual == SceneType.Futebol)
+            else
             {
-                if (transform.position.x - target.transform.position.x > 0.1)
-                {
-                    botInfo.isLeft = true;
-                    SetState(State.Left, false);
-                    if (transform.position.x - target.transform.position.x < 0.5)
-                    {
-                        SetActionState(State.Chuta);
-                    }
-                    else
-                    {
-                        SetActionState(State.Null);
-                    }
-                }
-                else if (transform.position.x - target.transform.position.x < -0.5)
-                {
-                    botInfo.isRight = true;
-                    SetState(State.Right, false);
-                }
-                else
-                {
-                    botInfo.isRight = false;
-                    botInfo.isLeft = false;
-                    SetState(State.Idle, false);
-                }
-
-                if (transform.position.x - target.transform.position.x < 0.5f && transform.position.x - target.transform.position.x > -0.5f)
-                {
-                    if (transform.position.y - target.transform.position.y < -2)
-                    {
-                        botInfo.isUp = true;
-                        SetState(State.Up, false);
-                    }
-                }
-                else
-                {
-                    SetState(State.Idle, false);
-                }
-            }
-
-            //else if (GameManager.Instance.fase.Equals(GameManager.Fase.Moto))
-            else if (GameManager.sceneAtual == SceneType.Moto)
-            {
-                SetState(State.Right, false);
-
-                if (triggerController.triggerCollision.needJump)
-                {
-                    SetState(State.Up, false);
-                }
-
-                aiMovement.speed += 0.2f * Time.deltaTime;
-            }
-
-            //else if (GameManager.Instance.fase.Equals(GameManager.Fase.Corrida))
-            else if (GameManager.sceneAtual == SceneType.Corrida)
-            {
-                SetState(State.Right, false);
-
-                if (triggerController.triggerCollision.needJump)
-                {
-                    SetState(State.Up, false);
-                }
+                SetState(State.Idle, false);
             }
         }
+
+        void MotoDirection()
+        {
+            SetState(State.Right, false);
+            if (triggerController.triggerCollision.needJump) { SetState(State.Up, false);}
+            aiMovement.speed += 0.2f * Time.deltaTime;
+        }
+
+        void CorridaDirection()
+        {
+            SetState(State.Right, false);
+            if (triggerController.triggerCollision.needJump) { SetState(State.Up, false);}
+        }
+
 
         private void SetActionState(State nextActionState)
         {

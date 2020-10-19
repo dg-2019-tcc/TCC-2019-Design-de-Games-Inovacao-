@@ -12,7 +12,7 @@ namespace Complete
 
         public bool isKlay;
 
-        public string idlePose = "0_Idle";
+        public readonly string idlePose = "0_Idle";
         public string walkAnimation = "0_Corrida_V2";
         public string startJumpAnimation = "1_Pulo";
         public string subindoJumpAnimation = "1_NoAr(1_Subindo)";

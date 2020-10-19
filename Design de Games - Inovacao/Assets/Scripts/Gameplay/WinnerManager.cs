@@ -10,8 +10,6 @@ public class WinnerManager : MonoBehaviour
 	public PlayerThings player;
 	private PhotonView pv;
 
-
-
 	[Header("Coletáveis")]
 
 	public bool ganhouCorrida;
@@ -40,17 +38,11 @@ public class WinnerManager : MonoBehaviour
 
     private void Start()
     {
-        //buildProfs = true;
         pv = GetComponent<PhotonView>();
         isloading = false;
         feedback = FindObjectOfType<FeedbackText>();
 
-        acabou01 = Resources.Load<BoolVariableArray>("Acabou01");
-        aiGanhou = Resources.Load<BoolVariableArray>("AIGanhou");
         playerGanhou = Resources.Load<BoolVariable>("PlayerGanhou");
-        flowIndex = Resources.Load<FloatVariable>("FlowIndex");
-        aiGanhou.Value[5] = false;
-        aiGanhou.Value[7] = false;
 
         if (pv.IsMine)
         {
