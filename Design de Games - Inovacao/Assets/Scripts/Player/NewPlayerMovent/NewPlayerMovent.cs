@@ -7,15 +7,12 @@ using Complete;
 [RequireComponent(typeof(Controller2D))]
 public class NewPlayerMovent : MonoBehaviour
 {
+    // Movimentação Normal
     public FloatVariable moveSpeed;
     float velocityXSmoothing;
     public FloatVariable accelerationAir;
     public FloatVariable accelerationGround;
-    float accelerationTimeAirborne = 0.2f;
-    float accelerationTimeGrounded = 0.1f;
-
     float targetVelocityX;
-
     float maxJumpVelocity;
     float minJumpVelocity;
     float gravity;
@@ -24,17 +21,19 @@ public class NewPlayerMovent : MonoBehaviour
     public FloatVariable minJumpHeight;
     public FloatVariable timeToJumpApex;
 
+    //Move Pipa
     float pipaMoveSpeed = 6;
     float pipaVelocityXSmoothing;
     float pipaAccelerationTimeAirborne = 0.3f;
     public float pipaGravity;
 
+    //Move Carro
     float carroMoveSpeed = 12;
     float carroVelocityXSmoothing;
     float carroAccelerationTimeAirborne = 0.35f;
     float carroAccelerationTimeGrounded = 0.175f;
 
-
+    //Jump
     [HideInInspector]
     public bool jump;
     bool stopJump;
@@ -47,34 +46,26 @@ public class NewPlayerMovent : MonoBehaviour
     [HideInInspector] public Vector2 velocity;
     [HideInInspector] public Vector3 carroVelocity;
     Vector3 pipaVelocity;
-    Vector3 motoVelocity;
 
-    public Vector3 oldPosition;
     [HideInInspector]
     public Vector2 input;
-    Vector2 oldInput;
     [HideInInspector]
     public Vector2 joyInput;
 
+    //Controllers
     Controller2D controller;
     public Controller2D dogController;
     TriggerCollisionsController triggerController;
     Player2DAnimations animations;
-
     public InputController inputController;
 
 
     private PhotonView pv;
 
-    public BoolVariable aiGanhou;
     public BoolVariable playerGanhou;
     public BoolVariable textoAtivo;
-    public BoolVariable buildPC;
 
     public bool slowFall;
-
-    public bool ganhou;
-    private bool oldStun;
     public PlayerAnimInfo playerAnimInfo;
 
     #region Unity Function
@@ -97,7 +88,6 @@ public class NewPlayerMovent : MonoBehaviour
         //Utilizado para fazer os sons dos passos tocarem
         InvokeRepeating("CallFootsteps", 0, 0.3f);
 
-        aiGanhou = Resources.Load<BoolVariable>("AIGanhou");
         playerGanhou = Resources.Load<BoolVariable>("PlayerGanhou");
         textoAtivo = Resources.Load<BoolVariable>("TextoAtivo");
         playerGanhou.Value = false;
@@ -148,7 +138,6 @@ public class NewPlayerMovent : MonoBehaviour
 
     private void LateUpdate()
     {
-        oldPosition = velocity;
         joyInput = new Vector2(0, 0);
     }
     #endregion
@@ -236,7 +225,6 @@ public class NewPlayerMovent : MonoBehaviour
         controller.Move(velocity * Time.deltaTime);
         triggerController.MoveDirection(velocity * Time.deltaTime);
 
-        //animations.ChangeMoveAnim(velocity, oldPosition, input, levouDogada.Value, ganhou);
 
 
         if (controller.collisions.above || controller.collisions.below)
@@ -250,7 +238,6 @@ public class NewPlayerMovent : MonoBehaviour
             stopJump = false;
         }
         #region PC Pulo
-        //if (!GameManager.buildPC) { return; }
         //Para PC
         if (inputController.releaseX == true)
         {
@@ -286,7 +273,6 @@ public class NewPlayerMovent : MonoBehaviour
         carroVelocity.y += gravity * Time.deltaTime;
         controller.Move(carroVelocity * Time.deltaTime);
         triggerController.MoveDirection(carroVelocity);
-        //animations.ChangeMoveAnim(carroVelocity, oldPosition, input, levouDogada.Value, ganhou);
 
         if (controller.collisions.above || controller.collisions.below)
         {
@@ -304,8 +290,6 @@ public class NewPlayerMovent : MonoBehaviour
 
     private void PipaMovement()
     {
-        //animations.ChangeMoveAnim(pipaVelocity, oldPosition, input, levouDogada.Value, ganhou);
-        //animations.PlayAnim(Player2DAnimations.State.Pipa);
         targetVelocityX = input.x * pipaMoveSpeed;
         pipaVelocity.x = Mathf.SmoothDamp(pipaVelocity.x, targetVelocityX, ref pipaVelocityXSmoothing, pipaAccelerationTimeAirborne);
 
