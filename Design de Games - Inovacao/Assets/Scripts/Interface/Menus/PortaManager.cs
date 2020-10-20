@@ -21,10 +21,6 @@ public class PortaManager : MonoBehaviour
     public GameObject placaBazar;
     public GameObject placaCabelo;
 	
-    /*public GameObject ButtonRoupa;
-
-    public GameObject customButtons;*/
-
     public DelayStartLobbyController lobbyController;
 
     public Joystick joy;
@@ -46,199 +42,54 @@ public class PortaManager : MonoBehaviour
     public BoolVariable buildPC;
     private Vector2 keyInput;
 
-	private void Start()
-	{
+    #region Unity Function
+
+    void Start()
+    {
         spawnHUBPoints = Resources.Load<FloatVariable>("SpawnHUBPoints");
         buildPC = Resources.Load<BoolVariable>("BuildPC");
 
         controller = FindObjectOfType<TriggerCollisionsController>();
         joy = FindObjectOfType<Joystick>();
-        //ButtonRoupa.SetActive(false);
-	}
+    }
 
-    private void Update()
+    void Update()
     {
-        if(GameManager.isPaused == true) { return; }
+        if (GameManager.isPaused == true) { return; }
 
-		if (joy == null && buildPC.Value == false)
-		{
-			joy = FindObjectOfType<Joystick>();
-		}
+        if (joy == null && buildPC.Value == false)
+        {
+            joy = FindObjectOfType<Joystick>();
+        }
 
-        if(controller == null)
+        if (controller == null)
         {
             controller = FindObjectOfType<TriggerCollisionsController>();
         }
 
         if (controller.collisions.isDoor != true)
         {
-			CloseDoor();
-
+            CloseDoor();
         }
 
-        if (buildPC.Value == false)
-        {
-            if (joyGambiarra < joy.Vertical)
-            {
-                if (joy.Vertical >= 0.8f && hairDoor)
-                {
-                    spawnHUBPoints.Value = 8;
-                    //SceneManager.LoadScene("Cabelo");
-                    LoadingManager.instance.LoadNewScene(SceneType.Cabelo, SceneType.HUB, false);
-                }
-
-                if (joy.Vertical >= 0.8f && shirtDoor)
-                {
-                    spawnHUBPoints.Value = 7;
-                    //SceneManager.LoadScene("Shirt");
-                    LoadingManager.instance.LoadNewScene(SceneType.Shirt, SceneType.HUB, false);
-                }
-
-
-                if (joy.Vertical >= 0.8f && shoesDoor)
-                {
-                    Debug.Log(shoesDoor);
-                    spawnHUBPoints.Value = 6;
-                    //SceneManager.LoadScene("Tenis");
-                    LoadingManager.instance.LoadNewScene(SceneType.Tenis, SceneType.HUB, false);
-                }
-
-                if (joy.Vertical >= 0.8f && abriPorta)
-                {
-                    //SceneManager.LoadScene("HUB");
-                    Debug.Log("Colidiu");
-                    OpenDoorTutorial();
-                }
-                if (joy.Vertical >= 0.8f && corridaDoor == true)
-                {
-                    spawnHUBPoints.Value = 5;
-                    //lobbyController.DelayStart("Corrida");
-                    lobbyController.DelayStart(SceneType.Corrida);
-                    //ButtonJogarCorrida = false;
-                }
-                if (joy.Vertical >= 0.8f && coletaDoor == true)
-                {
-                    spawnHUBPoints.Value = 1;
-                    lobbyController.DelayStart(SceneType.Coleta);
-                    //lobbyController.DelayStart("Coleta");
-                    //ButtonJogarColeta = false;
-                }
-                if (joy.Vertical >= 0.8f && futebolDoor == true)
-                {
-                    spawnHUBPoints.Value = 2;
-                    lobbyController.DelayStart(SceneType.Futebol);
-                    //lobbyController.DelayStart("Futebol");
-                    //ButtonJogarCorrida = false;
-                }
-                if (joy.Vertical >= 0.8f && motoDoor == true)
-                {
-                    spawnHUBPoints.Value = 3;
-                    //lobbyController.DelayStart("Moto");
-                    lobbyController.DelayStart(SceneType.Moto);
-                    //ButtonJogarColeta = false;
-                }
-                if (joy.Vertical >= 0.8f && voleiDoor == true)
-                {
-                    spawnHUBPoints.Value = 4;
-                    lobbyController.DelayStart(SceneType.Volei);
-                    //lobbyController.DelayStart("Volei");
-                    //ButtonJogarCorrida = false;
-                }
-            }
-        }
-
-        else
-        {
-            keyInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-
-            if (keyInput.y > 0 && hairDoor)
-            {
-                spawnHUBPoints.Value = 8;
-                LoadingManager.instance.LoadNewScene(SceneType.Cabelo, SceneType.HUB,false);
-                //SceneManager.LoadScene("Cabelo");
-            }
-
-            if (keyInput.y > 0 && shirtDoor)
-            {
-                spawnHUBPoints.Value = 7;
-                LoadingManager.instance.LoadNewScene(SceneType.Shirt, SceneType.HUB,false);
-                //SceneManager.LoadScene("Shirt");
-            }
-
-
-            if (keyInput.y > 0 && shoesDoor)
-            {
-                Debug.Log(shoesDoor);
-                spawnHUBPoints.Value = 6;
-                LoadingManager.instance.LoadNewScene(SceneType.Tenis, SceneType.HUB,false);
-                //SceneManager.LoadScene("Tenis");
-            }
-
-            if (keyInput.y > 0 && abriPorta)
-            {
-                LoadingManager.instance.LoadNewScene(SceneType.HUB, SceneType.Tutorial2, false);
-                //SceneManager.LoadScene("HUB");
-                Debug.Log("Colidiu");
-                OpenDoorTutorial();
-            }
-            if (keyInput.y > 0 && corridaDoor == true)
-            {
-                spawnHUBPoints.Value = 5;
-                //lobbyController.DelayStart("Corrida");
-                lobbyController.DelayStart(SceneType.Corrida);
-                //ButtonJogarCorrida = false;
-            }
-            if (keyInput.y > 0 & coletaDoor == true)
-            {
-                spawnHUBPoints.Value = 1;
-                lobbyController.DelayStart(SceneType.Coleta);
-                //lobbyController.DelayStart("Coleta");
-                //ButtonJogarColeta = false;
-            }
-            if (keyInput.y > 0 && futebolDoor == true)
-            {
-                spawnHUBPoints.Value = 2;
-                lobbyController.DelayStart(SceneType.Futebol);
-                //lobbyController.DelayStart("Futebol");
-                //ButtonJogarCorrida = false;
-            }
-            if (keyInput.y > 0 && motoDoor == true)
-            {
-                spawnHUBPoints.Value = 3;
-                lobbyController.DelayStart(SceneType.Moto);
-                //lobbyController.DelayStart("Moto");
-                //ButtonJogarColeta = false;
-            }
-            if (keyInput.y > 0 && voleiDoor == true)
-            {
-                spawnHUBPoints.Value = 4;
-                lobbyController.DelayStart(SceneType.Volei);
-                //lobbyController.DelayStart("Volei");
-                //ButtonJogarCorrida = false;
-            }
-        }
+        if (buildPC.Value == false){ BuildMobile();}
+        else{ BuildPC();}
 
         if (buildPC.Value == false)
         {
             joyGambiarra = joy.Vertical;
         }
-
-	}
-
-    public void OpenDoorTutorial()
-    {
-
-            SceneManager.LoadScene("HUB");
-
-        FindObjectOfType<PauseManager>().VoltaMenu();
     }
+
+    #endregion
+
+    #region Public Functions
 
     public void OpenDoor()
     {
-		controller.collisions.isDoor = true;
+        controller.collisions.isDoor = true;
 
-
-		switch (qualPorta)
+        switch (qualPorta)
         {
             default:
                 break;
@@ -290,9 +141,120 @@ public class PortaManager : MonoBehaviour
         }
     }
 
-    public void CloseDoor()
-    {
+    #endregion
 
+    #region Private Functions
+
+    void BuildMobile()
+    {
+        if (joyGambiarra < joy.Vertical)
+        {
+            if (joy.Vertical >= 0.8f && hairDoor)
+            {
+                spawnHUBPoints.Value = 8;
+                LoadingManager.instance.LoadNewScene(SceneType.Cabelo, SceneType.HUB, false);
+            }
+
+            if (joy.Vertical >= 0.8f && shirtDoor)
+            {
+                spawnHUBPoints.Value = 7;
+                LoadingManager.instance.LoadNewScene(SceneType.Shirt, SceneType.HUB, false);
+            }
+
+            if (joy.Vertical >= 0.8f && shoesDoor)
+            {
+                spawnHUBPoints.Value = 6;
+                LoadingManager.instance.LoadNewScene(SceneType.Tenis, SceneType.HUB, false);
+            }
+
+            if (joy.Vertical >= 0.8f && corridaDoor == true)
+            {
+                spawnHUBPoints.Value = 5;
+                lobbyController.DelayStart(SceneType.Corrida);
+            }
+
+            if (joy.Vertical >= 0.8f && coletaDoor == true)
+            {
+                spawnHUBPoints.Value = 1;
+                lobbyController.DelayStart(SceneType.Coleta);
+            }
+
+            if (joy.Vertical >= 0.8f && futebolDoor == true)
+            {
+                spawnHUBPoints.Value = 2;
+                lobbyController.DelayStart(SceneType.Futebol);
+            }
+
+            if (joy.Vertical >= 0.8f && motoDoor == true)
+            {
+                spawnHUBPoints.Value = 3;
+                lobbyController.DelayStart(SceneType.Moto);
+            }
+
+            if (joy.Vertical >= 0.8f && voleiDoor == true)
+            {
+                spawnHUBPoints.Value = 4;
+                lobbyController.DelayStart(SceneType.Volei);
+            }
+        }
+    }
+
+    void BuildPC()
+    {
+        keyInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+
+        if (keyInput.y > 0 && hairDoor)
+        {
+            spawnHUBPoints.Value = 8;
+            LoadingManager.instance.LoadNewScene(SceneType.Cabelo, SceneType.HUB, false);
+        }
+
+        if (keyInput.y > 0 && shirtDoor)
+        {
+            spawnHUBPoints.Value = 7;
+            LoadingManager.instance.LoadNewScene(SceneType.Shirt, SceneType.HUB, false);
+        }
+
+        if (keyInput.y > 0 && shoesDoor)
+        {
+            Debug.Log(shoesDoor);
+            spawnHUBPoints.Value = 6;
+            LoadingManager.instance.LoadNewScene(SceneType.Tenis, SceneType.HUB, false);
+        }
+
+        if (keyInput.y > 0 && corridaDoor == true)
+        {
+            spawnHUBPoints.Value = 5;
+            lobbyController.DelayStart(SceneType.Corrida);
+        }
+
+        if (keyInput.y > 0 & coletaDoor == true)
+        {
+            spawnHUBPoints.Value = 1;
+            lobbyController.DelayStart(SceneType.Coleta);
+        }
+
+        if (keyInput.y > 0 && futebolDoor == true)
+        {
+            spawnHUBPoints.Value = 2;
+            lobbyController.DelayStart(SceneType.Futebol);
+        }
+
+        if (keyInput.y > 0 && motoDoor == true)
+        {
+            spawnHUBPoints.Value = 3;
+            lobbyController.DelayStart(SceneType.Moto);
+        }
+
+        if (keyInput.y > 0 && voleiDoor == true)
+        {
+            spawnHUBPoints.Value = 4;
+            lobbyController.DelayStart(SceneType.Volei);
+        }
+    }
+
+    void CloseDoor()
+    {
         switch (qualPorta)
         {
             default:
@@ -342,81 +304,8 @@ public class PortaManager : MonoBehaviour
                 shoesDoor = false;
                 break;
         }
-
-
     }
 
-    /*private void OnTriggerEnter2D(Collider2D collision)
-	{
-		if (collision.CompareTag("Player")){
-			switch (qualPorta)
-			{
-				default:
-					break;
+    #endregion
 
-				case "Corrida":
-                    ButtonJogarCorrida.SetActive(true);
-                    break;
-
-				case "Coleta":
-                    ButtonJogarColeta.SetActive(true);
-                    break;
-
-                case "Futebol":
-                    ButtonJogarFutebol.SetActive(true);
-                    break;
-
-				case "Moto":
-					ButtonJogarMoto.SetActive(true);
-					break;
-
-                case "Volei":
-                    ButtonJogarVolei.SetActive(true);
-                    break;
-
-                case "Customizar":
-                    ButtonRoupa.SetActive(true);
-					break;
-			}
-
-		}
-	}
-
-	private void OnTriggerExit2D(Collider2D collision)
-	{
-		if (collision.CompareTag("Player"))
-		{
-			switch (qualPorta)
-			{
-				default:
-					break;
-
-				case "Corrida":
-                    ButtonJogarCorrida.SetActive(false);
-                    break;
-
-				case "Coleta":
-                    ButtonJogarColeta.SetActive(false);
-                    break;
-
-				case "Futebol":
-					ButtonJogarFutebol.SetActive(false);
-					break;
-
-				case "Moto":
-					ButtonJogarMoto.SetActive(false);
-					break;
-
-                case "Volei":
-                    ButtonJogarVolei.SetActive(false);
-                    break;
-
-                case "Customizar":
-                    ButtonRoupa.SetActive(false);
-                    customButtons.SetActive(false);
-					break;
-			}
-
-		}
-	}*/
 }

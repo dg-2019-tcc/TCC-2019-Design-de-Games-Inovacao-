@@ -52,15 +52,9 @@ namespace Complete
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                    //SpawnAI();
                     m_AI[0].m_Instance =
                        Instantiate(aiPrefab[1], m_AI[0].m_SpawnPoint.position, m_AI[0].m_SpawnPoint.rotation) as GameObject;
-                }
-
-            /*if (OfflineMode.modoDoOffline && comecouPartida && aiMovement.enabled == false)
-            {
-                aiMovement.enabled = true;
-            }*/
+            }
         }
 
         #endregion
@@ -73,7 +67,6 @@ namespace Complete
             {
                 m_AI[0].m_Instance =
                     Instantiate(aiPrefab[0], m_AI[0].m_SpawnPoint.position, m_AI[0].m_SpawnPoint.rotation) as GameObject;
-                //m_AI[0].SetupAI(wayPointsForAI);
 
                 aiMovement = m_AI[0].aiMovement;
             }
@@ -82,11 +75,9 @@ namespace Complete
             {
                 m_AI[0].m_Instance =
                     Instantiate(aiPrefab[1], m_AI[0].m_SpawnPoint.position, m_AI[0].m_SpawnPoint.rotation) as GameObject;
-                //m_AI[0].SetupAI(wayPointsForAI);
 
                 aiMovement = m_AI[0].aiMovement;
             }
-            //aiMovement.enabled = false;
 
         }
 
