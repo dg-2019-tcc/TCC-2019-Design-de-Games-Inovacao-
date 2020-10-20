@@ -57,6 +57,7 @@ public class WinnerManager : MonoBehaviour
 
     void Update()
     {
+        if (isloading) return;
         if (player == null)
         {
             player = FindObjectOfType<PlayerThings>();
@@ -72,6 +73,7 @@ public class WinnerManager : MonoBehaviour
                 else if (ganhouCorrida)
                 {
                     GanhouCorrida();
+                    Debug.Log("Ganhou");
                 }
             }
         }
@@ -98,8 +100,10 @@ public class WinnerManager : MonoBehaviour
         if (!isloading)
         {
             moedas.Add(moedasGanhas);
+            Debug.Log(" moedas.Add");
             feedback.Ganhou();
             playerGanhou.Value = true;
+            isloading = true;
 
             if (GameManager.historiaMode)
             {
@@ -120,7 +124,6 @@ public class WinnerManager : MonoBehaviour
                 pv.RPC("TrocaSala", RpcTarget.All);
                 ganhouCorrida = false;
             }
-            isloading = true;
         }
     }
 

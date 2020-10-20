@@ -80,7 +80,7 @@ public class LinhaDeChegada : MonoBehaviour
 
             }
         }
-        moedas.Add(moedasGanhasNessaFase);
+        //moedas.Add(moedasGanhasNessaFase);
     }
 
     [PunRPC]
