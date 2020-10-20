@@ -4,6 +4,7 @@ using UnityEngine;
 using Photon.Pun;
 using Photon.Pun.UtilityScripts;
 using UnityEngine.SceneManagement;
+using UnityCore.Scene;
 
 public class WinnerManager : MonoBehaviour
 {
@@ -34,6 +35,8 @@ public class WinnerManager : MonoBehaviour
     public Points moedas;
     public int moedasGanhas = 100;
 
+    SceneType old;
+
     #region Unity Function
 
     private void Start()
@@ -60,10 +63,6 @@ public class WinnerManager : MonoBehaviour
         }
         else
         {
-            /*if (LinhaDeChegada.changeRoom == true)
-			{
-				StartCoroutine(Venceu());
-			}*/
             if (!isloading)
             {
                 if (perdeuCorrida)
@@ -75,13 +74,6 @@ public class WinnerManager : MonoBehaviour
                     GanhouCorrida();
                 }
             }
-
-            /*
-			if (perdeuCorrida)
-			{
-				PerdeuCorrida();
-			}
-			*/
         }
 
     }
@@ -103,65 +95,33 @@ public class WinnerManager : MonoBehaviour
     [PunRPC]
     void GanhouCorrida()
     {
-        moedas.Add(moedasGanhas);
-        feedback.Ganhou();
-        playerGanhou.Value = true;
-        if (isloading) return;
-        if (buildProfs == false)
+        if (!isloading)
         {
-            if (acabou01.Value[7] == false)
-            {
+            moedas.Add(moedasGanhas);
+            feedback.Ganhou();
+            playerGanhou.Value = true;
 
+            if (GameManager.historiaMode)
+            {
                 if (!isMoto)
                 {
-                    //flowIndex.Value = 7;
-                    faseNome = "HistoriaCorrida";
-                    //PhotonNetwork.LoadLevel("HistoriaFutebol");
+                    old = SceneType.Corrida;
                 }
                 else
                 {
-                    //flowIndex.Value = 6;
-                    faseNome = "HistoriaMoto";
-                    //PhotonNetwork.LoadLevel("HistoriaFutebol");
+                    old = SceneType.Corrida;
                 }
-                //playerGanhou.Value = true;
-                aiGanhou.Value[5] = false;
                 StartCoroutine("AcabouFase");
             }
-
             else
             {
-
-                //PhotonNetwork.LoadLevel("HistoriaFutebol");
                 Debug.Log("Ganhou");
                 PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 1;
-                //player.ganhouSom.Play();
-                //player.playerAnimations.playerAC.SetTrigger(player.playerAnimations.animatorWon);
-
-
-                //	gameObject.GetComponent<PhotonView>().RPC("ZeraPontuacao", RpcTarget.All);
-
                 pv.RPC("TrocaSala", RpcTarget.All);
                 ganhouCorrida = false;
-                //PlayerMovement.acabou = true;
             }
+            isloading = true;
         }
-
-        else
-        {
-            Debug.Log("Ganhou");
-            PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 1;
-            //player.ganhouSom.Play();
-            //player.playerAnimations.playerAC.SetTrigger(player.playerAnimations.animatorWon);
-
-
-            //	gameObject.GetComponent<PhotonView>().RPC("ZeraPontuacao", RpcTarget.All);
-
-            pv.RPC("TrocaSala", RpcTarget.All);
-            ganhouCorrida = false;
-
-        }
-
     }
 
     [PunRPC]
@@ -231,7 +191,7 @@ public class WinnerManager : MonoBehaviour
         isloading = true;
         yield return new WaitForSeconds(3f);
         AdMobManager.instance.ShowInterstitialAd();
-        SceneManager.LoadScene(faseNome);
+        LoadingManager.instance.LoadNewScene(SceneType.Historia, old, false);
     }
 
     IEnumerator Venceu()

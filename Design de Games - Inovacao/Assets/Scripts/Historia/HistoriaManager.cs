@@ -85,7 +85,7 @@ public class HistoriaManager : MonoBehaviour
 
     IEnumerator StartHist()
     {
-        switch(/*GameManager.Instance.fase*/ GameManager.Instance.sceneOld)
+        switch(GameManager.Instance.sceneOld)
         {
             //case GameManager.Fase.Start:
             case SceneType.MenuPrincipal:
