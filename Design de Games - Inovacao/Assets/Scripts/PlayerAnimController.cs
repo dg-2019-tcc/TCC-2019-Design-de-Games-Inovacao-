@@ -5,7 +5,6 @@ using Complete;
 
 public class PlayerAnimController : MonoBehaviour
 {
-    private AnimDB animDB;
     private PlayerAnimationsDB playerAnim;
     public NewPlayerMovent playerMovement;
     private DogController dogController;
@@ -31,7 +30,6 @@ public class PlayerAnimController : MonoBehaviour
     private void Start()
     {
         playerAnim = GetComponent<PlayerAnimationsDB>();
-        animDB = GetComponent<AnimDB>();
         playerMovement = GetComponent<NewPlayerMovent>();
         dogController = GetComponent<DogController>();
         buttonA = GetComponent<ButtonA>();
@@ -43,7 +41,26 @@ public class PlayerAnimController : MonoBehaviour
     private void Update()
     {
         ShouldUpdate();
+        UpdateAnimation();
+        coolToNext = 0;
+    }
+    #endregion
 
+    #region Public Functions
+
+    #endregion
+
+    #region Private Functions
+    void ShouldUpdate()
+    {
+        Cooldown();
+        if (coolToNext < 0.2f) { return; }
+        if (GameManager.acabouFase) { WinLoseAnim(); }
+        if (levouDogada.Value) { StunAnim(); return; }
+    }
+
+    void UpdateAnimation()
+    {
         if (dogController.state.Equals(DogController.State.Carro) || dogController.state.Equals(DogController.State.Pipa))
         {
             PowerUpUpdate();
@@ -63,21 +80,6 @@ public class PlayerAnimController : MonoBehaviour
                 CheckNormalMovement();
             }
         }
-        coolToNext = 0;
-    }
-    #endregion
-
-    #region Public Functions
-
-    #endregion
-
-    #region Private Functions
-    void ShouldUpdate()
-    {
-        Cooldown();
-        if (coolToNext < 0.2f) { return; }
-        if (GameManager.acabouFase) { WinLoseAnim(); }
-        if (levouDogada.Value) { StunAnim(); return; }
     }
 
     //State01 é WinLoseAnim() e StunAnim()

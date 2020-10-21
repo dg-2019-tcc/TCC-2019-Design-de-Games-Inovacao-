@@ -41,7 +41,7 @@ public class Points : ScriptableObject
         DisplayCoins();
         lastTimeThisRan = Time.time;
 
-        Debug.Log("Setting " + this.name + " as " + Value + " on PlayerPrefs");
+        //Debug.Log("Setting " + this.name + " as " + Value + " on PlayerPrefs");
     }
     public void DisplayCoins()
     {

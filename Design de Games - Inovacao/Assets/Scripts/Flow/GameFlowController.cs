@@ -36,11 +36,6 @@ public class GameFlowController : MonoBehaviour
 
     #region Private Functions
 
-    private void OfflineButtonMenu(bool isOn)
-    {
-        flowManager.OfflineButtonOn(isOn);
-    }
-
     #endregion
     
 

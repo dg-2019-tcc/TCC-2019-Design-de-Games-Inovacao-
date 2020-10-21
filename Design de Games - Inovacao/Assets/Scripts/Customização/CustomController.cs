@@ -13,8 +13,6 @@ public class CustomController : MonoBehaviour
 
     private CustomDisplay customDisplay;
 
-    private AnimDB animDB;
-
     #region Unity Function
     private void Start()
     {
@@ -25,7 +23,6 @@ public class CustomController : MonoBehaviour
         takeOffLado = lado.GetComponent<TakeOffUnused>();
 
         customDisplay = GetComponent<CustomDisplay>();
-        animDB = GetComponent<AnimDB>();
 
         GameManager.Instance.ChecaFase();
         customDisplay.DesativaTudo();

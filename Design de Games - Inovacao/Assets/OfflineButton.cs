@@ -10,22 +10,23 @@ public class OfflineButton : MonoBehaviour
 {
     public Sprite[] conectionSprites;
     public Image buttonImage;
-
     public BoolVariableArray acabou01;
-
     public TextMeshProUGUI offlineText;
+
+    public GameObject offlineMode;
 
     private void Start()
     {
         acabou01 = Resources.Load<BoolVariableArray>("Acabou01");
 
-        if (acabou01.Value[8] == false)
+        if (GameManager.historiaMode == false)
         {
+            offlineMode.SetActive(true);
             PhotonNetwork.OfflineMode = true;
         }
-
         else
         {
+            offlineMode.SetActive(false);
             PhotonNetwork.OfflineMode = false;
         }
 

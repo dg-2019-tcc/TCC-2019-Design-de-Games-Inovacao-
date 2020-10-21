@@ -60,7 +60,6 @@ namespace Complete
             controller = GetComponent<AIController2D>();
             triggerController = GetComponent<AITriggerController>();
 
-
             if (isKlay == false)
             {
                 playerSide = lado.GetComponent<UnityArmatureComponent>();
@@ -69,7 +68,6 @@ namespace Complete
                 frente.SetActive(true);
                 lado.SetActive(false);
             }
-
             else
             {
                 playerSide = lado.GetComponent<UnityArmatureComponent>();

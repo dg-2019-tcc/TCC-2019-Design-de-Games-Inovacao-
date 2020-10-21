@@ -43,7 +43,6 @@ public class GameFlowManager : MonoBehaviour
         {
             DestroyNpcs(PlayerPrefsManager.Instance.prefsVariables.levelIndex);
         }
-
     }
 
     #endregion

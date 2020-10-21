@@ -14,7 +14,6 @@ public class EmpinaMoto : MonoBehaviour
 
 	[Header ("ScriptableObjects")]
 	public FloatVariable playerSpeed;
-	//spublic BoolVariable canJump;
 	public FloatVariable jumpForce;
 	private float originalJumpForce;
 	public Controller2D controller;
@@ -43,16 +42,20 @@ public class EmpinaMoto : MonoBehaviour
     public Joystick joy;
     public PlayerThings playerThings;
 
+    public enum BikeStates { TrickGrounded, TrickAir, Crash, None}
+    public BikeStates bikeStates = BikeStates.None;
+
     #region Unity Function
 
     private void Start()
     {
+        motoPV = GetComponent<PhotonView>();
         joy = FindObjectOfType<Joystick>();
+
         isEmpinando = false;
         isManobrandoNoAr = false;
         originalSpeed = playerSpeed.Value;
         playerSpeed.Value = baseSpeed;
-        motoPV = GetComponent<PhotonView>();
         originalJumpForce = jumpForce.Value;
         jumpForce.Value = jumpMoto;
     }
@@ -81,10 +84,8 @@ public class EmpinaMoto : MonoBehaviour
     {
         if (isManobrandoNoAr || isEmpinando) return;
 
-        if (triggerController.collisions.boostMoto && controller.collisions.below)
+        if (triggerController.collisions.boostMoto)
         {
-            isEmpinando = true;
-
             if (!PhotonNetwork.InRoom)
             {
                 daGrau(1);
@@ -93,31 +94,31 @@ public class EmpinaMoto : MonoBehaviour
             {
                 motoPV.RPC("daGrau", RpcTarget.All, 1);
             }
-
+            Debug.Log("daGrau(1);");
         }
-
-
-        if (!controller.collisions.below)
+        else if (!controller.collisions.below)
         {
-            isManobrandoNoAr = true;
-
             if (!PhotonNetwork.InRoom)
             {
-                daGrau(1);
+                daGrau(2);
             }
             else
             {
                 motoPV.RPC("daGrau", RpcTarget.All, 2);
             }
+            Debug.Log("daGrau(2);");
         }
         Debug.Log("buttonEmpina");
     }
 
     public void stopManobra()
     {
-        isManobrandoNoAr = false;
-        if (!PhotonNetwork.InRoom){ daGrau(0); }
-        else{ motoPV.RPC("daGrau", RpcTarget.All, 0);}
+        if (bikeStates != BikeStates.TrickGrounded)
+        {
+            isManobrandoNoAr = false;
+            if (!PhotonNetwork.InRoom) { daGrau(0); }
+            else { motoPV.RPC("daGrau", RpcTarget.All, 0); }
+        }
     }
 
     #endregion
@@ -142,16 +143,17 @@ public class EmpinaMoto : MonoBehaviour
 
     void CheckTrick()
     {
-        if (isManobrandoNoAr)
+        if (bikeStates == BikeStates.TrickAir)
         {
             if (!trail.isPlaying) { trail.Play(); }
             if (controller.collisions.below)
             {
+                bikeStates = BikeStates.Crash;
                 playerThings.StartCoroutine("LevouDogada");
                 if (trail.isPlaying) { trail.Stop();}
             }
         }
-        else if (isEmpinando)
+        else if (bikeStates == BikeStates.TrickGrounded)
         {
             playerSpeed.Value = Mathf.Lerp(playerSpeed.Value, boostSpeed, 0.5f);
             if (!trail.isPlaying){ trail.Play();}
@@ -159,6 +161,7 @@ public class EmpinaMoto : MonoBehaviour
         else
         {
             if (trail.isPlaying) {trail.Stop();}
+            bikeStates = BikeStates.None;
         }
     }
 
@@ -170,15 +173,17 @@ public class EmpinaMoto : MonoBehaviour
             case 1:
                 StartCoroutine("Empinando");
                 isEmpinando = true;
+                bikeStates = BikeStates.TrickGrounded;
                 break;
 
             case 2:
-                //StartCoroutine("Empinando");
                 isManobrandoNoAr = true;
+                bikeStates = BikeStates.TrickAir;
                 break;
 
             default:
                 isManobrandoNoAr = false;
+                bikeStates = BikeStates.None;
                 break;
         }
         Debug.Log("daGrau");
@@ -187,6 +192,7 @@ public class EmpinaMoto : MonoBehaviour
     private IEnumerator Empinando()
     {
         yield return new WaitForSeconds(2);
+        stopManobra();
         isEmpinando = false;
     }
 

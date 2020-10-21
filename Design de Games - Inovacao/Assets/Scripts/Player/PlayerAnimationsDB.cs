@@ -40,8 +40,6 @@ public class PlayerAnimationsDB : MonoBehaviour
 
     public State state = State.Idle;
 
-
-
     public AnimStateFrente stateFrente;
     public AnimStatePowerUp statePowerUp;
     public AnimStateAction stateAction;
@@ -61,6 +59,8 @@ public class PlayerAnimationsDB : MonoBehaviour
     private void Start()
     {
         photonView = gameObject.GetComponent<PhotonView>();
+        playerLado.armature.cacheFrameRate = 12;
+        playerFrente.armature.cacheFrameRate = 12;
     }
     #endregion
 

@@ -65,30 +65,7 @@ public class NewMotoPlayerMovement : MonoBehaviour
     void Update()
     {
         ShouldUpdate();
-
-        input = inputController.joyInput;
-
-        float targetVelocityX = (motoSpeedChange.Value + motoMoveSpeed);
-
-        if (levouDogada.Value == false)
-        {
-            velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (controller.collisions.below) ? accelerationTimeGrounded : accelerationTimeAirborne);
-        }
-
-        else
-        {
-            velocity.x = 0;
-        }
-
-        velocity.y += gravity * Time.deltaTime;
-
-        if (controller.collisions.above || controller.collisions.below)
-        {
-            if (!jump) velocity.y = 0;
-        }
-
-        PCJump();
-        UpdateMove();
+        MoveUpdate();
     }
 
     private void LateUpdate()
@@ -138,6 +115,31 @@ public class NewMotoPlayerMovement : MonoBehaviour
         if (playerGanhou.Value) return;
     }
 
+    void MoveUpdate()
+    {
+        input = inputController.joyInput;
+        float targetVelocityX = (motoSpeedChange.Value + motoMoveSpeed);
+
+        if (levouDogada.Value == false)
+        {
+            velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (controller.collisions.below) ? accelerationTimeGrounded : accelerationTimeAirborne);
+        }
+        else
+        {
+            velocity.x = 0;
+        }
+
+        velocity.y += gravity * Time.deltaTime;
+
+        if (controller.collisions.above || controller.collisions.below)
+        {
+            if (!jump) velocity.y = 0;
+        }
+
+        PCJump();
+        CallMovement();
+    }
+
     void PCJump()
     {
         if (inputController.pressX == true && controller.collisions.below)
@@ -153,7 +155,7 @@ public class NewMotoPlayerMovement : MonoBehaviour
         }
     }
 
-    void UpdateMove()
+    void CallMovement()
     {
         controller.Move(velocity * Time.deltaTime);
         triggerController.MoveDirection(velocity);

@@ -92,35 +92,10 @@ public class NewPlayerMovent : MonoBehaviour
 
     void Update()
     {
-        if (moveSpeed.Value != 6)
-        {
-            moveSpeed.Value = 6;
-        }
+        if (moveSpeed.Value != 6) { moveSpeed.Value = 6;}
+        if (playerGanhou.Value || !pv.IsMine && PhotonNetwork.InRoom || textoAtivo.Value){ return;}
 
-        if (playerGanhou.Value || !pv.IsMine && PhotonNetwork.InRoom || textoAtivo.Value)
-        {
-            return;
-        }
-
-        joyInput = inputController.joyInput;
-
-        if (!carroActive.Value && !pipaActive.Value)
-        {
-            NormalMovement();
-        }
-        else
-        {
-            input = joyInput;
-
-            if (carroActive.Value)
-            {
-                CarroMovement();
-            }
-            if (pipaActive.Value)
-            {
-                PipaMovement();
-            }
-        }
+        MoveUpdate();
     }
 
     private void LateUpdate()
@@ -171,6 +146,30 @@ public class NewPlayerMovent : MonoBehaviour
     #endregion
 
     #region Private Functions
+
+    void MoveUpdate()
+    {
+        joyInput = inputController.joyInput;
+
+        if (!carroActive.Value && !pipaActive.Value)
+        {
+            NormalMovement();
+        }
+        else
+        {
+            input = joyInput;
+
+            if (carroActive.Value)
+            {
+                CarroMovement();
+            }
+            if (pipaActive.Value)
+            {
+                PipaMovement();
+            }
+        }
+    }
+
     private void NormalMovement()
     {
         if (triggerController.collisions.caixaDagua){ velocity.y = maxJumpVelocity * 2f;}

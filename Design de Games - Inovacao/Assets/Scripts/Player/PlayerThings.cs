@@ -184,23 +184,11 @@ public class PlayerThings : MonoBehaviour
     void GiraOn(bool dir)
     {
         int angle;
-        if (dir)
-        {
-            angle = 0;
-        }
-        else
-        {
-            angle = 180;
-        }
+        if (dir){ angle = 0;}
+        else{ angle = 180;}
 
-        if (GameManager.inRoom)
-        {
-            PV.RPC("NewGiraPlayer", RpcTarget.All, angle);
-        }
-        else
-        {
-            NewGiraPlayer(angle);
-        }
+        if (GameManager.inRoom){ PV.RPC("NewGiraPlayer", RpcTarget.All, angle);}
+        else { NewGiraPlayer(angle);}
     }
 
     [PunRPC]

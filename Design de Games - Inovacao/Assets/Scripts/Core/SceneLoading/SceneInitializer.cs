@@ -56,10 +56,18 @@ public class SceneInitializer : MonoBehaviour
     #region Private Functions
     private void Spawn()
     {
-        if (!objsIni[objsIni.Length - 1].activeSelf)
+        if (objsIni.Length != 0)
         {
-            objsIni[index].SetActive(true);
-            index++;
+            if (!objsIni[objsIni.Length - 1].activeSelf)
+            {
+                objsIni[index].SetActive(true);
+                index++;
+            }
+            else
+            {
+                StartCoroutine("StartScene");
+                CancelInvoke();
+            }
         }
         else
         {
@@ -86,7 +94,6 @@ public class SceneInitializer : MonoBehaviour
         {
             PageController.instance.TurnPageOn(PageController.instance.entryPage);
         }
-        //GarbageController.DisableGC();
     }
 
     private void DeactivateAtRuntime()
