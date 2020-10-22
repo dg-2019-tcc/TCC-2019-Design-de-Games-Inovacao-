@@ -28,21 +28,13 @@ namespace Complete
 
             int spawnPicker;
 
-
-            if (PhotonNetwork.IsMasterClient.Equals(true))
-            {
-                spawnPicker = 0;
-            }
-
-            else
-            {
-                spawnPicker = 1;
-            }
+			spawnPicker = PhotonNetwork.IsMasterClient.Equals(true) ? 0 : 1;  //achar posição de spawn(primeiro ou segundo player)
 
 
 
-            //int spawnPicker = Random.Range(0, GameSetupController.GS.spawnPoints.Length);
-            string prefabName = GameSetupController.GS.playerPrefabName;
+
+			//int spawnPicker = Random.Range(0, GameSetupController.GS.spawnPoints.Length);
+			string prefabName = GameSetupController.GS.playerPrefabName;
 
             if (PV.IsMine || !PhotonNetwork.InRoom)
             {
@@ -58,6 +50,9 @@ namespace Complete
             playerMove = myAvatar.GetComponentInChildren<NewPlayerMovent>();
 			motoPlayerMovement = myAvatar.GetComponentInChildren<NewMotoPlayerMovement>();			
             playerThings = myAvatar.GetComponentInChildren<PlayerThings>();
+
+
+
 			if (playerMove != null)
 			{
 				playerMove.enabled = false;
@@ -66,10 +61,6 @@ namespace Complete
 			{
 				motoPlayerMovement.enabled = false;
 			}
-
-
-
         }
-
     }
 }

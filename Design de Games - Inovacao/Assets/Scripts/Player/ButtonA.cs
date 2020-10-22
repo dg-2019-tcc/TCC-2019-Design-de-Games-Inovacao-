@@ -39,67 +39,62 @@ public class ButtonA : MonoBehaviour
         carroActive = Resources.Load<BoolVariable>("CarroActive");
         dogScript = GetComponent<DogController>();
 
-        //if (GameManager.Instance.fase.Equals(GameManager.Fase.Futebol))
-        if (GameManager.sceneAtual == SceneType.Futebol)
-        {
-            state = State.Chutar;
-        }
-        //else if(GameManager.Instance.fase.Equals(GameManager.Fase.Coleta) || GameManager.Instance.fase.Equals(GameManager.Fase.Corrida))
-        else if (GameManager.sceneAtual == SceneType.Coleta || GameManager.sceneAtual == SceneType.Corrida)
-        {
-            state = State.Atirar;
-        }
-
-        //else if (GameManager.Instance.fase.Equals(GameManager.Fase.Volei))
-        else if (GameManager.sceneAtual == SceneType.Volei)
-        {
-            state = State.Cortar;
-        }
-
-        else if (GameManager.sceneAtual == SceneType.Moto)
-        {
-            state = State.Manobra;
-        }
+		switch (GameManager.sceneAtual)
+		{
+			case SceneType.Coleta:
+			case SceneType.Corrida:
+				state = State.Atirar;
+				break;
+			case SceneType.Futebol:
+				state = State.Chutar;
+				break;
+			case SceneType.Moto:
+				state = State.Manobra;
+				break;
+			case SceneType.Volei:
+				state = State.Cortar;
+				break;
+			
+			default:
+				break;
+		}
     }
 
     void Update()
     {
         if (!PV.IsMine && GameManager.inRoom) return;
-        //if (GameManager.Instance.fase.Equals(GameManager.Fase.Hub) || GameManager.Instance.fase.Equals(GameManager.Fase.Tutorial))
-        if (GameManager.sceneAtual == SceneType.HUB || GameManager.sceneAtual == SceneType.Tutorial2)
-        {
-            if (textoAtivo.Value == true)
-            {
-                state = State.Fala;
-            }
-        }
+		//if (GameManager.Instance.fase.Equals(GameManager.Fase.Hub) || GameManager.Instance.fase.Equals(GameManager.Fase.Tutorial))
 
-        if (GameManager.sceneAtual != SceneType.Moto || GameManager.sceneAtual != SceneType.Futebol || GameManager.sceneAtual != SceneType.Volei)
-        {
-            if (textoAtivo.Value == false && (pipaActive.Value == true || carroActive.Value == true))
-            {
-                state = State.PowerUp;
-            }
-        }
-        else
-        {
-            if (GameManager.sceneAtual == SceneType.Moto && state != State.Manobra)
-            {
-                state = State.Manobra;
-            }
+		switch (GameManager.sceneAtual)
+		{
+			case SceneType.HUB:
+			case SceneType.Tutorial2:
+				if (textoAtivo.Value == true)
+				{
+					state = State.Fala;
+				}
+				break;
 
-            else if (GameManager.sceneAtual == SceneType.Futebol && state != State.Chutar)
-            {
-                state = State.Chutar;
-            }
+			case SceneType.Futebol:
+				state = State.Chutar;
+				break;
+			case SceneType.Moto:
+				state = State.Manobra;
+				break;
+			case SceneType.Volei:
+				state = State.Cortar;
+				break;
 
-            else if (GameManager.sceneAtual == SceneType.Volei && state != State.Cortar)
-            {
-                state = State.Cortar;
-            }
-        }
+			default:
+				if (textoAtivo.Value == false && (pipaActive.Value == true || carroActive.Value == true))
+				{
+					state = State.PowerUp;
+				}
+				break;
 
+		}
 
+		//----só para build de PC
         if (buildPC.Value)
         {
             if (Input.GetKeyDown(KeyCode.Z))
@@ -115,6 +110,7 @@ public class ButtonA : MonoBehaviour
                 }
             }
         }
+		//-----------------------
     }
     #endregion
 

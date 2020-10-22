@@ -8,36 +8,32 @@ namespace Complete
 {
     public class GameSetupController : MonoBehaviour
     {
-        public AISpawner aiSpawner;
-
+		//chamar essa variável para chamar códigos da instância desse código
         public static GameSetupController GS;
 
-        public Transform[] spawnPoints;
-
+		[Header ("Itens principais")]
+		public AISpawner aiSpawner;
+		public Transform[] spawnPoints;
         public float delayToCreate;
         public float countdown;
 
-        private int index = 1;
 
+        private int indexCountdown = 1;
+
+		[Header ("Countdown na tela antes de começar")] //tava pulando o número 2 no client, não me lembro de termos resolvido
         public GameObject[] number;
 
         private float allPlayersInSession;
 
-        public string playerPrefabName;
+        [HideInInspector] public string playerPrefabName; // vai ser chamado só no código msm e aparece na tela, n tem pq ficar visível
+		[HideInInspector] public BoolVariable partidaComecou; // essa dá pra perceber jogando que tá funcionando, é pra referência
+        [HideInInspector] static public GameObject PlayerInst; // já tava assim
+        [HideInInspector] public PhotonPlayer playerMove; // referência
 
-        public BoolVariable partidaComecou;
-
-        [HideInInspector]
-        static public GameObject PlayerInst;
-        public PhotonPlayer playerMove;
-
+		[Header ("Marcar qual cena está")]
         public bool isFut;
         public bool isMoto;
         public bool isTutorial;
-
-        public float aiSpawnCooldown;
-
-        public AIMovement aiMovement;
 
         #region Unity Function
 
@@ -133,12 +129,12 @@ namespace Complete
             yield return new WaitForSeconds(delay);
             if (number.Length > 0)
             {
-                number[number.Length - index].SetActive(true);
+                number[number.Length - indexCountdown].SetActive(true);
                 FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Feedback/Contagem/Contagem");
                 yield return new WaitForSeconds(1);
-                number[number.Length - index].SetActive(false);
+                number[number.Length - indexCountdown].SetActive(false);
             }
-            if (index < number.Length)
+            if (indexCountdown < number.Length)
                 StartCoroutine("UniteSynchronization", 0);
             else
             {
@@ -165,7 +161,7 @@ namespace Complete
                 Debug.Log("Pausa jogo é" + GameManager.pausaJogo);
             }
 
-            index++;
+            indexCountdown++;
 
         }
 

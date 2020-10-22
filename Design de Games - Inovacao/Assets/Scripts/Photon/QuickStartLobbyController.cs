@@ -13,12 +13,40 @@ public class QuickStartLobbyController : MonoBehaviourPunCallbacks
 	[SerializeField]
 	private int RoomSize;
 
+	
+
+
+
+	#region Photon Function
+
 	public override void OnConnectedToMaster()
 	{
 		PhotonNetwork.AutomaticallySyncScene = true;
 		quickStartButton.SetActive(true);
 	}
 
+	public override void OnJoinRandomFailed(short returnCode, string message)
+	{
+		CreateRoom();
+	}
+
+	public override void OnCreateRoomFailed(short returnCode, string message)
+	{
+		CreateRoom();
+
+	}
+	#endregion
+
+	#region Private Functions
+	private void CreateRoom()
+	{
+		int randomRoomNumber = Random.Range(0, 10000);
+		RoomOptions roomOps = new RoomOptions() { IsVisible = true, IsOpen = true, MaxPlayers = (byte)RoomSize };
+		PhotonNetwork.CreateRoom("Room" + randomRoomNumber, roomOps);
+	}
+	#endregion
+
+	#region Public Functions
 
 	public void QuickStart()
 	{
@@ -27,23 +55,7 @@ public class QuickStartLobbyController : MonoBehaviourPunCallbacks
 		PhotonNetwork.JoinRandomRoom();
 	}
 
-	public override void OnJoinRandomFailed(short returnCode, string message)
-	{
-		CreateRoom();
-	}
 
-	void CreateRoom()
-	{
-		int randomRoomNumber = Random.Range(0, 10000);
-		RoomOptions roomOps = new RoomOptions() { IsVisible = true, IsOpen = true, MaxPlayers = (byte)RoomSize };
-		PhotonNetwork.CreateRoom("Room" + randomRoomNumber, roomOps);
-	}
-
-	public override void OnCreateRoomFailed(short returnCode, string message)
-	{
-		CreateRoom();
-
-	}
 
 	public void QuickCancel()
 	{
@@ -52,4 +64,7 @@ public class QuickStartLobbyController : MonoBehaviourPunCallbacks
 		PhotonNetwork.LeaveRoom();
 
 	}
+	#endregion
+
+
 }

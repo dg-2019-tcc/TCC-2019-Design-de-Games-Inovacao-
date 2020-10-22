@@ -72,19 +72,10 @@ namespace Complete {
 
             tiroImage = tiroButton.GetComponent<Image>();
             PoolInitialize();
+			isOnline = PhotonNetwork.InRoom;
+		}
 
-
-            if (PhotonNetwork.InRoom)
-            {
-                isOnline = true;
-            }
-            else
-            {
-                isOnline = false;
-            }
-        }
-
-        void Update()
+		void Update()
         {
             if (photonView.IsMine == true || !PhotonNetwork.InRoom)
             {
@@ -96,18 +87,8 @@ namespace Complete {
 
                 }
             }
-
-
-            if (atirando)
-            {
-                tiroButton.enabled = false;
-            }
-
-            else
-            {
-                tiroButton.enabled = true;
-            }
-        }
+			tiroButton.enabled = !atirando;
+		}
 
         #endregion
 
@@ -132,7 +113,6 @@ namespace Complete {
             int i = 0;
             while (i <= bulletPool.Length - 1 && bulletPool[i].activeSelf)
             {
-
                 i++;
             }
             if (i > bulletPool.Length - 1)

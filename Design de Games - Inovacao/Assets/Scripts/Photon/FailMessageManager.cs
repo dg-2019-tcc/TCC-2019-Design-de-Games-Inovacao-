@@ -6,17 +6,19 @@ using Photon.Pun;
 
 public class FailMessageManager : MonoBehaviour
 {
+	[Header ("Objeto pra sinalizar que caiu e quanto tempo mantê-lo na tela")]
 	public GameObject message;
 	public float timeToWait;
 
-
+	[Header("Variáveis públicas para visualização e debug")]
 	public bool startChecking = false;
 	public bool wasConnected;
+
+	//variável estática para chamar facilmente quando o player estiver saindo de propósito, a fim de ter controle da tela que ele vai após desconectar(senão ele vai pra hub)
 	public static bool manualShutdown = false;
 
 
 	private string cena;
-
 	private HistoriaManager taNaCenaDeHist;
 
     #region Unity Function
@@ -38,20 +40,15 @@ public class FailMessageManager : MonoBehaviour
 
         if (!startChecking)
         {
-            if (PhotonNetwork.IsConnected != wasConnected && cena != "MenuPrincipal")
-            {
-                startChecking = true;
-            }
-        }
-        else
+			startChecking = PhotonNetwork.IsConnected != wasConnected && cena != "MenuPrincipal";
+		}
+		else
         {
             if (!PhotonNetwork.IsConnected && !manualShutdown && !message.activeSelf && cena != "HUB")
             {
                 taNaCenaDeHist = FindObjectOfType<HistoriaManager>();
                 if (taNaCenaDeHist == null)
                 {
-
-
                     manualShutdown = true;
                     startChecking = false;
                     StartCoroutine(WeHaveToGoBack());

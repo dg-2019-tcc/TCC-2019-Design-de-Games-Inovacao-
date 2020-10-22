@@ -53,7 +53,7 @@ public class OfflineMode : MonoBehaviour
         //Debug.Log("O modo Offline está ativo é" + PhotonNetwork.OfflineMode);
     }
 
-
+	//n sei pq tá comentado td isso e to com medo de apagar (22/10/2020)
 	/*private IEnumerator SaveGame()
 	{
 		yield return new WaitForSeconds(30);

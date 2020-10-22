@@ -8,6 +8,7 @@ public class QuickStartRoomController : MonoBehaviourPunCallbacks
 	[SerializeField]
 	private int multiplayerSceneIndex;
 
+	#region Photon Function
 	public override void OnEnable()
 	{
 		PhotonNetwork.AddCallbackTarget(this);
@@ -22,7 +23,9 @@ public class QuickStartRoomController : MonoBehaviourPunCallbacks
 	{
 		StartGame();
 	}
+	#endregion
 
+	#region Private Functions
 	private void StartGame()
 	{
 		if (PhotonNetwork.IsMasterClient)
@@ -30,4 +33,5 @@ public class QuickStartRoomController : MonoBehaviourPunCallbacks
 			PhotonNetwork.LoadLevel(multiplayerSceneIndex);
 		}
 	}
+	#endregion
 }
