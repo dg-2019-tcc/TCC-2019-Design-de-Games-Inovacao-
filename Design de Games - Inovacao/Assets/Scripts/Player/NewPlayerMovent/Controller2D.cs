@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Complete;
 
 public class Controller2D : RaycastController
 {
@@ -9,10 +10,9 @@ public class Controller2D : RaycastController
 
     public CollisionInfo collisions;
 
-    private InputController inputController;
+    InputController inputController;
+    DogController dogController;
     Vector2 playerInput;
-
-    public BoolVariable pipaActive;
 
 	private float joyGambiarra;
 
@@ -22,6 +22,7 @@ public class Controller2D : RaycastController
     {
         base.Start();
         inputController = GetComponent<InputController>();
+        dogController = GetComponent<DogController>();
     }
 
     private void LateUpdate()
@@ -88,7 +89,7 @@ public class Controller2D : RaycastController
                 if (hit.collider.CompareTag("Through"))
                 {
 
-                    if (pipaActive.Value == true)
+                    if (dogController.state == DogController.State.Pipa)
                     {
                         continue;
                     }
@@ -185,7 +186,7 @@ public class Controller2D : RaycastController
 
                 if (hit.collider.CompareTag("Through"))
                 {
-                    if (pipaActive.Value == true)
+                    if (dogController.state == DogController.State.Pipa)
                     {
                         collisions.isFalling = true;
                         continue;

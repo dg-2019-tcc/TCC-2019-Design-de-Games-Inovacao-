@@ -38,8 +38,8 @@ public class NewPlayerMovent : MonoBehaviour
     public bool jump;
     bool stopJump;
 
-    public BoolVariable carroActive;
-    public BoolVariable pipaActive;
+    //public BoolVariable carroActive;
+    //public BoolVariable pipaActive;
     public BoolVariable levouDogada;
     public BoolVariable playerGanhou;
     public BoolVariable textoAtivo;
@@ -55,7 +55,7 @@ public class NewPlayerMovent : MonoBehaviour
     public Vector2 joyInput;
 
     //Controllers
-    public Controller2D dogController;
+    DogController dogController;
     Controller2D controller;
     TriggerCollisionsController triggerController;
     InputController inputController;
@@ -74,6 +74,7 @@ public class NewPlayerMovent : MonoBehaviour
         triggerController = GetComponent<TriggerCollisionsController>();
         playerAnimInfo = GetComponent<PlayerAnimInfo>();
         pv = GetComponent<PhotonView>();
+        dogController = GetComponent<DogController>();
 
         playerGanhou = Resources.Load<BoolVariable>("PlayerGanhou");
         textoAtivo = Resources.Load<BoolVariable>("TextoAtivo");
@@ -111,11 +112,10 @@ public class NewPlayerMovent : MonoBehaviour
 
         if (controller.collisions.below && jump && levouDogada.Value == false)
         {
-            if (carroActive.Value)
+            if (dogController.state == DogController.State.Carro)
             {
                 carroVelocity.y = maxJumpVelocity;
             }
-
             else
             {
                 velocity.y = maxJumpVelocity;
@@ -138,7 +138,7 @@ public class NewPlayerMovent : MonoBehaviour
 
     public void CallFootsteps()
     {
-        if ((!carroActive.Value && !pipaActive.Value) && (velocity.x > 0.3f || velocity.x < -0.3f) && (controller.collisions.below && jump == false) && (textoAtivo.Value == false))
+        if ((dogController.state != DogController.State.Carro && dogController.state != DogController.State.Pipa) && (velocity.x > 0.3f || velocity.x < -0.3f) && (controller.collisions.below && jump == false) && (textoAtivo.Value == false))
         {
             FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Passos", transform.position);
         }
@@ -151,7 +151,7 @@ public class NewPlayerMovent : MonoBehaviour
     {
         joyInput = inputController.joyInput;
 
-        if (!carroActive.Value && !pipaActive.Value)
+        if (dogController.state != DogController.State.Carro && dogController.state != DogController.State.Pipa)
         {
             NormalMovement();
         }
@@ -159,11 +159,11 @@ public class NewPlayerMovent : MonoBehaviour
         {
             input = joyInput;
 
-            if (carroActive.Value)
+            if (dogController.state == DogController.State.Carro)
             {
                 CarroMovement();
             }
-            if (pipaActive.Value)
+            if (dogController.state == DogController.State.Pipa)
             {
                 PipaMovement();
             }

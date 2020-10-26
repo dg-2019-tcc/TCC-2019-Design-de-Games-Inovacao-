@@ -29,8 +29,6 @@ namespace Complete {
         public GameObject EfeitoDeCooldown;
 
         public BoolVariable desativaPower;
-        public BoolVariable carroActive;
-        public BoolVariable pipaActive;
         public BoolVariable dogAtivo;
 
 

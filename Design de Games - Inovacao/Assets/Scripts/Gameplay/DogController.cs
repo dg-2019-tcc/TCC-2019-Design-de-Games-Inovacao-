@@ -36,8 +36,9 @@ namespace Complete
         public BoolVariable hitTotemCarro;
         public BoolVariable hitTotemPipa;
 
-        public BoolVariable carroActive;
-        public BoolVariable pipaActive;
+        // Parar de usar eles pois dá problema ao testar no unity uEcho
+        //public BoolVariable carroActive;
+        //public BoolVariable pipaActive;
 
         public BoolVariable dogBotao;
         public BoolVariable desativaPower;
@@ -82,19 +83,11 @@ namespace Complete
 
             }
 
-            if (PhotonNetwork.InRoom)
-            {
-                isOnline = true;
-            }
-            else
-            {
-                isOnline = false;
-            }
-
             PV = gameObject.GetComponent<PhotonView>();
             buttonA = GetComponent<ButtonA>();
-            pipaActive.Value = false;
-            carroActive.Value = false;
+
+            //pipaActive.Value = false;
+            //carroActive.Value = false;
             //PV.Controller.CustomProperties["dogValue"] = true;
             //dogAtivo.Value = true;
 
@@ -129,7 +122,7 @@ namespace Complete
         [PunRPC]
         public void ChangeState(string changeState)
         {
-            if (isOnline)
+            if (GameManager.inRoom)
             {
                 PV.RPC("DogState", RpcTarget.All, changeState);
             }
@@ -189,7 +182,7 @@ namespace Complete
                         buttonA.state = ButtonA.State.PowerUp;
 
                         hitTotemCarro.Value = false;
-                        carroActive.Value = true;
+                        //carroActive.Value = true;
                         dogAtivo.Value = false;
                         state = State.Carro;
                     }
@@ -203,7 +196,7 @@ namespace Complete
                         buttonA.state = ButtonA.State.PowerUp;
 
                         hitTotemPipa.Value = false;
-                        pipaActive.Value = true;
+                        //pipaActive.Value = true;
                         dogAtivo.Value = false;
                         state = State.Pipa;
                     }
@@ -224,8 +217,8 @@ namespace Complete
                         Pet.SetActive(false);
 
                         dogAtivo.Value = false;
-                        pipaActive.Value = false;
-                        carroActive.Value = false;
+                        //pipaActive.Value = false;
+                        //carroActive.Value = false;
 
                         state = State.Desativado;
                     }
@@ -241,8 +234,9 @@ namespace Complete
                         Pet.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, Pet.transform.position.z);
 
                         dogAtivo.Value = true;
-                        pipaActive.Value = false;
-                        carroActive.Value = false;
+                        //pipaActive.Value = false;
+                        //carroActive.Value = false;
+
                         desativaPower.Value = false;
                         triggerCollisionsScript.isDogNormal = true;
 
