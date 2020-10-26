@@ -56,7 +56,6 @@ public class GameFlowManager : MonoBehaviour
 
     public void AtivaFase(int level)
     {
-        //PlayerPrefs.SetInt("GanhouDoKlay", 0);
         PlayerPrefsManager.Instance.SavePlayerPrefs("GanhouDoKlay", 0);
         FechaTudo();
         if (demo.Value == false)

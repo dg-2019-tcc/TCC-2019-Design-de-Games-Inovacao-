@@ -50,45 +50,5 @@ public class OfflineMode : MonoBehaviour
     {
         PhotonNetwork.OfflineMode = offMode;
         modoDoOffline = PhotonNetwork.OfflineMode;
-        //Debug.Log("O modo Offline está ativo é" + PhotonNetwork.OfflineMode);
     }
-
-	//n sei pq tá comentado td isso e to com medo de apagar (22/10/2020)
-	/*private IEnumerator SaveGame()
-	{
-		yield return new WaitForSeconds(30);
-		for (int i = 0; i < acabou01.Value.Length; i++)
-		{
-			PlayerPrefs.SetInt("Acabou01" + i.ToString(), boolToInt(acabou01.Value[i]));
-				
-		}
-
-		StartCoroutine(SaveGame());
-	}
-
-	private void LoadGame()
-	{
-		for (int i = 0; i < acabou01.Value.Length; i++)
-		{
-			acabou01.Value[i] = intToBool(PlayerPrefs.GetInt("Acabou01" + i.ToString()));
-		}
-	}
-
-
-
-	private int boolToInt(bool val)
-	{
-		if (val)
-			return 1;
-		else
-			return 0;
-	}
-
-	private bool intToBool(int val)
-	{
-		if (val != 0)
-			return true;
-		else
-			return false;
-	}*/
 }

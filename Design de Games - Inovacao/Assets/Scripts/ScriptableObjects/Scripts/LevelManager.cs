@@ -127,7 +127,6 @@ public class LevelManager : MonoBehaviour
         }
 
         PlayerPrefsManager.Instance.SavePlayerPrefs("GanhouDoKlay", 1);
-        PlayerPrefsManager.Instance.SavePlayerPrefs("LevelIndex", PlayerPrefsManager.Instance.prefsVariables.levelIndex + 1);
         CheckPointController.instance.WonGameCheckPoint();
         Debug.Log("[LevelManager] Ganhou do Klay");
         LoadingManager.instance.LoadNewScene(SceneType.Historia, GameManager.sceneAtual, false);
@@ -150,7 +149,6 @@ public class LevelManager : MonoBehaviour
     private void GoVitoria()
     {
         PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 1;
-        //CurrentLevelIndex.Value = 3;
         pv.GetComponent<PhotonView>().RPC("GoPodium", RpcTarget.All);
         // Manda o jogador q ganhou pra tela como vitorioso
         // e ativa o GoDerrota() para todos os outros
@@ -162,7 +160,6 @@ public class LevelManager : MonoBehaviour
     {
         PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 0;
         //Só é ativado quando alguem ganha
-        //CurrentLevelIndex.Value = 3;
         pv.GetComponent<PhotonView>().RPC("GoPodium", RpcTarget.MasterClient);
     }
 

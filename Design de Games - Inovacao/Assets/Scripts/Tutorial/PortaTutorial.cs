@@ -60,8 +60,6 @@ public class PortaTutorial : MonoBehaviour
 
     public void OpenDoorTutorial()
     {
-        PlayerPrefsManager.Instance.SavePlayerPrefs("LevelIndex", 1);
-
         CheckPointController.instance.TalkCheckPoint(1);
 
         LoadingManager.instance.LoadNewScene(UnityCore.Scene.SceneType.HUB, UnityCore.Scene.SceneType.Tutorial2, false);

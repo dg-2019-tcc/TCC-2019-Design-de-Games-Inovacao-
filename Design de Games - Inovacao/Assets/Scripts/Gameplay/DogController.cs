@@ -45,10 +45,6 @@ namespace Complete
         public float timePet;
         public bool dogState;
 
-
-        public BoolVariableArray acabou01;
-        public BoolVariableArray aiGanhou;
-
         public enum State { Idle, Desativado, Carro, Pipa, Aviao }
         public State state = State.Idle;
 
@@ -70,7 +66,7 @@ namespace Complete
             if (GameManager.historiaMode == true)
             {
                 GameManager.Instance.ChecaFase();
-                if (GameManager.sequestrado == true || GameManager.sceneAtual == UnityCore.Scene.SceneType.Tutorial2 || GameManager.levelIndex == 5 || GameManager.levelIndex == 6)
+                if (GameManager.sequestrado == true || GameManager.sceneAtual == UnityCore.Scene.SceneType.Tutorial2)
                 {
                     sequestrado = true;
                     ChangeState("DesativadoState");

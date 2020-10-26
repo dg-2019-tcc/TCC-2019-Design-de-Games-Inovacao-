@@ -125,6 +125,8 @@ public class GameSetup : MonoBehaviour
             //SaveGame(8,8);
             escolheFase.Value = false;
             faseEscolhida.Value = 0;
+            pularModoHistoria.Value = false;
+            Debug.Log("[GameManager] Escolheu Fase 2");
         }
     }
 

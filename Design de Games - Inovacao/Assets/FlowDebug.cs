@@ -12,7 +12,7 @@ public class FlowDebug : MonoBehaviour
 	public BoolVariableArray acabou01;
 	public BoolVariableArray aiGanhou;
 	
-	void Start()
+	/*void Start()
     {
 
 		DontDestroyOnLoad(gameObject);
@@ -34,5 +34,5 @@ public class FlowDebug : MonoBehaviour
 			aiganhou.text += aiGanhou.Value[i].ToString() + "\n";
 		}
 		
-    }
+    }*/
 }

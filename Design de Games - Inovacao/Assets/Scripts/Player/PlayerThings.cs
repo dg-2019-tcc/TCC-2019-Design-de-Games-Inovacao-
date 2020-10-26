@@ -80,20 +80,7 @@ public class PlayerThings : MonoBehaviour
             desativaCanvas = true;
         }
 
-
-        if (desativaCanvas == true || buildPC.Value == true)
-        {
-            canvasSelf.SetActive(false);
-        }
-        else
-        {
-            canvasSelf.SetActive(true);
-        }
-
-        /*if (menuCustom)
-        {
-            cameraManager.SendMessage("ActivateCamera", true);
-        }*/
+        CheckHUD();
     }
 
     private void LateUpdate()
@@ -104,13 +91,9 @@ public class PlayerThings : MonoBehaviour
 
     void Update()
     {
-        if (GameManager.pausaJogo == true || GameManager.isPaused) { return; }
-        if ((desativaCanvas && canvasSelf.activeSelf) || buildPC.Value == true)
-        {
-            canvasSelf.SetActive(false);
-        }
+        ShouldUpdate();
+        CheckHUD();
 
-        //if (PV.IsMine && comecou &&(GameManager.Instance.fase.Equals(GameManager.Fase.Coleta) || GameManager.Instance.fase.Equals(GameManager.Fase.Corrida)))
         if (PV.IsMine && comecou && (GameManager.sceneAtual == UnityCore.Scene.SceneType.Coleta || GameManager.sceneAtual == UnityCore.Scene.SceneType.Corrida))
         {
             cameraManager.SendMessage("ActivateCamera", true);
@@ -118,53 +101,9 @@ public class PlayerThings : MonoBehaviour
 
         if (acabouPartida == true) return;
 
-        if (!menuCustom && !PV.IsMine)
-        {
-            return;
-        }
+        if (!menuCustom && !PV.IsMine){ return;}
 
-        if (joyStick != null || buildPC.Value)
-        {
-            if (shouldTurn)
-            {
-                input = inputController.joyInput;
-
-                if (input.x > 0 && !rightDir)
-                {
-                    rightDir = true;
-                    leftDir = false;
-                    ThrowObject.dirRight = false;
-
-                    GiraOn(rightDir);
-                }
-
-                else if (input.x < 0 && !leftDir)
-                {
-                    leftDir = true;
-                    rightDir = false;
-                    ThrowObject.dirLeft = false;
-
-                    GiraOn(rightDir);
-                }
-
-            }
-
-
-            if (!PhotonNetwork.InRoom)
-            {
-                AtualizaPosicao(transform.position);
-            }
-            else
-            {
-                PV.RPC("AtualizaPosicao", RpcTarget.All, transform.position);
-            }
-
-        }
-
-        else
-        {
-            joyStick = FindObjectOfType<FloatingJoystick>();
-        }
+        JoystickUpdate();
 
         if (PhotonNetwork.InRoom && PV != null && isColeta)
         {
@@ -180,6 +119,58 @@ public class PlayerThings : MonoBehaviour
     #endregion
 
     #region Private Functions
+    void ShouldUpdate()
+    {
+        if (GameManager.pausaJogo == true || GameManager.isPaused) { return; }
+    }
+
+    void CheckHUD()
+    {
+        if ((desativaCanvas && canvasSelf.activeSelf) || buildPC.Value == true) { canvasSelf.SetActive(false); }
+        else{ canvasSelf.SetActive(true);}
+    }
+
+    void JoystickUpdate()
+    {
+        if (joyStick != null || buildPC.Value)
+        {
+            if (shouldTurn)
+            {
+                input = inputController.joyInput;
+
+                if (input.x > 0 && !rightDir)
+                {
+                    rightDir = true;
+                    leftDir = false;
+                    ThrowObject.dirRight = false;
+
+                    GiraOn(rightDir);
+                }
+                else if (input.x < 0 && !leftDir)
+                {
+                    leftDir = true;
+                    rightDir = false;
+                    ThrowObject.dirLeft = false;
+
+                    GiraOn(rightDir);
+                }
+            }
+
+            if (!PhotonNetwork.InRoom)
+            {
+                AtualizaPosicao(transform.position);
+            }
+            else
+            {
+                PV.RPC("AtualizaPosicao", RpcTarget.All, transform.position);
+            }
+
+        }
+        else
+        {
+            joyStick = FindObjectOfType<FloatingJoystick>();
+        }
+    }
 
     void GiraOn(bool dir)
     {
@@ -219,7 +210,6 @@ public class PlayerThings : MonoBehaviour
             transform.position = Vector3.Lerp(transform.position, newPos, 0.2f);
         }
     }
-
 
     [PunRPC]
     void GambiarraDosIndex(int index)

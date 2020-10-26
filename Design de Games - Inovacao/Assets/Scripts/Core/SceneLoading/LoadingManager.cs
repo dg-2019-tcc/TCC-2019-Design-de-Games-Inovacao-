@@ -80,10 +80,14 @@ public class LoadingManager : MonoBehaviour
     {
         isLoading = false;
         PhotonNetwork.LoadLevel((int)GameManager.sceneAtual);
+
         loadingScreen.SetActive(true);
+
         while (PhotonNetwork.LevelLoadingProgress < 1) { yield return null; }
         while (SceneInitializer.current.isDone == false) { yield return null; }
-        //loadingScreen.SetActive(false);
+
+        GameManager.Instance.ChecaFase();
+
         tweenUI.TweenOut();
         while (tweenUI.finishedTween == false) { yield return null; }
         tweenCanvas.ChangeAlfa(false);
@@ -107,6 +111,8 @@ public class LoadingManager : MonoBehaviour
         }
 
         while (SceneInitializer.current.isDone == false) { yield return null; }
+
+        GameManager.Instance.ChecaFase();
 
         tweenUI.TweenOut();
         tweenCanvas.ChangeAlfa(false);

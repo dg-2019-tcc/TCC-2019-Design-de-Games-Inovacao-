@@ -9,9 +9,7 @@ public class GameFlowController : MonoBehaviour
     private GameFlowManager flowManager;
     public BoolVariable demo;
 
-    public int levelIndex;
     public int ganhouDoKlay;
-    //private string sceneName;
 
     #region Unity Function
 
@@ -28,7 +26,7 @@ public class GameFlowController : MonoBehaviour
 
     public void FlowHUB()
     {
-        flowManager.AtivaFase(PlayerPrefsManager.Instance.prefsVariables.levelIndex);
+        //flowManager.AtivaFase(PlayerPrefsManager.Instance.prefsVariables.levelIndex);
         Debug.Log(PlayerPrefsManager.Instance.prefsVariables.levelIndex);
     }
 
