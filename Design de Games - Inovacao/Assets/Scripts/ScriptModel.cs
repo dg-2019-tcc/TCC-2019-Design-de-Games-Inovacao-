@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class ScriptModel : MonoBehaviour
 {
+    #region Variables
+
+    #endregion
+
     #region Unity Function
 
     #endregion

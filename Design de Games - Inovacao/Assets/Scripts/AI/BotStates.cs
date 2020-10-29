@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityCore.Scene;
 
-namespace Complete {
+namespace Complete
+{
     public class BotStates : MonoBehaviour
     {
         public BotInfo botInfo;

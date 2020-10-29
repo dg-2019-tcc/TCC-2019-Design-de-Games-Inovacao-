@@ -129,7 +129,7 @@ public class AIController2D : RaycastController
         }
     }
 
-    void VerticalCollisions(ref Vector2 moveAmount)
+    public void VerticalCollisions(ref Vector2 moveAmount)
     {
         float directionY = Mathf.Sign(moveAmount.y);
         float rayLenght = Mathf.Abs(moveAmount.y) + skinWidth;
@@ -151,6 +151,11 @@ public class AIController2D : RaycastController
 
                 if (hit.collider.CompareTag("Through"))
                 {
+                    if(hit.distance < 4)
+                    {
+                        collisions.canJump = true;
+                    }
+
                     if (directionY == 1 || hit.distance == 0)
                     {
                         continue;
@@ -270,6 +275,8 @@ public class AIController2D : RaycastController
 
         public float slopeAngle, slopeAngleOld;
 
+        public bool canJump;
+
         public bool fallingPlatform;
 
         public bool acabouCorrida;
@@ -286,7 +293,8 @@ public class AIController2D : RaycastController
             descendingSlope = false;
             bateuObs = false;
             acabouCorrida = false;
-            slowTime = true;
+            slowTime = false;
+            canJump = false;
 
             slopeAngleOld = slopeAngle;
             slopeAngle = 0;
