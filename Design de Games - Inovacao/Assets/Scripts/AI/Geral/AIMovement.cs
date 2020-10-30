@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityCore.Scene;
+using AI;
 
 namespace Complete {
     public class AIMovement : MonoBehaviour

@@ -17,18 +17,18 @@ namespace AI
 
         public override void EntryAction()
         {
+            movementAI.Jump();
             Debug.Log("[Jump] EntryAction");
         }
 
         public override void ExitAction()
         {
-            //stateMachine.StopMovement(movementAI);
             Debug.Log("[Jump] ExitAction");
         }
 
         public override void UpdateAction()
         {
-            movementAI.Jump();
+            //movementAI.Jump();
         }
     }
 }

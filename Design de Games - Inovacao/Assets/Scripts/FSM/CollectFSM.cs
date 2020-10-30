@@ -34,7 +34,7 @@ namespace AI
             movementAI = GetComponent<MovementAI>(); 
             botFSM = GetComponent<BotFSM>();
             botFSM.SetBotFSM(movementAI);
-            //coletaveis = aiSpawner.wayPointsForAI;
+            coletaveis = aiSpawner.wayPointsForAI;
         }
 
         void Update()
@@ -71,14 +71,14 @@ namespace AI
         void CheckTarget()
         {
             #region Usar Depois
-            /*for (int i = 0; i < coletaveis.Count; i++)
+            for (int i = 0; i < coletaveis.Count; i++)
             {
                 if (coletaveis[i] == null)
                 {
                     coletaveis.Remove(coletaveis[i]);
                     break;
                 }
-            }*/
+            }
             #endregion
 
             //Achar o coletavel ativo da lista
@@ -114,21 +114,24 @@ namespace AI
 
         void SetVerticalDirection()
         {
-
-            if (distTarget.y > 1)
+            if (distTarget.y > 0.9)
             {
                 movementAI.aiController2D.VerticalCollisions(ref distTarget);
                 if (movementAI.aiController2D.collisions.canJump)
                 {
                     botFSM.SetJump();
+                    Debug.Log("[CollectFSM] SetJump");
                 }
+            }
+            else if(distTarget.y < -1)
+            {
+                botFSM.SetFall();
+                Debug.Log("[CollectFSM] SetFall");
             }
             else
             {
                 botFSM.SetNone();
             }
-
-            Debug.Log("[CollectFSM] SetVerticalDirection");
         }
         #endregion
     }

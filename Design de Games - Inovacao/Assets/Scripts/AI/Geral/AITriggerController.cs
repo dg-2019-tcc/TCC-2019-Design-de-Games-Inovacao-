@@ -30,7 +30,12 @@ namespace Complete
             UpdateRaycastOrigins();
             triggerCollision.Reset();
 
-            if (aiMove.isCorrida)
+            RightCollisions();
+            LeftCollisions();
+            UpCollisions();
+            DownCollisions();
+
+            /*if (aiMove.isCorrida)
             {
                 RightCollisions();
                 DownCollisions();
@@ -42,7 +47,7 @@ namespace Complete
                 LeftCollisions();
                 UpCollisions();
                 DownCollisions();
-            }
+            }*/
         }
 
         #endregion

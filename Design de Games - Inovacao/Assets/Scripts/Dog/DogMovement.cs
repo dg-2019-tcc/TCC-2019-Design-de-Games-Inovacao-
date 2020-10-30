@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DragonBones;
 using Complete;
+using AI;
 
 public class DogMovement : MonoBehaviour
 {

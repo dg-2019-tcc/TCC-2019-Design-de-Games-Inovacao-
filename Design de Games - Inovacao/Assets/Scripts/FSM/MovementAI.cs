@@ -40,6 +40,12 @@ namespace AI
             minJumpVelocity = Mathf.Sqrt(2 * Mathf.Abs(gravity) * minJumpHeight);
         }
 
+        void Update()
+        {
+            if (GameManager.pausaJogo) return;
+            triggerController.RayTriggerDirection();
+        }
+
         #endregion
 
         #region Public Functions
@@ -70,6 +76,11 @@ namespace AI
             {
                 velocity.y = maxJumpVelocity;
             }
+        }
+
+        public void Fall(int _input)
+        {
+            input.y = _input;
         }
 
         #endregion

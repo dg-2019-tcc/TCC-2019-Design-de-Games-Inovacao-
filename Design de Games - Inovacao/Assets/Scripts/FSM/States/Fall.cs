@@ -2,17 +2,34 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Fall : MonoBehaviour
+namespace AI
 {
-    // Start is called before the first frame update
-    void Start()
+    public class Fall : StateAI
     {
-        
-    }
+        private MovementAI movementAI;
+        private BotFSM stateMachine;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        public Fall(MovementAI _moveAI, BotFSM _stateMachine)
+        {
+            movementAI = _moveAI;
+            stateMachine = _stateMachine;
+        }
+
+        public override void EntryAction()
+        {
+            movementAI.Fall(-1);
+            Debug.Log("[Fall] EntryAction");
+        }
+
+        public override void ExitAction()
+        {
+            movementAI.Fall(0);
+            Debug.Log("[Fall] ExitAction");
+        }
+
+        public override void UpdateAction()
+        {
+            movementAI.Fall(-1);
+        }
     }
 }

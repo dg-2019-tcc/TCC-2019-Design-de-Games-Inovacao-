@@ -13,6 +13,7 @@ namespace AI
         public None noneState;
         public Stop stopState;
         public Jump jumpState;
+        public Fall fallState;
         public MoveLeft moveLeft;
         public MoveRight moveRight;
 
@@ -67,8 +68,18 @@ namespace AI
 
         public void SetJump()
         {
+            //if (state == States.Up) return;
             if(jumpState == null) { jumpState = new Jump(movementAI, this); }
             SetState02(jumpState);
+            state = States.Up;
+        }
+
+        public void SetFall()
+        {
+            if (state == States.Down) return;
+            if(fallState == null) { fallState = new Fall(movementAI, this); }
+            SetState02(fallState);
+            state = States.Down;
         }
 
         public void SetNone()
