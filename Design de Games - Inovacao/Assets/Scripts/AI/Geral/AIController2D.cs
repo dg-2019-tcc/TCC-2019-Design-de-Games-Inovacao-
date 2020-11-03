@@ -9,7 +9,7 @@ namespace AI
         float maxClimbAngle = 80;
         float maxDescendAngle = 80;
 
-        public MovementAI movementAI;
+        MovementAI movementAI;
         public CollisionInfo collisions;
 
         Vector2 aiInput;

@@ -51,8 +51,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 2
-  jumpVelocity: 1
-  isDown: 0
   maxJumpHeight: 10
   minJumpHeight: 0.7
   timeToJumpApex: 0.85
@@ -60,24 +58,14 @@ MonoBehaviour:
   aiController2D: {fileID: 1100190275508495383}
   triggerController: {fileID: 8194517171704832409}
   animAI: {fileID: 0}
-  rbBola: {fileID: 0}
-  ai: {fileID: 4365968576456348327}
-  turnCooldown: 0
-  boxCollider: {fileID: 0}
-  hitLenght: 5
   isColteta: 0
   isFut: 1
   isCorrida: 0
   isMoto: 0
   isVolei: 0
-  maxSpeed: 0.5
   dirDir: 0
-  jumpIndex: 0
   levouDogada: 0
-  aiGanhou: {fileID: 11400000, guid: 87f30a42d1758984388f4a9fcfac279a, type: 2}
-  indexDaFase: 3
-  playerGanhou: {fileID: 11400000, guid: f5501da568bc3634697c29c8026733a6, type: 2}
-  oldPosition: {x: 0, y: 0}
+  animDir: {x: 0, y: 0}
   state: 2
 --- !u!114 &6225377891534051969
 MonoBehaviour:
@@ -181,7 +169,6 @@ MonoBehaviour:
   frente: {fileID: 8306626514972122790}
   lado: {fileID: 2331115050635794033}
   isKlay: 0
-  idlePose: 0_Idle
   walkAnimation: 0_Corrida_V2
   startJumpAnimation: 1_Pulo
   subindoJumpAnimation: 1_NoAr(1_Subindo)
@@ -209,12 +196,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   aiSpawner: {fileID: 0}
   triggerController: {fileID: 0}
+  futebolScript: {fileID: 0}
   active: 8
   horizontalState: 7
   verticalState: 7
   actionState: 7
+  actionOn: 0
   coletaveis: []
   target: {fileID: 0}
+  distTarget: {x: 0, y: 0}
 --- !u!1001 &4286320207131383561
 PrefabInstance:
   m_ObjectHideFlags: 0

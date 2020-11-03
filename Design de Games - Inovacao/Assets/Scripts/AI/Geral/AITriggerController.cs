@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using AI;
 
 namespace Complete
 {
@@ -9,7 +10,10 @@ namespace Complete
         public TriggerCollisionInfo triggerCollision;
         public FloatVariable rayLenghtAI;
         public Rigidbody2D rbBola;
-        private AIMovement aiMove;
+        public FootballFSMController footballFSMController;
+        private MovementAI movementAI;
+        [HideInInspector] public NewPlayerMovent playerMovement;
+
 
         public FloatVariable botScore;
 
@@ -18,7 +22,7 @@ namespace Complete
         public override void Start()
         {
             base.Start();
-            aiMove = GetComponent<AIMovement>();
+            movementAI = GetComponent<MovementAI>();
         }
 
         #endregion
@@ -118,6 +122,7 @@ namespace Complete
 
                         if (hit.distance <= 0.5f)
                         {
+                            footballFSMController.CallKick(rbBola, 0);
                             triggerCollision.touchBall = true;
                         }
                     }
@@ -142,6 +147,18 @@ namespace Complete
                         if (hit.distance == 0)
                         {
                             triggerCollision.botArea = true;
+                        }
+                    }
+
+                    if (hit.collider.CompareTag("Player"))
+                    {
+                        if (hit.distance <= 0.5f)
+                        {
+                            if (movementAI.input.x > 0)
+                            {
+                                playerMovement = hit.collider.GetComponent<NewPlayerMovent>();
+                                footballFSMController.CallKickPlayer(playerMovement);
+                            }
                         }
                     }
 
@@ -182,6 +199,18 @@ namespace Complete
                         }
                     }
 
+                    if (hit.collider.CompareTag("Player"))
+                    {
+                        if (hit.distance <= 0.5f)
+                        {
+                            if (movementAI.input.x < 0)
+                            {
+                                playerMovement = hit.collider.GetComponent<NewPlayerMovent>();
+                                footballFSMController.CallKickPlayer(playerMovement);
+                            }
+                        }
+                    }
+
                     if (hit.collider.CompareTag("Futebol"))
                     {
                         if (rbBola == null)
@@ -191,12 +220,14 @@ namespace Complete
                         triggerCollision.isLeft = true;
                         if (hit.distance <= 0.5f)
                         {
-                            if (aiMove.dirDir == true)
+                            if (movementAI.input.x > 0)
                             {
+                                footballFSMController.CallKick(rbBola, 0);
                                 triggerCollision.touchBall = true;
                             }
                             else
                             {
+                                footballFSMController.CallKick(rbBola,1);
                                 triggerCollision.chutouBall = true;
                                 triggerCollision.ativaAnimChute = true;
                             }
@@ -271,6 +302,7 @@ namespace Complete
 
                         if (hit.distance <= 0.5f)
                         {
+                            footballFSMController.CallKick(rbBola, 0);
                             triggerCollision.isUp = true;
                             triggerCollision.touchBall = true;
                         }

@@ -8,6 +8,7 @@ namespace AI
     {
         #region Variables
         private MovementAI movementAI;
+        private ActionsAI actionsAI;
 
         // States do FSM
         public None noneState;
@@ -16,8 +17,11 @@ namespace AI
         public Fall fallState;
         public MoveLeft moveLeft;
         public MoveRight moveRight;
+        public Kick kickState;
+        public TouchBall touchBallState;
+        public KickPlayer kickPlayerState;
 
-        public enum States { Idle, Right, Left, Down, Up, None}
+        public enum States { Idle, Right, Left, Down, Up, Kick, None}
         public States state = States.None;
 
         #endregion
@@ -26,17 +30,13 @@ namespace AI
 
         void Awake()
         {
-            //StopMovement();
+            movementAI = GetComponent<MovementAI>();
+            actionsAI = GetComponent<ActionsAI>();
         }
 
         #endregion
 
         #region Public Functions
-
-        public void SetBotFSM(MovementAI _movementAI)
-        {
-            movementAI = _movementAI;
-        }
 
         public void Idle(MovementAI _movementAI)
         {
@@ -80,6 +80,29 @@ namespace AI
             if(fallState == null) { fallState = new Fall(movementAI, this); }
             SetState02(fallState);
             state = States.Down;
+        }
+
+        public void SetKick(Rigidbody2D _rb, int _type)
+        {
+            switch (_type)
+            {
+                case 0:
+                    if(touchBallState == null) { touchBallState = new TouchBall(actionsAI, this, _rb); }
+                    SetState03(touchBallState);
+                    break;
+
+                case 1:
+                    if(kickState == null) { kickState = new Kick(actionsAI,this,_rb); }
+                    SetState03(kickState);
+                    break;
+
+            }
+        }
+
+        public void SetKickPlayer(NewPlayerMovent _playerMovement)
+        {
+            if(kickPlayerState == null) { kickPlayerState = new KickPlayer(actionsAI, this, _playerMovement); }
+            SetState03(kickPlayerState);
         }
 
         public void SetNone()

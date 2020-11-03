@@ -4,30 +4,32 @@ using UnityEngine;
 
 namespace AI
 {
-    public class Fall : StateAI
+    public class TouchBall : StateAI
     {
-        private MovementAI movementAI;
+        private ActionsAI actionsAI;
         private BotFSM stateMachine;
+        private Rigidbody2D rb;
 
-        public Fall(MovementAI _moveAI, BotFSM _stateMachine)
+        public TouchBall(ActionsAI _actionsAI, BotFSM _stateMachine, Rigidbody2D _rb)
         {
-            movementAI = _moveAI;
+            actionsAI = _actionsAI;
             stateMachine = _stateMachine;
+            rb = _rb;
         }
 
         public override void EntryAction()
         {
-            movementAI.Fall(-1);
+            actionsAI.KickAction(rb, 0);
         }
 
         public override void ExitAction()
         {
-            movementAI.Fall(0);
         }
 
         public override void UpdateAction()
         {
-            movementAI.Fall(-1);
         }
     }
 }
+
+

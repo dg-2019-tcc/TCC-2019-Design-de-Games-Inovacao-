@@ -4,30 +4,31 @@ using UnityEngine;
 
 namespace AI
 {
-    public class Fall : StateAI
+    public class KickPlayer : StateAI
     {
-        private MovementAI movementAI;
+        private ActionsAI actionsAI;
         private BotFSM stateMachine;
+        private NewPlayerMovent playerMovement;
 
-        public Fall(MovementAI _moveAI, BotFSM _stateMachine)
+        public KickPlayer(ActionsAI _actionsAI, BotFSM _stateMachine, NewPlayerMovent _playerMovement)
         {
-            movementAI = _moveAI;
+            actionsAI = _actionsAI;
             stateMachine = _stateMachine;
+            playerMovement = _playerMovement;
         }
 
         public override void EntryAction()
         {
-            movementAI.Fall(-1);
+            actionsAI.KickPlayer(playerMovement);
         }
 
         public override void ExitAction()
         {
-            movementAI.Fall(0);
         }
 
         public override void UpdateAction()
         {
-            movementAI.Fall(-1);
         }
     }
 }
+

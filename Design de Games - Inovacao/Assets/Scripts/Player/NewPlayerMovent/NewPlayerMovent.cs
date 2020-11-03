@@ -143,9 +143,22 @@ public class NewPlayerMovent : MonoBehaviour
             FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Passos", transform.position);
         }
     }
+
+    public void KickedByOther()
+    {
+        if (levouDogada.Value == true) return;
+        StartCoroutine("StunnedByKick");
+    }
     #endregion
 
     #region Private Functions
+
+    IEnumerator StunnedByKick()
+    {
+        levouDogada.Value = true;
+        yield return new WaitForSeconds(0.5f);
+        levouDogada.Value = false;
+    }
 
     void MoveUpdate()
     {

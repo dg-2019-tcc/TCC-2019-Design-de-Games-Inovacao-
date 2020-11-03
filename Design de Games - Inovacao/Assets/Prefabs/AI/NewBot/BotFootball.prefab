@@ -13,12 +13,13 @@ GameObject:
   - component: {fileID: 7337682331930953050}
   - component: {fileID: 7337682331930953051}
   - component: {fileID: 7337682331930953052}
-  - component: {fileID: 7337682331930953053}
+  - component: {fileID: 775213738971804820}
+  - component: {fileID: -1110941546672023884}
   - component: {fileID: 7337682331930953054}
   - component: {fileID: 7337682331930953031}
   - component: {fileID: 8998150999714881334}
   m_Layer: 17
-  m_Name: Bot
+  m_Name: BotFootball
   m_TagString: AI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -124,7 +125,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   state: 5
---- !u!114 &7337682331930953053
+--- !u!114 &775213738971804820
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -133,14 +134,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 7337682331930953055}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ad7a542b68cc9a4c9812bb3184a7da9, type: 3}
+  m_Script: {fileID: 11500000, guid: 99de9fc7c2a5a0e4385c7645361e99a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startBot: 0
-  aiSpawner: {fileID: 0}
-  coletaveis:
-  - {fileID: 0}
-  - {fileID: 0}
+--- !u!114 &-1110941546672023884
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7337682331930953055}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3a1cea07db0f0542b644778bdd2ad24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startBot: 1
+  spawner: {fileID: 0}
   target: {fileID: 0}
   distTarget: {x: 0, y: 0}
   input: {x: 0, y: 0}
@@ -156,11 +166,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13222b4be6ff04749abd6d3609a7e693, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 3
-  maxJumpHeight: 3.5
+  speed: 2.75
+  maxJumpHeight: 2
   minJumpHeight: 2
-  timeToJumpApex: 0.75
+  timeToJumpApex: 0.5
   stun: 0
+  input: {x: 0, y: 0}
   aiController2D: {fileID: 0}
 --- !u!114 &7337682331930953031
 MonoBehaviour:
@@ -182,7 +193,6 @@ MonoBehaviour:
   horizontalRaySpacing: 0
   verticalRaySpacing: 0
   collider: {fileID: 0}
-  movementAI: {fileID: 0}
 --- !u!114 &8998150999714881334
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -197,7 +207,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   collisionMask:
     serializedVersion: 2
-    m_Bits: 262144
+    m_Bits: 262400
   horizontalRayCount: 0
   verticalRayCount: 0
   horizontalRaySpacing: 0
@@ -205,4 +215,6 @@ MonoBehaviour:
   collider: {fileID: 0}
   rayLenghtAI: {fileID: 11400000, guid: 19c485df9ea9bc74791bc19c5d811e16, type: 2}
   rbBola: {fileID: 0}
+  footballFSMController: {fileID: -1110941546672023884}
+  playerMovement: {fileID: 0}
   botScore: {fileID: 11400000, guid: 8b566134829c06c4f870959dc3f30b67, type: 2}

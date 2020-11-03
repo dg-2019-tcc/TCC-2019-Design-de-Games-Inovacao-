@@ -33,7 +33,7 @@ namespace AI
         {
             movementAI = GetComponent<MovementAI>(); 
             botFSM = GetComponent<BotFSM>();
-            botFSM.SetBotFSM(movementAI);
+            //botFSM.SetBotFSM(movementAI);
             coletaveis = aiSpawner.wayPointsForAI;
         }
 

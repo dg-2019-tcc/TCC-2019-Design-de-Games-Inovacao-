@@ -20,7 +20,7 @@ namespace AI
         float maxJumpVelocity;
         float minJumpVelocity;
         float gravity;
-        Vector2 input;
+        [HideInInspector]public Vector2 input;
         Vector3 velocity;
 
         public AIController2D aiController2D;
