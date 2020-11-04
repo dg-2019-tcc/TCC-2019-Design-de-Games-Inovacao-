@@ -12,6 +12,7 @@ namespace AI
 
         // States do FSM
         public None noneState;
+        public Stun stunState;
         public Stop stopState;
         public Jump jumpState;
         public Fall fallState;
@@ -105,10 +106,20 @@ namespace AI
             SetState03(kickPlayerState);
         }
 
-        public void SetNone()
+        public void SetStun()
         {
-            if(noneState == null) { noneState = new None(movementAI, this); }
-            SetState02(noneState);
+            if(stunState == null) { stunState = new Stun(this); }
+            Idle(movementAI);
+            SetNone(2);
+            SetNone(3);
+        }
+
+        public void SetNone(int _state)
+        {
+            if (noneState == null) { noneState = new None(movementAI, this); }
+
+            if (_state == 2){ SetState02(noneState);}
+            else if(_state == 3){ SetState03(noneState);}
         }
         #endregion
 

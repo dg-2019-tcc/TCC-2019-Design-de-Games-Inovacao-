@@ -20,6 +20,8 @@ namespace AI
         #endregion
 
         #region Public Functions
+
+        #region Football Functions
         public void KickAction(Rigidbody2D _rb , int _type)
         {
             if (rbBall == null) rbBall = _rb;
@@ -42,7 +44,11 @@ namespace AI
         }
         #endregion
 
+        #endregion
+
         #region Private Functions
+
+        #region Football Functions
         void TouchBall()
         {
             rbBall.AddForce(new Vector2(Random.Range(-3,-5), Random.Range(3,10)), ForceMode2D.Impulse);
@@ -57,6 +63,7 @@ namespace AI
         {
             rbBall.AddForce(new Vector2(Random.Range(-10, -15), Random.Range(-3, 3)), ForceMode2D.Impulse);
         }
+        #endregion
 
         #endregion
     }

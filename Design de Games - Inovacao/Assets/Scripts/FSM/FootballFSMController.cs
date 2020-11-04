@@ -27,6 +27,8 @@ namespace AI
 
         public float kickCooldown = 1f;
         bool canKick = true;
+
+        public float stunnedTime = 1f;
         #endregion
 
         #region Unity Function
@@ -53,6 +55,8 @@ namespace AI
             else
             {
                 botFSM.Idle(movementAI);
+                botFSM.SetNone(2);
+                botFSM.SetNone(3);
             }
         }
 
@@ -72,17 +76,28 @@ namespace AI
             botFSM.SetKickPlayer(_playerMovement);
             StartCoroutine("KickCooldown");
         }
+
+        public void StunnedByPlayer()
+        {
+            StartCoroutine("Stunned");
+        }
         #endregion
 
         #region Private Functions
 
         IEnumerator KickCooldown()
         {
-            Debug.Log("[FootballFSMController] KickCooldown");
-
             canKick = false;
             yield return new WaitForSeconds(kickCooldown);
             canKick = true;
+        }
+
+        IEnumerator Stunned()
+        {
+            Debug.Log("[FootballFSMController] Stunned");
+            startBot = false;
+            yield return new WaitForSeconds(stunnedTime);
+            startBot = true;
         }
 
         void CalculateDistance()
@@ -122,7 +137,7 @@ namespace AI
             }
             else
             {
-                botFSM.SetNone();
+                botFSM.SetNone(2);
             }
         }
         #endregion

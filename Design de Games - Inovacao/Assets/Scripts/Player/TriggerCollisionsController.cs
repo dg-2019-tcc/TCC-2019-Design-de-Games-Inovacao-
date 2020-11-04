@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using FMOD.Studio;
 using FMODUnity;
+using AI;
 
 namespace Complete
 {
@@ -17,6 +18,8 @@ namespace Complete
         private DogController dogController;
         private HandVolei handVolei;
         private FutebolPlayer futebolPlayer;
+
+        private FootballFSMController footballFSM;
 
         public bool isBallGame;
         public bool isVolei;
@@ -108,10 +111,7 @@ namespace Complete
             //if (isBallGame && PlayerThings.rightDir &&futebolPlayer.kicked == true || handVolei.cortou)
             if (rightRay)
             {
-
                 rayLenght = hitLenght + skinWidth;
-
-
             }
             else
             {
@@ -275,6 +275,18 @@ namespace Complete
                             }
                         }
                     }
+
+
+                    if (hit.collider.CompareTag("AI"))
+                    {
+                        if (PlayerThings.rightDir)
+                        {
+                            footballFSM = hit.collider.GetComponent<FootballFSMController>();
+                            collisions.canKickBot = true;
+                            futebolPlayer.KickBot(footballFSM);
+                        }
+                    }
+
                     if (hit.collider.CompareTag("LinhaDeChegada"))
                     {
                         if (hit.distance == 0)
@@ -451,6 +463,17 @@ namespace Complete
                             }
                         }
                     }
+
+                    if (hit.collider.CompareTag("AI"))
+                    {
+                        if (PlayerThings.leftDir)
+                        {
+                            footballFSM = hit.collider.GetComponent<FootballFSMController>();
+                            collisions.canKickBot = true;
+                            futebolPlayer.KickBot(footballFSM);
+                        }
+                    }
+
                     if (hit.collider.CompareTag("LinhaDeChegada"))
                     {
                         hit.collider.gameObject.GetComponent<LinhaDeChegada>().Colidiu(gameObject);
@@ -736,6 +759,8 @@ namespace Complete
 
             public bool slowTime;
 
+            public bool canKickBot;
+
             public Vector2 direction;
 
 
@@ -751,6 +776,7 @@ namespace Complete
                 hitDog = false;
                 slowTime = false;
                 hitTV = false;
+                canKickBot = false;
                 direction.x = direction.y = 0;
             }
         }

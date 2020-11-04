@@ -130,7 +130,7 @@ namespace AI
             }
             else
             {
-                botFSM.SetNone();
+                botFSM.SetNone(2);
             }
         }
         #endregion

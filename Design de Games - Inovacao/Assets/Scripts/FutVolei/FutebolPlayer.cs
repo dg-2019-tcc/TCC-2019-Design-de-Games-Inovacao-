@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Complete;
+using AI;
 
 public class FutebolPlayer : MonoBehaviour
 {
@@ -147,6 +148,12 @@ public class FutebolPlayer : MonoBehaviour
         {
             StartCoroutine("CoolKick");
         }
+    }
+
+    public void KickBot(FootballFSMController _footFSM)
+    {
+        if (!kicked) return;
+        _footFSM.StunnedByPlayer();
     }
 
     #endregion
