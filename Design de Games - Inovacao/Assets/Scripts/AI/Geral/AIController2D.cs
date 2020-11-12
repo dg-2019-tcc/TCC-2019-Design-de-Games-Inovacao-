@@ -9,7 +9,7 @@ namespace AI
         float maxClimbAngle = 80;
         float maxDescendAngle = 80;
 
-        MovementAI movementAI;
+        public MovementAI movementAI;
         public CollisionInfo collisions;
 
         Vector2 aiInput;
@@ -155,10 +155,10 @@ namespace AI
 
                     if (hit.collider.CompareTag("Through"))
                     {
-                        if (hit.distance <= movementAI.maxJumpHeight)
+                        /*if (hit.distance <= movementAI.maxJumpHeight)
                         {
                             collisions.canJump = true;
-                        }
+                        }*/
 
                         if (directionY == 1 || hit.distance == 0)
                         {

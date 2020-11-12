@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DragonBones;
+using Complete;
 
 namespace AI
 {
@@ -23,8 +25,14 @@ namespace AI
         public KickPlayer kickPlayerState;
 
         public enum States { Idle, Right, Left, Down, Up, Kick, None}
-        public States state = States.None;
+        public States stateHorizontal = States.None;
+        public States stateVertical = States.None;
+        public States stateAction = States.None;
 
+        private AnimationsAI animationsAI;
+
+        public GameObject botObj;
+        Quaternion direction;
         #endregion
 
         #region Unity Function
@@ -33,6 +41,7 @@ namespace AI
         {
             movementAI = GetComponent<MovementAI>();
             actionsAI = GetComponent<ActionsAI>();
+            animationsAI = GetComponent<AnimationsAI>();
         }
 
         #endregion
@@ -41,11 +50,11 @@ namespace AI
 
         public void Idle(MovementAI _movementAI)
         {
-            if (stopState == null) { stopState = new Stop(movementAI, this); }
-            if (state != States.Idle)
+            if (stopState == null) { stopState = new Stop(movementAI, this, animationsAI); }
+            if (stateHorizontal != States.Idle)
             {
                 SetState01(stopState);
-                state = States.Idle;
+                stateHorizontal = States.Idle;
             }
         }
 
@@ -53,34 +62,38 @@ namespace AI
         {
             if (_inputX > 0)
             {
-                if (state == States.Right) return;
-                if (moveRight == null) { moveRight = new MoveRight(movementAI, this); }
+                if (stateHorizontal == States.Right) return;
+                if (moveRight == null) { moveRight = new MoveRight(movementAI, this, animationsAI); }
+                direction = Quaternion.Euler(0, 0, 0);
+                botObj.transform.rotation = direction;
                 SetState01(moveRight);
-                state = States.Right;
+                stateHorizontal = States.Right;
             }
             else if (_inputX < 0)
             {
-                if (state == States.Left) return;
-                if (moveLeft == null) { moveLeft = new MoveLeft(movementAI, this); }
+                if (stateHorizontal == States.Left) return;
+                if (moveLeft == null) { moveLeft = new MoveLeft(movementAI, this, animationsAI); }
+                direction = Quaternion.Euler(0, 180, 0);
+                botObj.transform.rotation = direction;
                 SetState01(moveLeft);
-                state = States.Left;
+                stateHorizontal = States.Left;
             }
         }
 
         public void SetJump()
         {
             //if (state == States.Up) return;
-            if(jumpState == null) { jumpState = new Jump(movementAI, this); }
+            if(jumpState == null) { jumpState = new Jump(movementAI, this, animationsAI); }
             SetState02(jumpState);
-            state = States.Up;
+            stateVertical = States.Up;
         }
 
         public void SetFall()
         {
-            if (state == States.Down) return;
-            if(fallState == null) { fallState = new Fall(movementAI, this); }
+            if (stateVertical == States.Down) return;
+            if(fallState == null) { fallState = new Fall(movementAI, this, animationsAI); }
             SetState02(fallState);
-            state = States.Down;
+            stateVertical = States.Down;
         }
 
         public void SetKick(Rigidbody2D _rb, int _type)
@@ -93,7 +106,7 @@ namespace AI
                     break;
 
                 case 1:
-                    if(kickState == null) { kickState = new Kick(actionsAI,this,_rb); }
+                    if(kickState == null) { kickState = new Kick(actionsAI,this,_rb, animationsAI); }
                     SetState03(kickState);
                     break;
 
@@ -118,7 +131,7 @@ namespace AI
         {
             if (noneState == null) { noneState = new None(movementAI, this); }
 
-            if (_state == 2){ SetState02(noneState);}
+            if (_state == 2){ SetState02(noneState); stateVertical = States.None; }
             else if(_state == 3){ SetState03(noneState);}
         }
         #endregion

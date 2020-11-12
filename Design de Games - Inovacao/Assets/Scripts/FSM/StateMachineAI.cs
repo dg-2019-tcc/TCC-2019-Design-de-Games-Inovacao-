@@ -7,6 +7,10 @@ namespace AI
         protected StateAI state02;
         protected StateAI state03;
 
+        public bool anim01;
+        public bool anim02;
+        public bool anim03;
+
         protected void Update()
         {
             if (state01 != null) state01.UpdateAction();

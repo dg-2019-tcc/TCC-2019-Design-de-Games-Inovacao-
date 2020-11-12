@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Complete;
 
 namespace AI
 {
@@ -8,16 +9,22 @@ namespace AI
     {
         private MovementAI movementAI;
         private BotFSM stateMachine;
+        private AnimationsAI animationsAI;
 
-        public MoveRight(MovementAI _moveAI, BotFSM _stateMachine)
+        public MoveRight(MovementAI _moveAI, BotFSM _stateMachine, AnimationsAI _animationsAI)
         {
             movementAI = _moveAI;
             stateMachine = _stateMachine;
+            animationsAI = _animationsAI;
         }
 
 
         public override void EntryAction()
         {
+            if (stateMachine.stateVertical == BotFSM.States.None)
+            {
+                animationsAI.CallAnim(AnimationsAI.State.Walking);
+            }
         }
 
         public override void ExitAction()

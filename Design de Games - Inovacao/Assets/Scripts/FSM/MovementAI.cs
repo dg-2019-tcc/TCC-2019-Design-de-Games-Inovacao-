@@ -20,11 +20,13 @@ namespace AI
         float maxJumpVelocity;
         float minJumpVelocity;
         float gravity;
+        [HideInInspector]public bool isJumping;
         [HideInInspector]public Vector2 input;
-        Vector3 velocity;
+        [HideInInspector]public bool needToJump;
+        public Vector3 velocity;
 
         public AIController2D aiController2D;
-        AITriggerController triggerController;
+        public AITriggerController triggerController;
 
         #endregion
 
@@ -58,7 +60,7 @@ namespace AI
             velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (aiController2D.collisions.below) ? 0.1f : 0.2f);
             velocity.y += gravity * Time.deltaTime;
 
-            if ((aiController2D.collisions.below == true || aiController2D.collisions.climbingSlope || aiController2D.collisions.descendingSlope) && aiController2D.collisions.canJump == false)
+            if ((aiController2D.collisions.below || aiController2D.collisions.climbingSlope || aiController2D.collisions.descendingSlope) && !isJumping)
             {
                 velocity.y = 0;
             }

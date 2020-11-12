@@ -39,7 +39,7 @@ namespace AI
 
         void Update()
         {
-            if (GameManager.pausaJogo == true) { return; }
+            //if (GameManager.pausaJogo == true) { return; }
             if (startBot)
             {
                 if(target == null)
@@ -114,19 +114,18 @@ namespace AI
 
         void SetVerticalDirection()
         {
-            if (distTarget.y > 0.9)
+            if (distTarget.y > 0.75)
             {
-                movementAI.aiController2D.VerticalCollisions(ref distTarget);
-                if (movementAI.aiController2D.collisions.canJump)
+                movementAI.needToJump = true;
+                if (movementAI.triggerController.triggerCollision.canJump || distTarget.y < movementAI.maxJumpHeight)
                 {
                     botFSM.SetJump();
-                    Debug.Log("[CollectFSM] SetJump");
                 }
             }
-            else if(distTarget.y < -1)
+            else if(distTarget.y < -0.75)
             {
+                if (botFSM.stateVertical == BotFSM.States.Down) return;
                 botFSM.SetFall();
-                Debug.Log("[CollectFSM] SetFall");
             }
             else
             {

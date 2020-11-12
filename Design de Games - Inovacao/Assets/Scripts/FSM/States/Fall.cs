@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Complete;
 
 namespace AI
 {
@@ -8,15 +9,18 @@ namespace AI
     {
         private MovementAI movementAI;
         private BotFSM stateMachine;
+        private AnimationsAI animationsAI;
 
-        public Fall(MovementAI _moveAI, BotFSM _stateMachine)
+        public Fall(MovementAI _moveAI, BotFSM _stateMachine, AnimationsAI _animationsAI)
         {
             movementAI = _moveAI;
             stateMachine = _stateMachine;
+            animationsAI = _animationsAI;
         }
 
         public override void EntryAction()
         {
+            animationsAI.CallAnim(AnimationsAI.State.Falling);
             movementAI.Fall(-1);
         }
 

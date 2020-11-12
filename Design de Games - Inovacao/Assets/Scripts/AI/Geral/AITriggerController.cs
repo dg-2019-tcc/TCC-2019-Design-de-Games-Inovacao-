@@ -11,6 +11,7 @@ namespace Complete
         public FloatVariable rayLenghtAI;
         public Rigidbody2D rbBola;
         public FootballFSMController footballFSMController;
+        public CollectFSM collectFSM;
         private MovementAI movementAI;
         [HideInInspector] public NewPlayerMovent playerMovement;
 
@@ -284,6 +285,17 @@ namespace Complete
 
                 if (hit)
                 {
+                    if (hit.collider.CompareTag("Through"))
+                    {
+                        if (movementAI.needToJump)
+                        {
+                            if (hit.distance <= movementAI.maxJumpHeight)
+                            {
+                                triggerCollision.canJump = true;
+                            }
+                        }
+                    }
+
                     if (hit.collider.CompareTag("Coletavel"))
                     {
                         triggerCollision.isUp = true;
@@ -412,6 +424,7 @@ namespace Complete
             public bool caixaDagua;
             public bool ativaAnimChute;
             public bool botArea;
+            public bool canJump;
 
             public void Reset()
             {
@@ -423,6 +436,7 @@ namespace Complete
                 caixaDagua = false;
                 ativaAnimChute = false;
                 botArea = false;
+                canJump = false;
             }
         }
     }
