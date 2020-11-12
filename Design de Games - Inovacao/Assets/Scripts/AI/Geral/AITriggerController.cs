@@ -17,6 +17,8 @@ namespace Complete
 
         public FloatVariable botScore;
 
+        public bool isRace;
+
         #region Unity Function
 
         public override void Start()
@@ -39,7 +41,7 @@ namespace Complete
             UpCollisions();
             DownCollisions();
 
-            /*if (aiMove.isCorrida)
+            if (isRace)
             {
                 RightCollisions();
                 DownCollisions();
@@ -51,7 +53,7 @@ namespace Complete
                 LeftCollisions();
                 UpCollisions();
                 DownCollisions();
-            }*/
+            }
         }
 
         #endregion
@@ -129,7 +131,10 @@ namespace Complete
 
                     if (hit.collider.CompareTag("Plataforma"))
                     {
-                        triggerCollision.needJump = true;
+                        if (hit.distance <= 2f)
+                        {
+                            triggerCollision.needJump = true;
+                        }
                     }
 
                     if (hit.collider.CompareTag("Barreira"))

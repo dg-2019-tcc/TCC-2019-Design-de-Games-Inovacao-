@@ -42,7 +42,7 @@ namespace AI
 
         void Update()
         {
-            if (GameManager.pausaJogo) return;
+            //if (GameManager.pausaJogo) return;
             triggerController.RayTriggerDirection();
         }
 

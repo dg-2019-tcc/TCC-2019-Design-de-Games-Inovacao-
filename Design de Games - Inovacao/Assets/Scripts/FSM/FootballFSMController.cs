@@ -108,6 +108,7 @@ namespace AI
         void SetDirection()
         {
             SetHorizontalDirection();
+            //o inputX == 0, para pular só quando a bola estiver perto
             if (inputX == 0) { SetVerticalDirection(); }
         }
 
@@ -118,6 +119,7 @@ namespace AI
                 inputX = 1;
                 if(distTarget.y < 1)
                 {
+                    //Para pular sobre a bola quando ela estiver perto e no lado direito do BOT
                     movementAI.aiController2D.collisions.canJump = true;
                     botFSM.SetJump();
                 }
