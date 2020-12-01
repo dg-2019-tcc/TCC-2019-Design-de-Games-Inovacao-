@@ -9,7 +9,7 @@ using UnityCore.Scene;
 public class WinnerManager : MonoBehaviour
 {
 	public PlayerThings player;
-	private PhotonView pv;
+	
 
 	[Header("Coletáveis")]
 
@@ -32,8 +32,6 @@ public class WinnerManager : MonoBehaviour
 
 	private bool isloading = false;
 
-    public Points moedas;
-    public int moedasGanhas = 100;
 
     SceneType old;
 
@@ -41,18 +39,13 @@ public class WinnerManager : MonoBehaviour
 
     private void Start()
     {
-        pv = GetComponent<PhotonView>();
+        
         isloading = false;
         feedback = FindObjectOfType<FeedbackText>();
 
         playerGanhou = Resources.Load<BoolVariable>("PlayerGanhou");
 
-        if (pv.IsMine)
-        {
-            pv.RPC("ZeraPontuacao", RpcTarget.All);
-
-            pv.Controller.SetScore(0);
-        }
+        
     }
 
     void Update()
@@ -93,41 +86,24 @@ public class WinnerManager : MonoBehaviour
     #endregion
 
     #region Private Functions
-
-    [PunRPC]
+	
     void GanhouCorrida()
     {
         if (!isloading)
         {
-            moedas.Add(moedasGanhas);
-            Debug.Log(" moedas.Add");
             feedback.Ganhou();
             playerGanhou.Value = true;
             isloading = true;
 
-            if (GameManager.historiaMode)
-            {
-                if (!isMoto)
-                {
-                    old = SceneType.Corrida;
-                }
-                else
-                {
-                    old = SceneType.Corrida;
-                }
-                StartCoroutine("AcabouFase");
-            }
-            else
+            if (!GameManager.historiaMode)
             {
                 Debug.Log("Ganhou");
-                PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 1;
-                pv.RPC("TrocaSala", RpcTarget.All);
+				FinishLevel.instance.Won();
                 ganhouCorrida = false;
             }
         }
     }
-
-    [PunRPC]
+	
     void PerdeuCorrida()
     {
         feedback.Perdeu();
@@ -180,14 +156,10 @@ public class WinnerManager : MonoBehaviour
         Debug.Log("TrocaSala");
         ganhouCorrida = false;
         perdeuCorrida = false;
-        PhotonNetwork.LoadLevel("TelaVitoria");
+       
     }
 
-    [PunRPC]
-    void ZeraPontuacao()
-    {
-        pv.Controller.SetScore(0);
-    }
+    
 
     IEnumerator AcabouFase()
     {
@@ -201,7 +173,6 @@ public class WinnerManager : MonoBehaviour
     {
         Debug.Log("Venceu");
         player.cameraManager.SendMessage("ActivateCamera", false);
-        pv.RPC("Terminou", RpcTarget.All);
         for (int i = 0; i < PhotonNetwork.PlayerList.Length; i++)
         {
             if ((int)PhotonNetwork.PlayerList[i].CustomProperties["Ganhador"] == 1)

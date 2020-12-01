@@ -77,30 +77,42 @@ public class GameManager : MonoBehaviour
     public void ChecaFase()
     {
         inRoom = PhotonNetwork.InRoom;
-        if (sceneAtual == SceneType.Coleta || sceneAtual == SceneType.Corrida || sceneAtual == SceneType.Futebol || sceneAtual == SceneType.Moto || sceneAtual == SceneType.Volei || sceneAtual == SceneType.HUB || sceneAtual == SceneType.Tutorial2)
-        {
-            if (!buildPC)
-            {
-                needMobileHUD = true;
-            }
-            if (sceneAtual != SceneType.HUB)
-            {
-                isGame = false;
-            }
-            isLoja = false;
-        }
-        else if (sceneAtual == SceneType.Cabelo || sceneAtual == SceneType.Shirt || sceneAtual == SceneType.Tenis || sceneAtual == SceneType.Customiza)
-        {
-            isGame = false;
-            isLoja = true;
-            needMobileHUD = false;
-        }
-        else
-        {
-            isGame = false;
-            isLoja = false;
-            needMobileHUD = false;
-        }
+		switch (sceneAtual)
+		{
+			case SceneType.Coleta:
+			case SceneType.Corrida:
+			case SceneType.Futebol:
+			case SceneType.Moto:
+			case SceneType.Volei:
+			case SceneType.HUB:
+			case SceneType.Tutorial2:
+				if (!buildPC)
+				{
+					needMobileHUD = true;
+				}
+				if (sceneAtual != SceneType.HUB)
+				{
+					isGame = false;
+				}
+				isLoja = false;
+				break;
+			case SceneType.Cabelo:
+			case SceneType.Shirt:
+			case SceneType.Tenis:
+			case SceneType.Customiza:
+				isGame = false;
+				isLoja = true;
+				needMobileHUD = false;
+				break;
+
+			default:
+				isGame = false;
+				isLoja = false;
+				needMobileHUD = false;
+				break;
+
+		}
+		
     }
 
     #endregion
