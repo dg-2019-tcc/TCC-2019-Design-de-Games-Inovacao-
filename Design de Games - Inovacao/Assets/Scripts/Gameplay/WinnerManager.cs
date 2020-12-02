@@ -20,18 +20,13 @@ public class WinnerManager : MonoBehaviour
 
     public BoolVariableArray acabou01;
     public BoolVariableArray aiGanhou;
-    public BoolVariable playerGanhou;
     public FloatVariable flowIndex;
     public bool isMoto;
 
     private string faseNome;
 
     public FeedbackText feedback;
-
-    public bool buildProfs;
-
-	private bool isloading = false;
-
+	
 
     SceneType old;
 
@@ -39,49 +34,33 @@ public class WinnerManager : MonoBehaviour
 
     private void Start()
     {
-        
-        isloading = false;
         feedback = FindObjectOfType<FeedbackText>();
-
-        playerGanhou = Resources.Load<BoolVariable>("PlayerGanhou");
-
-        
     }
 
     void Update()
     {
-        if (isloading) return;
         if (player == null)
         {
             player = FindObjectOfType<PlayerThings>();
         }
         else
         {
-            if (!isloading)
-            {
-                if (perdeuCorrida)
-                {
-                    PerdeuCorrida();
-                }
-                else if (ganhouCorrida)
-                {
-                    GanhouCorrida();
-                    Debug.Log("Ganhou");
-                }
-            }
-        }
 
+			if (perdeuCorrida)
+			{
+				PerdeuCorrida();
+			}
+			else if (ganhouCorrida)
+			{
+				GanhouCorrida();
+			}
+		}
     }
 
     #endregion
 
     #region Public Functions
 
-    [PunRPC]
-    public void Terminou()
-    {
-        //PlayerMovement.acabouPartida = true;
-    }
 
     #endregion
 
@@ -89,70 +68,49 @@ public class WinnerManager : MonoBehaviour
 	
     void GanhouCorrida()
     {
-        if (!isloading)
-        {
-            feedback.Ganhou();
-            playerGanhou.Value = true;
-            isloading = true;
+		feedback.Ganhou();
 
             if (!GameManager.historiaMode)
             {
                 Debug.Log("Ganhou");
-				FinishLevel.instance.Won();
+				LevelManager.Instance.Ganhou();
                 ganhouCorrida = false;
             }
-        }
+        
     }
 	
     void PerdeuCorrida()
     {
-        feedback.Perdeu();
-        if (isloading) return;
-        if (buildProfs == false)
-        {
-            if (acabou01.Value[7] == true/* || buildProfs == false*/)
-            {
-                //player.perdeuSom.Play();
-                perdeuCorrida = true;
-                //PlayerThings.acabou = true;
-                PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 0;
-                pv.RPC("TrocaSala", RpcTarget.MasterClient);
-            }
+		
+		feedback.Perdeu();
+		perdeuCorrida = true;
+		if (acabou01.Value[7] == true)
+		{
+			LevelManager.Instance.Perdeu();
+			//player.perdeuSom.Play();
+			//PlayerThings.acabou = true;
+		}
 
-            else
-            {
-                perdeuCorrida = true;
-                playerGanhou.Value = false;
-                if (isMoto)
-                {
-                    aiGanhou.Value[5] = true;
-                }
-                else
-                {
-                    aiGanhou.Value[7] = true;
-                }
-                faseNome = "HUB";
-                FailMessageManager.manualShutdown = true;
-                PhotonNetwork.Disconnect();
-                StartCoroutine("AcabouFase");
-                //PhotonNetwork.LoadLevel("HUB");
-            }
-        }
-
-        else
-        {
-            perdeuCorrida = true;
-            playerGanhou.Value = false;
-            aiGanhou.Value[4] = true;
-            faseNome = "HUB";
-            StartCoroutine("AcabouFase");
-        }
-    }
+		else
+		{
+			if (isMoto)
+			{
+				aiGanhou.Value[5] = true;
+			}
+			else
+			{
+				aiGanhou.Value[7] = true;
+			}
+			faseNome = "HUB";
+			PhotonNetwork.Disconnect();
+			StartCoroutine("AcabouFaseHistoria");
+			//PhotonNetwork.LoadLevel("HUB");
+		}
+	}
 
     [PunRPC]
     void TrocaSala()
     {
-        isloading = true;
         Debug.Log("TrocaSala");
         ganhouCorrida = false;
         perdeuCorrida = false;
@@ -160,15 +118,15 @@ public class WinnerManager : MonoBehaviour
     }
 
     
-
-    IEnumerator AcabouFase()
+	
+    private IEnumerator AcabouFaseHistoria()
     {
-        isloading = true;
         yield return new WaitForSeconds(3f);
-        AdMobManager.instance.ShowInterstitialAd();
-        LoadingManager.instance.LoadNewScene(SceneType.Historia, old, false);
+		AdMobManager.instance.ShowInterstitialAd();
+		FailMessageManager.manualShutdown = true;
+		LoadingManager.instance.LoadNewScene(SceneType.Historia, old, false);
     }
-
+	/*
     IEnumerator Venceu()
     {
         Debug.Log("Venceu");
@@ -189,7 +147,7 @@ public class WinnerManager : MonoBehaviour
 
         pv.RPC("TrocaSala", RpcTarget.All);
 
-    }
+    }*/
 
     #endregion
 }

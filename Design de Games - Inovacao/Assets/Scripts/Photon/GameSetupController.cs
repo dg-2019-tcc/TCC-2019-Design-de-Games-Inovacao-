@@ -47,7 +47,11 @@ namespace Complete
             GameManager.pausaJogo = true;
             Debug.Log("Pausa jogo é" + GameManager.pausaJogo);
 
-            if (isFut)
+
+			PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "FinishLevel"),
+								   spawnPoints[0].position, Quaternion.identity);
+
+			if (isFut)
             {
                 if (PhotonNetwork.IsMasterClient.Equals(true))
                 {

@@ -14,13 +14,18 @@ public class FinishLevel : MonoBehaviour
 
 	private PhotonView pv;
 	public Points moedas;
+	public BoolVariable playerGanhou;
 	public int moedasGanhas = 100;
 
+
+	private bool isloading;
 
 	private SceneType old;
 
 	private void Awake()
 	{
+		pv = GetComponent<PhotonView>();
+		isloading = false;
 		if (instance == null)
 		{
 			instance = this;
@@ -34,6 +39,7 @@ public class FinishLevel : MonoBehaviour
 	private void Start()
 	{
 		currentScene = SceneManager.GetActiveScene().name;
+		playerGanhou = Resources.Load<BoolVariable>("PlayerGanhou");
 
 
 		if (GameManager.historiaMode)
@@ -59,29 +65,42 @@ public class FinishLevel : MonoBehaviour
 	}
 
 
-
-	public void Lost()
-	{
-
-	}
-
 	public void Won()
 	{
-		pv.RPC("PunWon", RpcTarget.All);
+		if (isloading) return;
+
+		playerGanhou.Value = true;
+		pv.RPC("TrocaSala", RpcTarget.All);
 		PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 1;
 	}
 
-	[PunRPC]
-	public void PunWon()
+	public void Lost()
 	{
-		moedas.Add(moedasGanhas);
-		Debug.Log("Adicionando " + moedasGanhas + " moedas");
-		TrocaSala();
+		if (isloading) return;
+
+		playerGanhou.Value = false;
+		pv.RPC("TrocaSala", RpcTarget.All);
+		PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 0;
 	}
+
+	
+
+	
 
 	[PunRPC]
 	private void TrocaSala()
 	{
+		StartCoroutine(TrocaSalaDelay(3f));
+	}
+
+	private IEnumerator TrocaSalaDelay(float tempo)
+	{
+		yield return new WaitForSeconds(tempo);
+		moedas.Add(moedasGanhas);
+		Debug.Log("Adicionando " + moedasGanhas + " moedas");
+		FailMessageManager.manualShutdown = true;
+		AdMobManager.instance.ShowInterstitialAd();
+		isloading = true;
 		PhotonNetwork.LoadLevel("TelaVitoria");
 	}
 
