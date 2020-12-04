@@ -20,8 +20,6 @@ public class FinishLevel : MonoBehaviour
 
 	private bool isloading;
 
-	private SceneType old;
-
 	private void Awake()
 	{
 		pv = GetComponent<PhotonView>();
@@ -40,19 +38,6 @@ public class FinishLevel : MonoBehaviour
 	{
 		currentScene = SceneManager.GetActiveScene().name;
 		playerGanhou = Resources.Load<BoolVariable>("PlayerGanhou");
-
-
-		if (GameManager.historiaMode)
-		{
-			switch (currentScene)
-			{
-				default:
-					old = SceneType.Corrida;    //no código antigo tava falando pra mudar pra esse quando a cena não era a da moto e quando era a da moto, deixei aqui de forma a mudar fácil se n for pra ser assim
-					break;
-			}
-		}
-
-
 		pv = GetComponent<PhotonView>();
 		
 

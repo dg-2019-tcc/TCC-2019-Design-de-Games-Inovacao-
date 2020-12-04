@@ -102,8 +102,9 @@ public class LevelManager : MonoBehaviour
 
     #region Public Functions
 
-    public void Ganhou()
+    public void Ganhou(int moedas)
     {
+		moedasAGanhar = moedas;
 		playerGanhou.Value = true;
 		GameManager.acabouFase = true;
         GameManager.ganhou = true;
@@ -112,8 +113,9 @@ public class LevelManager : MonoBehaviour
         StartCoroutine(DelayToNextScene(true));
     }
 
-    public void Perdeu()
-    {
+    public void Perdeu(int moedas)
+	{
+		moedasAGanhar = moedas;
 		playerGanhou.Value = false;
 		GameManager.acabouFase = true;
         GameManager.perdeu = true;

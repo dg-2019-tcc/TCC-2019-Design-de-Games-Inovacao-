@@ -37,7 +37,7 @@ public class ColetaWin : MonoBehaviour
 
 
 	[Header("Variáveis das Moedas")]
-	public Points moedas;
+	//public Points moedas;
 	public int moedasGanhasNessaFase;
 
     private bool finished;
@@ -64,7 +64,7 @@ public class ColetaWin : MonoBehaviour
         if (finished) return;
         if (botScore.Value > 4)
         {
-            LevelManager.Instance.Perdeu();
+            LevelManager.Instance.Perdeu(moedasGanhasNessaFase);
             finished = true;
         }
 
@@ -99,7 +99,7 @@ public class ColetaWin : MonoBehaviour
             {
                 feedbackWin.Perdeu();
 
-                LevelManager.Instance.Perdeu();
+                LevelManager.Instance.Perdeu(moedasGanhasNessaFase);
                 finished = true;
 
             }
@@ -107,14 +107,14 @@ public class ColetaWin : MonoBehaviour
             {
                 if (PhotonNetwork.LocalPlayer == winning)
                 {
-                    LevelManager.Instance.Ganhou();
+                    LevelManager.Instance.Ganhou(moedasGanhasNessaFase);
                     Debug.Log("Ganhou");
                     feedbackWin.Ganhou();
                     winning.CustomProperties["Ganhador"] = 1;
                 }
                 else
                 {
-                    LevelManager.Instance.Perdeu();
+                    LevelManager.Instance.Perdeu(moedasGanhasNessaFase);
                     Debug.Log("Perdeu");
                     feedbackWin.Perdeu();
                     finished = true;
@@ -166,7 +166,7 @@ public class ColetaWin : MonoBehaviour
     #endregion
 
     #region Private Functions
-
+	/*
     IEnumerator AcabouFaseOnline()
     {
         moedas.Add(moedasGanhasNessaFase);
@@ -182,7 +182,7 @@ public class ColetaWin : MonoBehaviour
         moedas.Add(moedasGanhasNessaFase);
         yield return new WaitForSeconds(3f);
         SceneManager.LoadScene(faseNome);
-    }
+    }*/
 
     #endregion
 

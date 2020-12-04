@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -661,21 +661,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 503bc93337d2cd443bcc71c603273507, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  index: 0
-  maxPoints: 0
   bola: {fileID: 0}
   goool: {fileID: 0}
-  bolaSpawnPoint: {fileID: 0}
   botScore: {fileID: 0}
-  placarText: {fileID: 0}
-  acabou01: {fileID: 0}
-  flowIndex: {fileID: 0}
-  aiGanhou: {fileID: 0}
   playerGanhou: {fileID: 0}
   feedbackWin: {fileID: 0}
   bolaPV: {fileID: 0}
   bolaFutebol: {fileID: 0}
-  moedas: {fileID: 11400000, guid: e980b130c71bd2145a0136da60824c34, type: 2}
   moedasGanhasNessaFase: 10
 --- !u!1 &229811589
 GameObject:
@@ -869,7 +861,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &495156417
 GameObject:
@@ -1422,6 +1414,8 @@ MonoBehaviour:
   botScore: {fileID: 11400000, guid: 8b566134829c06c4f870959dc3f30b67, type: 2}
   placarText: {fileID: 2076542204}
   feedbackText: {fileID: 838668844}
+  moedas: {fileID: 0}
+  moedasGanhas: 100
 --- !u!61 &758373925
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1662,7 +1656,7 @@ PrefabInstance:
     - target: {fileID: 716594290197710900, guid: 30e863cb40e9a0a4a9eba1c5dc7f2636,
         type: 3}
       propertyPath: m_RootOrder
-      value: 12
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 716594290197710900, guid: 30e863cb40e9a0a4a9eba1c5dc7f2636,
         type: 3}
@@ -1931,7 +1925,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1165881279
 GameObject:
@@ -2679,7 +2673,7 @@ Transform:
   - {fileID: 229811590}
   - {fileID: 1384666885}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1603954754
 GameObject:
@@ -2777,12 +2771,13 @@ MonoBehaviour:
     m_WayPointList: []
     aiMovement: {fileID: 0}
   wayPointsForAI: []
+  bola: {fileID: 0}
   thingsAI: {fileID: 1643171862}
   thingsOnline: {fileID: 285380741}
   botScore: {fileID: 11400000, guid: 8b566134829c06c4f870959dc3f30b67, type: 2}
   aiMovement: {fileID: 0}
   comecouPartida: 0
-  acabou01: {fileID: 11400000, guid: 5c68756dff61d5944a688b613f239362, type: 2}
+  acabou01: {fileID: 0}
 --- !u!4 &1643171864
 Transform:
   m_ObjectHideFlags: 0
@@ -2797,7 +2792,7 @@ Transform:
   - {fileID: 2131617122}
   - {fileID: 1912760234}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1667122780
 GameObject:
@@ -2827,7 +2822,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2060363735}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1688980712
 GameObject:
@@ -3198,50 +3193,6 @@ Transform:
   m_Father: {fileID: 1643171864}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &2000440152
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2000440154}
-  - component: {fileID: 2000440153}
-  m_Layer: 0
-  m_Name: LevelManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &2000440153
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2000440152}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: de2d735a3fa74ef4ca293fb87b9f184c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  coletaMax: 7
---- !u!4 &2000440154
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2000440152}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -96.00964, y: 3.324832, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 9
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &2060363735 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1746269015072476858, guid: dfdd31cd6398b0941bbad9f16ee2f3de,
@@ -3349,6 +3300,8 @@ MonoBehaviour:
   botScore: {fileID: 11400000, guid: 8b566134829c06c4f870959dc3f30b67, type: 2}
   placarText: {fileID: 836642000}
   feedbackText: {fileID: 838668844}
+  moedas: {fileID: 0}
+  moedasGanhas: 100
 --- !u!1001 &2076542202
 PrefabInstance:
   m_ObjectHideFlags: 0

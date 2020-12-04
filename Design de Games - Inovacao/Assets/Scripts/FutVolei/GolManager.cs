@@ -20,7 +20,7 @@ public class GolManager : MonoBehaviourPunCallbacks
 	private bool isLoading = false;
 
 	[Header("Variáveis das Moedas")]
-	public Points moedas;
+	//public Points moedas;
 	public int moedasGanhasNessaFase = 100;
     private bool needAddCoins;
 
@@ -63,11 +63,15 @@ public class GolManager : MonoBehaviourPunCallbacks
             {
                 feedbackWin.Ganhou();
                 playerGanhou.Value = true;
-                LevelManager.Instance.Ganhou();
-                if (needAddCoins == true)
-                {
-                    moedas.Add(moedasGanhasNessaFase);
-                }
+				if (needAddCoins == true)
+				{
+					LevelManager.Instance.Ganhou(moedasGanhasNessaFase);
+				}
+				else
+				{
+					LevelManager.Instance.Ganhou(0);
+				}
+                
                 needAddCoins = false;
             }
 
@@ -87,7 +91,7 @@ public class GolManager : MonoBehaviourPunCallbacks
         PhotonNetwork.LocalPlayer.CustomProperties["Ganhador"] = 0;
         if (isLoading) return;
         isLoading = true;
-        LevelManager.Instance.Perdeu();
+        LevelManager.Instance.Perdeu(moedasGanhasNessaFase);
     }
 
     #endregion

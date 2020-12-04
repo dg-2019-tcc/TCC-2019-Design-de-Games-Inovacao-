@@ -4,6 +4,8 @@ using Photon.Pun.UtilityScripts;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityCore.Scene;
 
 public class LinhaDeChegada : MonoBehaviour
 {
@@ -16,28 +18,28 @@ public class LinhaDeChegada : MonoBehaviour
     public static bool changeRoom = false;
 
     public bool euAcabei = false;
+	
 
-	private WinnerManager winnerManager;
-
-	[Header ("Variáveis das Moedas")]
-	public Points moedas;
+	[Header ("Variáveis das Moedas ganhas e feedback")]
 	public int moedasGanhasNessaFase;
+	public FeedbackText feedback;
 
-    #region Unity Function
 
-    public void Start()
+	#region Unity Function
+
+	public void Start()
     {
         euAcabei = false;
         finished = false;
-        winnerManager = FindObjectOfType<WinnerManager>();
-    }
+		feedback = FindObjectOfType<FeedbackText>();		
+	}
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("AI"))
         {
-            winnerManager.perdeuCorrida = true;
-            LevelManager.Instance.Perdeu();
+			PerdeuCorrida();
+            LevelManager.Instance.Perdeu(moedasGanhasNessaFase);
             other.GetComponent<StateController>().enabled = false;
         }
     }
@@ -48,8 +50,8 @@ public class LinhaDeChegada : MonoBehaviour
 
     public void AIGanhou()
     {
-        winnerManager.perdeuCorrida = true;
-        LevelManager.Instance.Perdeu();
+		PerdeuCorrida();
+        LevelManager.Instance.Perdeu(moedasGanhasNessaFase);
     }
 
     public void Colidiu(GameObject other)
@@ -59,11 +61,8 @@ public class LinhaDeChegada : MonoBehaviour
         {
             if (playerView.IsMine == true && euAcabei == false)
             {
-                Debug.Log("colidiu com linha");
-                // PlayerMovement jogador = other.GetComponent<PlayerMovement>();
-                //playerView.RPC("Acabou", RpcTarget.All);
-                LevelManager.Instance.Ganhou();
-                winnerManager.ganhouCorrida = true;
+                LevelManager.Instance.Ganhou(moedasGanhasNessaFase);
+				GanhouCorrida();
                 totalPlayers++;
                 euAcabei = true;
                 changeRoom = true;
@@ -73,14 +72,10 @@ public class LinhaDeChegada : MonoBehaviour
         {
             if (playerView.IsMine == true && euAcabei == false)
             {
-                //PlayerMovement jogador = other.GetComponent<PlayerMovement>();
                 totalPlayers++;
                 euAcabei = true;
-
-
             }
         }
-        //moedas.Add(moedasGanhasNessaFase);
     }
 
     [PunRPC]
@@ -89,9 +84,22 @@ public class LinhaDeChegada : MonoBehaviour
         finished = true;
     }
 
-    #endregion
+	#endregion
 
-    #region Private Functions
+	#region Private Functions
 
-    #endregion
+	private void GanhouCorrida()
+	{
+		feedback.Ganhou();
+		LevelManager.Instance.Ganhou(moedasGanhasNessaFase);
+	}
+
+	private void PerdeuCorrida()
+	{
+
+		feedback.Perdeu();
+		LevelManager.Instance.Perdeu(moedasGanhasNessaFase);
+	}
+
+	#endregion
 }
