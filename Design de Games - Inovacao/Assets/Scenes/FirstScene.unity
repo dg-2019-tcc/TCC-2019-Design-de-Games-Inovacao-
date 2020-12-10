@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -555,6 +555,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 876054822}
     m_Modifications:
+    - target: {fileID: 258170516, guid: 2ca0514a0c680f9448fc310db81b4066, type: 3}
+      propertyPath: m_ClearFlags
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 619832278, guid: 2ca0514a0c680f9448fc310db81b4066, type: 3}
       propertyPath: m_Alpha
       value: 0
@@ -1010,6 +1014,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 464de7bcc5b37cd46b25fc00faa87678, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  falaIndex: 0
+  faseIndex: 0
+  checkPoint: 0
 --- !u!4 &299627840
 Transform:
   m_ObjectHideFlags: 0
@@ -1936,7 +1943,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0, g: 0.011006291, b: 0.028301895, a: 0}
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -2570,6 +2577,8 @@ MonoBehaviour:
   buildFinal: {fileID: 11400000, guid: 5ab122efc092208448fe6b5512039c9a, type: 2}
   resetaPlayerPrefs: {fileID: 11400000, guid: b65f68abaf1e7a741aed0d041aee661f, type: 2}
   pularModoHistoria: {fileID: 11400000, guid: 59e92658c676a7a47a410996b750fd9a, type: 2}
+  escolheFase: {fileID: 0}
+  faseEscolhida: {fileID: 0}
   moedas: {fileID: 11400000, guid: e980b130c71bd2145a0136da60824c34, type: 2}
   textoDebug: {fileID: 662696480}
   language: {fileID: 11400000, guid: 91d44ba069d484a4783f7b55f5b8768b, type: 2}
