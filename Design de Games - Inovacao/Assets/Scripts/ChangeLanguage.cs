@@ -8,7 +8,7 @@ public class ChangeLanguage : MonoBehaviour
 
     private void Start()
     {
-        allButtons = FindObjectsOfTypeAll(typeof(ButtonVisual)) as ButtonVisual[];
+        allButtons = Resources.FindObjectsOfTypeAll(typeof(ButtonVisual)) as ButtonVisual[];
     }
 
     public void ChangeLingua()

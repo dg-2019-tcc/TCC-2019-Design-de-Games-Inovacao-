@@ -8,7 +8,7 @@ using UnityCore.Scene;
 public class PortaManager : MonoBehaviour
 {
     [SerializeField]
-	private string qualPorta;
+	private string qualPorta = "null";
 
     public TriggerCollisionsController controller;
 

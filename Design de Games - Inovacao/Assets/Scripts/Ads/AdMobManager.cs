@@ -155,6 +155,9 @@ public class AdMobManager : MonoBehaviour
         string adUnitId = "unexpected_platform";
 #endif
 
+		// Initialize an InterstitialAd.
+		this.interstitial = new InterstitialAd(adUnitId);
+
 		// Called when an ad request has successfully loaded.
 		this.interstitial.OnAdLoaded += HandleOnAdLoaded;
 		// Called when an ad request failed to load.
@@ -166,8 +169,6 @@ public class AdMobManager : MonoBehaviour
 		// Called when the ad click caused the user to leave the application.
 		this.interstitial.OnAdLeavingApplication += HandleOnAdLeavingApplication;
 
-		// Initialize an InterstitialAd.
-		this.interstitial = new InterstitialAd(adUnitId);
 		// Create an empty ad request.
 		AdRequest request = new AdRequest.Builder().Build();
 		// Load the interstitial with the request.

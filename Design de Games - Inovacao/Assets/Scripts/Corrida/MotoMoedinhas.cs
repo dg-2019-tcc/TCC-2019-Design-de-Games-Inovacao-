@@ -6,14 +6,22 @@ public class MotoMoedinhas : MonoBehaviour
 {
 
 	public ParticleSystem brilhinho;
+	private ParticleSystem.MainModule main;
+	private ParticleSystem.EmissionModule emission;
 
 	bool coletada = true;
 
+	private void Start()
+	{
+		main = brilhinho.main;
+		emission = brilhinho.emission;
+	}
+
 	public void Coleta()
 	{
-		brilhinho.loop = false;
-		brilhinho.startSpeed = 5;
-		brilhinho.emissionRate = 100;
+		main.loop = false;
+		main.startSpeed = 5;
+		emission.rateOverTime = 100;
 		if (coletada)
 		{
 			FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Feedback/Coletaveis/ColetaMoeda");

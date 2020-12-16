@@ -19,6 +19,7 @@ public class ArmatureDeactivate : MonoBehaviour
 
     private void OnEnable()
     {
+		if (armature == null) return;
         if (armature.clock == null)
         {
             DragonBones.UnityFactory.factory.clock.Add(armature);
