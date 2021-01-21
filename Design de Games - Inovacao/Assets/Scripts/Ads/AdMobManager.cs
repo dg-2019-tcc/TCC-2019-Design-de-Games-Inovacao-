@@ -183,7 +183,6 @@ public class AdMobManager : MonoBehaviour
 		if (this.rewardedAd.IsLoaded())
 		{
 			this.rewardedAd.Show();
-			Debug.Log("Ad is being shown");
 		}
 	}
 
