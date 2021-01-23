@@ -8,6 +8,7 @@ public class DOTweenUI : MonoBehaviour
 {
     public RectTransform rectTransform;
     public CanvasGroup canvas;
+	public Canvas canvasRender;
 
     public GameObject coinCanvas;
 

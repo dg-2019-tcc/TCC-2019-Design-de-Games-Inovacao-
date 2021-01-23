@@ -8,7 +8,7 @@ public class PlayerLocatorOnScreen : MonoBehaviour
 {
 	public GameObject pointerPrefab;
 	private GameObject instance;
-	private Camera cam;
+	//private Camera cam;
 
 	public Vector3 positionAdjust;
 	public float adjustToScreen;
@@ -19,7 +19,7 @@ public class PlayerLocatorOnScreen : MonoBehaviour
     {
 
 		instance = Instantiate(pointerPrefab, canvas);
-		cam = FindObjectOfType<Camera>();
+		//cam = FindObjectOfType<Camera>();
 		instance.SetActive(false);
 		if (PhotonNetwork.InRoom)
 		{
@@ -35,9 +35,9 @@ public class PlayerLocatorOnScreen : MonoBehaviour
     }
 
     
-    void FixedUpdate()
+    void LateUpdate()
     {
-		instance.transform.position = cam.WorldToScreenPoint(transform.position + positionAdjust);
+		instance.transform.position = Camera.main.WorldToScreenPoint(transform.position + positionAdjust);
 		if (instance.transform.position.y <= 0 || instance.transform.position.y >= Screen.height || instance.transform.position.x <= 0 || instance.transform.position.x >= Screen.width)
 		{
 			instance.SetActive(true);
@@ -65,7 +65,7 @@ public class PlayerLocatorOnScreen : MonoBehaviour
 			instance.SetActive(false);
 		}
 
-		instance.transform.right = -(cam.WorldToScreenPoint(transform.position + positionAdjust) - instance.transform.position);
+		instance.transform.right = -(Camera.main.WorldToScreenPoint(transform.position + positionAdjust) - instance.transform.position);
 		//instance.transform.LookAt(transform.position);
 
 	}

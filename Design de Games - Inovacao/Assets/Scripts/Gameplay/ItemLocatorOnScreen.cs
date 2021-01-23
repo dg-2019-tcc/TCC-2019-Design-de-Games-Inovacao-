@@ -6,7 +6,6 @@ public class ItemLocatorOnScreen : MonoBehaviour
 {
 	public GameObject pointerPrefab;
 	private GameObject instance;
-	private Camera cam;
 
 	public Vector3 positionAdjust;
 	public float adjustToScreen;
@@ -27,7 +26,6 @@ public class ItemLocatorOnScreen : MonoBehaviour
     {
 
         instance = Instantiate(pointerPrefab, canvas);
-        cam = FindObjectOfType<Camera>();
         instance.SetActive(false);
 
         if (image == null)
@@ -41,10 +39,6 @@ public class ItemLocatorOnScreen : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (cam == null)
-        {
-            cam = FindObjectOfType<Camera>();
-        }
 
         if (isTV)
         {
@@ -69,7 +63,7 @@ public class ItemLocatorOnScreen : MonoBehaviour
         }
         if (desativa) { instance.SetActive(false); return; }
 
-        instance.transform.position = cam.WorldToScreenPoint(transform.position + positionAdjust);
+        instance.transform.position = Camera.main.WorldToScreenPoint(transform.position + positionAdjust);
         if (instance.transform.position.y <= 0 || instance.transform.position.y >= Screen.height || instance.transform.position.x <= 0 || instance.transform.position.x >= Screen.width && desativa == false)
         {
             instance.SetActive(true);
@@ -97,7 +91,7 @@ public class ItemLocatorOnScreen : MonoBehaviour
             instance.SetActive(false);
         }
 
-        instance.transform.right = -(cam.WorldToScreenPoint(transform.position + positionAdjust) - instance.transform.position);
+        instance.transform.right = -(Camera.main.WorldToScreenPoint(transform.position + positionAdjust) - instance.transform.position);
         //instance.transform.LookAt(transform.position);
 
     }

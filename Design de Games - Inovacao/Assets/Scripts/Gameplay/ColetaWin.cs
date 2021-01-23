@@ -30,7 +30,7 @@ public class ColetaWin : MonoBehaviour
 
 	private bool isEmpatado;
 
-    public BoolVariableArray aiGanhou;
+   // public BoolVariableArray aiGanhou;
     public BoolVariable playerGanhou;
 
     public FeedbackText feedbackWin;
@@ -47,10 +47,10 @@ public class ColetaWin : MonoBehaviour
     private void Start()
     {
         coletavelGerador = FindObjectOfType<ColetavelGerador>();
-        aiGanhou = Resources.Load<BoolVariableArray>("AIGanhou");
+      //  aiGanhou = Resources.Load<BoolVariableArray>("AIGanhou");
         playerGanhou = Resources.Load<BoolVariable>("PlayerGanhou");
 
-        aiGanhou.Value[1] = false;
+      //  aiGanhou.Value[1] = false;
         playerGanhou.Value = false;
 
         winning = PhotonNetwork.PlayerList[0];
