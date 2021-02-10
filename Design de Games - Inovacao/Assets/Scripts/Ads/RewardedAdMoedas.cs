@@ -11,20 +11,20 @@ public class RewardedAdMoedas : MonoBehaviour
 	private Button button;
 
 
-    void Start()
+    private void Start()
     {
 		button = GetComponent<Button>();
 		text = GetComponentInChildren<TMP_Text>();
     }
 	
-    void Update()
+    private void Update()
     {
 
 		button.interactable = AdMobManager.instance.rewardedAd.IsLoaded();
 	}
 
 
-	void ShowAd()
+	public void ShowAd()
 	{
 		AdMobManager.instance.UserChoseToWatchAd();
 	}
