@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.00.00">
+	<object class="MixerGroup" id="{c1813194-b611-4ce3-a63e-eabd408e3121}">
+		<property name="name">
+			<value>Coletaveis</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{4282d337-23ec-4f94-bca2-df56bdae0cac}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{a6e943e4-a234-4e9b-bbfd-dee6c5a37c7d}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{8765b8be-97c8-4ccb-b1e3-a42fa2369341}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{4282d337-23ec-4f94-bca2-df56bdae0cac}">
+		<relationship name="effects">
+			<destination>{30cce1b4-133c-4056-a452-ada0cfc1615e}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{a6e943e4-a234-4e9b-bbfd-dee6c5a37c7d}" />
+	<object class="MixerBusFader" id="{30cce1b4-133c-4056-a452-ada0cfc1615e}" />
+</objects>
