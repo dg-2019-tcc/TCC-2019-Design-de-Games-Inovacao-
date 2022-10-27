@@ -31,6 +31,7 @@ public class GameSetup : MonoBehaviour
     {
         escolheFase = Resources.Load<BoolVariable>("EscolheFase");
         faseEscolhida = Resources.Load<FloatVariable>("FaseEscolhida");
+		Debug.Log("faseescolhida é " + faseEscolhida.Value);
 
         if (resetaPlayerPrefs.Value == true)
         {

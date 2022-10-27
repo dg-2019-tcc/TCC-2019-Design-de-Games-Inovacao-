@@ -29,7 +29,9 @@ public class MenuPrincipal : MonoBehaviour
     {
         if (CheckPointController.checkPointIndex > 0 || GameManager.historiaMode == false)
         {
-            nomeDoMenu = "HUB";
+			Debug.Log("checkpoint is " + CheckPointController.checkPointIndex);
+
+			nomeDoMenu = "HUB";
             nextScene = SceneType.HUB;
             //Debug.Log("ComecaJOGO[MenuPrincipal script]");
         }
