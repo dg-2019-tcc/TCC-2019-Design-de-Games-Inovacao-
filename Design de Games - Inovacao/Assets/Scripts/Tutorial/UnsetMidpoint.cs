@@ -12,6 +12,7 @@ public class UnsetMidpoint : MonoBehaviour
 		if (script == null)
 		{
 			script = FindObjectOfType<CamLookaheadAim>();
+			if (script == null) return;
 			script.deltaAltura = 0f;
 		}
     }

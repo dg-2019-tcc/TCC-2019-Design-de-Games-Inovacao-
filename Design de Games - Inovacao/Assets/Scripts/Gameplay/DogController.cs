@@ -71,14 +71,11 @@ namespace Complete
                 {
                     sequestrado = true;
                     ChangeState("DesativadoState");
-                    Debug.Log("Sequestrado: " + GameManager.sequestrado);
-                    Debug.Log("Sequestrado: " + GameManager.sceneAtual);
                 }
                 else
                 {
                     sequestrado = false;
                     ChangeState("IdleState");
-                    Debug.Log("Sequestrado: " + sequestrado);
                 }
 
             }
