@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+//using System.Diagnostics;
 
 public class GameSetup : MonoBehaviour
 {
@@ -65,8 +66,14 @@ public class GameSetup : MonoBehaviour
 #endif
         if (escolheFase.Value == false)
         {
-            if (isFirstTime) { FirstTime(); }
-            else { AlreadyPlayed(); }
+            if (isFirstTime) {
+                Debug.Log("FIrstTime");
+                FirstTime(); 
+            }
+            else {
+                Debug.Log("AlreadyPlayed");
+                AlreadyPlayed();
+            }
         }
         else
         {
