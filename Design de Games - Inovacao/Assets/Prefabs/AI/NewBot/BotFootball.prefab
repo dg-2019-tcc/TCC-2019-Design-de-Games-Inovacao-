@@ -54,7 +54,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7337682331930953055}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -124,7 +124,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 431f7993998cfce4ca76d42b0a5a0cc7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  state: 5
+  anim01: 0
+  anim02: 0
+  anim03: 0
+  stateHorizontal: 6
+  stateVertical: 6
+  stateAction: 6
+  botObj: {fileID: 0}
 --- !u!114 &775213738971804820
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -154,6 +160,8 @@ MonoBehaviour:
   target: {fileID: 0}
   distTarget: {x: 0, y: 0}
   input: {x: 0, y: 0}
+  kickCooldown: 1
+  stunnedTime: 1
 --- !u!114 &7337682331930953054
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -171,8 +179,12 @@ MonoBehaviour:
   minJumpHeight: 2
   timeToJumpApex: 0.5
   stun: 0
+  isJumping: 0
   input: {x: 0, y: 0}
+  needToJump: 0
+  velocity: {x: 0, y: 0, z: 0}
   aiController2D: {fileID: 0}
+  triggerController: {fileID: 0}
 --- !u!114 &7337682331930953031
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -193,6 +205,7 @@ MonoBehaviour:
   horizontalRaySpacing: 0
   verticalRaySpacing: 0
   collider: {fileID: 0}
+  movementAI: {fileID: 0}
 --- !u!114 &8998150999714881334
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -216,5 +229,7 @@ MonoBehaviour:
   rayLenghtAI: {fileID: 11400000, guid: 19c485df9ea9bc74791bc19c5d811e16, type: 2}
   rbBola: {fileID: 0}
   footballFSMController: {fileID: -1110941546672023884}
+  collectFSM: {fileID: 0}
   playerMovement: {fileID: 0}
   botScore: {fileID: 11400000, guid: 8b566134829c06c4f870959dc3f30b67, type: 2}
+  isRace: 0
