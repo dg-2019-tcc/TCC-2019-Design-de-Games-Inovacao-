@@ -110,11 +110,15 @@ public class CheckPointController : MonoBehaviour
         SaveCheckPoint();
     }
 
+    public static void ForceSaveCheckPoint()
+    {
+        PlayerPrefs.SetInt("CheckPointIndex", checkPointIndex);
+    }
     #endregion
 
     #region Private Functions
 
-    private void SaveCheckPoint()
+    public void SaveCheckPoint()
     {
         PlayerPrefs.SetInt("CheckPointIndex", checkPointIndex);
         SetCheckPoint();

@@ -49,12 +49,12 @@ namespace Complete
         }
 
         private void Update()
-        {
+        {/*
             if (Input.GetKeyDown(KeyCode.Space))
             {
                     m_AI[0].m_Instance =
                        Instantiate(aiPrefab[1], m_AI[0].m_SpawnPoint.position, m_AI[0].m_SpawnPoint.rotation) as GameObject;
-            }
+            }*/
         }
 
         #endregion

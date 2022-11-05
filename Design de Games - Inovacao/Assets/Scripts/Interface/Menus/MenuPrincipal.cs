@@ -58,6 +58,12 @@ public class MenuPrincipal : MonoBehaviour
         //SceneManager.LoadScene(nomeDosCreditos);
     }
 
+    public void ResetaSave()
+    {
+        CheckPointController.checkPointIndex = 0;
+        CheckPointController.ForceSaveCheckPoint();
+    }
+
     #endregion
 
     #region Private Functions
