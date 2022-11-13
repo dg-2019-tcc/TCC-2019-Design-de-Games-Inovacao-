@@ -14,6 +14,7 @@ public class ItemLocatorOnScreen : MonoBehaviour
 
 	public Sprite image;
 
+    public int whenInCheckpoint;
     public TV tv;
     public bool isTV;
 
@@ -54,7 +55,10 @@ public class ItemLocatorOnScreen : MonoBehaviour
         {
             if (GameManager.historiaMode)
             {
-                desativa = tv.precisaFalar;
+                if (CheckPointController.checkPointIndex >= whenInCheckpoint)
+                {
+                    desativa = true;
+                }
             }
             else
             {

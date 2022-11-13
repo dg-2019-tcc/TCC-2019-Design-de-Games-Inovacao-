@@ -17,7 +17,7 @@ public class HistoriaManager : MonoBehaviour
 
     public string nomeDoMenu;
 
-    public FloatVariable flowIndex;
+    public float flowIndex;
     public BoolVariable demo;
 
     public int nextIndex;
@@ -31,7 +31,7 @@ public class HistoriaManager : MonoBehaviour
     private void Awake()
     {
         demo = Resources.Load<BoolVariable>("Demo");
-        flowIndex.Value = nextIndex;
+        flowIndex = nextIndex;
         int debug = PlayerPrefs.GetInt("Fase");
         sceneName = SceneManager.GetActiveScene().name;
 

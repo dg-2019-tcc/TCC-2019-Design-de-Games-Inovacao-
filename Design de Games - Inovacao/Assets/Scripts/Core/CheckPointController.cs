@@ -74,6 +74,7 @@ public class CheckPointController : MonoBehaviour
 
     public void TalkCheckPoint(int value)
     {
+		Debug.Log("set checkpoint as" + value);
         checkPointIndex = value;
         SaveCheckPoint();
     }
@@ -109,11 +110,15 @@ public class CheckPointController : MonoBehaviour
         SaveCheckPoint();
     }
 
+    public static void ForceSaveCheckPoint()
+    {
+        PlayerPrefs.SetInt("CheckPointIndex", checkPointIndex);
+    }
     #endregion
 
     #region Private Functions
 
-    private void SaveCheckPoint()
+    public void SaveCheckPoint()
     {
         PlayerPrefs.SetInt("CheckPointIndex", checkPointIndex);
         SetCheckPoint();
@@ -207,7 +212,6 @@ public class CheckPointController : MonoBehaviour
         checkPoint = checkPointIndex;
         falaIndex = nextFalaIndex;
         faseIndex = nextFaseIndex;
-        Debug.Log("{CheckPointController] Setou CheckPoint");
     }
 
     #endregion

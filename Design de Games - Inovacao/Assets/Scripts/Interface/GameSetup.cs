@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+//using System.Diagnostics;
 
 public class GameSetup : MonoBehaviour
 {
@@ -31,6 +32,7 @@ public class GameSetup : MonoBehaviour
     {
         escolheFase = Resources.Load<BoolVariable>("EscolheFase");
         faseEscolhida = Resources.Load<FloatVariable>("FaseEscolhida");
+		Debug.Log("faseescolhida é " + faseEscolhida.Value);
 
         if (resetaPlayerPrefs.Value == true)
         {
@@ -64,8 +66,14 @@ public class GameSetup : MonoBehaviour
 #endif
         if (escolheFase.Value == false)
         {
-            if (isFirstTime) { FirstTime(); }
-            else { AlreadyPlayed(); }
+            if (isFirstTime) {
+                Debug.Log("FIrstTime");
+                FirstTime(); 
+            }
+            else {
+                Debug.Log("AlreadyPlayed");
+                AlreadyPlayed();
+            }
         }
         else
         {

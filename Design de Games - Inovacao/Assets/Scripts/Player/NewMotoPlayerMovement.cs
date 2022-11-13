@@ -126,7 +126,7 @@ public class NewMotoPlayerMovement : MonoBehaviour
         }
         else
         {
-            velocity.x = 0;
+            velocity.x = velocity.x/2;
         }
 
         velocity.y += gravity * Time.deltaTime;
@@ -164,7 +164,7 @@ public class NewMotoPlayerMovement : MonoBehaviour
 
     IEnumerator CaiuMoto()
     {
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(0.2f);
     }
     #endregion
 }

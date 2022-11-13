@@ -239,7 +239,7 @@ public class CustomDisplay : MonoBehaviour
         if (customController == null) { customController = GetComponent<CustomController>(); }
 
         customController.TiraCustomDesativada();
-        Debug.Log("[CustomDisplay] DesativaTudo()");
+        
         //AtivaTudo();
     }
 

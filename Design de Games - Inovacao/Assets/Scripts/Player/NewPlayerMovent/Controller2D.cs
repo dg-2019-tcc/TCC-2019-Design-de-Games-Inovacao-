@@ -225,7 +225,7 @@ public class Controller2D : RaycastController
                     moveAmount.x = moveAmount.y / Mathf.Tan(collisions.slopeAngle * Mathf.Deg2Rad) * Mathf.Sign(moveAmount.x);
                 }
 
-                collisions.below = directionY == -1;
+                collisions.below = directionY <= -1;
                 collisions.above = directionY == 1;
 
             }

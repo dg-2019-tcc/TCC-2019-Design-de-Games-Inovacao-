@@ -29,7 +29,9 @@ public class MenuPrincipal : MonoBehaviour
     {
         if (CheckPointController.checkPointIndex > 0 || GameManager.historiaMode == false)
         {
-            nomeDoMenu = "HUB";
+			Debug.Log("checkpoint is " + CheckPointController.checkPointIndex);
+
+			nomeDoMenu = "HUB";
             nextScene = SceneType.HUB;
             //Debug.Log("ComecaJOGO[MenuPrincipal script]");
         }
@@ -54,6 +56,12 @@ public class MenuPrincipal : MonoBehaviour
             Debug.Log("Scene [" + _scene + "] loaded from MenuPrincipal scrípt!");
         }, false, PageType.Loading);
         //SceneManager.LoadScene(nomeDosCreditos);
+    }
+
+    public void ResetaSave()
+    {
+        CheckPointController.checkPointIndex = 0;
+        CheckPointController.ForceSaveCheckPoint();
     }
 
     #endregion

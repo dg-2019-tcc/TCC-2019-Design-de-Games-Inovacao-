@@ -58,6 +58,7 @@ namespace UnityCore
                 if (!PageExists(_type)){LogWarning("You are trying to turn a page on ["+ _type+"] that has not been registered.");return;}
 
                 Page _page = GetPage(_type);
+				if (_page == null) return;
                 _page.gameObject.SetActive(true);
                 _page.Animate(true);
                 pageAtiva = _page.type;

@@ -69,7 +69,6 @@ public class LoadingManager : MonoBehaviour
             else { StartCoroutine(InitOnlineScene(nextScene, oldScene)); }
             isLoading = true;
         }
-        Debug.Log("[LoadingManager] Load New Scene");
     }
     #endregion
 

@@ -71,14 +71,11 @@ namespace Complete
                 {
                     sequestrado = true;
                     ChangeState("DesativadoState");
-                    Debug.Log("Sequestrado: " + GameManager.sequestrado);
-                    Debug.Log("Sequestrado: " + GameManager.sceneAtual);
                 }
                 else
                 {
                     sequestrado = false;
                     ChangeState("IdleState");
-                    Debug.Log("Sequestrado: " + sequestrado);
                 }
 
             }
@@ -121,15 +118,16 @@ namespace Complete
 
         [PunRPC]
         public void ChangeState(string changeState)
-        {
+        { //this is a mess that I commented because it would take a while to fix it to work in offline(mostly because I don't remember how it works)
+            /*
             if (GameManager.inRoom)
             {
                 PV.RPC("DogState", RpcTarget.All, changeState);
             }
             else
-            {
+            {*/
                 DogState(changeState);
-            }
+            //}
         }
 
         #endregion
